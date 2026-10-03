@@ -176,6 +176,11 @@ staying a private convention. Check NIP-89 / NIP-15 / NIP-99 / NIP-52 overlap
 first and reuse their semantics.
 **Why.** A discovery tag's entire value is "do other clients' relays index it". A
 private tag that only our dashboard understands is a directory with extra steps.
+**Status.** Drafts now exist — `docs/spec/cep-draft-0001-provider.md` (provider /
+facilitator facing) and `docs/spec/cep-draft-0002-client.md` (customer facing),
+both derived from the Bürgermeister run. Submission to ContextVM still follows a
+spike that proves them; the numbering is provisional and MUST NOT be cited as an
+assigned CEP.
 
 ## Consequences
 
@@ -202,6 +207,8 @@ private tag that only our dashboard understands is a directory with extra steps.
 ## References
 
 - `docs/SPIKE-PLAN.md` — the two spikes with acceptance criteria.
+- `docs/spec/cep-draft-0001-provider.md` — provider/facilitator-facing spec.
+- `docs/spec/cep-draft-0002-client.md` — customer/buyer-facing spec.
 - Skills (load before building): `contextvm`, `ring-signature-trust-proofs`,
   `contextvm` → `references/browser-cvm-client.md`, `dashboard-architecture.md`.
 - Fleet rules: `~/.hermes/AGENTS.md` (definition of done, `pr/` branch prefix,

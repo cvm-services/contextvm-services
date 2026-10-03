@@ -12,6 +12,14 @@ discovering such services.
 - [`docs/SPIKE-PLAN.md`](docs/SPIKE-PLAN.md) — two spikes with acceptance
   criteria. Classified **SOON** (this week), not NOW; every dispatch starts with
   the quota gate.
+- [`docs/spec/cep-draft-0001-provider.md`](docs/spec/cep-draft-0001-provider.md)
+  — **provider/facilitator-facing** spec, written so anyone can publish a
+  conforming service and be found.
+- [`docs/spec/cep-draft-0002-client.md`](docs/spec/cep-draft-0002-client.md)
+  — **customer/buyer-facing** spec: what a client MUST discover, verify, refuse
+  and pay.
+- [`docs/adr/0001-discovery-and-trust.md`](docs/adr/0001-discovery-and-trust.md)
+  — the decisions the specs encode.
 
 ## What this is
 
