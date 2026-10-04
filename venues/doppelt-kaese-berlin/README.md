@@ -47,14 +47,22 @@ python3 adapter.py --verify-rendered evidence/rendered-ordering-page.txt
 
 ## Relationship to the specs
 
-- `vocab/service-inputs.json` fixes the vocabulary a *provider announces*
-  (`order.fulfilment` ∈ `pickup | delivery | dine_in`). This record is the other
-  side — the venue's own content — but it uses the same words:
-  `venue.order_methods` and the `prices_by_order_method` keys are copied verbatim
-  from the venue API and already read `pickup` / `delivery` / `dine_in`.
-- Nothing here publishes an announcement yet. `venue.json` is the input a
-  CEP-0001 provider would build its `cap` prices and `t`/`g` tags from; no
-  `cvm:*` tags, no `cap`, therefore `source.settlement.cvm_cap: null` — a price
+`venue.json` is the **catalog record** (`slug` / `source` / `venue` / `menu`) and
+stops there. It carries **no announce tags** — not `cvm:service:*`, not
+`cvm:req:*`/`cvm:opt:*`, and not `cvm:tier:*`. Emitting those is the announce
+emitter's job (`cvm-service-kit`, S2a), which owns the final field list and
+therefore the tier it must recompute (CEP-0001 P2a). Mixing the two here would
+put a second, drifting source of truth for a service's declared appetite in the
+catalog.
+
+Two seams matter when S2a consumes this record:
+
+- `vocab/service-inputs.json` fixes the vocabulary (`order.fulfilment` ∈
+  `pickup | delivery | dine_in`). This record uses the same words for the same
+  concepts: `venue.order_methods` and the `prices_by_order_method` keys are
+  copied verbatim from the venue API and already read `pickup` / `delivery` /
+  `dine_in`.
+- `source.settlement.cvm_cap` is `null`: no CVM call is priced yet, and a price
   the venue cannot honour is worse than no advertised price (P4).
 
 ## What was verified (2026-10-05, see PROVENANCE.md for hashes)
