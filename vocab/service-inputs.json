@@ -18,6 +18,15 @@
     "legal": "required by law or by the venue's terms",
     "sensitive": "special-category or health-adjacent"
   },
+  "tier_tag": {
+    "tag": "t=cvm:tier:<tier>",
+    "rule": "exactly ONE tier tag per announcement = the MAXIMUM tier among the declared cvm:req:*/cvm:opt:* fields",
+    "ranks": {"none": 0, "financial": 1, "contact": 2, "fulfilment": 3, "legal": 4, "sensitive": 5},
+    "why_max_only": "several #t values in one REQ are OR, so 'at most contact' = #t:[cvm:tier:none,cvm:tier:financial,cvm:tier:contact]. Publishing every tier present would make 'has no sensitive field' an absence test, which no relay filter can express.",
+    "conservative": "a service is never matched by a filter looser than its worst field",
+    "truth": "the field list is the truth; the tier tag MUST equal the recomputed max of the declared fields, and a reader finding a disagreement MUST use the recomputed value AND surface the mismatch",
+    "ladder_note": "a disclosure ordering, not a juridical claim - rank 3 is not 'worse' than rank 2, it is higher in the upper-bound sense the filter needs"
+  },
   "filter_shorthand": {
     "cvm:req:none": "tiers none + financial only",
     "no_personal_data": ["none", "financial"],

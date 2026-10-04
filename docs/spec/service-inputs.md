@@ -64,6 +64,45 @@ personal"* without reading 40 field names.
 dashboard MAY offer "no personal data" = `none`+`financial`, "contact only" = +`contact`,
 and so on. The tiers are declared here so the dashboard does not invent them.
 
+## The tier tag — one value, filtered server-side (decided 2026-10-05)
+
+Tag: `["t","cvm:tier:<tier>"]` — named so `cvm:req:`/`cvm:opt:` stay strictly
+field-level. A service publishes **exactly one** tier tag: the **maximum** tier
+among the fields it declares.
+
+- The ladder is ordered and the ranks are fixed: `none`(0) < `financial`(1) <
+  `contact`(2) < `fulfilment`(3) < `legal`(4) < `sensitive`(5).
+- **Max-only is what makes the filter work server-side.** "At most contact" is a
+  single `REQ` with several `#t` values — and several values are OR, which is
+  exactly the semantics wanted here:
+  `{"#t":["cvm:tier:none","cvm:tier:financial","cvm:tier:contact"]}`.
+  Publishing *every* tier present instead would turn "has no sensitive field"
+  into an absence test, which no relay filter can express.
+- Max-only is also **conservative**: a service is never matched by a filter looser
+  than its worst field.
+- **The field list stays the truth.** The tier tag MUST equal the recomputed max
+  of the declared `cvm:req:*`/`cvm:opt:*` fields; a reader that finds a
+  disagreement MUST use the **recomputed** value and MUST surface the mismatch. A
+  lying aggregate is exactly the failure this register exists to prevent.
+- With the tier tag present the local AND shrinks to field-level detail ("needs an
+  address but not a phone"); the coarse question — *does this ask for personal data
+  at all* — is answered by the relay itself.
+- The ladder is a **disclosure ordering, not a juridical claim**: rank 3 is not
+  "worse" than rank 2 in any moral sense, it is merely higher in the upper-bound
+  sense the filter needs. Say that in the UI instead of smuggling a judgement in.
+
+```
+# coffee kiosk: money only
+["t","cvm:service:restaurant"],["t","cvm:req:none"],["t","cvm:req:payment.amount"],["t","cvm:tier:financial"]
+
+# pizza delivery
+["t","cvm:req:ship.address"],["t","cvm:req:contact.phone"],["t","cvm:tier:fulfilment"]
+
+# pharmacy that needs a date of birth
+["t","cvm:req:contact.name"],["t","cvm:opt:identity.dob"],["t","cvm:tier:sensitive"]
+```
+
+
 ## The register
 
 Names are `domain.field`, lowercase, `snake_case` inside a segment. A group name
@@ -179,9 +218,8 @@ publish the sub-fields it actually uses.
 
 ## Open questions
 
-1. Should the tier also be published as a tag (`cvm:req:tier:sensitive`) so the
-   "no personal data" filter can be a single server-side `#t`? Cost: one more tag
-   per announcement; benefit: the coarse prefilter gets much better.
+1. ~~Should the tier also be published as a tag?~~ **DECIDED 2026-10-05: yes** —
+   one `cvm:tier:<max-tier>` tag per announcement; see *The tier tag* above.
 2. Do we need `cvm:req:none` at all if `payment.*` is the only non-personal tier,
    or is the sentinel the clearer contract?
 3. Is `order.items` an input or a tool argument? It behaves like both; v1 treats

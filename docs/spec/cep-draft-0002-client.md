@@ -209,10 +209,15 @@ Declaring that is what keeps "anonymous" from reading as a promise.
 - The client **MUST** be able to filter services by their declared input
   requirements (`cvm:req:*` / `cvm:opt:*` / `cvm:req:none`) **before** any
   interaction, reading the register in `docs/spec/service-inputs.md`.
-- **The relay filter is a prefilter, not the filter.** Several values for one tag
-  letter in a `REQ` are OR, never AND (D14), so a client that filters only
-  server-side and then reports a match count is **wrong**. The AND is done locally
-  on the cache.
+- **The relay filter is a prefilter, not the filter** — but it is a *good* one now:
+  filter server-side on `cvm:tier:*` (the provider's max tier), so "no personal
+  data" is one `REQ` with `#t:[cvm:tier:none,cvm:tier:financial]`. Several values for
+  one tag letter are OR, never AND (D14), so the **field-level** AND ("needs an
+  address but not a phone") is still computed locally on the cache. Presenting a
+  server-side count as the field-level result is wrong.
+- **MUST recompute the tier** from the declared fields and **MUST** use the
+  recomputed value when it disagrees with the published `cvm:tier:*` tag; the
+  mismatch MUST be surfaced, never smoothed over.
 - **Absent is not `none`.** A service with no requirement tags is shown as
   *unclassified*, never as "needs nothing".
 - **Unknown field names fail loud.** An unrecognised `cvm:req:*` value MUST be

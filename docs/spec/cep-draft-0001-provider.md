@@ -242,6 +242,13 @@ MUST/SHOULD/MAY per RFC 2119.
   the service as `cvm:req:none`.
 - The full schema (types, patterns, length limits, per-field explanations) belongs
   in the announcement **content**; only the filterable names go in tags (D2).
+- The announcement **MUST** also carry exactly one `["t","cvm:tier:<tier>"]` = the
+  **maximum** tier among the declared fields (ranks: `none`0 `financial`1 `contact`2
+  `fulfilment`3 `legal`4 `sensitive`5). Max-only is what makes a coarse
+  "no personal data" query a single server-side `#t` filter (several values = OR);
+  publishing every tier present would make "has no sensitive field" unqueryable. The
+  tag MUST equal the recomputed max of the provider's own `cvm:req:*`/`cvm:opt:*`
+  fields — a tier tag that disagrees with the field list is a spec violation.
 
 ## Learnings from Bürgermeister (2026-10-03) — each one became a requirement
 

@@ -286,6 +286,18 @@ tags has an *unknown* appetite and is grouped as unclassified.
 both read `vocab/service-inputs.json`; a private convention here would be a
 directory with extra steps (cf. D11).
 
+**Amended 2026-10-05 — the tier is published as its own tag.** Services also
+publish exactly one `["t","cvm:tier:<tier>"]` = the **maximum** tier among their
+declared fields (ranks `none`0 < `financial`1 < `contact`2 < `fulfilment`3 <
+`legal`4 < `sensitive`5). Max-only is deliberate: several `#t` values in one `REQ`
+are OR, so "at most contact" becomes a **single server-side filter** —
+`#t:[cvm:tier:none,cvm:tier:financial,cvm:tier:contact]` — whereas publishing every
+tier present would turn "has no sensitive field" into an absence test no relay can
+express. The field list stays the truth: the tier tag MUST equal the recomputed
+max, and a reader finding a disagreement MUST use the recomputed value **and**
+surface the mismatch. What stays local is only the field-level AND ("needs an
+address but not a phone").
+
 ## Consequences
 
 - **Positive.** No new event kinds; existing CVM clients keep working. Discovery
