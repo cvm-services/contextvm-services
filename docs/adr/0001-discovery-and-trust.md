@@ -250,6 +250,42 @@ order regardless. And no per-identity rate limit or ban is possible for
 customers, so abuse control lives in the order path (per-order key image,
 deposit, refund window), never in an identity blocklist.
 
+### D14 — A standard register of input field names, carried on `t=cvm:req:<field>`
+
+**Decision (operator, 2026-10-04).** The `contextvm-services` repo owns a
+**growing, additive register of input field names** —
+`docs/spec/service-inputs.md` with the machine-readable twin
+`vocab/service-inputs.json`. Services declare what they require from the user as
+namespaced values on the existing `t` tag: `cvm:req:<field>` (required),
+`cvm:opt:<field>` (optional), and the sentinel `cvm:req:none`. The dashboard
+filters on that, so a user can ask "needs no personal data" **before** handing
+anything over.
+
+**Why on `t` and not a new letter.** Additions are new *values*, so a growing
+list never becomes a growing tag alphabet, and the filter stays a plain `#t`
+(D2/D3).
+
+**The AND limitation, stated up front.** Several values for one tag letter in a
+single `REQ` are **OR**, never AND — no filter can express "requires an address
+*and* a phone". The relay filter is therefore a **coarse prefilter** and the AND is
+done locally on the cache (D6). A client that reports a match count without the
+local AND is wrong, not merely imprecise.
+
+**Tiers.** Every field carries a tier (`none`, `financial`, `contact`,
+`fulfilment`, `legal`, `sensitive`) so "no personal data" is defined once in the
+register rather than re-invented per dashboard.
+
+**Honesty rules.** A service declares what the **flow** collects — including what
+the venue's own page will ask for after the deep-link — not merely what its tool
+signature needs. It MUST NOT require a field it does not use. An unknown
+`cvm:req:*` value fails **loud**: shown as an unknown requirement, never counted
+as `cvm:req:none`. And **absent is not `none`**: a service with no requirement
+tags has an *unknown* appetite and is grouped as unclassified.
+
+**Consequence.** The register is shared vocabulary, so the kit and the registry
+both read `vocab/service-inputs.json`; a private convention here would be a
+directory with extra steps (cf. D11).
+
 ## Consequences
 
 - **Positive.** No new event kinds; existing CVM clients keep working. Discovery

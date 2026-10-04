@@ -220,6 +220,29 @@ MUST/SHOULD/MAY per RFC 2119.
 - **Anonymity is capped by the set** and is a property of the proof, not the
   system: the venue, the courier and the mint all learn the order regardless.
 
+### P15 — Declare the required inputs on the announcement
+
+- A provider **MUST** declare what the *flow* collects from the user as
+  namespaced tags on its announcement (11316): `["t","cvm:req:<field>"]` for
+  required, `["t","cvm:opt:<field>"]` for accepted-but-optional, and
+  `["t","cvm:req:none"]` when the service needs no user-supplied data. The
+  register is `docs/spec/service-inputs.md` (machine copy
+  `vocab/service-inputs.json`).
+- **Declare the flow, not the tool signature.** If the deep-link leads to a venue
+  page that asks for an address, that address is required by the flow and MUST be
+  declared. An undeclared requirement is discovered by the user at the worst
+  moment, which is the failure this rule exists to prevent.
+- **Minimisation is a MUST.** A provider MUST NOT require a field it does not use,
+  and MUST NOT declare an appetite wider than its flow has. The dashboard renders
+  the declared appetite; an inflated one is visible and is a spec violation.
+- **Absent is not `none`.** A provider that declares no `cvm:req:*` tag has an
+  *unknown* appetite; it MUST NOT be read as needing nothing.
+- **Unknown field names fail loud.** A client meeting an unrecognised
+  `cvm:req:*` value MUST surface it as an unknown requirement and MUST NOT count
+  the service as `cvm:req:none`.
+- The full schema (types, patterns, length limits, per-field explanations) belongs
+  in the announcement **content**; only the filterable names go in tags (D2).
+
 ## Learnings from Bürgermeister (2026-10-03) — each one became a requirement
 
 - A 15-minute order window died between rehearsal and stage → **P8**.

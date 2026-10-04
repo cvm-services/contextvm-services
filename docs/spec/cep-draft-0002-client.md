@@ -204,6 +204,27 @@ Declaring that is what keeps "anonymous" from reading as a promise.
 - **A correct refusal must not read as a failure** (C7). On stage, a double press
   was reported as broken crypto — the failure mode this spec exists to prevent.
 
+### C13 — Filter by declared inputs, and do the AND locally
+
+- The client **MUST** be able to filter services by their declared input
+  requirements (`cvm:req:*` / `cvm:opt:*` / `cvm:req:none`) **before** any
+  interaction, reading the register in `docs/spec/service-inputs.md`.
+- **The relay filter is a prefilter, not the filter.** Several values for one tag
+  letter in a `REQ` are OR, never AND (D14), so a client that filters only
+  server-side and then reports a match count is **wrong**. The AND is done locally
+  on the cache.
+- **Absent is not `none`.** A service with no requirement tags is shown as
+  *unclassified*, never as "needs nothing".
+- **Unknown field names fail loud.** An unrecognised `cvm:req:*` value MUST be
+  surfaced as an unknown requirement and the service MUST NOT be counted as
+  `cvm:req:none`. Silently dropping it turns the privacy filter into a lie.
+- **MUST** offer the tier shorthand as the user-facing control ("no personal
+  data" = `none` + `financial`), not a wall of 40 field names — the tiers are
+  defined once in the register so every client agrees on what they mean.
+- **MUST NOT** imply that a declared appetite is an audited one. The declaration is
+  the provider's word on a public tag; the client shows it as a declaration, and
+  the only audited thing on the card remains the pinned registry claim.
+
 ## Learnings from Bürgermeister (2026-10-03) — each became a requirement
 
 - Buyer pane refused a proof because the pane had been open through the previous
