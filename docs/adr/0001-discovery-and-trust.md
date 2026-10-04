@@ -1,6 +1,6 @@
 # ADR-0001 — Discovery and trust for paid ContextVM services
 
-- **Status:** Proposed — needs operator sign-off before any feature work
+- **Status:** **Accepted** — operator sign-off 2026-10-04 (the four open questions are answered; see *Decisions taken*). Ring posture was revised at sign-off from opt-in to **mandatory with a declared set size** (D12).
 - **Date:** 2026-10-03
 - **Tier:** docs/light (fleet working agreement: push required, review advisory)
 - **Supersedes:** nothing. First ADR in this repo.
@@ -112,10 +112,18 @@ subscribe to a public snapshot event instead of holding a browser key.
 **Consequence.** Discovery latency is cache-bound, so the ADR must state a
 freshness policy (re-read interval) and what the UI shows when the cache is
 stale. Stale must **disable**, never silently show old state as live.
+**Settled (2026-10-04).** Dashboard #1 is **public** and hosted behind a
+subdomain of `orangesync.tech` (candidate `cvm.orangesync.tech`). It renders
+**only** announcements from the curator allow-list (D12a) — the allow-list is the
+curation, the cache is just plumbing.
 
-### D7 — Ring proofs are OPT-IN, and only where member↔action linkage must break
+### D7 — Where a ring proof earns its keep (superseded in force by D12)
 
-**Decision.** Default is a plain **BIP340 signature by a member key** over
+> **Amended 2026-10-04 by D12.** The ring is **mandatory** in v1, not opt-in.
+> This section still explains *why* the construction exists and where it buys
+> nothing; D12 governs *when it is required* and *what must be declared*.
+
+**Decision (original, now amended).** Default is a plain **BIP340 signature by a member key** over
 `H(announcement ‖ order ‖ amount)` — constant size, no new crypto. A ring proof
 (LSAG over a pinned set) is used only where the *unlinkability of the member from
 the act* is the point.
@@ -182,6 +190,66 @@ both derived from the Bürgermeister run. Submission to ContextVM still follows 
 spike that proves them; the numbering is provisional and MUST NOT be cited as an
 assigned CEP.
 
+### D12 — The ring proof is MANDATORY in v1, and its set size is tracked and warned on
+
+**Decision (operator, 2026-10-04).** Every provider membership claim carries a
+**ring (LSAG) proof over the pinned set**. A bare claim, or a single-key
+signature, does not satisfy it. This supersedes D7's opt-in default: uniform
+mandatory proofs remove the downgrade path where a client accepts whatever proof
+shape happens to arrive.
+
+**The anonymity set size is a first-class, published field.** Every proof carries
+`anon_set_size` (keys in the pinned set it was drawn from) and the ring size. When
+`anon_set_size < 2` — a one-key set — the provider **MUST** declare 1:1 mode, and
+**both counterparties MUST be warned**: the provider before emitting a proof that
+provides no unlinkability, the client before accepting one. A warning that exists
+only in a log is not a warning. **Warning is not refusal** — 1:1 is legitimate and
+must be labelled, never silent (D7's honesty clause still stands).
+
+**Mandatory ≠ anonymous.** `anonymity ≤ |pinned set|`; a proof over a one-key set
+is a signature with more arithmetic. Nothing in the UI may render either as
+privacy the system does not provide.
+
+**Why mandatory despite the cost.** Opt-in proofs created two classes of service
+and the client could not tell which one it was talking to; a mandatory proof is
+the only version where the verifier's check (`ring ⊆ pinned set`) is always
+exercised, which is where the real security value is. The cost (`4n`
+multiplications, `32n+65` bytes) is accepted.
+
+### D12a — The dashboard renders only allow-listed npubs, hardcoded per deployment
+
+**Decision (operator, 2026-10-04).** The registry keeps a **hardcoded list of
+npubs** whose announcements the dashboard may render; it is committed in the repo
+(`cvm-registry/curators.json`) so **a fork edits the list rather than the code**.
+No runtime fetch, no admin UI, no dynamic trust: changing the list is a commit and
+a redeploy. An unknown npub is **not rendered** (fail closed), and an empty list
+renders nothing at all.
+
+**Why.** Curation is a claim, so it must be auditable in the deployer's own git
+history, not in a database someone can edit quietly. It also makes the
+"who curates registry #1" answer concrete: **we do**, one curator, one file,
+delegation added later if a second curator ever exists (D4's no-global-authority
+rule still holds — a fork with a different list is a different curator, not a bug).
+
+### D13 — The customer interacts from an ephemeral npub
+
+**Decision (operator, 2026-10-04).** The client generates a **fresh ephemeral
+npub per interaction** (at minimum per order) and never uses the customer's
+identity npub for CVM traffic, order binding or receipts. The key is generated
+locally, used for the gift-wrapped transport and the order binding, and discarded
+once the order settles.
+
+**Why.** The ring protects the *provider's* member; this is the customer's half of
+the same bargain. Without it the provider — and anyone reading its relays —
+learns the customer's identity npub together with their purchase history.
+
+**Accepted limits, which the UI MUST state.** Ephemerality covers the CVM layer
+only: a postal address, a phone number or a loyalty field in the order
+re-identifies the customer, and a payment rail that knows the payer links the
+order regardless. And no per-identity rate limit or ban is possible for
+customers, so abuse control lives in the order path (per-order key image,
+deposit, refund window), never in an identity blocklist.
+
 ## Consequences
 
 - **Positive.** No new event kinds; existing CVM clients keep working. Discovery
@@ -194,15 +262,17 @@ assigned CEP.
 - **Explicitly not claimed.** Membership attests *membership*. It does not say the
   funds are clean, the order will be delivered, or the provider is solvent.
 
-## Open questions (operator input wanted)
+## Decisions taken (operator, 2026-10-04)
 
-1. **Public or private dashboard first?** A public feed is a relay-read; a
-   private one needs a key in the browser (see D6).
-2. **Who curates the first registry** — us, a partner, or per-user local sets?
-3. **Fiat settlement:** does the venue's own rail settle (as in the last demo), or
-   is CVM meant to carry the whole payment? This changes D5's framing.
-4. **Is the ring wanted at all for v1?** Recommendation: **no** — ship D7's plain
-   signature, keep the engine for the surface where linkage matters.
+1. **Dashboard: public**, behind a subdomain of `orangesync.tech` (D6).
+2. **Curator: us, one list**, held as a **hardcoded allow-list of npubs committed
+   in the repo** so a fork changes the list at deployment (D12a).
+3. **Fiat: v1 keeps D5's split** — the venue's own rail settles, CVM authorizes and
+   deep-links. A CVM-carried paid order (BOLT11/Cashu) is v2.
+4. **Ring in v1: YES, and mandatory**, with the anonymity-set size tracked and a
+   warning to **both** counterparties when the set holds fewer than two keys
+   (D12). This supersedes the earlier "opt-in, recommend no" posture.
+5. **The customer uses an ephemeral npub** per interaction (D13).
 
 ## References
 

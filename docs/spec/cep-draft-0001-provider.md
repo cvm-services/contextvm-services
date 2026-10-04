@@ -158,16 +158,26 @@ MUST/SHOULD/MAY per RFC 2119.
   reported (`their set … ≠ yours …`). A stale pane must be visible as staleness,
   not as a crypto failure.
 
-### P12 — Membership claims (optional)
+### P12 — Membership claims (MANDATORY in v1)
 
 - If the provider claims registry membership it **MUST** publish the `a` tag for
-  every registry claimed (P2) and **MAY** attach a proof.
-- **Proof mode MUST be declared.** Default is a plain **BIP340 signature by a
-  member key** over the bound message. A **ring (LSAG) proof** is used only where
-  linking the member to the action is the thing to prevent (public announcement
-  feeds, published receipts).
-- A provider whose proof is 1-of-1 **MUST** declare 1:1 mode. A silent ring-of-one
-  that reads as anonymity is a lie the spec forbids.
+  every registry claimed (P2) **and MUST attach a ring proof**. A bare claim is an
+  unbacked assertion and the client treats it as one.
+- **The ring (LSAG) proof is the required proof mode.** A plain **BIP340 signature
+  by a member key** MAY be attached as an additional claim, but it never
+  substitutes: a verifier cannot tell a member's signature from a non-member's by
+  inspection, so accepting it is accepting an assertion.
+- **The anonymity set size MUST be tracked and published.** Every proof carries
+  `anon_set_size` (the number of keys in the pinned set it was drawn from) and the
+  ring size.
+- A provider whose proof is over a set of fewer than two keys **MUST** declare 1:1
+  mode, and **MUST** warn on its own side before emitting a proof that provides no
+  unlinkability. A silent ring-of-one that reads as anonymity is a lie the spec
+  forbids, and a warning that lives only in a log is not a warning. Warning is not
+  refusal: 1:1 is legitimate and must be labelled, never silent.
+- **Mandatory is not anonymous.** `anonymity ≤ |pinned set|`; a proof over a
+  one-key set is a signature with more arithmetic. The UI MUST NOT render either
+  one as privacy the provider does not have.
 - A ring proof **MUST** satisfy: ring ⊆ the pinned set, ring size ≥ the client's
   `k_min` (4 floor, 16 RECOMMENDED), no duplicate keys, commitment to the set
   version, and binding to the specific order/announcement.

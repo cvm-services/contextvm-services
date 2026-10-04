@@ -133,6 +133,32 @@ MUST/SHOULD/MAY per RFC 2119.
 - **MUST** state the unavoidable floor: the venue, the courier and the mint learn
   the order; the client learns which member served it **only** if the proof is not
   anonymous, and it MUST say which mode it is in.
+- **MUST** warn the user when the pinned set holds fewer than two keys (1:1 mode)
+  **before** accepting a proof, and **MUST** render the tracked `anon_set_size`
+  next to the verification result. The proof is mandatory; at that size it buys no
+  unlinkability, so "verified" must never be readable as "anonymous".
+- **MUST** treat a missing or unverifiable ring proof as a **failed** membership
+  claim, not as "provider did not opt in" — v1 has no opt-out.
+
+### C9a — Interact from an ephemeral npub
+
+- The client **MUST** generate a **fresh ephemeral npub per interaction** (at
+  minimum per order) and **MUST NOT** use the customer's identity npub for any CVM
+  traffic, order binding or receipt.
+- The ephemeral key is generated locally, used for the gift-wrapped transport and
+  the order binding, and discarded once the order settles; only what the receipt
+  genuinely needs is retained.
+- **Why:** the ring protects the provider's member; this is the customer's half of
+  the same bargain. Otherwise the provider — and every reader of its relay traffic
+  — learns the customer's identity npub together with their purchase history.
+- **MUST NOT** claim more than it delivers. Ephemerality covers the CVM layer
+  only: a postal address, a phone number or a loyalty field re-identifies the
+  customer, and a rail that knows the payer links the order regardless. The UI
+  MUST name the link that actually exists instead of implying end-to-end
+  unlinkability.
+- **Consequence for abuse handling:** no per-identity rate limit or ban is
+  possible for customers. Abuse controls live in the order path (per-order key
+  image, deposit, refund window), never in an identity blocklist.
 
 ### C10 — Failures and money
 
