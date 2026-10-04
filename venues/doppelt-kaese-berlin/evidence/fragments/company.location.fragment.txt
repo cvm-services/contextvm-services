@@ -1,0 +1,20 @@
+"legal_address": "Laubacher Straße 11, 14197 Berlin, Germany",
+    "legal_lang": "de",
+    "live_from": "2025-04-10T16:51:46.000000Z",
+    "location_name": null,
+    "locations": [
+      {
+        "address": "Laubacher Straße 11",
+        "city": "Berlin",
+        "day": 0,
+        "hour": null,
+        "lat": 52.4707069,
+        "lon": 13.3202819,
+        "minute": null,
+        "name": null,
+        "zip_code": "14197"
+      }
+    ],
+    "logo_url": null,
+    "lon": 13.3202819,
+    "max_pre_

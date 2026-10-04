@@ -1,0 +1,19 @@
+"base_price": 0,
+        "id": 366859,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "Hausgemachte Burgersoße",
+        "nutrition_info": {
+          "additives_list": [
+            "E330",
+            "E202"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "EIER",
+            "SENF"
+          ],
+    
