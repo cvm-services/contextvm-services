@@ -6,6 +6,22 @@ discovering such services.
 
 **Status: design only.** No feature code yet.
 
+## Repo split (this org)
+
+Three repos, one axis each — build-side and discover-side fail differently and
+have different consumers, so they ship independently:
+
+| Repo | Role | Consumer |
+|------|------|----------|
+| **`contextvm-services`** (this repo) | Specs · ADR · CEP drafts · `venues/` catalog (data) | implementers, curators |
+| [`cvm-service-kit`](https://github.com/cvm-services/cvm-service-kit) | **Library to create** a service (MCP server + CEP-6 announcer + `cap` pricing + optional ring gate) | venue / service owner |
+| [`cvm-registry`](https://github.com/cvm-services/cvm-registry) | **Collector**: crawls CEP-6 announcements, dedupes `(kind,pubkey,d)`, caches, serves the discovery dashboard | agents / customers |
+
+Shared types stay a small package inside the kit — no fourth repo until a real
+second consumer needs it.
+
+Former location: `felixfelix-bot/contextvm-services` (private; now a stale copy).
+
 - [`docs/adr/0001-discovery-and-trust.md`](docs/adr/0001-discovery-and-trust.md)
   — **Proposed**, needs operator sign-off. How discovery is tagged, what a pinned
   registry is, where ring-signature proofs do and do not earn their keep.
