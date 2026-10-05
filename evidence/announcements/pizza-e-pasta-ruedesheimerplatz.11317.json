@@ -1,0 +1,76 @@
+{
+  "kind": 11317,
+  "pubkey": null,
+  "tags": [
+    [
+      "d",
+      "pizza-e-pasta-ruedesheimerplatz"
+    ],
+    [
+      "t",
+      "cvm:service:restaurant"
+    ],
+    [
+      "t",
+      "berlin"
+    ],
+    [
+      "t",
+      "pizza"
+    ],
+    [
+      "t",
+      "pasta"
+    ],
+    [
+      "t",
+      "italian"
+    ],
+    [
+      "t",
+      "cvm:req:contact.phone"
+    ],
+    [
+      "t",
+      "cvm:req:ship.address"
+    ],
+    [
+      "t",
+      "cvm:opt:contact.name"
+    ],
+    [
+      "t",
+      "cvm:opt:order.notes"
+    ],
+    [
+      "t",
+      "cvm:tier:fulfilment"
+    ],
+    [
+      "g",
+      "u336"
+    ],
+    [
+      "g",
+      "u336wb"
+    ],
+    [
+      "g",
+      "u336wbrd"
+    ],
+    [
+      "cap",
+      "tool:order",
+      "0",
+      "sats"
+    ],
+    [
+      "r",
+      "https://pizzaepasta-ruedesheimerplatz.de/pizza-e-pasta/takeaway"
+    ]
+  ],
+  "content": "{\"tools\":[{\"name\":\"order\",\"description\":\"Place an order at Pizza e Pasta via the venue's own ordering rail (deep-link).\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false}}]}",
+  "tier": "fulfilment",
+  "recomputed_tier": "fulfilment",
+  "warnings": []
+}

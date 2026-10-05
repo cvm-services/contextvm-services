@@ -1,0 +1,6 @@
+# S4a secrets + scratch — never commit
+.scratch/
+*.nsec
+*.key
+
+# vendored kit files are committed; nothing else to ignore
