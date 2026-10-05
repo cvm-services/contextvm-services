@@ -1,0 +1,527 @@
+{
+  "captured_at": "2026-10-05T01:37:25.271268+00:00",
+  "note": "Network log of the one successful HTTP 200 load (document-level XHR/fetch only). Cookie values, the Sentry ingest key and the challenge oneshot token are redacted.",
+  "requests": [
+    {
+      "content_type": "text/html; charset=utf-8",
+      "method": "GET",
+      "resource_type": "document",
+      "status": 200,
+      "ts": "2026-10-05T01:37:14.601003+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/pizza-e-pasta/takeaway"
+    },
+    {
+      "content_type": "text/css; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "stylesheet",
+      "status": 200,
+      "ts": "2026-10-05T01:37:14.765262+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/_next/static/css/83bba68504f2c0db.css"
+    },
+    {
+      "content_type": "text/css; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "stylesheet",
+      "status": 200,
+      "ts": "2026-10-05T01:37:14.776240+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/_next/static/css/a0ea4d6ef466d503.css"
+    },
+    {
+      "content_type": "text/css; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "stylesheet",
+      "status": 200,
+      "ts": "2026-10-05T01:37:14.779728+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/_next/static/css/52e18ad7d16f4605.css"
+    },
+    {
+      "content_type": "application/javascript; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "script",
+      "status": 200,
+      "ts": "2026-10-05T01:37:15.790558+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/_next/static/chunks/9866-eab9416ef6f2eecd.js"
+    },
+    {
+      "content_type": "application/javascript; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "script",
+      "status": 200,
+      "ts": "2026-10-05T01:37:15.804151+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/_next/static/chunks/4069-e744f2e1b025ed3f.js"
+    },
+    {
+      "content_type": "application/javascript; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "script",
+      "status": 200,
+      "ts": "2026-10-05T01:37:15.818281+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/_next/static/chunks/webpack-96919de975680b7a.js"
+    },
+    {
+      "content_type": "application/javascript; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "script",
+      "status": 200,
+      "ts": "2026-10-05T01:37:15.821507+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/_next/static/chunks/framework-57361e22cc2ec0cb.js"
+    },
+    {
+      "content_type": "text/javascript;charset=UTF-8",
+      "method": "GET",
+      "resource_type": "script",
+      "status": 200,
+      "ts": "2026-10-05T01:37:15.822370+00:00",
+      "url": "https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495"
+    },
+    {
+      "content_type": "application/javascript; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "script",
+      "status": 200,
+      "ts": "2026-10-05T01:37:15.834588+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/_next/static/chunks/main-1123517399b3ecbe.js"
+    },
+    {
+      "content_type": "application/javascript; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "script",
+      "status": 200,
+      "ts": "2026-10-05T01:37:15.840168+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/_next/static/chunks/7871-af9de8bddc2dc553.js"
+    },
+    {
+      "content_type": "application/javascript; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "script",
+      "status": 200,
+      "ts": "2026-10-05T01:37:15.841077+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/_next/static/chunks/5258-bd5e3b252c2fdc9e.js"
+    },
+    {
+      "content_type": "application/javascript; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "script",
+      "status": 200,
+      "ts": "2026-10-05T01:37:15.847544+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/_next/static/chunks/7104-d533a86f07ede7a6.js"
+    },
+    {
+      "content_type": "application/javascript; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "script",
+      "status": 200,
+      "ts": "2026-10-05T01:37:15.858257+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/_next/static/chunks/7238-db0d7290ab6148aa.js"
+    },
+    {
+      "content_type": "application/javascript; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "script",
+      "status": 200,
+      "ts": "2026-10-05T01:37:15.863781+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/_next/static/chunks/1887-47bab63a6e5eaf69.js"
+    },
+    {
+      "content_type": "application/javascript; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "script",
+      "status": 200,
+      "ts": "2026-10-05T01:37:15.874988+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/_next/static/chunks/9830-a1e43bdae9dbb620.js"
+    },
+    {
+      "content_type": "application/javascript; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "script",
+      "status": 200,
+      "ts": "2026-10-05T01:37:15.880405+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/_next/static/chunks/6971-12c62e811ed0aefa.js"
+    },
+    {
+      "content_type": "application/javascript; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "script",
+      "status": 200,
+      "ts": "2026-10-05T01:37:15.886883+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/_next/static/chunks/pages/%5BrestaurantSlug%5D/takeaway-c585085c1a2c54db.js"
+    },
+    {
+      "content_type": "application/javascript; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "script",
+      "status": 200,
+      "ts": "2026-10-05T01:37:15.887776+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/_next/static/3e24994fc085e17a48f58caa58ae1d01d9a107c5/_buildManifest.js"
+    },
+    {
+      "content_type": "application/javascript; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "script",
+      "status": 200,
+      "ts": "2026-10-05T01:37:15.901619+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/_next/static/3e24994fc085e17a48f58caa58ae1d01d9a107c5/_ssgManifest.js"
+    },
+    {
+      "content_type": "application/javascript; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "script",
+      "status": 200,
+      "ts": "2026-10-05T01:37:15.906272+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/_next/static/chunks/9417-92c33c383414e618.js"
+    },
+    {
+      "content_type": "application/javascript; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "script",
+      "status": 200,
+      "ts": "2026-10-05T01:37:16.083844+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/_next/static/chunks/4594-ff861a65c9a0a8db.js"
+    },
+    {
+      "content_type": "application/javascript; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "script",
+      "status": 200,
+      "ts": "2026-10-05T01:37:16.090082+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/_next/static/chunks/pages/_app-e99bc628335e49f3.js"
+    },
+    {
+      "content_type": "application/javascript; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "script",
+      "status": 200,
+      "ts": "2026-10-05T01:37:16.119875+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/metrics/"
+    },
+    {
+      "content_type": "text/javascript",
+      "method": "GET",
+      "resource_type": "script",
+      "status": 200,
+      "ts": "2026-10-05T01:37:17.155068+00:00",
+      "url": "blob:https://pizzaepasta-ruedesheimerplatz.de/32361391-b78d-46c1-9f8a-50a8072ccbb4"
+    },
+    {
+      "content_type": "text/css; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "stylesheet",
+      "status": 200,
+      "ts": "2026-10-05T01:37:18.488093+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/_next/static/css/0bac7503df416270.css"
+    },
+    {
+      "content_type": "text/css; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "stylesheet",
+      "status": 200,
+      "ts": "2026-10-05T01:37:18.489033+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/_next/static/css/d8383e20212a0c84.css"
+    },
+    {
+      "content_type": "text/css; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "stylesheet",
+      "status": 200,
+      "ts": "2026-10-05T01:37:18.492261+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/_next/static/css/eed8a1b6fa98e608.css"
+    },
+    {
+      "content_type": "text/plain;charset=UTF-8",
+      "method": "POST",
+      "resource_type": "fetch",
+      "status": 200,
+      "ts": "2026-10-05T01:37:18.524347+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/monitoring?o=4507373445644288&p=4507373458489424&r=de"
+    },
+    {
+      "content_type": "text/plain;charset=UTF-8",
+      "method": "POST",
+      "resource_type": "fetch",
+      "status": 200,
+      "ts": "2026-10-05T01:37:18.528560+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/monitoring?o=4507373445644288&p=4507373458489424&r=de"
+    },
+    {
+      "content_type": "",
+      "method": "GET",
+      "resource_type": "script",
+      "status": 302,
+      "ts": "2026-10-05T01:37:18.531089+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/cdn-cgi/challenge-platform/scripts/jsd/main.js"
+    },
+    {
+      "content_type": "application/javascript; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "script",
+      "status": 200,
+      "ts": "2026-10-05T01:37:18.572844+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/_next/static/chunks/5943.295ba0db69529896.js"
+    },
+    {
+      "content_type": "application/javascript; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "script",
+      "status": 200,
+      "ts": "2026-10-05T01:37:18.580136+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/_next/static/chunks/4820-d46fd85a7ebb22b6.js"
+    },
+    {
+      "content_type": "application/javascript; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "script",
+      "status": 200,
+      "ts": "2026-10-05T01:37:18.585881+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/_next/static/chunks/5345.da8f739b66ab074e.js"
+    },
+    {
+      "content_type": "application/javascript; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "script",
+      "status": 200,
+      "ts": "2026-10-05T01:37:18.586651+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/_next/static/chunks/6806.648ad80f34a62690.js"
+    },
+    {
+      "content_type": "application/javascript; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "script",
+      "status": 200,
+      "ts": "2026-10-05T01:37:18.587423+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/_next/static/chunks/4735-cf8bfc3bd5c49978.js"
+    },
+    {
+      "content_type": "application/javascript; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "script",
+      "status": 200,
+      "ts": "2026-10-05T01:37:18.593956+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/_next/static/chunks/419.de0e2f0ba2bfa77e.js"
+    },
+    {
+      "content_type": "application/javascript; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "script",
+      "status": 200,
+      "ts": "2026-10-05T01:37:18.594729+00:00",
+      "url": "https://www.googletagmanager.com/gtm.js?id=GTM-WB57H6N&gtg_health=1"
+    },
+    {
+      "content_type": "application/javascript; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "script",
+      "status": 200,
+      "ts": "2026-10-05T01:37:18.595409+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/metrics/50Oo47aAd4Ni7KPWl9mq-K7uDzxzdXlyRXRpRcLOwoFmyfS4"
+    },
+    {
+      "content_type": "application/javascript; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "script",
+      "status": 200,
+      "ts": "2026-10-05T01:37:18.602739+00:00",
+      "url": "https://www.googletagmanager.com/gtm.js?id=GTM-WB57H6N&gtm_auth=&gtm_preview=&gtm_cookies_win=x"
+    },
+    {
+      "content_type": "text/plain",
+      "method": "POST",
+      "resource_type": "fetch",
+      "status": 200,
+      "ts": "2026-10-05T01:37:18.907572+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/metrics/gs/ccm/collect?rcb=5&frm=0&apvc=1&ae=g&en=page_view&dl=https%3A%2F%2Fpizzaepasta-ruedesheimerplatz.de%2Fpizza-e-pasta%2Ftakeaway&scrsrc=pizzaepasta-ruedesheimerplatz.de&rnd=966382710.1791164238&navt=n&npa=1&ep.ads_data_redaction=0&gdid=dY2E1Nz.dNzQzZD&gtb=1&gtm=45E92e69u2v851466400za204zd851466400xeaxf4&gcs=G100&gcd=13q3q3q2q5l1&dma_cps=-&dma=1&tag_exp=115616986~115938466~115938468~118897920~118897930~120385422~120469145~120469153~121046262~121046270~121280970&tft=1791164238441&tfd=3999&gap.gtb=1&fmt=8"
+    },
+    {
+      "content_type": "application/javascript; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "script",
+      "status": 200,
+      "ts": "2026-10-05T01:37:18.914257+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/cdn-cgi/challenge-platform/h/b/scripts/jsd/d76008a69eab/main.js?"
+    },
+    {
+      "content_type": "text/plain",
+      "method": "POST",
+      "resource_type": "xhr",
+      "status": 204,
+      "ts": "2026-10-05T01:37:24.916668+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/cdn-cgi/rum?"
+    },
+    {
+      "content_type": "application/json; charset=utf-8",
+      "method": "GET",
+      "resource_type": "fetch",
+      "status": 200,
+      "ts": "2026-10-05T01:37:24.917789+00:00",
+      "url": "https://cdn.segment.com/v1/projects/CKJojKt5CzKGxfonTwRNN6fed7IGjDmE/settings"
+    },
+    {
+      "content_type": "application/json; charset=utf-8",
+      "method": "GET",
+      "resource_type": "xhr",
+      "status": 200,
+      "ts": "2026-10-05T01:37:24.918484+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/oyy-api/onlinepayments/restaurants/45842/payment-methods?api-version=v1"
+    },
+    {
+      "content_type": "application/json; charset=utf-8",
+      "method": "GET",
+      "resource_type": "xhr",
+      "status": 200,
+      "ts": "2026-10-05T01:37:24.921597+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/oyy-api/MyRestaurant/restaurant/45842/orderDateTimeSuggestions?dateTime=2026-10-05T01%3A35%3A00.000Z&api-version=v1"
+    },
+    {
+      "content_type": "text/css; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "stylesheet",
+      "status": 200,
+      "ts": "2026-10-05T01:37:24.922976+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/_next/static/css/68d20a3917bec50b.css"
+    },
+    {
+      "content_type": "text/css; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "stylesheet",
+      "status": 200,
+      "ts": "2026-10-05T01:37:24.923907+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/_next/static/css/dba18c5188c1c9e3.css"
+    },
+    {
+      "content_type": "text/css; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "stylesheet",
+      "status": 200,
+      "ts": "2026-10-05T01:37:24.924645+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/_next/static/css/202eec107ff5e1de.css"
+    },
+    {
+      "content_type": "",
+      "method": "GET",
+      "resource_type": "xhr",
+      "status": 404,
+      "ts": "2026-10-05T01:37:24.925616+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/oyy-api/Loyalty/families/14842/profile/user-opt-in-policy?api-version=v1"
+    },
+    {
+      "content_type": "application/json; charset=utf-8",
+      "method": "POST",
+      "resource_type": "xhr",
+      "status": 200,
+      "ts": "2026-10-05T01:37:24.926517+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/oyy-api/Order/restaurants/45842/basket/ad0e80e9-a9ef-4f77-abff-b5bf643af56e?api-version=v3"
+    },
+    {
+      "content_type": "text/css; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "stylesheet",
+      "status": 200,
+      "ts": "2026-10-05T01:37:24.927359+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/_next/static/css/448cef55d7cacadf.css"
+    },
+    {
+      "content_type": "text/plain",
+      "method": "GET",
+      "resource_type": "fetch",
+      "status": 204,
+      "ts": "2026-10-05T01:37:24.932068+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/metrics/g/collect?v=2&tid=G-QE7HVG96L1&gtm=45g92e69u2v880618644z8851466400za20kzb851466400zd851466400xf4&_p=1791164237833&gcs=G100&gcd=13q3qPq2q5l1&npa=1&dma_cps=-&dma=1&gdid=dY2E1Nz&ecid=199163565&_eu=AAAAACA&_fplc=0&are=1&cid=914651848.1791164239&frm=0&ibt=1&ngs=1&pscdl=denied&rcb=5&sr=1366x900&uaa=x86&uab=64&uafvl=Not%253DA%253FBrand%3B99.0.0.0%7CGoogle%2520Chrome%3B151.0.7922.137%7CChromium%3B151.0.7922.137&uam=&uamb=0&uap=Linux&uapv=&uaw=0&ul=de-de&ur=DE-BE&sst.rnd=966382710.1791164238&sst.gch=1&sst.etld=google.de&sst.gcsub=region1&sst.tft=1791164237833&sst.lpc=149043639&sst.navt=n&sst.ude=0&_s=1&tag_exp=115938466~115938469~118897920~118897930~120213116~120385423~120469145~120469153~121280970&sid=1791164239&sct=1&seg=0&dl=https%3A%2F%2Fpizzaepasta-ruedesheimerplatz.de%2Fpizza-e-pasta%2Ftakeaway&dt=Essen%20bestellen%20bei%20Pizza%20e%20Pasta%20in%20Berlin&gtb=2&_tu=BA&en=page_view&_fv=1&_nsi=1&_ss=2&gap.sstd=7&gap.gtb=2&ep.gtm_container_id=GTM-WB57H6N&ep.gtm_container_version=99&tfd=4787&richsstsse"
+    },
+    {
+      "content_type": "text/plain",
+      "method": "POST",
+      "resource_type": "fetch",
+      "status": 204,
+      "ts": "2026-10-05T01:37:24.933285+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/metrics/g/collect?v=2&tid=G-QE7HVG96L1&gtm=45g92e69u2v880618644z8851466400za20kzb851466400zd851466400xf4&_p=1791164237833&gcs=G100&gcd=13q3qPq2q5l1&npa=1&dma_cps=-&dma=1&gdid=dY2E1Nz&ecid=199163565&_eu=AAAAACA&_fplc=0&are=1&cid=914651848.1791164239&frm=0&ibt=1&ngs=1&pscdl=denied&rcb=5&sr=1366x900&uaa=x86&uab=64&uafvl=Not%253DA%253FBrand%3B99.0.0.0%7CGoogle%2520Chrome%3B151.0.7922.137%7CChromium%3B151.0.7922.137&uam=&uamb=0&uap=Linux&uapv=&uaw=0&ul=de-de&ur=DE-BE&sst.rnd=966382710.1791164238&sst.gch=1&sst.etld=google.de&sst.gcsub=region1&sst.tft=1791164237833&sst.lpc=149043639&sst.navt=n&sst.ude=0&_s=2&tag_exp=115938466~115938469~118897920~118897930~120213116~120385423~120469145~120469153~121280970&cu=EUR&sid=1791164239&sct=1&seg=0&dl=https%3A%2F%2Fpizzaepasta-ruedesheimerplatz.de%2Fpizza-e-pasta%2Ftakeaway&dt=Essen%20bestellen%20bei%20Pizza%20e%20Pasta%20in%20Berlin&gtb=2&_tu=BA&tfd=4951&richsstsse"
+    },
+    {
+      "content_type": "text/plain",
+      "method": "POST",
+      "resource_type": "fetch",
+      "status": 200,
+      "ts": "2026-10-05T01:37:24.934125+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/metrics/gs/ccm/collect?rcb=5&frm=0&apvc=0&tid=AW-874611168&en=page_view&dl=https%3A%2F%2Fpizzaepasta-ruedesheimerplatz.de%2Fpizza-e-pasta%2Ftakeaway&scrsrc=pizzaepasta-ruedesheimerplatz.de&rnd=966382710.1791164238&navt=n&npa=1&ep.gtm_container_id=GTM-WB57H6N&ep.gtm_container_version=99&did=dY2E1Nz&gdid=dY2E1Nz&_tu=BA&gtb=2&gtm=45g92e69u2v880618644z8851466400za20kzb851466400zd851466400xecxf4&gcs=G100&gcd=13q3qPq2q5l1&dma_cps=-&dma=1&tag_exp=115938466~115938469~118897920~118897930~120213116~120385423~120469145~120469153~121280970&tft=1791164239422&tfd=4980&gap.gtb=2&tids=AW-874611168~AW-840388395&fmt=8"
+    },
+    {
+      "content_type": "application/javascript; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "script",
+      "status": 200,
+      "ts": "2026-10-05T01:37:24.934853+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/_next/static/chunks/9961.885fb1aa7fea8e31.js"
+    },
+    {
+      "content_type": "application/javascript; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "script",
+      "status": 200,
+      "ts": "2026-10-05T01:37:24.935731+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/_next/static/chunks/1502.1eb07be7003c92bb.js"
+    },
+    {
+      "content_type": "text/plain; charset=UTF-8",
+      "method": "POST",
+      "resource_type": "xhr",
+      "status": 200,
+      "ts": "2026-10-05T01:37:24.937572+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/cdn-cgi/challenge-platform/h/b/jsd/oneshot/d76008a69eab/[REDACTED]/a458b331d8174c5a"
+    },
+    {
+      "content_type": "text/html; charset=UTF-8",
+      "method": "POST",
+      "resource_type": "fetch",
+      "status": 403,
+      "ts": "2026-10-05T01:37:24.946977+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/metrics/g/collect?v=2&tid=G-QE7HVG96L1&gtm=45g92e69u2v880618644z8851466400za20kzb851466400zd851466400xf4&_p=1791164237833&gcs=G100&gcd=13q3qPq2q5l1&npa=1&dma_cps=-&dma=1&gdid=dY2E1Nz&ecid=199163565&_eu=AAAAACA&_fplc=0&are=1&cid=914651848.1791164239&frm=0&ibt=1&ngs=1&pscdl=denied&rcb=5&sr=1366x900&uaa=x86&uab=64&uafvl=Not%253DA%253FBrand%3B99.0.0.0%7CGoogle%2520Chrome%3B151.0.7922.137%7CChromium%3B151.0.7922.137&uam=&uamb=0&uap=Linux&uapv=&uaw=0&ul=de-de&ur=DE-BE&sst.rnd=966382710.1791164238&sst.gch=1&sst.etld=google.de&sst.gcsub=region1&sst.tft=1791164237833&sst.lpc=149043639&sst.navt=n&sst.ude=0&tag_exp=115938466~115938469~118897920~118897930~120213116~120385423~120469145~120469153~121280970&cu=EUR&sid=1791164239&sct=1&seg=0&dl=https%3A%2F%2Fpizzaepasta-ruedesheimerplatz.de%2Fpizza-e-pasta%2Ftakeaway&dt=Essen%20bestellen%20bei%20Pizza%20e%20Pasta%20in%20Berlin&gtb=2&_tu=BA&_s=3&tfd=6323&richsstsse"
+    },
+    {
+      "content_type": "application/javascript; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "script",
+      "status": 200,
+      "ts": "2026-10-05T01:37:24.947806+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/_next/static/chunks/ajs-destination.d99fb8fac63467f0.js"
+    },
+    {
+      "content_type": "application/javascript; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "script",
+      "status": 200,
+      "ts": "2026-10-05T01:37:24.949534+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/_next/static/chunks/schemaFilter.6169041b6345e133.js"
+    },
+    {
+      "content_type": "text/css; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "fetch",
+      "status": 200,
+      "ts": "2026-10-05T01:37:24.950408+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/_next/static/css/52e18ad7d16f4605.css"
+    },
+    {
+      "content_type": "text/css; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "fetch",
+      "status": 200,
+      "ts": "2026-10-05T01:37:24.951157+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/_next/static/css/83bba68504f2c0db.css"
+    },
+    {
+      "content_type": "application/javascript; charset=UTF-8",
+      "method": "GET",
+      "resource_type": "script",
+      "status": 200,
+      "ts": "2026-10-05T01:37:24.952680+00:00",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/_next/static/chunks/pages/%5BrestaurantSlug%5D-64f7dc7f543c9e58.js"
+    },
+    {
+      "content_type": "application/json",
+      "method": "POST",
+      "resource_type": "fetch",
+      "status": 200,
+      "ts": "2026-10-05T01:37:24.954129+00:00",
+      "url": "https://events.eu1.segmentapis.com/v1/p"
+    }
+  ],
+  "target": "https://pizzaepasta-ruedesheimerplatz.de/pizza-e-pasta/takeaway"
+}

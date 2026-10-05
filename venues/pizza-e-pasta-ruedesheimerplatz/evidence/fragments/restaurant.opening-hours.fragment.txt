@@ -1,0 +1,43 @@
+"openingHours": {
+    "allDaysDeliveryHours": [
+      {
+        "dayOfWeek": 0,
+        "from": "12:00",
+        "to": "23:00",
+        "workingAfterMidnight": false
+      },
+      {
+        "dayOfWeek": 1,
+        "from": "12:00",
+        "to": "23:00",
+        "workingAfterMidnight": false
+      },
+      {
+        "dayOfWeek": 2,
+        "from": "12:00",
+        "to": "23:00",
+        "workingAfterMidnight": false
+      },
+      {
+        "dayOfWeek": 3,
+        "from": "12:00",
+        "to": "23:00",
+        "workingAfterMidnight": false
+      },
+      {
+        "dayOfWeek": 4,
+        "from": "12:00",
+        "to": "23:00",
+        "workingAfterMidnight": false
+      },
+      {
+        "dayOfWeek": 5,
+        "from": "12:00",
+        "to": "00:00",
+        "workingAfterMidnight": true
+      },
+      {
+        "dayOfWeek": 6,
+        "from": "12:00",
+        "to": "23:00",
+        "wo
