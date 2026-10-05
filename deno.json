@@ -1,0 +1,15 @@
+{
+  "tasks": {
+    "test": "deno test --allow-read",
+    "fixture": "deno run --allow-read --allow-write tools/nosms_announcement.ts --fixture",
+    "check-fixture": "deno run --allow-read tools/nosms_announcement.ts --check",
+    "emit": "deno run --allow-read tools/nosms_announcement.ts --emit"
+  },
+  "fmt": {
+    "lineWidth": 100,
+    "exclude": ["vendor/", "docs/", "vocab/", "fixtures/", "evidence/", "venues/"]
+  },
+  "lint": {
+    "exclude": ["vendor/", "docs/", "vocab/", "fixtures/", "evidence/", "venues/"]
+  }
+}
