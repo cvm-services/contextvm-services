@@ -1,0 +1,151 @@
+{
+  "content": "Members admitted in person by the curator (demo fixture). Membership attests the set owner vouched for this key \u2014 it does not attest funds, delivery, or solvency.",
+  "created_at": 1791216000,
+  "curator_npub": "npub1gkfurgp0qrxvw5gdma78pczwnnqsmul3synj0huw6umexvlvfg6ss3ntn3",
+  "d": "burger-vendors-berlin",
+  "kind": 30000,
+  "members": [
+    {
+      "basis": "met-in-person",
+      "expires_at": "2030-01-01T00:00:00Z",
+      "label": "vendor-00",
+      "public_key": "02ffcf4ea0c9399560340565e068b638c85e25fa02cd111977084823966f22dec5",
+      "tier": "silver"
+    },
+    {
+      "basis": "met-in-person",
+      "expires_at": "2030-01-01T00:00:00Z",
+      "label": "vendor-01",
+      "public_key": "0227cbf1910272f28d5ecf5e9ca8891facd4e13bf47edd11cde273155ae6d36d7d",
+      "tier": "silver"
+    },
+    {
+      "basis": "met-in-person",
+      "expires_at": "2030-01-01T00:00:00Z",
+      "label": "vendor-02",
+      "public_key": "0395994bcdf1f9dc0e04f4567dae8cc78640cb4effa511648c09fef94ae3a0706a",
+      "tier": "silver"
+    },
+    {
+      "basis": "met-in-person",
+      "expires_at": "2030-01-01T00:00:00Z",
+      "label": "vendor-03",
+      "public_key": "03aefd9e9a6146d2b4868065002fc6b02debc76441e9e06cb6dfb057f415b4cca2",
+      "tier": "silver"
+    },
+    {
+      "basis": "met-in-person",
+      "expires_at": "2030-01-01T00:00:00Z",
+      "label": "vendor-04",
+      "public_key": "0300f6ac2e1e4b3ebb2f9e0edd3cda29e181c88c34d6ba28081eae031c42176485",
+      "tier": "silver"
+    },
+    {
+      "basis": "met-in-person",
+      "expires_at": "2030-01-01T00:00:00Z",
+      "label": "vendor-05",
+      "public_key": "032ae3ea8767d60264f620f9ab21da142b558684863253b2966f22690972783c63",
+      "tier": "silver"
+    },
+    {
+      "basis": "met-in-person",
+      "expires_at": "2030-01-01T00:00:00Z",
+      "label": "vendor-06",
+      "public_key": "02bf2e26ec148b950250f43b74a8e198961a887e8b18d5052240733bf97e9c9900",
+      "tier": "silver"
+    },
+    {
+      "basis": "met-in-person",
+      "expires_at": "2030-01-01T00:00:00Z",
+      "label": "vendor-07",
+      "public_key": "034804361ba56b5135deac96d40f881e01ff336478c71931959698660ce2ba7be4",
+      "tier": "silver"
+    }
+  ],
+  "published_at": "2026-10-05T00:00:00Z",
+  "set_hash": "9d85dec58e539265ce18949dc3476bc4f975b7b9f909c1e737da85027970e198",
+  "set_id": "burger-vendors-berlin",
+  "tags": [
+    [
+      "d",
+      "burger-vendors-berlin"
+    ],
+    [
+      "title",
+      "Burger vendors \u2014 Berlin (demo set)"
+    ],
+    [
+      "p",
+      "ffcf4ea0c9399560340565e068b638c85e25fa02cd111977084823966f22dec5",
+      "",
+      "vendor-00",
+      "met-in-person",
+      "silver",
+      "2030-01-01T00:00:00Z"
+    ],
+    [
+      "p",
+      "27cbf1910272f28d5ecf5e9ca8891facd4e13bf47edd11cde273155ae6d36d7d",
+      "",
+      "vendor-01",
+      "met-in-person",
+      "silver",
+      "2030-01-01T00:00:00Z"
+    ],
+    [
+      "p",
+      "95994bcdf1f9dc0e04f4567dae8cc78640cb4effa511648c09fef94ae3a0706a",
+      "",
+      "vendor-02",
+      "met-in-person",
+      "silver",
+      "2030-01-01T00:00:00Z"
+    ],
+    [
+      "p",
+      "aefd9e9a6146d2b4868065002fc6b02debc76441e9e06cb6dfb057f415b4cca2",
+      "",
+      "vendor-03",
+      "met-in-person",
+      "silver",
+      "2030-01-01T00:00:00Z"
+    ],
+    [
+      "p",
+      "00f6ac2e1e4b3ebb2f9e0edd3cda29e181c88c34d6ba28081eae031c42176485",
+      "",
+      "vendor-04",
+      "met-in-person",
+      "silver",
+      "2030-01-01T00:00:00Z"
+    ],
+    [
+      "p",
+      "2ae3ea8767d60264f620f9ab21da142b558684863253b2966f22690972783c63",
+      "",
+      "vendor-05",
+      "met-in-person",
+      "silver",
+      "2030-01-01T00:00:00Z"
+    ],
+    [
+      "p",
+      "bf2e26ec148b950250f43b74a8e198961a887e8b18d5052240733bf97e9c9900",
+      "",
+      "vendor-06",
+      "met-in-person",
+      "silver",
+      "2030-01-01T00:00:00Z"
+    ],
+    [
+      "p",
+      "4804361ba56b5135deac96d40f881e01ff336478c71931959698660ce2ba7be4",
+      "",
+      "vendor-07",
+      "met-in-person",
+      "silver",
+      "2030-01-01T00:00:00Z"
+    ]
+  ],
+  "title": "Burger vendors \u2014 Berlin (demo set)"
+}
