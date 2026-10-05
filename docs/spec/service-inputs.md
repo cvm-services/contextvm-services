@@ -91,6 +91,41 @@ among the fields it declares.
   "worse" than rank 2 in any moral sense, it is merely higher in the upper-bound
   sense the filter needs. Say that in the UI instead of smuggling a judgement in.
 
+### When is the sentinel published? (decided 2026-10-05)
+
+`cvm:req:none` is the tag form of the shorthand *"tiers none/financial only"*
+(`filter_shorthand` above). It answers **"can the user be asked for nothing
+personal?"** — not "is the required-field list empty". Those two questions come
+apart for exactly one case, and the first real service hit it.
+
+The nosms CVM (`d=nosms`, card S5a) declares `cvm:req:payment.amount` — it needs
+money and nothing else. Its recomputed tier is `financial` (rank 1), so it
+publishes both `cvm:req:none` **and** `cvm:req:payment.amount` **and**
+`cvm:tier:financial`. That is not a contradiction: the sentinel says *no personal
+data*, the field says *money is required*, and rank 1 is inside the shorthand.
+
+**Rule.** Publish the sentinel iff the recomputed tier is `none` or `financial`
+(rank ≤ 1). Do **not** publish it when the tier is `contact` or above, and do not
+withhold it merely because a `financial`-tier field is declared.
+
+- The sentinel is **not a field**: it is never counted in the recompute basis
+  (`none` is stripped before the max is taken), so its presence cannot change the
+  tier and cannot make an announcement self-contradictory.
+- The kit implements this exactly: `emitAnnouncementTags` emits the sentinel iff
+  `TIER_RANKS[tier] <= TIER_RANKS.financial`, and `assessAnnouncementTags` only
+  *warns* when the two disagree. A reader MUST NOT treat the pair
+  (`cvm:req:none`, `cvm:req:payment.amount`) as a spec violation.
+- **What stays forbidden** is a declared *personal* field alongside the sentinel:
+  `cvm:req:none` with `cvm:req:contact.phone` is a lie about the appetite, and a
+  provider that declares `contact`-or-higher while shipping the sentinel gets the
+  reader-side warning that says so.
+
+Consequence for a provider choosing between `cvm:req:none` and
+`cvm:opt:contact.phone`: declaring a field the flow does not collect is the
+inflated appetite rule 2 forbids, so the honest declaration is `payment.amount`
+alone. The sentinel then follows from the recompute — the provider does not choose
+it.
+
 ```
 # coffee kiosk: money only
 ["t","cvm:service:restaurant"],["t","cvm:req:none"],["t","cvm:req:payment.amount"],["t","cvm:tier:financial"]
