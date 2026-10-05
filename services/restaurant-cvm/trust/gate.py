@@ -140,9 +140,13 @@ def verify_order_proof_impl(*, proof: Optional[dict], policy: dict,
         if pk not in trusted:
             return False, R_NOT_IN_SET, {}
 
-    # 3. set_hash equals the pinned set content hash; freshness / future-dated
-    if proof.get("set_hash") != set_hash:
-        return False, R_SET_HASH_MISMATCH, {}
+    # 3. set admissibility, then set_hash binding.
+    #
+    # ORDER MATTERS. Freshness is a property of the set document on its face, so
+    # it is decided BEFORE we ask whether the proof binds to this set. With the
+    # hash compared first, a future-dated set could only ever report
+    # R_SET_HASH_MISMATCH (the version is part of the content hash), which makes
+    # R_SET_FUTURE unreachable and misreports the actual defect.
     ok_fresh, fresh_reason = check_freshness(
         set_doc, now=_iso_from_unix(now), cached_published_at=cached_published_at,
     )
@@ -150,6 +154,9 @@ def verify_order_proof_impl(*, proof: Optional[dict], policy: dict,
         if "future" in fresh_reason:
             return False, R_SET_FUTURE, {}
         return False, R_SET_STALE, {}
+
+    if proof.get("set_hash") != set_hash:
+        return False, R_SET_HASH_MISMATCH, {}
 
     # 4. expiry in the future
     if int(proof["expiry"]) <= now:

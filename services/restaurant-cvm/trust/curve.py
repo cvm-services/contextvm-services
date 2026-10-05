@@ -123,3 +123,18 @@ def hash_to_curve(data: bytes) -> bytes:
         if is_valid_point(candidate):
             return candidate
         counter += 1
+
+
+# ---------------------------------------------------------------------------
+# key generation
+# ---------------------------------------------------------------------------
+
+def generate_key_pair() -> tuple:
+    """Return (secret_key 32 bytes, compressed public key 33 bytes).
+
+    Lives here (not only in ``lsag``) because it is pure curve arithmetic and
+    the trust tests treat it as part of the curve API.
+    """
+    secret = scalar_to_bytes(random_scalar())
+    return secret, point_to_bytes(base_mul(scalar_from_bytes(secret)))
+

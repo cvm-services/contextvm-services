@@ -151,12 +151,30 @@ def test_ring_key_outside_pinned_set_is_rejected(world):
 
 
 def test_duplicate_ring_keys_are_rejected(world):
+    """Two layers must refuse a duplicated ring key.
+
+    The prover is OURS, so it refuses to construct such a proof at all. The rule
+    that actually protects the venue is the verifier's: it must reject a proof
+    object handed to it by an untrusted client, which never went through our
+    prover. Both are asserted — testing only one would leave the attack path
+    (a hand-built proof) uncovered.
+    """
     reset_gates()
     keys = world["keys"]
-    ring = [_member_keys(keys, 1)[0], _member_keys(keys, 1)[0],
-            _member_keys(keys, 2)[1], _member_keys(keys, 2)[1]]
+    dup_ring = [_member_keys(keys, 1)[0], _member_keys(keys, 1)[0],
+                _member_keys(keys, 2)[1], _member_keys(keys, 2)[1]]
+
+    # (a) our prover will not emit it
     order = _order()
-    proof = _proof(world, order, member_index=0, ring=ring)
+    try:
+        _proof(world, order, member_index=0, ring=dup_ring)
+        raise AssertionError("prover built a proof with duplicate ring keys")
+    except ValueError:
+        pass
+
+    # (b) the verifier rejects it when it arrives from outside
+    proof = _proof(world, order, member_index=0)
+    proof["ring"] = dup_ring
     ok, reason, _ = verify_order_proof(proof=proof, policy=world["policy"],
                                        expected_order=order)
     assert ok is False and reason == R_DUPLICATE_KEYS
