@@ -8,7 +8,7 @@
  * failure mode this loop exists to expose).
  */
 
-import { finalizeEvent, generateSecretKey } from "npm:nostr-tools/pure";
+import { finalizeEvent, generateSecretKey, getPublicKey } from "npm:nostr-tools/pure";
 import { decode as nip19Decode, npubEncode } from "npm:nostr-tools/nip19";
 
 export function fail(msg: string): never {
@@ -25,8 +25,21 @@ export function hexToBytes(hex: string): Uint8Array {
   return out;
 }
 
+/**
+ * A loaded signing identity.
+ *
+ * `secret_hex` is named the long way round ON PURPOSE. It used to be a bare
+ * `hex`, and that ambiguity leaked a venue's secret key into a published-safe
+ * artifact: an emitter read `key.hex` believing it held the public key and wrote
+ * it into an `a` tag. Anything that can put a secret on a relay should be
+ * impossible to reach by a short, friendly-looking field name. Never rename this
+ * back to `hex`.
+ */
 export interface Identity {
-  hex: string;
+  /** SECRET KEY. Never log, never tag, never commit. */
+  secret_hex: string;
+  /** Public key, 64-char hex — the only field safe to put in an event. */
+  pubkey_hex: string;
   npub: string;
 }
 
@@ -42,21 +55,23 @@ export async function readKey(keyFile: string, create: boolean): Promise<Identit
   } catch {
     if (!create) fail(`key file '${keyFile}' not found (run without --dry-run to create it)`);
   }
+  let secretHex: string;
   if (text) {
-    let hex = text;
+    secretHex = text;
     if (text.startsWith("nsec")) {
       const d = nip19Decode(text);
       if (d.type !== "nsec") fail("key file is not an nsec");
-      hex = d.data as string;
+      secretHex = d.data as string;
     }
-    if (!/^[0-9a-f]{64}$/.test(hex)) fail("key file is not 64-char hex or nsec");
-    return { hex, npub: npubEncode(hex) };
+    if (!/^[0-9a-f]{64}$/.test(secretHex)) fail("key file is not 64-char hex or nsec");
+  } else {
+    const sk = generateSecretKey();
+    secretHex = Buffer.from(sk).toString("hex");
+    await Deno.writeTextFile(path, secretHex + "\n", { mode: 0o600 });
+    await Deno.chmod(path, 0o600);
   }
-  const sk = generateSecretKey();
-  const hex = Buffer.from(sk).toString("hex");
-  await Deno.writeTextFile(path, hex + "\n", { mode: 0o600 });
-  await Deno.chmod(path, 0o600);
-  return { hex, npub: npubEncode(hex) };
+  const pubkeyHex = getPublicKey(hexToBytes(secretHex));
+  return { secret_hex: secretHex, pubkey_hex: pubkeyHex, npub: npubEncode(pubkeyHex) };
 }
 
 export function signEvent(secretHex: string, template: Record<string, unknown>): unknown {

@@ -106,7 +106,7 @@ async function main() {
     tags: emitted.tags,
     content: eventContent,
   };
-  const signed = signEvent(key.hex, unsigned);
+  const signed = signEvent(key.secret_hex, unsigned);
 
   console.log(JSON.stringify(signed, null, 2));
   for (const r of relays) {
