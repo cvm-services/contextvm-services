@@ -351,3 +351,27 @@ def test_non_member_attack_must_fail(world):
                                        expected_order=order)
     assert ok is False
     assert reason == R_NOT_IN_SET
+
+
+# ---------------------------------------------------------------------------
+# 4b. expiry shape (review r5): malformed is a structure error, not a crash
+# ---------------------------------------------------------------------------
+
+def test_non_numeric_expiry_is_a_structure_error_not_a_crash(world):
+    reset_gates()
+    order = _order()
+    proof = _proof(world, order)
+    proof["expiry"] = "not-a-number"
+    ok, reason, _ = verify_order_proof(proof=proof, policy=world["policy"],
+                                       expected_order=order)
+    assert ok is False and reason == R_BAD_STRUCTURE
+
+
+def test_expired_expiry_reports_expired(world):
+    reset_gates()
+    order = _order()
+    proof = _proof(world, order)
+    proof["expiry"] = int(time.time()) - 1
+    ok, reason, _ = verify_order_proof(proof=proof, policy=world["policy"],
+                                       expected_order=order)
+    assert ok is False and reason == R_EXPIRED

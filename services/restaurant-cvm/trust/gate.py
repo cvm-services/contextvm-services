@@ -80,6 +80,21 @@ class OrderGate:
         )
 
 
+def _int_or_none(v) -> Optional[int]:
+    """int(v) for an int or numeric string, else None.
+
+    A malformed field must be a STRUCTURE error with a stable reason, never a
+    crash: review r5 — ``int(proof["expiry"])`` raised ValueError on a
+    non-numeric expiry instead of reporting ``bad-proof-structure``.
+    """
+    if isinstance(v, bool) or v is None:
+        return None
+    try:
+        return int(v)
+    except (TypeError, ValueError):
+        return None
+
+
 def _rebuild_message_fields(proof: dict, policy: dict, expected_order: dict,
                             set_doc: dict, set_hash: str) -> dict:
     """The verifier's OWN reconstruction of what the proof must have bound.
@@ -97,7 +112,7 @@ def _rebuild_message_fields(proof: dict, policy: dict, expected_order: dict,
         "verifier_id": str(policy["verifier_id"]),
         "set_id": str(set_doc["set_id"]),
         "set_hash": set_hash,
-        "expiry": int(proof["expiry"]),
+        "expiry": _int_or_none(proof["expiry"]),
         "key_image": str(proof["key_image"]),
     }
 
@@ -158,8 +173,11 @@ def verify_order_proof_impl(*, proof: Optional[dict], policy: dict,
     if proof.get("set_hash") != set_hash:
         return False, R_SET_HASH_MISMATCH, {}
 
-    # 4. expiry in the future
-    if int(proof["expiry"]) <= now:
+    # 4. expiry present, well-formed, and in the future
+    expiry = _int_or_none(proof["expiry"])
+    if expiry is None:
+        return False, R_BAD_STRUCTURE, {}
+    if expiry <= now:
         return False, R_EXPIRED, {}
 
     # 5. the verifier holds the order: rebuild + field-by-field equality BEFORE
