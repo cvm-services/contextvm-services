@@ -1,0 +1,19 @@
+2026-10-06T20:08:30.816Z t+0.0s PROBE2 start url=wss://relay2.orangesync.tech probe_pubkey=e60d82e24c35
+2026-10-06T20:08:31.874Z t+1.1s Relay.connect resolved; relay.connected=true
+2026-10-06T20:08:31.874Z t+1.1s socket handle attached for close/error events
+2026-10-06T20:08:31.875Z t+1.1s subscribed
+2026-10-06T20:08:32.089Z t+1.3s sub EOSE (listen mode live)
+2026-10-06T20:08:36.876Z t+6.1s after 5s idle: ws.readyState=1
+2026-10-06T20:08:36.924Z t+6.1s publish #1 size=4417B ws.readyState=1
+2026-10-06T20:08:37.310Z t+6.5s publish #1 RESOLVED: ""
+2026-10-06T20:08:37.312Z t+6.5s after publish #1: ws.readyState=1 relay.connected=true
+2026-10-06T20:08:37.425Z t+6.6s sub EVENT
+2026-10-06T20:08:40.345Z t+9.6s publish #2 size=4417B ws.readyState=1
+2026-10-06T20:08:40.732Z t+10.0s publish #2 RESOLVED: ""
+2026-10-06T20:08:40.732Z t+10.0s after publish #2: ws.readyState=1 relay.connected=true
+2026-10-06T20:08:40.834Z t+10.1s sub EVENT
+2026-10-06T20:08:43.739Z t+13.0s publish #3 size=4417B ws.readyState=1
+2026-10-06T20:08:44.127Z t+13.3s publish #3 RESOLVED: ""
+2026-10-06T20:08:44.128Z t+13.3s after publish #3: ws.readyState=1 relay.connected=true
+2026-10-06T20:08:44.230Z t+13.4s sub EVENT
+2026-10-06T20:08:47.130Z t+16.4s PROBE2 done (no close observed)

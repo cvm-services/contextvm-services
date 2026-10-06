@@ -1,0 +1,19 @@
+2026-10-06T20:08:47.422Z t+0.1s PROBE2 start url=wss://relay.primal.net probe_pubkey=1678883b48f6
+2026-10-06T20:08:48.038Z t+0.7s Relay.connect resolved; relay.connected=true
+2026-10-06T20:08:48.038Z t+0.7s socket handle attached for close/error events
+2026-10-06T20:08:48.043Z t+0.7s subscribed
+2026-10-06T20:08:48.339Z t+1.0s sub EOSE (listen mode live)
+2026-10-06T20:08:53.047Z t+5.7s after 5s idle: ws.readyState=1
+2026-10-06T20:08:53.075Z t+5.8s publish #1 size=4417B ws.readyState=1
+2026-10-06T20:08:53.240Z t+5.9s publish #1 RESOLVED: ""
+2026-10-06T20:08:53.241Z t+5.9s after publish #1: ws.readyState=1 relay.connected=true
+2026-10-06T20:08:53.495Z t+6.2s sub EVENT
+2026-10-06T20:08:56.250Z t+8.9s publish #2 size=4417B ws.readyState=1
+2026-10-06T20:08:56.402Z t+9.1s publish #2 RESOLVED: ""
+2026-10-06T20:08:56.403Z t+9.1s after publish #2: ws.readyState=1 relay.connected=true
+2026-10-06T20:08:56.628Z t+9.3s sub EVENT
+2026-10-06T20:08:59.407Z t+12.1s publish #3 size=4417B ws.readyState=1
+2026-10-06T20:08:59.669Z t+12.3s publish #3 RESOLVED: ""
+2026-10-06T20:08:59.669Z t+12.3s after publish #3: ws.readyState=1 relay.connected=true
+2026-10-06T20:08:59.782Z t+12.5s sub EVENT
+2026-10-06T20:09:02.670Z t+15.3s PROBE2 done (no close observed)

@@ -1,0 +1,161 @@
+{
+  "client_pubkey": "295cfb702ee0bba7e04fcda89661282338a62bb5ff621733b96f25395569ed38",
+  "server_pubkey": "fe700a09094950660077447bedd4e0b3abc14a82e95227b313aebf83b7798984",
+  "relays": [
+    "wss://relay2.orangesync.tech"
+  ],
+  "started_at": 1791317526,
+  "checks": [
+    {
+      "name": "initialize",
+      "ok": false,
+      "detail": "no response (timeout)"
+    },
+    {
+      "name": "tools/list",
+      "ok": false,
+      "detail": "no response (timeout)"
+    },
+    {
+      "name": "tools/call:menu",
+      "ok": false,
+      "detail": "no response (timeout)"
+    },
+    {
+      "name": "tools/call:order",
+      "ok": true,
+      "detail": "status=basket lines=2 total=22.3 deep_link=https://www.doppelt-kaese-berlin.de/speisekarte/doppeltkase"
+    }
+  ],
+  "all_passed": false,
+  "transcript": [
+    {
+      "phase": "request",
+      "method": "initialize",
+      "id": 0,
+      "inner_event": {
+        "kind": 25910,
+        "pubkey": "295cfb702ee0bba7e04fcda89661282338a62bb5ff621733b96f25395569ed38",
+        "tags": [
+          [
+            "p",
+            "fe700a09094950660077447bedd4e0b3abc14a82e95227b313aebf83b7798984"
+          ]
+        ],
+        "content": "{\"jsonrpc\":\"2.0\",\"id\":0,\"method\":\"initialize\",\"params\":{\"protocolVersion\":\"2024-11-05\",\"capabilities\":{},\"clientInfo\":{\"name\":\"venue-e2e-client\",\"version\":\"1.0.0\"}}}",
+        "created_at": 1791317526,
+        "id": "e3fe0cd959eabb78d8056d6275db463d53d771a4326e362b7fa6eb9807b281ad",
+        "sig": "215ea2378451a6e6f218630c4baef1321a24665d176a61b745ff91152a8527b55e508a5828ec30b99af3489209be9ac71046eb88e0f650743cd863c6049908a9"
+      },
+      "gift_wrap_event_id": "22248d5cf9ebbf3632bce36281fdb43c7b2f786dff829d521c8c2f838f18b720",
+      "gift_wrap_kind": 1059,
+      "publish_ok": {
+        "wss://relay2.orangesync.tech": true
+      }
+    },
+    {
+      "phase": "request",
+      "method": "tools/list",
+      "id": 1,
+      "inner_event": {
+        "kind": 25910,
+        "pubkey": "295cfb702ee0bba7e04fcda89661282338a62bb5ff621733b96f25395569ed38",
+        "tags": [
+          [
+            "p",
+            "fe700a09094950660077447bedd4e0b3abc14a82e95227b313aebf83b7798984"
+          ]
+        ],
+        "content": "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"tools/list\",\"params\":{}}",
+        "created_at": 1791317545,
+        "id": "cd03a87589bc12b6ba913e8faa2bcc75d2d575005987a41ca14b8ca1f8a569b1",
+        "sig": "fe0fed13a24678004454bd2988c2d2a418bfeb03adf7c97e2b8799951ebf9e33024a884d666b1fa029aed1ca94c2e2fe55f7cb870c3b0b7b8cb27fbc508dd020"
+      },
+      "gift_wrap_event_id": "cf6f25c63f91b573a56add645362e5d6f0ceaf15c5d3dd8a6569ad3eb3a7feec",
+      "gift_wrap_kind": 1059,
+      "publish_ok": {
+        "wss://relay2.orangesync.tech": true
+      }
+    },
+    {
+      "phase": "request",
+      "method": "tools/call",
+      "id": 2,
+      "inner_event": {
+        "kind": 25910,
+        "pubkey": "295cfb702ee0bba7e04fcda89661282338a62bb5ff621733b96f25395569ed38",
+        "tags": [
+          [
+            "p",
+            "fe700a09094950660077447bedd4e0b3abc14a82e95227b313aebf83b7798984"
+          ]
+        ],
+        "content": "{\"jsonrpc\":\"2.0\",\"id\":2,\"method\":\"tools/call\",\"params\":{\"name\":\"menu\",\"arguments\":{}}}",
+        "created_at": 1791317563,
+        "id": "aad460c58e8b2645bd42f426f178619b9a48d718a088ad08dd48d82a00152004",
+        "sig": "d9e5ac92e04449ff1e3cc0f7201d5644482cb4114d41d51f0d8eb2d6bfb6a484f6951df001b09602b8b3d3189c904ce32efa1755e032b210fcc67411efa049b0"
+      },
+      "gift_wrap_event_id": "06776a826a3865db888d46a07edc4c63153490d36281e57ff6a74fffbb89569b",
+      "gift_wrap_kind": 1059,
+      "publish_ok": {
+        "wss://relay2.orangesync.tech": true
+      }
+    },
+    {
+      "phase": "request",
+      "method": "tools/call",
+      "id": 3,
+      "inner_event": {
+        "kind": 25910,
+        "pubkey": "295cfb702ee0bba7e04fcda89661282338a62bb5ff621733b96f25395569ed38",
+        "tags": [
+          [
+            "p",
+            "fe700a09094950660077447bedd4e0b3abc14a82e95227b313aebf83b7798984"
+          ]
+        ],
+        "content": "{\"jsonrpc\":\"2.0\",\"id\":3,\"method\":\"tools/call\",\"params\":{\"name\":\"order\",\"arguments\":{\"venue_slug\":\"doppelt-kaese-berlin\",\"items\":[{\"sku\":\"331227\",\"qty\":2},{\"sku\":\"331233\",\"qty\":1}],\"fulfilment\":\"pickup\",\"when\":\"asap\",\"notes\":\"e2e relay round-trip\"}}}",
+        "created_at": 1791317582,
+        "id": "a7cae927b7c89915bee6da69f2f9f34e531e0e49571aeb1c264a73bfccdfdd6c",
+        "sig": "8d31ed78a6c3f84e57a8ef4da400fde96415c39ef657f1a9d0560b5e6d6fabbfcbc8b56e9ead6fdeb9283bbe5d71f446faa0be63ff179089097f46ae2dc5dee7"
+      },
+      "gift_wrap_event_id": "94fb50a021163b33f7c20018ea70386cd75c9a36f5e6dcb27334ee88d05018d3",
+      "gift_wrap_kind": 1059,
+      "publish_ok": {
+        "wss://relay2.orangesync.tech": true
+      }
+    },
+    {
+      "phase": "response",
+      "method": "tools/call",
+      "id": 3,
+      "tool": "order",
+      "inner_event": {
+        "pubkey": "fe700a09094950660077447bedd4e0b3abc14a82e95227b313aebf83b7798984",
+        "kind": 25910,
+        "tags": [
+          [
+            "p",
+            "295cfb702ee0bba7e04fcda89661282338a62bb5ff621733b96f25395569ed38"
+          ]
+        ],
+        "content": "{\"jsonrpc\":\"2.0\",\"id\":3,\"result\":{\"content\":[{\"type\":\"text\",\"text\":\"{\\n  \\\"status\\\": \\\"basket\\\",\\n  \\\"note\\\": \\\"This is a prepared basket, not a placed order. Checkout and payment happen on the venue's own page.\\\",\\n  \\\"venue\\\": {\\n    \\\"slug\\\": \\\"doppelt-kaese-berlin\\\",\\n    \\\"name\\\": \\\"Doppelt Käse Laubacher Straße\\\",\\n    \\\"currency\\\": \\\"EUR\\\",\\n    \\\"rail\\\": \\\"venue's own rail (FoodAmigos storefront: Adyen/Stripe/PayPal/cash)\\\",\\n    \\\"deep_link\\\": \\\"https://www.doppelt-kaese-berlin.de/speisekarte/doppeltkase\\\"\\n  },\\n  \\\"fulfilment\\\": \\\"pickup\\\",\\n  \\\"when\\\": \\\"asap\\\",\\n  \\\"notes\\\": \\\"e2e relay round-trip\\\",\\n  \\\"lines\\\": [\\n    {\\n      \\\"id\\\": \\\"\\\",\\n      \\\"sku\\\": \\\"331227\\\",\\n      \\\"name\\\": \\\"Cheeseburger\\\",\\n      \\\"qty\\\": 2,\\n      \\\"unit_price\\\": 8.9,\\n      \\\"method_used\\\": \\\"pickup\\\",\\n      \\\"line_total\\\": 17.8,\\n      \\\"price_note\\\": null,\\n      \\\"available\\\": true\\n    },\\n    {\\n      \\\"id\\\": \\\"\\\",\\n      \\\"sku\\\": \\\"331233\\\",\\n      \\\"name\\\": \\\"Curly Fries\\\",\\n      \\\"qty\\\": 1,\\n      \\\"unit_price\\\": 4.5,\\n      \\\"method_used\\\": \\\"pickup\\\",\\n      \\\"line_total\\\": 4.5,\\n      \\\"price_note\\\": null,\\n      \\\"available\\\": true\\n    }\\n  ],\\n  \\\"total\\\": 22.3\\n}\"}]}}",
+        "created_at": 1791317582,
+        "id": "47879ad84e8da5eef124eecb9be6377fc7f9c816dd48cc04125950d6b3ff8bba",
+        "sig": "6ddb6031861e361257b73021287099c36537ae15fd2094bdc23e122f297885c5f92e0b235dfaf12ccf8f7d3084e05521922078089bf34bb1ba6b44f9228a1948"
+      },
+      "mcp": {
+        "jsonrpc": "2.0",
+        "id": 3,
+        "result": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"status\": \"basket\",\n  \"note\": \"This is a prepared basket, not a placed order. Checkout and payment happen on the venue's own page.\",\n  \"venue\": {\n    \"slug\": \"doppelt-kaese-berlin\",\n    \"name\": \"Doppelt Käse Laubacher Straße\",\n    \"currency\": \"EUR\",\n    \"rail\": \"venue's own rail (FoodAmigos storefront: Adyen/Stripe/PayPal/cash)\",\n    \"deep_link\": \"https://www.doppelt-kaese-berlin.de/speisekarte/doppeltkase\"\n  },\n  \"fulfilment\": \"pickup\",\n  \"when\": \"asap\",\n  \"notes\": \"e2e relay round-trip\",\n  \"lines\": [\n    {\n      \"id\": \"\",\n      \"sku\": \"331227\",\n      \"name\": \"Cheeseburger\",\n      \"qty\": 2,\n      \"unit_price\": 8.9,\n      \"method_used\": \"pickup\",\n      \"line_total\": 17.8,\n      \"price_note\": null,\n      \"available\": true\n    },\n    {\n      \"id\": \"\",\n      \"sku\": \"331233\",\n      \"name\": \"Curly Fries\",\n      \"qty\": 1,\n      \"unit_price\": 4.5,\n      \"method_used\": \"pickup\",\n      \"line_total\": 4.5,\n      \"price_note\": null,\n      \"available\": true\n    }\n  ],\n  \"total\": 22.3\n}"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

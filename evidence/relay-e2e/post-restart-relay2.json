@@ -1,0 +1,343 @@
+{
+  "client_pubkey": "876fce9fadd1a528571cbf707b9a149f8aaa1d763ecf4959d5ef6f79fbb2c93e",
+  "server_pubkey": "fe700a09094950660077447bedd4e0b3abc14a82e95227b313aebf83b7798984",
+  "relays": [
+    "wss://relay2.orangesync.tech"
+  ],
+  "started_at": 1791317605,
+  "checks": [
+    {
+      "name": "initialize",
+      "ok": true,
+      "detail": "serverInfo.name=contextvm-venue-server"
+    },
+    {
+      "name": "tools/list",
+      "ok": true,
+      "detail": "tools=[\"menu\",\"order\"]"
+    },
+    {
+      "name": "tools/call:menu",
+      "ok": false,
+      "detail": "no response (timeout)"
+    },
+    {
+      "name": "tools/call:order",
+      "ok": true,
+      "detail": "status=basket lines=2 total=22.3 deep_link=https://www.doppelt-kaese-berlin.de/speisekarte/doppeltkase"
+    }
+  ],
+  "all_passed": false,
+  "transcript": [
+    {
+      "phase": "request",
+      "method": "initialize",
+      "id": 0,
+      "inner_event": {
+        "kind": 25910,
+        "pubkey": "876fce9fadd1a528571cbf707b9a149f8aaa1d763ecf4959d5ef6f79fbb2c93e",
+        "tags": [
+          [
+            "p",
+            "fe700a09094950660077447bedd4e0b3abc14a82e95227b313aebf83b7798984"
+          ]
+        ],
+        "content": "{\"jsonrpc\":\"2.0\",\"id\":0,\"method\":\"initialize\",\"params\":{\"protocolVersion\":\"2024-11-05\",\"capabilities\":{},\"clientInfo\":{\"name\":\"venue-e2e-client\",\"version\":\"1.0.0\"}}}",
+        "created_at": 1791317605,
+        "id": "4c92b29638dd2372602a54e2f734debc51a67221f026039a83651c9fa434dd7c",
+        "sig": "dfa226e595c7ceffed857ec7a34ed311471c49053c58f565ea916d688a1cf10792195dcd695f0f54a1a4255658489e903a40b71c3b15d1a5564ea5270e61d402"
+      },
+      "gift_wrap_event_id": "f370e817121d8460fc3b6b072d55bd8ef00db5a8d01a24dc9f589bd144c3fbc7",
+      "gift_wrap_kind": 1059,
+      "publish_ok": {
+        "wss://relay2.orangesync.tech": true
+      }
+    },
+    {
+      "phase": "response",
+      "method": "initialize",
+      "id": 0,
+      "inner_event": {
+        "pubkey": "fe700a09094950660077447bedd4e0b3abc14a82e95227b313aebf83b7798984",
+        "kind": 25910,
+        "tags": [
+          [
+            "p",
+            "876fce9fadd1a528571cbf707b9a149f8aaa1d763ecf4959d5ef6f79fbb2c93e"
+          ]
+        ],
+        "content": "{\"jsonrpc\":\"2.0\",\"id\":0,\"result\":{\"protocolVersion\":\"2024-11-05\",\"capabilities\":{\"tools\":{}},\"serverInfo\":{\"name\":\"contextvm-venue-server\",\"version\":\"1.0.0\"}}}",
+        "created_at": 1791317605,
+        "id": "4a876cd1718f76f82c60b6f880c2217472300280ef46f0d92c20c75e21c58433",
+        "sig": "717e314602dedf9961590f2f8c878774b612c716e11dceef954ab935378fa254f01f9da2e4b88abcf98844a11705cdc1e255ee6a25e9cb20edf6b1d8d1ea92cb"
+      },
+      "mcp": {
+        "jsonrpc": "2.0",
+        "id": 0,
+        "result": {
+          "protocolVersion": "2024-11-05",
+          "capabilities": {
+            "tools": {}
+          },
+          "serverInfo": {
+            "name": "contextvm-venue-server",
+            "version": "1.0.0"
+          }
+        }
+      }
+    },
+    {
+      "phase": "request",
+      "method": "tools/list",
+      "id": 1,
+      "inner_event": {
+        "kind": 25910,
+        "pubkey": "876fce9fadd1a528571cbf707b9a149f8aaa1d763ecf4959d5ef6f79fbb2c93e",
+        "tags": [
+          [
+            "p",
+            "fe700a09094950660077447bedd4e0b3abc14a82e95227b313aebf83b7798984"
+          ]
+        ],
+        "content": "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"tools/list\",\"params\":{}}",
+        "created_at": 1791317606,
+        "id": "7474aacff44dae75ea070fbf2099973f61e1ae1abb4505cb60c70af71499f54b",
+        "sig": "7ab14092b79921dd3353ca6cefb35e6d52c3cd4705e7586066946014b3b4e0d968c86153b02de7c4e129a30767035a2dd66c95ce661338748a86eddc52449a20"
+      },
+      "gift_wrap_event_id": "e6fe2413b04f1b074b7764cfea200bc6156390113698a3d437cb24f06ff09f0a",
+      "gift_wrap_kind": 1059,
+      "publish_ok": {
+        "wss://relay2.orangesync.tech": true
+      }
+    },
+    {
+      "phase": "response",
+      "method": "tools/list",
+      "id": 1,
+      "inner_event": {
+        "pubkey": "fe700a09094950660077447bedd4e0b3abc14a82e95227b313aebf83b7798984",
+        "kind": 25910,
+        "tags": [
+          [
+            "p",
+            "876fce9fadd1a528571cbf707b9a149f8aaa1d763ecf4959d5ef6f79fbb2c93e"
+          ]
+        ],
+        "content": "{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":{\"tools\":[{\"name\":\"menu\",\"description\":\"Return the full menu for all announced venues. Each item carries sku, name, prices_by_order_method, available, and allergens.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"venue_slug\":{\"type\":\"string\",\"description\":\"Optional: filter to a single venue slug. Omit to receive all venues.\"}},\"additionalProperties\":false}},{\"name\":\"order\",\"description\":\"Build a basket for the venue's own ordering rail. Checkout and payment happen on the venue's own page; this tool does not place or settle the order.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"items\":{\"type\":\"array\",\"description\":\"Basket lines. Identify each item by `sku` or by the venue's `id` — exactly one. A sku matching more than one item (pizza: 36, 110, 44) is refused; pass `id` there.\",\"items\":{\"type\":\"object\",\"properties\":{\"sku\":{\"type\":\"string\",\"description\":\"Venue sku. Refused when it identifies more than one item — use `id` instead.\"},\"id\":{\"type\":\"string\",\"description\":\"The venue's own item id, unique where a sku is not.\"},\"qty\":{\"type\":\"integer\",\"minimum\":1},\"options\":{\"type\":\"object\"}},\"required\":[\"qty\"],\"additionalProperties\":false}},\"fulfilment\":{\"type\":\"string\",\"enum\":[\"pickup\",\"delivery\",\"dine_in\"],\"description\":\"How the order will be fulfilled.\"},\"when\":{\"type\":\"string\",\"description\":\"Requested fulfilment time (ISO 8601 or 'asap').\"},\"notes\":{\"type\":\"string\",\"description\":\"Free text for the kitchen/handler.\"},\"ship\":{\"type\":\"object\",\"description\":\"Required only when fulfilment == 'delivery'.\",\"properties\":{\"address\":{\"type\":\"object\",\"properties\":{\"street\":{\"type\":\"string\"},\"city\":{\"type\":\"string\"},\"postal_code\":{\"type\":\"string\"},\"country\":{\"type\":\"string\"}}},\"recipient_name\":{\"type\":\"string\"},\"notes\":{\"type\":\"string\"}}},\"venue_slug\":{\"type\":\"string\",\"description\":\"The venue to order from.\"},\"contact\":{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"},\"phone\":{\"type\":\"string\"},\"email\":{\"type\":\"string\"}}}},\"required\":[\"venue_slug\",\"items\",\"fulfilment\",\"when\"],\"additionalProperties\":false}}]}}",
+        "created_at": 1791317606,
+        "id": "e6dda641de10d581b9078b57f3b0b6a4cd750c5c719a4246cd71e530a4c9f525",
+        "sig": "0efe49808bd73e9a7e3386adbf0ea435b046aa4425ec9c14e86e7ad87db36404989484b4c1a6a609e3a180a79da99f9d6fc23c3f4c3187c1eecafa6b1e5ae60f"
+      },
+      "mcp": {
+        "jsonrpc": "2.0",
+        "id": 1,
+        "result": {
+          "tools": [
+            {
+              "name": "menu",
+              "description": "Return the full menu for all announced venues. Each item carries sku, name, prices_by_order_method, available, and allergens.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "venue_slug": {
+                    "type": "string",
+                    "description": "Optional: filter to a single venue slug. Omit to receive all venues."
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            {
+              "name": "order",
+              "description": "Build a basket for the venue's own ordering rail. Checkout and payment happen on the venue's own page; this tool does not place or settle the order.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "items": {
+                    "type": "array",
+                    "description": "Basket lines. Identify each item by `sku` or by the venue's `id` — exactly one. A sku matching more than one item (pizza: 36, 110, 44) is refused; pass `id` there.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "sku": {
+                          "type": "string",
+                          "description": "Venue sku. Refused when it identifies more than one item — use `id` instead."
+                        },
+                        "id": {
+                          "type": "string",
+                          "description": "The venue's own item id, unique where a sku is not."
+                        },
+                        "qty": {
+                          "type": "integer",
+                          "minimum": 1
+                        },
+                        "options": {
+                          "type": "object"
+                        }
+                      },
+                      "required": [
+                        "qty"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "fulfilment": {
+                    "type": "string",
+                    "enum": [
+                      "pickup",
+                      "delivery",
+                      "dine_in"
+                    ],
+                    "description": "How the order will be fulfilled."
+                  },
+                  "when": {
+                    "type": "string",
+                    "description": "Requested fulfilment time (ISO 8601 or 'asap')."
+                  },
+                  "notes": {
+                    "type": "string",
+                    "description": "Free text for the kitchen/handler."
+                  },
+                  "ship": {
+                    "type": "object",
+                    "description": "Required only when fulfilment == 'delivery'.",
+                    "properties": {
+                      "address": {
+                        "type": "object",
+                        "properties": {
+                          "street": {
+                            "type": "string"
+                          },
+                          "city": {
+                            "type": "string"
+                          },
+                          "postal_code": {
+                            "type": "string"
+                          },
+                          "country": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "recipient_name": {
+                        "type": "string"
+                      },
+                      "notes": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "venue_slug": {
+                    "type": "string",
+                    "description": "The venue to order from."
+                  },
+                  "contact": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "phone": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "venue_slug",
+                  "items",
+                  "fulfilment",
+                  "when"
+                ],
+                "additionalProperties": false
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "phase": "request",
+      "method": "tools/call",
+      "id": 2,
+      "inner_event": {
+        "kind": 25910,
+        "pubkey": "876fce9fadd1a528571cbf707b9a149f8aaa1d763ecf4959d5ef6f79fbb2c93e",
+        "tags": [
+          [
+            "p",
+            "fe700a09094950660077447bedd4e0b3abc14a82e95227b313aebf83b7798984"
+          ]
+        ],
+        "content": "{\"jsonrpc\":\"2.0\",\"id\":2,\"method\":\"tools/call\",\"params\":{\"name\":\"menu\",\"arguments\":{}}}",
+        "created_at": 1791317607,
+        "id": "b5470936b7f103c3d4c936de344ad6af1552ba4a4c533aa5e3353c0aa51100ea",
+        "sig": "663811f76a09251dd96b0b5a71c649958df93f720421c3c0399116a3263bc34049fa3bcebc02ea2048d3112db16e06a89a93e328138f2599e78ff61f4f6123d1"
+      },
+      "gift_wrap_event_id": "5ce5606ebb7ee2d1bdbeface65d838263162d07575d992e809447647593e6be6",
+      "gift_wrap_kind": 1059,
+      "publish_ok": {
+        "wss://relay2.orangesync.tech": true
+      }
+    },
+    {
+      "phase": "request",
+      "method": "tools/call",
+      "id": 3,
+      "inner_event": {
+        "kind": 25910,
+        "pubkey": "876fce9fadd1a528571cbf707b9a149f8aaa1d763ecf4959d5ef6f79fbb2c93e",
+        "tags": [
+          [
+            "p",
+            "fe700a09094950660077447bedd4e0b3abc14a82e95227b313aebf83b7798984"
+          ]
+        ],
+        "content": "{\"jsonrpc\":\"2.0\",\"id\":3,\"method\":\"tools/call\",\"params\":{\"name\":\"order\",\"arguments\":{\"venue_slug\":\"doppelt-kaese-berlin\",\"items\":[{\"sku\":\"331227\",\"qty\":2},{\"sku\":\"331233\",\"qty\":1}],\"fulfilment\":\"pickup\",\"when\":\"asap\",\"notes\":\"e2e relay round-trip\"}}}",
+        "created_at": 1791317637,
+        "id": "35649c10703a9786b2f9fd601f72fae5a4ddb741d9bbf14ac0f88e27c3d5b6c1",
+        "sig": "98df04e39cbc55d597eaf951e3a0da9d565b118e365736c19b919e6384d3ffa49b7c63e859ea6a88ab1ac1cf1875683cf18f18b5e758549801ef32b755a4e8b1"
+      },
+      "gift_wrap_event_id": "60dd96e9b5432cfb986bdb16f258db0cdbef31952bb75b794df7150635b0abee",
+      "gift_wrap_kind": 1059,
+      "publish_ok": {
+        "wss://relay2.orangesync.tech": true
+      }
+    },
+    {
+      "phase": "response",
+      "method": "tools/call",
+      "id": 3,
+      "tool": "order",
+      "inner_event": {
+        "pubkey": "fe700a09094950660077447bedd4e0b3abc14a82e95227b313aebf83b7798984",
+        "kind": 25910,
+        "tags": [
+          [
+            "p",
+            "876fce9fadd1a528571cbf707b9a149f8aaa1d763ecf4959d5ef6f79fbb2c93e"
+          ]
+        ],
+        "content": "{\"jsonrpc\":\"2.0\",\"id\":3,\"result\":{\"content\":[{\"type\":\"text\",\"text\":\"{\\n  \\\"status\\\": \\\"basket\\\",\\n  \\\"note\\\": \\\"This is a prepared basket, not a placed order. Checkout and payment happen on the venue's own page.\\\",\\n  \\\"venue\\\": {\\n    \\\"slug\\\": \\\"doppelt-kaese-berlin\\\",\\n    \\\"name\\\": \\\"Doppelt Käse Laubacher Straße\\\",\\n    \\\"currency\\\": \\\"EUR\\\",\\n    \\\"rail\\\": \\\"venue's own rail (FoodAmigos storefront: Adyen/Stripe/PayPal/cash)\\\",\\n    \\\"deep_link\\\": \\\"https://www.doppelt-kaese-berlin.de/speisekarte/doppeltkase\\\"\\n  },\\n  \\\"fulfilment\\\": \\\"pickup\\\",\\n  \\\"when\\\": \\\"asap\\\",\\n  \\\"notes\\\": \\\"e2e relay round-trip\\\",\\n  \\\"lines\\\": [\\n    {\\n      \\\"id\\\": \\\"\\\",\\n      \\\"sku\\\": \\\"331227\\\",\\n      \\\"name\\\": \\\"Cheeseburger\\\",\\n      \\\"qty\\\": 2,\\n      \\\"unit_price\\\": 8.9,\\n      \\\"method_used\\\": \\\"pickup\\\",\\n      \\\"line_total\\\": 17.8,\\n      \\\"price_note\\\": null,\\n      \\\"available\\\": true\\n    },\\n    {\\n      \\\"id\\\": \\\"\\\",\\n      \\\"sku\\\": \\\"331233\\\",\\n      \\\"name\\\": \\\"Curly Fries\\\",\\n      \\\"qty\\\": 1,\\n      \\\"unit_price\\\": 4.5,\\n      \\\"method_used\\\": \\\"pickup\\\",\\n      \\\"line_total\\\": 4.5,\\n      \\\"price_note\\\": null,\\n      \\\"available\\\": true\\n    }\\n  ],\\n  \\\"total\\\": 22.3\\n}\"}]}}",
+        "created_at": 1791317638,
+        "id": "f65b93fe0a149d14cdc305a194d0c36aec5a7a976474deeaa7c00bed321a1df8",
+        "sig": "46ba00b18307e4dd76ff593d9d6b3c4f744337e6ed3f6beb5fb4a8b6f8fe3e52db3492f9e26db1d464f10be8ff94067de9c8696441ade997c1e22bb318547994"
+      },
+      "mcp": {
+        "jsonrpc": "2.0",
+        "id": 3,
+        "result": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"status\": \"basket\",\n  \"note\": \"This is a prepared basket, not a placed order. Checkout and payment happen on the venue's own page.\",\n  \"venue\": {\n    \"slug\": \"doppelt-kaese-berlin\",\n    \"name\": \"Doppelt Käse Laubacher Straße\",\n    \"currency\": \"EUR\",\n    \"rail\": \"venue's own rail (FoodAmigos storefront: Adyen/Stripe/PayPal/cash)\",\n    \"deep_link\": \"https://www.doppelt-kaese-berlin.de/speisekarte/doppeltkase\"\n  },\n  \"fulfilment\": \"pickup\",\n  \"when\": \"asap\",\n  \"notes\": \"e2e relay round-trip\",\n  \"lines\": [\n    {\n      \"id\": \"\",\n      \"sku\": \"331227\",\n      \"name\": \"Cheeseburger\",\n      \"qty\": 2,\n      \"unit_price\": 8.9,\n      \"method_used\": \"pickup\",\n      \"line_total\": 17.8,\n      \"price_note\": null,\n      \"available\": true\n    },\n    {\n      \"id\": \"\",\n      \"sku\": \"331233\",\n      \"name\": \"Curly Fries\",\n      \"qty\": 1,\n      \"unit_price\": 4.5,\n      \"method_used\": \"pickup\",\n      \"line_total\": 4.5,\n      \"price_note\": null,\n      \"available\": true\n    }\n  ],\n  \"total\": 22.3\n}"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
