@@ -173,6 +173,22 @@ Open items, in order:
    venue's own `id`, now published by `menu`. Five new tests, RED first
    (`59 passed | 5 failed` against `d331903` → `64 passed | 0 failed`).
 
+7. **The announced schema had drifted from the served one.** Found 2026-10-06 by running the
+   emitter dry-run *before* republishing: the announcement published `order.items` as
+   `{sku, qty}` with no `id`, while the server had begun refusing colliding skus without one.
+   The published interface therefore hid the only way to order pizza's sku 36/110/44 — a
+   claim that would have shipped wrong in exactly the way this workstream exists to remove.
+   Fixed on `pr/announced-schema-drift`, with a test that fails when the two copies disagree.
+   The general rule: a fix to a served contract is not done until the *published* copy of that
+   contract agrees, and something has to fail when it does not.
+8. **Republish delta — measured, not assumed.** The dry-run on main now yields required
+   `[contact.phone, order.fulfilment, order.items, order.when]`, optional `[contact.name,
+   order.notes, ship.address]` (so `ship.address` correctly stays optional), and `items`
+   accepting `{sku | id, qty}`. Live still declares `[contact.phone, order.fulfilment]`, so
+   the republish is the moment these two venues stop being discovery-only pointers. It stays
+   **gated on the server being reachable**: publishing first would declare an orderable venue
+   with nothing listening, which is the original defect wearing a new hat.
+
 ## Non-goals
 
 - Declaring `payment.method` or any Lightning capability before a CVM genuinely settles.

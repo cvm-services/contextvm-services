@@ -167,7 +167,16 @@ export interface VenueAnnouncement {
   humanTags: string[];
 }
 
-/** The real Stage-1 order tool schema: basket + fulfilment + when + optional notes/ship/contact. */
+/**
+ * The Stage-1 order tool schema: basket + fulfilment + when + optional notes/ship/contact.
+ *
+ * This is the schema the announcement PUBLISHES, i.e. the interface a client reads before
+ * it calls anything. `services/restaurant-cvm/server.ts` carries the schema the server
+ * ANSWERS with, and server_test.ts asserts the two are byte-identical: on 2026-10-06 they
+ * had drifted, the published copy still demanding `{sku, qty}` while the server had begun
+ * refusing colliding skus in favour of the venue item id — so the published interface hid
+ * the only way to order pizza's sku 36/110/44.
+ */
 function buildOrderTool(
   name: string,
 ): { name: string; description: string; inputSchema: Record<string, unknown> } {
@@ -184,15 +193,24 @@ function buildOrderTool(
         },
         items: {
           type: "array",
-          description: "Basket lines: {sku, qty, options?}",
+          description:
+            "Basket lines. Identify each item by `sku` or by the venue's `id` — exactly one. A sku matching more than one item (pizza: 36, 110, 44) is refused; pass `id` there.",
           items: {
             type: "object",
             properties: {
-              sku: { type: "string" },
+              sku: {
+                type: "string",
+                description:
+                  "Venue sku. Refused when it identifies more than one item — use `id` instead.",
+              },
+              id: {
+                type: "string",
+                description: "The venue's own item id, unique where a sku is not.",
+              },
               qty: { type: "integer", minimum: 1 },
               options: { type: "object" },
             },
-            required: ["sku", "qty"],
+            required: ["qty"],
             additionalProperties: false,
           },
         },
