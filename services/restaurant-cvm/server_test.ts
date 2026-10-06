@@ -10,6 +10,7 @@ import {
   loadVenues,
   type McpRequest,
   type VenueIndex,
+  parseRelayList,
 } from "./server.ts";
 
 let index: VenueIndex;
@@ -17,6 +18,33 @@ let index: VenueIndex;
 async function setup() {
   index = await buildIndex();
 }
+
+// ---------------------------------------------------------------------------
+// Relay configuration. A server that cannot be told which relays to listen on
+// can only ever sit on the hard-coded default set — which is NOT where these
+// venues' announcements live (relay2.orangesync.tech + primal). Criterion 7 is
+// about reachability over a REAL relay; the relay set must be injectable.
+// ---------------------------------------------------------------------------
+
+Deno.test("RED: VENUE_SERVER_RELAYS overrides the default relay set", () => {
+  // absent -> fallback
+  const fallback = ["wss://a.example", "wss://b.example"];
+  if (JSON.stringify(parseRelayList(undefined, fallback)) !== JSON.stringify(fallback)) {
+    throw new Error("absent env must fall back to the default set");
+  }
+  // a real list
+  const got = parseRelayList(
+    "wss://relay2.orangesync.tech, wss://relay.primal.net",
+    fallback,
+  );
+  if (JSON.stringify(got) !== JSON.stringify(["wss://relay2.orangesync.tech", "wss://relay.primal.net"])) {
+    throw new Error(`relay list not honoured: ${JSON.stringify(got)}`);
+  }
+  // whitespace/garbage -> fallback, never an empty listen set
+  if (JSON.stringify(parseRelayList("  , ,", fallback)) !== JSON.stringify(fallback)) {
+    throw new Error("an effectively-empty list must fall back, not listen nowhere");
+  }
+});
 
 Deno.test("RED: tools/list exposes menu and order with real schemas", async () => {
   await setup();

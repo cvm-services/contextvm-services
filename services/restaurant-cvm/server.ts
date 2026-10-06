@@ -695,6 +695,23 @@ export async function serve(options: ServeOptions): Promise<() => void> {
   };
 }
 
+// ---------------------------------------------------------------------------
+// Relay list configuration (the CLI honours VENUE_SERVER_RELAYS so the server
+// can listen where the announcement was published, not only on a default set).
+// ---------------------------------------------------------------------------
+
+/** Parse a comma-separated relay list; empty/absent falls back to `fallback`. */
+export function parseRelayList(
+  value: string | undefined,
+  fallback: string[],
+): string[] {
+  const out = (value ?? "")
+    .split(",")
+    .map((s) => s.trim())
+    .filter((s) => s.length > 0);
+  return out.length > 0 ? out : fallback;
+}
+
 // CLI entry point (only runs when executed directly)
 if (import.meta.main) {
   const hex = Deno.env.get("SERVER_HEX");
@@ -702,7 +719,11 @@ if (import.meta.main) {
     console.error("SERVER_HEX env var is required");
     Deno.exit(1);
   }
-  serve({ serverHex: hex }).catch((err) => {
+  const relays = parseRelayList(
+    Deno.env.get("VENUE_SERVER_RELAYS"),
+    ["wss://nostr.mom", "wss://relay.primal.net"],
+  );
+  serve({ serverHex: hex, relays }).catch((err) => {
     console.error("[venue-cvm] fatal:", err);
     Deno.exit(1);
   });
