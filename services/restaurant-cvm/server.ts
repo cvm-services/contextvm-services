@@ -610,6 +610,19 @@ export function frameBytes(event: unknown): number {
   return new TextEncoder().encode(JSON.stringify(["EVENT", event])).length;
 }
 
+// strfry's DEFAULT maxEventSize (64 KiB) -- a SECOND and SMALLER limit than the
+// frame cap above, and the one that actually binds for our per-venue menus.
+// Measured 2026-10-06: relay2 accepted the 66055 B / 76975 B frames (both under
+// 131072) and refused the EVENTS inside them --
+//   "publish warning: invalid: event too large: 66045" / "76965"
+// A frame-only check reports "fine" right up to the rejection.
+export const RELAY_EVENT_CAP_BYTES = 65536;
+
+// The size of the serialized event, which is what that limit is measured against.
+export function eventBytes(event: unknown): number {
+  return new TextEncoder().encode(JSON.stringify(event)).length;
+}
+
 export interface PublishTarget<T> {
   publish(event: T): Promise<string>;
 }
@@ -635,7 +648,7 @@ export interface PublishOutcome {
 export async function publishToRelays<T>(
   targets: PublishTarget<T>[],
   event: T,
-  opts: { timeoutMs?: number; log?: (msg: string) => void; frameCapBytes?: number } = {},
+  opts: { timeoutMs?: number; log?: (msg: string) => void; frameCapBytes?: number; eventCapBytes?: number } = {},
 ): Promise<PublishOutcome> {
   const timeoutMs = opts.timeoutMs ?? PUBLISH_TIMEOUT_MS;
   const log = opts.log ?? (() => {});
@@ -649,6 +662,15 @@ export async function publishToRelays<T>(
   if (bytes > frameCapBytes) {
     log(
       `[venue-cvm] WARNING: outgoing frame is ${bytes}B, over the ${frameCapBytes}B strfry default -- a relay keeping that default WILL reject this reply`,
+    );
+  }
+
+  // A relay can accept the frame and still refuse the EVENT inside it.
+  const eventCapBytes = opts.eventCapBytes ?? RELAY_EVENT_CAP_BYTES;
+  const evBytes = eventBytes(event);
+  if (evBytes > eventCapBytes) {
+    log(
+      `[venue-cvm] WARNING: outgoing event is ${evBytes}B, over the ${eventCapBytes}B strfry maxEventSize default -- a relay keeping that default WILL reject this reply as "event too large"`,
     );
   }
 

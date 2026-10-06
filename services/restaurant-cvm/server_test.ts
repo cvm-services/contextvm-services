@@ -18,6 +18,9 @@ import {
   RELAY_OPTIONS,
 
   requestFilter,
+
+  eventBytes,
+  RELAY_EVENT_CAP_BYTES,
 } from "./server.ts";
 import { Relay } from "npm:nostr-tools";
 
@@ -747,5 +750,67 @@ Deno.test("GUARD (constant): the subscription stays addressed, not a firehose", 
   // firehose filter has no `#p` at all, which is the regression it pins.
   if (!("#p" in filter)) {
     throw new Error("a filter without #p is the whole-relay firehose, not an addressed subscription");
+  }
+});
+
+// ---------------------------------------------------------------------------
+// TWO caps, not one. A relay can accept the WebSocket frame and still refuse the
+// EVENT inside it.
+//
+// Measured 2026-10-06 on relay2 (strfry 1.1.0): our per-venue menu wraps are
+// 66055 B (doppelt) / 76975 B (pizza) -- UNDER the 131072 frame cap -- and were
+// still refused:
+//   publish warning: invalid: event too large: 66045
+//   publish warning: invalid: event too large: 76965
+// 65536 is strfry's DEFAULT maxEventSize (64 KiB). So a frame-cap warning alone
+// tells an operator the frame is fine right up until the relay refuses the
+// event, which is exactly the silent-ish failure this path exists to prevent.
+// Requested by the operator's own deployment: one instance per announced venue
+// produces ~66-77 KB wraps, i.e. just over the event default.
+// ---------------------------------------------------------------------------
+
+Deno.test("RED: an event over strfry's default maxEventSize is called out", async () => {
+  const logs: string[] = [];
+  const delivered: unknown[] = [];
+  const target = {
+    publish: (e: unknown) => {
+      delivered.push(e);
+      return Promise.resolve("");
+    },
+  };
+  // Over the 65536 event cap, comfortably under the 131072 frame cap: this must
+  // trip the EVENT warning only.
+  const ev = { id: "0".repeat(64), content: "a".repeat(66000) };
+
+  if (eventBytes(ev) <= RELAY_EVENT_CAP_BYTES) {
+    throw new Error("test premise: this event must exceed the event cap");
+  }
+  if (frameBytes(ev) > RELAY_FRAME_CAP_BYTES) {
+    throw new Error("test premise: this event must stay under the frame cap");
+  }
+
+  await publishToRelays([target], ev, { log: (m) => logs.push(m) });
+
+  if (delivered.length !== 1) {
+    throw new Error("relays differ: an over-cap event must still be attempted everywhere");
+  }
+  if (!logs.some((l) => l.includes("65536") && l.toLowerCase().includes("event"))) {
+    throw new Error(
+      `an over-event-cap reply must name the 65536 event cap; logs=${JSON.stringify(logs)}`,
+    );
+  }
+  if (logs.some((l) => l.toLowerCase().includes("frame is"))) {
+    throw new Error("this reply fits the frame cap, so no frame warning should fire");
+  }
+});
+
+Deno.test("RED: a reply under both caps logs neither warning", async () => {
+  const logs: string[] = [];
+  const target = { publish: () => Promise.resolve("") };
+  await publishToRelays([target], { id: "0".repeat(64), content: "ok" }, {
+    log: (m) => logs.push(m),
+  });
+  if (logs.some((l) => l.includes("65536") || l.toLowerCase().includes("frame is"))) {
+    throw new Error(`a small reply must not warn; logs=${JSON.stringify(logs)}`);
   }
 });
