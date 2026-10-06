@@ -1,7 +1,11 @@
 # ADR-0004 — Pickup, prices and who settles: a Lightning-settled venue order
 
-- **Status:** **Proposed** — awaiting operator sign-off. Nothing in here is built.
+- **Status:** **Accepted 2026-10-06** — operator sign-off recorded under *Decisions*. Nothing
+  in here is built yet.
 - **Date:** 2026-10-06
+- **Decided:** option **B** (LN-settled reseller) is the target; **Cashu before bolt11**;
+  option **A** only as a spike and only behind written venue consent. Open question 4
+  (merchant of record) is **still open and gates the first paid order**, not the design.
 - **Tier:** docs/light
 - **Depends on:** ADR-0001 (`D5` = the venue's own rail settles in v1; `D12` = the
   mandatory ring gate), `docs/spec/service-inputs.md` (the field register).
@@ -71,10 +75,10 @@ The v2 build is gated on a commercial decision, not a technical one (below).
 
 **Recommendation: B, prototyped behind the ring gate on one venue, with A as a
 throwaway spike to learn whether the venues' platforms can be driven at all.**
-Cashu-first is worth considering before bolt11 (see Open questions) — it matches
-the existing `pmi` posture on `nosms` and lets a mint do the reconciliation.
+Cashu-first is now decided (see *Decisions*) — it matches the existing `pmi`
+posture on `nosms` and lets a mint do the reconciliation.
 
-## Consequences if v2 is approved
+## Consequences now that option B is the accepted direction
 
 - **Funds and failure:** we would hold customer money before the food exists.
   Refunds, no-shows, cancelled items and partial fulfilment all become our
@@ -91,17 +95,24 @@ the existing `pmi` posture on `nosms` and lets a mint do the reconciliation.
   must close regardless of which option wins — we cannot declare a rail we have
   not recorded.
 
-## Open questions (operator)
+## Decisions (operator sign-off, 2026-10-06)
 
-1. **Which option**, and is a third-party venue's consent realistically available
-   to us — or is C (our own counter) the honest target?
-2. **Rail: bolt11 or Cashu first?** Cashu makes reconciliation and refunds easier
-   and matches `nosms`; bolt11 is what a customer's LN wallet expects.
-3. **Who is the merchant of record**, and does that need a German business entity
-   before the first paid pickup order?
-4. **Does a slot reservation without money (A) still need consent** if we drive the
-   venue's own page on the customer's behalf? (My read: yes — and to say so in the
-   tool description if we do it.)
+1. **Option — decided: B, the LN-settled reseller.** A and C stay available but are not the
+   target: A is a spike only, C (our own counter) remains the fallback if no venue agreement
+   is obtainable. Consequence accepted: we become the counterparty for someone else's food,
+   so the policy work below is a prerequisite rather than paperwork.
+2. **Rail — decided: Cashu first, bolt11 later.** A mint does the reconciliation and refunds
+   stay tractable, and it matches the existing `pmi` posture on `nosms`. `payment.method:
+   bitcoin-cashu` is therefore the first declaration we would publish. Declaring
+   `bitcoin-lightning-bolt11` before we can settle it stays forbidden.
+3. **Driving the venue's own page (option A) — decided: written consent required.** And it is
+   a heavier ask than it looked: Track A's read-only spike found neither storefront accepts a
+   basket-prefill parameter, so A can only mean driving their SPA as a browser — heavier,
+   more fragile, and more plainly on their terms than a URL.
+4. **Merchant of record — STILL OPEN, and it gates the first paid order.** Who the merchant
+   is, what the receipt says, and how the 19% inclusive tax passes through. Not a technical
+   question and **not** answered by this sign-off: option B is the accepted direction, but no
+   v2 settlement code should take money until this has an answer.
 
 ## Not in scope
 
