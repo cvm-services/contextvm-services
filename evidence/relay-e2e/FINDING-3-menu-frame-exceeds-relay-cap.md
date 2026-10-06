@@ -49,3 +49,45 @@ deterministic size rejection.
 - Relay-side, if a larger payload is genuinely wanted:
   `maxWebsocketPayloadSize` in strfry.conf + recreate the container (drops live
   clients -- not to be done casually).
+
+---
+
+## CORRECTION (2026-10-06, same day): there are TWO caps, and the smaller one binds
+
+This finding named a real limit but stopped one level too early. Re-verified against
+the MERGED tree with one instance per announced venue (units on `main` `ef963e8`),
+relay2 only:
+
+- doppelt: `initialize` PASS, `tools/list` PASS, `tools/call order` PASS (basket 22.3),
+  `tools/call menu` FAIL (timeout) -> **3/4**
+- pizza: the same shape -> **3/4**
+- control, same tree, `wss://relay.primal.net` only -> **4/4 for BOTH venues**
+
+The relay's own refusal, in our own server journals:
+
+    [venue-cvm] publish warning: invalid: event too large: 66045   (doppelt)
+    [venue-cvm] publish warning: invalid: event too large: 76965   (pizza)
+
+Byte-exact measurement of the reply frames (throwaway key; NIP-44 + kind 1059 + the
+outer EVENT frame):
+
+    all venues (188 items): response 77348 B -> wrap frame 131595 B -> over the WS frame cap
+    doppelt (76 items):     response 35317 B -> wrap frame  66055 B  (event 66045 B)
+    pizza (112 items):      response 42153 B -> wrap frame  76975 B  (event 76965 B)
+
+Two independent limits, and the SMALLER one binds for per-venue menus:
+
+- `maxWebsocketPayloadSize`, default 131072 -- the original `131595 > 131072` line.
+- `maxEventSize`, default **65536** -- the `event too large: 66045` / `76965` lines.
+
+The per-venue frames now clear the frame check (66055 / 76975 < 131072) and are refused
+by the EVENT check -- 509 B and 11 429 B over. Consequences:
+
+- **Code:** a frame-cap-only warning reports "fine" right up until the relay refuses the
+  event, so `RELAY_EVENT_CAP_BYTES = 65536` plus a second, distinct warning now live in
+  `publishToRelays` (server.ts).
+- **Relay:** raising only `maxWebsocketPayloadSize` would have left this failure exactly
+  where it was. Both cap keys must move; the corrected mechanism and the sharpened
+  done-when are recorded on the relay2 infra card (`vps-infra` `t_e4500c96`).
+- **Client-side, nothing remains:** the reply cannot shrink without dropping menu items,
+  and the server is proven correct on a relay that does not impose the 64 KiB default.
