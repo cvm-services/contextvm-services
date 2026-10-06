@@ -1,0 +1,6019 @@
+{
+  "data": {
+    "categories": {
+      "43368": {
+        "description": null,
+        "id": 43368,
+        "image_url": null,
+        "menu_ids": [
+          3872
+        ],
+        "name": "BURGER 🍔",
+        "product_ids": [
+          331226,
+          331227,
+          331228,
+          331229,
+          331230,
+          331259,
+          331260,
+          331261,
+          331262,
+          331231
+        ],
+        "schedule": null,
+        "smart_pricing_rules": [],
+        "sorting_order": 0,
+        "type": "default"
+      },
+      "43369": {
+        "description": null,
+        "id": 43369,
+        "image_url": null,
+        "menu_ids": [
+          3872,
+          7095
+        ],
+        "name": "BEILAGEN 🍟",
+        "product_ids": [
+          331232,
+          331233,
+          331234,
+          331291,
+          331235,
+          331236,
+          331237,
+          331267,
+          331292,
+          331238,
+          334622,
+          334623,
+          334624,
+          331239,
+          334625,
+          331240,
+          334626,
+          334627,
+          369053
+        ],
+        "schedule": null,
+        "smart_pricing_rules": [],
+        "sorting_order": 1,
+        "type": "default"
+      },
+      "43370": {
+        "description": null,
+        "id": 43370,
+        "image_url": null,
+        "menu_ids": [
+          3872
+        ],
+        "name": "SALATE 🥗",
+        "product_ids": [
+          331241
+        ],
+        "schedule": null,
+        "smart_pricing_rules": [],
+        "sorting_order": 2,
+        "type": "default"
+      },
+      "43372": {
+        "description": null,
+        "id": 43372,
+        "image_url": null,
+        "menu_ids": [
+          3872
+        ],
+        "name": "VEGANE BURGER 🍔🌿",
+        "product_ids": [
+          331243,
+          331244,
+          331245,
+          331246,
+          331263,
+          331264,
+          331265,
+          331266
+        ],
+        "schedule": null,
+        "smart_pricing_rules": [],
+        "sorting_order": 4,
+        "type": "default"
+      },
+      "43373": {
+        "description": null,
+        "id": 43373,
+        "image_url": null,
+        "menu_ids": [
+          3872
+        ],
+        "name": "DIPS 🌶",
+        "product_ids": [
+          331248,
+          331249,
+          331250,
+          331251,
+          331252,
+          331253,
+          331254,
+          331255,
+          331256,
+          331257,
+          331258,
+          331268
+        ],
+        "schedule": null,
+        "smart_pricing_rules": [],
+        "sorting_order": 5,
+        "type": "default"
+      },
+      "43375": {
+        "description": null,
+        "id": 43375,
+        "image_url": null,
+        "menu_ids": [
+          3872
+        ],
+        "name": "ALKOHOLFREIE GETRÄNKE 🥤",
+        "product_ids": [
+          331270,
+          331271,
+          331272,
+          331273,
+          331274,
+          331275,
+          331276,
+          331278,
+          331279,
+          331281,
+          331282,
+          331283,
+          331284,
+          331285,
+          331289,
+          331290,
+          369054,
+          369055,
+          369056
+        ],
+        "schedule": null,
+        "smart_pricing_rules": [],
+        "sorting_order": 7,
+        "type": "default"
+      },
+      "64315": {
+        "description": null,
+        "id": 64315,
+        "image_url": null,
+        "menu_ids": [
+          3872
+        ],
+        "name": "Am Beliebtesten",
+        "product_ids": [
+          331227,
+          331233,
+          331230,
+          331235,
+          331243,
+          331246,
+          331234
+        ],
+        "schedule": null,
+        "smart_pricing_rules": [],
+        "sorting_order": -1,
+        "type": "most_popular"
+      },
+      "72099": {
+        "description": "(Alle Sandwiches mit fluffigem Ei, Cocktailsauce & getoastetem Brioche)",
+        "id": 72099,
+        "image_url": null,
+        "menu_ids": [
+          7095
+        ],
+        "name": "Frühstücks-Sandwiches",
+        "product_ids": [
+          550614,
+          550615,
+          550616,
+          550617,
+          550618,
+          550619,
+          550620
+        ],
+        "schedule": null,
+        "smart_pricing_rules": [],
+        "sorting_order": 9,
+        "type": "default"
+      },
+      "73125": {
+        "description": "Die beliebtesten Artikel der letzten 30 Tage",
+        "id": 73125,
+        "image_url": null,
+        "menu_ids": [
+          7095
+        ],
+        "name": "Am Beliebtesten",
+        "product_ids": [
+          331233,
+          331235,
+          331234,
+          331267,
+          331237,
+          334624,
+          331291
+        ],
+        "schedule": null,
+        "smart_pricing_rules": [],
+        "sorting_order": -1,
+        "type": "most_popular"
+      }
+    },
+    "menus": [
+      {
+        "category_ids": [
+          64315,
+          43368,
+          43372,
+          43369,
+          43370,
+          43373,
+          43375,
+          43374,
+          60425
+        ],
+        "id": 3872,
+        "is_active": false,
+        "is_master": false,
+        "name": "Tagesmenü",
+        "schedule": [
+          {
+            "close": {
+              "day": 0,
+              "hour": 21,
+              "minute": 15,
+              "timezone": "Europe/Berlin"
+            },
+            "open": {
+              "day": 0,
+              "hour": 12,
+              "minute": 0,
+              "timezone": "Europe/Berlin"
+            },
+            "timezone": "Europe/Berlin"
+          },
+          {
+            "close": {
+              "day": 1,
+              "hour": 21,
+              "minute": 15,
+              "timezone": "Europe/Berlin"
+            },
+            "open": {
+              "day": 1,
+              "hour": 12,
+              "minute": 0,
+              "timezone": "Europe/Berlin"
+            },
+            "timezone": "Europe/Berlin"
+          },
+          {
+            "close": {
+              "day": 2,
+              "hour": 21,
+              "minute": 15,
+              "timezone": "Europe/Berlin"
+            },
+            "open": {
+              "day": 2,
+              "hour": 12,
+              "minute": 0,
+              "timezone": "Europe/Berlin"
+            },
+            "timezone": "Europe/Berlin"
+          },
+          {
+            "close": {
+              "day": 3,
+              "hour": 21,
+              "minute": 15,
+              "timezone": "Europe/Berlin"
+            },
+            "open": {
+              "day": 3,
+              "hour": 12,
+              "minute": 0,
+              "timezone": "Europe/Berlin"
+            },
+            "timezone": "Europe/Berlin"
+          },
+          {
+            "close": {
+              "day": 4,
+              "hour": 21,
+              "minute": 15,
+              "timezone": "Europe/Berlin"
+            },
+            "open": {
+              "day": 4,
+              "hour": 12,
+              "minute": 0,
+              "timezone": "Europe/Berlin"
+            },
+            "timezone": "Europe/Berlin"
+          },
+          {
+            "close": {
+              "day": 5,
+              "hour": 21,
+              "minute": 15,
+              "timezone": "Europe/Berlin"
+            },
+            "open": {
+              "day": 5,
+              "hour": 12,
+              "minute": 0,
+              "timezone": "Europe/Berlin"
+            },
+            "timezone": "Europe/Berlin"
+          },
+          {
+            "close": {
+              "day": 6,
+              "hour": 21,
+              "minute": 15,
+              "timezone": "Europe/Berlin"
+            },
+            "open": {
+              "day": 6,
+              "hour": 12,
+              "minute": 0,
+              "timezone": "Europe/Berlin"
+            },
+            "timezone": "Europe/Berlin"
+          }
+        ],
+        "smart_pricing_rules": [
+          {
+            "id": 58997,
+            "image_meta": {
+              "generated_at": "2026-06-23T15:31:44+00:00",
+              "is_ai_generated": true,
+              "prompt_template_version": "v1.2"
+            },
+            "image_url": "https://cdn.foodamigos.io/images/LglT920ZmwfLO09tw16OfPyzY47YTvJtQdppO0ry.jpg",
+            "is_global": true,
+            "is_visible": true,
+            "modifier_type": "percentage",
+            "modifier_value": -10,
+            "name": "10% Rabatt auf Abholung über den Webshop",
+            "order_methods": [
+              "pickup"
+            ]
+          }
+        ],
+        "sorting_order": 0
+      },
+      {
+        "category_ids": [
+          73125,
+          72099,
+          43369
+        ],
+        "id": 7095,
+        "is_active": false,
+        "is_master": false,
+        "name": "Frühstücksmenü",
+        "schedule": [
+          {
+            "close": {
+              "day": 0,
+              "hour": 13,
+              "minute": 0,
+              "timezone": "Europe/Berlin"
+            },
+            "open": {
+              "day": 0,
+              "hour": 10,
+              "minute": 0,
+              "timezone": "Europe/Berlin"
+            },
+            "timezone": "Europe/Berlin"
+          },
+          {
+            "close": {
+              "day": 5,
+              "hour": 13,
+              "minute": 0,
+              "timezone": "Europe/Berlin"
+            },
+            "open": {
+              "day": 5,
+              "hour": 9,
+              "minute": 0,
+              "timezone": "Europe/Berlin"
+            },
+            "timezone": "Europe/Berlin"
+          },
+          {
+            "close": {
+              "day": 6,
+              "hour": 13,
+              "minute": 0,
+              "timezone": "Europe/Berlin"
+            },
+            "open": {
+              "day": 6,
+              "hour": 10,
+              "minute": 0,
+              "timezone": "Europe/Berlin"
+            },
+            "timezone": "Europe/Berlin"
+          }
+        ],
+        "smart_pricing_rules": [
+          {
+            "id": 58997,
+            "image_meta": {
+              "generated_at": "2026-06-23T15:31:44+00:00",
+              "is_ai_generated": true,
+              "prompt_template_version": "v1.2"
+            },
+            "image_url": "https://cdn.foodamigos.io/images/LglT920ZmwfLO09tw16OfPyzY47YTvJtQdppO0ry.jpg",
+            "is_global": true,
+            "is_visible": true,
+            "modifier_type": "percentage",
+            "modifier_value": -10,
+            "name": "10% Rabatt auf Abholung über den Webshop",
+            "order_methods": [
+              "pickup"
+            ]
+          }
+        ],
+        "sorting_order": 1
+      }
+    ],
+    "modifier_groups": {
+      "68405": {
+        "id": 68405,
+        "is_required": true,
+        "is_variant": false,
+        "max_count": 1,
+        "modifier_ids": [
+          {
+            "id": 366859,
+            "type": "modifier"
+          },
+          {
+            "id": 366860,
+            "type": "modifier"
+          }
+        ],
+        "multiply": false,
+        "name": "Deine Soße",
+        "type": 1
+      },
+      "68406": {
+        "id": 68406,
+        "is_required": false,
+        "is_variant": false,
+        "max_count": 10,
+        "modifier_ids": [
+          {
+            "id": 366861,
+            "type": "modifier"
+          },
+          {
+            "id": 366862,
+            "type": "modifier"
+          },
+          {
+            "id": 366863,
+            "type": "modifier"
+          },
+          {
+            "id": 366864,
+            "type": "modifier"
+          },
+          {
+            "id": 366865,
+            "type": "modifier"
+          },
+          {
+            "id": 366866,
+            "type": "modifier"
+          },
+          {
+            "id": 366867,
+            "type": "modifier"
+          },
+          {
+            "id": 366868,
+            "type": "modifier"
+          },
+          {
+            "id": 366869,
+            "type": "modifier"
+          },
+          {
+            "id": 366870,
+            "type": "modifier"
+          }
+        ],
+        "multiply": false,
+        "name": "Deine Extras",
+        "type": 1
+      },
+      "68407": {
+        "id": 68407,
+        "is_required": true,
+        "is_variant": false,
+        "max_count": 1,
+        "modifier_ids": [
+          {
+            "id": 366871,
+            "type": "modifier"
+          },
+          {
+            "id": 366872,
+            "type": "modifier"
+          },
+          {
+            "id": 366873,
+            "type": "modifier"
+          }
+        ],
+        "multiply": false,
+        "name": "Deine Größe",
+        "type": 1
+      },
+      "68408": {
+        "id": 68408,
+        "is_required": false,
+        "is_variant": false,
+        "max_count": 1,
+        "modifier_ids": [
+          {
+            "id": 366874,
+            "type": "modifier"
+          }
+        ],
+        "multiply": false,
+        "name": "Dein Sonderwunsch",
+        "type": 1
+      },
+      "69487": {
+        "id": 69487,
+        "is_required": false,
+        "is_variant": false,
+        "max_count": null,
+        "modifier_ids": [
+          {
+            "id": 331232,
+            "type": "product"
+          },
+          {
+            "id": 331233,
+            "type": "product"
+          },
+          {
+            "id": 331228,
+            "type": "product"
+          },
+          {
+            "id": 331261,
+            "type": "product"
+          },
+          {
+            "id": 331291,
+            "type": "product"
+          },
+          {
+            "id": 331240,
+            "type": "product"
+          },
+          {
+            "id": 331241,
+            "type": "product"
+          }
+        ],
+        "multiply": true,
+        "name": "Passt gut dazu",
+        "type": 4
+      }
+    },
+    "modifiers": {
+      "366859": {
+        "base_price": 0,
+        "id": 366859,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "Hausgemachte Burgersoße",
+        "nutrition_info": {
+          "additives_list": [
+            "E330",
+            "E202"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "EIER",
+            "SENF"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Wasser, ZUCKER, SALZ, EIER, SENF, Gewürze (KÜMMEL, PFEFFER)",
+          "nutrition_per_100": {
+            "carbohydrate_g": "5",
+            "energy_kcal": "120",
+            "energy_kj": "500",
+            "fat_g": "10",
+            "protein_g": "1",
+            "salt_g": "1",
+            "saturates_g": "1",
+            "sugars_g": "2"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 0,
+          "dine_in": 0,
+          "pickup": 0,
+          "room_service": 0
+        },
+        "type": "modifier"
+      },
+      "366860": {
+        "base_price": 0.5,
+        "id": 366860,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "Getrüffelte Haussoße",
+        "nutrition_info": {
+          "additives_list": [
+            "E330"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "SENF"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Wasser, ZUCKER, TRÜFFELÖL, SALZ, Gewürze (PFEFFER, KÜMMEL)",
+          "nutrition_per_100": {
+            "carbohydrate_g": "4",
+            "energy_kcal": "130",
+            "energy_kj": "520",
+            "fat_g": "11",
+            "protein_g": "1",
+            "salt_g": "1.2",
+            "saturates_g": "1.5",
+            "sugars_g": "1"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 0.5,
+          "dine_in": 0.5,
+          "pickup": 0.5,
+          "room_service": 0.5
+        },
+        "type": "modifier"
+      },
+      "366861": {
+        "base_price": 3,
+        "id": 366861,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "Fleischpatty",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Rindfleisch, SALZ, PFEFFER",
+          "nutrition_per_100": {
+            "carbohydrate_g": "0",
+            "energy_kcal": "200",
+            "energy_kj": "250",
+            "fat_g": "15",
+            "protein_g": "20",
+            "salt_g": "1",
+            "saturates_g": "6",
+            "sugars_g": "0"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 3,
+          "dine_in": 3,
+          "pickup": 3,
+          "room_service": 3
+        },
+        "type": "modifier"
+      },
+      "366862": {
+        "base_price": 1.1,
+        "id": 366862,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "Speck",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Schweinefleisch, SALZ, PFEFFER",
+          "nutrition_per_100": {
+            "carbohydrate_g": "0",
+            "energy_kcal": "250",
+            "energy_kj": "300",
+            "fat_g": "20",
+            "protein_g": "20",
+            "salt_g": "1.5",
+            "saturates_g": "8",
+            "sugars_g": "0"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 1.1,
+          "dine_in": 1.1,
+          "pickup": 1.1,
+          "room_service": 1.1
+        },
+        "type": "modifier"
+      },
+      "366863": {
+        "base_price": 0.5,
+        "id": 366863,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "Jalapeños",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Jalapeños, SALZ, Essig",
+          "nutrition_per_100": {
+            "carbohydrate_g": "7",
+            "energy_kcal": "35",
+            "energy_kj": "150",
+            "fat_g": "0",
+            "protein_g": "1",
+            "salt_g": "1",
+            "saturates_g": "0",
+            "sugars_g": "2"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 0.5,
+          "dine_in": 0.5,
+          "pickup": 0.5,
+          "room_service": 0.5
+        },
+        "type": "modifier"
+      },
+      "366864": {
+        "base_price": 0.5,
+        "id": 366864,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "Gebratene Zwiebeln",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Zwiebeln, ÖL, SALZ",
+          "nutrition_per_100": {
+            "carbohydrate_g": "10",
+            "energy_kcal": "50",
+            "energy_kj": "200",
+            "fat_g": "3",
+            "protein_g": "1",
+            "salt_g": "0.5",
+            "saturates_g": "0.5",
+            "sugars_g": "2"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 0.5,
+          "dine_in": 0.5,
+          "pickup": 0.5,
+          "room_service": 0.5
+        },
+        "type": "modifier"
+      },
+      "366865": {
+        "base_price": 1.5,
+        "id": 366865,
+        "is_available": false,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "Guacamole",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Avocado, ZITRONENSAFT, SALZ, Zwiebeln, KORIANDER",
+          "nutrition_per_100": {
+            "carbohydrate_g": "5",
+            "energy_kcal": "150",
+            "energy_kj": "600",
+            "fat_g": "15",
+            "protein_g": "2",
+            "salt_g": "0.5",
+            "saturates_g": "2",
+            "sugars_g": "1"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 1.5,
+          "dine_in": 1.5,
+          "pickup": 1.5,
+          "room_service": 1.5
+        },
+        "type": "modifier"
+      },
+      "366866": {
+        "base_price": 1.2,
+        "id": 366866,
+        "is_available": false,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "Gegrilltes Gemüse",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Zucchini, Paprika, Aubergine, ÖL, SALZ",
+          "nutrition_per_100": {
+            "carbohydrate_g": "5",
+            "energy_kcal": "25",
+            "energy_kj": "100",
+            "fat_g": "2",
+            "protein_g": "1",
+            "salt_g": "0.2",
+            "saturates_g": "0.5",
+            "sugars_g": "2"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 1.2,
+          "dine_in": 1.2,
+          "pickup": 1.2,
+          "room_service": 1.2
+        },
+        "type": "modifier"
+      },
+      "366867": {
+        "base_price": 1,
+        "id": 366867,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "Käse",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "MILCH"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "MILCH, SALZ, LAB, Bakterienkulturen",
+          "nutrition_per_100": {
+            "carbohydrate_g": "1",
+            "energy_kcal": "300",
+            "energy_kj": "1200",
+            "fat_g": "25",
+            "protein_g": "20",
+            "salt_g": "1",
+            "saturates_g": "15",
+            "sugars_g": "0"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 1,
+          "dine_in": 1,
+          "pickup": 1,
+          "room_service": 1
+        },
+        "type": "modifier"
+      },
+      "366868": {
+        "base_price": 1.8,
+        "id": 366868,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "Doppelter Käse",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "MILCH"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "MILCH, SALZ, LAB, Bakterienkulturen",
+          "nutrition_per_100": {
+            "carbohydrate_g": "2",
+            "energy_kcal": "600",
+            "energy_kj": "2400",
+            "fat_g": "50",
+            "protein_g": "40",
+            "salt_g": "2",
+            "saturates_g": "30",
+            "sugars_g": "0"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 1.8,
+          "dine_in": 1.8,
+          "pickup": 1.8,
+          "room_service": 1.8
+        },
+        "type": "modifier"
+      },
+      "366869": {
+        "base_price": 1.1,
+        "id": 366869,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "Veganer Käse",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "SOJA"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Wasser, pflanzliche Öle, STÄRKE, SALZ, Bakterienkulturen",
+          "nutrition_per_100": {
+            "carbohydrate_g": "1",
+            "energy_kcal": "300",
+            "energy_kj": "1200",
+            "fat_g": "25",
+            "protein_g": "20",
+            "salt_g": "1",
+            "saturates_g": "15",
+            "sugars_g": "0"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 1.1,
+          "dine_in": 1.1,
+          "pickup": 1.1,
+          "room_service": 1.1
+        },
+        "type": "modifier"
+      },
+      "366870": {
+        "base_price": 1.9,
+        "id": 366870,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "Doppelter veganer Käse",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "SOJA"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Wasser, pflanzliche Öle, STÄRKE, SALZ, Bakterienkulturen",
+          "nutrition_per_100": {
+            "carbohydrate_g": "2",
+            "energy_kcal": "600",
+            "energy_kj": "2400",
+            "fat_g": "50",
+            "protein_g": "40",
+            "salt_g": "2",
+            "saturates_g": "30",
+            "sugars_g": "0"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 1.9,
+          "dine_in": 1.9,
+          "pickup": 1.9,
+          "room_service": 1.9
+        },
+        "type": "modifier"
+      },
+      "366871": {
+        "base_price": 0,
+        "id": 366871,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "6 Stück",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "",
+          "nutrition_per_100": {
+            "carbohydrate_g": "0",
+            "energy_kcal": "0",
+            "energy_kj": "0",
+            "fat_g": "0",
+            "protein_g": "0",
+            "salt_g": "0",
+            "saturates_g": "0",
+            "sugars_g": "0"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 0,
+          "dine_in": 0,
+          "pickup": 0,
+          "room_service": 0
+        },
+        "type": "modifier"
+      },
+      "366872": {
+        "base_price": 2.5,
+        "id": 366872,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "9 Stück",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "",
+          "nutrition_per_100": {
+            "carbohydrate_g": "0",
+            "energy_kcal": "0",
+            "energy_kj": "0",
+            "fat_g": "0",
+            "protein_g": "0",
+            "salt_g": "0",
+            "saturates_g": "0",
+            "sugars_g": "0"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 2.5,
+          "dine_in": 2.5,
+          "pickup": 2.5,
+          "room_service": 2.5
+        },
+        "type": "modifier"
+      },
+      "366873": {
+        "base_price": 4.5,
+        "id": 366873,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "12 Stück",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "",
+          "nutrition_per_100": {
+            "carbohydrate_g": "0",
+            "energy_kcal": "0",
+            "energy_kj": "0",
+            "fat_g": "0",
+            "protein_g": "0",
+            "salt_g": "0",
+            "saturates_g": "0",
+            "sugars_g": "0"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 4.5,
+          "dine_in": 4.5,
+          "pickup": 4.5,
+          "room_service": 4.5
+        },
+        "type": "modifier"
+      },
+      "366874": {
+        "base_price": 1,
+        "id": 366874,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "Veganer Käse",
+        "nutrition_info": {
+          "additives_list": [
+            "Xanthan",
+            "Beta-Carotin"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "SOJA",
+            "KOKOSNUSS"
+          ],
+          "brand_or_manufacturer": "Unbekannt",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "WASSER, pflanzliche Öle (KOKOS, RAPS), STÄRKE, MODIFIZIERTE STÄRKE, SALZ, AROMEN, Säureregulator (Zitronensäure), Verdickungsmittel (Xanthan), Färbemittel (Beta-Carotin).",
+          "nutrition_per_100": {
+            "carbohydrate_g": "5",
+            "energy_kcal": "288",
+            "energy_kj": "1200",
+            "fat_g": "24",
+            "protein_g": "1",
+            "salt_g": "1",
+            "saturates_g": "20",
+            "sugars_g": "1"
+          },
+          "packaging_material": "",
+          "packaging_type": "prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 1,
+          "dine_in": 1,
+          "pickup": 1,
+          "room_service": 1
+        },
+        "type": "modifier"
+      }
+    },
+    "products": {
+      "331226": {
+        "base_price": 8.5,
+        "category_ids": [
+          43368
+        ],
+        "description": "mit Salat, Tomaten, gebratenen Zwiebeln und einer Soße deiner Wahl",
+        "id": 331226,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/3IMExHpdRJjIO0Oe6d4kN9Lo3xySGy2rZhx80q3w.jpg",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 7,
+        "modifier_group_ids": [
+          68405,
+          68406
+        ],
+        "name": "Hamburger",
+        "nutrition_info": {
+          "additives_list": [
+            "E300",
+            "E202"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "GLUTEN",
+            "MILCH",
+            "EI"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Rindfleisch, Salat, Tomaten, Zwiebeln, Soße, Brötchen",
+          "nutrition_per_100": {
+            "carbohydrate_g": "19",
+            "energy_kcal": "260",
+            "energy_kj": "1100",
+            "fat_g": "18",
+            "protein_g": "14",
+            "salt_g": "1.4",
+            "saturates_g": "9",
+            "sugars_g": "4"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 8.5,
+          "dine_in": 8.5,
+          "pickup": 7.9,
+          "room_service": 8.5
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/3IMExHpdRJjIO0Oe6d4kN9Lo3xySGy2rZhx80q3w-thumbnail.jpg",
+        "type": "product"
+      },
+      "331227": {
+        "base_price": 9.5,
+        "category_ids": [
+          64315,
+          43368
+        ],
+        "description": "mit doppeltem Käse, gebratenen Zwiebeln und einer Soße deiner Wahl",
+        "id": 331227,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/8V9PWhzwc9dacpgEOUWqSGTP6BpvYo1cQSoxxPGL.jpg",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 46,
+        "modifier_group_ids": [
+          68405,
+          68406
+        ],
+        "name": "Cheeseburger",
+        "nutrition_info": {
+          "additives_list": [
+            "E300",
+            "E202"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "GLUTEN",
+            "MILCH",
+            "EI"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Rindfleisch, KÄSE, Zwiebeln, Soße, Brötchen",
+          "nutrition_per_100": {
+            "carbohydrate_g": "20",
+            "energy_kcal": "286",
+            "energy_kj": "1200",
+            "fat_g": "20",
+            "protein_g": "15",
+            "salt_g": "1.5",
+            "saturates_g": "10",
+            "sugars_g": "5"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 9.5,
+          "dine_in": 9.5,
+          "pickup": 8.9,
+          "room_service": 9.5
+        },
+        "popularity_rank": 1,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/8V9PWhzwc9dacpgEOUWqSGTP6BpvYo1cQSoxxPGL-thumbnail.jpg",
+        "type": "product"
+      },
+      "331228": {
+        "base_price": 9.9,
+        "category_ids": [
+          43368
+        ],
+        "description": "mit doppeltem Käse, hausgemachten Röstzwiebeln und hausgemachter Barbecuesoße",
+        "id": 331228,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/S1GMBy1fhwcj0hkTTvYcybStlXKcVbCTZbjt2uGr.jpg",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 12,
+        "modifier_group_ids": [
+          68406
+        ],
+        "name": "BBQ Burger",
+        "nutrition_info": {
+          "additives_list": [
+            "E300",
+            "E202"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "GLUTEN",
+            "MILCH",
+            "EI"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Rindfleisch, KÄSE, Zwiebeln, Barbecuesoße, Brötchen",
+          "nutrition_per_100": {
+            "carbohydrate_g": "21",
+            "energy_kcal": "275",
+            "energy_kj": "1150",
+            "fat_g": "19",
+            "protein_g": "15",
+            "salt_g": "1.3",
+            "saturates_g": "10",
+            "sugars_g": "7"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 9.9,
+          "dine_in": 9.9,
+          "pickup": 9.5,
+          "room_service": 9.9
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/S1GMBy1fhwcj0hkTTvYcybStlXKcVbCTZbjt2uGr-thumbnail.jpg",
+        "type": "product"
+      },
+      "331229": {
+        "base_price": 10.9,
+        "category_ids": [
+          43368
+        ],
+        "description": "leicht scharf\r\nmit doppeltem Käse, Salat, Tomaten, Jalapeños, gebratenen Zwiebeln und hausgemachter Burgersoße",
+        "id": 331229,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/RZezJLg4YMUmQPSKY2s9pgXnOib0XOkWX6zFsnvM.jpg",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 8,
+        "modifier_group_ids": [
+          68406
+        ],
+        "name": "Chili-Cheeseburger",
+        "nutrition_info": {
+          "additives_list": [
+            "E300",
+            "E202"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "GLUTEN",
+            "MILCH",
+            "EI"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Rindfleisch, KÄSE, Jalapeños, Salat, Tomaten, Zwiebeln, Soße, Brötchen",
+          "nutrition_per_100": {
+            "carbohydrate_g": "20",
+            "energy_kcal": "300",
+            "energy_kj": "1250",
+            "fat_g": "21",
+            "protein_g": "16",
+            "salt_g": "1.5",
+            "saturates_g": "11",
+            "sugars_g": "5"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 10.9,
+          "dine_in": 10.9,
+          "pickup": 9.5,
+          "room_service": 10.9
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/RZezJLg4YMUmQPSKY2s9pgXnOib0XOkWX6zFsnvM-thumbnail.jpg",
+        "type": "product"
+      },
+      "331230": {
+        "base_price": 11.5,
+        "category_ids": [
+          64315,
+          43368
+        ],
+        "description": "mit doppeltem Fleisch, doppeltem Käse, Salat, Tomaten,  hausgemachten Röstzwiebeln und getrüffelter Haussoße",
+        "id": 331230,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/JpC5OVrgV4fz693O6xFBs9TNliEMbGuxwy7EObej.jpg",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 26,
+        "modifier_group_ids": [
+          68406
+        ],
+        "name": "Der Doppelt Käse-Burger",
+        "nutrition_info": {
+          "additives_list": [
+            "E300",
+            "E202"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "GLUTEN",
+            "MILCH",
+            "EI"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Rindfleisch, KÄSE, Salat, Tomaten, Zwiebeln, Soße, Brötchen",
+          "nutrition_per_100": {
+            "carbohydrate_g": "22",
+            "energy_kcal": "310",
+            "energy_kj": "1300",
+            "fat_g": "22",
+            "protein_g": "18",
+            "salt_g": "1.6",
+            "saturates_g": "12",
+            "sugars_g": "6"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 11.5,
+          "dine_in": 11.5,
+          "pickup": 10.9,
+          "room_service": 11.5
+        },
+        "popularity_rank": 3,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/JpC5OVrgV4fz693O6xFBs9TNliEMbGuxwy7EObej-thumbnail.jpg",
+        "type": "product"
+      },
+      "331231": {
+        "base_price": 9.5,
+        "category_ids": [
+          43368
+        ],
+        "description": "mit doppeltem Käse, buntem Krautsalat und hausgemachter Burgersoße",
+        "id": 331231,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/yFGN33f5xP7FFZEwtfOjicL81701Dhb0eOvItdOH.jpg",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 11,
+        "modifier_group_ids": [
+          68406
+        ],
+        "name": "Chicken Burger",
+        "nutrition_info": {
+          "additives_list": [
+            "E330",
+            "E202"
+          ],
+          "allergens_list": [
+            "GLUTEN",
+            "MILCH",
+            "EI"
+          ],
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Hähnchenfleisch, KÄSE, Krautsalat, Burgersoße",
+          "nutrition_per_100": {
+            "carbohydrate_g": "40",
+            "energy_kcal": "480",
+            "energy_kj": "2000",
+            "fat_g": "25",
+            "protein_g": "20",
+            "salt_g": "1.5",
+            "saturates_g": "10",
+            "sugars_g": "5"
+          },
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 9.5,
+          "dine_in": 9.5,
+          "pickup": 8.5,
+          "room_service": 9.5
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/yFGN33f5xP7FFZEwtfOjicL81701Dhb0eOvItdOH-thumbnail.jpg",
+        "type": "product"
+      },
+      "331232": {
+        "base_price": 4.2,
+        "category_ids": [
+          43369
+        ],
+        "description": null,
+        "id": 331232,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/YTil0hqwc5d2Uxnq12ZaWQdbuQ2Hax0Lpyee1Poo.jpg",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 14,
+        "modifier_group_ids": [],
+        "name": "Pommes frites",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "GLUTEN"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Kartoffeln, Pflanzenöl, Gewürze",
+          "nutrition_per_100": {
+            "carbohydrate_g": "50",
+            "energy_kcal": "340",
+            "energy_kj": "1400",
+            "fat_g": "15",
+            "protein_g": "3",
+            "salt_g": "0.4",
+            "saturates_g": "1",
+            "sugars_g": "1"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 4.2,
+          "dine_in": 4.2,
+          "pickup": 3.9,
+          "room_service": 4.2
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/YTil0hqwc5d2Uxnq12ZaWQdbuQ2Hax0Lpyee1Poo-thumbnail.jpg",
+        "type": "product"
+      },
+      "331233": {
+        "base_price": 4.9,
+        "category_ids": [
+          73125,
+          43369,
+          64315
+        ],
+        "description": null,
+        "id": 331233,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/2fIJH6hdxIcUwwBBV269EZLHKlAtIOt5EIzhMAKy.jpg",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 11,
+        "modifier_group_ids": [],
+        "name": "Curly Fries",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "GLUTEN"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Kartoffeln, Pflanzenöl, Gewürze",
+          "nutrition_per_100": {
+            "carbohydrate_g": "40",
+            "energy_kcal": "360",
+            "energy_kj": "1500",
+            "fat_g": "20",
+            "protein_g": "3",
+            "salt_g": "0.5",
+            "saturates_g": "2",
+            "sugars_g": "1"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 4.9,
+          "dine_in": 4.9,
+          "pickup": 4.5,
+          "room_service": 4.9
+        },
+        "popularity_rank": 1,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/2fIJH6hdxIcUwwBBV269EZLHKlAtIOt5EIzhMAKy-thumbnail.jpg",
+        "type": "product"
+      },
+      "331234": {
+        "base_price": 5.2,
+        "category_ids": [
+          43369,
+          73125,
+          64315
+        ],
+        "description": null,
+        "id": 331234,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/sZVbuqzHmB0rzUcVEYbyl4NtmXaRYba80EkccGo3.jpg",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 8,
+        "modifier_group_ids": [],
+        "name": "Süßkartoffel-Pommes",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "GLUTEN"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Süßkartoffeln, Pflanzenöl, Gewürze",
+          "nutrition_per_100": {
+            "carbohydrate_g": "50",
+            "energy_kcal": "380",
+            "energy_kj": "1600",
+            "fat_g": "18",
+            "protein_g": "4",
+            "salt_g": "0.5",
+            "saturates_g": "1",
+            "sugars_g": "10"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 5.2,
+          "dine_in": 5.2,
+          "pickup": 4.9,
+          "room_service": 5.2
+        },
+        "popularity_rank": 3,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/sZVbuqzHmB0rzUcVEYbyl4NtmXaRYba80EkccGo3-thumbnail.jpg",
+        "type": "product"
+      },
+      "331235": {
+        "base_price": 7.5,
+        "category_ids": [
+          73125,
+          64315,
+          43369
+        ],
+        "description": "mit Trüffelmayonnaise",
+        "id": 331235,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/dawJNT1kSXzTPp95B9UanWjsbMncj4OPbE64U29v.jpg",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 14,
+        "modifier_group_ids": [],
+        "name": "Parmesan Pommes frites",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "GLUTEN",
+            "MILCH",
+            "EI"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Kartoffeln, PARMESAN, Trüffelmayonnaise",
+          "nutrition_per_100": {
+            "carbohydrate_g": "35",
+            "energy_kcal": "400",
+            "energy_kj": "1700",
+            "fat_g": "22",
+            "protein_g": "6",
+            "salt_g": "1.2",
+            "saturates_g": "5",
+            "sugars_g": "2"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 7.5,
+          "dine_in": 7.5,
+          "pickup": 6.8,
+          "room_service": 7.5
+        },
+        "popularity_rank": 2,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/dawJNT1kSXzTPp95B9UanWjsbMncj4OPbE64U29v-thumbnail.jpg",
+        "type": "product"
+      },
+      "331236": {
+        "base_price": 7.5,
+        "category_ids": [
+          43369
+        ],
+        "description": "mit Salsa",
+        "id": 331236,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/YosSxYDHq5DtqSek8wAh6GVS7VlJBvFnHQkAQPYs.jpg",
+        "is_available": false,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 1,
+        "modifier_group_ids": [],
+        "name": "Guacamole Pommes frites",
+        "nutrition_info": {
+          "allergens_list": [
+            "AVOCADO"
+          ],
+          "brand_or_manufacturer": "Estimated Brand",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Pommes frites, AVOCADO, TOMATEN, Zwiebeln, Koriander, LIMETTensaft, SALZ.",
+          "nutrition_per_100": {
+            "carbohydrate_g": "30",
+            "energy_kcal": "260",
+            "energy_kj": "1100",
+            "fat_g": "15",
+            "protein_g": "3",
+            "salt_g": "1.5",
+            "saturates_g": "2",
+            "sugars_g": "1"
+          },
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 7.5,
+          "dine_in": 7.5,
+          "pickup": 6.8,
+          "room_service": 7.5
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/YosSxYDHq5DtqSek8wAh6GVS7VlJBvFnHQkAQPYs-thumbnail.jpg",
+        "type": "product"
+      },
+      "331237": {
+        "base_price": 7.5,
+        "category_ids": [
+          73125,
+          43369
+        ],
+        "description": null,
+        "id": 331237,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/U4H3n3FIlu3AZ8OFH0ieSsPKWJLhVVhfZKJVBVZF.jpg",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 0,
+        "modifier_group_ids": [],
+        "name": "Chili Cheese Pommes frites",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "MILCH"
+          ],
+          "brand_or_manufacturer": "Estimated Brand",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Pommes frites, KÄSE, CHILI, Gewürze, SALZ.",
+          "nutrition_per_100": {
+            "carbohydrate_g": "30",
+            "energy_kcal": "270",
+            "energy_kj": "1100",
+            "fat_g": "15",
+            "protein_g": "5",
+            "salt_g": "1.5",
+            "saturates_g": "6",
+            "sugars_g": "2"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 7.5,
+          "dine_in": 7.5,
+          "pickup": 6.8,
+          "room_service": 7.5
+        },
+        "popularity_rank": 5,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/U4H3n3FIlu3AZ8OFH0ieSsPKWJLhVVhfZKJVBVZF-thumbnail.jpg",
+        "type": "product"
+      },
+      "331238": {
+        "base_price": 6.5,
+        "category_ids": [
+          43369
+        ],
+        "description": null,
+        "id": 331238,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/vjzRiRelCyCJw7gMugMHKC941eBLkmnQdW2kA0u6.jpg",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 4,
+        "modifier_group_ids": [],
+        "name": "Chicken Wings 6 Stück",
+        "nutrition_info": {
+          "additives_list": [
+            "E300"
+          ],
+          "allergens_list": [
+            "WEIZEN",
+            "EI"
+          ],
+          "brand_or_manufacturer": "Estimated Brand",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Hühnchenflügel, WEIZENMEHL, EIER, Pflanzenöl, Gewürze, SALZ.",
+          "nutrition_per_100": {
+            "carbohydrate_g": "10",
+            "energy_kcal": "290",
+            "energy_kj": "1200",
+            "fat_g": "20",
+            "protein_g": "25",
+            "salt_g": "1.8",
+            "saturates_g": "5",
+            "sugars_g": "0"
+          },
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 6.5,
+          "dine_in": 6.5,
+          "pickup": 6,
+          "room_service": 6.5
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/vjzRiRelCyCJw7gMugMHKC941eBLkmnQdW2kA0u6-thumbnail.jpg",
+        "type": "product"
+      },
+      "331239": {
+        "base_price": 9.9,
+        "category_ids": [
+          43369
+        ],
+        "description": null,
+        "id": 331239,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/pjTT1HplNMqhvkW97WSftJYMxdc1GfjhHrHvfwYX.jpg",
+        "is_available": false,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 2,
+        "modifier_group_ids": [],
+        "name": "Chicken Fingers 9 Stück",
+        "nutrition_info": {
+          "additives_list": [
+            "E300",
+            "E450"
+          ],
+          "allergens_list": [
+            "WEIZEN",
+            "EI"
+          ],
+          "brand_or_manufacturer": "Estimated Brand",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Hühnchenfleisch, WEIZENMEHL, EIER, Pflanzenöl, Gewürze, SALZ.",
+          "nutrition_per_100": {
+            "carbohydrate_g": "20",
+            "energy_kcal": "240",
+            "energy_kj": "1000",
+            "fat_g": "12",
+            "protein_g": "15",
+            "salt_g": "1.5",
+            "saturates_g": "3",
+            "sugars_g": "1"
+          },
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 9.9,
+          "dine_in": 9.9,
+          "pickup": 9,
+          "room_service": 9.9
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/pjTT1HplNMqhvkW97WSftJYMxdc1GfjhHrHvfwYX-thumbnail.jpg",
+        "type": "product"
+      },
+      "331240": {
+        "base_price": 7,
+        "category_ids": [
+          43369
+        ],
+        "description": null,
+        "id": 331240,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/AKH72fefZWuFSjNuGBupADCdiGbd8f7YU3f35g0j.jpg",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 2,
+        "modifier_group_ids": [],
+        "name": "Onion Rings 6 Stück",
+        "nutrition_info": {
+          "additives_list": [
+            "E300"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "WEIZEN",
+            "EI"
+          ],
+          "brand_or_manufacturer": "Estimated Brand",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "ZWIEBELN, WEIZENMEHL, EIER, Pflanzenöl, Gewürze, SALZ.",
+          "nutrition_per_100": {
+            "carbohydrate_g": "30",
+            "energy_kcal": "220",
+            "energy_kj": "900",
+            "fat_g": "10",
+            "protein_g": "3",
+            "salt_g": "1.2",
+            "saturates_g": "1",
+            "sugars_g": "2"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 7,
+          "dine_in": 7,
+          "pickup": 6.3,
+          "room_service": 7
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/AKH72fefZWuFSjNuGBupADCdiGbd8f7YU3f35g0j-thumbnail.jpg",
+        "type": "product"
+      },
+      "331241": {
+        "base_price": 9,
+        "category_ids": [
+          43370
+        ],
+        "description": "Romanasalat mit Tomaten, Croutons, Parmesan und Caesar-Dressing",
+        "id": 331241,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/p853rKnlubVQkCtcbths26yGw6hpUgyOz6EWo0uE.jpg",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 1,
+        "modifier_group_ids": [],
+        "name": "Caesar-Salat",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "GLUTEN",
+            "MILCH"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "ROMANASALAT, TOMATEN, CRACKERS, PARMESAN, DRESSING (Öl, Essig, Gewürze)",
+          "nutrition_per_100": {
+            "carbohydrate_g": "5",
+            "energy_kcal": "35",
+            "energy_kj": "150",
+            "fat_g": "2",
+            "protein_g": "1",
+            "salt_g": "0.5",
+            "saturates_g": "0.5",
+            "sugars_g": "1"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 9,
+          "dine_in": 9,
+          "pickup": 8.1,
+          "room_service": 9
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/p853rKnlubVQkCtcbths26yGw6hpUgyOz6EWo0uE-thumbnail.jpg",
+        "type": "product"
+      },
+      "331243": {
+        "base_price": 10.2,
+        "category_ids": [
+          64315,
+          43372
+        ],
+        "description": "mit Salat, Tomaten, Gurken, gebratenen Zwiebeln und hausgemachter veganer Burgersoße",
+        "id": 331243,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/q4MR5OYbhXiqhGSlyJySfzKxSzfqERAv0DDGtdCJ.jpg",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 14,
+        "modifier_group_ids": [
+          68408,
+          68406
+        ],
+        "name": "Beyond Meat-Burger",
+        "nutrition_info": {
+          "additives_list": [
+            "Xanthan"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "SOJA",
+            "GLUTEN"
+          ],
+          "brand_or_manufacturer": "Beyond Meat",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Wasser, ERBSENPROTEIN, Zwiebeln, Gurken, TOMATEN, Gewürze, Öl, Salz, Zucker, Verdickungsmittel (Xanthan)",
+          "nutrition_per_100": {
+            "carbohydrate_g": "19",
+            "energy_kcal": "288",
+            "energy_kj": "1200",
+            "fat_g": "18",
+            "protein_g": "15",
+            "salt_g": "1",
+            "saturates_g": "3",
+            "sugars_g": "2"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 10.2,
+          "dine_in": 10.2,
+          "pickup": 9.9,
+          "room_service": 10.2
+        },
+        "popularity_rank": 5,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/q4MR5OYbhXiqhGSlyJySfzKxSzfqERAv0DDGtdCJ-thumbnail.jpg",
+        "type": "product"
+      },
+      "331244": {
+        "base_price": 11.5,
+        "category_ids": [
+          43372
+        ],
+        "description": "mit frischer Gemüse-Ratatouille, Salat, Tomaten, Gurken, gebratenen Zwiebeln und hausgemachter veganer Burgersoße",
+        "id": 331244,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/dKnWuFtqQKQaSQGeM9Nlk4mzAyXnkWK7afIHdEDG.jpg",
+        "is_available": false,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 1,
+        "modifier_group_ids": [
+          68406
+        ],
+        "name": "Ratatouille Burger",
+        "nutrition_info": {
+          "additives_list": [
+            "Xanthan"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "SOJA",
+            "GLUTEN"
+          ],
+          "brand_or_manufacturer": "Beyond Meat",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Wasser, ERBSENPROTEIN, Zwiebeln, TOMATEN, Gurken, Gewürze, Öl, SALAT, ZUCKER, Verdickungsmittel (Xanthan)",
+          "nutrition_per_100": {
+            "carbohydrate_g": "19",
+            "energy_kcal": "288",
+            "energy_kj": "1200",
+            "fat_g": "18",
+            "protein_g": "15",
+            "salt_g": "1",
+            "saturates_g": "3",
+            "sugars_g": "2"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 11.5,
+          "dine_in": 11.5,
+          "pickup": 11.5,
+          "room_service": 11.5
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/dKnWuFtqQKQaSQGeM9Nlk4mzAyXnkWK7afIHdEDG-thumbnail.jpg",
+        "type": "product"
+      },
+      "331245": {
+        "base_price": 10.2,
+        "category_ids": [
+          43372
+        ],
+        "description": "mit Gurken, hausgemachten Röstzwiebeln und hausgemachter Barbecuesoße",
+        "id": 331245,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/F43g1IUVPAD069SyUdFJyYdaLTswlYOr2PJPlwvv.jpg",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 9,
+        "modifier_group_ids": [
+          68406
+        ],
+        "name": "Beyond BBQ-Burger",
+        "nutrition_info": {
+          "additives_list": [
+            "Xanthan"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "SOJA",
+            "GLUTEN"
+          ],
+          "brand_or_manufacturer": "Beyond Meat",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Wasser, ERBSENPROTEIN, Zwiebeln, Gurken, Gewürze, Öl, Salz, Zucker, Verdickungsmittel (Xanthan)",
+          "nutrition_per_100": {
+            "carbohydrate_g": "19",
+            "energy_kcal": "288",
+            "energy_kj": "1200",
+            "fat_g": "18",
+            "protein_g": "15",
+            "salt_g": "1",
+            "saturates_g": "3",
+            "sugars_g": "2"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 10.2,
+          "dine_in": 10.2,
+          "pickup": 9.9,
+          "room_service": 10.2
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/F43g1IUVPAD069SyUdFJyYdaLTswlYOr2PJPlwvv-thumbnail.jpg",
+        "type": "product"
+      },
+      "331246": {
+        "base_price": 10.6,
+        "category_ids": [
+          64315,
+          43372
+        ],
+        "description": "leicht scharf\r\nmit Salat, Tomaten, Jalapeños, gebratenen Zwiebeln und hausgemachter veganer Burgersoße",
+        "id": 331246,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/4BCrz053cdbCp0ifp9MqQIamW8DUaJkYsGpEV60b.jpg",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 15,
+        "modifier_group_ids": [
+          68406
+        ],
+        "name": "Beyond Chili-Cheeseburger",
+        "nutrition_info": {
+          "additives_list": [
+            "Xanthan"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "SOJA",
+            "GLUTEN"
+          ],
+          "brand_or_manufacturer": "Beyond Meat",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Wasser, ERBSENPROTEIN, Zwiebeln, Jalapeños, TOMATEN, Gewürze, Öl, Salz, Zucker, Verdickungsmittel (Xanthan)",
+          "nutrition_per_100": {
+            "carbohydrate_g": "19",
+            "energy_kcal": "288",
+            "energy_kj": "1200",
+            "fat_g": "18",
+            "protein_g": "15",
+            "salt_g": "1",
+            "saturates_g": "3",
+            "sugars_g": "2"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 10.6,
+          "dine_in": 10.6,
+          "pickup": 10.2,
+          "room_service": 10.6
+        },
+        "popularity_rank": 6,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/4BCrz053cdbCp0ifp9MqQIamW8DUaJkYsGpEV60b-thumbnail.jpg",
+        "type": "product"
+      },
+      "331248": {
+        "base_price": 1,
+        "category_ids": [
+          43373
+        ],
+        "description": null,
+        "id": 331248,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/5VoXI7XPOJz2NJiLwvd8PBWBXG0XF4xArsvZD6vz.jpg",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 0,
+        "modifier_group_ids": [],
+        "name": "Burgersoße",
+        "nutrition_info": {
+          "additives_list": [
+            "Konservierungsstoffe"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "EIER",
+            "SENF"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "WASSER, ÖL, EGG, SALZ, ZUCKER, SENF, WEISSWEINESSIG, Gewürze (PFEFFER, Zwiebelpulver)",
+          "nutrition_per_100": {
+            "carbohydrate_g": "6",
+            "energy_kcal": "330",
+            "energy_kj": "1400",
+            "fat_g": "30",
+            "protein_g": "1",
+            "salt_g": "1.5",
+            "saturates_g": "4",
+            "sugars_g": "2"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 1,
+          "dine_in": 1,
+          "pickup": 0.9,
+          "room_service": 1
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/5VoXI7XPOJz2NJiLwvd8PBWBXG0XF4xArsvZD6vz-thumbnail.jpg",
+        "type": "product"
+      },
+      "331249": {
+        "base_price": 1.5,
+        "category_ids": [
+          43373
+        ],
+        "description": null,
+        "id": 331249,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/9FfxKbLJLiYMxEL8H8hhfbbitAzJUsb3lT3Q9LyJ.jpg",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 1,
+        "modifier_group_ids": [],
+        "name": "Getrüffelte Haussoße",
+        "nutrition_info": {
+          "additives_list": [
+            "Konservierungsstoffe"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "EIER",
+            "SENF"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "WASSER, ÖL, TRÜFFELÖL, EGG, SALZ, ZUCKER, SENF, WEISSWEINESSIG, Gewürze (Kreuzkümmel, PFEFFER, Zwiebelpulver)",
+          "nutrition_per_100": {
+            "carbohydrate_g": "5",
+            "energy_kcal": "360",
+            "energy_kj": "1500",
+            "fat_g": "35",
+            "protein_g": "2",
+            "salt_g": "1",
+            "saturates_g": "5",
+            "sugars_g": "1"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 1.5,
+          "dine_in": 1.5,
+          "pickup": 1.4,
+          "room_service": 1.5
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/9FfxKbLJLiYMxEL8H8hhfbbitAzJUsb3lT3Q9LyJ-thumbnail.jpg",
+        "type": "product"
+      },
+      "331250": {
+        "base_price": 0.5,
+        "category_ids": [
+          43373
+        ],
+        "description": null,
+        "id": 331250,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/L9nCApGVbtQJj81guwdSazDsdfmMAzOrGYKtJq2t.jpg",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 2,
+        "modifier_group_ids": [],
+        "name": "Ketchup",
+        "nutrition_info": {
+          "additives_list": [
+            "Konservierungsstoffe"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "TOMATEN, ZUCKER, WEINESSIG, SALZ, Gewürze (PFEFFER, Zwiebelpulver)",
+          "nutrition_per_100": {
+            "carbohydrate_g": "28",
+            "energy_kcal": "120",
+            "energy_kj": "500",
+            "fat_g": "0.2",
+            "protein_g": "1",
+            "salt_g": "1",
+            "saturates_g": "0",
+            "sugars_g": "24"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 0.5,
+          "dine_in": 0.5,
+          "pickup": 0.5,
+          "room_service": 0.5
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/L9nCApGVbtQJj81guwdSazDsdfmMAzOrGYKtJq2t-thumbnail.jpg",
+        "type": "product"
+      },
+      "331251": {
+        "base_price": 0.5,
+        "category_ids": [
+          43373
+        ],
+        "description": null,
+        "id": 331251,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/ZWsSHIGRB5tDOhrCbKR8wMEFT5Iv3ypj3bwmJ68k.jpg",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 1,
+        "modifier_group_ids": [],
+        "name": "Mayonnaise",
+        "nutrition_info": {
+          "additives_list": [
+            "Konservierungsstoffe"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "EIER",
+            "SENF"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "ÖL, EGG, WEINESSIG, SALZ, ZUCKER, SENF, Gewürze",
+          "nutrition_per_100": {
+            "carbohydrate_g": "1",
+            "energy_kcal": "360",
+            "energy_kj": "1500",
+            "fat_g": "40",
+            "protein_g": "1",
+            "salt_g": "1",
+            "saturates_g": "5",
+            "sugars_g": "0"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 0.5,
+          "dine_in": 0.5,
+          "pickup": 0.5,
+          "room_service": 0.5
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/ZWsSHIGRB5tDOhrCbKR8wMEFT5Iv3ypj3bwmJ68k-thumbnail.jpg",
+        "type": "product"
+      },
+      "331252": {
+        "base_price": 1.5,
+        "category_ids": [
+          43373
+        ],
+        "description": null,
+        "id": 331252,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/wHMLh9fn5HelWAdyb36K6A93xx3BehxuTU69Mzao.jpg",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 1,
+        "modifier_group_ids": [],
+        "name": "Vegane Mayonnaise",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "SOJA"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Öl, SOJA, Essig, Gewürze",
+          "nutrition_per_100": {
+            "carbohydrate_g": "1",
+            "energy_kcal": "480",
+            "energy_kj": "2000",
+            "fat_g": "50",
+            "protein_g": "1",
+            "salt_g": "0.5",
+            "saturates_g": "5",
+            "sugars_g": "0"
+          },
+          "packaging_material": "",
+          "packaging_type": "prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 1.5,
+          "dine_in": 1.5,
+          "pickup": 1.4,
+          "room_service": 1.5
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/wHMLh9fn5HelWAdyb36K6A93xx3BehxuTU69Mzao-thumbnail.jpg",
+        "type": "product"
+      },
+      "331253": {
+        "base_price": 1,
+        "category_ids": [
+          43373
+        ],
+        "description": null,
+        "id": 331253,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/00sfzTClENHfObNPh1jxY0dX5CHpJbLxEzin9muK.jpg",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 0,
+        "modifier_group_ids": [],
+        "name": "Barbecuesoße",
+        "nutrition_info": {
+          "additives_list": [
+            "E202"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "SOJA"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Tomaten, Zucker, Essig, Gewürze, SOJA",
+          "nutrition_per_100": {
+            "carbohydrate_g": "40",
+            "energy_kcal": "170",
+            "energy_kj": "700",
+            "fat_g": "0",
+            "protein_g": "1",
+            "salt_g": "1",
+            "saturates_g": "0",
+            "sugars_g": "30"
+          },
+          "packaging_material": "",
+          "packaging_type": "prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 1,
+          "dine_in": 1,
+          "pickup": 0.9,
+          "room_service": 1
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/00sfzTClENHfObNPh1jxY0dX5CHpJbLxEzin9muK-thumbnail.jpg",
+        "type": "product"
+      },
+      "331254": {
+        "base_price": 3,
+        "category_ids": [
+          43373
+        ],
+        "description": null,
+        "id": 331254,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/8Gw9Vb8RaWgj7WQNSyWT7h5ACYO0EvvHrSb1D1wA.jpg",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 1,
+        "modifier_group_ids": [],
+        "name": "Käsesoße",
+        "nutrition_info": {
+          "additives_list": [
+            "E202"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "MILCH"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Käse, MILCH, SALZ, Gewürze",
+          "nutrition_per_100": {
+            "carbohydrate_g": "5",
+            "energy_kcal": "360",
+            "energy_kj": "1500",
+            "fat_g": "30",
+            "protein_g": "20",
+            "salt_g": "1",
+            "saturates_g": "15",
+            "sugars_g": "1"
+          },
+          "packaging_material": "",
+          "packaging_type": "prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 3,
+          "dine_in": 3,
+          "pickup": 2.7,
+          "room_service": 3
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/8Gw9Vb8RaWgj7WQNSyWT7h5ACYO0EvvHrSb1D1wA-thumbnail.jpg",
+        "type": "product"
+      },
+      "331255": {
+        "base_price": 1,
+        "category_ids": [
+          43373
+        ],
+        "description": null,
+        "id": 331255,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/ux2q3FOXU96m1zc1c2fD5LFfBKo7Oh9xKDeOsOzK.jpg",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 0,
+        "modifier_group_ids": [],
+        "name": "Sour Cream",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "MILCH"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "MILCH, SAHNE, SALZ, Bakterienkulturen",
+          "nutrition_per_100": {
+            "carbohydrate_g": "3",
+            "energy_kcal": "220",
+            "energy_kj": "900",
+            "fat_g": "20",
+            "protein_g": "3",
+            "salt_g": "0.5",
+            "saturates_g": "10",
+            "sugars_g": "2"
+          },
+          "packaging_material": "",
+          "packaging_type": "prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 1,
+          "dine_in": 1,
+          "pickup": 0.9,
+          "room_service": 1
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/ux2q3FOXU96m1zc1c2fD5LFfBKo7Oh9xKDeOsOzK-thumbnail.jpg",
+        "type": "product"
+      },
+      "331256": {
+        "base_price": 1,
+        "category_ids": [
+          43373
+        ],
+        "description": null,
+        "id": 331256,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/ge36sMTNuch3OgIMkfhQNRQTubQbfp7ocM3zzd8d.jpg",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 0,
+        "modifier_group_ids": [],
+        "name": "Süß-Sauer-Soße",
+        "nutrition_info": {
+          "additives_list": [
+            "E300"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "SOJA"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Zucker, Essig, SOJA, Gewürze",
+          "nutrition_per_100": {
+            "carbohydrate_g": "50",
+            "energy_kcal": "200",
+            "energy_kj": "800",
+            "fat_g": "0",
+            "protein_g": "0",
+            "salt_g": "1",
+            "saturates_g": "0",
+            "sugars_g": "40"
+          },
+          "packaging_material": "",
+          "packaging_type": "prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 1,
+          "dine_in": 1,
+          "pickup": 0.9,
+          "room_service": 1
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/ge36sMTNuch3OgIMkfhQNRQTubQbfp7ocM3zzd8d-thumbnail.jpg",
+        "type": "product"
+      },
+      "331257": {
+        "base_price": 1.5,
+        "category_ids": [
+          43373
+        ],
+        "description": null,
+        "id": 331257,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/orWf8EZSTAFcjUiNmqi2MnmPbzSl4WV04jCFmtsW.jpg",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 0,
+        "modifier_group_ids": [],
+        "name": "Trüffelmayonnaise",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "GLUTEN",
+            "MILCH",
+            "EI"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Öl, EIER, TRÜFFEL, Senf, SALZ",
+          "nutrition_per_100": {
+            "carbohydrate_g": "2",
+            "energy_kcal": "220",
+            "energy_kj": "900",
+            "fat_g": "24",
+            "protein_g": "1",
+            "salt_g": "1.0",
+            "saturates_g": "3",
+            "sugars_g": "0"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 1.5,
+          "dine_in": 1.5,
+          "pickup": 1.4,
+          "room_service": 1.5
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/orWf8EZSTAFcjUiNmqi2MnmPbzSl4WV04jCFmtsW-thumbnail.jpg",
+        "type": "product"
+      },
+      "331258": {
+        "base_price": 3.5,
+        "category_ids": [
+          43373
+        ],
+        "description": null,
+        "id": 331258,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/14rYVLrc878qY7nfntULJBRBf2kSWv1zWQZb93i1.jpg",
+        "is_available": false,
+        "is_available_for_delivery": false,
+        "is_available_for_pickup": false,
+        "likes_count": 0,
+        "modifier_group_ids": [],
+        "name": "Guacamole",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "GLUTEN"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Avocado, Zwiebeln, TOMATEN, Koriander, LIMETTE, SALZ",
+          "nutrition_per_100": {
+            "carbohydrate_g": "9",
+            "energy_kcal": "192",
+            "energy_kj": "800",
+            "fat_g": "18",
+            "protein_g": "2",
+            "salt_g": "0.5",
+            "saturates_g": "3",
+            "sugars_g": "1"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 3.5,
+          "dine_in": 3.5,
+          "pickup": 3.2,
+          "room_service": 3.5
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/14rYVLrc878qY7nfntULJBRBf2kSWv1zWQZb93i1-thumbnail.jpg",
+        "type": "product"
+      },
+      "331259": {
+        "base_price": 10.5,
+        "category_ids": [
+          43368
+        ],
+        "description": "scharf\r\nmit doppeltem Käse, Salat, Tomaten, gebratenen Zwiebeln und Habanero-Soße",
+        "id": 331259,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/WxD2AAdg87WPz9QyyqD5ANj6fUwnsyIoECLKZifj.jpg",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 5,
+        "modifier_group_ids": [
+          68406
+        ],
+        "name": "Habanero Burger",
+        "nutrition_info": {
+          "additives_list": [
+            "E250",
+            "E621"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "GLUTEN",
+            "MILCH",
+            "EI"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Rindfleisch, KÄSE, SALAT, TOMATEN, Zwiebeln, Habanero-Soße",
+          "nutrition_per_100": {
+            "carbohydrate_g": "30",
+            "energy_kcal": "480",
+            "energy_kj": "2000",
+            "fat_g": "25",
+            "protein_g": "30",
+            "salt_g": "1.5",
+            "saturates_g": "10",
+            "sugars_g": "5"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 10.5,
+          "dine_in": 10.5,
+          "pickup": 9.9,
+          "room_service": 10.5
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/WxD2AAdg87WPz9QyyqD5ANj6fUwnsyIoECLKZifj-thumbnail.jpg",
+        "type": "product"
+      },
+      "331260": {
+        "base_price": 10.5,
+        "category_ids": [
+          43368
+        ],
+        "description": "mit Gorgonzola, Salat, Tomaten, gebratenen Zwiebeln und Preiselbeermarmelade",
+        "id": 331260,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/qpl4XPXNDiQSyVdlC9SWE5XwBxEX3SYodI3BJruW.jpg",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 2,
+        "modifier_group_ids": [
+          68406
+        ],
+        "name": "Gorgonzola-Preiselbeere-Burger",
+        "nutrition_info": {
+          "additives_list": [
+            "E250",
+            "E621"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "GLUTEN",
+            "MILCH",
+            "EI"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Rindfleisch, Gorgonzola, SALAT, TOMATEN, Zwiebeln, Preiselbeermarmelade",
+          "nutrition_per_100": {
+            "carbohydrate_g": "34",
+            "energy_kcal": "520",
+            "energy_kj": "2200",
+            "fat_g": "30",
+            "protein_g": "29",
+            "salt_g": "1.7",
+            "saturates_g": "12",
+            "sugars_g": "7"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 10.5,
+          "dine_in": 10.5,
+          "pickup": 9.9,
+          "room_service": 10.5
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/qpl4XPXNDiQSyVdlC9SWE5XwBxEX3SYodI3BJruW-thumbnail.jpg",
+        "type": "product"
+      },
+      "331261": {
+        "base_price": 8.9,
+        "category_ids": [
+          43368
+        ],
+        "description": "mit doppeltem Käse, hausgemachten Röstzwiebeln, Senf und Ketchup",
+        "id": 331261,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/bDwX2GzseUcImwFk2AkO0VFgPEFtvTPcj7pPUvJu.jpg",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 7,
+        "modifier_group_ids": [
+          68406
+        ],
+        "name": "Classic Burger",
+        "nutrition_info": {
+          "additives_list": [
+            "E250",
+            "E621"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "GLUTEN",
+            "MILCH",
+            "EI"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Rindfleisch, KÄSE, Röstzwiebeln, SENF, KETCHUP",
+          "nutrition_per_100": {
+            "carbohydrate_g": "32",
+            "energy_kcal": "500",
+            "energy_kj": "2100",
+            "fat_g": "27",
+            "protein_g": "28",
+            "salt_g": "1.6",
+            "saturates_g": "11",
+            "sugars_g": "6"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 8.9,
+          "dine_in": 8.9,
+          "pickup": 8.5,
+          "room_service": 8.9
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/bDwX2GzseUcImwFk2AkO0VFgPEFtvTPcj7pPUvJu-thumbnail.jpg",
+        "type": "product"
+      },
+      "331262": {
+        "base_price": 10.5,
+        "category_ids": [
+          43368
+        ],
+        "description": "mit doppeltem Käse, Salat, Tomaten, gebratenen Zwiebeln, saisonalen Pilzen und Barbecuesoße",
+        "id": 331262,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/bWqupX2C94uD3i0cAIS99Mfjqta5OUgkoNUF1NRy.jpg",
+        "is_available": false,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 2,
+        "modifier_group_ids": [
+          68406
+        ],
+        "name": "Pilz-Burger",
+        "nutrition_info": {
+          "additives_list": [
+            "Konservierungsstoffe"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "MILCH",
+            "SOJA"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Zutaten: Käse, saisonale Pilze, Salat, Tomaten, gebratene Zwiebeln, Barbecuesoße, Gewürze. ALLERGENE: MILCH, SOJA.",
+          "nutrition_per_100": {
+            "carbohydrate_g": "30",
+            "energy_kcal": "350",
+            "energy_kj": "1400",
+            "fat_g": "20",
+            "protein_g": "15",
+            "salt_g": "1.5",
+            "saturates_g": "10",
+            "sugars_g": "5"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 10.5,
+          "dine_in": 10.5,
+          "pickup": 9.9,
+          "room_service": 10.5
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/bWqupX2C94uD3i0cAIS99Mfjqta5OUgkoNUF1NRy-thumbnail.jpg",
+        "type": "product"
+      },
+      "331263": {
+        "base_price": 11.6,
+        "category_ids": [
+          43372
+        ],
+        "description": "scharf\r\nmit Salat, Tomaten, Gurken, gebratenen Zwiebeln und Habanero-Soße",
+        "id": 331263,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/5KsVUo7Yy0zTBgxY7uM9G1vLIfBFWZlSdAZ53sjG.jpg",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 0,
+        "modifier_group_ids": [
+          68406
+        ],
+        "name": "Beyond Habanero Burger",
+        "nutrition_info": {
+          "additives_list": [
+            "Konservierungsstoffe"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "SOJA"
+          ],
+          "brand_or_manufacturer": "Beyond Meat",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Zutaten: pflanzliches Protein (Erbsenprotein), Wasser, Habanero-Soße, Salat, Tomaten, Gurken, gebratene Zwiebeln, Gewürze. ALLERGENE: SOJA.",
+          "nutrition_per_100": {
+            "carbohydrate_g": "28",
+            "energy_kcal": "300",
+            "energy_kj": "1250",
+            "fat_g": "16",
+            "protein_g": "12",
+            "salt_g": "1.5",
+            "saturates_g": "1.8",
+            "sugars_g": "6"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 11.6,
+          "dine_in": 11.6,
+          "pickup": 11.5,
+          "room_service": 11.6
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/5KsVUo7Yy0zTBgxY7uM9G1vLIfBFWZlSdAZ53sjG-thumbnail.jpg",
+        "type": "product"
+      },
+      "331264": {
+        "base_price": 11.2,
+        "category_ids": [
+          43372
+        ],
+        "description": "mit Salat, Tomaten, Gurken, gebratenen Zwiebeln und Preiselbeermarmeladen",
+        "id": 331264,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/2DUbD2uOncyZyN3b2jC8yjwMh079wdZu2xuYnUFW.jpg",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 7,
+        "modifier_group_ids": [
+          68406
+        ],
+        "name": "Beyond Preiselbeere-Burger",
+        "nutrition_info": {
+          "additives_list": [
+            "Konservierungsstoffe"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "SOJA"
+          ],
+          "brand_or_manufacturer": "Beyond Meat",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Zutaten: pflanzliches Protein (Erbsenprotein), Wasser, Preiselbeermarmelade, Salat, Tomaten, Gurken, gebratene Zwiebeln, Gewürze. ALLERGENE: SOJA.",
+          "nutrition_per_100": {
+            "carbohydrate_g": "30",
+            "energy_kcal": "287",
+            "energy_kj": "1200",
+            "fat_g": "15",
+            "protein_g": "10",
+            "salt_g": "1.2",
+            "saturates_g": "1.5",
+            "sugars_g": "5"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 11.2,
+          "dine_in": 11.2,
+          "pickup": 11.2,
+          "room_service": 11.2
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/2DUbD2uOncyZyN3b2jC8yjwMh079wdZu2xuYnUFW-thumbnail.jpg",
+        "type": "product"
+      },
+      "331265": {
+        "base_price": 10.6,
+        "category_ids": [
+          43372
+        ],
+        "description": "mit Gurken, hausgemachten Röstzwiebeln, Senf und Ketchup",
+        "id": 331265,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/Yrh7kClyeNuCq3P64LRE8eZW9XREqCR1IY6Tfd7L.jpg",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 6,
+        "modifier_group_ids": [
+          68406
+        ],
+        "name": "Beyond Klassik Burger",
+        "nutrition_info": {
+          "additives_list": [
+            "Konservierungsstoffe"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "SOJA",
+            "SENF"
+          ],
+          "brand_or_manufacturer": "Beyond Meat",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Zutaten: pflanzliches Protein (Erbsenprotein), Wasser, Gurken, Röstzwiebeln, Senf, Ketchup, Gewürze. ALLERGENE: SOJA, SENF.",
+          "nutrition_per_100": {
+            "carbohydrate_g": "24",
+            "energy_kcal": "270",
+            "energy_kj": "1150",
+            "fat_g": "14",
+            "protein_g": "11",
+            "salt_g": "1.0",
+            "saturates_g": "1.2",
+            "sugars_g": "5"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 10.6,
+          "dine_in": 10.6,
+          "pickup": 9.9,
+          "room_service": 10.6
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/Yrh7kClyeNuCq3P64LRE8eZW9XREqCR1IY6Tfd7L-thumbnail.jpg",
+        "type": "product"
+      },
+      "331266": {
+        "base_price": 11.6,
+        "category_ids": [
+          43372
+        ],
+        "description": "mit Salat, Tomaten, Gurken, gebratenen Zwiebeln, saisonalen Pilzen und Barbecuesoße",
+        "id": 331266,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/av7ExEblLAZ7bORMP87KGsqSf7QSnqK1LGSeNicH.jpg",
+        "is_available": false,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 5,
+        "modifier_group_ids": [
+          68406
+        ],
+        "name": "Beyond Pilz-Burger",
+        "nutrition_info": {
+          "additives_list": [
+            "Konservierungsstoffe"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "SOJA"
+          ],
+          "brand_or_manufacturer": "Beyond Meat",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Zutaten: pflanzliches Protein (Erbsenprotein), Wasser, saisonale Pilze, Salat, Tomaten, Gurken, gebratene Zwiebeln, Barbecuesoße, Gewürze. ALLERGENE: SOJA.",
+          "nutrition_per_100": {
+            "carbohydrate_g": "29",
+            "energy_kcal": "310",
+            "energy_kj": "1300",
+            "fat_g": "17",
+            "protein_g": "12",
+            "salt_g": "1.4",
+            "saturates_g": "1.5",
+            "sugars_g": "7"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 11.6,
+          "dine_in": 11.6,
+          "pickup": 11.5,
+          "room_service": 11.6
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/av7ExEblLAZ7bORMP87KGsqSf7QSnqK1LGSeNicH-thumbnail.jpg",
+        "type": "product"
+      },
+      "331267": {
+        "base_price": 8,
+        "category_ids": [
+          73125,
+          43369
+        ],
+        "description": "Parmesan-Süßkartoffel-Pommes mit Trüffelmayonnaise",
+        "id": 331267,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/ZsF74M9YYwuGXqrPueePl20MGr7CDKUTQ6QRNZVR.jpg",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 4,
+        "modifier_group_ids": [],
+        "name": "Sweet Dreams",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "EIER",
+            "MILCH"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Süßkartoffeln, PARMESAN, Trüffelmayonnaise (Öl, EIER, Trüffel, Gewürze). ALLERGENE: EIER, MILCH.",
+          "nutrition_per_100": {
+            "carbohydrate_g": "20",
+            "energy_kcal": "190",
+            "energy_kj": "800",
+            "fat_g": "10",
+            "protein_g": "3",
+            "salt_g": "0.5",
+            "saturates_g": "1",
+            "sugars_g": "5"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 8,
+          "dine_in": 8,
+          "pickup": 7.2,
+          "room_service": 8
+        },
+        "popularity_rank": 4,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/ZsF74M9YYwuGXqrPueePl20MGr7CDKUTQ6QRNZVR-thumbnail.jpg",
+        "type": "product"
+      },
+      "331268": {
+        "base_price": 1.5,
+        "category_ids": [
+          43373
+        ],
+        "description": "",
+        "id": 331268,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/QJrSikpleC1FWO3pIE0L8LBbuI9GVUbzIoBEjuIF",
+        "is_available": false,
+        "is_available_for_delivery": false,
+        "is_available_for_pickup": false,
+        "likes_count": 0,
+        "modifier_group_ids": [],
+        "name": "Aioli-Soße",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "EIER"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Öl, EIER, Knoblauch, ZITRONENSAFT, Gewürze. ALLERGENE: EIER.",
+          "nutrition_per_100": {
+            "carbohydrate_g": "1",
+            "energy_kcal": "200",
+            "energy_kj": "800",
+            "fat_g": "20",
+            "protein_g": "2",
+            "salt_g": "0.5",
+            "saturates_g": "3",
+            "sugars_g": "0"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 1.5,
+          "dine_in": 1.5,
+          "pickup": 1.4,
+          "room_service": 1.5
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/QJrSikpleC1FWO3pIE0L8LBbuI9GVUbzIoBEjuIF-thumbnail",
+        "type": "product"
+      },
+      "331269": {
+        "base_price": 3.8,
+        "category_ids": [
+          43374
+        ],
+        "description": "inkl. 0,08 € Pfand, 7,60 €/l",
+        "id": 331269,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/ANVroo3hsznKfdMHCrljWS9Qu3j4RRf0kVzGtSFy",
+        "is_available": false,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 0,
+        "modifier_group_ids": [],
+        "name": "Oberbräu Hell 0,5 l",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": 5,
+          "allergens_list": [
+            "GLUTEN"
+          ],
+          "base_price": {
+            "required": true,
+            "unit": "l",
+            "value_per_unit": 7.6
+          },
+          "brand_or_manufacturer": "Oberbräu",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Wasser, GERSTENMALZ, Hopfen, Hefe. ALLERGENE: GLUTEN.",
+          "net_quantity": {
+            "unit": "ml",
+            "value": 500
+          },
+          "nutrition_per_100": {
+            "carbohydrate_g": "5",
+            "energy_kcal": "60",
+            "energy_kj": "250",
+            "fat_g": "0",
+            "protein_g": "1",
+            "salt_g": "0.01",
+            "saturates_g": "0",
+            "sugars_g": "0"
+          },
+          "packaging_material": "",
+          "packaging_type": "prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 3.8,
+          "dine_in": 3.8,
+          "pickup": 3.5,
+          "room_service": 3.8
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/ANVroo3hsznKfdMHCrljWS9Qu3j4RRf0kVzGtSFy-thumbnail",
+        "type": "product"
+      },
+      "331270": {
+        "base_price": 3,
+        "category_ids": [
+          43375
+        ],
+        "description": "enthält Koffein 20,0 mg/100 ml, inkl. 0,15 € Pfand, 7,12 €/l",
+        "id": 331270,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/IK3bXy2xPMEeMiPJl8vVUuVpQDcOqZgo8jOaSbxq",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 0,
+        "modifier_group_ids": [],
+        "name": "Club Mate 0,33 l",
+        "nutrition_info": {
+          "additives_list": [
+            "Koffein",
+            "Säuerungsmittel",
+            "Konservierungsstoff",
+            "Farbstoff"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            ""
+          ],
+          "base_price": {
+            "required": true,
+            "unit": "l",
+            "value_per_unit": 9.09
+          },
+          "brand_or_manufacturer": "Club Mate",
+          "caffeine_mg_per_100ml": 20,
+          "gtin": "",
+          "high_caffeine_warning_required": true,
+          "ingredients_text": "Wasser, ZUCKER, Koffein, Säuerungsmittel: Zitronensäure, Aroma, Konservierungsstoff: Kaliumsorbat, Farbstoff: Zuckerkulör. ALLERGENE: keine bekannt.",
+          "net_quantity": {
+            "unit": "ml",
+            "value": 330
+          },
+          "nutrition_per_100": {
+            "carbohydrate_g": "10",
+            "energy_kcal": "40",
+            "energy_kj": "170",
+            "fat_g": "0",
+            "protein_g": "0",
+            "salt_g": "0",
+            "saturates_g": "0",
+            "sugars_g": "10"
+          },
+          "packaging_material": "",
+          "packaging_type": "prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 3,
+          "dine_in": 3,
+          "pickup": 2.9,
+          "room_service": 3
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/IK3bXy2xPMEeMiPJl8vVUuVpQDcOqZgo8jOaSbxq-thumbnail",
+        "type": "product"
+      },
+      "331271": {
+        "base_price": 3,
+        "category_ids": [
+          43375
+        ],
+        "description": "enthält Koffein 10,0 mg/100 ml, inkl. 0,15 € Pfand, 7,12 €/l",
+        "id": 331271,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/1xg8jbCxxHEu1HDMekWqKZA4VYOzYgf5xwbaNk8R",
+        "is_available": true,
+        "is_available_for_delivery": false,
+        "is_available_for_pickup": false,
+        "likes_count": 0,
+        "modifier_group_ids": [],
+        "name": "Coca-Cola® 0,33 l",
+        "nutrition_info": {
+          "additives_list": [
+            "Koffein",
+            "Farbstoff",
+            "Säuerungsmittel"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            ""
+          ],
+          "base_price": {
+            "required": true,
+            "unit": "l",
+            "value_per_unit": 9.09
+          },
+          "brand_or_manufacturer": "Coca-Cola",
+          "caffeine_mg_per_100ml": 10,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Wasser, ZUCKER, CO2, Koffein, Farbstoff: Zuckerkulör, Säuerungsmittel: Zitronensäure, Aroma. ALLERGENE: keine bekannt.",
+          "net_quantity": {
+            "unit": "ml",
+            "value": 330
+          },
+          "nutrition_per_100": {
+            "carbohydrate_g": "10",
+            "energy_kcal": "42",
+            "energy_kj": "180",
+            "fat_g": "0",
+            "protein_g": "0",
+            "salt_g": "0",
+            "saturates_g": "0",
+            "sugars_g": "10"
+          },
+          "packaging_material": "",
+          "packaging_type": "prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 3,
+          "dine_in": 3,
+          "pickup": 2.9,
+          "room_service": 3
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/1xg8jbCxxHEu1HDMekWqKZA4VYOzYgf5xwbaNk8R-thumbnail",
+        "type": "product"
+      },
+      "331272": {
+        "base_price": 3.95,
+        "category_ids": [
+          43375
+        ],
+        "description": "enthält Koffein 10,0 mg/100 ml, inkl. 0,15 € Pfand, 3,80 €/l",
+        "id": 331272,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/vfIZUSbmgNcgW8A4Uq7eaeEwOuKi4FZnop3pILm1",
+        "is_available": false,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 0,
+        "modifier_group_ids": [],
+        "name": "Coca-Cola® 1,0 l",
+        "nutrition_info": {
+          "additives_list": [
+            "Karamell E150d"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            ""
+          ],
+          "base_price": {
+            "required": true,
+            "unit": "l",
+            "value_per_unit": 3.8
+          },
+          "brand_or_manufacturer": "Coca-Cola",
+          "caffeine_mg_per_100ml": 10,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Kohlensäurehaltiges Wasser, ZUCKER, CO2, FARBE (Karamell E150d), PHOSPHORSÄURE, KOFFEIN, NATURAROMA.",
+          "net_quantity": {
+            "unit": "ml",
+            "value": 1000
+          },
+          "nutrition_per_100": {
+            "carbohydrate_g": "10.6",
+            "energy_kcal": "43",
+            "energy_kj": "180",
+            "fat_g": "0",
+            "protein_g": "0",
+            "salt_g": "0",
+            "saturates_g": "0",
+            "sugars_g": "10.6"
+          },
+          "packaging_material": "",
+          "packaging_type": "prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 3.95,
+          "dine_in": 3.95,
+          "pickup": 3.6,
+          "room_service": 3.95
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/vfIZUSbmgNcgW8A4Uq7eaeEwOuKi4FZnop3pILm1-thumbnail",
+        "type": "product"
+      },
+      "331273": {
+        "base_price": 3.95,
+        "category_ids": [
+          43375
+        ],
+        "description": "enthält Koffein 10,0 mg/100 ml, inkl. 0,15 € Pfand, 3,80 €/l",
+        "id": 331273,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/xAtHmsZYyEKVwpDTj1mdd24SRW3cypCCV5WqWOKL",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 1,
+        "modifier_group_ids": [],
+        "name": "Coca-Cola® Zero 1,0 l",
+        "nutrition_info": {
+          "additives_list": [
+            "Karamell E150d"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            ""
+          ],
+          "base_price": {
+            "required": true,
+            "unit": "l",
+            "value_per_unit": 3.8
+          },
+          "brand_or_manufacturer": "Coca-Cola",
+          "caffeine_mg_per_100ml": 10,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Kohlensäurehaltiges Wasser, ZUCKER, CO2, FARBE (Karamell E150d), PHOSPHORSÄURE, KOFFEIN, NATURAROMA.",
+          "net_quantity": {
+            "unit": "ml",
+            "value": 1000
+          },
+          "nutrition_per_100": {
+            "carbohydrate_g": "10.6",
+            "energy_kcal": "43",
+            "energy_kj": "180",
+            "fat_g": "0",
+            "protein_g": "0",
+            "salt_g": "0",
+            "saturates_g": "0",
+            "sugars_g": "10.6"
+          },
+          "packaging_material": "",
+          "packaging_type": "prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 3.95,
+          "dine_in": 3.95,
+          "pickup": 3.6,
+          "room_service": 3.95
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/xAtHmsZYyEKVwpDTj1mdd24SRW3cypCCV5WqWOKL-thumbnail",
+        "type": "product"
+      },
+      "331274": {
+        "base_price": 3,
+        "category_ids": [
+          43375
+        ],
+        "description": "enthält Koffein 10,0 mg/100 ml, inkl. 0,15 € Pfand, 7,12 €/l",
+        "id": 331274,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/gI9zum3HT16Krx1taCn2cN8PTF8mX8mcVujiR0WE",
+        "is_available": true,
+        "is_available_for_delivery": false,
+        "is_available_for_pickup": false,
+        "likes_count": 0,
+        "modifier_group_ids": [],
+        "name": "Coca-Cola® Zero 0,33 l",
+        "nutrition_info": {
+          "additives_list": [
+            "Karamell E150d"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            ""
+          ],
+          "base_price": {
+            "required": true,
+            "unit": "l",
+            "value_per_unit": 21.21
+          },
+          "brand_or_manufacturer": "Coca-Cola",
+          "caffeine_mg_per_100ml": 10,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Kohlensäurehaltiges Wasser, ZUCKER, CO2, FARBE (Karamell E150d), PHOSPHORSÄURE, KOFFEIN, NATURAROMA.",
+          "net_quantity": {
+            "unit": "ml",
+            "value": 330
+          },
+          "nutrition_per_100": {
+            "carbohydrate_g": "10.6",
+            "energy_kcal": "43",
+            "energy_kj": "180",
+            "fat_g": "0",
+            "protein_g": "0",
+            "salt_g": "0",
+            "saturates_g": "0",
+            "sugars_g": "10.6"
+          },
+          "packaging_material": "",
+          "packaging_type": "prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 3,
+          "dine_in": 3,
+          "pickup": 2.9,
+          "room_service": 3
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/gI9zum3HT16Krx1taCn2cN8PTF8mX8mcVujiR0WE-thumbnail",
+        "type": "product"
+      },
+      "331275": {
+        "base_price": 3,
+        "category_ids": [
+          43375
+        ],
+        "description": "inkl. 0,15 € Pfand, 7,12 €/l",
+        "id": 331275,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/Dq43ulNPp6VWcT4EDPEfmBZ8XnFE26WTpA7Uc1Xz",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 1,
+        "modifier_group_ids": [],
+        "name": "Fanta 0,33 l",
+        "nutrition_info": {
+          "additives_list": [
+            "Beta-Carotin"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            ""
+          ],
+          "base_price": {
+            "required": true,
+            "unit": "l",
+            "value_per_unit": 21.21
+          },
+          "brand_or_manufacturer": "Fanta",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Kohlensäurehaltiges Wasser, ZUCKER, CO2, FARBE (Beta-Carotin), NATURAROMA, CITRUSSÄURE.",
+          "net_quantity": {
+            "unit": "ml",
+            "value": 330
+          },
+          "nutrition_per_100": {
+            "carbohydrate_g": "10.6",
+            "energy_kcal": "43",
+            "energy_kj": "180",
+            "fat_g": "0",
+            "protein_g": "0",
+            "salt_g": "0",
+            "saturates_g": "0",
+            "sugars_g": "10.6"
+          },
+          "packaging_material": "",
+          "packaging_type": "prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 3,
+          "dine_in": 3,
+          "pickup": 2.9,
+          "room_service": 3
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/Dq43ulNPp6VWcT4EDPEfmBZ8XnFE26WTpA7Uc1Xz-thumbnail",
+        "type": "product"
+      },
+      "331276": {
+        "base_price": 3.95,
+        "category_ids": [
+          43375
+        ],
+        "description": "inkl. 0,15 € Pfand, 3,80 €/l",
+        "id": 331276,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/eXRkyGoBY5PSUMTsQusoh1lu0oEpuGfN7MgPIeUX",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 0,
+        "modifier_group_ids": [],
+        "name": "Fanta 1,0 l",
+        "nutrition_info": {
+          "additives_list": [
+            "Beta-Carotin"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            ""
+          ],
+          "base_price": {
+            "required": true,
+            "unit": "l",
+            "value_per_unit": 3.8
+          },
+          "brand_or_manufacturer": "Fanta",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Kohlensäurehaltiges Wasser, ZUCKER, CO2, FARBE (Beta-Carotin), NATURAROMA, CITRUSSÄURE.",
+          "net_quantity": {
+            "unit": "ml",
+            "value": 1000
+          },
+          "nutrition_per_100": {
+            "carbohydrate_g": "10.6",
+            "energy_kcal": "43",
+            "energy_kj": "180",
+            "fat_g": "0",
+            "protein_g": "0",
+            "salt_g": "0",
+            "saturates_g": "0",
+            "sugars_g": "10.6"
+          },
+          "packaging_material": "",
+          "packaging_type": "prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 3.95,
+          "dine_in": 3.95,
+          "pickup": 3.6,
+          "room_service": 3.95
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/eXRkyGoBY5PSUMTsQusoh1lu0oEpuGfN7MgPIeUX-thumbnail",
+        "type": "product"
+      },
+      "331278": {
+        "base_price": 3,
+        "category_ids": [
+          43375
+        ],
+        "description": "enthält Koffein 6,0 mg/100 ml, inkl. 0,15 € Pfand, 7,12 €/l",
+        "id": 331278,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/2UDPHX1PrNDVPOWopJkntTB6EAjTjLEdsmtRrtjO",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 0,
+        "modifier_group_ids": [],
+        "name": "Mezzo Mix 0,33 l",
+        "nutrition_info": {
+          "additives_list": [
+            "Aromen",
+            "Farbstoffe",
+            "Säuerungsmittel",
+            "Konservierungsmittel"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "KOFFEIN"
+          ],
+          "base_price": {
+            "required": true,
+            "unit": "l",
+            "value_per_unit": 9.09
+          },
+          "brand_or_manufacturer": "Coca-Cola",
+          "caffeine_mg_per_100ml": 6,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "WASSER, ZUCKER, KOFFEIN, CO2, AROMEN, FARBSTOFFE, SÄUERUNGSMITTEL, KONSERVERUNGSMITTEL; ALLERGENE: KOFFEIN.",
+          "net_quantity": {
+            "unit": "ml",
+            "value": 330
+          },
+          "nutrition_per_100": {
+            "carbohydrate_g": "10.6",
+            "energy_kcal": "43",
+            "energy_kj": "180",
+            "fat_g": "0",
+            "protein_g": "0",
+            "salt_g": "0.01",
+            "saturates_g": "0",
+            "sugars_g": "10.6"
+          },
+          "packaging_material": "",
+          "packaging_type": "prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 3,
+          "dine_in": 3,
+          "pickup": 2.9,
+          "room_service": 3
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/2UDPHX1PrNDVPOWopJkntTB6EAjTjLEdsmtRrtjO-thumbnail",
+        "type": "product"
+      },
+      "331279": {
+        "base_price": 3.95,
+        "category_ids": [
+          43375
+        ],
+        "description": "enthält Koffein 6,0 mg/100 ml, inkl. 0,15 € Pfand, 3.80 €/l",
+        "id": 331279,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/fOpsQp9Al9BQRwu9l8K3okCWjkNufRLBUZcgDx8d",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 0,
+        "modifier_group_ids": [],
+        "name": "Mezzo Mix 1,0 l",
+        "nutrition_info": {
+          "additives_list": [
+            "Aromen",
+            "Farbstoffe",
+            "Säuerungsmittel",
+            "Konservierungsmittel"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "KOFFEIN"
+          ],
+          "base_price": {
+            "required": true,
+            "unit": "l",
+            "value_per_unit": 3.8
+          },
+          "brand_or_manufacturer": "Coca-Cola",
+          "caffeine_mg_per_100ml": 6,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "WASSER, ZUCKER, KOFFEIN, CO2, AROMEN, FARBSTOFFE, SÄUERUNGSMITTEL, KONSERVERUNGSMITTEL; ALLERGENE: KOFFEIN.",
+          "net_quantity": {
+            "unit": "ml",
+            "value": 1000
+          },
+          "nutrition_per_100": {
+            "carbohydrate_g": "10.6",
+            "energy_kcal": "43",
+            "energy_kj": "180",
+            "fat_g": "0",
+            "protein_g": "0",
+            "salt_g": "0.01",
+            "saturates_g": "0",
+            "sugars_g": "10.6"
+          },
+          "packaging_material": "",
+          "packaging_type": "prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 3.95,
+          "dine_in": 3.95,
+          "pickup": 3.6,
+          "room_service": 3.95
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/fOpsQp9Al9BQRwu9l8K3okCWjkNufRLBUZcgDx8d-thumbnail",
+        "type": "product"
+      },
+      "331281": {
+        "base_price": 3,
+        "category_ids": [
+          43375
+        ],
+        "description": "inkl. 0,15 € Pfand, 7,12 €/l",
+        "id": 331281,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/jg6qSXMIA8cMYjEPStgYsVWewoUFMfkNmayoqc35",
+        "is_available": false,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 0,
+        "modifier_group_ids": [],
+        "name": "Vio Schorle Apfel 0,33 l",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [],
+          "base_price": {
+            "required": true,
+            "unit": "l",
+            "value_per_unit": 9.09
+          },
+          "brand_or_manufacturer": "Vio",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "WASSER, APFELSAFT, ZUCKER, CO2; ALLERGENE: KEINE.",
+          "net_quantity": {
+            "unit": "ml",
+            "value": 330
+          },
+          "nutrition_per_100": {
+            "carbohydrate_g": "10.6",
+            "energy_kcal": "43",
+            "energy_kj": "180",
+            "fat_g": "0",
+            "protein_g": "0",
+            "salt_g": "0.01",
+            "saturates_g": "0",
+            "sugars_g": "10.6"
+          },
+          "packaging_material": "",
+          "packaging_type": "prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 3,
+          "dine_in": 3,
+          "pickup": 2.9,
+          "room_service": 3
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/jg6qSXMIA8cMYjEPStgYsVWewoUFMfkNmayoqc35-thumbnail",
+        "type": "product"
+      },
+      "331282": {
+        "base_price": 3,
+        "category_ids": [
+          43375
+        ],
+        "description": "inkl. 0,15 € Pfand, 7,12 €/l",
+        "id": 331282,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/DrBAdmJYZVOU3qsQ5qdDgsWFKNmzJ491m57KSHhQ",
+        "is_available": false,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 0,
+        "modifier_group_ids": [],
+        "name": "Sprite 0,33 l",
+        "nutrition_info": {
+          "additives_list": [
+            "Aromen",
+            "Säuerungsmittel"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [],
+          "base_price": {
+            "required": true,
+            "unit": "l",
+            "value_per_unit": 21.21
+          },
+          "brand_or_manufacturer": "Coca-Cola",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "WASSER, ZUCKER, CO2, AROMEN, SÄUERUNGSMITTEL; ALLERGENE: KEINE.",
+          "net_quantity": {
+            "unit": "ml",
+            "value": 330
+          },
+          "nutrition_per_100": {
+            "carbohydrate_g": "10.6",
+            "energy_kcal": "43",
+            "energy_kj": "180",
+            "fat_g": "0",
+            "protein_g": "0",
+            "salt_g": "0.01",
+            "saturates_g": "0",
+            "sugars_g": "10.6"
+          },
+          "packaging_material": "",
+          "packaging_type": "prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 3,
+          "dine_in": 3,
+          "pickup": 2.9,
+          "room_service": 3
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/DrBAdmJYZVOU3qsQ5qdDgsWFKNmzJ491m57KSHhQ-thumbnail",
+        "type": "product"
+      },
+      "331283": {
+        "base_price": 3.95,
+        "category_ids": [
+          43375
+        ],
+        "description": "inkl. 0,15 € Pfand, 3,80 €/l",
+        "id": 331283,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/srjOxK7SixT1JRO5Sg2vL50Ko23A26SyDYoQxmyj",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 0,
+        "modifier_group_ids": [],
+        "name": "Sprite 1,0 l",
+        "nutrition_info": {
+          "additives_list": [
+            "Aromen",
+            "Säuerungsmittel"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [],
+          "base_price": {
+            "required": true,
+            "unit": "l",
+            "value_per_unit": 3.8
+          },
+          "brand_or_manufacturer": "Coca-Cola",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "WASSER, ZUCKER, CO2, AROMEN, SÄUERUNGSMITTEL; ALLERGENE: KEINE.",
+          "net_quantity": {
+            "unit": "ml",
+            "value": 1000
+          },
+          "nutrition_per_100": {
+            "carbohydrate_g": "10.6",
+            "energy_kcal": "43",
+            "energy_kj": "180",
+            "fat_g": "0",
+            "protein_g": "0",
+            "salt_g": "0.01",
+            "saturates_g": "0",
+            "sugars_g": "10.6"
+          },
+          "packaging_material": "",
+          "packaging_type": "prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 3.95,
+          "dine_in": 3.95,
+          "pickup": 3.6,
+          "room_service": 3.95
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/srjOxK7SixT1JRO5Sg2vL50Ko23A26SyDYoQxmyj-thumbnail",
+        "type": "product"
+      },
+      "331284": {
+        "base_price": 2.5,
+        "category_ids": [
+          43375
+        ],
+        "description": "inkl. 0,25 € Pfand, 4,00 €/l",
+        "id": 331284,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/O3Jkk7mZv59RYMgGbz4FWWD9p7t7ppWoiQYpmZMQ",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 0,
+        "modifier_group_ids": [],
+        "name": "Vio Still 0,5 l",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": 0,
+          "allergens_list": [],
+          "base_price": {
+            "required": false,
+            "unit": "l",
+            "value_per_unit": 5
+          },
+          "brand_or_manufacturer": "Vio",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "WASSER, ZUCKER, SÄUREREGELNDE SUBSTANZEN (ZITRONENSÄURE).",
+          "net_quantity": {
+            "unit": "ml",
+            "value": 500
+          },
+          "nutrition_per_100": {
+            "carbohydrate_g": "0",
+            "energy_kcal": "0",
+            "energy_kj": "0",
+            "fat_g": "0",
+            "protein_g": "0",
+            "salt_g": "0",
+            "saturates_g": "0",
+            "sugars_g": "0"
+          },
+          "packaging_material": "",
+          "packaging_type": "prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 2.5,
+          "dine_in": 2.5,
+          "pickup": 2.3,
+          "room_service": 2.5
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/O3Jkk7mZv59RYMgGbz4FWWD9p7t7ppWoiQYpmZMQ-thumbnail",
+        "type": "product"
+      },
+      "331285": {
+        "base_price": 2.5,
+        "category_ids": [
+          43375
+        ],
+        "description": "inkl. 0,25 € Pfand, 4,00 €/l",
+        "id": 331285,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/YNLAwnkvZbLbsViwfeNYgt8pRZiTZCpPwWMJC7Ce",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 0,
+        "modifier_group_ids": [],
+        "name": "Vio Spritzig 0,5 l",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": 0,
+          "allergens_list": [],
+          "base_price": {
+            "required": false,
+            "unit": "l",
+            "value_per_unit": 5
+          },
+          "brand_or_manufacturer": "Vio",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "WASSER, ZUCKER, SÄUREREGELNDE SUBSTANZEN (ZITRONENSÄURE).",
+          "net_quantity": {
+            "unit": "ml",
+            "value": 500
+          },
+          "nutrition_per_100": {
+            "carbohydrate_g": "0",
+            "energy_kcal": "0",
+            "energy_kj": "0",
+            "fat_g": "0",
+            "protein_g": "0",
+            "salt_g": "0",
+            "saturates_g": "0",
+            "sugars_g": "0"
+          },
+          "packaging_material": "",
+          "packaging_type": "prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 2.5,
+          "dine_in": 2.5,
+          "pickup": 2.3,
+          "room_service": 2.5
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/YNLAwnkvZbLbsViwfeNYgt8pRZiTZCpPwWMJC7Ce-thumbnail",
+        "type": "product"
+      },
+      "331286": {
+        "base_price": 3.58,
+        "category_ids": [
+          43374
+        ],
+        "description": "inkl. 0,08 € Pfand, 9,09 €/l",
+        "id": 331286,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/8TONd35FsiJ2x7NrR2zKwok7u6MuCrOAZjGgD4gO",
+        "is_available": false,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 0,
+        "modifier_group_ids": [],
+        "name": "Estrella Galicia 0,33 l",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": 5,
+          "allergens_list": [
+            "GLUTEN"
+          ],
+          "base_price": {
+            "required": true,
+            "unit": "l",
+            "value_per_unit": 10.84
+          },
+          "brand_or_manufacturer": "Estrella Galicia",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "WASSER, MALZ, HOPFEN, HEFE.",
+          "net_quantity": {
+            "unit": "ml",
+            "value": 330
+          },
+          "nutrition_per_100": {
+            "carbohydrate_g": "3.5",
+            "energy_kcal": "43",
+            "energy_kj": "180",
+            "fat_g": "0",
+            "protein_g": "0.5",
+            "salt_g": "0.01",
+            "saturates_g": "0",
+            "sugars_g": "0"
+          },
+          "packaging_material": "",
+          "packaging_type": "prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 3.58,
+          "dine_in": 3.58,
+          "pickup": 3.3,
+          "room_service": 3.58
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/8TONd35FsiJ2x7NrR2zKwok7u6MuCrOAZjGgD4gO-thumbnail",
+        "type": "product"
+      },
+      "331287": {
+        "base_price": 3.58,
+        "category_ids": [
+          43374
+        ],
+        "description": "inkl. 0,08 € Pfand, 9,09 €/l",
+        "id": 331287,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/uRjNvoBDFaYEgdyBzTKr2RAcVKh8CLblGbu4DV9m",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 0,
+        "modifier_group_ids": [],
+        "name": "Warsteiner 0,33 l",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": 5,
+          "allergens_list": [
+            "GLUTEN"
+          ],
+          "base_price": {
+            "required": true,
+            "unit": "l",
+            "value_per_unit": 10.85
+          },
+          "brand_or_manufacturer": "Warsteiner",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "WASSER, GERSTENMALZ, HOPFEN, HOPFENEXTRAKT.",
+          "net_quantity": {
+            "unit": "ml",
+            "value": 330
+          },
+          "nutrition_per_100": {
+            "carbohydrate_g": "3.2",
+            "energy_kcal": "43",
+            "energy_kj": "180",
+            "fat_g": "0.0",
+            "protein_g": "0.5",
+            "salt_g": "0.01",
+            "saturates_g": "0.0",
+            "sugars_g": "0.0"
+          },
+          "packaging_material": "",
+          "packaging_type": "prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 3.58,
+          "dine_in": 3.58,
+          "pickup": 3.3,
+          "room_service": 3.58
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/uRjNvoBDFaYEgdyBzTKr2RAcVKh8CLblGbu4DV9m-thumbnail",
+        "type": "product"
+      },
+      "331288": {
+        "base_price": 3.58,
+        "category_ids": [
+          43374
+        ],
+        "description": "inkl. 0,08 € Pfand, 9,09 €/l",
+        "id": 331288,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/LcovtUFt1Ogy5I8BU3rS4uKjRlRH5UOA8kaMFRLB",
+        "is_available": false,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 0,
+        "modifier_group_ids": [],
+        "name": "Warsteiner Radler Zitrone 0,33 l",
+        "nutrition_info": {
+          "additives_list": [
+            "NATRIUMBENZOAT"
+          ],
+          "alcohol_by_volume_percent": 2.5,
+          "allergens_list": [
+            "GLUTEN"
+          ],
+          "base_price": {
+            "required": true,
+            "unit": "l",
+            "value_per_unit": 10.84
+          },
+          "brand_or_manufacturer": "Warsteiner",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "WASSER, MALZ, ZITRONENAROMA, ZUCKER, HOPFEN, SÄUREREGELNDE SUBSTANZEN (ZITRONENSÄURE), KONSERVERUNGSMITTEL (NATRIUMBENZOAT).",
+          "net_quantity": {
+            "unit": "ml",
+            "value": 330
+          },
+          "nutrition_per_100": {
+            "carbohydrate_g": "10",
+            "energy_kcal": "43",
+            "energy_kj": "180",
+            "fat_g": "0",
+            "protein_g": "0.5",
+            "salt_g": "0.01",
+            "saturates_g": "0",
+            "sugars_g": "9"
+          },
+          "packaging_material": "",
+          "packaging_type": "prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 3.58,
+          "dine_in": 3.58,
+          "pickup": 3.3,
+          "room_service": 3.58
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/LcovtUFt1Ogy5I8BU3rS4uKjRlRH5UOA8kaMFRLB-thumbnail",
+        "type": "product"
+      },
+      "331289": {
+        "base_price": 3.58,
+        "category_ids": [
+          43375
+        ],
+        "description": "inkl. 0,08 € Pfand, 9,09 €/l",
+        "id": 331289,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/v5xtiBwwayaYNBZUXscE9b7OHROQyGzk5RSe1ev9",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 0,
+        "modifier_group_ids": [],
+        "name": "Warsteiner Alkoholfrei 0,33 l",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": 0,
+          "allergens_list": [
+            "GLUTEN"
+          ],
+          "base_price": {
+            "required": true,
+            "unit": "l",
+            "value_per_unit": 10.85
+          },
+          "brand_or_manufacturer": "Warsteiner",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "WASSER, MALZ, HOPFEN, HOPFENEXTRAKT",
+          "net_quantity": {
+            "unit": "ml",
+            "value": 330
+          },
+          "nutrition_per_100": {
+            "carbohydrate_g": "0",
+            "energy_kcal": "0",
+            "energy_kj": "0",
+            "fat_g": "0",
+            "protein_g": "0",
+            "salt_g": "0",
+            "saturates_g": "0",
+            "sugars_g": "0"
+          },
+          "packaging_material": "",
+          "packaging_type": "prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 3.58,
+          "dine_in": 3.58,
+          "pickup": 3.3,
+          "room_service": 3.58
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/v5xtiBwwayaYNBZUXscE9b7OHROQyGzk5RSe1ev9-thumbnail",
+        "type": "product"
+      },
+      "331290": {
+        "base_price": 3,
+        "category_ids": [
+          43375
+        ],
+        "description": "inkl. 0,08 € Pfand, 7,33 €/l",
+        "id": 331290,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/XXjVL16BeZm1VB7k4Z3FhvgVSBe4O9DeCzgDWTtX",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 0,
+        "modifier_group_ids": [],
+        "name": "Rixdorfer Fassbrause 0,33 l",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": 0,
+          "allergens_list": [],
+          "base_price": {
+            "required": true,
+            "unit": "l",
+            "value_per_unit": 9.09
+          },
+          "brand_or_manufacturer": "Rixdorfer",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "WASSER, ZUCKER, AROMEN, ZITRONENSAFT, SÄURE, KONSERVERUNGSMITTEL",
+          "net_quantity": {
+            "unit": "ml",
+            "value": 330
+          },
+          "nutrition_per_100": {
+            "carbohydrate_g": "0",
+            "energy_kcal": "0",
+            "energy_kj": "0",
+            "fat_g": "0",
+            "protein_g": "0",
+            "salt_g": "0",
+            "saturates_g": "0",
+            "sugars_g": "0"
+          },
+          "packaging_material": "",
+          "packaging_type": "prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 3,
+          "dine_in": 3,
+          "pickup": 2.7,
+          "room_service": 3
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/XXjVL16BeZm1VB7k4Z3FhvgVSBe4O9DeCzgDWTtX-thumbnail",
+        "type": "product"
+      },
+      "331291": {
+        "base_price": 5.6,
+        "category_ids": [
+          43369,
+          73125
+        ],
+        "description": null,
+        "id": 331291,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/TrGNriPmqQ0HePzCR06BPmys7wxnJNmD6Xzgc9Kz.jpg",
+        "is_available": false,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 5,
+        "modifier_group_ids": [],
+        "name": "Potato Tots",
+        "nutrition_info": {
+          "allergens_list": [
+            "GLUTEN"
+          ],
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "KARTOFFELN",
+          "nutrition_per_100": {
+            "carbohydrate_g": "0",
+            "energy_kcal": "0",
+            "energy_kj": "0",
+            "fat_g": "0",
+            "protein_g": "0",
+            "salt_g": "0",
+            "saturates_g": "0",
+            "sugars_g": "0"
+          },
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 5.6,
+          "dine_in": 5.6,
+          "pickup": 5.5,
+          "room_service": 5.6
+        },
+        "popularity_rank": 7,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/TrGNriPmqQ0HePzCR06BPmys7wxnJNmD6Xzgc9Kz-thumbnail.jpg",
+        "type": "product"
+      },
+      "331292": {
+        "base_price": 8.5,
+        "category_ids": [
+          43369
+        ],
+        "description": "Potato Tots mit Parmesan, Trüffelmayo und Frühlingszwiebeln",
+        "id": 331292,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/0sa398Fw10ST2bv2EnhIBmRbC13e8OvcE3y41UtD.jpg",
+        "is_available": false,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 5,
+        "modifier_group_ids": [],
+        "name": "Loaded Potato Tots",
+        "nutrition_info": {
+          "allergens_list": [
+            "MILCH",
+            "EI"
+          ],
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "KARTOFFELN, PARMESAN, TRÜFFELMAYO, FRÜHLINGSZWIEBELN",
+          "nutrition_per_100": {
+            "carbohydrate_g": "0",
+            "energy_kcal": "0",
+            "energy_kj": "0",
+            "fat_g": "0",
+            "protein_g": "0",
+            "salt_g": "0",
+            "saturates_g": "0",
+            "sugars_g": "0"
+          },
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 8.5,
+          "dine_in": 8.5,
+          "pickup": 7.7,
+          "room_service": 8.5
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/0sa398Fw10ST2bv2EnhIBmRbC13e8OvcE3y41UtD-thumbnail.jpg",
+        "type": "product"
+      },
+      "334622": {
+        "base_price": 9,
+        "category_ids": [
+          43369
+        ],
+        "description": null,
+        "id": 334622,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/9cPDaXaCmBO4NfM5LwldMV4xiBtk31zHLdSwiKTI.jpg",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 2,
+        "modifier_group_ids": [],
+        "name": "Chicken Wings 9 Stück",
+        "nutrition_info": {
+          "allergens_list": [
+            "GEFLÜGEL"
+          ],
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "HÜHNCHENFLÜGEL",
+          "nutrition_per_100": {
+            "carbohydrate_g": "0",
+            "energy_kcal": "0",
+            "energy_kj": "0",
+            "fat_g": "0",
+            "protein_g": "0",
+            "salt_g": "0",
+            "saturates_g": "0",
+            "sugars_g": "0"
+          },
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 9,
+          "dine_in": 9,
+          "pickup": 8.5,
+          "room_service": 9
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/9cPDaXaCmBO4NfM5LwldMV4xiBtk31zHLdSwiKTI-thumbnail.jpg",
+        "type": "product"
+      },
+      "334623": {
+        "base_price": 11,
+        "category_ids": [
+          43369
+        ],
+        "description": null,
+        "id": 334623,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/3xNXh9sgn523YcHtan4fm6vK7dYF2K9b3M5GGw2a.jpg",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 1,
+        "modifier_group_ids": [],
+        "name": "Chicken Wings 12 Stück",
+        "nutrition_info": {
+          "allergens_list": [
+            "Hühnchen"
+          ],
+          "brand_or_manufacturer": "Estimated Brand",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Hühnchenflügel, Gewürze, Pflanzenöl. ALLERGENE: HÜHNCHEN.",
+          "nutrition_per_100": {
+            "carbohydrate_g": "0",
+            "energy_kcal": "290",
+            "energy_kj": "1200",
+            "fat_g": "20",
+            "protein_g": "25",
+            "salt_g": "1.5",
+            "saturates_g": "5",
+            "sugars_g": "0"
+          },
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 11,
+          "dine_in": 11,
+          "pickup": 10.5,
+          "room_service": 11
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/3xNXh9sgn523YcHtan4fm6vK7dYF2K9b3M5GGw2a-thumbnail.jpg",
+        "type": "product"
+      },
+      "334624": {
+        "base_price": 6.9,
+        "category_ids": [
+          73125,
+          43369
+        ],
+        "description": null,
+        "id": 334624,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/4SkVgviRwagJL5zTagK2lbAXMagLGt2Poc5bUhUJ.jpg",
+        "is_available": false,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 3,
+        "modifier_group_ids": [],
+        "name": "Chicken Fingers 6 Stück",
+        "nutrition_info": {
+          "additives_list": [
+            "E300"
+          ],
+          "allergens_list": [
+            "GLUTEN",
+            "Hühnchen"
+          ],
+          "brand_or_manufacturer": "Estimated Brand",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Hühnchenfleisch, PANIERMEHL (WEIZENMEHL, Hefe, Salz), Pflanzenöl, Gewürze. ALLERGENE: GLUTEN.",
+          "nutrition_per_100": {
+            "carbohydrate_g": "20",
+            "energy_kcal": "240",
+            "energy_kj": "1000",
+            "fat_g": "12",
+            "protein_g": "15",
+            "salt_g": "1",
+            "saturates_g": "2",
+            "sugars_g": "1"
+          },
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 6.9,
+          "dine_in": 6.9,
+          "pickup": 6.5,
+          "room_service": 6.9
+        },
+        "popularity_rank": 6,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/4SkVgviRwagJL5zTagK2lbAXMagLGt2Poc5bUhUJ-thumbnail.jpg",
+        "type": "product"
+      },
+      "334625": {
+        "base_price": 11.9,
+        "category_ids": [
+          43369
+        ],
+        "description": null,
+        "id": 334625,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/MHMAWsewVVdUjiH64KD6ENaLocNhE7QNqVGx1d8m.jpg",
+        "is_available": false,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 3,
+        "modifier_group_ids": [],
+        "name": "Chicken Fingers 12 Stück",
+        "nutrition_info": {
+          "additives_list": [
+            "E300"
+          ],
+          "allergens_list": [
+            "GLUTEN",
+            "Hühnchen"
+          ],
+          "brand_or_manufacturer": "Estimated Brand",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Hühnchenfleisch, PANIERMEHL (WEIZENMEHL, Hefe, Salz), Pflanzenöl, Gewürze. ALLERGENE: GLUTEN.",
+          "nutrition_per_100": {
+            "carbohydrate_g": "20",
+            "energy_kcal": "240",
+            "energy_kj": "1000",
+            "fat_g": "12",
+            "protein_g": "15",
+            "salt_g": "1",
+            "saturates_g": "2",
+            "sugars_g": "1"
+          },
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 11.9,
+          "dine_in": 11.9,
+          "pickup": 11,
+          "room_service": 11.9
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/MHMAWsewVVdUjiH64KD6ENaLocNhE7QNqVGx1d8m-thumbnail.jpg",
+        "type": "product"
+      },
+      "334626": {
+        "base_price": 9.5,
+        "category_ids": [
+          43369
+        ],
+        "description": null,
+        "id": 334626,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/FiSaJqFrNUuWodcmVPTHCEtq3o3ZTpZrtVnHoeRk.jpg",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 0,
+        "modifier_group_ids": [],
+        "name": "Onion Rings 12 Stück",
+        "nutrition_info": {
+          "additives_list": [
+            "E300"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "GLUTEN"
+          ],
+          "brand_or_manufacturer": "Estimated Brand",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Zwiebeln, PANIERMEHL (WEIZENMEHL, Hefe, Salz), Pflanzenöl, Gewürze. ALLERGENE: GLUTEN.",
+          "nutrition_per_100": {
+            "carbohydrate_g": "30",
+            "energy_kcal": "220",
+            "energy_kj": "900",
+            "fat_g": "10",
+            "protein_g": "3",
+            "salt_g": "1.5",
+            "saturates_g": "1",
+            "sugars_g": "2"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 9.5,
+          "dine_in": 9.5,
+          "pickup": 9,
+          "room_service": 9.5
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/FiSaJqFrNUuWodcmVPTHCEtq3o3ZTpZrtVnHoeRk-thumbnail.jpg",
+        "type": "product"
+      },
+      "334627": {
+        "base_price": 13,
+        "category_ids": [
+          43369
+        ],
+        "description": null,
+        "id": 334627,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/FVonAGNhMNf47Gl4j59S6l19ofjJKeEne3waARYn.jpg",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 2,
+        "modifier_group_ids": [],
+        "name": "Onion Rings 18 Stück",
+        "nutrition_info": {
+          "additives_list": [
+            "E300"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "GLUTEN"
+          ],
+          "brand_or_manufacturer": "Estimated Brand",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Zwiebeln, PANIERMEHL (WEIZENMEHL, Hefe, Salz), Pflanzenöl, Gewürze. ALLERGENE: GLUTEN.",
+          "nutrition_per_100": {
+            "carbohydrate_g": "30",
+            "energy_kcal": "220",
+            "energy_kj": "900",
+            "fat_g": "10",
+            "protein_g": "3",
+            "salt_g": "1.5",
+            "saturates_g": "1",
+            "sugars_g": "2"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 13,
+          "dine_in": 13,
+          "pickup": 12.5,
+          "room_service": 13
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/FVonAGNhMNf47Gl4j59S6l19ofjJKeEne3waARYn-thumbnail.jpg",
+        "type": "product"
+      },
+      "369053": {
+        "base_price": 3.5,
+        "category_ids": [
+          43369
+        ],
+        "description": null,
+        "id": 369053,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/oYrW6stPcKyiM4hyGluGbLzBtHyeB3nUOENPbJUv.jpg",
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 2,
+        "modifier_group_ids": [],
+        "name": "Bunter Krautsalat",
+        "nutrition_info": {
+          "additives_list": [
+            "E260",
+            "E300"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "GLUTEN"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Weißkohl, Karotten, Zwiebeln, Essig, ÖL, ZUCKER, SALZ, Gewürze. Enthält GLUTEN.",
+          "nutrition_per_100": {
+            "carbohydrate_g": "6.5",
+            "energy_kcal": "36",
+            "energy_kj": "150",
+            "fat_g": "1.5",
+            "protein_g": "1.0",
+            "salt_g": "0.5",
+            "saturates_g": "0.2",
+            "sugars_g": "3.0"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 3.5,
+          "dine_in": 3.5,
+          "pickup": 3.2,
+          "room_service": 3.5
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/oYrW6stPcKyiM4hyGluGbLzBtHyeB3nUOENPbJUv-thumbnail.jpg",
+        "type": "product"
+      },
+      "369054": {
+        "base_price": 3,
+        "category_ids": [
+          43375
+        ],
+        "description": null,
+        "id": 369054,
+        "identifiers": [],
+        "image_url": null,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 0,
+        "modifier_group_ids": [],
+        "name": "Ice Tea Peach 0.33l",
+        "nutrition_info": {
+          "additives_list": [
+            "E150d",
+            "E330"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "SULFITE"
+          ],
+          "base_price": {
+            "required": true,
+            "unit": "l",
+            "value_per_unit": 9.09
+          },
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": 10,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Wasser, ZUCKER, Pfirsichgeschmack, Säuerungsmittel: Zitronensäure, Aromen, Farbstoff: E150d. Enthält SULFITE.",
+          "net_quantity": {
+            "unit": "ml",
+            "value": 330
+          },
+          "nutrition_per_100": {
+            "carbohydrate_g": "10.5",
+            "energy_kcal": "43",
+            "energy_kj": "180",
+            "fat_g": "0",
+            "protein_g": "0",
+            "salt_g": "0.01",
+            "saturates_g": "0",
+            "sugars_g": "10"
+          },
+          "packaging_material": "",
+          "packaging_type": "prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 3,
+          "dine_in": 3,
+          "pickup": 2.7,
+          "room_service": 3
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": null,
+        "type": "product"
+      },
+      "369055": {
+        "base_price": 3,
+        "category_ids": [
+          43375
+        ],
+        "description": null,
+        "id": 369055,
+        "identifiers": [],
+        "image_url": null,
+        "is_available": false,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 0,
+        "modifier_group_ids": [],
+        "name": "Ice Tea Lemon Sparkling 0.33l",
+        "nutrition_info": {
+          "additives_list": [
+            "E150d",
+            "E330"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "SULFITE"
+          ],
+          "base_price": {
+            "required": true,
+            "unit": "l",
+            "value_per_unit": 9.09
+          },
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": 10,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Wasser, ZUCKER, Zitronensaftkonzentrat, Kohlensäure, Aromen, Farbstoff: E150d. Enthält SULFITE.",
+          "net_quantity": {
+            "unit": "ml",
+            "value": 330
+          },
+          "nutrition_per_100": {
+            "carbohydrate_g": "10.5",
+            "energy_kcal": "43",
+            "energy_kj": "180",
+            "fat_g": "0",
+            "protein_g": "0",
+            "salt_g": "0.01",
+            "saturates_g": "0",
+            "sugars_g": "10"
+          },
+          "packaging_material": "",
+          "packaging_type": "prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 3,
+          "dine_in": 3,
+          "pickup": 2.7,
+          "room_service": 3
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": null,
+        "type": "product"
+      },
+      "369056": {
+        "base_price": 3,
+        "category_ids": [
+          43375
+        ],
+        "description": null,
+        "id": 369056,
+        "identifiers": [],
+        "image_url": null,
+        "is_available": false,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "likes_count": 0,
+        "modifier_group_ids": [],
+        "name": "Ice Tea Pineapple Mango 0,33l",
+        "nutrition_info": {
+          "additives_list": [
+            "E150d",
+            "E330"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "SULFITE"
+          ],
+          "base_price": {
+            "required": true,
+            "unit": "l",
+            "value_per_unit": 9.09
+          },
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": 10,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Wasser, ZUCKER, Ananassaftkonzentrat, Mangoaroma, Kohlensäure, Aromen, Farbstoff: E150d. Enthält SULFITE.",
+          "net_quantity": {
+            "unit": "ml",
+            "value": 330
+          },
+          "nutrition_per_100": {
+            "carbohydrate_g": "10.5",
+            "energy_kcal": "43",
+            "energy_kj": "180",
+            "fat_g": "0",
+            "protein_g": "0",
+            "salt_g": "0.01",
+            "saturates_g": "0",
+            "sugars_g": "10"
+          },
+          "packaging_material": "",
+          "packaging_type": "prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 3,
+          "dine_in": 3,
+          "pickup": 2.7,
+          "room_service": 3
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": null,
+        "type": "product"
+      },
+      "549984": {
+        "base_price": 5.9,
+        "category_ids": [
+          60425
+        ],
+        "description": null,
+        "id": 549984,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/eNQiM8f094J81eD9ld1MXxcMUYDdwld1oRD69anp.jpg",
+        "is_available": false,
+        "is_available_for_delivery": false,
+        "is_available_for_pickup": false,
+        "likes_count": 0,
+        "modifier_group_ids": [],
+        "name": "Classic Eggdrop",
+        "nutrition_info": {
+          "additives_list": [
+            "E472a",
+            "E300"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "GLUTEN",
+            "EIER",
+            "MILCH"
+          ],
+          "brand_or_manufacturer": "Estimated Brand",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Weizenmehl, Wasser, Hefe, SALZ, ZUCKER, FETT, EIER, MILCH, GLUTEN.",
+          "nutrition_per_100": {
+            "carbohydrate_g": "40",
+            "energy_kcal": "260",
+            "energy_kj": "1100",
+            "fat_g": "8",
+            "protein_g": "8",
+            "salt_g": "1",
+            "saturates_g": "1",
+            "sugars_g": "5"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 5.9,
+          "dine_in": 5.9,
+          "pickup": 5.4,
+          "room_service": 5.9
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/eNQiM8f094J81eD9ld1MXxcMUYDdwld1oRD69anp-thumbnail.jpg",
+        "type": "product"
+      },
+      "549985": {
+        "base_price": 8.5,
+        "category_ids": [
+          60425
+        ],
+        "description": null,
+        "id": 549985,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/5oP2gbvd6runNF1Y8pW2XeMMYaG9YzzU5Ql70nVZ.jpg",
+        "is_available": false,
+        "is_available_for_delivery": false,
+        "is_available_for_pickup": false,
+        "likes_count": 0,
+        "modifier_group_ids": [],
+        "name": "Avocado Eggdrop",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "GLUTEN",
+            "EI",
+            "SENF"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "BUN (WEIZENMEHL, WASSER, Hefe, SALZ), AVOCADO, EI, MAYONNAISE (EIER, ÖL, SENF, ZUCKER, SALZ), SALAT, TOMATE.",
+          "nutrition_per_100": {
+            "carbohydrate_g": "25",
+            "energy_kcal": "286",
+            "energy_kj": "1200",
+            "fat_g": "18",
+            "protein_g": "7",
+            "salt_g": "1",
+            "saturates_g": "3",
+            "sugars_g": "2"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 8.5,
+          "dine_in": 8.5,
+          "pickup": 7.7,
+          "room_service": 8.5
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/5oP2gbvd6runNF1Y8pW2XeMMYaG9YzzU5Ql70nVZ-thumbnail.jpg",
+        "type": "product"
+      },
+      "549986": {
+        "base_price": 7.9,
+        "category_ids": [
+          60425
+        ],
+        "description": null,
+        "id": 549986,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/8Z3IOHij0KRbOG9nGsC1jWmC8433yAkMLsHdWYRl.jpg",
+        "is_available": false,
+        "is_available_for_delivery": false,
+        "is_available_for_pickup": false,
+        "likes_count": 0,
+        "modifier_group_ids": [],
+        "name": "Parmesan Eggdrop",
+        "nutrition_info": {
+          "additives_list": [
+            "E472a",
+            "E300"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "GLUTEN",
+            "EI"
+          ],
+          "brand_or_manufacturer": "unknown",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Weizenmehl, EIER, Parmesan, Wasser, Hefe, Salz, Zucker, Pflanzenöl. ALLERGENE: GLUTEN, EI.",
+          "nutrition_per_100": {
+            "carbohydrate_g": "45.0",
+            "energy_kcal": "286",
+            "energy_kj": "1200",
+            "fat_g": "7.0",
+            "protein_g": "10.0",
+            "salt_g": "1.0",
+            "saturates_g": "1.5",
+            "sugars_g": "2.0"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 7.9,
+          "dine_in": 7.9,
+          "pickup": 7.2,
+          "room_service": 7.9
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/8Z3IOHij0KRbOG9nGsC1jWmC8433yAkMLsHdWYRl-thumbnail.jpg",
+        "type": "product"
+      },
+      "549987": {
+        "base_price": 7.9,
+        "category_ids": [
+          60425
+        ],
+        "description": null,
+        "id": 549987,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/mOtZLRecOL0sUmt4kY3dkaHLPoip1gWluYhq93pp.jpg",
+        "is_available": false,
+        "is_available_for_delivery": false,
+        "is_available_for_pickup": false,
+        "likes_count": 0,
+        "modifier_group_ids": [],
+        "name": "Pilz Eggdrop",
+        "nutrition_info": {
+          "additives_list": [
+            "E300",
+            "E471"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "GLUTEN",
+            "MILCH",
+            "EI"
+          ],
+          "brand_or_manufacturer": "unknown",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Weizenmehl, Wasser, Hefe, SALZ, ZUCKER, FETT, PILZE, MILCH, EI.",
+          "nutrition_per_100": {
+            "carbohydrate_g": "48.0",
+            "energy_kcal": "263",
+            "energy_kj": "1100",
+            "fat_g": "5.0",
+            "protein_g": "9.0",
+            "salt_g": "1.0",
+            "saturates_g": "1.0",
+            "sugars_g": "5.0"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 7.9,
+          "dine_in": 7.9,
+          "pickup": 7.2,
+          "room_service": 7.9
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/mOtZLRecOL0sUmt4kY3dkaHLPoip1gWluYhq93pp-thumbnail.jpg",
+        "type": "product"
+      },
+      "549988": {
+        "base_price": 6.9,
+        "category_ids": [
+          60425
+        ],
+        "description": null,
+        "id": 549988,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/9DqahZxLyayO3WSUsIXhTL8HfNBFuuYWhWjhtGEw.jpg",
+        "is_available": false,
+        "is_available_for_delivery": false,
+        "is_available_for_pickup": false,
+        "likes_count": 0,
+        "modifier_group_ids": [],
+        "name": "Preiselbeere Eggdrop",
+        "nutrition_info": {
+          "additives_list": [
+            "E202"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "GLUTEN",
+            "MILCH",
+            "EI"
+          ],
+          "brand_or_manufacturer": "unknown",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Weizenmehl, Wasser, Hefe, ZUCKER, SALZ, PREISELBEEREN (10%), MILCH, EIER, FETT, KONSERVERUNGSMITTEL (E202), AROMEN.",
+          "nutrition_per_100": {
+            "carbohydrate_g": "50.0",
+            "energy_kcal": "285",
+            "energy_kj": "1200",
+            "fat_g": "5.0",
+            "protein_g": "8.0",
+            "salt_g": "1.0",
+            "saturates_g": "1.0",
+            "sugars_g": "10.0"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 6.9,
+          "dine_in": 6.9,
+          "pickup": 6.3,
+          "room_service": 6.9
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/9DqahZxLyayO3WSUsIXhTL8HfNBFuuYWhWjhtGEw-thumbnail.jpg",
+        "type": "product"
+      },
+      "549989": {
+        "base_price": 8.5,
+        "category_ids": [
+          60425
+        ],
+        "description": null,
+        "id": 549989,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/bGEfE4j1DPHvMMzPkMn181gJAT0bMuUIgaBoVYNW.jpg",
+        "is_available": false,
+        "is_available_for_delivery": false,
+        "is_available_for_pickup": false,
+        "likes_count": 0,
+        "modifier_group_ids": [],
+        "name": "Chicken Eggdrop",
+        "nutrition_info": {
+          "additives_list": [
+            "E300"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "EI",
+            "GLUTEN"
+          ],
+          "brand_or_manufacturer": "estimated",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Hühnerei, WEIZENMEHL, Wasser, Salz, Hefe, ZUCKER, Pflanzenöl; enthält: EI, GLUTEN.",
+          "nutrition_per_100": {
+            "carbohydrate_g": "30",
+            "energy_kcal": "240",
+            "energy_kj": "1000",
+            "fat_g": "10",
+            "protein_g": "8",
+            "salt_g": "1",
+            "saturates_g": "1",
+            "sugars_g": "2"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 8.5,
+          "dine_in": 8.5,
+          "pickup": 7.7,
+          "room_service": 8.5
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/bGEfE4j1DPHvMMzPkMn181gJAT0bMuUIgaBoVYNW-thumbnail.jpg",
+        "type": "product"
+      },
+      "549990": {
+        "base_price": 8.9,
+        "category_ids": [
+          60425
+        ],
+        "description": null,
+        "id": 549990,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/v1Z6TX6fWJ5MjOGTAgxx5lLYGm5QQFnaMHF9YUb4.jpg",
+        "is_available": false,
+        "is_available_for_delivery": false,
+        "is_available_for_pickup": false,
+        "likes_count": 0,
+        "modifier_group_ids": [],
+        "name": "Pastrami Eggdrop",
+        "nutrition_info": {
+          "additives_list": [
+            "Konservierungsstoffe",
+            "Antioxidationsmittel"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "GLUTEN",
+            "EI",
+            "MILCH"
+          ],
+          "brand_or_manufacturer": "unknown",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Weißbrot, PASTRAMI (Rindfleisch, Gewürze), EIER, MAYONNAISE (EIER, ÖL), Gewürze.",
+          "nutrition_per_100": {
+            "carbohydrate_g": "30",
+            "energy_kcal": "287",
+            "energy_kj": "1200",
+            "fat_g": "15",
+            "protein_g": "12",
+            "salt_g": "1.5",
+            "saturates_g": "5",
+            "sugars_g": "3"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 8.9,
+          "dine_in": 8.9,
+          "pickup": 8.1,
+          "room_service": 8.9
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/v1Z6TX6fWJ5MjOGTAgxx5lLYGm5QQFnaMHF9YUb4-thumbnail.jpg",
+        "type": "product"
+      },
+      "550614": {
+        "base_price": 6.9,
+        "category_ids": [
+          72099
+        ],
+        "description": "Mit American Cheese",
+        "id": 550614,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/gs57Jwh0u3AuZlh8VB92AjeLSZ80uoCGLxsDqBWs.jpg",
+        "is_available": false,
+        "is_available_for_delivery": false,
+        "is_available_for_pickup": false,
+        "likes_count": 0,
+        "modifier_group_ids": [],
+        "name": "1. Classic Bun",
+        "nutrition_info": {
+          "additives_list": [
+            "E330",
+            "E202"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "GLUTEN",
+            "MILCH"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Weißbrot, AMERICAN CHEESE (MILCH, SALZ, KULTUREN), Butter.",
+          "nutrition_per_100": {
+            "carbohydrate_g": "30",
+            "energy_kcal": "240",
+            "energy_kj": "1000",
+            "fat_g": "10",
+            "protein_g": "8",
+            "salt_g": "1",
+            "saturates_g": "5",
+            "sugars_g": "2"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 6.9,
+          "dine_in": 6.9,
+          "pickup": 6.3,
+          "room_service": 6.9
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/gs57Jwh0u3AuZlh8VB92AjeLSZ80uoCGLxsDqBWs-thumbnail.jpg",
+        "type": "product"
+      },
+      "550615": {
+        "base_price": 9.5,
+        "category_ids": [
+          72099
+        ],
+        "description": "Mit hausgemachter Guacamole & American Cheese",
+        "id": 550615,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/M2rl8xtxKKuflkolV1luT1G5LsEmyBXxnaxpn3F2.jpg",
+        "is_available": false,
+        "is_available_for_delivery": false,
+        "is_available_for_pickup": false,
+        "likes_count": 1,
+        "modifier_group_ids": [],
+        "name": "2. Avocado Bun",
+        "nutrition_info": {
+          "additives_list": [
+            "Emulgatoren"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "GLUTEN",
+            "MILCH"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Brot (WEIZENMEHL, Wasser, Hefe, Salz), GUACAMOLE (Avocado, Zwiebel, Limettensaft, Koriander, Salz), AMERICAN CHEESE (MILCH, Salz, Lab, Emulgatoren)",
+          "nutrition_per_100": {
+            "carbohydrate_g": "30",
+            "energy_kcal": "286",
+            "energy_kj": "1200",
+            "fat_g": "15",
+            "protein_g": "7",
+            "salt_g": "1",
+            "saturates_g": "6",
+            "sugars_g": "2"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 9.5,
+          "dine_in": 9.5,
+          "pickup": 8.6,
+          "room_service": 9.5
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/M2rl8xtxKKuflkolV1luT1G5LsEmyBXxnaxpn3F2-thumbnail.jpg",
+        "type": "product"
+      },
+      "550616": {
+        "base_price": 8.9,
+        "category_ids": [
+          72099
+        ],
+        "description": "Mit Parmesan & Trüffelmayo",
+        "id": 550616,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/nr17IyQNlHoNxly88P0qyXLBXAzofLLkX2T6YAXP.jpg",
+        "is_available": false,
+        "is_available_for_delivery": false,
+        "is_available_for_pickup": false,
+        "likes_count": 0,
+        "modifier_group_ids": [],
+        "name": "3. Parmesan Trüffel Bun",
+        "nutrition_info": {
+          "additives_list": [
+            "Konservierungsstoffe"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "GLUTEN",
+            "MILCH",
+            "EI"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Weißbrot (WEIZENMEHL, Wasser, Hefe, Salz), Parmesan (MILCH), Trüffelmayo (Öl, Eigelb (EI), Trüffel, Senf, Gewürze)",
+          "nutrition_per_100": {
+            "carbohydrate_g": "24",
+            "energy_kcal": "286",
+            "energy_kj": "1200",
+            "fat_g": "20",
+            "protein_g": "6",
+            "salt_g": "1",
+            "saturates_g": "3",
+            "sugars_g": "2"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 8.9,
+          "dine_in": 8.9,
+          "pickup": 8.1,
+          "room_service": 8.9
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/nr17IyQNlHoNxly88P0qyXLBXAzofLLkX2T6YAXP-thumbnail.jpg",
+        "type": "product"
+      },
+      "550617": {
+        "base_price": 8.9,
+        "category_ids": [
+          72099
+        ],
+        "description": "Mit gebratenen Pilzen & American Cheese",
+        "id": 550617,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/yb1oOG5Dza7n66HvFlEKS8esHoPkkd0bkp0A54zg.jpg",
+        "is_available": false,
+        "is_available_for_delivery": false,
+        "is_available_for_pickup": false,
+        "likes_count": 0,
+        "modifier_group_ids": [],
+        "name": "4. Pilz Bun",
+        "nutrition_info": {
+          "additives_list": [
+            "E330"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "GLUTEN",
+            "MILCH"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Weißbrot (WEIZENMEHL, Wasser, Hefe, Salz, Zucker, Pflanzenöl), gebratene PILZE, AMERICAN CHEESE (MILCH, SALZ, KÄSEKULTUR, ENZYM), Gewürze.",
+          "nutrition_per_100": {
+            "carbohydrate_g": "34",
+            "energy_kcal": "263",
+            "energy_kj": "1100",
+            "fat_g": "10",
+            "protein_g": "8",
+            "salt_g": "1.5",
+            "saturates_g": "4",
+            "sugars_g": "2"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 8.9,
+          "dine_in": 8.9,
+          "pickup": 8.1,
+          "room_service": 8.9
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/yb1oOG5Dza7n66HvFlEKS8esHoPkkd0bkp0A54zg-thumbnail.jpg",
+        "type": "product"
+      },
+      "550618": {
+        "base_price": 7.9,
+        "category_ids": [
+          72099
+        ],
+        "description": "Mit Preiselbeeremarmelade & American Cheese",
+        "id": 550618,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/RPyBfr68kr4Fd22crFvh4bGasjTj1Jy5h5W7ku4q.jpg",
+        "is_available": false,
+        "is_available_for_delivery": false,
+        "is_available_for_pickup": false,
+        "likes_count": 0,
+        "modifier_group_ids": [],
+        "name": "5. Preiselbeere Bun",
+        "nutrition_info": {
+          "additives_list": [
+            "E472a",
+            "E471"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "GLUTEN",
+            "MILCH"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "BROT (WEIZENMEHL, WASSER, Hefe, SALZ), Preiselbeeremarmelade, AMERICAN CHEESE.",
+          "nutrition_per_100": {
+            "carbohydrate_g": "38",
+            "energy_kcal": "286",
+            "energy_kj": "1200",
+            "fat_g": "10",
+            "protein_g": "8",
+            "salt_g": "1",
+            "saturates_g": "5",
+            "sugars_g": "5"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 7.9,
+          "dine_in": 7.9,
+          "pickup": 7.2,
+          "room_service": 7.9
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/RPyBfr68kr4Fd22crFvh4bGasjTj1Jy5h5W7ku4q-thumbnail.jpg",
+        "type": "product"
+      },
+      "550619": {
+        "base_price": 9.5,
+        "category_ids": [
+          72099
+        ],
+        "description": "Mit fried Chicken & American Cheese",
+        "id": 550619,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/1UaR0NV49CfKG5lc2ugrHA54GfTIbwnI60pYl5it.jpg",
+        "is_available": false,
+        "is_available_for_delivery": false,
+        "is_available_for_pickup": false,
+        "likes_count": 0,
+        "modifier_group_ids": [],
+        "name": "6. Chicken Bun",
+        "nutrition_info": {
+          "additives_list": [
+            "Konservierungsstoffe"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "GLUTEN",
+            "MILCH",
+            "EI"
+          ],
+          "brand_or_manufacturer": "estimated",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Hähnchenbrustfilet, AMERICAN CHEESE, Brötchen, Gewürze, Öl, SALZ, PFEFFER",
+          "nutrition_per_100": {
+            "carbohydrate_g": "30",
+            "energy_kcal": "263",
+            "energy_kj": "1100",
+            "fat_g": "12",
+            "protein_g": "14",
+            "salt_g": "1.2",
+            "saturates_g": "5",
+            "sugars_g": "2"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 9.5,
+          "dine_in": 9.5,
+          "pickup": 8.6,
+          "room_service": 9.5
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/1UaR0NV49CfKG5lc2ugrHA54GfTIbwnI60pYl5it-thumbnail.jpg",
+        "type": "product"
+      },
+      "550620": {
+        "base_price": 9.9,
+        "category_ids": [
+          72099
+        ],
+        "description": "Mit geschmortem Pastrami & American Cheese",
+        "id": 550620,
+        "identifiers": [],
+        "image_url": "https://cdn.foodamigos.io/images/lAsv1fgt4obo7qynkbdlO22FioVmO5Fnn7PtsOmU.jpg",
+        "is_available": false,
+        "is_available_for_delivery": false,
+        "is_available_for_pickup": false,
+        "likes_count": 0,
+        "modifier_group_ids": [],
+        "name": "7. Pastrami Bun",
+        "nutrition_info": {
+          "additives_list": [
+            "Emulgator"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "GLUTEN",
+            "MILCH"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Brot (WEIZENMEHL, Wasser, Hefe, Salz), geschmortes Pastrami (Rindfleisch, Gewürze), AMERICAN CHEESE (MILCH, Salz, Emulgator), Gewürze.",
+          "nutrition_per_100": {
+            "carbohydrate_g": "30",
+            "energy_kcal": "286",
+            "energy_kj": "1200",
+            "fat_g": "15",
+            "protein_g": "12",
+            "salt_g": "1.5",
+            "saturates_g": "7",
+            "sugars_g": "2"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 9.9,
+          "dine_in": 9.9,
+          "pickup": 9,
+          "room_service": 9.9
+        },
+        "popularity_rank": null,
+        "sorting_order": null,
+        "thumbnail_url": "https://cdn.foodamigos.io/images/lAsv1fgt4obo7qynkbdlO22FioVmO5Fnn7PtsOmU-thumbnail.jpg",
+        "type": "product"
+      }
+    }
+  }
+}

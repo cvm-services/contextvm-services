@@ -1,0 +1,3210 @@
+{
+  "generated_by": "venues/doppelt-kaese-berlin/adapter.py",
+  "menu": {
+    "currency": "EUR",
+    "items": [
+      {
+        "additives": [
+          "E300",
+          "E202"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "MILCH",
+          "EI"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "mit doppeltem Käse, gebratenen Zwiebeln und einer Soße deiner Wahl",
+        "image_url": "https://cdn.foodamigos.io/images/8V9PWhzwc9dacpgEOUWqSGTP6BpvYo1cQSoxxPGL.jpg",
+        "ingredients": "Rindfleisch, KÄSE, Zwiebeln, Soße, Brötchen",
+        "listed_in_menu": true,
+        "name": "Cheeseburger",
+        "option_group_ids": [
+          "68405",
+          "68406"
+        ],
+        "price": 9.5,
+        "prices_by_order_method": {
+          "delivery": 9.5,
+          "dine_in": 9.5,
+          "pickup": 8.9,
+          "room_service": 9.5
+        },
+        "section_ids": [
+          "64315",
+          "43368"
+        ],
+        "sku": "331227",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "image_url": "https://cdn.foodamigos.io/images/2fIJH6hdxIcUwwBBV269EZLHKlAtIOt5EIzhMAKy.jpg",
+        "ingredients": "Kartoffeln, Pflanzenöl, Gewürze",
+        "listed_in_menu": true,
+        "name": "Curly Fries",
+        "option_group_ids": [],
+        "price": 4.9,
+        "prices_by_order_method": {
+          "delivery": 4.9,
+          "dine_in": 4.9,
+          "pickup": 4.5,
+          "room_service": 4.9
+        },
+        "section_ids": [
+          "73125",
+          "43369",
+          "64315"
+        ],
+        "sku": "331233",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E300",
+          "E202"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "MILCH",
+          "EI"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "mit doppeltem Fleisch, doppeltem Käse, Salat, Tomaten,  hausgemachten Röstzwiebeln und getrüffelter Haussoße",
+        "image_url": "https://cdn.foodamigos.io/images/JpC5OVrgV4fz693O6xFBs9TNliEMbGuxwy7EObej.jpg",
+        "ingredients": "Rindfleisch, KÄSE, Salat, Tomaten, Zwiebeln, Soße, Brötchen",
+        "listed_in_menu": true,
+        "name": "Der Doppelt Käse-Burger",
+        "option_group_ids": [
+          "68406"
+        ],
+        "price": 11.5,
+        "prices_by_order_method": {
+          "delivery": 11.5,
+          "dine_in": 11.5,
+          "pickup": 10.9,
+          "room_service": 11.5
+        },
+        "section_ids": [
+          "64315",
+          "43368"
+        ],
+        "sku": "331230",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN",
+          "MILCH",
+          "EI"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Trüffelmayonnaise",
+        "image_url": "https://cdn.foodamigos.io/images/dawJNT1kSXzTPp95B9UanWjsbMncj4OPbE64U29v.jpg",
+        "ingredients": "Kartoffeln, PARMESAN, Trüffelmayonnaise",
+        "listed_in_menu": true,
+        "name": "Parmesan Pommes frites",
+        "option_group_ids": [],
+        "price": 7.5,
+        "prices_by_order_method": {
+          "delivery": 7.5,
+          "dine_in": 7.5,
+          "pickup": 6.8,
+          "room_service": 7.5
+        },
+        "section_ids": [
+          "73125",
+          "64315",
+          "43369"
+        ],
+        "sku": "331235",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Xanthan"
+        ],
+        "allergens": [
+          "SOJA",
+          "GLUTEN"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Salat, Tomaten, Gurken, gebratenen Zwiebeln und hausgemachter veganer Burgersoße",
+        "image_url": "https://cdn.foodamigos.io/images/q4MR5OYbhXiqhGSlyJySfzKxSzfqERAv0DDGtdCJ.jpg",
+        "ingredients": "Wasser, ERBSENPROTEIN, Zwiebeln, Gurken, TOMATEN, Gewürze, Öl, Salz, Zucker, Verdickungsmittel (Xanthan)",
+        "listed_in_menu": true,
+        "name": "Beyond Meat-Burger",
+        "option_group_ids": [
+          "68408",
+          "68406"
+        ],
+        "price": 10.2,
+        "prices_by_order_method": {
+          "delivery": 10.2,
+          "dine_in": 10.2,
+          "pickup": 9.9,
+          "room_service": 10.2
+        },
+        "section_ids": [
+          "64315",
+          "43372"
+        ],
+        "sku": "331243",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Xanthan"
+        ],
+        "allergens": [
+          "SOJA",
+          "GLUTEN"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "leicht scharf\r\nmit Salat, Tomaten, Jalapeños, gebratenen Zwiebeln und hausgemachter veganer Burgersoße",
+        "image_url": "https://cdn.foodamigos.io/images/4BCrz053cdbCp0ifp9MqQIamW8DUaJkYsGpEV60b.jpg",
+        "ingredients": "Wasser, ERBSENPROTEIN, Zwiebeln, Jalapeños, TOMATEN, Gewürze, Öl, Salz, Zucker, Verdickungsmittel (Xanthan)",
+        "listed_in_menu": true,
+        "name": "Beyond Chili-Cheeseburger",
+        "option_group_ids": [
+          "68406"
+        ],
+        "price": 10.6,
+        "prices_by_order_method": {
+          "delivery": 10.6,
+          "dine_in": 10.6,
+          "pickup": 10.2,
+          "room_service": 10.6
+        },
+        "section_ids": [
+          "64315",
+          "43372"
+        ],
+        "sku": "331246",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "image_url": "https://cdn.foodamigos.io/images/sZVbuqzHmB0rzUcVEYbyl4NtmXaRYba80EkccGo3.jpg",
+        "ingredients": "Süßkartoffeln, Pflanzenöl, Gewürze",
+        "listed_in_menu": true,
+        "name": "Süßkartoffel-Pommes",
+        "option_group_ids": [],
+        "price": 5.2,
+        "prices_by_order_method": {
+          "delivery": 5.2,
+          "dine_in": 5.2,
+          "pickup": 4.9,
+          "room_service": 5.2
+        },
+        "section_ids": [
+          "43369",
+          "73125",
+          "64315"
+        ],
+        "sku": "331234",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "EIER",
+          "MILCH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Parmesan-Süßkartoffel-Pommes mit Trüffelmayonnaise",
+        "image_url": "https://cdn.foodamigos.io/images/ZsF74M9YYwuGXqrPueePl20MGr7CDKUTQ6QRNZVR.jpg",
+        "ingredients": "Süßkartoffeln, PARMESAN, Trüffelmayonnaise (Öl, EIER, Trüffel, Gewürze). ALLERGENE: EIER, MILCH.",
+        "listed_in_menu": true,
+        "name": "Sweet Dreams",
+        "option_group_ids": [],
+        "price": 8.0,
+        "prices_by_order_method": {
+          "delivery": 8.0,
+          "dine_in": 8.0,
+          "pickup": 7.2,
+          "room_service": 8.0
+        },
+        "section_ids": [
+          "73125",
+          "43369"
+        ],
+        "sku": "331267",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "MILCH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "image_url": "https://cdn.foodamigos.io/images/U4H3n3FIlu3AZ8OFH0ieSsPKWJLhVVhfZKJVBVZF.jpg",
+        "ingredients": "Pommes frites, KÄSE, CHILI, Gewürze, SALZ.",
+        "listed_in_menu": true,
+        "name": "Chili Cheese Pommes frites",
+        "option_group_ids": [],
+        "price": 7.5,
+        "prices_by_order_method": {
+          "delivery": 7.5,
+          "dine_in": 7.5,
+          "pickup": 6.8,
+          "room_service": 7.5
+        },
+        "section_ids": [
+          "73125",
+          "43369"
+        ],
+        "sku": "331237",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E300"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "Hühnchen"
+        ],
+        "available": false,
+        "currency": "EUR",
+        "description": null,
+        "image_url": "https://cdn.foodamigos.io/images/4SkVgviRwagJL5zTagK2lbAXMagLGt2Poc5bUhUJ.jpg",
+        "ingredients": "Hühnchenfleisch, PANIERMEHL (WEIZENMEHL, Hefe, Salz), Pflanzenöl, Gewürze. ALLERGENE: GLUTEN.",
+        "listed_in_menu": true,
+        "name": "Chicken Fingers 6 Stück",
+        "option_group_ids": [],
+        "price": 6.9,
+        "prices_by_order_method": {
+          "delivery": 6.9,
+          "dine_in": 6.9,
+          "pickup": 6.5,
+          "room_service": 6.9
+        },
+        "section_ids": [
+          "73125",
+          "43369"
+        ],
+        "sku": "334624",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN"
+        ],
+        "available": false,
+        "currency": "EUR",
+        "description": null,
+        "image_url": "https://cdn.foodamigos.io/images/TrGNriPmqQ0HePzCR06BPmys7wxnJNmD6Xzgc9Kz.jpg",
+        "ingredients": "KARTOFFELN",
+        "listed_in_menu": true,
+        "name": "Potato Tots",
+        "option_group_ids": [],
+        "price": 5.6,
+        "prices_by_order_method": {
+          "delivery": 5.6,
+          "dine_in": 5.6,
+          "pickup": 5.5,
+          "room_service": 5.6
+        },
+        "section_ids": [
+          "43369",
+          "73125"
+        ],
+        "sku": "331291",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E300",
+          "E202"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "MILCH",
+          "EI"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Salat, Tomaten, gebratenen Zwiebeln und einer Soße deiner Wahl",
+        "image_url": "https://cdn.foodamigos.io/images/3IMExHpdRJjIO0Oe6d4kN9Lo3xySGy2rZhx80q3w.jpg",
+        "ingredients": "Rindfleisch, Salat, Tomaten, Zwiebeln, Soße, Brötchen",
+        "listed_in_menu": true,
+        "name": "Hamburger",
+        "option_group_ids": [
+          "68405",
+          "68406"
+        ],
+        "price": 8.5,
+        "prices_by_order_method": {
+          "delivery": 8.5,
+          "dine_in": 8.5,
+          "pickup": 7.9,
+          "room_service": 8.5
+        },
+        "section_ids": [
+          "43368"
+        ],
+        "sku": "331226",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E300",
+          "E202"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "MILCH",
+          "EI"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "mit doppeltem Käse, hausgemachten Röstzwiebeln und hausgemachter Barbecuesoße",
+        "image_url": "https://cdn.foodamigos.io/images/S1GMBy1fhwcj0hkTTvYcybStlXKcVbCTZbjt2uGr.jpg",
+        "ingredients": "Rindfleisch, KÄSE, Zwiebeln, Barbecuesoße, Brötchen",
+        "listed_in_menu": true,
+        "name": "BBQ Burger",
+        "option_group_ids": [
+          "68406"
+        ],
+        "price": 9.9,
+        "prices_by_order_method": {
+          "delivery": 9.9,
+          "dine_in": 9.9,
+          "pickup": 9.5,
+          "room_service": 9.9
+        },
+        "section_ids": [
+          "43368"
+        ],
+        "sku": "331228",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E300",
+          "E202"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "MILCH",
+          "EI"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "leicht scharf\r\nmit doppeltem Käse, Salat, Tomaten, Jalapeños, gebratenen Zwiebeln und hausgemachter Burgersoße",
+        "image_url": "https://cdn.foodamigos.io/images/RZezJLg4YMUmQPSKY2s9pgXnOib0XOkWX6zFsnvM.jpg",
+        "ingredients": "Rindfleisch, KÄSE, Jalapeños, Salat, Tomaten, Zwiebeln, Soße, Brötchen",
+        "listed_in_menu": true,
+        "name": "Chili-Cheeseburger",
+        "option_group_ids": [
+          "68406"
+        ],
+        "price": 10.9,
+        "prices_by_order_method": {
+          "delivery": 10.9,
+          "dine_in": 10.9,
+          "pickup": 9.5,
+          "room_service": 10.9
+        },
+        "section_ids": [
+          "43368"
+        ],
+        "sku": "331229",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E250",
+          "E621"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "MILCH",
+          "EI"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "scharf\r\nmit doppeltem Käse, Salat, Tomaten, gebratenen Zwiebeln und Habanero-Soße",
+        "image_url": "https://cdn.foodamigos.io/images/WxD2AAdg87WPz9QyyqD5ANj6fUwnsyIoECLKZifj.jpg",
+        "ingredients": "Rindfleisch, KÄSE, SALAT, TOMATEN, Zwiebeln, Habanero-Soße",
+        "listed_in_menu": true,
+        "name": "Habanero Burger",
+        "option_group_ids": [
+          "68406"
+        ],
+        "price": 10.5,
+        "prices_by_order_method": {
+          "delivery": 10.5,
+          "dine_in": 10.5,
+          "pickup": 9.9,
+          "room_service": 10.5
+        },
+        "section_ids": [
+          "43368"
+        ],
+        "sku": "331259",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E250",
+          "E621"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "MILCH",
+          "EI"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Gorgonzola, Salat, Tomaten, gebratenen Zwiebeln und Preiselbeermarmelade",
+        "image_url": "https://cdn.foodamigos.io/images/qpl4XPXNDiQSyVdlC9SWE5XwBxEX3SYodI3BJruW.jpg",
+        "ingredients": "Rindfleisch, Gorgonzola, SALAT, TOMATEN, Zwiebeln, Preiselbeermarmelade",
+        "listed_in_menu": true,
+        "name": "Gorgonzola-Preiselbeere-Burger",
+        "option_group_ids": [
+          "68406"
+        ],
+        "price": 10.5,
+        "prices_by_order_method": {
+          "delivery": 10.5,
+          "dine_in": 10.5,
+          "pickup": 9.9,
+          "room_service": 10.5
+        },
+        "section_ids": [
+          "43368"
+        ],
+        "sku": "331260",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E250",
+          "E621"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "MILCH",
+          "EI"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "mit doppeltem Käse, hausgemachten Röstzwiebeln, Senf und Ketchup",
+        "image_url": "https://cdn.foodamigos.io/images/bDwX2GzseUcImwFk2AkO0VFgPEFtvTPcj7pPUvJu.jpg",
+        "ingredients": "Rindfleisch, KÄSE, Röstzwiebeln, SENF, KETCHUP",
+        "listed_in_menu": true,
+        "name": "Classic Burger",
+        "option_group_ids": [
+          "68406"
+        ],
+        "price": 8.9,
+        "prices_by_order_method": {
+          "delivery": 8.9,
+          "dine_in": 8.9,
+          "pickup": 8.5,
+          "room_service": 8.9
+        },
+        "section_ids": [
+          "43368"
+        ],
+        "sku": "331261",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Konservierungsstoffe"
+        ],
+        "allergens": [
+          "MILCH",
+          "SOJA"
+        ],
+        "available": false,
+        "currency": "EUR",
+        "description": "mit doppeltem Käse, Salat, Tomaten, gebratenen Zwiebeln, saisonalen Pilzen und Barbecuesoße",
+        "image_url": "https://cdn.foodamigos.io/images/bWqupX2C94uD3i0cAIS99Mfjqta5OUgkoNUF1NRy.jpg",
+        "ingredients": "Zutaten: Käse, saisonale Pilze, Salat, Tomaten, gebratene Zwiebeln, Barbecuesoße, Gewürze. ALLERGENE: MILCH, SOJA.",
+        "listed_in_menu": true,
+        "name": "Pilz-Burger",
+        "option_group_ids": [
+          "68406"
+        ],
+        "price": 10.5,
+        "prices_by_order_method": {
+          "delivery": 10.5,
+          "dine_in": 10.5,
+          "pickup": 9.9,
+          "room_service": 10.5
+        },
+        "section_ids": [
+          "43368"
+        ],
+        "sku": "331262",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E330",
+          "E202"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "MILCH",
+          "EI"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "mit doppeltem Käse, buntem Krautsalat und hausgemachter Burgersoße",
+        "image_url": "https://cdn.foodamigos.io/images/yFGN33f5xP7FFZEwtfOjicL81701Dhb0eOvItdOH.jpg",
+        "ingredients": "Hähnchenfleisch, KÄSE, Krautsalat, Burgersoße",
+        "listed_in_menu": true,
+        "name": "Chicken Burger",
+        "option_group_ids": [
+          "68406"
+        ],
+        "price": 9.5,
+        "prices_by_order_method": {
+          "delivery": 9.5,
+          "dine_in": 9.5,
+          "pickup": 8.5,
+          "room_service": 9.5
+        },
+        "section_ids": [
+          "43368"
+        ],
+        "sku": "331231",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "image_url": "https://cdn.foodamigos.io/images/YTil0hqwc5d2Uxnq12ZaWQdbuQ2Hax0Lpyee1Poo.jpg",
+        "ingredients": "Kartoffeln, Pflanzenöl, Gewürze",
+        "listed_in_menu": true,
+        "name": "Pommes frites",
+        "option_group_ids": [],
+        "price": 4.2,
+        "prices_by_order_method": {
+          "delivery": 4.2,
+          "dine_in": 4.2,
+          "pickup": 3.9,
+          "room_service": 4.2
+        },
+        "section_ids": [
+          "43369"
+        ],
+        "sku": "331232",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "AVOCADO"
+        ],
+        "available": false,
+        "currency": "EUR",
+        "description": "mit Salsa",
+        "image_url": "https://cdn.foodamigos.io/images/YosSxYDHq5DtqSek8wAh6GVS7VlJBvFnHQkAQPYs.jpg",
+        "ingredients": "Pommes frites, AVOCADO, TOMATEN, Zwiebeln, Koriander, LIMETTensaft, SALZ.",
+        "listed_in_menu": true,
+        "name": "Guacamole Pommes frites",
+        "option_group_ids": [],
+        "price": 7.5,
+        "prices_by_order_method": {
+          "delivery": 7.5,
+          "dine_in": 7.5,
+          "pickup": 6.8,
+          "room_service": 7.5
+        },
+        "section_ids": [
+          "43369"
+        ],
+        "sku": "331236",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "MILCH",
+          "EI"
+        ],
+        "available": false,
+        "currency": "EUR",
+        "description": "Potato Tots mit Parmesan, Trüffelmayo und Frühlingszwiebeln",
+        "image_url": "https://cdn.foodamigos.io/images/0sa398Fw10ST2bv2EnhIBmRbC13e8OvcE3y41UtD.jpg",
+        "ingredients": "KARTOFFELN, PARMESAN, TRÜFFELMAYO, FRÜHLINGSZWIEBELN",
+        "listed_in_menu": true,
+        "name": "Loaded Potato Tots",
+        "option_group_ids": [],
+        "price": 8.5,
+        "prices_by_order_method": {
+          "delivery": 8.5,
+          "dine_in": 8.5,
+          "pickup": 7.7,
+          "room_service": 8.5
+        },
+        "section_ids": [
+          "43369"
+        ],
+        "sku": "331292",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E300"
+        ],
+        "allergens": [
+          "WEIZEN",
+          "EI"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "image_url": "https://cdn.foodamigos.io/images/vjzRiRelCyCJw7gMugMHKC941eBLkmnQdW2kA0u6.jpg",
+        "ingredients": "Hühnchenflügel, WEIZENMEHL, EIER, Pflanzenöl, Gewürze, SALZ.",
+        "listed_in_menu": true,
+        "name": "Chicken Wings 6 Stück",
+        "option_group_ids": [],
+        "price": 6.5,
+        "prices_by_order_method": {
+          "delivery": 6.5,
+          "dine_in": 6.5,
+          "pickup": 6.0,
+          "room_service": 6.5
+        },
+        "section_ids": [
+          "43369"
+        ],
+        "sku": "331238",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GEFLÜGEL"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "image_url": "https://cdn.foodamigos.io/images/9cPDaXaCmBO4NfM5LwldMV4xiBtk31zHLdSwiKTI.jpg",
+        "ingredients": "HÜHNCHENFLÜGEL",
+        "listed_in_menu": true,
+        "name": "Chicken Wings 9 Stück",
+        "option_group_ids": [],
+        "price": 9.0,
+        "prices_by_order_method": {
+          "delivery": 9.0,
+          "dine_in": 9.0,
+          "pickup": 8.5,
+          "room_service": 9.0
+        },
+        "section_ids": [
+          "43369"
+        ],
+        "sku": "334622",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "Hühnchen"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "image_url": "https://cdn.foodamigos.io/images/3xNXh9sgn523YcHtan4fm6vK7dYF2K9b3M5GGw2a.jpg",
+        "ingredients": "Hühnchenflügel, Gewürze, Pflanzenöl. ALLERGENE: HÜHNCHEN.",
+        "listed_in_menu": true,
+        "name": "Chicken Wings 12 Stück",
+        "option_group_ids": [],
+        "price": 11.0,
+        "prices_by_order_method": {
+          "delivery": 11.0,
+          "dine_in": 11.0,
+          "pickup": 10.5,
+          "room_service": 11.0
+        },
+        "section_ids": [
+          "43369"
+        ],
+        "sku": "334623",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E300",
+          "E450"
+        ],
+        "allergens": [
+          "WEIZEN",
+          "EI"
+        ],
+        "available": false,
+        "currency": "EUR",
+        "description": null,
+        "image_url": "https://cdn.foodamigos.io/images/pjTT1HplNMqhvkW97WSftJYMxdc1GfjhHrHvfwYX.jpg",
+        "ingredients": "Hühnchenfleisch, WEIZENMEHL, EIER, Pflanzenöl, Gewürze, SALZ.",
+        "listed_in_menu": true,
+        "name": "Chicken Fingers 9 Stück",
+        "option_group_ids": [],
+        "price": 9.9,
+        "prices_by_order_method": {
+          "delivery": 9.9,
+          "dine_in": 9.9,
+          "pickup": 9.0,
+          "room_service": 9.9
+        },
+        "section_ids": [
+          "43369"
+        ],
+        "sku": "331239",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E300"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "Hühnchen"
+        ],
+        "available": false,
+        "currency": "EUR",
+        "description": null,
+        "image_url": "https://cdn.foodamigos.io/images/MHMAWsewVVdUjiH64KD6ENaLocNhE7QNqVGx1d8m.jpg",
+        "ingredients": "Hühnchenfleisch, PANIERMEHL (WEIZENMEHL, Hefe, Salz), Pflanzenöl, Gewürze. ALLERGENE: GLUTEN.",
+        "listed_in_menu": true,
+        "name": "Chicken Fingers 12 Stück",
+        "option_group_ids": [],
+        "price": 11.9,
+        "prices_by_order_method": {
+          "delivery": 11.9,
+          "dine_in": 11.9,
+          "pickup": 11.0,
+          "room_service": 11.9
+        },
+        "section_ids": [
+          "43369"
+        ],
+        "sku": "334625",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E300"
+        ],
+        "allergens": [
+          "WEIZEN",
+          "EI"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "image_url": "https://cdn.foodamigos.io/images/AKH72fefZWuFSjNuGBupADCdiGbd8f7YU3f35g0j.jpg",
+        "ingredients": "ZWIEBELN, WEIZENMEHL, EIER, Pflanzenöl, Gewürze, SALZ.",
+        "listed_in_menu": true,
+        "name": "Onion Rings 6 Stück",
+        "option_group_ids": [],
+        "price": 7.0,
+        "prices_by_order_method": {
+          "delivery": 7.0,
+          "dine_in": 7.0,
+          "pickup": 6.3,
+          "room_service": 7.0
+        },
+        "section_ids": [
+          "43369"
+        ],
+        "sku": "331240",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E300"
+        ],
+        "allergens": [
+          "GLUTEN"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "image_url": "https://cdn.foodamigos.io/images/FiSaJqFrNUuWodcmVPTHCEtq3o3ZTpZrtVnHoeRk.jpg",
+        "ingredients": "Zwiebeln, PANIERMEHL (WEIZENMEHL, Hefe, Salz), Pflanzenöl, Gewürze. ALLERGENE: GLUTEN.",
+        "listed_in_menu": true,
+        "name": "Onion Rings 12 Stück",
+        "option_group_ids": [],
+        "price": 9.5,
+        "prices_by_order_method": {
+          "delivery": 9.5,
+          "dine_in": 9.5,
+          "pickup": 9.0,
+          "room_service": 9.5
+        },
+        "section_ids": [
+          "43369"
+        ],
+        "sku": "334626",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E300"
+        ],
+        "allergens": [
+          "GLUTEN"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "image_url": "https://cdn.foodamigos.io/images/FVonAGNhMNf47Gl4j59S6l19ofjJKeEne3waARYn.jpg",
+        "ingredients": "Zwiebeln, PANIERMEHL (WEIZENMEHL, Hefe, Salz), Pflanzenöl, Gewürze. ALLERGENE: GLUTEN.",
+        "listed_in_menu": true,
+        "name": "Onion Rings 18 Stück",
+        "option_group_ids": [],
+        "price": 13.0,
+        "prices_by_order_method": {
+          "delivery": 13.0,
+          "dine_in": 13.0,
+          "pickup": 12.5,
+          "room_service": 13.0
+        },
+        "section_ids": [
+          "43369"
+        ],
+        "sku": "334627",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E260",
+          "E300"
+        ],
+        "allergens": [
+          "GLUTEN"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "image_url": "https://cdn.foodamigos.io/images/oYrW6stPcKyiM4hyGluGbLzBtHyeB3nUOENPbJUv.jpg",
+        "ingredients": "Weißkohl, Karotten, Zwiebeln, Essig, ÖL, ZUCKER, SALZ, Gewürze. Enthält GLUTEN.",
+        "listed_in_menu": true,
+        "name": "Bunter Krautsalat",
+        "option_group_ids": [],
+        "price": 3.5,
+        "prices_by_order_method": {
+          "delivery": 3.5,
+          "dine_in": 3.5,
+          "pickup": 3.2,
+          "room_service": 3.5
+        },
+        "section_ids": [
+          "43369"
+        ],
+        "sku": "369053",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN",
+          "MILCH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Romanasalat mit Tomaten, Croutons, Parmesan und Caesar-Dressing",
+        "image_url": "https://cdn.foodamigos.io/images/p853rKnlubVQkCtcbths26yGw6hpUgyOz6EWo0uE.jpg",
+        "ingredients": "ROMANASALAT, TOMATEN, CRACKERS, PARMESAN, DRESSING (Öl, Essig, Gewürze)",
+        "listed_in_menu": true,
+        "name": "Caesar-Salat",
+        "option_group_ids": [],
+        "price": 9.0,
+        "prices_by_order_method": {
+          "delivery": 9.0,
+          "dine_in": 9.0,
+          "pickup": 8.1,
+          "room_service": 9.0
+        },
+        "section_ids": [
+          "43370"
+        ],
+        "sku": "331241",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Xanthan"
+        ],
+        "allergens": [
+          "SOJA",
+          "GLUTEN"
+        ],
+        "available": false,
+        "currency": "EUR",
+        "description": "mit frischer Gemüse-Ratatouille, Salat, Tomaten, Gurken, gebratenen Zwiebeln und hausgemachter veganer Burgersoße",
+        "image_url": "https://cdn.foodamigos.io/images/dKnWuFtqQKQaSQGeM9Nlk4mzAyXnkWK7afIHdEDG.jpg",
+        "ingredients": "Wasser, ERBSENPROTEIN, Zwiebeln, TOMATEN, Gurken, Gewürze, Öl, SALAT, ZUCKER, Verdickungsmittel (Xanthan)",
+        "listed_in_menu": true,
+        "name": "Ratatouille Burger",
+        "option_group_ids": [
+          "68406"
+        ],
+        "price": 11.5,
+        "prices_by_order_method": {
+          "delivery": 11.5,
+          "dine_in": 11.5,
+          "pickup": 11.5,
+          "room_service": 11.5
+        },
+        "section_ids": [
+          "43372"
+        ],
+        "sku": "331244",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Xanthan"
+        ],
+        "allergens": [
+          "SOJA",
+          "GLUTEN"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Gurken, hausgemachten Röstzwiebeln und hausgemachter Barbecuesoße",
+        "image_url": "https://cdn.foodamigos.io/images/F43g1IUVPAD069SyUdFJyYdaLTswlYOr2PJPlwvv.jpg",
+        "ingredients": "Wasser, ERBSENPROTEIN, Zwiebeln, Gurken, Gewürze, Öl, Salz, Zucker, Verdickungsmittel (Xanthan)",
+        "listed_in_menu": true,
+        "name": "Beyond BBQ-Burger",
+        "option_group_ids": [
+          "68406"
+        ],
+        "price": 10.2,
+        "prices_by_order_method": {
+          "delivery": 10.2,
+          "dine_in": 10.2,
+          "pickup": 9.9,
+          "room_service": 10.2
+        },
+        "section_ids": [
+          "43372"
+        ],
+        "sku": "331245",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Konservierungsstoffe"
+        ],
+        "allergens": [
+          "SOJA"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "scharf\r\nmit Salat, Tomaten, Gurken, gebratenen Zwiebeln und Habanero-Soße",
+        "image_url": "https://cdn.foodamigos.io/images/5KsVUo7Yy0zTBgxY7uM9G1vLIfBFWZlSdAZ53sjG.jpg",
+        "ingredients": "Zutaten: pflanzliches Protein (Erbsenprotein), Wasser, Habanero-Soße, Salat, Tomaten, Gurken, gebratene Zwiebeln, Gewürze. ALLERGENE: SOJA.",
+        "listed_in_menu": true,
+        "name": "Beyond Habanero Burger",
+        "option_group_ids": [
+          "68406"
+        ],
+        "price": 11.6,
+        "prices_by_order_method": {
+          "delivery": 11.6,
+          "dine_in": 11.6,
+          "pickup": 11.5,
+          "room_service": 11.6
+        },
+        "section_ids": [
+          "43372"
+        ],
+        "sku": "331263",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Konservierungsstoffe"
+        ],
+        "allergens": [
+          "SOJA"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Salat, Tomaten, Gurken, gebratenen Zwiebeln und Preiselbeermarmeladen",
+        "image_url": "https://cdn.foodamigos.io/images/2DUbD2uOncyZyN3b2jC8yjwMh079wdZu2xuYnUFW.jpg",
+        "ingredients": "Zutaten: pflanzliches Protein (Erbsenprotein), Wasser, Preiselbeermarmelade, Salat, Tomaten, Gurken, gebratene Zwiebeln, Gewürze. ALLERGENE: SOJA.",
+        "listed_in_menu": true,
+        "name": "Beyond Preiselbeere-Burger",
+        "option_group_ids": [
+          "68406"
+        ],
+        "price": 11.2,
+        "prices_by_order_method": {
+          "delivery": 11.2,
+          "dine_in": 11.2,
+          "pickup": 11.2,
+          "room_service": 11.2
+        },
+        "section_ids": [
+          "43372"
+        ],
+        "sku": "331264",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Konservierungsstoffe"
+        ],
+        "allergens": [
+          "SOJA",
+          "SENF"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Gurken, hausgemachten Röstzwiebeln, Senf und Ketchup",
+        "image_url": "https://cdn.foodamigos.io/images/Yrh7kClyeNuCq3P64LRE8eZW9XREqCR1IY6Tfd7L.jpg",
+        "ingredients": "Zutaten: pflanzliches Protein (Erbsenprotein), Wasser, Gurken, Röstzwiebeln, Senf, Ketchup, Gewürze. ALLERGENE: SOJA, SENF.",
+        "listed_in_menu": true,
+        "name": "Beyond Klassik Burger",
+        "option_group_ids": [
+          "68406"
+        ],
+        "price": 10.6,
+        "prices_by_order_method": {
+          "delivery": 10.6,
+          "dine_in": 10.6,
+          "pickup": 9.9,
+          "room_service": 10.6
+        },
+        "section_ids": [
+          "43372"
+        ],
+        "sku": "331265",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Konservierungsstoffe"
+        ],
+        "allergens": [
+          "SOJA"
+        ],
+        "available": false,
+        "currency": "EUR",
+        "description": "mit Salat, Tomaten, Gurken, gebratenen Zwiebeln, saisonalen Pilzen und Barbecuesoße",
+        "image_url": "https://cdn.foodamigos.io/images/av7ExEblLAZ7bORMP87KGsqSf7QSnqK1LGSeNicH.jpg",
+        "ingredients": "Zutaten: pflanzliches Protein (Erbsenprotein), Wasser, saisonale Pilze, Salat, Tomaten, Gurken, gebratene Zwiebeln, Barbecuesoße, Gewürze. ALLERGENE: SOJA.",
+        "listed_in_menu": true,
+        "name": "Beyond Pilz-Burger",
+        "option_group_ids": [
+          "68406"
+        ],
+        "price": 11.6,
+        "prices_by_order_method": {
+          "delivery": 11.6,
+          "dine_in": 11.6,
+          "pickup": 11.5,
+          "room_service": 11.6
+        },
+        "section_ids": [
+          "43372"
+        ],
+        "sku": "331266",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Konservierungsstoffe"
+        ],
+        "allergens": [
+          "EIER",
+          "SENF"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "image_url": "https://cdn.foodamigos.io/images/5VoXI7XPOJz2NJiLwvd8PBWBXG0XF4xArsvZD6vz.jpg",
+        "ingredients": "WASSER, ÖL, EGG, SALZ, ZUCKER, SENF, WEISSWEINESSIG, Gewürze (PFEFFER, Zwiebelpulver)",
+        "listed_in_menu": true,
+        "name": "Burgersoße",
+        "option_group_ids": [],
+        "price": 1.0,
+        "prices_by_order_method": {
+          "delivery": 1.0,
+          "dine_in": 1.0,
+          "pickup": 0.9,
+          "room_service": 1.0
+        },
+        "section_ids": [
+          "43373"
+        ],
+        "sku": "331248",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Konservierungsstoffe"
+        ],
+        "allergens": [
+          "EIER",
+          "SENF"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "image_url": "https://cdn.foodamigos.io/images/9FfxKbLJLiYMxEL8H8hhfbbitAzJUsb3lT3Q9LyJ.jpg",
+        "ingredients": "WASSER, ÖL, TRÜFFELÖL, EGG, SALZ, ZUCKER, SENF, WEISSWEINESSIG, Gewürze (Kreuzkümmel, PFEFFER, Zwiebelpulver)",
+        "listed_in_menu": true,
+        "name": "Getrüffelte Haussoße",
+        "option_group_ids": [],
+        "price": 1.5,
+        "prices_by_order_method": {
+          "delivery": 1.5,
+          "dine_in": 1.5,
+          "pickup": 1.4,
+          "room_service": 1.5
+        },
+        "section_ids": [
+          "43373"
+        ],
+        "sku": "331249",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Konservierungsstoffe"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "image_url": "https://cdn.foodamigos.io/images/L9nCApGVbtQJj81guwdSazDsdfmMAzOrGYKtJq2t.jpg",
+        "ingredients": "TOMATEN, ZUCKER, WEINESSIG, SALZ, Gewürze (PFEFFER, Zwiebelpulver)",
+        "listed_in_menu": true,
+        "name": "Ketchup",
+        "option_group_ids": [],
+        "price": 0.5,
+        "prices_by_order_method": {
+          "delivery": 0.5,
+          "dine_in": 0.5,
+          "pickup": 0.5,
+          "room_service": 0.5
+        },
+        "section_ids": [
+          "43373"
+        ],
+        "sku": "331250",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Konservierungsstoffe"
+        ],
+        "allergens": [
+          "EIER",
+          "SENF"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "image_url": "https://cdn.foodamigos.io/images/ZWsSHIGRB5tDOhrCbKR8wMEFT5Iv3ypj3bwmJ68k.jpg",
+        "ingredients": "ÖL, EGG, WEINESSIG, SALZ, ZUCKER, SENF, Gewürze",
+        "listed_in_menu": true,
+        "name": "Mayonnaise",
+        "option_group_ids": [],
+        "price": 0.5,
+        "prices_by_order_method": {
+          "delivery": 0.5,
+          "dine_in": 0.5,
+          "pickup": 0.5,
+          "room_service": 0.5
+        },
+        "section_ids": [
+          "43373"
+        ],
+        "sku": "331251",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "SOJA"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "image_url": "https://cdn.foodamigos.io/images/wHMLh9fn5HelWAdyb36K6A93xx3BehxuTU69Mzao.jpg",
+        "ingredients": "Öl, SOJA, Essig, Gewürze",
+        "listed_in_menu": true,
+        "name": "Vegane Mayonnaise",
+        "option_group_ids": [],
+        "price": 1.5,
+        "prices_by_order_method": {
+          "delivery": 1.5,
+          "dine_in": 1.5,
+          "pickup": 1.4,
+          "room_service": 1.5
+        },
+        "section_ids": [
+          "43373"
+        ],
+        "sku": "331252",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E202"
+        ],
+        "allergens": [
+          "SOJA"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "image_url": "https://cdn.foodamigos.io/images/00sfzTClENHfObNPh1jxY0dX5CHpJbLxEzin9muK.jpg",
+        "ingredients": "Tomaten, Zucker, Essig, Gewürze, SOJA",
+        "listed_in_menu": true,
+        "name": "Barbecuesoße",
+        "option_group_ids": [],
+        "price": 1.0,
+        "prices_by_order_method": {
+          "delivery": 1.0,
+          "dine_in": 1.0,
+          "pickup": 0.9,
+          "room_service": 1.0
+        },
+        "section_ids": [
+          "43373"
+        ],
+        "sku": "331253",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E202"
+        ],
+        "allergens": [
+          "MILCH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "image_url": "https://cdn.foodamigos.io/images/8Gw9Vb8RaWgj7WQNSyWT7h5ACYO0EvvHrSb1D1wA.jpg",
+        "ingredients": "Käse, MILCH, SALZ, Gewürze",
+        "listed_in_menu": true,
+        "name": "Käsesoße",
+        "option_group_ids": [],
+        "price": 3.0,
+        "prices_by_order_method": {
+          "delivery": 3.0,
+          "dine_in": 3.0,
+          "pickup": 2.7,
+          "room_service": 3.0
+        },
+        "section_ids": [
+          "43373"
+        ],
+        "sku": "331254",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "MILCH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "image_url": "https://cdn.foodamigos.io/images/ux2q3FOXU96m1zc1c2fD5LFfBKo7Oh9xKDeOsOzK.jpg",
+        "ingredients": "MILCH, SAHNE, SALZ, Bakterienkulturen",
+        "listed_in_menu": true,
+        "name": "Sour Cream",
+        "option_group_ids": [],
+        "price": 1.0,
+        "prices_by_order_method": {
+          "delivery": 1.0,
+          "dine_in": 1.0,
+          "pickup": 0.9,
+          "room_service": 1.0
+        },
+        "section_ids": [
+          "43373"
+        ],
+        "sku": "331255",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E300"
+        ],
+        "allergens": [
+          "SOJA"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "image_url": "https://cdn.foodamigos.io/images/ge36sMTNuch3OgIMkfhQNRQTubQbfp7ocM3zzd8d.jpg",
+        "ingredients": "Zucker, Essig, SOJA, Gewürze",
+        "listed_in_menu": true,
+        "name": "Süß-Sauer-Soße",
+        "option_group_ids": [],
+        "price": 1.0,
+        "prices_by_order_method": {
+          "delivery": 1.0,
+          "dine_in": 1.0,
+          "pickup": 0.9,
+          "room_service": 1.0
+        },
+        "section_ids": [
+          "43373"
+        ],
+        "sku": "331256",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN",
+          "MILCH",
+          "EI"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "image_url": "https://cdn.foodamigos.io/images/orWf8EZSTAFcjUiNmqi2MnmPbzSl4WV04jCFmtsW.jpg",
+        "ingredients": "Öl, EIER, TRÜFFEL, Senf, SALZ",
+        "listed_in_menu": true,
+        "name": "Trüffelmayonnaise",
+        "option_group_ids": [],
+        "price": 1.5,
+        "prices_by_order_method": {
+          "delivery": 1.5,
+          "dine_in": 1.5,
+          "pickup": 1.4,
+          "room_service": 1.5
+        },
+        "section_ids": [
+          "43373"
+        ],
+        "sku": "331257",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN"
+        ],
+        "available": false,
+        "currency": "EUR",
+        "description": null,
+        "image_url": "https://cdn.foodamigos.io/images/14rYVLrc878qY7nfntULJBRBf2kSWv1zWQZb93i1.jpg",
+        "ingredients": "Avocado, Zwiebeln, TOMATEN, Koriander, LIMETTE, SALZ",
+        "listed_in_menu": true,
+        "name": "Guacamole",
+        "option_group_ids": [],
+        "price": 3.5,
+        "prices_by_order_method": {
+          "delivery": 3.5,
+          "dine_in": 3.5,
+          "pickup": 3.2,
+          "room_service": 3.5
+        },
+        "section_ids": [
+          "43373"
+        ],
+        "sku": "331258",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "EIER"
+        ],
+        "available": false,
+        "currency": "EUR",
+        "description": null,
+        "image_url": "https://cdn.foodamigos.io/images/QJrSikpleC1FWO3pIE0L8LBbuI9GVUbzIoBEjuIF",
+        "ingredients": "Öl, EIER, Knoblauch, ZITRONENSAFT, Gewürze. ALLERGENE: EIER.",
+        "listed_in_menu": true,
+        "name": "Aioli-Soße",
+        "option_group_ids": [],
+        "price": 1.5,
+        "prices_by_order_method": {
+          "delivery": 1.5,
+          "dine_in": 1.5,
+          "pickup": 1.4,
+          "room_service": 1.5
+        },
+        "section_ids": [
+          "43373"
+        ],
+        "sku": "331268",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Koffein",
+          "Säuerungsmittel",
+          "Konservierungsstoff",
+          "Farbstoff"
+        ],
+        "allergens": [
+          ""
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "enthält Koffein 20,0 mg/100 ml, inkl. 0,15 € Pfand, 7,12 €/l",
+        "image_url": "https://cdn.foodamigos.io/images/IK3bXy2xPMEeMiPJl8vVUuVpQDcOqZgo8jOaSbxq",
+        "ingredients": "Wasser, ZUCKER, Koffein, Säuerungsmittel: Zitronensäure, Aroma, Konservierungsstoff: Kaliumsorbat, Farbstoff: Zuckerkulör. ALLERGENE: keine bekannt.",
+        "listed_in_menu": true,
+        "name": "Club Mate 0,33 l",
+        "option_group_ids": [],
+        "price": 3.0,
+        "prices_by_order_method": {
+          "delivery": 3.0,
+          "dine_in": 3.0,
+          "pickup": 2.9,
+          "room_service": 3.0
+        },
+        "section_ids": [
+          "43375"
+        ],
+        "sku": "331270",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Koffein",
+          "Farbstoff",
+          "Säuerungsmittel"
+        ],
+        "allergens": [
+          ""
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "enthält Koffein 10,0 mg/100 ml, inkl. 0,15 € Pfand, 7,12 €/l",
+        "image_url": "https://cdn.foodamigos.io/images/1xg8jbCxxHEu1HDMekWqKZA4VYOzYgf5xwbaNk8R",
+        "ingredients": "Wasser, ZUCKER, CO2, Koffein, Farbstoff: Zuckerkulör, Säuerungsmittel: Zitronensäure, Aroma. ALLERGENE: keine bekannt.",
+        "listed_in_menu": true,
+        "name": "Coca-Cola® 0,33 l",
+        "option_group_ids": [],
+        "price": 3.0,
+        "prices_by_order_method": {
+          "delivery": 3.0,
+          "dine_in": 3.0,
+          "pickup": 2.9,
+          "room_service": 3.0
+        },
+        "section_ids": [
+          "43375"
+        ],
+        "sku": "331271",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Karamell E150d"
+        ],
+        "allergens": [
+          ""
+        ],
+        "available": false,
+        "currency": "EUR",
+        "description": "enthält Koffein 10,0 mg/100 ml, inkl. 0,15 € Pfand, 3,80 €/l",
+        "image_url": "https://cdn.foodamigos.io/images/vfIZUSbmgNcgW8A4Uq7eaeEwOuKi4FZnop3pILm1",
+        "ingredients": "Kohlensäurehaltiges Wasser, ZUCKER, CO2, FARBE (Karamell E150d), PHOSPHORSÄURE, KOFFEIN, NATURAROMA.",
+        "listed_in_menu": true,
+        "name": "Coca-Cola® 1,0 l",
+        "option_group_ids": [],
+        "price": 3.95,
+        "prices_by_order_method": {
+          "delivery": 3.95,
+          "dine_in": 3.95,
+          "pickup": 3.6,
+          "room_service": 3.95
+        },
+        "section_ids": [
+          "43375"
+        ],
+        "sku": "331272",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Karamell E150d"
+        ],
+        "allergens": [
+          ""
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "enthält Koffein 10,0 mg/100 ml, inkl. 0,15 € Pfand, 3,80 €/l",
+        "image_url": "https://cdn.foodamigos.io/images/xAtHmsZYyEKVwpDTj1mdd24SRW3cypCCV5WqWOKL",
+        "ingredients": "Kohlensäurehaltiges Wasser, ZUCKER, CO2, FARBE (Karamell E150d), PHOSPHORSÄURE, KOFFEIN, NATURAROMA.",
+        "listed_in_menu": true,
+        "name": "Coca-Cola® Zero 1,0 l",
+        "option_group_ids": [],
+        "price": 3.95,
+        "prices_by_order_method": {
+          "delivery": 3.95,
+          "dine_in": 3.95,
+          "pickup": 3.6,
+          "room_service": 3.95
+        },
+        "section_ids": [
+          "43375"
+        ],
+        "sku": "331273",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Karamell E150d"
+        ],
+        "allergens": [
+          ""
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "enthält Koffein 10,0 mg/100 ml, inkl. 0,15 € Pfand, 7,12 €/l",
+        "image_url": "https://cdn.foodamigos.io/images/gI9zum3HT16Krx1taCn2cN8PTF8mX8mcVujiR0WE",
+        "ingredients": "Kohlensäurehaltiges Wasser, ZUCKER, CO2, FARBE (Karamell E150d), PHOSPHORSÄURE, KOFFEIN, NATURAROMA.",
+        "listed_in_menu": true,
+        "name": "Coca-Cola® Zero 0,33 l",
+        "option_group_ids": [],
+        "price": 3.0,
+        "prices_by_order_method": {
+          "delivery": 3.0,
+          "dine_in": 3.0,
+          "pickup": 2.9,
+          "room_service": 3.0
+        },
+        "section_ids": [
+          "43375"
+        ],
+        "sku": "331274",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Beta-Carotin"
+        ],
+        "allergens": [
+          ""
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "inkl. 0,15 € Pfand, 7,12 €/l",
+        "image_url": "https://cdn.foodamigos.io/images/Dq43ulNPp6VWcT4EDPEfmBZ8XnFE26WTpA7Uc1Xz",
+        "ingredients": "Kohlensäurehaltiges Wasser, ZUCKER, CO2, FARBE (Beta-Carotin), NATURAROMA, CITRUSSÄURE.",
+        "listed_in_menu": true,
+        "name": "Fanta 0,33 l",
+        "option_group_ids": [],
+        "price": 3.0,
+        "prices_by_order_method": {
+          "delivery": 3.0,
+          "dine_in": 3.0,
+          "pickup": 2.9,
+          "room_service": 3.0
+        },
+        "section_ids": [
+          "43375"
+        ],
+        "sku": "331275",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Beta-Carotin"
+        ],
+        "allergens": [
+          ""
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "inkl. 0,15 € Pfand, 3,80 €/l",
+        "image_url": "https://cdn.foodamigos.io/images/eXRkyGoBY5PSUMTsQusoh1lu0oEpuGfN7MgPIeUX",
+        "ingredients": "Kohlensäurehaltiges Wasser, ZUCKER, CO2, FARBE (Beta-Carotin), NATURAROMA, CITRUSSÄURE.",
+        "listed_in_menu": true,
+        "name": "Fanta 1,0 l",
+        "option_group_ids": [],
+        "price": 3.95,
+        "prices_by_order_method": {
+          "delivery": 3.95,
+          "dine_in": 3.95,
+          "pickup": 3.6,
+          "room_service": 3.95
+        },
+        "section_ids": [
+          "43375"
+        ],
+        "sku": "331276",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Aromen",
+          "Farbstoffe",
+          "Säuerungsmittel",
+          "Konservierungsmittel"
+        ],
+        "allergens": [
+          "KOFFEIN"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "enthält Koffein 6,0 mg/100 ml, inkl. 0,15 € Pfand, 7,12 €/l",
+        "image_url": "https://cdn.foodamigos.io/images/2UDPHX1PrNDVPOWopJkntTB6EAjTjLEdsmtRrtjO",
+        "ingredients": "WASSER, ZUCKER, KOFFEIN, CO2, AROMEN, FARBSTOFFE, SÄUERUNGSMITTEL, KONSERVERUNGSMITTEL; ALLERGENE: KOFFEIN.",
+        "listed_in_menu": true,
+        "name": "Mezzo Mix 0,33 l",
+        "option_group_ids": [],
+        "price": 3.0,
+        "prices_by_order_method": {
+          "delivery": 3.0,
+          "dine_in": 3.0,
+          "pickup": 2.9,
+          "room_service": 3.0
+        },
+        "section_ids": [
+          "43375"
+        ],
+        "sku": "331278",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Aromen",
+          "Farbstoffe",
+          "Säuerungsmittel",
+          "Konservierungsmittel"
+        ],
+        "allergens": [
+          "KOFFEIN"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "enthält Koffein 6,0 mg/100 ml, inkl. 0,15 € Pfand, 3.80 €/l",
+        "image_url": "https://cdn.foodamigos.io/images/fOpsQp9Al9BQRwu9l8K3okCWjkNufRLBUZcgDx8d",
+        "ingredients": "WASSER, ZUCKER, KOFFEIN, CO2, AROMEN, FARBSTOFFE, SÄUERUNGSMITTEL, KONSERVERUNGSMITTEL; ALLERGENE: KOFFEIN.",
+        "listed_in_menu": true,
+        "name": "Mezzo Mix 1,0 l",
+        "option_group_ids": [],
+        "price": 3.95,
+        "prices_by_order_method": {
+          "delivery": 3.95,
+          "dine_in": 3.95,
+          "pickup": 3.6,
+          "room_service": 3.95
+        },
+        "section_ids": [
+          "43375"
+        ],
+        "sku": "331279",
+        "source": "venue-api"
+      },
+      {
+        "available": false,
+        "currency": "EUR",
+        "description": "inkl. 0,15 € Pfand, 7,12 €/l",
+        "image_url": "https://cdn.foodamigos.io/images/jg6qSXMIA8cMYjEPStgYsVWewoUFMfkNmayoqc35",
+        "ingredients": "WASSER, APFELSAFT, ZUCKER, CO2; ALLERGENE: KEINE.",
+        "listed_in_menu": true,
+        "name": "Vio Schorle Apfel 0,33 l",
+        "option_group_ids": [],
+        "price": 3.0,
+        "prices_by_order_method": {
+          "delivery": 3.0,
+          "dine_in": 3.0,
+          "pickup": 2.9,
+          "room_service": 3.0
+        },
+        "section_ids": [
+          "43375"
+        ],
+        "sku": "331281",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Aromen",
+          "Säuerungsmittel"
+        ],
+        "available": false,
+        "currency": "EUR",
+        "description": "inkl. 0,15 € Pfand, 7,12 €/l",
+        "image_url": "https://cdn.foodamigos.io/images/DrBAdmJYZVOU3qsQ5qdDgsWFKNmzJ491m57KSHhQ",
+        "ingredients": "WASSER, ZUCKER, CO2, AROMEN, SÄUERUNGSMITTEL; ALLERGENE: KEINE.",
+        "listed_in_menu": true,
+        "name": "Sprite 0,33 l",
+        "option_group_ids": [],
+        "price": 3.0,
+        "prices_by_order_method": {
+          "delivery": 3.0,
+          "dine_in": 3.0,
+          "pickup": 2.9,
+          "room_service": 3.0
+        },
+        "section_ids": [
+          "43375"
+        ],
+        "sku": "331282",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Aromen",
+          "Säuerungsmittel"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "inkl. 0,15 € Pfand, 3,80 €/l",
+        "image_url": "https://cdn.foodamigos.io/images/srjOxK7SixT1JRO5Sg2vL50Ko23A26SyDYoQxmyj",
+        "ingredients": "WASSER, ZUCKER, CO2, AROMEN, SÄUERUNGSMITTEL; ALLERGENE: KEINE.",
+        "listed_in_menu": true,
+        "name": "Sprite 1,0 l",
+        "option_group_ids": [],
+        "price": 3.95,
+        "prices_by_order_method": {
+          "delivery": 3.95,
+          "dine_in": 3.95,
+          "pickup": 3.6,
+          "room_service": 3.95
+        },
+        "section_ids": [
+          "43375"
+        ],
+        "sku": "331283",
+        "source": "venue-api"
+      },
+      {
+        "available": true,
+        "currency": "EUR",
+        "description": "inkl. 0,25 € Pfand, 4,00 €/l",
+        "image_url": "https://cdn.foodamigos.io/images/O3Jkk7mZv59RYMgGbz4FWWD9p7t7ppWoiQYpmZMQ",
+        "ingredients": "WASSER, ZUCKER, SÄUREREGELNDE SUBSTANZEN (ZITRONENSÄURE).",
+        "listed_in_menu": true,
+        "name": "Vio Still 0,5 l",
+        "option_group_ids": [],
+        "price": 2.5,
+        "prices_by_order_method": {
+          "delivery": 2.5,
+          "dine_in": 2.5,
+          "pickup": 2.3,
+          "room_service": 2.5
+        },
+        "section_ids": [
+          "43375"
+        ],
+        "sku": "331284",
+        "source": "venue-api"
+      },
+      {
+        "available": true,
+        "currency": "EUR",
+        "description": "inkl. 0,25 € Pfand, 4,00 €/l",
+        "image_url": "https://cdn.foodamigos.io/images/YNLAwnkvZbLbsViwfeNYgt8pRZiTZCpPwWMJC7Ce",
+        "ingredients": "WASSER, ZUCKER, SÄUREREGELNDE SUBSTANZEN (ZITRONENSÄURE).",
+        "listed_in_menu": true,
+        "name": "Vio Spritzig 0,5 l",
+        "option_group_ids": [],
+        "price": 2.5,
+        "prices_by_order_method": {
+          "delivery": 2.5,
+          "dine_in": 2.5,
+          "pickup": 2.3,
+          "room_service": 2.5
+        },
+        "section_ids": [
+          "43375"
+        ],
+        "sku": "331285",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "inkl. 0,08 € Pfand, 9,09 €/l",
+        "image_url": "https://cdn.foodamigos.io/images/v5xtiBwwayaYNBZUXscE9b7OHROQyGzk5RSe1ev9",
+        "ingredients": "WASSER, MALZ, HOPFEN, HOPFENEXTRAKT",
+        "listed_in_menu": true,
+        "name": "Warsteiner Alkoholfrei 0,33 l",
+        "option_group_ids": [],
+        "price": 3.58,
+        "prices_by_order_method": {
+          "delivery": 3.58,
+          "dine_in": 3.58,
+          "pickup": 3.3,
+          "room_service": 3.58
+        },
+        "section_ids": [
+          "43375"
+        ],
+        "sku": "331289",
+        "source": "venue-api"
+      },
+      {
+        "available": true,
+        "currency": "EUR",
+        "description": "inkl. 0,08 € Pfand, 7,33 €/l",
+        "image_url": "https://cdn.foodamigos.io/images/XXjVL16BeZm1VB7k4Z3FhvgVSBe4O9DeCzgDWTtX",
+        "ingredients": "WASSER, ZUCKER, AROMEN, ZITRONENSAFT, SÄURE, KONSERVERUNGSMITTEL",
+        "listed_in_menu": true,
+        "name": "Rixdorfer Fassbrause 0,33 l",
+        "option_group_ids": [],
+        "price": 3.0,
+        "prices_by_order_method": {
+          "delivery": 3.0,
+          "dine_in": 3.0,
+          "pickup": 2.7,
+          "room_service": 3.0
+        },
+        "section_ids": [
+          "43375"
+        ],
+        "sku": "331290",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E150d",
+          "E330"
+        ],
+        "allergens": [
+          "SULFITE"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "image_url": null,
+        "ingredients": "Wasser, ZUCKER, Pfirsichgeschmack, Säuerungsmittel: Zitronensäure, Aromen, Farbstoff: E150d. Enthält SULFITE.",
+        "listed_in_menu": true,
+        "name": "Ice Tea Peach 0.33l",
+        "option_group_ids": [],
+        "price": 3.0,
+        "prices_by_order_method": {
+          "delivery": 3.0,
+          "dine_in": 3.0,
+          "pickup": 2.7,
+          "room_service": 3.0
+        },
+        "section_ids": [
+          "43375"
+        ],
+        "sku": "369054",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E150d",
+          "E330"
+        ],
+        "allergens": [
+          "SULFITE"
+        ],
+        "available": false,
+        "currency": "EUR",
+        "description": null,
+        "image_url": null,
+        "ingredients": "Wasser, ZUCKER, Zitronensaftkonzentrat, Kohlensäure, Aromen, Farbstoff: E150d. Enthält SULFITE.",
+        "listed_in_menu": true,
+        "name": "Ice Tea Lemon Sparkling 0.33l",
+        "option_group_ids": [],
+        "price": 3.0,
+        "prices_by_order_method": {
+          "delivery": 3.0,
+          "dine_in": 3.0,
+          "pickup": 2.7,
+          "room_service": 3.0
+        },
+        "section_ids": [
+          "43375"
+        ],
+        "sku": "369055",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E150d",
+          "E330"
+        ],
+        "allergens": [
+          "SULFITE"
+        ],
+        "available": false,
+        "currency": "EUR",
+        "description": null,
+        "image_url": null,
+        "ingredients": "Wasser, ZUCKER, Ananassaftkonzentrat, Mangoaroma, Kohlensäure, Aromen, Farbstoff: E150d. Enthält SULFITE.",
+        "listed_in_menu": true,
+        "name": "Ice Tea Pineapple Mango 0,33l",
+        "option_group_ids": [],
+        "price": 3.0,
+        "prices_by_order_method": {
+          "delivery": 3.0,
+          "dine_in": 3.0,
+          "pickup": 2.7,
+          "room_service": 3.0
+        },
+        "section_ids": [
+          "43375"
+        ],
+        "sku": "369056",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E330",
+          "E202"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "MILCH"
+        ],
+        "available": false,
+        "currency": "EUR",
+        "description": "Mit American Cheese",
+        "image_url": "https://cdn.foodamigos.io/images/gs57Jwh0u3AuZlh8VB92AjeLSZ80uoCGLxsDqBWs.jpg",
+        "ingredients": "Weißbrot, AMERICAN CHEESE (MILCH, SALZ, KULTUREN), Butter.",
+        "listed_in_menu": true,
+        "name": "1. Classic Bun",
+        "option_group_ids": [],
+        "price": 6.9,
+        "prices_by_order_method": {
+          "delivery": 6.9,
+          "dine_in": 6.9,
+          "pickup": 6.3,
+          "room_service": 6.9
+        },
+        "section_ids": [
+          "72099"
+        ],
+        "sku": "550614",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Emulgatoren"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "MILCH"
+        ],
+        "available": false,
+        "currency": "EUR",
+        "description": "Mit hausgemachter Guacamole & American Cheese",
+        "image_url": "https://cdn.foodamigos.io/images/M2rl8xtxKKuflkolV1luT1G5LsEmyBXxnaxpn3F2.jpg",
+        "ingredients": "Brot (WEIZENMEHL, Wasser, Hefe, Salz), GUACAMOLE (Avocado, Zwiebel, Limettensaft, Koriander, Salz), AMERICAN CHEESE (MILCH, Salz, Lab, Emulgatoren)",
+        "listed_in_menu": true,
+        "name": "2. Avocado Bun",
+        "option_group_ids": [],
+        "price": 9.5,
+        "prices_by_order_method": {
+          "delivery": 9.5,
+          "dine_in": 9.5,
+          "pickup": 8.6,
+          "room_service": 9.5
+        },
+        "section_ids": [
+          "72099"
+        ],
+        "sku": "550615",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Konservierungsstoffe"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "MILCH",
+          "EI"
+        ],
+        "available": false,
+        "currency": "EUR",
+        "description": "Mit Parmesan & Trüffelmayo",
+        "image_url": "https://cdn.foodamigos.io/images/nr17IyQNlHoNxly88P0qyXLBXAzofLLkX2T6YAXP.jpg",
+        "ingredients": "Weißbrot (WEIZENMEHL, Wasser, Hefe, Salz), Parmesan (MILCH), Trüffelmayo (Öl, Eigelb (EI), Trüffel, Senf, Gewürze)",
+        "listed_in_menu": true,
+        "name": "3. Parmesan Trüffel Bun",
+        "option_group_ids": [],
+        "price": 8.9,
+        "prices_by_order_method": {
+          "delivery": 8.9,
+          "dine_in": 8.9,
+          "pickup": 8.1,
+          "room_service": 8.9
+        },
+        "section_ids": [
+          "72099"
+        ],
+        "sku": "550616",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E330"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "MILCH"
+        ],
+        "available": false,
+        "currency": "EUR",
+        "description": "Mit gebratenen Pilzen & American Cheese",
+        "image_url": "https://cdn.foodamigos.io/images/yb1oOG5Dza7n66HvFlEKS8esHoPkkd0bkp0A54zg.jpg",
+        "ingredients": "Weißbrot (WEIZENMEHL, Wasser, Hefe, Salz, Zucker, Pflanzenöl), gebratene PILZE, AMERICAN CHEESE (MILCH, SALZ, KÄSEKULTUR, ENZYM), Gewürze.",
+        "listed_in_menu": true,
+        "name": "4. Pilz Bun",
+        "option_group_ids": [],
+        "price": 8.9,
+        "prices_by_order_method": {
+          "delivery": 8.9,
+          "dine_in": 8.9,
+          "pickup": 8.1,
+          "room_service": 8.9
+        },
+        "section_ids": [
+          "72099"
+        ],
+        "sku": "550617",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E472a",
+          "E471"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "MILCH"
+        ],
+        "available": false,
+        "currency": "EUR",
+        "description": "Mit Preiselbeeremarmelade & American Cheese",
+        "image_url": "https://cdn.foodamigos.io/images/RPyBfr68kr4Fd22crFvh4bGasjTj1Jy5h5W7ku4q.jpg",
+        "ingredients": "BROT (WEIZENMEHL, WASSER, Hefe, SALZ), Preiselbeeremarmelade, AMERICAN CHEESE.",
+        "listed_in_menu": true,
+        "name": "5. Preiselbeere Bun",
+        "option_group_ids": [],
+        "price": 7.9,
+        "prices_by_order_method": {
+          "delivery": 7.9,
+          "dine_in": 7.9,
+          "pickup": 7.2,
+          "room_service": 7.9
+        },
+        "section_ids": [
+          "72099"
+        ],
+        "sku": "550618",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Konservierungsstoffe"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "MILCH",
+          "EI"
+        ],
+        "available": false,
+        "currency": "EUR",
+        "description": "Mit fried Chicken & American Cheese",
+        "image_url": "https://cdn.foodamigos.io/images/1UaR0NV49CfKG5lc2ugrHA54GfTIbwnI60pYl5it.jpg",
+        "ingredients": "Hähnchenbrustfilet, AMERICAN CHEESE, Brötchen, Gewürze, Öl, SALZ, PFEFFER",
+        "listed_in_menu": true,
+        "name": "6. Chicken Bun",
+        "option_group_ids": [],
+        "price": 9.5,
+        "prices_by_order_method": {
+          "delivery": 9.5,
+          "dine_in": 9.5,
+          "pickup": 8.6,
+          "room_service": 9.5
+        },
+        "section_ids": [
+          "72099"
+        ],
+        "sku": "550619",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Emulgator"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "MILCH"
+        ],
+        "available": false,
+        "currency": "EUR",
+        "description": "Mit geschmortem Pastrami & American Cheese",
+        "image_url": "https://cdn.foodamigos.io/images/lAsv1fgt4obo7qynkbdlO22FioVmO5Fnn7PtsOmU.jpg",
+        "ingredients": "Brot (WEIZENMEHL, Wasser, Hefe, Salz), geschmortes Pastrami (Rindfleisch, Gewürze), AMERICAN CHEESE (MILCH, Salz, Emulgator), Gewürze.",
+        "listed_in_menu": true,
+        "name": "7. Pastrami Bun",
+        "option_group_ids": [],
+        "price": 9.9,
+        "prices_by_order_method": {
+          "delivery": 9.9,
+          "dine_in": 9.9,
+          "pickup": 9.0,
+          "room_service": 9.9
+        },
+        "section_ids": [
+          "72099"
+        ],
+        "sku": "550620",
+        "source": "venue-api"
+      }
+    ],
+    "menus": [
+      {
+        "active": false,
+        "category_ids": [
+          "64315",
+          "43368",
+          "43372",
+          "43369",
+          "43370",
+          "43373",
+          "43375",
+          "43374",
+          "60425"
+        ],
+        "id": "3872",
+        "name": "Tagesmenü",
+        "schedule": [
+          {
+            "closes": "21:15",
+            "day": 0,
+            "opens": "12:00",
+            "timezone": "Europe/Berlin",
+            "weekday": "sunday"
+          },
+          {
+            "closes": "21:15",
+            "day": 1,
+            "opens": "12:00",
+            "timezone": "Europe/Berlin",
+            "weekday": "monday"
+          },
+          {
+            "closes": "21:15",
+            "day": 2,
+            "opens": "12:00",
+            "timezone": "Europe/Berlin",
+            "weekday": "tuesday"
+          },
+          {
+            "closes": "21:15",
+            "day": 3,
+            "opens": "12:00",
+            "timezone": "Europe/Berlin",
+            "weekday": "wednesday"
+          },
+          {
+            "closes": "21:15",
+            "day": 4,
+            "opens": "12:00",
+            "timezone": "Europe/Berlin",
+            "weekday": "thursday"
+          },
+          {
+            "closes": "21:15",
+            "day": 5,
+            "opens": "12:00",
+            "timezone": "Europe/Berlin",
+            "weekday": "friday"
+          },
+          {
+            "closes": "21:15",
+            "day": 6,
+            "opens": "12:00",
+            "timezone": "Europe/Berlin",
+            "weekday": "saturday"
+          }
+        ]
+      },
+      {
+        "active": false,
+        "category_ids": [
+          "73125",
+          "72099",
+          "43369"
+        ],
+        "id": "7095",
+        "name": "Frühstücksmenü",
+        "schedule": [
+          {
+            "closes": "13:00",
+            "day": 0,
+            "opens": "10:00",
+            "timezone": "Europe/Berlin",
+            "weekday": "sunday"
+          },
+          {
+            "closes": "13:00",
+            "day": 5,
+            "opens": "09:00",
+            "timezone": "Europe/Berlin",
+            "weekday": "friday"
+          },
+          {
+            "closes": "13:00",
+            "day": 6,
+            "opens": "10:00",
+            "timezone": "Europe/Berlin",
+            "weekday": "saturday"
+          }
+        ]
+      }
+    ],
+    "option_groups": [
+      {
+        "id": "68405",
+        "max_count": 1,
+        "multi_select": false,
+        "name": "Deine Soße",
+        "options": [
+          {
+            "available": true,
+            "id": "366859",
+            "name": "Hausgemachte Burgersoße",
+            "price": 0.0
+          },
+          {
+            "available": true,
+            "id": "366860",
+            "name": "Getrüffelte Haussoße",
+            "price": 0.5
+          }
+        ],
+        "required": true
+      },
+      {
+        "id": "68406",
+        "max_count": 10,
+        "multi_select": false,
+        "name": "Deine Extras",
+        "options": [
+          {
+            "available": true,
+            "id": "366861",
+            "name": "Fleischpatty",
+            "price": 3.0
+          },
+          {
+            "available": true,
+            "id": "366862",
+            "name": "Speck",
+            "price": 1.1
+          },
+          {
+            "available": true,
+            "id": "366863",
+            "name": "Jalapeños",
+            "price": 0.5
+          },
+          {
+            "available": true,
+            "id": "366864",
+            "name": "Gebratene Zwiebeln",
+            "price": 0.5
+          },
+          {
+            "available": false,
+            "id": "366865",
+            "name": "Guacamole",
+            "price": 1.5
+          },
+          {
+            "available": false,
+            "id": "366866",
+            "name": "Gegrilltes Gemüse",
+            "price": 1.2
+          },
+          {
+            "available": true,
+            "id": "366867",
+            "name": "Käse",
+            "price": 1.0
+          },
+          {
+            "available": true,
+            "id": "366868",
+            "name": "Doppelter Käse",
+            "price": 1.8
+          },
+          {
+            "available": true,
+            "id": "366869",
+            "name": "Veganer Käse",
+            "price": 1.1
+          },
+          {
+            "available": true,
+            "id": "366870",
+            "name": "Doppelter veganer Käse",
+            "price": 1.9
+          }
+        ],
+        "required": false
+      },
+      {
+        "id": "68407",
+        "max_count": 1,
+        "multi_select": false,
+        "name": "Deine Größe",
+        "options": [
+          {
+            "available": true,
+            "id": "366871",
+            "name": "6 Stück",
+            "price": 0.0
+          },
+          {
+            "available": true,
+            "id": "366872",
+            "name": "9 Stück",
+            "price": 2.5
+          },
+          {
+            "available": true,
+            "id": "366873",
+            "name": "12 Stück",
+            "price": 4.5
+          }
+        ],
+        "required": true
+      },
+      {
+        "id": "68408",
+        "max_count": 1,
+        "multi_select": false,
+        "name": "Dein Sonderwunsch",
+        "options": [
+          {
+            "available": true,
+            "id": "366874",
+            "name": "Veganer Käse",
+            "price": 1.0
+          }
+        ],
+        "required": false
+      },
+      {
+        "id": "69487",
+        "max_count": null,
+        "multi_select": true,
+        "name": "Passt gut dazu",
+        "options": [
+          {
+            "id": "331232",
+            "type": "product_ref"
+          },
+          {
+            "id": "331233",
+            "type": "product_ref"
+          },
+          {
+            "id": "331228",
+            "type": "product_ref"
+          },
+          {
+            "id": "331261",
+            "type": "product_ref"
+          },
+          {
+            "id": "331291",
+            "type": "product_ref"
+          },
+          {
+            "id": "331240",
+            "type": "product_ref"
+          },
+          {
+            "id": "331241",
+            "type": "product_ref"
+          }
+        ],
+        "required": false
+      }
+    ],
+    "sections": [
+      {
+        "id": "64315",
+        "item_skus": [
+          "331227",
+          "331233",
+          "331230",
+          "331235",
+          "331243",
+          "331246",
+          "331234"
+        ],
+        "kind": "most_popular",
+        "menu_ids": [
+          "3872"
+        ],
+        "name": "Am Beliebtesten",
+        "sorting_order": -1
+      },
+      {
+        "id": "73125",
+        "item_skus": [
+          "331233",
+          "331235",
+          "331234",
+          "331267",
+          "331237",
+          "334624",
+          "331291"
+        ],
+        "kind": "most_popular",
+        "menu_ids": [
+          "7095"
+        ],
+        "name": "Am Beliebtesten",
+        "sorting_order": -1
+      },
+      {
+        "id": "43368",
+        "item_skus": [
+          "331226",
+          "331227",
+          "331228",
+          "331229",
+          "331230",
+          "331259",
+          "331260",
+          "331261",
+          "331262",
+          "331231"
+        ],
+        "kind": "default",
+        "menu_ids": [
+          "3872"
+        ],
+        "name": "BURGER 🍔",
+        "sorting_order": 0
+      },
+      {
+        "id": "43369",
+        "item_skus": [
+          "331232",
+          "331233",
+          "331234",
+          "331291",
+          "331235",
+          "331236",
+          "331237",
+          "331267",
+          "331292",
+          "331238",
+          "334622",
+          "334623",
+          "334624",
+          "331239",
+          "334625",
+          "331240",
+          "334626",
+          "334627",
+          "369053"
+        ],
+        "kind": "default",
+        "menu_ids": [
+          "3872",
+          "7095"
+        ],
+        "name": "BEILAGEN 🍟",
+        "sorting_order": 1
+      },
+      {
+        "id": "43370",
+        "item_skus": [
+          "331241"
+        ],
+        "kind": "default",
+        "menu_ids": [
+          "3872"
+        ],
+        "name": "SALATE 🥗",
+        "sorting_order": 2
+      },
+      {
+        "id": "43372",
+        "item_skus": [
+          "331243",
+          "331244",
+          "331245",
+          "331246",
+          "331263",
+          "331264",
+          "331265",
+          "331266"
+        ],
+        "kind": "default",
+        "menu_ids": [
+          "3872"
+        ],
+        "name": "VEGANE BURGER 🍔🌿",
+        "sorting_order": 4
+      },
+      {
+        "id": "43373",
+        "item_skus": [
+          "331248",
+          "331249",
+          "331250",
+          "331251",
+          "331252",
+          "331253",
+          "331254",
+          "331255",
+          "331256",
+          "331257",
+          "331258",
+          "331268"
+        ],
+        "kind": "default",
+        "menu_ids": [
+          "3872"
+        ],
+        "name": "DIPS 🌶",
+        "sorting_order": 5
+      },
+      {
+        "id": "43375",
+        "item_skus": [
+          "331270",
+          "331271",
+          "331272",
+          "331273",
+          "331274",
+          "331275",
+          "331276",
+          "331278",
+          "331279",
+          "331281",
+          "331282",
+          "331283",
+          "331284",
+          "331285",
+          "331289",
+          "331290",
+          "369054",
+          "369055",
+          "369056"
+        ],
+        "kind": "default",
+        "menu_ids": [
+          "3872"
+        ],
+        "name": "ALKOHOLFREIE GETRÄNKE 🥤",
+        "sorting_order": 7
+      },
+      {
+        "id": "72099",
+        "item_skus": [
+          "550614",
+          "550615",
+          "550616",
+          "550617",
+          "550618",
+          "550619",
+          "550620"
+        ],
+        "kind": "default",
+        "menu_ids": [
+          "7095"
+        ],
+        "name": "Frühstücks-Sandwiches",
+        "sorting_order": 9
+      }
+    ],
+    "stats": {
+      "items_listed": 76,
+      "items_priced_listed": 76,
+      "items_unlisted": 11,
+      "max_price_listed": 13.0,
+      "menus": 2,
+      "min_price_all": 0.5,
+      "min_price_listed": 0.5,
+      "sections": 9
+    },
+    "unlisted_items": [
+      {
+        "allergens": [
+          "GLUTEN"
+        ],
+        "available": false,
+        "currency": "EUR",
+        "description": "inkl. 0,08 € Pfand, 7,60 €/l",
+        "image_url": "https://cdn.foodamigos.io/images/ANVroo3hsznKfdMHCrljWS9Qu3j4RRf0kVzGtSFy",
+        "ingredients": "Wasser, GERSTENMALZ, Hopfen, Hefe. ALLERGENE: GLUTEN.",
+        "listed_in_menu": false,
+        "name": "Oberbräu Hell 0,5 l",
+        "option_group_ids": [],
+        "price": 3.8,
+        "prices_by_order_method": {
+          "delivery": 3.8,
+          "dine_in": 3.8,
+          "pickup": 3.5,
+          "room_service": 3.8
+        },
+        "section_ids": [
+          "43374"
+        ],
+        "sku": "331269",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN"
+        ],
+        "available": false,
+        "currency": "EUR",
+        "description": "inkl. 0,08 € Pfand, 9,09 €/l",
+        "image_url": "https://cdn.foodamigos.io/images/8TONd35FsiJ2x7NrR2zKwok7u6MuCrOAZjGgD4gO",
+        "ingredients": "WASSER, MALZ, HOPFEN, HEFE.",
+        "listed_in_menu": false,
+        "name": "Estrella Galicia 0,33 l",
+        "option_group_ids": [],
+        "price": 3.58,
+        "prices_by_order_method": {
+          "delivery": 3.58,
+          "dine_in": 3.58,
+          "pickup": 3.3,
+          "room_service": 3.58
+        },
+        "section_ids": [
+          "43374"
+        ],
+        "sku": "331286",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "inkl. 0,08 € Pfand, 9,09 €/l",
+        "image_url": "https://cdn.foodamigos.io/images/uRjNvoBDFaYEgdyBzTKr2RAcVKh8CLblGbu4DV9m",
+        "ingredients": "WASSER, GERSTENMALZ, HOPFEN, HOPFENEXTRAKT.",
+        "listed_in_menu": false,
+        "name": "Warsteiner 0,33 l",
+        "option_group_ids": [],
+        "price": 3.58,
+        "prices_by_order_method": {
+          "delivery": 3.58,
+          "dine_in": 3.58,
+          "pickup": 3.3,
+          "room_service": 3.58
+        },
+        "section_ids": [
+          "43374"
+        ],
+        "sku": "331287",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "NATRIUMBENZOAT"
+        ],
+        "allergens": [
+          "GLUTEN"
+        ],
+        "available": false,
+        "currency": "EUR",
+        "description": "inkl. 0,08 € Pfand, 9,09 €/l",
+        "image_url": "https://cdn.foodamigos.io/images/LcovtUFt1Ogy5I8BU3rS4uKjRlRH5UOA8kaMFRLB",
+        "ingredients": "WASSER, MALZ, ZITRONENAROMA, ZUCKER, HOPFEN, SÄUREREGELNDE SUBSTANZEN (ZITRONENSÄURE), KONSERVERUNGSMITTEL (NATRIUMBENZOAT).",
+        "listed_in_menu": false,
+        "name": "Warsteiner Radler Zitrone 0,33 l",
+        "option_group_ids": [],
+        "price": 3.58,
+        "prices_by_order_method": {
+          "delivery": 3.58,
+          "dine_in": 3.58,
+          "pickup": 3.3,
+          "room_service": 3.58
+        },
+        "section_ids": [
+          "43374"
+        ],
+        "sku": "331288",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E472a",
+          "E300"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "EIER",
+          "MILCH"
+        ],
+        "available": false,
+        "currency": "EUR",
+        "description": null,
+        "image_url": "https://cdn.foodamigos.io/images/eNQiM8f094J81eD9ld1MXxcMUYDdwld1oRD69anp.jpg",
+        "ingredients": "Weizenmehl, Wasser, Hefe, SALZ, ZUCKER, FETT, EIER, MILCH, GLUTEN.",
+        "listed_in_menu": false,
+        "name": "Classic Eggdrop",
+        "option_group_ids": [],
+        "price": 5.9,
+        "prices_by_order_method": {
+          "delivery": 5.9,
+          "dine_in": 5.9,
+          "pickup": 5.4,
+          "room_service": 5.9
+        },
+        "section_ids": [
+          "60425"
+        ],
+        "sku": "549984",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN",
+          "EI",
+          "SENF"
+        ],
+        "available": false,
+        "currency": "EUR",
+        "description": null,
+        "image_url": "https://cdn.foodamigos.io/images/5oP2gbvd6runNF1Y8pW2XeMMYaG9YzzU5Ql70nVZ.jpg",
+        "ingredients": "BUN (WEIZENMEHL, WASSER, Hefe, SALZ), AVOCADO, EI, MAYONNAISE (EIER, ÖL, SENF, ZUCKER, SALZ), SALAT, TOMATE.",
+        "listed_in_menu": false,
+        "name": "Avocado Eggdrop",
+        "option_group_ids": [],
+        "price": 8.5,
+        "prices_by_order_method": {
+          "delivery": 8.5,
+          "dine_in": 8.5,
+          "pickup": 7.7,
+          "room_service": 8.5
+        },
+        "section_ids": [
+          "60425"
+        ],
+        "sku": "549985",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E472a",
+          "E300"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "EI"
+        ],
+        "available": false,
+        "currency": "EUR",
+        "description": null,
+        "image_url": "https://cdn.foodamigos.io/images/8Z3IOHij0KRbOG9nGsC1jWmC8433yAkMLsHdWYRl.jpg",
+        "ingredients": "Weizenmehl, EIER, Parmesan, Wasser, Hefe, Salz, Zucker, Pflanzenöl. ALLERGENE: GLUTEN, EI.",
+        "listed_in_menu": false,
+        "name": "Parmesan Eggdrop",
+        "option_group_ids": [],
+        "price": 7.9,
+        "prices_by_order_method": {
+          "delivery": 7.9,
+          "dine_in": 7.9,
+          "pickup": 7.2,
+          "room_service": 7.9
+        },
+        "section_ids": [
+          "60425"
+        ],
+        "sku": "549986",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E300",
+          "E471"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "MILCH",
+          "EI"
+        ],
+        "available": false,
+        "currency": "EUR",
+        "description": null,
+        "image_url": "https://cdn.foodamigos.io/images/mOtZLRecOL0sUmt4kY3dkaHLPoip1gWluYhq93pp.jpg",
+        "ingredients": "Weizenmehl, Wasser, Hefe, SALZ, ZUCKER, FETT, PILZE, MILCH, EI.",
+        "listed_in_menu": false,
+        "name": "Pilz Eggdrop",
+        "option_group_ids": [],
+        "price": 7.9,
+        "prices_by_order_method": {
+          "delivery": 7.9,
+          "dine_in": 7.9,
+          "pickup": 7.2,
+          "room_service": 7.9
+        },
+        "section_ids": [
+          "60425"
+        ],
+        "sku": "549987",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E202"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "MILCH",
+          "EI"
+        ],
+        "available": false,
+        "currency": "EUR",
+        "description": null,
+        "image_url": "https://cdn.foodamigos.io/images/9DqahZxLyayO3WSUsIXhTL8HfNBFuuYWhWjhtGEw.jpg",
+        "ingredients": "Weizenmehl, Wasser, Hefe, ZUCKER, SALZ, PREISELBEEREN (10%), MILCH, EIER, FETT, KONSERVERUNGSMITTEL (E202), AROMEN.",
+        "listed_in_menu": false,
+        "name": "Preiselbeere Eggdrop",
+        "option_group_ids": [],
+        "price": 6.9,
+        "prices_by_order_method": {
+          "delivery": 6.9,
+          "dine_in": 6.9,
+          "pickup": 6.3,
+          "room_service": 6.9
+        },
+        "section_ids": [
+          "60425"
+        ],
+        "sku": "549988",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E300"
+        ],
+        "allergens": [
+          "EI",
+          "GLUTEN"
+        ],
+        "available": false,
+        "currency": "EUR",
+        "description": null,
+        "image_url": "https://cdn.foodamigos.io/images/bGEfE4j1DPHvMMzPkMn181gJAT0bMuUIgaBoVYNW.jpg",
+        "ingredients": "Hühnerei, WEIZENMEHL, Wasser, Salz, Hefe, ZUCKER, Pflanzenöl; enthält: EI, GLUTEN.",
+        "listed_in_menu": false,
+        "name": "Chicken Eggdrop",
+        "option_group_ids": [],
+        "price": 8.5,
+        "prices_by_order_method": {
+          "delivery": 8.5,
+          "dine_in": 8.5,
+          "pickup": 7.7,
+          "room_service": 8.5
+        },
+        "section_ids": [
+          "60425"
+        ],
+        "sku": "549989",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Konservierungsstoffe",
+          "Antioxidationsmittel"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "EI",
+          "MILCH"
+        ],
+        "available": false,
+        "currency": "EUR",
+        "description": null,
+        "image_url": "https://cdn.foodamigos.io/images/v1Z6TX6fWJ5MjOGTAgxx5lLYGm5QQFnaMHF9YUb4.jpg",
+        "ingredients": "Weißbrot, PASTRAMI (Rindfleisch, Gewürze), EIER, MAYONNAISE (EIER, ÖL), Gewürze.",
+        "listed_in_menu": false,
+        "name": "Pastrami Eggdrop",
+        "option_group_ids": [],
+        "price": 8.9,
+        "prices_by_order_method": {
+          "delivery": 8.9,
+          "dine_in": 8.9,
+          "pickup": 8.1,
+          "room_service": 8.9
+        },
+        "section_ids": [
+          "60425"
+        ],
+        "sku": "549990",
+        "source": "venue-api"
+      }
+    ]
+  },
+  "schema": "cvm.venue/v1",
+  "slug": "doppelt-kaese-berlin",
+  "source": {
+    "attribution": "Venue facts, menu and prices (c) doppelt Käse, Laubacher Straße 11, 14197 Berlin — retrieved from the venue's own public JSON API (FoodAmigos storefront). Product images are referenced by URL only and are not copied into this repository.",
+    "calls": {
+      "company": {
+        "bytes": 10428,
+        "committed_copy_redacted": true,
+        "committed_copy_sha256": "8cfe0b7d5c9868f2a7ce599c35053bf790a8f40f624f209eb0f75e4085dd6894",
+        "file": "evidence/raw/company.json",
+        "sha256": "5cc4090d8d5d9e0d2d193a4c5b68c4c7c72f52f3fa288f0693377df16359167f",
+        "url": "https://app.foodamigos.io/api/companies/doppeltkase/data?hostname=doppelt-kaese-berlin.de"
+      },
+      "menus": {
+        "bytes": 123598,
+        "committed_copy_redacted": true,
+        "committed_copy_sha256": "a6bd6bdc8eb7e2a2a3ff7f24ca54b94b797d09fc831dbba8237fb5e177584791",
+        "file": "evidence/raw/menus.json",
+        "sha256": "8a7f2e4e6af58cab05ce9e375d7cf4c5085a3e4fb3dcfa7ed86e61b39ec15cd5",
+        "url": "https://app.foodamigos.io/api/companies/1387/menus"
+      },
+      "store": {
+        "bytes": 55072,
+        "committed_copy_redacted": true,
+        "committed_copy_sha256": "bfb5f48a072477f96162f1f0018a1846aabb0e4a5ee14395c1749a6a98c4a9f5",
+        "file": "evidence/raw/store.json",
+        "sha256": "a6ca1f2bcc1ae0ddd71a08e1f30db3b3d8148af9e9f897a85107e101d41d6f0b",
+        "url": "https://www.doppelt-kaese-berlin.de/api/store"
+      }
+    },
+    "parser": "plain HTTPS GET + JSON parse; no OCR, no scraping of HTML"
+  },
+  "venue": {
+    "about": "Doppelt Käse wurde in Berlin gegründet und hat sich schnell einen Namen als beliebtes Burger-Restaurant gemacht. Mit einer Leidenschaft für saftige Cheeseburger, BBQ Burger und Chicken Burger bieten wir sowohl Abholung als auch Lieferung an, um unseren Gästen den besten Service zu bieten. Unsere Speisen sind nicht nur köstlich, sondern auch für Vegetarier und Veganer geeignet. Besuchen Sie uns in der Laubacher Straße 11 und entdecken Sie, warum Doppelt Käse die erste Wahl für Burger-Liebhaber in Berlin ist!",
+    "address": {
+      "city": "Berlin",
+      "country": "DE",
+      "lat": 52.4707069,
+      "lon": 13.3202819,
+      "postal_code": "14197",
+      "quarter": "Wilmersdorf",
+      "state": "Berlin",
+      "street": "Laubacher Straße 11"
+    },
+    "company_id": 1387,
+    "company_slug": "doppeltkase",
+    "cuisine": [
+      "burgers"
+    ],
+    "currency": "EUR",
+    "delivery": {
+      "areas_named": [
+        "Mitte",
+        "Kreuzberg",
+        "Friedrichshain",
+        "Prenzlauer Berg",
+        "Tiergarten",
+        "Moabit",
+        "Wedding",
+        "Charlottenburg",
+        "Schöneberg",
+        "Neukölln",
+        "Tempelhof",
+        "Wilmersdorf",
+        "Lichtenberg",
+        "Treptow",
+        "Pankow."
+      ],
+      "available": true,
+      "enabled": true,
+      "estimated_minutes": 40,
+      "mode": "external",
+      "schedule": [
+        {
+          "closes": "21:00",
+          "day": 0,
+          "opens": "12:00",
+          "timezone": "Europe/Berlin",
+          "weekday": "sunday"
+        },
+        {
+          "closes": "21:15",
+          "day": 1,
+          "opens": "16:30",
+          "timezone": "Europe/Berlin",
+          "weekday": "monday"
+        },
+        {
+          "closes": "21:15",
+          "day": 2,
+          "opens": "16:30",
+          "timezone": "Europe/Berlin",
+          "weekday": "tuesday"
+        },
+        {
+          "closes": "21:15",
+          "day": 3,
+          "opens": "16:30",
+          "timezone": "Europe/Berlin",
+          "weekday": "wednesday"
+        },
+        {
+          "closes": "21:15",
+          "day": 4,
+          "opens": "13:00",
+          "timezone": "Europe/Berlin",
+          "weekday": "thursday"
+        },
+        {
+          "closes": "21:15",
+          "day": 5,
+          "opens": "13:00",
+          "timezone": "Europe/Berlin",
+          "weekday": "friday"
+        },
+        {
+          "closes": "21:15",
+          "day": 6,
+          "opens": "13:00",
+          "timezone": "Europe/Berlin",
+          "weekday": "saturday"
+        }
+      ],
+      "zones": [
+        {
+          "center": {
+            "lat": 52.4707069,
+            "lng": 13.3202819
+          },
+          "currency": "EUR",
+          "fee": 5,
+          "geometry_type": "circle",
+          "id": 2454,
+          "max_order": 750,
+          "min_order": 20,
+          "name": "External delivery",
+          "radius_m": 5000
+        }
+      ]
+    },
+    "dietary_attributes": [
+      "vegetarian",
+      "vegan",
+      "spicy"
+    ],
+    "display_name": "doppelt Käse",
+    "franchise_id": 1354,
+    "franchise_slug": "doppeltkase",
+    "locales": [
+      "de",
+      "en"
+    ],
+    "name": "Doppelt Käse Laubacher Straße",
+    "opening_hours": [
+      {
+        "closes": "21:00",
+        "day": 0,
+        "opens": "12:00",
+        "timezone": "Europe/Berlin",
+        "weekday": "sunday"
+      },
+      {
+        "closes": "21:15",
+        "day": 1,
+        "opens": "16:30",
+        "timezone": "Europe/Berlin",
+        "weekday": "monday"
+      },
+      {
+        "closes": "21:15",
+        "day": 2,
+        "opens": "16:30",
+        "timezone": "Europe/Berlin",
+        "weekday": "tuesday"
+      },
+      {
+        "closes": "21:15",
+        "day": 3,
+        "opens": "16:30",
+        "timezone": "Europe/Berlin",
+        "weekday": "wednesday"
+      },
+      {
+        "closes": "21:15",
+        "day": 4,
+        "opens": "13:00",
+        "timezone": "Europe/Berlin",
+        "weekday": "thursday"
+      },
+      {
+        "closes": "21:15",
+        "day": 5,
+        "opens": "13:00",
+        "timezone": "Europe/Berlin",
+        "weekday": "friday"
+      },
+      {
+        "closes": "21:15",
+        "day": 6,
+        "opens": "13:00",
+        "timezone": "Europe/Berlin",
+        "weekday": "saturday"
+      }
+    ],
+    "order_methods": [
+      "pickup",
+      "delivery"
+    ],
+    "ordering": {
+      "note": "The venue's own ordering page; loaded client-side, its menu request is the one recorded in evidence/.",
+      "primary_url": "https://www.doppelt-kaese-berlin.de/speisekarte/doppeltkase",
+      "urls": {
+        "platform_shop": "https://doppeltkase.online-karte.com/doppeltkase",
+        "storefront_preview": "https://doppeltkase.foodamigos-storefront.com",
+        "venue_site": "https://www.doppelt-kaese-berlin.de/speisekarte/doppeltkase"
+      }
+    },
+    "phone": "+49 30 89733370",
+    "pickup": {
+      "available": true,
+      "estimated_minutes": 10
+    },
+    "provider": "foodamigos",
+    "ratings": {
+      "google": {
+        "rating": 4.7,
+        "reviews": 441
+      }
+    },
+    "reservation_url": "https://doppeltkase.tischreservieren.com",
+    "settlement": {
+      "currency": "EUR",
+      "cvm_cap": null,
+      "rail": "venue's own rail (FoodAmigos storefront: Adyen/Stripe/PayPal/cash)",
+      "tax": "inclusive 19%"
+    },
+    "store_id": 1157,
+    "store_uuid": "be6707d5-20f1-4a50-84a7-0a4e2c9fd4e3",
+    "timezone": "Europe/Berlin",
+    "type": "restaurant",
+    "website": "https://doppelt-kaese-berlin.de"
+  }
+}

@@ -1,0 +1,24 @@
+"franchise_slug": "doppeltkase",
+    "gift_cards_redemption_mode": "online_and_store",
+    "google_cloud": {
+      "api_key": "[REDACTED]"
+    },
+    "google_search_results": {},
+    "google_site_verification": null,
+    "grubhub_link": null,
+    "has_ai": true,
+    "has_catering": false,
+    "has_delivery": true,
+    "has_events": false,
+    "has_online_shop": true,
+    "has_pickup": true,
+    "has_reservations": false,
+    "home_page": {
+      "company_id": null,
+      "href": "/",
+      "id": 7188,
+      "identifier": "home",
+      "name": "Home",
+      "sections": [
+        {
+          "ba
