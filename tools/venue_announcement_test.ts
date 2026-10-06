@@ -338,3 +338,65 @@ Deno.test("RED: the wire tag set appends name/about/website without disturbing t
     assertEquals(about[0], contentAbout, `${slug}: the tag's about IS the content's about`);
   }
 });
+
+
+// --- the meatspace class tag (2026-10-06) ---------------------------------
+//
+// "Meatspace" is a CAPABILITY, not a business type: it says the goods change
+// hands in person. A restaurant is meatspace when it does pickup and not when it
+// delivers only. It rides the existing class channel as an extra tag next to the
+// primary `restaurant` class, so any client filtering `cvm:service:meatspace`
+// finds it without a register change of its own.
+//
+// It must NOT be derived from "requires no shipping address" alone: every
+// digital service (cvm-lambda, nosms) also requires no address, and classing
+// them as in-person handover would be a false claim on the very facet buyers
+// would use to find a shop they can walk into.
+
+Deno.test("RED: a pickup-capable venue is classed meatspace, a delivery-only one is not", async () => {
+  for (const slug of [DOPPELT, PIZZA]) {
+    const v = await loadVenue(slug);
+    const classes = tagValues(emitAnnouncement(venueToAnnouncement(v).input, VOCAB).tags, "t")
+      .filter((w) => w.startsWith("cvm:service:"));
+    assert(
+      classes.includes("cvm:service:meatspace"),
+      `${slug}: expected the meatspace class, got ${JSON.stringify(classes)}`,
+    );
+    assertEquals(classes[0], "cvm:service:restaurant", `${slug}: the primary class stays first`);
+  }
+  const deliveryOnly = {
+    slug: "only-delivery",
+    venue: {
+      name: "Only Delivery",
+      order_methods: ["delivery"],
+      delivery: { available: true },
+      address: { lat: 52.5, lon: 13.4 },
+      ordering: { primary_url: "https://x.example/o" },
+    },
+  } as unknown as VenueRecord;
+  const classes = tagValues(emitAnnouncement(venueToAnnouncement(deliveryOnly).input, VOCAB).tags, "t")
+    .filter((w) => w.startsWith("cvm:service:"));
+  assert(
+    !classes.includes("cvm:service:meatspace"),
+    `delivery-only must not claim in-person handover, got ${JSON.stringify(classes)}`,
+  );
+});
+
+Deno.test("RED: the kit emits extra classes deterministically and rejects malformed ones", () => {
+  const t = (x: Parameters<typeof emitAnnouncement>[0]) =>
+    emitAnnouncement(x, VOCAB).tags.filter((tag) => tag[0] === "t").map((tag) => tag[1]);
+  assertEquals(
+    t({ serviceClass: "restaurant", d: "x", extraClasses: ["meatspace", "meatspace", "ev-charger"] })
+      .slice(0, 3),
+    ["cvm:service:restaurant", "cvm:service:ev-charger", "cvm:service:meatspace"],
+    "primary first, extras sorted, duplicates dropped",
+  );
+  assertThrows(
+    () => emitAnnouncement({ serviceClass: "restaurant", d: "x", extraClasses: ["cvm:service:x"] }, VOCAB),
+    "not a short lowercase kebab token",
+  );
+  assertThrows(
+    () => emitAnnouncement({ serviceClass: "restaurant", d: "x", extraClasses: ["Meat Space"] }, VOCAB),
+    "not a short lowercase kebab",
+  );
+});

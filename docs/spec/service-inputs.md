@@ -260,3 +260,31 @@ publish the sub-fields it actually uses.
 3. Is `order.items` an input or a tool argument? It behaves like both; v1 treats
    it as a tool argument *and* declares it, because discovery filtering should be
    able to exclude basket-only services.
+
+## Class values — the `cvm:service:<class>` channel
+
+The class tag says what the service **is**. The register does not enumerate the
+values: a class is a short lowercase kebab token, so the namespace stays open and
+a new kind of service does not need a spec release. Values in use:
+`compute`, `sms`, `restaurant`, `ev-charger`, `pharmacy`.
+
+**`meatspace` is a cross-cutting capability class** (added 2026-10-06): the goods
+change hands **in person**. It rides **alongside** the primary class, it does not
+replace it — a restaurant that does pickup is `restaurant` + `meatspace`, and the
+same restaurant when it delivers only is `restaurant` alone.
+
+The rule, for publishing the tag *and* for deriving the facet from a declaration
+when a provider has not tagged it:
+
+    meatspace  <=>  no `ship.*` field is REQUIRED
+                    AND a physical handover is declared
+                        (`order.fulfilment` with `pickup` / `dine_in`,
+                         or another physical-fulfilment signal)
+
+The second clause is load-bearing. Every digital service also requires no
+shipping address, so "requires no address" on its own would class `compute` and
+`sms` as shops you can walk into — a false claim on the very facet a buyer uses
+to find somewhere they can physically go.
+
+Clients MUST render it as the provider's own declaration, like every other tag
+here: it is a statement about the flow, not an audited fact.
