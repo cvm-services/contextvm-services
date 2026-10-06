@@ -654,20 +654,26 @@ export async function publishToRelays<T>(
 
   await Promise.all(
     targets.map(async (target) => {
+      // The losing side of the race must be cleaned up: when the publish wins,
+      // an uncleared timer keeps the event loop alive for `timeoutMs` and
+      // strands one live timer per successful publish.
+      let timer: ReturnType<typeof setTimeout> | undefined;
       try {
         await Promise.race([
           target.publish(event),
-          new Promise<never>((_, reject) =>
-            setTimeout(
+          new Promise<never>((_, reject) => {
+            timer = setTimeout(
               () => reject(new Error(`publish timed out after ${timeoutMs}ms`)),
               timeoutMs,
-            )
-          ),
+            );
+          }),
         ]);
         delivered++;
       } catch (e) {
         failed++;
         log(`[venue-cvm] publish warning: ${(e as Error).message}`);
+      } finally {
+        if (timer !== undefined) clearTimeout(timer);
       }
     }),
   );
