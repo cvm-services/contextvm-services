@@ -46,7 +46,14 @@ Discovery over relay2 also works: `nak req -k 11317` returned all seven announce
 events, and the server itself connects and gets EOSE (`[venue-cvm] connected to
 wss://relay2.orangesync.tech`, `EOSE from wss://relay2.orangesync.tech`, `live; 2/2 relays connected`).
 
-## Most likely cause (not yet pinned)
+> **SUPERSEDED 2026-10-06.** The idle-reaping hypothesis below was FALSIFIED the same
+> day: a raw socket to relay2 survived 120s+ idle, and a nostr-tools Relay survived 30s
+> and 75s idle then published three 4417-byte kind-1059 events with the socket still
+> open. The real mechanism is on OUR side - a sequential publish loop - documented in
+> `FINDING-2-sequential-publish-suppresses-every-reply.md`. Kept here because a wrong
+> guess that was caught is worth more than a guess that was quietly deleted.
+
+## Most likely cause (FALSIFIED - kept for the record)
 
 relay2 appears to reap LONG-LIVED idle WebSocket connections. Every CVM has the shape
 "connect, subscribe, sit idle until addressed, then publish the answer" — so a socket
