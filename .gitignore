@@ -1,0 +1,6 @@
+# python bytecode — never commit (compiled artifacts, stale across interpreters)
+__pycache__/
+*.pyc
+
+# ring test key material is generated locally by tests/gen_keys.py; never committed
+keys.local.json
