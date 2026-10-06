@@ -590,6 +590,12 @@ export async function handleMcpMessage(
 // How long a single relay gets to acknowledge a publish. A relay that is
 // connected but silent must not be able to hold the reply back from the relays
 // that ARE answering.
+// Upper bound on a single relay's publish. NOT what makes a silent relay harmless:
+// nostr-tools publishes with its own `publishTimeout = 4400ms`, so for a silent
+// relay the LIBRARY rejects first and this outer bound never fires (measured: the
+// journals show "publish warning: publish timed out", i.e. the library's error).
+// Retained only as a guard for the case where that library timeout is raised or
+// removed, so the server can never wait forever on one relay.
 export const PUBLISH_TIMEOUT_MS = 5000;
 
 // strfry's default maxWebsocketPayloadSize. A relay keeping this default rejects
@@ -615,11 +621,17 @@ export interface PublishOutcome {
 
 // Publish ONE event to every relay INDEPENDENTLY and BOUNDED in time.
 //
-// The previous implementation awaited each relay in sequence, so a relay that
-// was connected but silent (open socket, no OK) parked the loop and every relay
-// after it delivered nothing -- a client on a healthy relay then timed out
-// against a venue that had in fact answered. Relays are peers; one peer's
-// silence must never decide whether the others deliver.
+// The previous implementation awaited each relay in sequence, so a connected but
+// silent relay (open socket, no OK) charged its whole library publish timeout
+// (nostr-tools: publishTimeout = 4400ms) to every reply before the next relay was
+// even attempted -- the delays summed across the relay set.
+//
+// CORRECTED 2026-10-06 (cold cross-family review): an earlier revision of this
+// comment claimed a silent relay made every relay after it "deliver nothing".
+// That is false -- `publish` REJECTS at 4400ms and the sequence continues. The
+// real cost was summed latency, not suppression.
+//
+// Relays are peers; one peer's silence must never set the pace for the others.
 export async function publishToRelays<T>(
   targets: PublishTarget<T>[],
   event: T,
@@ -642,20 +654,26 @@ export async function publishToRelays<T>(
 
   await Promise.all(
     targets.map(async (target) => {
+      // The losing side of the race must be cleaned up: when the publish wins,
+      // an uncleared timer keeps the event loop alive for `timeoutMs` and
+      // strands one live timer per successful publish.
+      let timer: ReturnType<typeof setTimeout> | undefined;
       try {
         await Promise.race([
           target.publish(event),
-          new Promise<never>((_, reject) =>
-            setTimeout(
+          new Promise<never>((_, reject) => {
+            timer = setTimeout(
               () => reject(new Error(`publish timed out after ${timeoutMs}ms`)),
               timeoutMs,
-            )
-          ),
+            );
+          }),
         ]);
         delivered++;
       } catch (e) {
         failed++;
         log(`[venue-cvm] publish warning: ${(e as Error).message}`);
+      } finally {
+        if (timer !== undefined) clearTimeout(timer);
       }
     }),
   );

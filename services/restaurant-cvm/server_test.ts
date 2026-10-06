@@ -594,10 +594,14 @@ Deno.test("RED: all healthy relays deliver, none are counted failed", async () =
 // nostr-tools ALREADY implements reconnect-with-backoff and re-fires every open
 // subscription in ws.onopen; both are off unless asked for. Enabling them is the
 // fix -- not a hand-rolled supervisor, which would duplicate tested library code.
-// These tests keep the flags on: deleting one silently restores the outage.
+// The test below is a REGRESSION GUARD over a constant, not a behaviour proof: it
+// can only fail if the flag is hand-edited back to false. The behavioural proof that
+// a dropped socket is actually reconnected AND re-subscribed is the net test further
+// down (it fails with reconnect off). Deleting the flags silently restores the outage,
+// which is exactly what this guard is for.
 // ---------------------------------------------------------------------------
 
-Deno.test("RED: the relay client is told to reconnect and to ping", () => {
+Deno.test("GUARD (constant): reconnect and ping stay enabled", () => {
   if (RELAY_OPTIONS.enableReconnect !== true) {
     throw new Error(
       "enableReconnect must be true -- nostr-tools defaults it OFF, and with it off a dropped relay is dead for the life of the process",
@@ -736,9 +740,11 @@ Deno.test("RED: the subscription filter is addressed to the server key", () => {
   }
 });
 
-Deno.test("RED: the filter no longer asks for unaddressed events", () => {
+Deno.test("GUARD (constant): the subscription stays addressed, not a firehose", () => {
   const filter = requestFilter("b2".repeat(32));
-  // A firehose filter has no `#p`; that is the regression this pins.
+  // REGRESSION GUARD over the filter's shape, not a behaviour proof: `requestFilter`
+  // hardcodes `#p`, so this can only fail if that is removed. Its value is that a
+  // firehose filter has no `#p` at all, which is the regression it pins.
   if (!("#p" in filter)) {
     throw new Error("a filter without #p is the whole-relay firehose, not an addressed subscription");
   }
