@@ -12,7 +12,9 @@ import {
   type VenueIndex,
   parseRelayList,
   parseVenueFilter,
+  frameBytes,
   publishToRelays,
+  RELAY_FRAME_CAP_BYTES,
   RELAY_OPTIONS,
 } from "./server.ts";
 import { Relay } from "npm:nostr-tools";
@@ -659,4 +661,50 @@ Deno.test({
       ac.abort();
     }
   },
+});
+
+// ---------------------------------------------------------------------------
+// An undeliverable reply must be LOUD, not silent.
+//
+// FINDING-3: the all-venues menu gift wrap measures 131595 B, over strfry's
+// default maxWebsocketPayloadSize (131072). relay2 rejects that frame outright
+// -- "131595 > 131072" is in its own log -- and from our side the client just
+// timed out, with nothing in our logs to say why. Relays differ (primal accepted
+// the same frame), so we still attempt the publish everywhere; we simply refuse
+// to do it silently.
+// ---------------------------------------------------------------------------
+
+Deno.test("RED: an oversized reply frame is called out locally", async () => {
+  const logs: string[] = [];
+  const delivered: unknown[] = [];
+  const target = {
+    publish: (e: unknown) => {
+      delivered.push(e);
+      return Promise.resolve("");
+    },
+  };
+  const big = { id: "0".repeat(64), content: "a".repeat(RELAY_FRAME_CAP_BYTES) };
+
+  if (frameBytes(big) <= RELAY_FRAME_CAP_BYTES) {
+    throw new Error("test premise: this event must exceed the frame cap");
+  }
+  await publishToRelays([target], big, { log: (m) => logs.push(m) });
+
+  if (delivered.length !== 1) {
+    throw new Error("relays differ: an oversized frame must still be attempted, not withheld");
+  }
+  if (!logs.some((l) => l.includes("WARNING") && l.toLowerCase().includes("frame"))) {
+    throw new Error(`an oversized frame must raise a local warning; logs=${JSON.stringify(logs)}`);
+  }
+});
+
+Deno.test("RED: a reply that fits logs no size warning", async () => {
+  const logs: string[] = [];
+  const target = { publish: () => Promise.resolve("") };
+  await publishToRelays([target], { id: "0".repeat(64), content: "ok" }, {
+    log: (m) => logs.push(m),
+  });
+  if (logs.some((l) => l.toLowerCase().includes("frame"))) {
+    throw new Error(`a normal reply must not warn; logs=${JSON.stringify(logs)}`);
+  }
 });

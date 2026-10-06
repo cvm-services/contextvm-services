@@ -592,6 +592,18 @@ export async function handleMcpMessage(
 // that ARE answering.
 export const PUBLISH_TIMEOUT_MS = 5000;
 
+// strfry's default maxWebsocketPayloadSize. A relay keeping this default rejects
+// any larger WebSocket frame outright, so a reply bigger than this is
+// undeliverable THERE even while other relays accept it. relay2 rejected our
+// 188-item menu wrap on exactly this limit -- its log line reads
+// "131595 > 131072", which is our frame byte-for-byte (FINDING-3).
+export const RELAY_FRAME_CAP_BYTES = 131072;
+
+// The exact size of the frame a relay receives for this event.
+export function frameBytes(event: unknown): number {
+  return new TextEncoder().encode(JSON.stringify(["EVENT", event])).length;
+}
+
 export interface PublishTarget<T> {
   publish(event: T): Promise<string>;
 }
@@ -611,12 +623,22 @@ export interface PublishOutcome {
 export async function publishToRelays<T>(
   targets: PublishTarget<T>[],
   event: T,
-  opts: { timeoutMs?: number; log?: (msg: string) => void } = {},
+  opts: { timeoutMs?: number; log?: (msg: string) => void; frameCapBytes?: number } = {},
 ): Promise<PublishOutcome> {
   const timeoutMs = opts.timeoutMs ?? PUBLISH_TIMEOUT_MS;
   const log = opts.log ?? (() => {});
   let delivered = 0;
   let failed = 0;
+
+  // Fail loud, not silently: a reply the relay will reject explains a client
+  // timeout that would otherwise be invisible from our side.
+  const frameCapBytes = opts.frameCapBytes ?? RELAY_FRAME_CAP_BYTES;
+  const bytes = frameBytes(event);
+  if (bytes > frameCapBytes) {
+    log(
+      `[venue-cvm] WARNING: outgoing frame is ${bytes}B, over the ${frameCapBytes}B strfry default -- a relay keeping that default WILL reject this reply`,
+    );
+  }
 
   await Promise.all(
     targets.map(async (target) => {
