@@ -42,6 +42,13 @@ export interface ToolCap {
 export interface AnnounceInput {
   /** short lowercase kebab class, e.g. "restaurant", "ev-charger" */
   serviceClass: string;
+  /**
+   * Additional class tags for a capability that cuts across classes — e.g.
+   * "meatspace" (the goods change hands in person). The primary `serviceClass`
+   * keeps the first position; extras are deduped and sorted, so the emitted tag
+   * order stays deterministic (see EmittedAnnouncement.tags).
+   */
+  extraClasses?: string[];
   /** stable, human-meaningful slug — ADR-0001 / P1 */
   d: string;
   /**
@@ -178,6 +185,16 @@ export function emitAnnouncementTags(
   const tags: string[][] = [];
   tags.push(["d", d]);
   tags.push(["t", CLASS_PREFIX + serviceClass]);
+  // Extra classes: same kebab rule as the primary — a namespaced or malformed
+  // token is a tag no reader can classify, so it fails loud here.
+  const extras = uniqStrings((input.extraClasses ?? []).map((c) => c.trim()))
+    .filter((c) => c !== serviceClass);
+  for (const c of extras) {
+    if (c.includes(":") || !KEBAB.test(c)) {
+      throw new Error(`extraClass '${c}' is not a short lowercase kebab token (P2)`);
+    }
+  }
+  for (const c of extras.sort()) tags.push(["t", CLASS_PREFIX + c]);
   for (const w of uniqStrings(input.humanTags ?? [])) {
     if (w.includes(":")) throw new Error(`human t word '${w}' is namespaced; use the class field`);
     tags.push(["t", w]);

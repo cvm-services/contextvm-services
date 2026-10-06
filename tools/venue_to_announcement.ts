@@ -140,6 +140,21 @@ export function optionalFields(v: VenueRecord): string[] {
   return deliveryOnly ? ["contact.name", "order.notes"] : ["ship.address", "contact.name", "order.notes"];
 }
 
+/**
+ * "Meatspace": the goods change hands in person — a physical fulfilment method
+ * (pickup / dine_in) is declared AND no postal address is required.
+ *
+ * Deliberately NOT derived from "requires no shipping address" alone: every
+ * digital service requires no address either, and classing those as walk-in
+ * shops would be a false claim on exactly the facet a buyer would use to find
+ * somewhere they can physically go.
+ */
+export function isMeatspace(v: VenueRecord): boolean {
+  if (requiredFields(v).some((f) => f.startsWith("ship."))) return false;
+  const methods = fulfilmentMethods(v);
+  return methods.includes("pickup") || methods.includes("dine_in");
+}
+
 export interface VenueAnnouncement {
   input: AnnounceInput;
   content: unknown;
@@ -215,6 +230,7 @@ export function venueToAnnouncement(v: VenueRecord): VenueAnnouncement {
   const input: AnnounceInput = {
     serviceClass: "restaurant",
     d: v.slug,
+    extraClasses: isMeatspace(v) ? ["meatspace"] : [],
     geohashes: geohashesFor(lat, lon),
     required: requiredFields(v),
     optional: optionalFields(v),
