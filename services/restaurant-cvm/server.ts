@@ -103,9 +103,10 @@ function numeric(n: unknown): n is number {
   return typeof n === "number" && Number.isFinite(n);
 }
 
-export async function loadVenues(): Promise<Venue[]> {
+export async function loadVenues(filter?: string[]): Promise<Venue[]> {
   const venues: Venue[] = [];
   for (const [slug, relPath] of VENUE_PATHS) {
+    if (filter && filter.length > 0 && !filter.includes(slug)) continue;
     const url = new URL(relPath, import.meta.url);
     const raw = JSON.parse(await Deno.readTextFile(url));
     const v = raw.venue ?? {};
@@ -185,8 +186,8 @@ export type VenueIndex = {
   allItems: MenuItem[];
 };
 
-export async function buildIndex(): Promise<VenueIndex> {
-  const venues = await loadVenues();
+export async function buildIndex(filter?: string[]): Promise<VenueIndex> {
+  const venues = await loadVenues(filter);
   const byVenueSku = new Map<string, Map<string, MenuItem>>();
   const byVenueId = new Map<string, Map<string, MenuItem>>();
   const ambiguousSkus = new Map<string, Map<string, MenuItem[]>>();
@@ -589,11 +590,12 @@ export async function handleMcpMessage(
 export interface ServeOptions {
   serverHex: string;
   relays?: string[];
+  venues?: string[];
   log?: (msg: string) => void;
 }
 
 export async function serve(options: ServeOptions): Promise<() => void> {
-  const index = await buildIndex();
+  const index = await buildIndex(options.venues);
   const match = options.serverHex.match(/.{2}/g);
   if (!match) throw new Error("SERVER_HEX is not valid hex");
   const serverSk = new Uint8Array(match.map((b) => parseInt(b, 16)));
@@ -712,6 +714,19 @@ export function parseRelayList(
   return out.length > 0 ? out : fallback;
 }
 
+/**
+ * Parse the VENUE_SERVER_VENUES filter (comma-separated venue slugs).
+ * Absent or effectively empty => `null` (serve ALL venues, today's default).
+ * A non-empty list => an array of the slugs this instance is scoped to.
+ */
+export function parseVenueFilter(value: string | undefined): string[] | null {
+  const out = (value ?? "")
+    .split(",")
+    .map((s) => s.trim())
+    .filter((s) => s.length > 0);
+  return out.length > 0 ? out : null;
+}
+
 // CLI entry point (only runs when executed directly)
 if (import.meta.main) {
   const hex = Deno.env.get("SERVER_HEX");
@@ -723,7 +738,8 @@ if (import.meta.main) {
     Deno.env.get("VENUE_SERVER_RELAYS"),
     ["wss://nostr.mom", "wss://relay.primal.net"],
   );
-  serve({ serverHex: hex, relays }).catch((err) => {
+  const venues = parseVenueFilter(Deno.env.get("VENUE_SERVER_VENUES")) ?? undefined;
+  serve({ serverHex: hex, relays, venues }).catch((err) => {
     console.error("[venue-cvm] fatal:", err);
     Deno.exit(1);
   });
