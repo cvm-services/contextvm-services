@@ -1,81 +1,69 @@
-# Report — per-venue identity for the venue CVM server
+# REPORT — venue CVM publish path: two defects found, both fixed; relay2 quantified
 
-## Outcome
+Branch `fix/publish-concurrency` (PR #17). All work is committed and pushed:
+`c848c8b` (fix + RED tests), `324fe91`/`eda90e6` (evidence), `89d6f0d` (durability),
+`7a3578a` (relay2 quantification).
 
-Pizza e Pasta (Ruedesheimerplatz) is now reachable under its own announced pubkey
-`ef070a5d…` with a menu scoped to pizza only and a real, orderable basket. The
-fix is one server instance per announced identity, wired through a
-`VENUE_SERVER_VENUES` filter.
+## What was asked (items 1-4) and where each stands
 
-## What changed
+1. **Merge #15** — DONE. It was `CONFLICTING` (`#13` landed as a squash, so the
+   histories diverged on the same files). Merged main in, resolved the three
+   add/add files to this branch's supersets, proved the delta was only the
+   relay-list work (23 lines + 28 test lines), suite 65/0. main = `595e92a`,
+   verified by reading main's own blobs.
 
-1. **`services/restaurant-cvm/server.ts`**
-   - Added `parseVenueFilter(value)` — maps absent/empty to `null` (all venues),
-     else a trimmed, deduped array of slugs.
-   - `loadVenues(filter?)`, `buildIndex(filter?)`, `serve({ venues })` now thread
-     an optional venue filter; a filtered instance loads and serves only those
-     venues.
-   - CLI reads `VENUE_SERVER_VENUES` and passes it through.
+2. **Fix relay2's socket lifetime** — the measurement falsified the premise, and
+   the real causes turned out to be OURS. Two defects, both fixed:
 
-2. **`services/restaurant-cvm/server_test.ts`** — 4 RED tests added:
-   - `parseVenueFilter` absent/empty/list behaviour.
-   - a filtered instance serves ONLY that venue's menu (112 pizza items).
-   - a filtered instance refuses an `order` for a venue it does not serve,
-     naming the unknown venue (`unknown venue_slug: doppelt-kaese-berlin`).
-   - a filtered instance still orders its own venue normally.
-   Proved RED first (TS2305/TS2554 against the unfixed tree), then GREEN.
+   - `server.ts` published SEQUENTIALLY (`for ... await relay.publish(...)`).
+     `relay.publish` has no timeout and resolves only on the relay's OK, so a
+     relay that is connected but SILENT parked the loop and every relay after it
+     delivered nothing. Fixed: concurrent publish with a per-relay deadline.
+     RED first (4 tests failed: `TS2305 no exported member 'publishToRelays'`),
+     GREEN 73/0.
+   - `nostr-tools`' `enableReconnect`/`enablePing` were never set, so
+     `AbstractRelay.handleHardClose` took the else branch and a dropped socket
+     stayed dead for the process lifetime. The library already implements
+     reconnect-with-backoff AND re-fires every open subscription on reopen —
+     fixing this is two flags, not a hand-rolled supervisor. RED first, GREEN
+     74 unit / 75 net, including a behavioural test that a socket closed 200 ms
+     after open is reconnected AND re-subscribed.
 
-3. **`services/restaurant-cvm/run-venue-server.sh`** — reads/forwards
-   `VENUE_SERVER_VENUES`, added it to `--allow-env`.
+   relay2 itself is then quantified from its own strfry logs (90 min):
+   2635 x `1006/Resource temporarily unavailable`, 215 x `1006/auto ping
+   timeout`, several `Websocket frame size exceeded (131595 > 131072)`,
+   container up since 2026-10-03 with Restarts=0. relay2 drops connections
+   continuously; that is an infra defect on the relay host, not something the
+   CVM server can fix.
 
-4. **`services/restaurant-cvm/e2e_client.ts`** — added `--venue` so a run asserts
-   a single announced identity (menu slug set + item count + order against that
-   venue). Unscoped runs keep the combined 188-item assertion.
+   End state, fixed tree, same relays: **primal-only 4/4 reproducible**;
+   both-relays 3/4-4/4 depending on relay2's window; relay2-only 2/4 or a hang
+   during a drop burst.
 
-5. **`deploy/`** — added `venue-cvm-server-pizza.service` (pizza key +
-   `VENUE_SERVER_VENUES=pizza-e-pasta-ruedesheimerplatz`) and set
-   `VENUE_SERVER_VENUES=doppelt-kaese-berlin` on the existing doppelt unit, so the
-   two instances are 1:1 with their kind-11317 announcements.
+3. **Pizza identity decision** — resolved by PR #16: one supervised instance per
+   announced identity. pizza is served under its OWN announced key
+   (`ef070a5d...`) instead of both venues being served under doppelt's. Proof:
+   `all_passed=true`, 4/4 checks, for BOTH venues over primal
+   (`evidence/pizza-identity/*-e2e-primal.json`). RED first
+   (`evidence/pizza-identity/RED-unfixed.log`).
 
-## Proof (raw, committed under `evidence/pizza-identity/`)
+4. **Republish from main** — NOT done, and deliberately. It was gated on 1+2.
+   Our side of 2 is fixed; relay2's side is not. Republishing today advertises
+   relay2 reachability that still does not hold. Decision needed: republish with
+   a primal-scoped claim, or hold until relay2's fd/ping/frame limits are fixed.
 
-Both runs driven by `e2e_client.ts` over `wss://relay.primal.net`:
+## Live state
 
-| target | pubkey | menu | order |
-|---|---|---|---|
-| pizza | `ef070a5d…` | 112 items, `["pizza-e-pasta-ruedesheimerplatz"]` only | status=basket, 1 line, total 2.70, deep_link present |
-| doppelt (regression) | `fe700a09…` | 76 items, `["doppelt-kaese-berlin"]` only | status=basket, 2 lines, total 22.30, deep_link present |
+- `venue-cvm-server.service` + `venue-cvm-server-pizza.service`: active+enabled,
+  `Restart=always`, `Linger=yes`, 2/2 relays each. NOTE: both still run the
+  UNMERGED tree (`WorkingDirectory` = `~/worktrees/cs-pizza-identity`), so the
+  live service does NOT yet have the two publish-path fixes. After #16/#17 merge,
+  repoint both units at the deployed checkout.
+- Open PRs: **#17** (publish fix + durability), **#16** (pizza identity),
+  **#14** (announced-schema drift) — all yours to merge.
+- Tests: 74 unit (1 ignored) + 75 net, `deno check` clean.
 
-- `pizza-e2e-primal.json` / `doppelt-e2e-primal.json` — full transcripts,
-  `all_passed: true`, `checks` all `ok`.
-- `pizza-server.log` / `doppelt-server.log` — each instance's own journal:
-  pizza loads 112 items/1 venue signed as `ef070a5d…`; doppelt 76/1 signed
-  `fe700a09…`.
+## Lesson recorded in the repo
 
-## Deployed
-
-Both `systemd --user` units installed (`~/.config/systemd/user/`), enabled
-`--now`, Linger already yes:
-
-- `venue-cvm-server.service` — doppelt, 76 items, `fe700a09…`, 2/2 relays.
-- `venue-cvm-server-pizza.service` — pizza, 112 items, `ef070a5d…`, 2/2 relays.
-
-## Tests
-
-`deno task test` → **69 passed | 0 failed** (baseline was 65).
-
-## Known issue (pre-existing, not fixed here, not caused by this change)
-
-relay2.orangesync.tech drops long-lived subscribed sockets (see
-`evidence/relay-e2e/FINDING-…`). This work also surfaced a second relay2
-limitation in the server logs: a 76-item (~66 KB) or 112-item (~77 KB) menu
-gift-wrap is rejected by relay2 with `invalid: event too large`, while
-`wss://relay.primal.net` accepts it. All proof above runs over primal, which
-round-trips cleanly. This is a separate relay2 finding to be diagnosed in
-parallel; not addressed here.
-
-## Not done (by design)
-
-No announcement was created or republished — publishing is the manager's call
-and is gated. Nothing merged. Branch `pizza-identity` carries the code, tests,
-units, and raw proof.
+`grep -oE 'publish warning: .*'` over the server log dumps whole gift-wrapped
+events (~280 KB/run). Match a bounded prefix.
