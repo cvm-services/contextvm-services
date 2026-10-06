@@ -23,6 +23,7 @@ import {
   RELAY_EVENT_CAP_BYTES,
 } from "./server.ts";
 import { Relay } from "npm:nostr-tools";
+import { venueToAnnouncement } from "../../tools/venue_to_announcement.ts";
 
 let index: VenueIndex;
 
@@ -812,5 +813,69 @@ Deno.test("RED: a reply under both caps logs neither warning", async () => {
   });
   if (logs.some((l) => l.includes("65536") || l.toLowerCase().includes("frame is"))) {
     throw new Error(`a small reply must not warn; logs=${JSON.stringify(logs)}`);
+  }
+});
+
+/**
+ * JSON object key order carries no meaning in a JSON Schema, so the comparison below
+ * sorts keys before stringifying. Verified 2026-10-06: the only difference between the
+ * announced and the served schema was that the server's literal happens to list
+ * `venue_slug` last. A textual comparison called that drift and would have sent someone
+ * hunting a semantic mismatch that did not exist.
+ */
+function canonical(value: unknown): string {
+  if (Array.isArray(value)) return "[" + value.map(canonical).join(",") + "]";
+  if (value && typeof value === "object") {
+    const obj = value as Record<string, unknown>;
+    return "{" +
+      Object.keys(obj).sort().map((k) => JSON.stringify(k) + ":" + canonical(obj[k])).join(",") +
+      "}";
+  }
+  return JSON.stringify(value);
+}
+
+// The announcement and the server each describe the `order` tool's arguments. If they
+// disagree, a client is handed an interface the server does not accept. Measured
+// 2026-10-06: the published schema still required `{sku, qty}` and had no `id` while the
+// server had started refusing colliding skus in favour of the venue item id — so the
+// published interface hid the only way to order pizza's sku 36/110/44 at all.
+Deno.test("RED: the announced order schema matches the schema the server answers with", async () => {
+  await setup();
+  const res = await handleMcpMessage(index, { method: "tools/list", id: 9 });
+  if (!res || "error" in res) throw new Error("tools/list failed");
+  const tools = (res.result as { tools: Array<Record<string, unknown>> }).tools;
+  const served = tools.find((t) => t.name === "order")?.inputSchema;
+  if (!served) throw new Error("the server advertises no order schema");
+
+  const raw = JSON.parse(
+    await Deno.readTextFile(
+      new URL("../../venues/doppelt-kaese-berlin/venue.json", import.meta.url),
+    ),
+  );
+  const announcedContent = venueToAnnouncement(raw).content as {
+    tools: Array<{ name: string; inputSchema: unknown }>;
+  };
+  const announced = announcedContent.tools.find((t) => t.name === "order")?.inputSchema;
+  if (!announced) throw new Error("the announcement carries no order schema");
+
+  if (canonical(served) !== canonical(announced)) {
+    throw new Error(
+      "the announced order schema differs from the served one: a client would read an interface the server does not accept",
+    );
+  }
+
+  const items = (served as {
+    properties: {
+      items: { items: { properties: Record<string, unknown>; required: string[] } };
+    };
+  }).properties.items.items;
+  if (!items.properties.id) {
+    throw new Error("the published schema hides `id`, so a colliding sku cannot be ordered");
+  }
+  if (items.required.includes("sku")) {
+    throw new Error("items must not require a sku now that an id is accepted");
+  }
+  if (!items.required.includes("qty")) {
+    throw new Error("items must still require a qty");
   }
 });
