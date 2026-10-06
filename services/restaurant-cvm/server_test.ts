@@ -13,7 +13,9 @@ import {
   parseRelayList,
   parseVenueFilter,
   publishToRelays,
+  RELAY_OPTIONS,
 } from "./server.ts";
+import { Relay } from "npm:nostr-tools";
 
 let index: VenueIndex;
 
@@ -573,4 +575,88 @@ Deno.test("RED: all healthy relays deliver, none are counted failed", async () =
   if (res.delivered !== 3 || res.failed !== 0) {
     throw new Error(`expected 3 delivered/0 failed; got ${JSON.stringify(res)}`);
   }
+});
+
+// ---------------------------------------------------------------------------
+// A dropped relay must come BACK, and a half-dead socket must be noticed.
+//
+// Production, 2026-10-06: relay2 closes the socket mid-run ("Tried to send
+// message ... on a closed connection to wss://relay2.orangesync.tech/") and the
+// server never set nostr-tools' enableReconnect, so AbstractRelay.handleHardClose
+// took the ELSE branch -- onclose + closeAllSubscriptions -- and that Relay
+// object stayed dead for the whole process lifetime. A client reading only from
+// relay2 stopped being served at the moment of the close: the 2/4 e2e shape.
+//
+// nostr-tools ALREADY implements reconnect-with-backoff and re-fires every open
+// subscription in ws.onopen; both are off unless asked for. Enabling them is the
+// fix -- not a hand-rolled supervisor, which would duplicate tested library code.
+// These tests keep the flags on: deleting one silently restores the outage.
+// ---------------------------------------------------------------------------
+
+Deno.test("RED: the relay client is told to reconnect and to ping", () => {
+  if (RELAY_OPTIONS.enableReconnect !== true) {
+    throw new Error(
+      "enableReconnect must be true -- nostr-tools defaults it OFF, and with it off a dropped relay is dead for the life of the process",
+    );
+  }
+  if (RELAY_OPTIONS.enablePing !== true) {
+    throw new Error(
+      "enablePing must be true -- without it a socket that is open but never answers is never detected",
+    );
+  }
+});
+
+const canNet = (await Deno.permissions.query({ name: "net" })).state === "granted";
+
+Deno.test({
+  name: "RED: a relay whose socket closes is reconnected AND re-subscribed (net)",
+  ignore: !canNet,
+  fn: async () => {
+    let connections = 0;
+    let reqs = 0;
+    const ac = new AbortController();
+    const server = Deno.serve({ port: 0, signal: ac.signal, onListen: () => {} }, (req) => {
+      if (req.headers.get("upgrade") !== "websocket") {
+        return new Response("no upgrade", { status: 400 });
+      }
+      const { socket, response } = Deno.upgradeWebSocket(req);
+      socket.onopen = () => {
+        connections++;
+        // drop every socket shortly after it opens, so a successful test can
+        // only pass by reconnecting
+        setTimeout(() => {
+          try {
+            socket.close();
+          } catch (_) {
+            // already closed
+          }
+        }, 200);
+      };
+      socket.onmessage = (ev) => {
+        if (String(ev.data).startsWith('["REQ"')) reqs++;
+      };
+      return response;
+    });
+    const url = `ws://localhost:${(server.addr as Deno.NetAddr).port}`;
+
+    try {
+      const relay = await Relay.connect(url, { ...RELAY_OPTIONS });
+      // the real backoff starts at 10s; keep the test fast but exercise the
+      // library's own reconnect path
+      relay.resubscribeBackoff = [50, 50, 50, 50];
+      relay.subscribe([{ kinds: [1059], limit: 0 }], { onevent: () => {} });
+
+      await new Promise((r) => setTimeout(r, 2000));
+      relay.close();
+
+      if (connections < 2) {
+        throw new Error(`a dropped relay must be reconnected; connections=${connections}`);
+      }
+      if (reqs < 2) {
+        throw new Error(`a reconnected relay must be re-subscribed; REQs=${reqs}`);
+      }
+    } finally {
+      ac.abort();
+    }
+  },
 });

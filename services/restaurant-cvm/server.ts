@@ -641,6 +641,14 @@ export async function publishToRelays<T>(
   return { delivered, failed };
 }
 
+// Relay durability. nostr-tools implements reconnection with backoff and re-fires
+// every open subscription when a socket reopens, plus a ping/pong liveness check
+// that notices a socket which is OPEN but never answers. All of it is OFF unless
+// asked for -- and with it off, one dropped socket removes the venue from that
+// relay for the rest of the process's life. relay2 did exactly that mid-run on
+// 2026-10-06 (evidence/relay-e2e/FINDING-2-sequential-publish-suppresses-every-reply.md).
+export const RELAY_OPTIONS = { enableReconnect: true, enablePing: true } as const;
+
 export interface ServeOptions {
   serverHex: string;
   relays?: string[];
@@ -696,12 +704,12 @@ export async function serve(options: ServeOptions): Promise<() => void> {
   for (const url of relays) {
     try {
       const relay = await Promise.race([
-        Relay.connect(url),
+        Relay.connect(url, { ...RELAY_OPTIONS }),
         new Promise<never>((_, reject) =>
           setTimeout(() => reject(new Error("connection timeout (10s)")), 10000)
         ),
       ]);
-      log(`[venue-cvm] connected to ${url}`);
+      log(`[venue-cvm] connected to ${url} (reconnect + ping on)`);
 
       relay.subscribe(
         [{ kinds: [1059, 21059], limit: 0 }],
