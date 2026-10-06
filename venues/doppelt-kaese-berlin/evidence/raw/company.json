@@ -1,0 +1,587 @@
+{
+  "company": {
+    "address": "Laubacher Straße 11",
+    "average_order_delivery_time": {
+      "max": null,
+      "min": 40
+    },
+    "average_order_preparation_time": {
+      "max": null,
+      "min": 10
+    },
+    "business_profile": {
+      "full_invoice_address": "Laubacher Straße 11, 14197 Berlin, Germany",
+      "full_legal_address": "Laubacher Straße 11, 14197 Berlin, Germany",
+      "legal_name": "Doppelt Käse Laubacher Strasse",
+      "owner_email": "[REDACTED]",
+      "owner_first_name": "[REDACTED]",
+      "owner_last_name": "[REDACTED]",
+      "owner_phone_number": "[REDACTED]",
+      "tax_id": null
+    },
+    "cashback_program": {
+      "app_signup_bonus_image_url": "https://cdn.foodamigos.io/images/owz7eDRNhehviS3WfZDdJZFM5MqewUWxeG8HWYwN.jpg",
+      "end_date": null,
+      "id": 989,
+      "max_spending_limit": 60,
+      "min_spending_limit": 35,
+      "mobile_app_signup_bonus": 50,
+      "percentage": 10,
+      "point_lifetime": 90,
+      "title": null,
+      "welcome_bonus": 0,
+      "welcome_bonus_image_url": null
+    },
+    "city": "Berlin",
+    "closed_from": null,
+    "closed_until": null,
+    "country": "DE",
+    "cuisine_types": [
+      "burgers"
+    ],
+    "currency": "EUR",
+    "current_delivery_schedule": {
+      "close": {
+        "day": 1,
+        "hour": 21,
+        "minute": 15,
+        "timezone": "Europe/Berlin"
+      },
+      "open": {
+        "day": 1,
+        "hour": 16,
+        "minute": 30,
+        "timezone": "Europe/Berlin"
+      },
+      "timezone": "Europe/Berlin"
+    },
+    "current_work_schedule": {
+      "close": {
+        "day": 1,
+        "hour": 21,
+        "minute": 15,
+        "timezone": "Europe/Berlin"
+      },
+      "open": {
+        "day": 1,
+        "hour": 16,
+        "minute": 30,
+        "timezone": "Europe/Berlin"
+      },
+      "timezone": "Europe/Berlin"
+    },
+    "default_tip_percentage": 5,
+    "delivery_enabled": true,
+    "delivery_mode": "external",
+    "delivery_schedule": [
+      {
+        "close": {
+          "day": 0,
+          "hour": 21,
+          "minute": 0,
+          "timezone": "Europe/Berlin"
+        },
+        "open": {
+          "day": 0,
+          "hour": 12,
+          "minute": 0,
+          "timezone": "Europe/Berlin"
+        },
+        "timezone": "Europe/Berlin"
+      },
+      {
+        "close": {
+          "day": 1,
+          "hour": 21,
+          "minute": 15,
+          "timezone": "Europe/Berlin"
+        },
+        "open": {
+          "day": 1,
+          "hour": 16,
+          "minute": 30,
+          "timezone": "Europe/Berlin"
+        },
+        "timezone": "Europe/Berlin"
+      },
+      {
+        "close": {
+          "day": 2,
+          "hour": 21,
+          "minute": 15,
+          "timezone": "Europe/Berlin"
+        },
+        "open": {
+          "day": 2,
+          "hour": 16,
+          "minute": 30,
+          "timezone": "Europe/Berlin"
+        },
+        "timezone": "Europe/Berlin"
+      },
+      {
+        "close": {
+          "day": 3,
+          "hour": 21,
+          "minute": 15,
+          "timezone": "Europe/Berlin"
+        },
+        "open": {
+          "day": 3,
+          "hour": 16,
+          "minute": 30,
+          "timezone": "Europe/Berlin"
+        },
+        "timezone": "Europe/Berlin"
+      },
+      {
+        "close": {
+          "day": 4,
+          "hour": 21,
+          "minute": 15,
+          "timezone": "Europe/Berlin"
+        },
+        "open": {
+          "day": 4,
+          "hour": 13,
+          "minute": 0,
+          "timezone": "Europe/Berlin"
+        },
+        "timezone": "Europe/Berlin"
+      },
+      {
+        "close": {
+          "day": 5,
+          "hour": 21,
+          "minute": 15,
+          "timezone": "Europe/Berlin"
+        },
+        "open": {
+          "day": 5,
+          "hour": 13,
+          "minute": 0,
+          "timezone": "Europe/Berlin"
+        },
+        "timezone": "Europe/Berlin"
+      },
+      {
+        "close": {
+          "day": 6,
+          "hour": 21,
+          "minute": 15,
+          "timezone": "Europe/Berlin"
+        },
+        "open": {
+          "day": 6,
+          "hour": 13,
+          "minute": 0,
+          "timezone": "Europe/Berlin"
+        },
+        "timezone": "Europe/Berlin"
+      }
+    ],
+    "delivery_zones": [
+      {
+        "color": "#69CE8C",
+        "fee": 5,
+        "geometry_data": {
+          "center": {
+            "lat": 52.4707069,
+            "lng": 13.3202819
+          },
+          "radius": 5000
+        },
+        "geometry_type": "circle",
+        "id": 2454,
+        "max_threshold": 750,
+        "min_threshold": 20,
+        "name": "External delivery"
+      }
+    ],
+    "email": "[REDACTED]",
+    "gift_card_unavailable_payment_methods": [],
+    "google_places_id": "ChIJh046TYJRqEcRg2B-cWqT-Qg",
+    "google_rates_count": 441,
+    "google_rating": "4.7",
+    "google_review_program": {
+      "end_date": null,
+      "id": 849,
+      "reward": 125
+    },
+    "has_asap_orders": true,
+    "has_delivery": true,
+    "has_delivery_schedule": false,
+    "has_in_store_card_payments": false,
+    "has_live_orders": true,
+    "has_multiple_locations": false,
+    "has_order_instructions": false,
+    "has_paypal_upcharge": false,
+    "has_pickup": true,
+    "has_pre_order": true,
+    "has_room_service": false,
+    "has_scheduled_orders": true,
+    "has_storefront": true,
+    "has_tips": true,
+    "has_work_schedule": true,
+    "hidden_order_methods": [
+      "room_service"
+    ],
+    "hidden_payment_methods": [],
+    "id": 1387,
+    "impressum": {
+      "full_address": "Laubacher Straße 11, 14197 Berlin, Germany",
+      "legal_name": "Doppelt Käse Laubacher Strasse",
+      "owner_email": "[REDACTED]",
+      "owner_first_name": "[REDACTED]",
+      "owner_last_name": "[REDACTED]",
+      "owner_phone_number": "[REDACTED]",
+      "tax_id": null
+    },
+    "impressum_link": null,
+    "instagram_link": null,
+    "is_live": true,
+    "lang": "de",
+    "language": "de",
+    "last_order_gap_delivery": 30,
+    "last_order_gap_pickup": 30,
+    "lat": 52.4707069,
+    "legal_address": "Laubacher Straße 11, 14197 Berlin, Germany",
+    "legal_lang": "de",
+    "live_from": "2025-04-10T16:51:46.000000Z",
+    "location_name": null,
+    "locations": [
+      {
+        "address": "Laubacher Straße 11",
+        "city": "Berlin",
+        "day": 0,
+        "hour": null,
+        "lat": 52.4707069,
+        "lon": 13.3202819,
+        "minute": null,
+        "name": null,
+        "zip_code": "14197"
+      }
+    ],
+    "logo_url": null,
+    "lon": 13.3202819,
+    "max_pre_order_days": 7,
+    "min_schedule_ahead_time_delivery": 120,
+    "min_schedule_ahead_time_pickup": 45,
+    "name": "Doppelt Käse Laubacher Straße",
+    "next_delivery_schedule": {
+      "close": {
+        "day": 2,
+        "hour": 21,
+        "minute": 15,
+        "timezone": "Europe/Berlin"
+      },
+      "open": {
+        "day": 2,
+        "hour": 16,
+        "minute": 30,
+        "timezone": "Europe/Berlin"
+      },
+      "timezone": "Europe/Berlin"
+    },
+    "next_work_schedule": {
+      "close": {
+        "day": 2,
+        "hour": 21,
+        "minute": 15,
+        "timezone": "Europe/Berlin"
+      },
+      "open": {
+        "day": 2,
+        "hour": 16,
+        "minute": 30,
+        "timezone": "Europe/Berlin"
+      },
+      "timezone": "Europe/Berlin"
+    },
+    "offer_description": null,
+    "offer_title": null,
+    "offers": [],
+    "open_now": false,
+    "open_now_for_delivery": false,
+    "open_now_for_pickup": false,
+    "order_instructions_title": null,
+    "orders_pause_reason": null,
+    "orders_paused_until": null,
+    "overwrite_cash_payments_to_invoice": false,
+    "payment_gateway": "adyen",
+    "payment_gateways": [
+      "adyen",
+      "stripe"
+    ],
+    "paypal_standalone": {
+      "available": false,
+      "client_id": null
+    },
+    "phone_number": "+49 30 89733370",
+    "pictures": [
+      "https://cdn.foodamigos.io/images/cd715b3a-0f56-42fb-85a7-7de0e2a390b5"
+    ],
+    "primary_color": null,
+    "region": {
+      "address_format": "international",
+      "country": "DE",
+      "currency": "EUR",
+      "date_format": "dd.MM.yyyy",
+      "default_locale": "de",
+      "distance_unit": "km",
+      "hour_cycle": "h23",
+      "legal_pack": "de",
+      "limits": [],
+      "locales": [
+        "de",
+        "en"
+      ],
+      "number_locale": "de-DE",
+      "timezone": "Europe/Berlin"
+    },
+    "restaurant_source": "fa_direct",
+    "room_service_locations": [],
+    "saved_cards_enabled": true,
+    "scheduled_order_option_title": null,
+    "scheduled_orders_time_slot_interval": 10,
+    "service_provider": {
+      "adyen_key": "[REDACTED]",
+      "amplitude_api_key": "[REDACTED]",
+      "circle_logo_url": "https://cdn.foodamigos.io/service-providers/1/LogoCircle.png",
+      "country": "DE",
+      "google_analytics_id": "[REDACTED]",
+      "google_pay_merchant_id": "BCR2DN6TQ72IBQ2N",
+      "has_generated_legal_documents": false,
+      "id": 1,
+      "is_master": true,
+      "is_test": false,
+      "issues_end_customer_receipts": true,
+      "logo_url": "https://cdn.foodamigos.io/service-providers/1/logo.png",
+      "mixpanel_api_key": "[REDACTED]",
+      "name": "FoodAmigos",
+      "otp_delivery_channels": "[REDACTED]",
+      "platform_mixpanel_token": "[REDACTED]",
+      "sender_email": "[REDACTED]",
+      "spreedly_environment_key": null,
+      "stripe_key": "[REDACTED]",
+      "support_email": "[REDACTED]",
+      "website": "www.foodamigos.io"
+    },
+    "show_hero_image_with_offers": false,
+    "show_master_promo_code": true,
+    "slug": "doppeltkase",
+    "smart_pricing_deals": [
+      {
+        "id": 58997,
+        "image_meta": {
+          "generated_at": "2026-06-23T15:31:44+00:00",
+          "is_ai_generated": true,
+          "prompt_template_version": "v1.2"
+        },
+        "image_url": "https://cdn.foodamigos.io/images/LglT920ZmwfLO09tw16OfPyzY47YTvJtQdppO0ry.jpg",
+        "is_global": true,
+        "is_visible": true,
+        "modifier_type": "percentage",
+        "modifier_value": -10,
+        "name": "10% Rabatt auf Abholung über den Webshop",
+        "order_methods": [
+          "pickup"
+        ]
+      }
+    ],
+    "smart_pricing_rules": [
+      {
+        "id": 58997,
+        "image_meta": {
+          "generated_at": "2026-06-23T15:31:44+00:00",
+          "is_ai_generated": true,
+          "prompt_template_version": "v1.2"
+        },
+        "image_url": "https://cdn.foodamigos.io/images/LglT920ZmwfLO09tw16OfPyzY47YTvJtQdppO0ry.jpg",
+        "is_global": true,
+        "is_visible": true,
+        "modifier_type": "percentage",
+        "modifier_value": -10,
+        "name": "10% Rabatt auf Abholung über den Webshop",
+        "order_methods": [
+          "pickup"
+        ]
+      }
+    ],
+    "state": "Berlin",
+    "stripe_id": "acct_1R6fYDFL9OZlDciF",
+    "supported_languages": [
+      "de",
+      "en",
+      "fr",
+      "es",
+      "it",
+      "pt",
+      "ro",
+      "pl",
+      "nl",
+      "da"
+    ],
+    "supported_payment_methods": [
+      "apple_pay",
+      "google_pay",
+      "card",
+      "pay_by_bank",
+      "paypal"
+    ],
+    "table_number_hidden": false,
+    "tax_behaviour": "inclusive",
+    "tax_percentage": 19,
+    "timezone": "Europe/Berlin",
+    "web_shop_url": "https://doppeltkase.online-karte.com/doppeltkase",
+    "website_link": "doppelt-kaese-berlin.de",
+    "work_schedule": [
+      {
+        "close": {
+          "day": 0,
+          "hour": 21,
+          "minute": 0,
+          "timezone": "Europe/Berlin"
+        },
+        "open": {
+          "day": 0,
+          "hour": 12,
+          "minute": 0,
+          "timezone": "Europe/Berlin"
+        },
+        "timezone": "Europe/Berlin"
+      },
+      {
+        "close": {
+          "day": 1,
+          "hour": 21,
+          "minute": 15,
+          "timezone": "Europe/Berlin"
+        },
+        "open": {
+          "day": 1,
+          "hour": 16,
+          "minute": 30,
+          "timezone": "Europe/Berlin"
+        },
+        "timezone": "Europe/Berlin"
+      },
+      {
+        "close": {
+          "day": 2,
+          "hour": 21,
+          "minute": 15,
+          "timezone": "Europe/Berlin"
+        },
+        "open": {
+          "day": 2,
+          "hour": 16,
+          "minute": 30,
+          "timezone": "Europe/Berlin"
+        },
+        "timezone": "Europe/Berlin"
+      },
+      {
+        "close": {
+          "day": 3,
+          "hour": 21,
+          "minute": 15,
+          "timezone": "Europe/Berlin"
+        },
+        "open": {
+          "day": 3,
+          "hour": 16,
+          "minute": 30,
+          "timezone": "Europe/Berlin"
+        },
+        "timezone": "Europe/Berlin"
+      },
+      {
+        "close": {
+          "day": 4,
+          "hour": 21,
+          "minute": 15,
+          "timezone": "Europe/Berlin"
+        },
+        "open": {
+          "day": 4,
+          "hour": 13,
+          "minute": 0,
+          "timezone": "Europe/Berlin"
+        },
+        "timezone": "Europe/Berlin"
+      },
+      {
+        "close": {
+          "day": 5,
+          "hour": 21,
+          "minute": 15,
+          "timezone": "Europe/Berlin"
+        },
+        "open": {
+          "day": 5,
+          "hour": 13,
+          "minute": 0,
+          "timezone": "Europe/Berlin"
+        },
+        "timezone": "Europe/Berlin"
+      },
+      {
+        "close": {
+          "day": 6,
+          "hour": 21,
+          "minute": 15,
+          "timezone": "Europe/Berlin"
+        },
+        "open": {
+          "day": 6,
+          "hour": 13,
+          "minute": 0,
+          "timezone": "Europe/Berlin"
+        },
+        "timezone": "Europe/Berlin"
+      }
+    ],
+    "zip_code": "14197"
+  },
+  "franchise": {
+    "body_noscripts": null,
+    "country": "DE",
+    "facebook_pixel_id": null,
+    "gift_cards_redemption_mode": "online_and_store",
+    "google_ads_conversion_label_id": null,
+    "google_analytics_id": null,
+    "has_multiple_companies": false,
+    "head_scripts": null,
+    "id": 1354,
+    "image_url": "https://cdn.foodamigos.io/images/0603725e-82cb-4b93-b6e3-88042aeba1a9",
+    "is_gift_cards_enabled": true,
+    "logo_url": "https://cdn.foodamigos.io/images/CLehWXShKnL2VbpgvxeBgXfBXPpAPLIJQklU8xYa.png",
+    "logos": [
+      {
+        "height": 512,
+        "url": "https://cdn.foodamigos.io/images/WuwRZTewIh0OeB9DS1gI69tFhaNmBTVreW98kcRn-512x512.jpg",
+        "width": 512
+      },
+      {
+        "height": 192,
+        "url": "https://cdn.foodamigos.io/images/ta5JG6gabTMSVPO1qwGtVpAjJxWOhrY1pQ6qIqCo-192x192.jpg",
+        "width": 192
+      }
+    ],
+    "mobile_app": {
+      "app_bundle_identifier": "com.doppeltkase.doppeltkase",
+      "app_icon": "https://df82qhw4izaag.cloudfront.net/73e58c98-d8c3-4fa7-a019-6201a48b7e15/app_icon.png",
+      "asc_app_id": 6751851444,
+      "name": "Doppelt Käse",
+      "released": true,
+      "released_at": "2025-10-27T09:12:26+00:00",
+      "uuid": "73e58c98-d8c3-4fa7-a019-6201a48b7e15"
+    },
+    "name": "doppelt Käse",
+    "primary_color": "#e2a548",
+    "seo_data": null,
+    "slug": "doppeltkase",
+    "web_shop_url": "https://doppeltkase.online-karte.com"
+  }
+}

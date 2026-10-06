@@ -1,0 +1,17 @@
+"taxes": [
+      {
+        "abbreviation": "Normal",
+        "countryCode": "DE",
+        "inclusionType": "Inclusive",
+        "name": "Normal-Steuersatz",
+        "percentage": 19,
+        "taxId": 1
+      },
+      {
+        "abbreviation": "Ermäßigt",
+        "countryCode": "DE",
+        "inclusionType": "Inclusive",
+        "name": "Ermäßigter Steuersatz",
+        "percentage": 7,
+        "taxId": 2
+      },

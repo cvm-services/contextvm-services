@@ -1,0 +1,23 @@
+{
+  "company": {
+    "bytes": 10428,
+    "committed_copy_sha256": "8cfe0b7d5c9868f2a7ce599c35053bf790a8f40f624f209eb0f75e4085dd6894",
+    "file": "evidence/raw/company.json",
+    "sha256": "5cc4090d8d5d9e0d2d193a4c5b68c4c7c72f52f3fa288f0693377df16359167f",
+    "url": "https://app.foodamigos.io/api/companies/doppeltkase/data?hostname=doppelt-kaese-berlin.de"
+  },
+  "menus": {
+    "bytes": 123598,
+    "committed_copy_sha256": "a6bd6bdc8eb7e2a2a3ff7f24ca54b94b797d09fc831dbba8237fb5e177584791",
+    "file": "evidence/raw/menus.json",
+    "sha256": "8a7f2e4e6af58cab05ce9e375d7cf4c5085a3e4fb3dcfa7ed86e61b39ec15cd5",
+    "url": "https://app.foodamigos.io/api/companies/1387/menus"
+  },
+  "store": {
+    "bytes": 55072,
+    "committed_copy_sha256": "bfb5f48a072477f96162f1f0018a1846aabb0e4a5ee14395c1749a6a98c4a9f5",
+    "file": "evidence/raw/store.json",
+    "sha256": "a6ca1f2bcc1ae0ddd71a08e1f30db3b3d8148af9e9f897a85107e101d41d6f0b",
+    "url": "https://www.doppelt-kaese-berlin.de/api/store"
+  }
+}

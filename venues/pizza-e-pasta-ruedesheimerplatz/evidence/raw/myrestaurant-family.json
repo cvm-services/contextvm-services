@@ -1,0 +1,48 @@
+{
+  "about": {},
+  "appLogoUrlRaw": "https://pizzaepasta-ruedesheimerplatz.de/cf-cgi/families/14842/resource-types/app-logo.png?ts=2025-11-21T07:32:13",
+  "backgroundUrlRaw": "https://pizzaepasta-ruedesheimerplatz.de/cf-cgi/families/14842/resource-types/background.png?ts=2025-11-21T07:32:13",
+  "deliveryMode": "PostCode",
+  "directToMenu": true,
+  "domainUrl": "https://pizzaepasta-ruedesheimerplatz.de",
+  "enableAppNotifications": false,
+  "enableStoreAndroid": false,
+  "enableStoreIOS": false,
+  "facebookAppId": "516280446309104",
+  "globalEmailCampaignsEnabled": true,
+  "globalPushEnabled": true,
+  "globalSmsCampaignsEnabled": true,
+  "googlePlayAppLink": "https://play.google.com/store/apps/details?id=com.appsmart.pizzaepasta",
+  "hasPromotionLandingPage": true,
+  "id": 14842,
+  "integrated": false,
+  "logoUrlRaw": "https://pizzaepasta-ruedesheimerplatz.de/cf-cgi/families/14842/resource-types/web-logo.png?ts=2025-11-21T07:32:13",
+  "metaDescription": "Pizza | Pizza e Pasta | Rudesheimer Str. 9 14197 Berlin",
+  "name": "Pizza e Pasta",
+  "qrCodeLink": "https://api.iwaiterapp.com/QR/14842/FLYERS",
+  "seoBrandName": "Pizza e Pasta",
+  "smsHeader": "Pizza e Pas",
+  "theme": {
+    "backgroundColor": "#ffffff",
+    "brandColor": {
+      "accent": "#ffffff",
+      "base": "#1a1818",
+      "brandColorLayout": {
+        "dark": "#A3A2A2",
+        "darker": "#F3F3F3",
+        "darkest": "#E8E7E7",
+        "light": "#302F2F",
+        "lighter": "#1E1C1C",
+        "medium": "#6A6868"
+      }
+    },
+    "textColor": "#000000",
+    "themeLayout": {
+      "dark": "#7F7F7F",
+      "light": "#E5E5E5",
+      "lighter": "#FCFCFC",
+      "medium": "#BFBFBF"
+    }
+  },
+  "titleTag": "Essen bestellen bei Pizza e Pasta in Berlin"
+}

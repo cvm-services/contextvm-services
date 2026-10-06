@@ -1,0 +1,45 @@
+"categories": [
+      {
+        "id": 9999,
+        "menuItems": [
+          {
+            "addons": [
+              {
+                "addonItems": [
+                  {
+                    "discountedPrice": 11.7,
+                    "id": 43938710,
+                    "orderBy": 2,
+                    "price": 13,
+                    "title": "Ø 32cm"
+                  }
+                ],
+                "id": 4454494,
+                "isRequired": true,
+                "priceLevelDependent": true,
+                "title": "Deine Größe",
+                "type": "PriceLevelEnum"
+              },
+              {
+                "addonItems": [
+                  {
+                    "discountedPrice": 1.8,
+                    "discountedPriceLevel1": 0,
+                    "discountedPriceLevel2": 2.7,
+                    "id": 43938711,
+                    "orderBy": 0,
+                    "price": 2,
+                    "priceLevel2": 3,
+                    "title": "Ananas"
+                  },
+                  {
+                    "discountedPrice": 1.8,
+                    "discountedPriceLevel1": 0,
+                    "discountedPriceLevel2": 2.7,
+                    "id": 43938712,
+                    "orderBy": 1,
+                    "price": 2,
+                    "priceLevel2": 3,
+                    "title": "Artischocken"
+                  },
+               

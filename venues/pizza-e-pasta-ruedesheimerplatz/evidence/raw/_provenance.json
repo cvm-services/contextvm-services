@@ -1,0 +1,60 @@
+{
+  "_page": {
+    "bytes": 726729,
+    "file": "evidence/page.html",
+    "note": "HTTP 200 ordering page; payloads below are slices of its __NEXT_DATA__.props.pageProps.initialData.fallback hydration cache",
+    "sha256": "53847e06088bccf734b7398fc5a05e9d70d61bb47ca373e03c8b693d8a98cf0a",
+    "url": "https://pizzaepasta-ruedesheimerplatz.de/pizza-e-pasta/takeaway"
+  },
+  "menu": {
+    "bytes": 773384,
+    "committed_copy_sha256": "395e5ed26f7158e8b1f7f32989cdf50aa5126019586768196e8a71a64ead1cc1",
+    "file": "evidence/raw/menu.json",
+    "hydration_key": "/MyMenuManagementSystem/restaurants/45842/menu?version=9&type=Takeaway",
+    "redactions": [],
+    "sha256": "395e5ed26f7158e8b1f7f32989cdf50aa5126019586768196e8a71a64ead1cc1",
+    "url": "https://pizzaepasta-ruedesheimerplatz.de/oyy-api/MyMenuManagementSystem/restaurants/45842/menu?version=9&type=Takeaway"
+  },
+  "myrestaurant-family": {
+    "bytes": 1741,
+    "committed_copy_sha256": "fc5193c14496035b6e391883c6a15674b12aab27e3e41b41cdafee5c0c9f674e",
+    "file": "evidence/raw/myrestaurant-family.json",
+    "hydration_key": "/MyRestaurant/families/by-domain?domain=pizzaepasta-ruedesheimerplatz.de",
+    "redactions": [],
+    "sha256": "fc5193c14496035b6e391883c6a15674b12aab27e3e41b41cdafee5c0c9f674e",
+    "url": "https://pizzaepasta-ruedesheimerplatz.de/oyy-api/MyRestaurant/families/by-domain?domain=pizzaepasta-ruedesheimerplatz.de"
+  },
+  "myrestaurant-restaurant": {
+    "bytes": 3746,
+    "committed_copy_redacted": true,
+    "committed_copy_sha256": "1d498f465292c206bda82bf7e7f080bbab33cc7a05f98f2e228a3ee6c66baff1",
+    "file": "evidence/raw/myrestaurant-restaurant.json",
+    "hydration_key": "/MyRestaurant/restaurant/45842?timeSensitive=false",
+    "redactions": [
+      "imprintEmail"
+    ],
+    "sha256": "0c2b47d92fd56258056c94999e920bca9ad76b1a51124307f5bd0c9761d1f0f2",
+    "url": "https://pizzaepasta-ruedesheimerplatz.de/oyy-api/MyRestaurant/restaurant/45842?timeSensitive=false"
+  },
+  "myrestaurant-restaurants": {
+    "bytes": 4092,
+    "committed_copy_redacted": true,
+    "committed_copy_sha256": "95e85172aa310f09f96b53ad5dbf28dbbe598464c868b2574b948cc1733567af",
+    "file": "evidence/raw/myrestaurant-restaurants.json",
+    "hydration_key": "/MyRestaurant/families/by-domain/restaurants?domain=pizzaepasta-ruedesheimerplatz.de",
+    "redactions": [
+      "imprintEmail"
+    ],
+    "sha256": "5e7c3b45f6fe280b0347c65345ed15c2d4552a8aa5288aa68e8f1b09e62a3d88",
+    "url": "https://pizzaepasta-ruedesheimerplatz.de/oyy-api/MyRestaurant/families/by-domain/restaurants?domain=pizzaepasta-ruedesheimerplatz.de"
+  },
+  "published-apps": {
+    "bytes": 822,
+    "committed_copy_sha256": "b9ca2e89f3aeb9b665e094811448c45241c01393ee5fd3c6dd60d49460cbe231",
+    "file": "evidence/raw/published-apps.json",
+    "hydration_key": "/AppPublishing/families/14842/published-apps",
+    "redactions": [],
+    "sha256": "b9ca2e89f3aeb9b665e094811448c45241c01393ee5fd3c6dd60d49460cbe231",
+    "url": "https://pizzaepasta-ruedesheimerplatz.de/oyy-api/AppPublishing/families/14842/published-apps"
+  }
+}

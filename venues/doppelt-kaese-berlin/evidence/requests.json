@@ -1,0 +1,337 @@
+[
+  {
+    "method": "POST",
+    "status": 200,
+    "url": "https://o4508086263021568.ingest.de.sentry.io/api/4512175582019664/envelope/"
+  },
+  {
+    "method": "GET",
+    "status": 200,
+    "url": "https://www.doppelt-kaese-berlin.de/api/store"
+  },
+  {
+    "method": "GET",
+    "status": 200,
+    "url": "https://www.doppelt-kaese-berlin.de/api/pages/speisekarte/doppeltkase"
+  },
+  {
+    "method": "GET",
+    "status": 200,
+    "url": "https://app.foodamigos.io/api/store-config?hostname=www.doppelt-kaese-berlin.de"
+  },
+  {
+    "method": "GET",
+    "status": 200,
+    "url": "https://app.foodamigos.io/api/companies/doppeltkase/data?hostname=www.doppelt-kaese-berlin.de"
+  },
+  {
+    "method": "GET",
+    "status": 200,
+    "url": "https://app.foodamigos.io/api/companies/1387/menus"
+  },
+  {
+    "method": "GET",
+    "status": 200,
+    "url": "https://app.foodamigos.io/api/companies/1387/promo-codes"
+  },
+  {
+    "method": "GET",
+    "status": 200,
+    "url": "https://app.foodamigos.io/api/companies/1387/disabled-pre-order-dates?order_method=delivery&start_date=2026-10&end_date=2026-10"
+  },
+  {
+    "method": "GET",
+    "status": 200,
+    "url": "https://app.foodamigos.io/api/companies/1387/disabled-pre-order-dates?order_method=pickup&start_date=2026-10&end_date=2026-10"
+  },
+  {
+    "method": "GET",
+    "status": 200,
+    "url": "https://js.stripe.com/v3/.deploy_status_henson.json"
+  },
+  {
+    "method": "GET",
+    "status": 200,
+    "url": "https://js.stripe.com/v3/fingerprinted/data/countries_de-2b6b5f5d41f3e43a04030cea94edb8d1.json"
+  },
+  {
+    "method": "GET",
+    "status": 200,
+    "url": "https://js.stripe.com/v3/fingerprinted/data/de-7d9b9fa6ab1ff976756b3c00013f4c0a.json"
+  },
+  {
+    "method": "GET",
+    "status": 200,
+    "url": "https://js.stripe.com/v3/fingerprinted/data/countries_de-2b6b5f5d41f3e43a04030cea94edb8d1.json"
+  },
+  {
+    "method": "GET",
+    "status": 200,
+    "url": "https://js.stripe.com/v3/.deploy_status_henson.json"
+  },
+  {
+    "method": "GET",
+    "status": 200,
+    "url": "https://js.stripe.com/v3/fingerprinted/data/de-7d9b9fa6ab1ff976756b3c00013f4c0a.json"
+  },
+  {
+    "method": "GET",
+    "status": 200,
+    "url": "https://js.stripe.com/v3/.deploy_status_henson.json"
+  },
+  {
+    "method": "GET",
+    "status": 200,
+    "url": "https://js.stripe.com/v3/.deploy_status_henson.json"
+  },
+  {
+    "method": "GET",
+    "status": 200,
+    "url": "https://pay.google.com/gp/p/ui/pay"
+  },
+  {
+    "method": "GET",
+    "status": 200,
+    "url": "https://pay.google.com/gp/p/ui/pay"
+  },
+  {
+    "method": "GET",
+    "status": 200,
+    "url": "https://js.stripe.com/v3/.deploy_status_henson.json"
+  },
+  {
+    "method": "GET",
+    "status": 200,
+    "url": "https://js.stripe.com/v3/.deploy_status_henson.json"
+  },
+  {
+    "method": "POST",
+    "status": 200,
+    "url": "https://merchant-ui-api.stripe.com/elements/wallet-config"
+  },
+  {
+    "method": "POST",
+    "status": 200,
+    "url": "https://merchant-ui-api.stripe.com/elements/wallet-config"
+  },
+  {
+    "method": "GET",
+    "status": 200,
+    "url": "https://httpbin.org/get"
+  },
+  {
+    "method": "POST",
+    "status": 200,
+    "url": "https://play.google.com/log"
+  },
+  {
+    "method": "POST",
+    "status": 200,
+    "url": "https://play.google.com/log"
+  },
+  {
+    "method": "POST",
+    "status": 200,
+    "url": "https://play.google.com/log"
+  },
+  {
+    "method": "POST",
+    "status": 200,
+    "url": "https://play.google.com/log"
+  },
+  {
+    "method": "POST",
+    "status": 200,
+    "url": "https://play.google.com/log"
+  },
+  {
+    "method": "POST",
+    "status": 200,
+    "url": "https://play.google.com/log"
+  },
+  {
+    "method": "POST",
+    "status": 200,
+    "url": "https://play.google.com/log"
+  },
+  {
+    "method": "POST",
+    "status": 200,
+    "url": "https://play.google.com/log"
+  },
+  {
+    "method": "POST",
+    "status": 200,
+    "url": "https://play.google.com/log"
+  },
+  {
+    "method": "POST",
+    "status": 200,
+    "url": "https://play.google.com/log"
+  },
+  {
+    "method": "POST",
+    "status": 200,
+    "url": "https://play.google.com/log"
+  },
+  {
+    "method": "POST",
+    "status": 200,
+    "url": "https://play.google.com/log"
+  },
+  {
+    "method": "POST",
+    "status": 200,
+    "url": "https://play.google.com/log"
+  },
+  {
+    "method": "POST",
+    "status": 200,
+    "url": "https://play.google.com/log"
+  },
+  {
+    "method": "POST",
+    "status": 200,
+    "url": "https://r.stripe.com/b"
+  },
+  {
+    "method": "POST",
+    "status": 200,
+    "url": "https://r.stripe.com/b"
+  },
+  {
+    "method": "POST",
+    "status": 200,
+    "url": "https://r.stripe.com/b"
+  },
+  {
+    "method": "POST",
+    "status": 200,
+    "url": "https://r.stripe.com/b"
+  },
+  {
+    "method": "POST",
+    "status": 200,
+    "url": "https://r.stripe.com/b"
+  },
+  {
+    "method": "POST",
+    "status": 200,
+    "url": "https://r.stripe.com/b"
+  },
+  {
+    "method": "POST",
+    "status": 200,
+    "url": "https://r.stripe.com/b"
+  },
+  {
+    "method": "POST",
+    "status": 200,
+    "url": "https://r.stripe.com/b"
+  },
+  {
+    "method": "POST",
+    "status": 200,
+    "url": "https://r.stripe.com/b"
+  },
+  {
+    "method": "POST",
+    "status": 200,
+    "url": "https://play.google.com/log"
+  },
+  {
+    "method": "POST",
+    "status": 200,
+    "url": "https://play.google.com/log"
+  },
+  {
+    "method": "POST",
+    "status": 200,
+    "url": "https://r.stripe.com/b"
+  },
+  {
+    "method": "POST",
+    "status": 200,
+    "url": "https://r.stripe.com/b"
+  },
+  {
+    "method": "POST",
+    "status": 200,
+    "url": "https://r.stripe.com/b"
+  },
+  {
+    "method": "POST",
+    "status": 200,
+    "url": "https://r.stripe.com/b"
+  },
+  {
+    "method": "POST",
+    "status": 200,
+    "url": "https://r.stripe.com/b"
+  },
+  {
+    "method": "POST",
+    "status": 200,
+    "url": "https://r.stripe.com/b"
+  },
+  {
+    "method": "POST",
+    "status": 200,
+    "url": "https://r.stripe.com/b"
+  },
+  {
+    "method": "GET",
+    "status": 200,
+    "url": "https://app.foodamigos.io/api/franchises?hostname=www.doppelt-kaese-berlin.de"
+  },
+  {
+    "method": "POST",
+    "status": 200,
+    "url": "https://r.stripe.com/b"
+  },
+  {
+    "method": "POST",
+    "status": 200,
+    "url": "https://r.stripe.com/b"
+  },
+  {
+    "method": "POST",
+    "status": 200,
+    "url": "https://r.stripe.com/b"
+  },
+  {
+    "method": "POST",
+    "status": 200,
+    "url": "https://m.stripe.com/6"
+  },
+  {
+    "method": "POST",
+    "status": 200,
+    "url": "https://m.stripe.com/6"
+  },
+  {
+    "method": "POST",
+    "status": 200,
+    "url": "https://m.stripe.com/6"
+  },
+  {
+    "method": "GET",
+    "status": 200,
+    "url": "https://httpbin.org/get"
+  },
+  {
+    "method": "POST",
+    "status": 200,
+    "url": "https://o4508086263021568.ingest.de.sentry.io/api/4512175582019664/envelope/"
+  },
+  {
+    "method": "POST",
+    "status": 200,
+    "url": "https://r.stripe.com/b"
+  },
+  {
+    "method": "GET",
+    "status": 200,
+    "url": "https://httpbin.org/get"
+  }
+]

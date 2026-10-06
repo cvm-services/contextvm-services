@@ -1,0 +1,80 @@
+{
+  "capture": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "challenged": false,
+        "status": 200,
+        "title": "Essen bestellen bei Pizza e Pasta in Berlin",
+        "url": "https://pizzaepasta-ruedesheimerplatz.de/pizza-e-pasta/takeaway"
+      }
+    ],
+    "cookie_names": [
+      "__cf_bm",
+      "_cfuvid",
+      "ajs_anonymous_id",
+      "cf_clearance",
+      "rwgToken",
+      "splitVar"
+    ],
+    "final_status": 200,
+    "final_title": "Essen bestellen bei Pizza e Pasta in Berlin",
+    "final_url": "https://pizzaepasta-ruedesheimerplatz.de/pizza-e-pasta/takeaway",
+    "html_len": 725411,
+    "html_sha256": "53847e06088bccf734b7398fc5a05e9d70d61bb47ca373e03c8b693d8a98cf0a",
+    "interactive_captcha_suspected": false,
+    "page_not_committed": "page.html is NOT committed (it carries third-party markup and a contact e-mail); its sha256 + byte count above are the verifiable handle. Re-capture with evidence/capture-menu-requests.py.",
+    "target": "https://pizzaepasta-ruedesheimerplatz.de/pizza-e-pasta/takeaway",
+    "text_len": 10530,
+    "turnstile_frames": []
+  },
+  "challenge_outcome": {
+    "authoritative_page_status": 200,
+    "conclusion": "A real browser is required, the session cookie (cf_clearance) is necessary but not sufficient outside that browser, and the budget is small: one successful page load flips the origin into a cooldown that outlasted every later attempt. Future runs are cheap only if they reuse the persistent profile and touch the origin ONCE — the HTTP 200 page body already contains all five /oyy-api payloads.",
+    "first_run": {
+      "attempts": [
+        {
+          "attempt": 1,
+          "challenged": false,
+          "status": 200,
+          "title": "Essen bestellen bei Pizza e Pasta in Berlin",
+          "url": "https://pizzaepasta-ruedesheimerplatz.de/pizza-e-pasta/takeaway"
+        }
+      ],
+      "cf_cookie_needed": "cf_clearance was set by the challenge and is required for same-origin XHRs to /oyy-api (the page's own XHRs all returned 200 with it)",
+      "cookies_set": [
+        "__cf_bm",
+        "_cfuvid",
+        "ajs_anonymous_id",
+        "cf_clearance",
+        "rwgToken",
+        "splitVar"
+      ],
+      "interactive_captcha": false,
+      "result": "HTTP 200 on the FIRST navigation; challenge passed without interaction",
+      "turnstile_frames": []
+    },
+    "http_status_of_real_page": 200,
+    "later_runs": [
+      {
+        "note": "static /_next/static/* bundle URLs still answered 200 to curl — they are not challenged — which is how the frontend route names were enumerated",
+        "result": "HTTP 403 Cloudflare 'Just a moment…' for every endpoint",
+        "what": "in-page fetch() to the five /oyy-api endpoints in the same persistent profile"
+      },
+      {
+        "note": "cf_clearance is bound to the browser TLS/JA3 fingerprint; it cannot be transplanted",
+        "result": "HTTP 403",
+        "what": "curl with the successful run's full cookie jar (cf_clearance + __cf_bm) and the matching Chrome UA"
+      },
+      {
+        "note": "sticky IP cooldown after repeated sessions; the last session additionally probed /oyy-api/MyRestaurant/restaurant/45842/delivery-area and stopped. No further attempts were made.",
+        "result": "still 'Nur einen Moment…' (HTTP 403) every time",
+        "what": "three further headed-browser sessions, waiting 80–171 s each for the challenge"
+      }
+    ],
+    "page_bytes": 725411,
+    "page_sha256": "53847e06088bccf734b7398fc5a05e9d70d61bb47ca373e03c8b693d8a98cf0a",
+    "page_title": "Essen bestellen bei Pizza e Pasta in Berlin",
+    "target": "https://pizzaepasta-ruedesheimerplatz.de/pizza-e-pasta/takeaway"
+  }
+}

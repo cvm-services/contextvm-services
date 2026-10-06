@@ -1,0 +1,2 @@
+# Private test keys — never commit. The pinned set carries PUBLIC keys only.
+trust/tests/keys.local.json

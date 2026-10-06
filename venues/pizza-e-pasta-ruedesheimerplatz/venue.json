@@ -1,0 +1,6932 @@
+{
+  "generated_by": "venues/pizza-e-pasta-ruedesheimerplatz/adapter.py",
+  "menu": {
+    "currency": "EUR",
+    "items": [
+      {
+        "additives": null,
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Champignons",
+        "discount_percent": 10,
+        "flags": [
+          "Vegan"
+        ],
+        "id": "6943925",
+        "list_price": 13.0,
+        "listed_in_menu": true,
+        "name": "Pizza Funghi Vegan",
+        "option_group_ids": [
+          "4454519",
+          "4454520",
+          "4454521"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 11.7,
+        "price_level_used": "size2",
+        "price_levels": {
+          "size2": {
+            "discounted": 11.7,
+            "list": 13.0
+          }
+        },
+        "section_ids": [
+          "1060559"
+        ],
+        "service_method": "pickup",
+        "sku": "1",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": [
+          "BLACKED"
+        ],
+        "allergens": [
+          "SULPHUR_DIOXIDE"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Artischocken, schwarzen Oliven und Kapern",
+        "discount_percent": 10,
+        "flags": [
+          "Vegan"
+        ],
+        "id": "6943928",
+        "list_price": 13.0,
+        "listed_in_menu": true,
+        "name": "Pizza Capperi Vegan",
+        "option_group_ids": [
+          "4454519",
+          "4454520",
+          "4454521"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 11.7,
+        "price_level_used": "size2",
+        "price_levels": {
+          "size2": {
+            "discounted": 11.7,
+            "list": 13.0
+          }
+        },
+        "section_ids": [
+          "1060559"
+        ],
+        "service_method": "pickup",
+        "sku": "10",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Oregano",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943882",
+        "list_price": 11.0,
+        "listed_in_menu": true,
+        "name": "Pizza Margherita",
+        "option_group_ids": [
+          "4454494",
+          "4454495",
+          "4454496"
+        ],
+        "popular": true,
+        "popularity_rank": 1,
+        "price": 9.9,
+        "price_level_used": "size2",
+        "price_levels": {
+          "size2": {
+            "discounted": 9.9,
+            "list": 11.0
+          }
+        },
+        "section_ids": [
+          "1060558",
+          "9999"
+        ],
+        "service_method": "pickup",
+        "sku": "100",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": [
+          "ANTIOXIDANT",
+          "PRESERV"
+        ],
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Salami",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943883",
+        "list_price": 13.0,
+        "listed_in_menu": true,
+        "name": "Pizza Salami",
+        "option_group_ids": [
+          "4454494",
+          "4454495",
+          "4454496"
+        ],
+        "popular": true,
+        "popularity_rank": 2,
+        "price": 11.7,
+        "price_level_used": "size2",
+        "price_levels": {
+          "size2": {
+            "discounted": 11.7,
+            "list": 13.0
+          }
+        },
+        "section_ids": [
+          "1060558",
+          "9999"
+        ],
+        "service_method": "pickup",
+        "sku": "101",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": [
+          "ANTIOXIDANT",
+          "PRESERV"
+        ],
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": "mit gekochtem Schinken",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943884",
+        "list_price": 13.0,
+        "listed_in_menu": true,
+        "name": "Pizza Prosciutto",
+        "option_group_ids": [
+          "4454494",
+          "4454495",
+          "4454496"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 11.7,
+        "price_level_used": "size2",
+        "price_levels": {
+          "size2": {
+            "discounted": 11.7,
+            "list": 13.0
+          }
+        },
+        "section_ids": [
+          "1060558"
+        ],
+        "service_method": "pickup",
+        "sku": "102",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Champignons",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943885",
+        "list_price": 13.0,
+        "listed_in_menu": true,
+        "name": "Pizza Funghi",
+        "option_group_ids": [
+          "4454494",
+          "4454495",
+          "4454496"
+        ],
+        "popular": true,
+        "popularity_rank": 10,
+        "price": 11.7,
+        "price_level_used": "size2",
+        "price_levels": {
+          "size2": {
+            "discounted": 11.7,
+            "list": 13.0
+          }
+        },
+        "section_ids": [
+          "1060558",
+          "9999"
+        ],
+        "service_method": "pickup",
+        "sku": "103",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Rindfleischsauce",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943886",
+        "list_price": 13.0,
+        "listed_in_menu": true,
+        "name": "Pizza Bolognese",
+        "option_group_ids": [
+          "4454494",
+          "4454495",
+          "4454496"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 11.7,
+        "price_level_used": "size2",
+        "price_levels": {
+          "size2": {
+            "discounted": 11.7,
+            "list": 13.0
+          }
+        },
+        "section_ids": [
+          "1060558"
+        ],
+        "service_method": "pickup",
+        "sku": "104",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": [
+          "ANTIOXIDANT",
+          "PRESERV"
+        ],
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": "mit gekochtem Schinken und Ananas",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943887",
+        "list_price": 14.0,
+        "listed_in_menu": true,
+        "name": "Pizza Hawaii",
+        "option_group_ids": [
+          "4454494",
+          "4454495",
+          "4454496"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 12.6,
+        "price_level_used": "size2",
+        "price_levels": {
+          "size2": {
+            "discounted": 12.6,
+            "list": 14.0
+          }
+        },
+        "section_ids": [
+          "1060558"
+        ],
+        "service_method": "pickup",
+        "sku": "105",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": [
+          "PRESERV"
+        ],
+        "allergens": [
+          "FISH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Thunfisch und Zwiebeln",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943888",
+        "list_price": 14.0,
+        "listed_in_menu": true,
+        "name": "Pizza Tonno",
+        "option_group_ids": [
+          "4454494",
+          "4454495",
+          "4454496"
+        ],
+        "popular": true,
+        "popularity_rank": 9,
+        "price": 12.6,
+        "price_level_used": "size2",
+        "price_levels": {
+          "size2": {
+            "discounted": 12.6,
+            "list": 14.0
+          }
+        },
+        "section_ids": [
+          "1060558",
+          "9999"
+        ],
+        "service_method": "pickup",
+        "sku": "106",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": [
+          "BLACKED"
+        ],
+        "allergens": [
+          "LACTOSE"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Gorgonzola und schwarzen Oliven",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943889",
+        "list_price": 14.0,
+        "listed_in_menu": true,
+        "name": "Pizza Gorgonzola",
+        "option_group_ids": [
+          "4454494",
+          "4454495",
+          "4454496"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 12.6,
+        "price_level_used": "size2",
+        "price_levels": {
+          "size2": {
+            "discounted": 12.6,
+            "list": 14.0
+          }
+        },
+        "section_ids": [
+          "1060558"
+        ],
+        "service_method": "pickup",
+        "sku": "107",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": [
+          "ANTIOXIDANT",
+          "PRESERV",
+          "SWEETENER"
+        ],
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": "mit gekochtem Schinken, Champignons, Salami und Peperoni",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943890",
+        "list_price": 15.0,
+        "listed_in_menu": true,
+        "name": "Pizza Mista",
+        "option_group_ids": [
+          "4454494",
+          "4454495",
+          "4454496"
+        ],
+        "popular": true,
+        "popularity_rank": 6,
+        "price": 13.5,
+        "price_level_used": "size2",
+        "price_levels": {
+          "size2": {
+            "discounted": 13.5,
+            "list": 15.0
+          }
+        },
+        "section_ids": [
+          "1060558",
+          "9999"
+        ],
+        "service_method": "pickup",
+        "sku": "109",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": [
+          "LACTOSE"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Büffelmozzarella mit Tomaten, Basilikum und Olivenöl",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943850",
+        "list_price": 13.0,
+        "listed_in_menu": true,
+        "name": "Caprese di Bufala",
+        "option_group_ids": [
+          "4454489"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 11.7,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 11.7,
+            "list": 13.0
+          }
+        },
+        "section_ids": [
+          "1060556"
+        ],
+        "service_method": "pickup",
+        "sku": "11",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": [
+          "ANTIOXIDANT",
+          "PRESERV"
+        ],
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": "mit scharfer Salami",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943892",
+        "list_price": 15.0,
+        "listed_in_menu": true,
+        "name": "Pizza Picante (scharf)",
+        "option_group_ids": [
+          "4454494",
+          "4454495",
+          "4454496"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 13.5,
+        "price_level_used": "size2",
+        "price_levels": {
+          "size2": {
+            "discounted": 13.5,
+            "list": 15.0
+          }
+        },
+        "section_ids": [
+          "1060558"
+        ],
+        "service_method": "pickup",
+        "sku": "110",
+        "source": "venue-api",
+        "spice_type": "Spicy"
+      },
+      {
+        "additives": [
+          "BLACKED",
+          "PRESERV"
+        ],
+        "allergens": [
+          "SULPHUR_DIOXIDE"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Sardellen, schwarzen Oliven und Kapern",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943891",
+        "list_price": 15.0,
+        "listed_in_menu": true,
+        "name": "Pizza Sardelle",
+        "option_group_ids": [
+          "4454494",
+          "4454495",
+          "4454496"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 13.5,
+        "price_level_used": "size2",
+        "price_levels": {
+          "size2": {
+            "discounted": 13.5,
+            "list": 15.0
+          }
+        },
+        "section_ids": [
+          "1060558"
+        ],
+        "service_method": "pickup",
+        "sku": "110",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Auberginen, Zucchini, Zwiebeln und Paprika",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943893",
+        "list_price": 13.0,
+        "listed_in_menu": true,
+        "name": "Pizza Verdura",
+        "option_group_ids": [
+          "4454494",
+          "4454495",
+          "4454496"
+        ],
+        "popular": true,
+        "popularity_rank": 8,
+        "price": 11.7,
+        "price_level_used": "size2",
+        "price_levels": {
+          "size2": {
+            "discounted": 11.7,
+            "list": 13.0
+          }
+        },
+        "section_ids": [
+          "1060558",
+          "9999"
+        ],
+        "service_method": "pickup",
+        "sku": "111",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": [
+          "BLACKED",
+          "PRESERV",
+          "SWEETENER"
+        ],
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Peperoni und schwarzen Oliven",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943894",
+        "list_price": 13.0,
+        "listed_in_menu": true,
+        "name": "Pizza Peperoni",
+        "option_group_ids": [
+          "4454494",
+          "4454495",
+          "4454496"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 11.7,
+        "price_level_used": "size2",
+        "price_levels": {
+          "size2": {
+            "discounted": 11.7,
+            "list": 13.0
+          }
+        },
+        "section_ids": [
+          "1060558"
+        ],
+        "service_method": "pickup",
+        "sku": "112",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": [
+          "BLACKED"
+        ],
+        "allergens": [
+          "CRUSTACEANS",
+          "LACTOSE"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Spinat, Gorgonzola, Feta und schwarzen Oliven",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943895",
+        "list_price": 14.0,
+        "listed_in_menu": true,
+        "name": "Pizza Spinaci",
+        "option_group_ids": [
+          "4454494",
+          "4454495",
+          "4454496"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 12.6,
+        "price_level_used": "size2",
+        "price_levels": {
+          "size2": {
+            "discounted": 12.6,
+            "list": 14.0
+          }
+        },
+        "section_ids": [
+          "1060558"
+        ],
+        "service_method": "pickup",
+        "sku": "113",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": [
+          "ANTIOXIDANT",
+          "PRESERV"
+        ],
+        "allergens": [
+          "LACTOSE"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "mit italienischem Parmaschinken, Rucola und Parmesan",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943896",
+        "list_price": 15.0,
+        "listed_in_menu": true,
+        "name": "Pizza Parma",
+        "option_group_ids": [
+          "4454494",
+          "4454495",
+          "4454496"
+        ],
+        "popular": true,
+        "popularity_rank": 4,
+        "price": 13.5,
+        "price_level_used": "size2",
+        "price_levels": {
+          "size2": {
+            "discounted": 13.5,
+            "list": 15.0
+          }
+        },
+        "section_ids": [
+          "1060558",
+          "9999"
+        ],
+        "service_method": "pickup",
+        "sku": "114",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": [
+          "CRUSTACEANS"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Salzwassergarnelen, Knoblauch und frischen Tomaten",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943897",
+        "list_price": 15.0,
+        "listed_in_menu": true,
+        "name": "Pizza Scampi",
+        "option_group_ids": [
+          "4454494",
+          "4454495",
+          "4454496"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 13.5,
+        "price_level_used": "size2",
+        "price_levels": {
+          "size2": {
+            "discounted": 13.5,
+            "list": 15.0
+          }
+        },
+        "section_ids": [
+          "1060558"
+        ],
+        "service_method": "pickup",
+        "sku": "115",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": [
+          "BLACKED"
+        ],
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Artischocken, schwarzen Oliven und Champignons",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943898",
+        "list_price": 13.0,
+        "listed_in_menu": true,
+        "name": "Pizza Romana",
+        "option_group_ids": [
+          "4454494",
+          "4454495",
+          "4454496"
+        ],
+        "popular": true,
+        "popularity_rank": 5,
+        "price": 11.7,
+        "price_level_used": "size2",
+        "price_levels": {
+          "size2": {
+            "discounted": 11.7,
+            "list": 13.0
+          }
+        },
+        "section_ids": [
+          "1060558",
+          "9999"
+        ],
+        "service_method": "pickup",
+        "sku": "116",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": [
+          "PRESERV"
+        ],
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Artischocken, Sardellen, Knoblauch und Petersilie",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943899",
+        "list_price": 15.0,
+        "listed_in_menu": true,
+        "name": "Pizza Palermo",
+        "option_group_ids": [
+          "4454494",
+          "4454495",
+          "4454496"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 13.5,
+        "price_level_used": "size2",
+        "price_levels": {
+          "size2": {
+            "discounted": 13.5,
+            "list": 15.0
+          }
+        },
+        "section_ids": [
+          "1060558"
+        ],
+        "service_method": "pickup",
+        "sku": "117",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": [
+          "LACTOSE"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Champignons, Tomaten, Rucola und Parmesan",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943900",
+        "list_price": 14.0,
+        "listed_in_menu": true,
+        "name": "Pizza Primavera",
+        "option_group_ids": [
+          "4454494",
+          "4454495",
+          "4454496"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 12.6,
+        "price_level_used": "size2",
+        "price_levels": {
+          "size2": {
+            "discounted": 12.6,
+            "list": 14.0
+          }
+        },
+        "section_ids": [
+          "1060558"
+        ],
+        "service_method": "pickup",
+        "sku": "118",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": [
+          "ANTIOXIDANT",
+          "BLACKED",
+          "PRESERV"
+        ],
+        "allergens": [
+          "SULPHUR_DIOXIDE"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "mit scharfer Salami, Chili, Zwiebeln, schwarzen Oliven und Kapern",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943901",
+        "list_price": 15.0,
+        "listed_in_menu": true,
+        "name": "Pizza Diavolo (scharf)",
+        "option_group_ids": [
+          "4454494",
+          "4454495",
+          "4454496"
+        ],
+        "popular": true,
+        "popularity_rank": 7,
+        "price": 13.5,
+        "price_level_used": "size2",
+        "price_levels": {
+          "size2": {
+            "discounted": 13.5,
+            "list": 15.0
+          }
+        },
+        "section_ids": [
+          "1060558",
+          "9999"
+        ],
+        "service_method": "pickup",
+        "sku": "119",
+        "source": "venue-api",
+        "spice_type": "Spicy"
+      },
+      {
+        "additives": null,
+        "allergens": [
+          "LACTOSE"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Gorgonzola, Mozzarella, Feta und Parmesan",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943902",
+        "list_price": 14.0,
+        "listed_in_menu": true,
+        "name": "Pizza Formaggi",
+        "option_group_ids": [
+          "4454494",
+          "4454495",
+          "4454496"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 12.6,
+        "price_level_used": "size2",
+        "price_levels": {
+          "size2": {
+            "discounted": 12.6,
+            "list": 14.0
+          }
+        },
+        "section_ids": [
+          "1060558"
+        ],
+        "service_method": "pickup",
+        "sku": "120",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": [
+          "CRUSTACEANS",
+          "MOLLUSCS"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Meeresfrüchten, Knoblauch und Petersilie",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943903",
+        "list_price": 15.0,
+        "listed_in_menu": true,
+        "name": "Pizza Frutti di Mare",
+        "option_group_ids": [
+          "4454494",
+          "4454495",
+          "4454496"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 13.5,
+        "price_level_used": "size2",
+        "price_levels": {
+          "size2": {
+            "discounted": 13.5,
+            "list": 15.0
+          }
+        },
+        "section_ids": [
+          "1060558"
+        ],
+        "service_method": "pickup",
+        "sku": "121",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": "Pizzabrot mit Olivenöl und Oregano",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943912",
+        "list_price": 9.0,
+        "listed_in_menu": true,
+        "name": "Pizza Focaccia",
+        "option_group_ids": [
+          "4318514",
+          "4318515"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 8.1,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 8.1,
+            "list": 9.0
+          }
+        },
+        "section_ids": [
+          "1060558"
+        ],
+        "service_method": "pickup",
+        "sku": "122",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": [
+          "ANTIOXIDANT",
+          "PRESERV",
+          "SWEETENER"
+        ],
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": "mit gekochtem Schinken, Champignons, Salami und Peperoni",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943911",
+        "list_price": 15.0,
+        "listed_in_menu": true,
+        "name": "Pizza Calzone",
+        "option_group_ids": [
+          "4318512",
+          "4318513"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 13.5,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 13.5,
+            "list": 15.0
+          }
+        },
+        "section_ids": [
+          "1060558"
+        ],
+        "service_method": "pickup",
+        "sku": "123",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": [
+          "ANTIOXIDANT",
+          "PRESERV"
+        ],
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": "mit pikanter Salami, Zwiebeln, schwarzen Oliven und Speck",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943904",
+        "list_price": 15.0,
+        "listed_in_menu": true,
+        "name": "Pizza Bacon",
+        "option_group_ids": [
+          "4454494",
+          "4454495",
+          "4454496"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 13.5,
+        "price_level_used": "size2",
+        "price_levels": {
+          "size2": {
+            "discounted": 13.5,
+            "list": 15.0
+          }
+        },
+        "section_ids": [
+          "1060558"
+        ],
+        "service_method": "pickup",
+        "sku": "124",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": [
+          "LACTOSE"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Kugel Mozzarella, Tomatenscheiben und Basilikum",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943905",
+        "list_price": 15.0,
+        "listed_in_menu": true,
+        "name": "Pizza Caprese",
+        "option_group_ids": [
+          "4454494",
+          "4454495",
+          "4454496"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 13.5,
+        "price_level_used": "size2",
+        "price_levels": {
+          "size2": {
+            "discounted": 13.5,
+            "list": 15.0
+          }
+        },
+        "section_ids": [
+          "1060558"
+        ],
+        "service_method": "pickup",
+        "sku": "125",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": [
+          "ANTIOXIDANT",
+          "PRESERV"
+        ],
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": "mit picante Salami, Rucola, frischen Tomaten und Parmesan",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943906",
+        "list_price": 15.0,
+        "listed_in_menu": true,
+        "name": "Pizza Calabrese",
+        "option_group_ids": [
+          "4454494",
+          "4454495",
+          "4454496"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 13.5,
+        "price_level_used": "size2",
+        "price_levels": {
+          "size2": {
+            "discounted": 13.5,
+            "list": 15.0
+          }
+        },
+        "section_ids": [
+          "1060558"
+        ],
+        "service_method": "pickup",
+        "sku": "126",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": [
+          "BLACKED"
+        ],
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Broccoli, Tomaten, Mais und Oliven",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943907",
+        "list_price": 14.0,
+        "listed_in_menu": true,
+        "name": "Pizza Broccoli",
+        "option_group_ids": [
+          "4454494",
+          "4454495",
+          "4454496"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 12.6,
+        "price_level_used": "size2",
+        "price_levels": {
+          "size2": {
+            "discounted": 12.6,
+            "list": 14.0
+          }
+        },
+        "section_ids": [
+          "1060558"
+        ],
+        "service_method": "pickup",
+        "sku": "127",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": [
+          "ANTIOXIDANT",
+          "PRESERV"
+        ],
+        "allergens": [
+          "LACTOSE"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Speck, Funghi, Parmesan und Zwiebeln",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943908",
+        "list_price": 15.0,
+        "listed_in_menu": true,
+        "name": "Pizza Dolomiti",
+        "option_group_ids": [
+          "4454494",
+          "4454495",
+          "4454496"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 13.5,
+        "price_level_used": "size2",
+        "price_levels": {
+          "size2": {
+            "discounted": 13.5,
+            "list": 15.0
+          }
+        },
+        "section_ids": [
+          "1060558"
+        ],
+        "service_method": "pickup",
+        "sku": "128",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": [
+          "ANTIOXIDANT",
+          "BLACKED",
+          "PRESERV"
+        ],
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": "mit gekochtem Schinken, Zwiebeln, Funghi und Oliven",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943909",
+        "list_price": 15.0,
+        "listed_in_menu": true,
+        "name": "Pizza Capricciosa",
+        "option_group_ids": [
+          "4454494",
+          "4454495",
+          "4454496"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 13.5,
+        "price_level_used": "size2",
+        "price_levels": {
+          "size2": {
+            "discounted": 13.5,
+            "list": 15.0
+          }
+        },
+        "section_ids": [
+          "1060558"
+        ],
+        "service_method": "pickup",
+        "sku": "129",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943851",
+        "list_price": 10.0,
+        "listed_in_menu": true,
+        "name": "Gemischter Salat",
+        "option_group_ids": [
+          "4454489"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 9.0,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 9.0,
+            "list": 10.0
+          }
+        },
+        "section_ids": [
+          "1060556"
+        ],
+        "service_method": "pickup",
+        "sku": "13",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": [
+          "BLACKED"
+        ],
+        "allergens": [
+          "LACTOSE"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Büffelmozzarella, Tomatenscheiben, Rucola und Parmesan",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943910",
+        "list_price": 15.0,
+        "listed_in_menu": true,
+        "name": "Pizza Büffelmozzarella",
+        "option_group_ids": [
+          "4454494",
+          "4454495",
+          "4454496"
+        ],
+        "popular": true,
+        "popularity_rank": 3,
+        "price": 13.5,
+        "price_level_used": "size2",
+        "price_levels": {
+          "size2": {
+            "discounted": 13.5,
+            "list": 15.0
+          }
+        },
+        "section_ids": [
+          "1060558",
+          "9999"
+        ],
+        "service_method": "pickup",
+        "sku": "130",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": [
+          "ANTIOXIDANT",
+          "PRESERV"
+        ],
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Salami, Schinken, Champignons und Artischocken",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943916",
+        "list_price": 15.0,
+        "listed_in_menu": true,
+        "name": "Pizza Quattro Stagione",
+        "option_group_ids": [
+          "4454494",
+          "4454495",
+          "4454496"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 13.5,
+        "price_level_used": "size2",
+        "price_levels": {
+          "size2": {
+            "discounted": 13.5,
+            "list": 15.0
+          }
+        },
+        "section_ids": [
+          "1060558"
+        ],
+        "service_method": "pickup",
+        "sku": "131",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": [
+          "ANTIOXIDANT",
+          "BLACKED",
+          "PRESERV"
+        ],
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Sucuk, Champignons und schwarzen Oliven",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943913",
+        "list_price": 15.0,
+        "listed_in_menu": true,
+        "name": "Pizza Sucuk",
+        "option_group_ids": [
+          "4454494",
+          "4454495",
+          "4454496"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 13.5,
+        "price_level_used": "size2",
+        "price_levels": {
+          "size2": {
+            "discounted": 13.5,
+            "list": 15.0
+          }
+        },
+        "section_ids": [
+          "1060558"
+        ],
+        "service_method": "pickup",
+        "sku": "132",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": [
+          "ANTIOXIDANT",
+          "PRESERV"
+        ],
+        "allergens": [
+          "LACTOSE"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "mit luftgetrocknetem Schinken, Rucola und Parmesan",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943914",
+        "list_price": 15.0,
+        "listed_in_menu": true,
+        "name": "Pizza Bresaola",
+        "option_group_ids": [
+          "4454494",
+          "4454495",
+          "4454496"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 13.5,
+        "price_level_used": "size2",
+        "price_levels": {
+          "size2": {
+            "discounted": 13.5,
+            "list": 15.0
+          }
+        },
+        "section_ids": [
+          "1060558"
+        ],
+        "service_method": "pickup",
+        "sku": "133",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": [
+          "PRESERV"
+        ],
+        "allergens": [
+          "FISH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Lachs, Spinat und Knoblauch",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943915",
+        "list_price": 15.0,
+        "listed_in_menu": true,
+        "name": "Pizza Salmone (32cm)",
+        "option_group_ids": [
+          "4318522",
+          "4318523"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 13.5,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 13.5,
+            "list": 15.0
+          }
+        },
+        "section_ids": [
+          "1060558"
+        ],
+        "service_method": "pickup",
+        "sku": "134",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": [
+          "PRESERV"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "LACTOSE",
+          "WHEAT"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Trüffel-Champignon-Salsa, Fior di Latte, Rucola, Parmesan, Trüffel Öl, eingelegter Trüffel",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943918",
+        "list_price": 18.5,
+        "listed_in_menu": true,
+        "name": "Pizza Tartufo (32cm)",
+        "option_group_ids": [
+          "4318529",
+          "4318530"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 16.65,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 16.65,
+            "list": 18.5
+          }
+        },
+        "section_ids": [
+          "1060558"
+        ],
+        "service_method": "pickup",
+        "sku": "135",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": [
+          "FISH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943852",
+        "list_price": 12.0,
+        "listed_in_menu": true,
+        "name": "Salat Tonno",
+        "option_group_ids": [
+          "4454489"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 10.8,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 10.8,
+            "list": 12.0
+          }
+        },
+        "section_ids": [
+          "1060556"
+        ],
+        "service_method": "pickup",
+        "sku": "14",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": [
+          "LACTOSE"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943853",
+        "list_price": 12.0,
+        "listed_in_menu": true,
+        "name": "Salat Formaggi",
+        "option_group_ids": [
+          "4454489"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 10.8,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 10.8,
+            "list": 12.0
+          }
+        },
+        "section_ids": [
+          "1060556"
+        ],
+        "service_method": "pickup",
+        "sku": "15",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943854",
+        "list_price": 13.0,
+        "listed_in_menu": true,
+        "name": "Salat Pollo",
+        "option_group_ids": [
+          "4454489"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 11.7,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 11.7,
+            "list": 13.0
+          }
+        },
+        "section_ids": [
+          "1060556"
+        ],
+        "service_method": "pickup",
+        "sku": "16",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": "gemischter Salat mit 4 Garnelen",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943855",
+        "list_price": 14.0,
+        "listed_in_menu": true,
+        "name": "Insalata di Scampi",
+        "option_group_ids": [
+          "4454489"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 12.6,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 12.6,
+            "list": 14.0
+          }
+        },
+        "section_ids": [
+          "1060556"
+        ],
+        "service_method": "pickup",
+        "sku": "17",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": [
+          "LACTOSE"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943856",
+        "list_price": 10.0,
+        "listed_in_menu": true,
+        "name": "Insalata di Rucola",
+        "option_group_ids": [
+          "4454489"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 9.0,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 9.0,
+            "list": 10.0
+          }
+        },
+        "section_ids": [
+          "1060556"
+        ],
+        "service_method": "pickup",
+        "sku": "18",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943929",
+        "list_price": 7.0,
+        "listed_in_menu": true,
+        "name": "Tiramisu (hausgemacht)",
+        "option_group_ids": [],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 6.3,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 6.3,
+            "list": 7.0
+          }
+        },
+        "section_ids": [
+          "1060560"
+        ],
+        "service_method": "pickup",
+        "sku": "19",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Auberginen, Zucchini, Zwiebeln und Paprika",
+        "discount_percent": 10,
+        "flags": [
+          "Vegan"
+        ],
+        "id": "6943919",
+        "list_price": 13.0,
+        "listed_in_menu": true,
+        "name": "Pizza Verdura Vegan",
+        "option_group_ids": [
+          "4454519",
+          "4454520",
+          "4454521"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 11.7,
+        "price_level_used": "size2",
+        "price_levels": {
+          "size2": {
+            "discounted": 11.7,
+            "list": 13.0
+          }
+        },
+        "section_ids": [
+          "1060559"
+        ],
+        "service_method": "pickup",
+        "sku": "2",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "discount_percent": 10,
+        "flags": null,
+        "id": "7660384",
+        "list_price": 5.0,
+        "listed_in_menu": true,
+        "name": "2 Gefüllte Schokorollen",
+        "option_group_ids": [],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 4.5,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 4.5,
+            "list": 5.0
+          }
+        },
+        "section_ids": [
+          "1060560"
+        ],
+        "service_method": "pickup",
+        "sku": "20",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": [
+          "BLACKED"
+        ],
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Peperoni und schwarzen Oliven",
+        "discount_percent": 10,
+        "flags": [
+          "Vegan"
+        ],
+        "id": "6943920",
+        "list_price": 13.0,
+        "listed_in_menu": true,
+        "name": "Pizza Peperoni Vegan",
+        "option_group_ids": [
+          "4454519",
+          "4454520",
+          "4454521"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 11.7,
+        "price_level_used": "size2",
+        "price_levels": {
+          "size2": {
+            "discounted": 11.7,
+            "list": 13.0
+          }
+        },
+        "section_ids": [
+          "1060559"
+        ],
+        "service_method": "pickup",
+        "sku": "3",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": [
+          "CAFFEINE",
+          "COLOR"
+        ],
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": " ",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943931",
+        "list_price": 3.0,
+        "listed_in_menu": true,
+        "name": "Coca Cola 0,2l",
+        "option_group_ids": [],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 2.7,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 2.7,
+            "list": 3.0
+          }
+        },
+        "section_ids": [
+          "1060561"
+        ],
+        "service_method": "pickup",
+        "sku": "30",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": [
+          "ANTIOXIDANT",
+          "COLOR"
+        ],
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": " ",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943932",
+        "list_price": 3.0,
+        "listed_in_menu": true,
+        "name": "Fanta 0,2l",
+        "option_group_ids": [],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 2.7,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 2.7,
+            "list": 3.0
+          }
+        },
+        "section_ids": [
+          "1060561"
+        ],
+        "service_method": "pickup",
+        "sku": "30a",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": " ",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943933",
+        "list_price": 3.0,
+        "listed_in_menu": true,
+        "name": "Sprite 0,2l",
+        "option_group_ids": [],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 2.7,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 2.7,
+            "list": 3.0
+          }
+        },
+        "section_ids": [
+          "1060561"
+        ],
+        "service_method": "pickup",
+        "sku": "30b",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": [
+          "CAFFEINE",
+          "PRESERV"
+        ],
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943945",
+        "list_price": 3.0,
+        "listed_in_menu": true,
+        "name": "Coca Cola Light 0,2l",
+        "option_group_ids": [],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 2.7,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 2.7,
+            "list": 3.0
+          }
+        },
+        "section_ids": [
+          "1060561"
+        ],
+        "service_method": "pickup",
+        "sku": "31",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": [
+          "CAFFEINE",
+          "SWEETENER"
+        ],
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943946",
+        "list_price": 3.0,
+        "listed_in_menu": true,
+        "name": "Coca Cola Zero 0,2l",
+        "option_group_ids": [],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 2.7,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 2.7,
+            "list": 3.0
+          }
+        },
+        "section_ids": [
+          "1060561"
+        ],
+        "service_method": "pickup",
+        "sku": "32",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": [
+          "CAFFEINE",
+          "COLOR"
+        ],
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": " ",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943937",
+        "list_price": 3.0,
+        "listed_in_menu": true,
+        "name": "Mezzo Mix 0.2l",
+        "option_group_ids": [],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 2.7,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 2.7,
+            "list": 3.0
+          }
+        },
+        "section_ids": [
+          "1060561"
+        ],
+        "service_method": "pickup",
+        "sku": "33",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": [
+          "PRESERV"
+        ],
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": " ",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943934",
+        "list_price": 4.0,
+        "listed_in_menu": true,
+        "name": "Apfelschorle 0,33l",
+        "option_group_ids": [],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 3.6,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 3.6,
+            "list": 4.0
+          }
+        },
+        "section_ids": [
+          "1060561"
+        ],
+        "service_method": "pickup",
+        "sku": "34",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943947",
+        "list_price": 3.0,
+        "listed_in_menu": true,
+        "name": "Eistee 0,33l",
+        "option_group_ids": [],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 2.7,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 2.7,
+            "list": 3.0
+          }
+        },
+        "section_ids": [
+          "1060561"
+        ],
+        "service_method": "pickup",
+        "sku": "35",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": " ",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943935",
+        "list_price": 4.0,
+        "listed_in_menu": true,
+        "name": "Bionade Ingwer-Orange 0,33l",
+        "option_group_ids": [],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 3.6,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 3.6,
+            "list": 4.0
+          }
+        },
+        "section_ids": [
+          "1060561"
+        ],
+        "service_method": "pickup",
+        "sku": "36",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943943",
+        "list_price": 3.0,
+        "listed_in_menu": true,
+        "name": "Vitamalz 0.33l",
+        "option_group_ids": [],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 2.7,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 2.7,
+            "list": 3.0
+          }
+        },
+        "section_ids": [
+          "1060561"
+        ],
+        "service_method": "pickup",
+        "sku": "36",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": " ",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943936",
+        "list_price": 4.0,
+        "listed_in_menu": true,
+        "name": "Bionade Holunder 0,33l",
+        "option_group_ids": [],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 3.6,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 3.6,
+            "list": 4.0
+          }
+        },
+        "section_ids": [
+          "1060561"
+        ],
+        "service_method": "pickup",
+        "sku": "36a",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": " ",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943938",
+        "list_price": 4.0,
+        "listed_in_menu": true,
+        "name": "Bionade Kräuter 0.33l",
+        "option_group_ids": [],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 3.6,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 3.6,
+            "list": 4.0
+          }
+        },
+        "section_ids": [
+          "1060561"
+        ],
+        "service_method": "pickup",
+        "sku": "36b",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943939",
+        "list_price": 3.0,
+        "listed_in_menu": true,
+        "name": "Mineralwasser still 0.25l",
+        "option_group_ids": [],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 2.7,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 2.7,
+            "list": 3.0
+          }
+        },
+        "section_ids": [
+          "1060561"
+        ],
+        "service_method": "pickup",
+        "sku": "37",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943940",
+        "list_price": 3.0,
+        "listed_in_menu": true,
+        "name": "Mineralwasser sprudel 0.25l",
+        "option_group_ids": [],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 2.7,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 2.7,
+            "list": 3.0
+          }
+        },
+        "section_ids": [
+          "1060561"
+        ],
+        "service_method": "pickup",
+        "sku": "37a",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943941",
+        "list_price": 6.0,
+        "listed_in_menu": true,
+        "name": "Mineralwasser still 0.75l",
+        "option_group_ids": [],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 5.4,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 5.4,
+            "list": 6.0
+          }
+        },
+        "section_ids": [
+          "1060561"
+        ],
+        "service_method": "pickup",
+        "sku": "38",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943942",
+        "list_price": 6.0,
+        "listed_in_menu": true,
+        "name": "Mineralwasser sprudel 0.75l",
+        "option_group_ids": [],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 5.4,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 5.4,
+            "list": 6.0
+          }
+        },
+        "section_ids": [
+          "1060561"
+        ],
+        "service_method": "pickup",
+        "sku": "38a",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": [
+          "GLUTEN",
+          "WHEAT"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943944",
+        "list_price": 4.0,
+        "listed_in_menu": true,
+        "name": "Bier alkoholfrei 0.5l",
+        "option_group_ids": [],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 3.6,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 3.6,
+            "list": 4.0
+          }
+        },
+        "section_ids": [
+          "1060561"
+        ],
+        "service_method": "pickup",
+        "sku": "39",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": [
+          "BLACKED"
+        ],
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Artischocken, Champignons und schwarzen Oliven",
+        "discount_percent": 10,
+        "flags": [
+          "Vegan"
+        ],
+        "id": "6943921",
+        "list_price": 13.0,
+        "listed_in_menu": true,
+        "name": "Pizza Vegan",
+        "option_group_ids": [
+          "4454519",
+          "4454520",
+          "4454521"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 11.7,
+        "price_level_used": "size2",
+        "price_levels": {
+          "size2": {
+            "discounted": 11.7,
+            "list": 13.0
+          }
+        },
+        "section_ids": [
+          "1060559"
+        ],
+        "service_method": "pickup",
+        "sku": "4",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": [
+          "CAFFEINE"
+        ],
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": " ",
+        "discount_percent": 10,
+        "flags": [
+          "Food for adult 18+"
+        ],
+        "id": "6943948",
+        "list_price": 4.0,
+        "listed_in_menu": true,
+        "name": "Heiniken 0,5l",
+        "option_group_ids": [],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 3.6,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 3.6,
+            "list": 4.0
+          }
+        },
+        "section_ids": [
+          "1060562"
+        ],
+        "service_method": "pickup",
+        "sku": "41",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": [
+          "GLUTEN",
+          "WHEAT"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "discount_percent": 10,
+        "flags": [
+          "Food for adult 18+"
+        ],
+        "id": "6943950",
+        "list_price": 4.0,
+        "listed_in_menu": true,
+        "name": "Veltins Bier 0.5l",
+        "option_group_ids": [],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 3.6,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 3.6,
+            "list": 4.0
+          }
+        },
+        "section_ids": [
+          "1060562"
+        ],
+        "service_method": "pickup",
+        "sku": "42",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": [
+          "GLUTEN",
+          "WHEAT"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "discount_percent": 10,
+        "flags": [
+          "Food for adult 18+"
+        ],
+        "id": "6943951",
+        "list_price": 4.0,
+        "listed_in_menu": true,
+        "name": "König Ludwig Weißbier 0.5l",
+        "option_group_ids": [],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 3.6,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 3.6,
+            "list": 4.0
+          }
+        },
+        "section_ids": [
+          "1060562"
+        ],
+        "service_method": "pickup",
+        "sku": "43",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": [
+          "GLUTEN",
+          "WHEAT"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "discount_percent": 10,
+        "flags": [
+          "Food for adult 18+"
+        ],
+        "id": "6943952",
+        "list_price": 4.0,
+        "listed_in_menu": true,
+        "name": "König Ludwig Dunkel 0.5l",
+        "option_group_ids": [],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 3.6,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 3.6,
+            "list": 4.0
+          }
+        },
+        "section_ids": [
+          "1060562"
+        ],
+        "service_method": "pickup",
+        "sku": "44",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": [
+          "GLUTEN",
+          "WHEAT"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "discount_percent": 10,
+        "flags": [
+          "Food for adult 18+"
+        ],
+        "id": "6943953",
+        "list_price": 4.0,
+        "listed_in_menu": true,
+        "name": "König Ludwig Kristal 0.5l",
+        "option_group_ids": [],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 3.6,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 3.6,
+            "list": 4.0
+          }
+        },
+        "section_ids": [
+          "1060562"
+        ],
+        "service_method": "pickup",
+        "sku": "44",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": " ",
+        "discount_percent": 10,
+        "flags": [
+          "Food for adult 18+"
+        ],
+        "id": "6943949",
+        "list_price": 4.0,
+        "listed_in_menu": true,
+        "name": "Natur Radler (Gösser) 0,5l",
+        "option_group_ids": [],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 3.6,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 3.6,
+            "list": 4.0
+          }
+        },
+        "section_ids": [
+          "1060562"
+        ],
+        "service_method": "pickup",
+        "sku": "46",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": [
+          "GLUTEN",
+          "WHEAT"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "discount_percent": 10,
+        "flags": [
+          "Food for adult 18+"
+        ],
+        "id": "6943954",
+        "list_price": 4.0,
+        "listed_in_menu": true,
+        "name": "Desperados Tequila 0,33l",
+        "option_group_ids": [],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 3.6,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 3.6,
+            "list": 4.0
+          }
+        },
+        "section_ids": [
+          "1060562"
+        ],
+        "service_method": "pickup",
+        "sku": "47",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": [
+          "BLACKED"
+        ],
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Artischocken, schwarzen Oliven, Knoblauch und Petersilie",
+        "discount_percent": 10,
+        "flags": [
+          "Vegan"
+        ],
+        "id": "6943922",
+        "list_price": 13.0,
+        "listed_in_menu": true,
+        "name": "Pizza Palermo Vegan",
+        "option_group_ids": [
+          "4454519",
+          "4454520",
+          "4454521"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 11.7,
+        "price_level_used": "size2",
+        "price_levels": {
+          "size2": {
+            "discounted": 11.7,
+            "list": 13.0
+          }
+        },
+        "section_ids": [
+          "1060559"
+        ],
+        "service_method": "pickup",
+        "sku": "5",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "discount_percent": 10,
+        "flags": [
+          "Food for adult 18+"
+        ],
+        "id": "6943955",
+        "list_price": 6.0,
+        "listed_in_menu": true,
+        "name": "Nero Davola Sicilia (trocken) Rotwein 0.2l",
+        "option_group_ids": [],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 5.4,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 5.4,
+            "list": 6.0
+          }
+        },
+        "section_ids": [
+          "1060563"
+        ],
+        "service_method": "pickup",
+        "sku": "51",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "discount_percent": 10,
+        "flags": [
+          "Food for adult 18+"
+        ],
+        "id": "6943956",
+        "list_price": 6.0,
+        "listed_in_menu": true,
+        "name": "Riesling (Trocken) Weißwein 0.2l",
+        "option_group_ids": [],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 5.4,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 5.4,
+            "list": 6.0
+          }
+        },
+        "section_ids": [
+          "1060563"
+        ],
+        "service_method": "pickup",
+        "sku": "52",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "discount_percent": 10,
+        "flags": [
+          "Food for adult 18+"
+        ],
+        "id": "6943957",
+        "list_price": 6.0,
+        "listed_in_menu": true,
+        "name": "Pinot Grigio 0.2l",
+        "option_group_ids": [],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 5.4,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 5.4,
+            "list": 6.0
+          }
+        },
+        "section_ids": [
+          "1060563"
+        ],
+        "service_method": "pickup",
+        "sku": "53",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Prosecco, Soda-Wasser und Eis",
+        "discount_percent": 10,
+        "flags": [
+          "Food for adult 18+"
+        ],
+        "id": "6943958",
+        "list_price": 8.0,
+        "listed_in_menu": true,
+        "name": "Aperolspritz 0.5l",
+        "option_group_ids": [],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 7.2,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 7.2,
+            "list": 8.0
+          }
+        },
+        "section_ids": [
+          "1060563"
+        ],
+        "service_method": "pickup",
+        "sku": "54",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Champignons, Tomaten und Rucola",
+        "discount_percent": 10,
+        "flags": [
+          "Vegan"
+        ],
+        "id": "6943923",
+        "list_price": 13.0,
+        "listed_in_menu": true,
+        "name": "Pizza Primavera Vegan",
+        "option_group_ids": [
+          "4454519",
+          "4454520",
+          "4454521"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 11.7,
+        "price_level_used": "size2",
+        "price_levels": {
+          "size2": {
+            "discounted": 11.7,
+            "list": 13.0
+          }
+        },
+        "section_ids": [
+          "1060559"
+        ],
+        "service_method": "pickup",
+        "sku": "6",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "discount_percent": 10,
+        "flags": [
+          "Food for adult 18+"
+        ],
+        "id": "6943960",
+        "list_price": 18.0,
+        "listed_in_menu": true,
+        "name": "Riesling 1l",
+        "option_group_ids": [],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 16.2,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 16.2,
+            "list": 18.0
+          }
+        },
+        "section_ids": [
+          "1060564"
+        ],
+        "service_method": "pickup",
+        "sku": "62",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "discount_percent": 10,
+        "flags": [
+          "Food for adult 18+"
+        ],
+        "id": "6943964",
+        "list_price": 12.0,
+        "listed_in_menu": true,
+        "name": "Pinot Grigio 0.75l",
+        "option_group_ids": [
+          "4761625"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 10.8,
+        "price_level_used": "size1",
+        "price_levels": {
+          "size1": {
+            "discounted": 10.8,
+            "list": 12.0
+          },
+          "size2": {
+            "discounted": 14.85,
+            "list": 16.5
+          }
+        },
+        "section_ids": [
+          "1060564"
+        ],
+        "service_method": "pickup",
+        "sku": "63",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "discount_percent": 10,
+        "flags": [
+          "Food for adult 18+"
+        ],
+        "id": "6943961",
+        "list_price": 17.0,
+        "listed_in_menu": true,
+        "name": "Riesling Sekt 0.75l",
+        "option_group_ids": [],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 15.3,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 15.3,
+            "list": 17.0
+          }
+        },
+        "section_ids": [
+          "1060564"
+        ],
+        "service_method": "pickup",
+        "sku": "64",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "discount_percent": 10,
+        "flags": [
+          "Food for adult 18+"
+        ],
+        "id": "6943962",
+        "list_price": 17.0,
+        "listed_in_menu": true,
+        "name": "Weisser Burgunder 0.75l",
+        "option_group_ids": [],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 15.3,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 15.3,
+            "list": 17.0
+          }
+        },
+        "section_ids": [
+          "1060564"
+        ],
+        "service_method": "pickup",
+        "sku": "65",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "discount_percent": 10,
+        "flags": [
+          "Food for adult 18+"
+        ],
+        "id": "6943963",
+        "list_price": 17.0,
+        "listed_in_menu": true,
+        "name": "Spätburgunder (Rose) 0.75l",
+        "option_group_ids": [],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 15.3,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 15.3,
+            "list": 17.0
+          }
+        },
+        "section_ids": [
+          "1060564"
+        ],
+        "service_method": "pickup",
+        "sku": "66",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": "Rotwein",
+        "discount_percent": 10,
+        "flags": [
+          "Food for adult 18+"
+        ],
+        "id": "6943965",
+        "list_price": 12.0,
+        "listed_in_menu": true,
+        "name": "Nero Davola",
+        "option_group_ids": [
+          "4318561"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 10.8,
+        "price_level_used": "size1",
+        "price_levels": {
+          "size1": {
+            "discounted": 10.8,
+            "list": 12.0
+          },
+          "size2": {
+            "discounted": 14.85,
+            "list": 16.5
+          }
+        },
+        "section_ids": [
+          "1060564"
+        ],
+        "service_method": "pickup",
+        "sku": "67",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Trüffel-Champignonssauce, Trüffel Öl, eingelegter Trüffel, Parmesan",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "7660389",
+        "list_price": 18.5,
+        "listed_in_menu": true,
+        "name": "Spaghetti Tartufo",
+        "option_group_ids": [
+          "4454492"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 16.65,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 16.65,
+            "list": 18.5
+          }
+        },
+        "section_ids": [
+          "1060557"
+        ],
+        "service_method": "pickup",
+        "sku": "69",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": [
+          "BLACKED"
+        ],
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Broccoli, Tomaten, Mais und schwarzen Oliven",
+        "discount_percent": 10,
+        "flags": [
+          "Vegan"
+        ],
+        "id": "6943924",
+        "list_price": 13.0,
+        "listed_in_menu": true,
+        "name": "Pizza Broccoli Vegan",
+        "option_group_ids": [
+          "4454519",
+          "4454520",
+          "4454521"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 11.7,
+        "price_level_used": "size2",
+        "price_levels": {
+          "size2": {
+            "discounted": 11.7,
+            "list": 13.0
+          }
+        },
+        "section_ids": [
+          "1060559"
+        ],
+        "service_method": "pickup",
+        "sku": "7",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Knoblauch, Chili und Petersilie",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943859",
+        "list_price": 11.0,
+        "listed_in_menu": true,
+        "name": "Spaghetti Aglio Olio",
+        "option_group_ids": [
+          "4454492"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 9.9,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 9.9,
+            "list": 11.0
+          }
+        },
+        "section_ids": [
+          "1060557"
+        ],
+        "service_method": "pickup",
+        "sku": "70",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": [
+          "LACTOSE"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Hähnchenbrustfilet, Paprika und Sahnesauce",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943860",
+        "list_price": 13.0,
+        "listed_in_menu": true,
+        "name": "Spaghetti Pollo",
+        "option_group_ids": [
+          "4454492"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 11.7,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 11.7,
+            "list": 13.0
+          }
+        },
+        "section_ids": [
+          "1060557"
+        ],
+        "service_method": "pickup",
+        "sku": "71",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Rumpsteak, frischen Tomaten, Auberginen, Chili und Knoblauch",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943861",
+        "list_price": 15.0,
+        "listed_in_menu": true,
+        "name": "Spaghetti Amore",
+        "option_group_ids": [
+          "4454492"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 13.5,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 13.5,
+            "list": 15.0
+          }
+        },
+        "section_ids": [
+          "1060557"
+        ],
+        "service_method": "pickup",
+        "sku": "72",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Rumpsteak, Tomatensauce und Champignons",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943862",
+        "list_price": 15.0,
+        "listed_in_menu": true,
+        "name": "Spaghetti Ragout",
+        "option_group_ids": [
+          "4454492"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 13.5,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 13.5,
+            "list": 15.0
+          }
+        },
+        "section_ids": [
+          "1060557"
+        ],
+        "service_method": "pickup",
+        "sku": "73",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": [
+          "ANTIOXIDANT",
+          "PRESERV"
+        ],
+        "allergens": [
+          "EGGS",
+          "LACTOSE"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "mit gekochtem Schinken, Sahne, Ei und Petersilie",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943863",
+        "list_price": 13.0,
+        "listed_in_menu": true,
+        "name": "Spaghetti Carbonara",
+        "option_group_ids": [
+          "4454492"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 11.7,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 11.7,
+            "list": 13.0
+          }
+        },
+        "section_ids": [
+          "1060557"
+        ],
+        "service_method": "pickup",
+        "sku": "74",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Tomatensauce",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943864",
+        "list_price": 11.0,
+        "listed_in_menu": true,
+        "name": "Spaghetti al Pomodoro",
+        "option_group_ids": [
+          "4454492"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 9.9,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 9.9,
+            "list": 11.0
+          }
+        },
+        "section_ids": [
+          "1060557"
+        ],
+        "service_method": "pickup",
+        "sku": "75",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": [
+          "CRUSTACEANS",
+          "MOLLUSCS"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Meeresfrüchten, Knoblauch, Petersilie und Tomatensauce",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943865",
+        "list_price": 15.0,
+        "listed_in_menu": true,
+        "name": "Spaghetti Frutti di Mare",
+        "option_group_ids": [
+          "4454492"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 13.5,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 13.5,
+            "list": 15.0
+          }
+        },
+        "section_ids": [
+          "1060557"
+        ],
+        "service_method": "pickup",
+        "sku": "76",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": [
+          "BLACKED"
+        ],
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Chili, schwarzen Oliven, Tomatensauce und Petersilie",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943866",
+        "list_price": 12.0,
+        "listed_in_menu": true,
+        "name": "Penne Arrabiatta",
+        "option_group_ids": [
+          "4454492"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 10.8,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 10.8,
+            "list": 12.0
+          }
+        },
+        "section_ids": [
+          "1060557"
+        ],
+        "service_method": "pickup",
+        "sku": "77",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": [
+          "ANTIOXIDANT",
+          "BLACKED",
+          "PRESERV"
+        ],
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": "mit scharfer Salami, Oliven, Chili, frischen Tomaten und Kapern",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943867",
+        "list_price": 13.0,
+        "listed_in_menu": true,
+        "name": "Penne Calabrese",
+        "option_group_ids": [
+          "4454492"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 11.7,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 11.7,
+            "list": 13.0
+          }
+        },
+        "section_ids": [
+          "1060557"
+        ],
+        "service_method": "pickup",
+        "sku": "78",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": [
+          "LACTOSE"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Tomatensauce und Mozzarella",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943868",
+        "list_price": 13.0,
+        "listed_in_menu": true,
+        "name": "Penne Mozzarella",
+        "option_group_ids": [
+          "4454492"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 11.7,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 11.7,
+            "list": 13.0
+          }
+        },
+        "section_ids": [
+          "1060557"
+        ],
+        "service_method": "pickup",
+        "sku": "79",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": [
+          "BLACKED"
+        ],
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Spinat, schwarzen Oliven und Artischocken",
+        "discount_percent": 10,
+        "flags": [
+          "Vegan"
+        ],
+        "id": "6943926",
+        "list_price": 13.0,
+        "listed_in_menu": true,
+        "name": "Pizza Spinaci Vegan",
+        "option_group_ids": [
+          "4454519",
+          "4454520",
+          "4454521"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 11.7,
+        "price_level_used": "size2",
+        "price_levels": {
+          "size2": {
+            "discounted": 11.7,
+            "list": 13.0
+          }
+        },
+        "section_ids": [
+          "1060559"
+        ],
+        "service_method": "pickup",
+        "sku": "8",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": [
+          "LACTOSE"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Spinat, Gorgonzola und Sahne",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943869",
+        "list_price": 13.0,
+        "listed_in_menu": true,
+        "name": "Penne Gorgonzola",
+        "option_group_ids": [
+          "4454492"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 11.7,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 11.7,
+            "list": 13.0
+          }
+        },
+        "section_ids": [
+          "1060557"
+        ],
+        "service_method": "pickup",
+        "sku": "80",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Rindlfeischsauce",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943870",
+        "list_price": 13.0,
+        "listed_in_menu": true,
+        "name": "Penne Bolognese",
+        "option_group_ids": [
+          "4454492"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 11.7,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 11.7,
+            "list": 13.0
+          }
+        },
+        "section_ids": [
+          "1060557"
+        ],
+        "service_method": "pickup",
+        "sku": "81",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Auberginen, Zucchini, Champignons, frischen Tomaten, Zwiebeln und Knoblauch",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943871",
+        "list_price": 13.0,
+        "listed_in_menu": true,
+        "name": "Penne Contadino",
+        "option_group_ids": [
+          "4454492"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 11.7,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 11.7,
+            "list": 13.0
+          }
+        },
+        "section_ids": [
+          "1060557"
+        ],
+        "service_method": "pickup",
+        "sku": "82",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": [
+          "ANTIOXIDANT",
+          "PRESERV"
+        ],
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Speck, Artischocken, Zwiebeln, Knoblauch, Chili, Petersilie und Tomaten",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943872",
+        "list_price": 13.0,
+        "listed_in_menu": true,
+        "name": "Penne Siciliana",
+        "option_group_ids": [
+          "4454492"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 11.7,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 11.7,
+            "list": 13.0
+          }
+        },
+        "section_ids": [
+          "1060557"
+        ],
+        "service_method": "pickup",
+        "sku": "83",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Artischocken, Broccoli, Tomaten, Knoblauch, Zwiebeln und Petersilie",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943873",
+        "list_price": 13.0,
+        "listed_in_menu": true,
+        "name": "Penne Broccoli",
+        "option_group_ids": [
+          "4454492"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 11.7,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 11.7,
+            "list": 13.0
+          }
+        },
+        "section_ids": [
+          "1060557"
+        ],
+        "service_method": "pickup",
+        "sku": "84",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": [
+          "CRUSTACEANS"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Salzwassergarnelen, Zucchini, Petersilie und frischen Tomaten",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943874",
+        "list_price": 15.0,
+        "listed_in_menu": true,
+        "name": "Tagliatelle Scampi",
+        "option_group_ids": [
+          "4454492"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 13.5,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 13.5,
+            "list": 15.0
+          }
+        },
+        "section_ids": [
+          "1060557"
+        ],
+        "service_method": "pickup",
+        "sku": "85",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": [
+          "PRESERV"
+        ],
+        "allergens": [
+          "CRUSTACEANS"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Lachs, Hummerpaste, Zucchini und Tomaten",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943875",
+        "list_price": 15.0,
+        "listed_in_menu": true,
+        "name": "Tagliatelle Salmone",
+        "option_group_ids": [
+          "4454492"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 13.5,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 13.5,
+            "list": 15.0
+          }
+        },
+        "section_ids": [
+          "1060557"
+        ],
+        "service_method": "pickup",
+        "sku": "86",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": [
+          "LACTOSE"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Gorgonzola, Spinat und Sahnesauce",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943876",
+        "list_price": 13.0,
+        "listed_in_menu": true,
+        "name": "Gnocchi al Gorgonzola",
+        "option_group_ids": [
+          "4454492"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 11.7,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 11.7,
+            "list": 13.0
+          }
+        },
+        "section_ids": [
+          "1060557"
+        ],
+        "service_method": "pickup",
+        "sku": "87",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": [
+          "LACTOSE"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Sahnesauce",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943877",
+        "list_price": 13.0,
+        "listed_in_menu": true,
+        "name": "Tortellini Panna",
+        "option_group_ids": [
+          "4454492"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 11.7,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 11.7,
+            "list": 13.0
+          }
+        },
+        "section_ids": [
+          "1060557"
+        ],
+        "service_method": "pickup",
+        "sku": "88",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": [
+          "LACTOSE"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Spinat und Gorgonzola-Sahnesauce",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943880",
+        "list_price": 13.0,
+        "listed_in_menu": true,
+        "name": "Tortellini Spinaci",
+        "option_group_ids": [
+          "4454492"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 11.7,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 11.7,
+            "list": 13.0
+          }
+        },
+        "section_ids": [
+          "1060557"
+        ],
+        "service_method": "pickup",
+        "sku": "89",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": [
+          "BLACKED"
+        ],
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Zwiebeln, Artischocken und schwarzen Oliven",
+        "discount_percent": 10,
+        "flags": [
+          "Vegan"
+        ],
+        "id": "6943927",
+        "list_price": 13.0,
+        "listed_in_menu": true,
+        "name": "Pizza Cipolla Vegan",
+        "option_group_ids": [
+          "4454519",
+          "4454520",
+          "4454521"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 11.7,
+        "price_level_used": "size2",
+        "price_levels": {
+          "size2": {
+            "discounted": 11.7,
+            "list": 13.0
+          }
+        },
+        "section_ids": [
+          "1060559"
+        ],
+        "service_method": "pickup",
+        "sku": "9",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": [
+          "LACTOSE"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Hähnchen, Broccoli, Chili und Tomaten-Sahnesauce",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943878",
+        "list_price": 15.0,
+        "listed_in_menu": true,
+        "name": "Penne Pollo al Broccoli",
+        "option_group_ids": [
+          "4454492"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 13.5,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 13.5,
+            "list": 15.0
+          }
+        },
+        "section_ids": [
+          "1060557"
+        ],
+        "service_method": "pickup",
+        "sku": "90",
+        "source": "venue-api",
+        "spice_type": null
+      },
+      {
+        "additives": null,
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "description": "mit Champignons und Sahnesauce",
+        "discount_percent": 10,
+        "flags": null,
+        "id": "6943879",
+        "list_price": 13.0,
+        "listed_in_menu": true,
+        "name": "Penne Funghi",
+        "option_group_ids": [
+          "4454492"
+        ],
+        "popular": false,
+        "popularity_rank": null,
+        "price": 11.7,
+        "price_level_used": "default",
+        "price_levels": {
+          "default": {
+            "discounted": 11.7,
+            "list": 13.0
+          }
+        },
+        "section_ids": [
+          "1060557"
+        ],
+        "service_method": "pickup",
+        "sku": "91",
+        "source": "venue-api",
+        "spice_type": null
+      }
+    ],
+    "option_groups": [
+      {
+        "id": "4318512",
+        "max": null,
+        "multi_select": true,
+        "name": "Extrazutaten auf Wunsch",
+        "options": [
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756276",
+            "list_price": 2.0,
+            "name": "Ananas",
+            "order": 0,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756277",
+            "list_price": 2.0,
+            "name": "Artischocken",
+            "order": 1,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756278",
+            "list_price": 2.0,
+            "name": "Broccoli",
+            "order": 2,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 3.6,
+            "discounted_price_level1": 3.6,
+            "discounted_price_level2": 3.6,
+            "id": "42756279",
+            "list_price": 4.0,
+            "name": "Büffelmozzarella",
+            "order": 3,
+            "price_level1": 4.0,
+            "price_level2": 4.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756280",
+            "list_price": 2.0,
+            "name": "Champignons",
+            "order": 4,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756281",
+            "list_price": 2.0,
+            "name": "Chili",
+            "order": 5,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": 2.25,
+            "discounted_price_level2": 3.15,
+            "id": "42756282",
+            "list_price": 2.5,
+            "name": "Feta",
+            "order": 6,
+            "price_level1": 2.5,
+            "price_level2": 3.5
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": 2.25,
+            "discounted_price_level2": 3.15,
+            "id": "42756283",
+            "list_price": 2.5,
+            "name": "Gorgonzola",
+            "order": 7,
+            "price_level1": 2.5,
+            "price_level2": 3.5
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756284",
+            "list_price": 2.0,
+            "name": "Kapern",
+            "order": 8,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756285",
+            "list_price": 2.0,
+            "name": "Knoblauch",
+            "order": 9,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": 2.25,
+            "discounted_price_level2": 3.15,
+            "id": "42756286",
+            "list_price": 2.5,
+            "name": "Mozzarella",
+            "order": 10,
+            "price_level1": 2.5,
+            "price_level2": 3.5
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756287",
+            "list_price": 2.0,
+            "name": "Oliven, schwarz",
+            "order": 11,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756288",
+            "list_price": 2.0,
+            "name": "Paprika",
+            "order": 12,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": 2.25,
+            "discounted_price_level2": 3.15,
+            "id": "42756289",
+            "list_price": 2.5,
+            "name": "Parmesan",
+            "order": 13,
+            "price_level1": 2.5,
+            "price_level2": 3.5
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756290",
+            "list_price": 2.0,
+            "name": "Peperoni",
+            "order": 14,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756291",
+            "list_price": 2.0,
+            "name": "Rohschinken, italienisch",
+            "order": 15,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756292",
+            "list_price": 2.0,
+            "name": "Rucola",
+            "order": 16,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756293",
+            "list_price": 2.0,
+            "name": "Salami",
+            "order": 17,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": 2.25,
+            "discounted_price_level2": 3.6,
+            "id": "42756294",
+            "list_price": 2.5,
+            "name": "Salami, scharf",
+            "order": 18,
+            "price_level1": 2.5,
+            "price_level2": 4.0
+          },
+          {
+            "discounted_price": 4.5,
+            "discounted_price_level1": 4.5,
+            "discounted_price_level2": 4.5,
+            "id": "42756295",
+            "list_price": 5.0,
+            "name": "Salzwassergarnelen (5 Stück)",
+            "order": 19,
+            "price_level1": 5.0,
+            "price_level2": 5.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": 2.25,
+            "discounted_price_level2": 3.6,
+            "id": "42756296",
+            "list_price": 2.5,
+            "name": "Sardellen",
+            "order": 20,
+            "price_level1": 2.5,
+            "price_level2": 4.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": 2.25,
+            "discounted_price_level2": 3.6,
+            "id": "42756297",
+            "list_price": 2.5,
+            "name": "Schinken, gekocht",
+            "order": 21,
+            "price_level1": 2.5,
+            "price_level2": 4.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756298",
+            "list_price": 2.0,
+            "name": "Spinat",
+            "order": 22,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": 2.25,
+            "discounted_price_level2": 3.6,
+            "id": "42756299",
+            "list_price": 2.5,
+            "name": "Sucuk",
+            "order": 23,
+            "price_level1": 2.5,
+            "price_level2": 4.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": 2.25,
+            "discounted_price_level2": 3.6,
+            "id": "42756300",
+            "list_price": 2.5,
+            "name": "Thunfisch",
+            "order": 24,
+            "price_level1": 2.5,
+            "price_level2": 4.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756301",
+            "list_price": 2.0,
+            "name": "Tomaten, frisch",
+            "order": 25,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756302",
+            "list_price": 2.0,
+            "name": "Zucchini",
+            "order": 26,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756303",
+            "list_price": 2.0,
+            "name": "Zwiebeln",
+            "order": 27,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          }
+        ],
+        "price_level_dependent": true,
+        "required": false,
+        "source_group_id": "4318512",
+        "type": "MultipleEnum"
+      },
+      {
+        "id": "4318513",
+        "max": 1,
+        "multi_select": true,
+        "name": "Auf Wunsch",
+        "options": [
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 1.8,
+            "id": "42756304",
+            "list_price": 2.0,
+            "name": "glutenfrei",
+            "order": 0,
+            "price_level1": 2.0,
+            "price_level2": 2.0
+          }
+        ],
+        "price_level_dependent": true,
+        "required": false,
+        "source_group_id": "4318513",
+        "type": "MultipleEnum"
+      },
+      {
+        "id": "4318514",
+        "max": null,
+        "multi_select": true,
+        "name": "Extrazutaten auf Wunsch",
+        "options": [
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756305",
+            "list_price": 2.0,
+            "name": "Ananas",
+            "order": 0,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756306",
+            "list_price": 2.0,
+            "name": "Artischocken",
+            "order": 1,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756307",
+            "list_price": 2.0,
+            "name": "Broccoli",
+            "order": 2,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 3.6,
+            "discounted_price_level1": 3.6,
+            "discounted_price_level2": 3.6,
+            "id": "42756308",
+            "list_price": 4.0,
+            "name": "Büffelmozzarella",
+            "order": 3,
+            "price_level1": 4.0,
+            "price_level2": 4.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756309",
+            "list_price": 2.0,
+            "name": "Champignons",
+            "order": 4,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756310",
+            "list_price": 2.0,
+            "name": "Chili",
+            "order": 5,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": 2.25,
+            "discounted_price_level2": 3.15,
+            "id": "42756311",
+            "list_price": 2.5,
+            "name": "Feta",
+            "order": 6,
+            "price_level1": 2.5,
+            "price_level2": 3.5
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": 2.25,
+            "discounted_price_level2": 3.15,
+            "id": "42756312",
+            "list_price": 2.5,
+            "name": "Gorgonzola",
+            "order": 7,
+            "price_level1": 2.5,
+            "price_level2": 3.5
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756313",
+            "list_price": 2.0,
+            "name": "Kapern",
+            "order": 8,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756314",
+            "list_price": 2.0,
+            "name": "Knoblauch",
+            "order": 9,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": 2.25,
+            "discounted_price_level2": 3.15,
+            "id": "42756315",
+            "list_price": 2.5,
+            "name": "Mozzarella",
+            "order": 10,
+            "price_level1": 2.5,
+            "price_level2": 3.5
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756316",
+            "list_price": 2.0,
+            "name": "Oliven, schwarz",
+            "order": 11,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756317",
+            "list_price": 2.0,
+            "name": "Paprika",
+            "order": 12,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": 2.25,
+            "discounted_price_level2": 3.15,
+            "id": "42756318",
+            "list_price": 2.5,
+            "name": "Parmesan",
+            "order": 13,
+            "price_level1": 2.5,
+            "price_level2": 3.5
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756319",
+            "list_price": 2.0,
+            "name": "Peperoni",
+            "order": 14,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756320",
+            "list_price": 2.0,
+            "name": "Rohschinken, italienisch",
+            "order": 15,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756321",
+            "list_price": 2.0,
+            "name": "Rucola",
+            "order": 16,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756322",
+            "list_price": 2.0,
+            "name": "Salami",
+            "order": 17,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": 2.25,
+            "discounted_price_level2": 3.6,
+            "id": "42756323",
+            "list_price": 2.5,
+            "name": "Salami, scharf",
+            "order": 18,
+            "price_level1": 2.5,
+            "price_level2": 4.0
+          },
+          {
+            "discounted_price": 4.5,
+            "discounted_price_level1": 4.5,
+            "discounted_price_level2": 4.5,
+            "id": "42756324",
+            "list_price": 5.0,
+            "name": "Salzwassergarnelen (5 Stück)",
+            "order": 19,
+            "price_level1": 5.0,
+            "price_level2": 5.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": 2.25,
+            "discounted_price_level2": 3.6,
+            "id": "42756325",
+            "list_price": 2.5,
+            "name": "Sardellen",
+            "order": 20,
+            "price_level1": 2.5,
+            "price_level2": 4.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": 2.25,
+            "discounted_price_level2": 3.6,
+            "id": "42756326",
+            "list_price": 2.5,
+            "name": "Schinken, gekocht",
+            "order": 21,
+            "price_level1": 2.5,
+            "price_level2": 4.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756327",
+            "list_price": 2.0,
+            "name": "Spinat",
+            "order": 22,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": 2.25,
+            "discounted_price_level2": 3.6,
+            "id": "42756328",
+            "list_price": 2.5,
+            "name": "Sucuk",
+            "order": 23,
+            "price_level1": 2.5,
+            "price_level2": 4.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": 2.25,
+            "discounted_price_level2": 3.6,
+            "id": "42756329",
+            "list_price": 2.5,
+            "name": "Thunfisch",
+            "order": 24,
+            "price_level1": 2.5,
+            "price_level2": 4.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756330",
+            "list_price": 2.0,
+            "name": "Tomaten, frisch",
+            "order": 25,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756331",
+            "list_price": 2.0,
+            "name": "Zucchini",
+            "order": 26,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756332",
+            "list_price": 2.0,
+            "name": "Zwiebeln",
+            "order": 27,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          }
+        ],
+        "price_level_dependent": true,
+        "required": false,
+        "source_group_id": "4318514",
+        "type": "MultipleEnum"
+      },
+      {
+        "id": "4318515",
+        "max": 1,
+        "multi_select": true,
+        "name": "Auf Wunsch",
+        "options": [
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 1.8,
+            "id": "42756333",
+            "list_price": 2.0,
+            "name": "glutenfrei",
+            "order": 0,
+            "price_level1": 2.0,
+            "price_level2": 2.0
+          }
+        ],
+        "price_level_dependent": true,
+        "required": false,
+        "source_group_id": "4318515",
+        "type": "MultipleEnum"
+      },
+      {
+        "id": "4318522",
+        "max": null,
+        "multi_select": true,
+        "name": "Extrazutaten auf Wunsch",
+        "options": [
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756396",
+            "list_price": 2.0,
+            "name": "Ananas",
+            "order": 0,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756397",
+            "list_price": 2.0,
+            "name": "Artischocken",
+            "order": 1,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756398",
+            "list_price": 2.0,
+            "name": "Broccoli",
+            "order": 2,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 3.6,
+            "discounted_price_level1": 3.6,
+            "discounted_price_level2": 3.6,
+            "id": "42756399",
+            "list_price": 4.0,
+            "name": "Büffelmozzarella",
+            "order": 3,
+            "price_level1": 4.0,
+            "price_level2": 4.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756400",
+            "list_price": 2.0,
+            "name": "Champignons",
+            "order": 4,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756401",
+            "list_price": 2.0,
+            "name": "Chili",
+            "order": 5,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": 2.25,
+            "discounted_price_level2": 3.15,
+            "id": "42756402",
+            "list_price": 2.5,
+            "name": "Feta",
+            "order": 6,
+            "price_level1": 2.5,
+            "price_level2": 3.5
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": 2.25,
+            "discounted_price_level2": 3.15,
+            "id": "42756403",
+            "list_price": 2.5,
+            "name": "Gorgonzola",
+            "order": 7,
+            "price_level1": 2.5,
+            "price_level2": 3.5
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756404",
+            "list_price": 2.0,
+            "name": "Kapern",
+            "order": 8,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756405",
+            "list_price": 2.0,
+            "name": "Knoblauch",
+            "order": 9,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": 2.25,
+            "discounted_price_level2": 3.15,
+            "id": "42756406",
+            "list_price": 2.5,
+            "name": "Mozzarella",
+            "order": 10,
+            "price_level1": 2.5,
+            "price_level2": 3.5
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756407",
+            "list_price": 2.0,
+            "name": "Oliven, schwarz",
+            "order": 11,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756408",
+            "list_price": 2.0,
+            "name": "Paprika",
+            "order": 12,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": 2.25,
+            "discounted_price_level2": 3.15,
+            "id": "42756409",
+            "list_price": 2.5,
+            "name": "Parmesan",
+            "order": 13,
+            "price_level1": 2.5,
+            "price_level2": 3.5
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756410",
+            "list_price": 2.0,
+            "name": "Peperoni",
+            "order": 14,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756411",
+            "list_price": 2.0,
+            "name": "Rohschinken, italienisch",
+            "order": 15,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756412",
+            "list_price": 2.0,
+            "name": "Rucola",
+            "order": 16,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756413",
+            "list_price": 2.0,
+            "name": "Salami",
+            "order": 17,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": 2.25,
+            "discounted_price_level2": 3.6,
+            "id": "42756414",
+            "list_price": 2.5,
+            "name": "Salami, scharf",
+            "order": 18,
+            "price_level1": 2.5,
+            "price_level2": 4.0
+          },
+          {
+            "discounted_price": 4.5,
+            "discounted_price_level1": 4.5,
+            "discounted_price_level2": 4.5,
+            "id": "42756415",
+            "list_price": 5.0,
+            "name": "Salzwassergarnelen (5 Stück)",
+            "order": 19,
+            "price_level1": 5.0,
+            "price_level2": 5.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": 2.25,
+            "discounted_price_level2": 3.6,
+            "id": "42756416",
+            "list_price": 2.5,
+            "name": "Sardellen",
+            "order": 20,
+            "price_level1": 2.5,
+            "price_level2": 4.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": 2.25,
+            "discounted_price_level2": 3.6,
+            "id": "42756417",
+            "list_price": 2.5,
+            "name": "Schinken, gekocht",
+            "order": 21,
+            "price_level1": 2.5,
+            "price_level2": 4.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756418",
+            "list_price": 2.0,
+            "name": "Spinat",
+            "order": 22,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": 2.25,
+            "discounted_price_level2": 3.6,
+            "id": "42756419",
+            "list_price": 2.5,
+            "name": "Sucuk",
+            "order": 23,
+            "price_level1": 2.5,
+            "price_level2": 4.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": 2.25,
+            "discounted_price_level2": 3.6,
+            "id": "42756420",
+            "list_price": 2.5,
+            "name": "Thunfisch",
+            "order": 24,
+            "price_level1": 2.5,
+            "price_level2": 4.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756421",
+            "list_price": 2.0,
+            "name": "Tomaten, frisch",
+            "order": 25,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756422",
+            "list_price": 2.0,
+            "name": "Zucchini",
+            "order": 26,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756423",
+            "list_price": 2.0,
+            "name": "Zwiebeln",
+            "order": 27,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          }
+        ],
+        "price_level_dependent": true,
+        "required": false,
+        "source_group_id": "4318522",
+        "type": "MultipleEnum"
+      },
+      {
+        "id": "4318523",
+        "max": 1,
+        "multi_select": true,
+        "name": "Auf Wunsch",
+        "options": [
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 1.8,
+            "id": "42756424",
+            "list_price": 2.0,
+            "name": "glutenfrei",
+            "order": 0,
+            "price_level1": 2.0,
+            "price_level2": 2.0
+          }
+        ],
+        "price_level_dependent": true,
+        "required": false,
+        "source_group_id": "4318523",
+        "type": "MultipleEnum"
+      },
+      {
+        "id": "4318529",
+        "max": null,
+        "multi_select": true,
+        "name": "Extrazutaten auf Wunsch",
+        "options": [
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756485",
+            "list_price": 2.0,
+            "name": "Ananas",
+            "order": 0,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756486",
+            "list_price": 2.0,
+            "name": "Artischocken",
+            "order": 1,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756487",
+            "list_price": 2.0,
+            "name": "Broccoli",
+            "order": 2,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 3.6,
+            "discounted_price_level1": 3.6,
+            "discounted_price_level2": 3.6,
+            "id": "42756488",
+            "list_price": 4.0,
+            "name": "Büffelmozzarella",
+            "order": 3,
+            "price_level1": 4.0,
+            "price_level2": 4.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756489",
+            "list_price": 2.0,
+            "name": "Champignons",
+            "order": 4,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756490",
+            "list_price": 2.0,
+            "name": "Chili",
+            "order": 5,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": 2.25,
+            "discounted_price_level2": 3.15,
+            "id": "42756491",
+            "list_price": 2.5,
+            "name": "Feta",
+            "order": 6,
+            "price_level1": 2.5,
+            "price_level2": 3.5
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": 2.25,
+            "discounted_price_level2": 3.15,
+            "id": "42756492",
+            "list_price": 2.5,
+            "name": "Gorgonzola",
+            "order": 7,
+            "price_level1": 2.5,
+            "price_level2": 3.5
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756493",
+            "list_price": 2.0,
+            "name": "Kapern",
+            "order": 8,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756494",
+            "list_price": 2.0,
+            "name": "Knoblauch",
+            "order": 9,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": 2.25,
+            "discounted_price_level2": 3.15,
+            "id": "42756495",
+            "list_price": 2.5,
+            "name": "Mozzarella",
+            "order": 10,
+            "price_level1": 2.5,
+            "price_level2": 3.5
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756496",
+            "list_price": 2.0,
+            "name": "Oliven, schwarz",
+            "order": 11,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756497",
+            "list_price": 2.0,
+            "name": "Paprika",
+            "order": 12,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": 2.25,
+            "discounted_price_level2": 3.15,
+            "id": "42756498",
+            "list_price": 2.5,
+            "name": "Parmesan",
+            "order": 13,
+            "price_level1": 2.5,
+            "price_level2": 3.5
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756499",
+            "list_price": 2.0,
+            "name": "Peperoni",
+            "order": 14,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756500",
+            "list_price": 2.0,
+            "name": "Rohschinken, italienisch",
+            "order": 15,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756501",
+            "list_price": 2.0,
+            "name": "Rucola",
+            "order": 16,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756502",
+            "list_price": 2.0,
+            "name": "Salami",
+            "order": 17,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": 2.25,
+            "discounted_price_level2": 3.6,
+            "id": "42756503",
+            "list_price": 2.5,
+            "name": "Salami, scharf",
+            "order": 18,
+            "price_level1": 2.5,
+            "price_level2": 4.0
+          },
+          {
+            "discounted_price": 4.5,
+            "discounted_price_level1": 4.5,
+            "discounted_price_level2": 4.5,
+            "id": "42756504",
+            "list_price": 5.0,
+            "name": "Salzwassergarnelen (5 Stück)",
+            "order": 19,
+            "price_level1": 5.0,
+            "price_level2": 5.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": 2.25,
+            "discounted_price_level2": 3.6,
+            "id": "42756505",
+            "list_price": 2.5,
+            "name": "Sardellen",
+            "order": 20,
+            "price_level1": 2.5,
+            "price_level2": 4.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": 2.25,
+            "discounted_price_level2": 3.6,
+            "id": "42756506",
+            "list_price": 2.5,
+            "name": "Schinken, gekocht",
+            "order": 21,
+            "price_level1": 2.5,
+            "price_level2": 4.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756507",
+            "list_price": 2.0,
+            "name": "Spinat",
+            "order": 22,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": 2.25,
+            "discounted_price_level2": 3.6,
+            "id": "42756508",
+            "list_price": 2.5,
+            "name": "Sucuk",
+            "order": 23,
+            "price_level1": 2.5,
+            "price_level2": 4.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": 2.25,
+            "discounted_price_level2": 3.6,
+            "id": "42756509",
+            "list_price": 2.5,
+            "name": "Thunfisch",
+            "order": 24,
+            "price_level1": 2.5,
+            "price_level2": 4.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756510",
+            "list_price": 2.0,
+            "name": "Tomaten, frisch",
+            "order": 25,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756511",
+            "list_price": 2.0,
+            "name": "Zucchini",
+            "order": 26,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 2.7,
+            "id": "42756512",
+            "list_price": 2.0,
+            "name": "Zwiebeln",
+            "order": 27,
+            "price_level1": 2.0,
+            "price_level2": 3.0
+          }
+        ],
+        "price_level_dependent": true,
+        "required": false,
+        "source_group_id": "4318529",
+        "type": "MultipleEnum"
+      },
+      {
+        "id": "4318530",
+        "max": 1,
+        "multi_select": true,
+        "name": "Auf Wunsch",
+        "options": [
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": 1.8,
+            "discounted_price_level2": 1.8,
+            "id": "42756513",
+            "list_price": 2.0,
+            "name": "glutenfrei",
+            "order": 0,
+            "price_level1": 2.0,
+            "price_level2": 2.0
+          }
+        ],
+        "price_level_dependent": true,
+        "required": false,
+        "source_group_id": "4318530",
+        "type": "MultipleEnum"
+      },
+      {
+        "id": "4318561",
+        "max": null,
+        "multi_select": false,
+        "name": "Deine Größe",
+        "options": [
+          {
+            "discounted_price": 10.8,
+            "discounted_price_level1": null,
+            "discounted_price_level2": null,
+            "id": "42756824",
+            "list_price": 12.0,
+            "name": "0,75l",
+            "order": 1,
+            "price_level1": null,
+            "price_level2": null
+          },
+          {
+            "discounted_price": 14.85,
+            "discounted_price_level1": null,
+            "discounted_price_level2": null,
+            "id": "42756825",
+            "list_price": 16.5,
+            "name": "1l",
+            "order": 2,
+            "price_level1": null,
+            "price_level2": null
+          }
+        ],
+        "price_level_dependent": true,
+        "required": true,
+        "source_group_id": "4318561",
+        "type": "PriceLevelEnum"
+      },
+      {
+        "id": "4454489",
+        "max": null,
+        "multi_select": false,
+        "name": "Dressing nach Wahl",
+        "options": [
+          {
+            "discounted_price": null,
+            "discounted_price_level1": null,
+            "discounted_price_level2": null,
+            "id": "43938692",
+            "list_price": null,
+            "name": "Hausdressing",
+            "order": 0,
+            "price_level1": null,
+            "price_level2": null
+          },
+          {
+            "discounted_price": null,
+            "discounted_price_level1": null,
+            "discounted_price_level2": null,
+            "id": "43938693",
+            "list_price": null,
+            "name": "Joghurtdressing",
+            "order": 0,
+            "price_level1": null,
+            "price_level2": null
+          },
+          {
+            "discounted_price": null,
+            "discounted_price_level1": null,
+            "discounted_price_level2": null,
+            "id": "43938694",
+            "list_price": null,
+            "name": "ohne Dressing",
+            "order": 0,
+            "price_level1": null,
+            "price_level2": null
+          },
+          {
+            "discounted_price": null,
+            "discounted_price_level1": null,
+            "discounted_price_level2": null,
+            "id": "43938695",
+            "list_price": null,
+            "name": "Öl und Essig",
+            "order": 0,
+            "price_level1": null,
+            "price_level2": null
+          }
+        ],
+        "price_level_dependent": true,
+        "required": true,
+        "source_group_id": "4454489",
+        "type": "SelectOneEnum"
+      },
+      {
+        "id": "4454492",
+        "max": 1,
+        "multi_select": true,
+        "name": "Auf Wunsch",
+        "options": [
+          {
+            "discounted_price": null,
+            "discounted_price_level1": null,
+            "discounted_price_level2": null,
+            "id": "43938701",
+            "list_price": null,
+            "name": "Glutenfrei",
+            "order": 0,
+            "price_level1": null,
+            "price_level2": null
+          }
+        ],
+        "price_level_dependent": true,
+        "required": false,
+        "source_group_id": "4454492",
+        "type": "MultipleEnum"
+      },
+      {
+        "id": "4454494",
+        "max": null,
+        "multi_select": false,
+        "name": "Deine Größe",
+        "options": [
+          {
+            "discounted_price": 9.0,
+            "discounted_price_level1": null,
+            "discounted_price_level2": null,
+            "id": "43938710",
+            "list_price": 10.0,
+            "name": "Ø 32cm",
+            "order": 2,
+            "price_level1": null,
+            "price_level2": null
+          }
+        ],
+        "price_level_dependent": true,
+        "required": true,
+        "source_group_id": "4454494",
+        "type": "PriceLevelEnum"
+      },
+      {
+        "id": "4454495",
+        "max": null,
+        "multi_select": true,
+        "name": "Extrazutaten auf Wunsch",
+        "options": [
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 2.7,
+            "id": "43938711",
+            "list_price": 2.0,
+            "name": "Ananas",
+            "order": 0,
+            "price_level1": null,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 2.7,
+            "id": "43938712",
+            "list_price": 2.0,
+            "name": "Artischocken",
+            "order": 1,
+            "price_level1": null,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 2.7,
+            "id": "43938713",
+            "list_price": 2.0,
+            "name": "Broccoli",
+            "order": 2,
+            "price_level1": null,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 3.6,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 3.6,
+            "id": "43938714",
+            "list_price": 4.0,
+            "name": "Büffelmozzarella",
+            "order": 3,
+            "price_level1": null,
+            "price_level2": 4.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 2.7,
+            "id": "43938715",
+            "list_price": 2.0,
+            "name": "Champignons",
+            "order": 4,
+            "price_level1": null,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 2.7,
+            "id": "43938716",
+            "list_price": 2.0,
+            "name": "Chili",
+            "order": 5,
+            "price_level1": null,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 3.15,
+            "id": "43938717",
+            "list_price": 2.5,
+            "name": "Feta",
+            "order": 6,
+            "price_level1": null,
+            "price_level2": 3.5
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 3.15,
+            "id": "43938718",
+            "list_price": 2.5,
+            "name": "Gorgonzola",
+            "order": 7,
+            "price_level1": null,
+            "price_level2": 3.5
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 2.7,
+            "id": "43938719",
+            "list_price": 2.0,
+            "name": "Kapern",
+            "order": 8,
+            "price_level1": null,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 2.7,
+            "id": "43938720",
+            "list_price": 2.0,
+            "name": "Knoblauch",
+            "order": 9,
+            "price_level1": null,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 3.15,
+            "id": "43938721",
+            "list_price": 2.5,
+            "name": "Mozzarella",
+            "order": 10,
+            "price_level1": null,
+            "price_level2": 3.5
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 2.7,
+            "id": "43938722",
+            "list_price": 2.0,
+            "name": "Oliven, schwarz",
+            "order": 11,
+            "price_level1": null,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 2.7,
+            "id": "43938723",
+            "list_price": 2.0,
+            "name": "Paprika",
+            "order": 12,
+            "price_level1": null,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 3.15,
+            "id": "43938724",
+            "list_price": 2.5,
+            "name": "Parmesan",
+            "order": 13,
+            "price_level1": null,
+            "price_level2": 3.5
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 2.7,
+            "id": "43938725",
+            "list_price": 2.0,
+            "name": "Peperoni",
+            "order": 14,
+            "price_level1": null,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 2.7,
+            "id": "43938726",
+            "list_price": 2.0,
+            "name": "Rohschinken, italienisch",
+            "order": 15,
+            "price_level1": null,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 2.7,
+            "id": "43938727",
+            "list_price": 2.0,
+            "name": "Rucola",
+            "order": 16,
+            "price_level1": null,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 2.7,
+            "id": "43938728",
+            "list_price": 2.0,
+            "name": "Salami",
+            "order": 17,
+            "price_level1": null,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 3.6,
+            "id": "43938729",
+            "list_price": 2.5,
+            "name": "Salami, scharf",
+            "order": 18,
+            "price_level1": null,
+            "price_level2": 4.0
+          },
+          {
+            "discounted_price": 4.5,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 4.5,
+            "id": "43938730",
+            "list_price": 5.0,
+            "name": "Salzwassergarnelen (5 Stück)",
+            "order": 19,
+            "price_level1": null,
+            "price_level2": 5.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 3.6,
+            "id": "43938731",
+            "list_price": 2.5,
+            "name": "Sardellen",
+            "order": 20,
+            "price_level1": null,
+            "price_level2": 4.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 3.6,
+            "id": "43938732",
+            "list_price": 2.5,
+            "name": "Schinken, gekocht",
+            "order": 21,
+            "price_level1": null,
+            "price_level2": 4.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 2.7,
+            "id": "43938733",
+            "list_price": 2.0,
+            "name": "Spinat",
+            "order": 22,
+            "price_level1": null,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 3.6,
+            "id": "43938734",
+            "list_price": 2.5,
+            "name": "Sucuk",
+            "order": 23,
+            "price_level1": null,
+            "price_level2": 4.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 3.6,
+            "id": "43938735",
+            "list_price": 2.5,
+            "name": "Thunfisch",
+            "order": 24,
+            "price_level1": null,
+            "price_level2": 4.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 2.7,
+            "id": "43938736",
+            "list_price": 2.0,
+            "name": "Tomaten, frisch",
+            "order": 25,
+            "price_level1": null,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 2.7,
+            "id": "43938737",
+            "list_price": 2.0,
+            "name": "Zucchini",
+            "order": 26,
+            "price_level1": null,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 2.7,
+            "id": "43938738",
+            "list_price": 2.0,
+            "name": "Zwiebeln",
+            "order": 27,
+            "price_level1": null,
+            "price_level2": 3.0
+          }
+        ],
+        "price_level_dependent": true,
+        "required": false,
+        "source_group_id": "4454495",
+        "type": "MultipleEnum"
+      },
+      {
+        "id": "4454496",
+        "max": 1,
+        "multi_select": true,
+        "name": "Auf Wunsch",
+        "options": [
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 1.8,
+            "id": "43938739",
+            "list_price": 2.0,
+            "name": "Glutenfrei",
+            "order": 0,
+            "price_level1": null,
+            "price_level2": 2.0
+          }
+        ],
+        "price_level_dependent": true,
+        "required": false,
+        "source_group_id": "4454496",
+        "type": "MultipleEnum"
+      },
+      {
+        "id": "4454519",
+        "max": null,
+        "multi_select": false,
+        "name": "Deine Größe",
+        "options": [
+          {
+            "discounted_price": 11.7,
+            "discounted_price_level1": null,
+            "discounted_price_level2": null,
+            "id": "43938809",
+            "list_price": 13.0,
+            "name": "Ø 32cm",
+            "order": 2,
+            "price_level1": null,
+            "price_level2": null
+          }
+        ],
+        "price_level_dependent": true,
+        "required": true,
+        "source_group_id": "4454519",
+        "type": "PriceLevelEnum"
+      },
+      {
+        "id": "4454520",
+        "max": null,
+        "multi_select": true,
+        "name": "Extrazutaten auf Wunsch",
+        "options": [
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 2.7,
+            "id": "43938810",
+            "list_price": 2.0,
+            "name": "Ananas",
+            "order": 0,
+            "price_level1": null,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 2.7,
+            "id": "43938811",
+            "list_price": 2.0,
+            "name": "Artischocken",
+            "order": 1,
+            "price_level1": null,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 2.7,
+            "id": "43938812",
+            "list_price": 2.0,
+            "name": "Broccoli",
+            "order": 2,
+            "price_level1": null,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 3.6,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 3.6,
+            "id": "43938813",
+            "list_price": 4.0,
+            "name": "Büffelmozzarella",
+            "order": 3,
+            "price_level1": null,
+            "price_level2": 4.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 2.7,
+            "id": "43938814",
+            "list_price": 2.0,
+            "name": "Champignons",
+            "order": 4,
+            "price_level1": null,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 2.7,
+            "id": "43938815",
+            "list_price": 2.0,
+            "name": "Chili",
+            "order": 5,
+            "price_level1": null,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 3.15,
+            "id": "43938816",
+            "list_price": 2.5,
+            "name": "Feta",
+            "order": 6,
+            "price_level1": null,
+            "price_level2": 3.5
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 3.15,
+            "id": "43938817",
+            "list_price": 2.5,
+            "name": "Gorgonzola",
+            "order": 7,
+            "price_level1": null,
+            "price_level2": 3.5
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 2.7,
+            "id": "43938818",
+            "list_price": 2.0,
+            "name": "Kapern",
+            "order": 8,
+            "price_level1": null,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 2.7,
+            "id": "43938819",
+            "list_price": 2.0,
+            "name": "Knoblauch",
+            "order": 9,
+            "price_level1": null,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 3.15,
+            "id": "43938820",
+            "list_price": 2.5,
+            "name": "Mozzarella",
+            "order": 10,
+            "price_level1": null,
+            "price_level2": 3.5
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 2.7,
+            "id": "43938821",
+            "list_price": 2.0,
+            "name": "Oliven, schwarz",
+            "order": 11,
+            "price_level1": null,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 2.7,
+            "id": "43938822",
+            "list_price": 2.0,
+            "name": "Paprika",
+            "order": 12,
+            "price_level1": null,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 3.15,
+            "id": "43938823",
+            "list_price": 2.5,
+            "name": "Parmesan",
+            "order": 13,
+            "price_level1": null,
+            "price_level2": 3.5
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 2.7,
+            "id": "43938824",
+            "list_price": 2.0,
+            "name": "Peperoni",
+            "order": 14,
+            "price_level1": null,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 2.7,
+            "id": "43938825",
+            "list_price": 2.0,
+            "name": "Rohschinken, italienisch",
+            "order": 15,
+            "price_level1": null,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 2.7,
+            "id": "43938826",
+            "list_price": 2.0,
+            "name": "Rucola",
+            "order": 16,
+            "price_level1": null,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 2.7,
+            "id": "43938827",
+            "list_price": 2.0,
+            "name": "Salami",
+            "order": 17,
+            "price_level1": null,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 3.6,
+            "id": "43938828",
+            "list_price": 2.5,
+            "name": "Salami, scharf",
+            "order": 18,
+            "price_level1": null,
+            "price_level2": 4.0
+          },
+          {
+            "discounted_price": 4.5,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 4.5,
+            "id": "43938829",
+            "list_price": 5.0,
+            "name": "Salzwassergarnelen (5 Stück)",
+            "order": 19,
+            "price_level1": null,
+            "price_level2": 5.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 3.6,
+            "id": "43938830",
+            "list_price": 2.5,
+            "name": "Sardellen",
+            "order": 20,
+            "price_level1": null,
+            "price_level2": 4.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 3.6,
+            "id": "43938831",
+            "list_price": 2.5,
+            "name": "Schinken, gekocht",
+            "order": 21,
+            "price_level1": null,
+            "price_level2": 4.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 2.7,
+            "id": "43938832",
+            "list_price": 2.0,
+            "name": "Spinat",
+            "order": 22,
+            "price_level1": null,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 3.6,
+            "id": "43938833",
+            "list_price": 2.5,
+            "name": "Sucuk",
+            "order": 23,
+            "price_level1": null,
+            "price_level2": 4.0
+          },
+          {
+            "discounted_price": 2.25,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 3.6,
+            "id": "43938834",
+            "list_price": 2.5,
+            "name": "Thunfisch",
+            "order": 24,
+            "price_level1": null,
+            "price_level2": 4.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 2.7,
+            "id": "43938835",
+            "list_price": 2.0,
+            "name": "Tomaten, frisch",
+            "order": 25,
+            "price_level1": null,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 2.7,
+            "id": "43938836",
+            "list_price": 2.0,
+            "name": "Zucchini",
+            "order": 26,
+            "price_level1": null,
+            "price_level2": 3.0
+          },
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 2.7,
+            "id": "43938837",
+            "list_price": 2.0,
+            "name": "Zwiebeln",
+            "order": 27,
+            "price_level1": null,
+            "price_level2": 3.0
+          }
+        ],
+        "price_level_dependent": true,
+        "required": false,
+        "source_group_id": "4454520",
+        "type": "MultipleEnum"
+      },
+      {
+        "id": "4454521",
+        "max": 1,
+        "multi_select": true,
+        "name": "Auf Wunsch",
+        "options": [
+          {
+            "discounted_price": 1.8,
+            "discounted_price_level1": null,
+            "discounted_price_level2": 1.8,
+            "id": "43938838",
+            "list_price": 2.0,
+            "name": "Glutenfrei",
+            "order": 0,
+            "price_level1": null,
+            "price_level2": 2.0
+          }
+        ],
+        "price_level_dependent": true,
+        "required": false,
+        "source_group_id": "4454521",
+        "type": "MultipleEnum"
+      },
+      {
+        "id": "4761625",
+        "max": null,
+        "multi_select": false,
+        "name": "Deine Größe",
+        "options": [
+          {
+            "discounted_price": 10.8,
+            "discounted_price_level1": null,
+            "discounted_price_level2": null,
+            "id": "46598539",
+            "list_price": 12.0,
+            "name": "0,75l",
+            "order": 1,
+            "price_level1": null,
+            "price_level2": null
+          },
+          {
+            "discounted_price": 14.85,
+            "discounted_price_level1": null,
+            "discounted_price_level2": null,
+            "id": "46598540",
+            "list_price": 16.5,
+            "name": "1l",
+            "order": 2,
+            "price_level1": null,
+            "price_level2": null
+          }
+        ],
+        "price_level_dependent": true,
+        "required": true,
+        "source_group_id": "4761625",
+        "type": "PriceLevelEnum"
+      }
+    ],
+    "sections": [
+      {
+        "description": null,
+        "discount_percent": null,
+        "id": "9999",
+        "item_ids": [
+          "6943885",
+          "6943888",
+          "6943893",
+          "6943901",
+          "6943890",
+          "6943898",
+          "6943896",
+          "6943910",
+          "6943883",
+          "6943882"
+        ],
+        "item_skus": [
+          "103",
+          "106",
+          "111",
+          "119",
+          "109",
+          "116",
+          "114",
+          "130",
+          "101",
+          "100"
+        ],
+        "kind": "popular_view",
+        "name": "❤️ Die beliebtesten Produkte"
+      },
+      {
+        "description": "Alle Gerichte werden mit Dressing nach Wahl zubereitet.",
+        "discount_percent": 10,
+        "id": "1060556",
+        "item_ids": [
+          "6943850",
+          "6943851",
+          "6943852",
+          "6943853",
+          "6943854",
+          "6943855",
+          "6943856"
+        ],
+        "item_skus": [
+          "11",
+          "13",
+          "14",
+          "15",
+          "16",
+          "17",
+          "18"
+        ],
+        "kind": "default",
+        "name": "Salat / Vorspeisen"
+      },
+      {
+        "description": " ",
+        "discount_percent": 10,
+        "id": "1060557",
+        "item_ids": [
+          "7660389",
+          "6943859",
+          "6943860",
+          "6943861",
+          "6943862",
+          "6943863",
+          "6943864",
+          "6943865",
+          "6943866",
+          "6943867",
+          "6943868",
+          "6943869",
+          "6943870",
+          "6943871",
+          "6943872",
+          "6943873",
+          "6943874",
+          "6943875",
+          "6943876",
+          "6943877",
+          "6943880",
+          "6943878",
+          "6943879"
+        ],
+        "item_skus": [
+          "69",
+          "70",
+          "71",
+          "72",
+          "73",
+          "74",
+          "75",
+          "76",
+          "77",
+          "78",
+          "79",
+          "80",
+          "81",
+          "82",
+          "83",
+          "84",
+          "85",
+          "86",
+          "87",
+          "88",
+          "89",
+          "90",
+          "91"
+        ],
+        "kind": "default",
+        "name": "Pasta und Nudelgerichte"
+      },
+      {
+        "description": "Alle Pizzen werden mit Tomatensauce und Mozzarella zubereitet.",
+        "discount_percent": 10,
+        "id": "1060558",
+        "item_ids": [
+          "6943882",
+          "6943883",
+          "6943884",
+          "6943885",
+          "6943886",
+          "6943887",
+          "6943888",
+          "6943889",
+          "6943890",
+          "6943891",
+          "6943892",
+          "6943893",
+          "6943894",
+          "6943895",
+          "6943896",
+          "6943897",
+          "6943898",
+          "6943899",
+          "6943900",
+          "6943901",
+          "6943902",
+          "6943903",
+          "6943912",
+          "6943911",
+          "6943904",
+          "6943905",
+          "6943906",
+          "6943907",
+          "6943908",
+          "6943909",
+          "6943910",
+          "6943916",
+          "6943913",
+          "6943914",
+          "6943915",
+          "6943918"
+        ],
+        "item_skus": [
+          "100",
+          "101",
+          "102",
+          "103",
+          "104",
+          "105",
+          "106",
+          "107",
+          "109",
+          "110",
+          "110",
+          "111",
+          "112",
+          "113",
+          "114",
+          "115",
+          "116",
+          "117",
+          "118",
+          "119",
+          "120",
+          "121",
+          "122",
+          "123",
+          "124",
+          "125",
+          "126",
+          "127",
+          "128",
+          "129",
+          "130",
+          "131",
+          "132",
+          "133",
+          "134",
+          "135"
+        ],
+        "kind": "default",
+        "name": "Steinofenpizza"
+      },
+      {
+        "description": "Alle veganen Pizzen werden mit veganem Käse zubereitet.",
+        "discount_percent": 10,
+        "id": "1060559",
+        "item_ids": [
+          "6943925",
+          "6943919",
+          "6943920",
+          "6943921",
+          "6943922",
+          "6943923",
+          "6943924",
+          "6943926",
+          "6943927",
+          "6943928"
+        ],
+        "item_skus": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10"
+        ],
+        "kind": "default",
+        "name": "Vegane Pizza"
+      },
+      {
+        "description": null,
+        "discount_percent": 10,
+        "id": "1060560",
+        "item_ids": [
+          "6943929",
+          "7660384"
+        ],
+        "item_skus": [
+          "19",
+          "20"
+        ],
+        "kind": "default",
+        "name": "Dessert"
+      },
+      {
+        "description": null,
+        "discount_percent": 10,
+        "id": "1060561",
+        "item_ids": [
+          "6943931",
+          "6943932",
+          "6943933",
+          "6943945",
+          "6943946",
+          "6943937",
+          "6943934",
+          "6943947",
+          "6943935",
+          "6943936",
+          "6943938",
+          "6943943",
+          "6943939",
+          "6943940",
+          "6943941",
+          "6943942",
+          "6943944"
+        ],
+        "item_skus": [
+          "30",
+          "30a",
+          "30b",
+          "31",
+          "32",
+          "33",
+          "34",
+          "35",
+          "36",
+          "36a",
+          "36b",
+          "36",
+          "37",
+          "37a",
+          "38",
+          "38a",
+          "39"
+        ],
+        "kind": "default",
+        "name": "Alkoholfreie Getränke"
+      },
+      {
+        "description": null,
+        "discount_percent": 10,
+        "id": "1060562",
+        "item_ids": [
+          "6943948",
+          "6943950",
+          "6943951",
+          "6943953",
+          "6943952",
+          "6943949",
+          "6943954"
+        ],
+        "item_skus": [
+          "41",
+          "42",
+          "43",
+          "44",
+          "44",
+          "46",
+          "47"
+        ],
+        "kind": "default",
+        "name": "Alkoholische Getränke | Bier"
+      },
+      {
+        "description": null,
+        "discount_percent": 10,
+        "id": "1060563",
+        "item_ids": [
+          "6943955",
+          "6943956",
+          "6943957",
+          "6943958"
+        ],
+        "item_skus": [
+          "51",
+          "52",
+          "53",
+          "54"
+        ],
+        "kind": "default",
+        "name": "Alkoholische Getränke | Wein"
+      },
+      {
+        "description": " ",
+        "discount_percent": 10,
+        "id": "1060564",
+        "item_ids": [
+          "6943960",
+          "6943964",
+          "6943961",
+          "6943962",
+          "6943963",
+          "6943965"
+        ],
+        "item_skus": [
+          "62",
+          "63",
+          "64",
+          "65",
+          "66",
+          "67"
+        ],
+        "kind": "default",
+        "name": "Alkoholische Getränke | Flaschenweine"
+      }
+    ],
+    "service_method": "pickup",
+    "service_method_note": "The ordering page requests type=Takeaway, so every price is the pickup/takeaway price (the venue applies its own discount to it). The delivery variant is a separate payload and is not asserted here.",
+    "stats": {
+      "currency": "EUR",
+      "duplicate_skus": {
+        "110": [
+          "Pizza Picante (scharf)",
+          "Pizza Sardelle"
+        ],
+        "36": [
+          "Bionade Ingwer-Orange 0,33l",
+          "Vitamalz 0.33l"
+        ],
+        "44": [
+          "König Ludwig Dunkel 0.5l",
+          "König Ludwig Kristal 0.5l"
+        ]
+      },
+      "items_listed": 112,
+      "items_priced_listed": 112,
+      "max_price_listed": 16.65,
+      "min_price_listed": 2.7,
+      "popular_views": 1,
+      "sections": 9,
+      "service_method": "pickup"
+    },
+    "tax_bands": [
+      {
+        "abbreviation": "Normal",
+        "id": 1,
+        "inclusion": "Inclusive",
+        "name": "Normal-Steuersatz",
+        "percent": 19
+      },
+      {
+        "abbreviation": "Ermäßigt",
+        "id": 2,
+        "inclusion": "Inclusive",
+        "name": "Ermäßigter Steuersatz",
+        "percent": 7
+      },
+      {
+        "abbreviation": "Steuerfrei",
+        "id": 3,
+        "inclusion": "Inclusive",
+        "name": "Steuerfrei",
+        "percent": 0
+      }
+    ]
+  },
+  "schema": "cvm.venue/v1",
+  "slug": "pizza-e-pasta-ruedesheimerplatz",
+  "source": {
+    "attribution": "Venue facts, menu and prices (c) Pizza e Pasta, Rüdesheimer Str. 9, 14197 Berlin — retrieved from the venue's own ordering site (OrderYoyo shop platform, /oyy-api). Product images are referenced by URL only and are not copied into this repository.",
+    "calls": {
+      "menu": {
+        "committed_copy_sha256": "395e5ed26f7158e8b1f7f32989cdf50aa5126019586768196e8a71a64ead1cc1",
+        "file": "evidence/raw/menu.json",
+        "hydration_key": "/MyMenuManagementSystem/restaurants/45842/menu?version=9&type=Takeaway",
+        "redactions": [],
+        "sha256": "395e5ed26f7158e8b1f7f32989cdf50aa5126019586768196e8a71a64ead1cc1",
+        "url": "https://pizzaepasta-ruedesheimerplatz.de/oyy-api/MyMenuManagementSystem/restaurants/45842/menu?version=9&type=Takeaway"
+      },
+      "myrestaurant-family": {
+        "committed_copy_sha256": "fc5193c14496035b6e391883c6a15674b12aab27e3e41b41cdafee5c0c9f674e",
+        "file": "evidence/raw/myrestaurant-family.json",
+        "hydration_key": "/MyRestaurant/families/by-domain?domain=pizzaepasta-ruedesheimerplatz.de",
+        "redactions": [],
+        "sha256": "fc5193c14496035b6e391883c6a15674b12aab27e3e41b41cdafee5c0c9f674e",
+        "url": "https://pizzaepasta-ruedesheimerplatz.de/oyy-api/MyRestaurant/families/by-domain?domain=pizzaepasta-ruedesheimerplatz.de"
+      },
+      "myrestaurant-restaurant": {
+        "committed_copy_sha256": "1d498f465292c206bda82bf7e7f080bbab33cc7a05f98f2e228a3ee6c66baff1",
+        "file": "evidence/raw/myrestaurant-restaurant.json",
+        "hydration_key": "/MyRestaurant/restaurant/45842?timeSensitive=false",
+        "redactions": [
+          "imprintEmail"
+        ],
+        "sha256": "0c2b47d92fd56258056c94999e920bca9ad76b1a51124307f5bd0c9761d1f0f2",
+        "url": "https://pizzaepasta-ruedesheimerplatz.de/oyy-api/MyRestaurant/restaurant/45842?timeSensitive=false"
+      },
+      "myrestaurant-restaurants": {
+        "committed_copy_sha256": "95e85172aa310f09f96b53ad5dbf28dbbe598464c868b2574b948cc1733567af",
+        "file": "evidence/raw/myrestaurant-restaurants.json",
+        "hydration_key": "/MyRestaurant/families/by-domain/restaurants?domain=pizzaepasta-ruedesheimerplatz.de",
+        "redactions": [
+          "imprintEmail"
+        ],
+        "sha256": "5e7c3b45f6fe280b0347c65345ed15c2d4552a8aa5288aa68e8f1b09e62a3d88",
+        "url": "https://pizzaepasta-ruedesheimerplatz.de/oyy-api/MyRestaurant/families/by-domain/restaurants?domain=pizzaepasta-ruedesheimerplatz.de"
+      },
+      "published-apps": {
+        "committed_copy_sha256": "b9ca2e89f3aeb9b665e094811448c45241c01393ee5fd3c6dd60d49460cbe231",
+        "file": "evidence/raw/published-apps.json",
+        "hydration_key": "/AppPublishing/families/14842/published-apps",
+        "redactions": [],
+        "sha256": "b9ca2e89f3aeb9b665e094811448c45241c01393ee5fd3c6dd60d49460cbe231",
+        "url": "https://pizzaepasta-ruedesheimerplatz.de/oyy-api/AppPublishing/families/14842/published-apps"
+      }
+    },
+    "capture": {
+      "browser_capture": "evidence/capture-menu-requests.py",
+      "challenge": "cf-mitigated: challenge; passed without interaction in the first run. A plain HTTP client (curl/urllib), even with the cf_clearance cookie copied over, still gets HTTP 403 — WebFetch-style access is not possible.",
+      "method": "headed Chrome under xvfb against the Cloudflare managed challenge once; the payloads were read out of the HTTP 200 page's __NEXT_DATA__ hydration cache",
+      "page_http_status": 200,
+      "page_sha256": "53847e06088bccf734b7398fc5a05e9d70d61bb47ca373e03c8b693d8a98cf0a",
+      "page_url": "https://pizzaepasta-ruedesheimerplatz.de/pizza-e-pasta/takeaway"
+    },
+    "parser": "Next.js __NEXT_DATA__ hydration cache extracted from the HTTP 200 ordering page and additionally cross-checked against the text the browser rendered; no OCR"
+  },
+  "venue": {
+    "address": {
+      "city": "Berlin",
+      "country": "DE",
+      "lat": 52.472589,
+      "lon": 13.314825,
+      "postal_code": "14197",
+      "raw": "Rüdesheimer Str. 9, 14197 Berlin",
+      "state": "Berlin",
+      "street": "Rüdesheimer Str. 9"
+    },
+    "country": "DE",
+    "currency": "EUR",
+    "delivery": {
+      "area_note": "deliveryMode=PostCode: the platform resolves deliverability from the customer's address/postcode server-side (/oyy-api/MyRestaurant/restaurant/<id>/delivery-area, the route name found in the frontend bundle). No postcode list or radius is exposed in the public payload, so none is asserted here.",
+      "areas": [],
+      "available": true,
+      "enabled": true,
+      "estimated_minutes": 60,
+      "fee": 0.0,
+      "minimum_order": 0.0,
+      "mode": "postcode",
+      "schedule": [
+        {
+          "closes": "23:00",
+          "day": 0,
+          "opens": "12:00",
+          "timezone": "Europe/Berlin",
+          "weekday": "sunday",
+          "working_after_midnight": false
+        },
+        {
+          "closes": "23:00",
+          "day": 1,
+          "opens": "12:00",
+          "timezone": "Europe/Berlin",
+          "weekday": "monday",
+          "working_after_midnight": false
+        },
+        {
+          "closes": "23:00",
+          "day": 2,
+          "opens": "12:00",
+          "timezone": "Europe/Berlin",
+          "weekday": "tuesday",
+          "working_after_midnight": false
+        },
+        {
+          "closes": "23:00",
+          "day": 3,
+          "opens": "12:00",
+          "timezone": "Europe/Berlin",
+          "weekday": "wednesday",
+          "working_after_midnight": false
+        },
+        {
+          "closes": "23:00",
+          "day": 4,
+          "opens": "12:00",
+          "timezone": "Europe/Berlin",
+          "weekday": "thursday",
+          "working_after_midnight": false
+        },
+        {
+          "closes": "00:00",
+          "day": 5,
+          "opens": "12:00",
+          "timezone": "Europe/Berlin",
+          "weekday": "friday",
+          "working_after_midnight": true
+        },
+        {
+          "closes": "23:00",
+          "day": 6,
+          "opens": "12:00",
+          "timezone": "Europe/Berlin",
+          "weekday": "saturday",
+          "working_after_midnight": false
+        }
+      ],
+      "selector_url": "https://pizzaepasta-ruedesheimerplatz.de/pizza-e-pasta/takeaway",
+      "service_fee": 0.39
+    },
+    "dietary_attributes": [
+      "vegan"
+    ],
+    "display_name": "Pizza e Pasta",
+    "food_flags": [
+      "Food for adult 18+",
+      "Vegan"
+    ],
+    "ids": {
+      "external_rp_id": "AppSmart_8871",
+      "family_id": 14842,
+      "imprint_operator": "WAGA Betriebs GmbH",
+      "restaurant_id": 45842,
+      "restaurant_slug": "pizza-e-pasta",
+      "vat_number": "27/041/01000"
+    },
+    "name": "Pizza e Pasta",
+    "opening_hours": [
+      {
+        "closes": "23:00",
+        "day": 0,
+        "opens": "12:00",
+        "timezone": "Europe/Berlin",
+        "weekday": "sunday",
+        "working_after_midnight": false
+      },
+      {
+        "closes": "23:00",
+        "day": 1,
+        "opens": "12:00",
+        "timezone": "Europe/Berlin",
+        "weekday": "monday",
+        "working_after_midnight": false
+      },
+      {
+        "closes": "23:00",
+        "day": 2,
+        "opens": "12:00",
+        "timezone": "Europe/Berlin",
+        "weekday": "tuesday",
+        "working_after_midnight": false
+      },
+      {
+        "closes": "23:00",
+        "day": 3,
+        "opens": "12:00",
+        "timezone": "Europe/Berlin",
+        "weekday": "wednesday",
+        "working_after_midnight": false
+      },
+      {
+        "closes": "23:00",
+        "day": 4,
+        "opens": "12:00",
+        "timezone": "Europe/Berlin",
+        "weekday": "thursday",
+        "working_after_midnight": false
+      },
+      {
+        "closes": "00:00",
+        "day": 5,
+        "opens": "12:00",
+        "timezone": "Europe/Berlin",
+        "weekday": "friday",
+        "working_after_midnight": true
+      },
+      {
+        "closes": "23:00",
+        "day": 6,
+        "opens": "12:00",
+        "timezone": "Europe/Berlin",
+        "weekday": "saturday",
+        "working_after_midnight": false
+      }
+    ],
+    "opening_hours_note": "All seven weekdays, from the restaurant payload's allDaysOpeningHours (dayOfWeek is .NET: 0=Sunday … 6=Saturday). The payload's today*/*DeliveryHours fields are pinned because the page requests the endpoint with timeSensitive=false, so they are NOT used here.",
+    "order_methods": [
+      "delivery",
+      "pickup"
+    ],
+    "ordering": {
+      "note": "The venue's own ordering rail (OrderYoyo shop). Pickup menu URL recorded here; the same shop serves delivery.",
+      "primary_url": "https://pizzaepasta-ruedesheimerplatz.de/pizza-e-pasta/takeaway",
+      "urls": {
+        "published_app_android": {
+          "appLink": "https://play.google.com/store/apps/details?id=com.appsmart.pizzaepasta",
+          "bundleId": "com.appsmart.pizzaepasta",
+          "isLatest": false,
+          "version": "13.0.0"
+        },
+        "published_app_ios": {
+          "isLatest": false,
+          "version": "3.1.1"
+        },
+        "takeaway": "https://pizzaepasta-ruedesheimerplatz.de/pizza-e-pasta/takeaway",
+        "venue_site": "https://pizzaepasta-ruedesheimerplatz.de/"
+      }
+    },
+    "payment_methods": [
+      "Braintree",
+      "Cash",
+      "ApplePay",
+      "AndroidPay",
+      "PayPal"
+    ],
+    "phone": "+49 30 82007546",
+    "pickup": {
+      "available": true,
+      "estimated_minutes": 20
+    },
+    "provider": "orderyoyo",
+    "provider_note": "OrderYoyo shop platform (API namespace /oyy-api, hosts under orderyoyo.com); the venue's shop is branded by the platform's 'order smart' / AppSmart product — the restaurant record carries externalRPId=AppSmart_8871 and an imprint address under kontakt-ordersmart.de.",
+    "reservation": {
+      "enabled": false,
+      "url": null
+    },
+    "spicy_items": [
+      "Pizza Diavolo (scharf)",
+      "Pizza Picante (scharf)"
+    ],
+    "timezone": "Europe/Berlin",
+    "timezone_id_windows": "W. Europe Standard Time",
+    "type": "restaurant",
+    "website": "https://pizzaepasta-ruedesheimerplatz.de"
+  }
+}

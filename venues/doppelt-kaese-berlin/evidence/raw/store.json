@@ -1,0 +1,2737 @@
+{
+  "data": {
+    "about_us_section": {
+      "background_animation": null,
+      "background_color": null,
+      "background_media": [],
+      "content": {
+        "background_color": null,
+        "buttons": [],
+        "description": "Doppelt Käse wurde in Berlin gegründet und hat sich schnell einen Namen als beliebtes Burger-Restaurant gemacht. Mit einer Leidenschaft für saftige Cheeseburger, BBQ Burger und Chicken Burger bieten wir sowohl Abholung als auch Lieferung an, um unseren Gästen den besten Service zu bieten. Unsere Speisen sind nicht nur köstlich, sondern auch für Vegetarier und Veganer geeignet. Besuchen Sie uns in der Laubacher Straße 11 und entdecken Sie, warum Doppelt Käse die erste Wahl für Burger-Liebhaber in Berlin ist!",
+        "has_parallax": false,
+        "id": 6919,
+        "lottie_props": null,
+        "media": [
+          {
+            "animation": null,
+            "desktop": null,
+            "extension": "jpg",
+            "id": 39869,
+            "mobile": null,
+            "name": "bf4445b0580e46df6ff944cc5add723e",
+            "type": "image",
+            "url": "https://dtwaeonhht2im.cloudfront.net/bf4445b0580e46df6ff944cc5add723e.jpg"
+          }
+        ],
+        "opening_hours_props": null,
+        "opening_hours_type": null,
+        "social_media_icons_hidden": true,
+        "sub_title": null,
+        "title": "doppelt Käse",
+        "type": 2
+      },
+      "description": {
+        "all_capital": false,
+        "color": null,
+        "desktop": null,
+        "font": null,
+        "font_weight": null,
+        "highlighted_text": null,
+        "highlighted_text_color": null,
+        "letter_spacing": null,
+        "mobile": null,
+        "text": "Doppelt Käse wurde in Berlin gegründet und hat sich schnell einen Namen als beliebtes Burger-Restaurant gemacht. Mit einer Leidenschaft für saftige Cheeseburger, BBQ Burger und Chicken Burger bieten wir sowohl Abholung als auch Lieferung an, um unseren Gästen den besten Service zu bieten. Unsere Speisen sind nicht nur köstlich, sondern auch für Vegetarier und Veganer geeignet. Besuchen Sie uns in der Laubacher Straße 11 und entdecken Sie, warum Doppelt Käse die erste Wahl für Burger-Liebhaber in Berlin ist!",
+        "text_decoration": null,
+        "underline_offset": null
+      },
+      "description_color": null,
+      "header_color": null,
+      "id": 16158,
+      "identifier": "about_us",
+      "is_hidden": null,
+      "is_skew": null,
+      "name": null,
+      "name_style": null,
+      "page": {
+        "company_id": null,
+        "href": "/ueber-uns",
+        "id": 7189,
+        "identifier": "about-us",
+        "settings": null,
+        "type": null
+      },
+      "parent_id": null,
+      "settings": {
+        "has_parallax": false,
+        "opening_hours_style": null,
+        "opening_hours_type": null,
+        "show_social_media": false
+      },
+      "sorting_order": 2,
+      "subtitle": null,
+      "title": {
+        "all_capital": false,
+        "color": null,
+        "desktop": null,
+        "font": null,
+        "font_weight": null,
+        "highlighted_text": null,
+        "highlighted_text_color": null,
+        "letter_spacing": null,
+        "mobile": null,
+        "text": "doppelt Käse",
+        "text_decoration": null,
+        "underline_offset": null
+      },
+      "type": "customizable_section"
+    },
+    "address": "Laubacher Straße 11",
+    "best_dishes": [
+      "Cheeseburger",
+      "BBQ Burger",
+      "Chicken Burger"
+    ],
+    "body_noscripts": null,
+    "business_founding_year": null,
+    "business_owners": "[REDACTED]",
+    "buttons": [
+      {
+        "background_color": "primary_color",
+        "border_color": null,
+        "border_radius_type": "full",
+        "border_width_type": null,
+        "color": "light_text_color",
+        "has_shadow": false,
+        "has_underline": false,
+        "horizontal_padding": null,
+        "id": 11301,
+        "transition_background_color": null,
+        "transition_border_color": null,
+        "transition_color": null,
+        "variant": "primary_fill",
+        "vertical_padding": null
+      },
+      {
+        "background_color": "dark_text_color",
+        "border_color": "primary_color",
+        "border_radius_type": "full",
+        "border_width_type": "small",
+        "color": "light_text_color",
+        "has_shadow": false,
+        "has_underline": false,
+        "horizontal_padding": null,
+        "id": 11302,
+        "transition_background_color": null,
+        "transition_border_color": null,
+        "transition_color": null,
+        "variant": "secondary_fill",
+        "vertical_padding": null
+      },
+      {
+        "background_color": null,
+        "border_color": "primary_color",
+        "border_radius_type": "full",
+        "border_width_type": "small",
+        "color": "dark_text_color",
+        "has_shadow": false,
+        "has_underline": false,
+        "horizontal_padding": null,
+        "id": 11303,
+        "transition_background_color": "light_text_color",
+        "transition_border_color": null,
+        "transition_color": "primary_color",
+        "variant": "light_outline",
+        "vertical_padding": null
+      },
+      {
+        "background_color": null,
+        "border_color": "dark_text_color",
+        "border_radius_type": "full",
+        "border_width_type": "small",
+        "color": "dark_text_color",
+        "has_shadow": false,
+        "has_underline": false,
+        "horizontal_padding": null,
+        "id": 11304,
+        "transition_background_color": "dark_text_color",
+        "transition_border_color": null,
+        "transition_color": "light_text_color",
+        "variant": "dark_outline",
+        "vertical_padding": null
+      }
+    ],
+    "city": "Berlin",
+    "companies": [
+      {
+        "address": "Laubacher Straße 11",
+        "catering_settings": null,
+        "city": "Berlin",
+        "event_settings": null,
+        "google_places_id": "ChIJh046TYJRqEcRg2B-cWqT-Qg",
+        "google_rates_count": 441,
+        "google_rating": 4.7,
+        "google_reviews": "[REDACTED]",
+        "has_multiple_locations": false,
+        "id": 1271,
+        "images": [
+          {
+            "extension": "jpg",
+            "id": 39869,
+            "name": "bf4445b0580e46df6ff944cc5add723e",
+            "type": "image",
+            "url": "https://dtwaeonhht2im.cloudfront.net/bf4445b0580e46df6ff944cc5add723e.jpg"
+          }
+        ],
+        "is_live": true,
+        "lat": null,
+        "locations": null,
+        "lon": null,
+        "name": "Doppelt Käse Laubacher Straße",
+        "note": null,
+        "opening_hours": [
+          {
+            "close": {
+              "day": 0,
+              "hour": 21,
+              "minute": 0
+            },
+            "open": {
+              "day": 0,
+              "hour": 12,
+              "minute": 0
+            }
+          },
+          {
+            "close": {
+              "day": 1,
+              "hour": 21,
+              "minute": 15
+            },
+            "open": {
+              "day": 1,
+              "hour": 16,
+              "minute": 30
+            }
+          },
+          {
+            "close": {
+              "day": 2,
+              "hour": 21,
+              "minute": 15
+            },
+            "open": {
+              "day": 2,
+              "hour": 16,
+              "minute": 30
+            }
+          },
+          {
+            "close": {
+              "day": 3,
+              "hour": 21,
+              "minute": 15
+            },
+            "open": {
+              "day": 3,
+              "hour": 16,
+              "minute": 30
+            }
+          },
+          {
+            "close": {
+              "day": 4,
+              "hour": 21,
+              "minute": 15
+            },
+            "open": {
+              "day": 4,
+              "hour": 13,
+              "minute": 0
+            }
+          },
+          {
+            "close": {
+              "day": 5,
+              "hour": 21,
+              "minute": 15
+            },
+            "open": {
+              "day": 5,
+              "hour": 13,
+              "minute": 0
+            }
+          },
+          {
+            "close": {
+              "day": 6,
+              "hour": 21,
+              "minute": 15
+            },
+            "open": {
+              "day": 6,
+              "hour": 13,
+              "minute": 0
+            }
+          }
+        ],
+        "phone_number": "+49 30 89733370",
+        "quarter": null,
+        "slug": "doppeltkase",
+        "sorting_order": null,
+        "store_id": 1157,
+        "uuid": "b9226b53-8282-485b-8be3-1fc2a20b09f9",
+        "zip_code": "14197"
+      }
+    ],
+    "country": "DE",
+    "currency": "EUR",
+    "delivery_areas": [
+      "Mitte",
+      "Kreuzberg",
+      "Friedrichshain",
+      "Prenzlauer Berg",
+      "Tiergarten",
+      "Moabit",
+      "Wedding",
+      "Charlottenburg",
+      "Schöneberg",
+      "Neukölln",
+      "Tempelhof",
+      "Wilmersdorf",
+      "Lichtenberg",
+      "Treptow",
+      "Pankow."
+    ],
+    "dietary_attributes": [
+      "vegetarian",
+      "vegan",
+      "spicy"
+    ],
+    "domain": "doppelt-kaese-berlin.de",
+    "doordash_link": null,
+    "email": null,
+    "external_web_shop_url": "https://doppeltkase.online-karte.com",
+    "facebook_link": "https://www.facebook.com/doppeltkaese",
+    "family_owned": false,
+    "favicon": {
+      "extension": "jpg",
+      "id": 39862,
+      "name": "5c29ff796367506edae3658866336b28",
+      "type": "image",
+      "url": "https://dtwaeonhht2im.cloudfront.net/5c29ff796367506edae3658866336b28.jpg"
+    },
+    "food_type": "Burger",
+    "franchise_slug": "doppeltkase",
+    "gift_cards_redemption_mode": "online_and_store",
+    "google_cloud": {
+      "api_key": "[REDACTED]"
+    },
+    "google_search_results": {},
+    "google_site_verification": null,
+    "grubhub_link": null,
+    "has_ai": true,
+    "has_catering": false,
+    "has_delivery": true,
+    "has_events": false,
+    "has_online_shop": true,
+    "has_pickup": true,
+    "has_reservations": false,
+    "home_page": {
+      "company_id": null,
+      "href": "/",
+      "id": 7188,
+      "identifier": "home",
+      "name": "Home",
+      "sections": [
+        {
+          "background_animation": null,
+          "background_color": null,
+          "background_media": [],
+          "child": null,
+          "content": {
+            "button_link": null,
+            "button_text": null,
+            "buttons": [
+              {
+                "hidden": false,
+                "href": null,
+                "identifier": "order_online",
+                "position": null,
+                "size": null,
+                "sub_text_hidden": false,
+                "target": null,
+                "title": null,
+                "type": null,
+                "variant": null
+              }
+            ],
+            "description": "Doppelt schmilzt besser",
+            "has_parallax": false,
+            "id": 2636,
+            "items": [],
+            "media": [
+              {
+                "animation": null,
+                "desktop": {
+                  "cover_mode": null,
+                  "height": null
+                },
+                "extension": "jpg",
+                "id": 51529,
+                "mobile": {
+                  "cover_mode": null,
+                  "height": null
+                },
+                "name": "47ee61d491948d02666f7360e97b6142",
+                "type": "image",
+                "url": "https://dtwaeonhht2im.cloudfront.net/47ee61d491948d02666f7360e97b6142.jpg"
+              },
+              {
+                "animation": null,
+                "desktop": {
+                  "cover_mode": null,
+                  "height": null
+                },
+                "extension": "jpg",
+                "id": 39900,
+                "mobile": {
+                  "cover_mode": null,
+                  "height": null
+                },
+                "name": "3da711d1e589e4312c4cc8ac6f32d305",
+                "type": "image",
+                "url": "https://dtwaeonhht2im.cloudfront.net/3da711d1e589e4312c4cc8ac6f32d305.jpg"
+              },
+              {
+                "animation": null,
+                "desktop": {
+                  "cover_mode": null,
+                  "height": null
+                },
+                "extension": "jpg",
+                "id": 51537,
+                "mobile": {
+                  "cover_mode": null,
+                  "height": null
+                },
+                "name": "0c4fec849f033b4d63cb503593df7426",
+                "type": "image",
+                "url": "https://dtwaeonhht2im.cloudfront.net/0c4fec849f033b4d63cb503593df7426.jpg"
+              }
+            ],
+            "order_online_button_hidden": false,
+            "order_online_button_props": {
+              "hidden": false,
+              "href": null,
+              "identifier": null,
+              "position": null,
+              "size": null,
+              "sub_text_hidden": false,
+              "target": null,
+              "title": null,
+              "type": null,
+              "variant": null
+            },
+            "reservation_button_position": null,
+            "sub_title": "Willkommen bei",
+            "title": "doppelt Käse",
+            "type": 20
+          },
+          "description": {
+            "all_capital": null,
+            "color": "primary_color",
+            "desktop": {
+              "font_size": null,
+              "line_height": null
+            },
+            "font": null,
+            "font_weight": null,
+            "highlighted_text": null,
+            "highlighted_text_color": null,
+            "letter_spacing": null,
+            "mobile": {
+              "font_size": null,
+              "line_height": null
+            },
+            "text": "Doppelt schmilzt besser",
+            "text_decoration": null,
+            "underline_offset": null
+          },
+          "description_color": null,
+          "header_color": null,
+          "id": 16150,
+          "identifier": "hero",
+          "is_hidden": null,
+          "is_skew": null,
+          "links": [],
+          "name": "Hero",
+          "name_style": null,
+          "page": {
+            "company_id": null,
+            "href": "/",
+            "id": 7188,
+            "identifier": "home",
+            "settings": null,
+            "type": null
+          },
+          "parent_id": null,
+          "settings": {
+            "has_parallax": false,
+            "opening_hours_style": null,
+            "opening_hours_type": null,
+            "show_social_media": null
+          },
+          "sorting_order": 0,
+          "subtitle": {
+            "all_capital": false,
+            "color": null,
+            "desktop": null,
+            "font": null,
+            "font_weight": null,
+            "highlighted_text": null,
+            "highlighted_text_color": null,
+            "letter_spacing": null,
+            "mobile": null,
+            "text": null,
+            "text_decoration": null,
+            "underline_offset": null
+          },
+          "title": {
+            "all_capital": false,
+            "color": null,
+            "desktop": null,
+            "font": null,
+            "font_weight": null,
+            "highlighted_text": null,
+            "highlighted_text_color": null,
+            "letter_spacing": null,
+            "mobile": null,
+            "text": "doppelt Käse",
+            "text_decoration": null,
+            "underline_offset": null
+          },
+          "type": "hero_section"
+        },
+        {
+          "background_animation": null,
+          "background_color": null,
+          "background_media": [],
+          "child": null,
+          "content": {
+            "hidden_products": [
+              7617
+            ],
+            "id": 544,
+            "images": [],
+            "sub_title": null,
+            "type": 1
+          },
+          "description": null,
+          "description_color": null,
+          "header_color": null,
+          "id": 16152,
+          "identifier": "products",
+          "is_hidden": null,
+          "is_skew": null,
+          "links": [],
+          "name": "Unsere Spezialitäten",
+          "name_style": null,
+          "page": {
+            "company_id": null,
+            "href": "/",
+            "id": 7188,
+            "identifier": "home",
+            "settings": null,
+            "type": null
+          },
+          "parent_id": null,
+          "settings": {
+            "has_parallax": null,
+            "opening_hours_style": null,
+            "opening_hours_type": null,
+            "show_social_media": null
+          },
+          "sorting_order": 1,
+          "subtitle": null,
+          "title": {
+            "all_capital": false,
+            "color": null,
+            "desktop": null,
+            "font": null,
+            "font_weight": null,
+            "highlighted_text": null,
+            "highlighted_text_color": null,
+            "letter_spacing": null,
+            "mobile": null,
+            "text": "Favoriten",
+            "text_decoration": null,
+            "underline_offset": null
+          },
+          "type": "product_section"
+        },
+        {
+          "background_animation": null,
+          "background_color": "secondary_background_color",
+          "background_media": [],
+          "child": null,
+          "content": {
+            "data": {
+              "items": [
+                {
+                  "color": "primary_color",
+                  "title": "#DOPPELT#KÄSE#BERLIN"
+                },
+                {
+                  "color": "secondary_color",
+                  "title": "#Jetzt#Online#Bestellen"
+                }
+              ]
+            },
+            "id": 267,
+            "type": 1
+          },
+          "description": null,
+          "description_color": null,
+          "header_color": null,
+          "id": 16170,
+          "identifier": null,
+          "is_hidden": null,
+          "is_skew": null,
+          "links": [],
+          "name": "Animiert",
+          "name_style": null,
+          "page": {
+            "company_id": null,
+            "href": "/",
+            "id": 7188,
+            "identifier": "home",
+            "settings": null,
+            "type": null
+          },
+          "parent_id": null,
+          "settings": {
+            "has_parallax": null,
+            "opening_hours_style": null,
+            "opening_hours_type": null,
+            "show_social_media": null
+          },
+          "sorting_order": 2,
+          "subtitle": null,
+          "title": null,
+          "type": "animated_section"
+        },
+        {
+          "background_animation": null,
+          "background_color": null,
+          "background_media": [
+            {
+              "animation": null,
+              "desktop": {
+                "cover_mode": "contain",
+                "height": null
+              },
+              "extension": "png",
+              "id": 76260,
+              "mobile": null,
+              "name": "45892fae769ccd4055aea1f52d071a2f",
+              "type": "image",
+              "url": "https://dtwaeonhht2im.cloudfront.net/45892fae769ccd4055aea1f52d071a2f.png"
+            }
+          ],
+          "child": null,
+          "content": {
+            "button_link": null,
+            "button_text": null,
+            "buttons": [
+              {
+                "hidden": true,
+                "href": null,
+                "identifier": "order_online",
+                "position": null,
+                "size": null,
+                "sub_text_hidden": false,
+                "target": null,
+                "title": null,
+                "type": null,
+                "variant": null
+              }
+            ],
+            "description": "Bestellen Sie direkt über unsere Website, um Geld zu sparen und lokale Unternehmen zu unterstützen. Erhalten Sie den besten Preis, den schnellsten Service und kostenlose Speisen über Treuepunkte.",
+            "has_parallax": false,
+            "id": 5977,
+            "items": [],
+            "media": [
+              {
+                "animation": null,
+                "desktop": {
+                  "cover_mode": "contain",
+                  "height": null
+                },
+                "extension": "png",
+                "id": 76254,
+                "mobile": {
+                  "cover_mode": "contain",
+                  "height": null
+                },
+                "name": "3a685a641d2fbf08e85458b7261f9451",
+                "type": "image",
+                "url": "https://dtwaeonhht2im.cloudfront.net/3a685a641d2fbf08e85458b7261f9451.png"
+              }
+            ],
+            "order_online_button_hidden": false,
+            "order_online_button_props": null,
+            "reservation_button_position": null,
+            "sub_title": null,
+            "title": "\"Bestes Taco-Restaurant in Bonn\"",
+            "type": 1
+          },
+          "description": null,
+          "description_color": null,
+          "header_color": null,
+          "id": 38364,
+          "identifier": null,
+          "is_hidden": null,
+          "is_skew": null,
+          "links": [],
+          "name": "Hero",
+          "name_style": null,
+          "page": {
+            "company_id": null,
+            "href": "/",
+            "id": 7188,
+            "identifier": "home",
+            "settings": null,
+            "type": null
+          },
+          "parent_id": null,
+          "settings": {
+            "has_parallax": null,
+            "opening_hours_style": null,
+            "opening_hours_type": null,
+            "show_social_media": null
+          },
+          "sorting_order": 3,
+          "subtitle": null,
+          "title": null,
+          "type": "hero_section"
+        },
+        {
+          "background_animation": null,
+          "background_color": "secondary_background_color",
+          "background_media": [],
+          "child": null,
+          "content": {
+            "buttons": [],
+            "description": null,
+            "id": 1354,
+            "images": [],
+            "menu_items": [
+              {
+                "background_color": null,
+                "buttons": [
+                  {
+                    "hidden": false,
+                    "href": "https://play.google.com/store/apps/details?id=com.doppeltkase.doppeltkase",
+                    "identifier": "first",
+                    "position": null,
+                    "size": null,
+                    "sub_text_hidden": false,
+                    "target": null,
+                    "title": null,
+                    "type": null,
+                    "variant": null
+                  }
+                ],
+                "description": null,
+                "description_color": null,
+                "header_color": null,
+                "id": 3479,
+                "media": [
+                  {
+                    "animation": null,
+                    "desktop": {
+                      "cover_mode": null,
+                      "height": null
+                    },
+                    "extension": "png",
+                    "id": 76262,
+                    "mobile": {
+                      "cover_mode": null,
+                      "height": null
+                    },
+                    "name": "d668dd214e7f827272f264ebc8beb6c1-1",
+                    "type": "image",
+                    "url": "https://dtwaeonhht2im.cloudfront.net/d668dd214e7f827272f264ebc8beb6c1-1.png"
+                  }
+                ],
+                "sorting_order": 1,
+                "title": null
+              },
+              {
+                "background_color": null,
+                "buttons": [
+                  {
+                    "hidden": false,
+                    "href": "itms-apps://itunes.apple.com/app/6751851444",
+                    "identifier": "first",
+                    "position": null,
+                    "size": null,
+                    "sub_text_hidden": false,
+                    "target": null,
+                    "title": null,
+                    "type": null,
+                    "variant": null
+                  }
+                ],
+                "description": null,
+                "description_color": null,
+                "header_color": null,
+                "id": 3480,
+                "media": [
+                  {
+                    "animation": null,
+                    "desktop": {
+                      "cover_mode": null,
+                      "height": null
+                    },
+                    "extension": "png",
+                    "id": 76263,
+                    "mobile": {
+                      "cover_mode": null,
+                      "height": null
+                    },
+                    "name": "049b42aad4af9df5b4238cf352de5187-1",
+                    "type": "image",
+                    "url": "https://dtwaeonhht2im.cloudfront.net/049b42aad4af9df5b4238cf352de5187-1.png"
+                  }
+                ],
+                "sorting_order": 2,
+                "title": null
+              }
+            ],
+            "title": null,
+            "type": 8
+          },
+          "description": null,
+          "description_color": null,
+          "header_color": null,
+          "id": 16151,
+          "identifier": "menu",
+          "is_hidden": null,
+          "is_skew": null,
+          "links": [],
+          "name": "Menu",
+          "name_style": null,
+          "page": {
+            "company_id": null,
+            "href": "/",
+            "id": 7188,
+            "identifier": "home",
+            "settings": null,
+            "type": null
+          },
+          "parent_id": null,
+          "settings": {
+            "has_parallax": null,
+            "opening_hours_style": null,
+            "opening_hours_type": null,
+            "show_social_media": null
+          },
+          "sorting_order": 4,
+          "subtitle": null,
+          "title": null,
+          "type": "menu_section"
+        },
+        {
+          "background_animation": null,
+          "background_color": null,
+          "background_media": [],
+          "child": null,
+          "content": {
+            "background_color": "primary_color",
+            "buttons": [
+              {
+                "hidden": false,
+                "href": "https://doppeltkase.online-karte.com",
+                "identifier": "first",
+                "position": null,
+                "size": "normal",
+                "sub_text_hidden": false,
+                "target": "_blank",
+                "title": "Jetzt Bestellen",
+                "type": null,
+                "variant": "secondary_fill"
+              }
+            ],
+            "description": "Bestelle direkt über unsere Webseite, um Gebühren zu sparen, schnelleren Service zu erhalten, kostenloses Essen durch unser Bonusprogramm zu verdienen und lokale Geschäfte zu unterstützen.",
+            "has_parallax": false,
+            "id": 6917,
+            "lottie_props": {
+              "auto_play": false,
+              "desktop": null,
+              "is_debug": false,
+              "loop": false,
+              "mobile": null,
+              "play_on_scroll": true,
+              "playback_speed_on_scroll": 0.5,
+              "speed": 1
+            },
+            "media": [
+              {
+                "animation": {
+                  "auto_play": true,
+                  "desktop": null,
+                  "is_debug": false,
+                  "loop": true,
+                  "mobile": null,
+                  "play_on_scroll": false,
+                  "playback_speed_on_scroll": 0.5,
+                  "speed": 1
+                },
+                "desktop": null,
+                "extension": "json",
+                "id": 39876,
+                "mobile": null,
+                "name": "c7a9933b8b994d8e5e4b28d941db7ef4-1",
+                "type": "document",
+                "url": "https://dtwaeonhht2im.cloudfront.net/c7a9933b8b994d8e5e4b28d941db7ef4-1.json"
+              }
+            ],
+            "opening_hours_props": null,
+            "opening_hours_type": null,
+            "social_media_icons_hidden": true,
+            "sub_title": null,
+            "title": "Bestellen Sie den besten Cheeseburger direkt über unsere Website",
+            "type": 19
+          },
+          "description": {
+            "all_capital": null,
+            "color": "light_text_color",
+            "desktop": {
+              "font_size": null,
+              "line_height": null
+            },
+            "font": null,
+            "font_weight": null,
+            "highlighted_text": null,
+            "highlighted_text_color": null,
+            "letter_spacing": null,
+            "mobile": {
+              "font_size": null,
+              "line_height": null
+            },
+            "text": "Bestelle direkt über unsere Webseite, um Gebühren zu sparen, schnelleren Service zu erhalten, kostenloses Essen durch unser Bonusprogramm zu verdienen und lokale Geschäfte zu unterstützen.",
+            "text_decoration": null,
+            "underline_offset": null
+          },
+          "description_color": null,
+          "header_color": null,
+          "id": 16154,
+          "identifier": "order_online",
+          "is_hidden": null,
+          "is_skew": null,
+          "links": [
+            {
+              "button_props": {
+                "hidden": false,
+                "href": null,
+                "identifier": null,
+                "position": null,
+                "size": null,
+                "sub_text_hidden": false,
+                "target": null,
+                "title": null,
+                "type": null,
+                "variant": null
+              },
+              "href": "https://doppeltkase.online-karte.com",
+              "id": 16554,
+              "identifier": "first",
+              "target": "_blank",
+              "title": "Jetzt Bestellen",
+              "type": null
+            }
+          ],
+          "name": "Online bestellen",
+          "name_style": null,
+          "page": {
+            "company_id": null,
+            "href": "/",
+            "id": 7188,
+            "identifier": "home",
+            "settings": null,
+            "type": null
+          },
+          "parent_id": null,
+          "settings": {
+            "has_parallax": false,
+            "opening_hours_style": null,
+            "opening_hours_type": null,
+            "show_social_media": false
+          },
+          "sorting_order": 5,
+          "subtitle": null,
+          "title": {
+            "all_capital": null,
+            "color": "light_text_color",
+            "desktop": {
+              "font_size": null,
+              "line_height": null
+            },
+            "font": null,
+            "font_weight": null,
+            "highlighted_text": null,
+            "highlighted_text_color": null,
+            "letter_spacing": null,
+            "mobile": {
+              "font_size": null,
+              "line_height": null
+            },
+            "text": "Bestellen Sie den besten Cheeseburger direkt über unsere Website",
+            "text_decoration": null,
+            "underline_offset": null
+          },
+          "type": "customizable_section"
+        },
+        {
+          "background_animation": null,
+          "background_color": null,
+          "background_media": [],
+          "child": null,
+          "content": {
+            "background_color": null,
+            "buttons": [],
+            "description": "Doppelt Käse wurde mit der Leidenschaft für Burger in Berlin gegründet. Unser Ziel ist es, die besten Burger der Stadt anzubieten. Mit einer Auswahl an köstlichen Kreationen, darunter der beliebte Cheeseburger, BBQ Burger und Chicken Burger, haben wir uns schnell einen Namen gemacht. Ob beim gemütlichen Dine-in, praktischen Take-out oder bequemen Lieferservice – wir sind für unsere Gäste da. Besuchen Sie uns in der Laubacher Straße 11 und entdecken Sie, warum Doppelt Käse der perfekte Ort für Burger-Liebhaber ist!",
+            "has_parallax": false,
+            "id": 6918,
+            "lottie_props": null,
+            "media": [
+              {
+                "animation": null,
+                "desktop": null,
+                "extension": "jpg",
+                "id": 39866,
+                "mobile": null,
+                "name": "4eb5594baf156d8940b39152cd078649",
+                "type": "image",
+                "url": "https://dtwaeonhht2im.cloudfront.net/4eb5594baf156d8940b39152cd078649.jpg"
+              }
+            ],
+            "opening_hours_props": null,
+            "opening_hours_type": null,
+            "social_media_icons_hidden": true,
+            "sub_title": null,
+            "title": "Über doppelt Käse Berlin",
+            "type": 9
+          },
+          "description": {
+            "all_capital": false,
+            "color": null,
+            "desktop": null,
+            "font": null,
+            "font_weight": null,
+            "highlighted_text": null,
+            "highlighted_text_color": null,
+            "letter_spacing": null,
+            "mobile": null,
+            "text": "Doppelt Käse wurde mit der Leidenschaft für Burger in Berlin gegründet. Unser Ziel ist es, die besten Burger der Stadt anzubieten. Mit einer Auswahl an köstlichen Kreationen, darunter der beliebte Cheeseburger, BBQ Burger und Chicken Burger, haben wir uns schnell einen Namen gemacht. Ob beim gemütlichen Dine-in, praktischen Take-out oder bequemen Lieferservice – wir sind für unsere Gäste da. Besuchen Sie uns in der Laubacher Straße 11 und entdecken Sie, warum Doppelt Käse der perfekte Ort für Burger-Liebhaber ist!",
+            "text_decoration": null,
+            "underline_offset": null
+          },
+          "description_color": null,
+          "header_color": null,
+          "id": 16156,
+          "identifier": "about_us",
+          "is_hidden": true,
+          "is_skew": null,
+          "links": [],
+          "name": null,
+          "name_style": null,
+          "page": {
+            "company_id": null,
+            "href": "/",
+            "id": 7188,
+            "identifier": "home",
+            "settings": null,
+            "type": null
+          },
+          "parent_id": null,
+          "settings": {
+            "has_parallax": false,
+            "opening_hours_style": null,
+            "opening_hours_type": null,
+            "show_social_media": false
+          },
+          "sorting_order": 6,
+          "subtitle": null,
+          "title": {
+            "all_capital": false,
+            "color": null,
+            "desktop": null,
+            "font": null,
+            "font_weight": null,
+            "highlighted_text": null,
+            "highlighted_text_color": null,
+            "letter_spacing": null,
+            "mobile": null,
+            "text": "Über doppelt Käse Berlin",
+            "text_decoration": null,
+            "underline_offset": null
+          },
+          "type": "customizable_section"
+        },
+        {
+          "background_animation": null,
+          "background_color": null,
+          "background_media": [],
+          "child": null,
+          "content": {
+            "description": "Möchten Sie eine Auszeit vom stressigen Alltag nehmen und köstliche Burger-Spezialitäten in entspannter Atmosphäre genießen? Dann ist unser Burger-Restaurant „doppelt Käse“ genau das Richtige für Sie. Ob Sie Lust auf einen saftigen Cheeseburger oder einen BBQ Burger haben, unser einladender Raum bietet den perfekten Ort zum Entspannen. Entdecken Sie köstliche Aromen zu fairen Preisen und erleben Sie, warum „doppelt Käse“ ein beliebter Treffpunkt für Burger-Liebhaber in Berlin ist.",
+            "id": 1585,
+            "images": [
+              {
+                "extension": "jpg",
+                "id": 51532,
+                "name": "b7d5a0ed4e4da99efc8936b410f0e38e",
+                "type": "image",
+                "url": "https://dtwaeonhht2im.cloudfront.net/b7d5a0ed4e4da99efc8936b410f0e38e.jpg"
+              },
+              {
+                "extension": "jpg",
+                "id": 51536,
+                "name": "abc16c1441520527e81865646437c11c",
+                "type": "image",
+                "url": "https://dtwaeonhht2im.cloudfront.net/abc16c1441520527e81865646437c11c.jpg"
+              },
+              {
+                "extension": "jpg",
+                "id": 51549,
+                "name": "99346fc6f26af732b31ebe823cc4174f",
+                "type": "image",
+                "url": "https://dtwaeonhht2im.cloudfront.net/99346fc6f26af732b31ebe823cc4174f.jpg"
+              },
+              {
+                "extension": "jpg",
+                "id": 51535,
+                "name": "62595692759455905e118f4e4ef793ba",
+                "type": "image",
+                "url": "https://dtwaeonhht2im.cloudfront.net/62595692759455905e118f4e4ef793ba.jpg"
+              },
+              {
+                "extension": "jpg",
+                "id": 51546,
+                "name": "203ec7d7cdaffd17361a6f4173111e52",
+                "type": "image",
+                "url": "https://dtwaeonhht2im.cloudfront.net/203ec7d7cdaffd17361a6f4173111e52.jpg"
+              },
+              {
+                "extension": "jpg",
+                "id": 51533,
+                "name": "892f48698d00be7c9fe8cafa19adfede",
+                "type": "image",
+                "url": "https://dtwaeonhht2im.cloudfront.net/892f48698d00be7c9fe8cafa19adfede.jpg"
+              },
+              {
+                "extension": "jpg",
+                "id": 51547,
+                "name": "d98a9fc6c6c2b62a647efaa720443c1d",
+                "type": "image",
+                "url": "https://dtwaeonhht2im.cloudfront.net/d98a9fc6c6c2b62a647efaa720443c1d.jpg"
+              },
+              {
+                "extension": "jpg",
+                "id": 51531,
+                "name": "1122b0dc28f6ed7e87e571d63926198d",
+                "type": "image",
+                "url": "https://dtwaeonhht2im.cloudfront.net/1122b0dc28f6ed7e87e571d63926198d.jpg"
+              },
+              {
+                "extension": "jpg",
+                "id": 51548,
+                "name": "727cc3238df94e30a6e6348802319101",
+                "type": "image",
+                "url": "https://dtwaeonhht2im.cloudfront.net/727cc3238df94e30a6e6348802319101.jpg"
+              }
+            ],
+            "sub_title": null,
+            "type": 2
+          },
+          "description": {
+            "all_capital": false,
+            "color": null,
+            "desktop": null,
+            "font": null,
+            "font_weight": null,
+            "highlighted_text": null,
+            "highlighted_text_color": null,
+            "letter_spacing": null,
+            "mobile": null,
+            "text": "Möchten Sie eine Auszeit vom stressigen Alltag nehmen und köstliche Burger-Spezialitäten in entspannter Atmosphäre genießen? Dann ist unser Burger-Restaurant „doppelt Käse“ genau das Richtige für Sie. Ob Sie Lust auf einen saftigen Cheeseburger oder einen BBQ Burger haben, unser einladender Raum bietet den perfekten Ort zum Entspannen. Entdecken Sie köstliche Aromen zu fairen Preisen und erleben Sie, warum „doppelt Käse“ ein beliebter Treffpunkt für Burger-Liebhaber in Berlin ist.",
+            "text_decoration": null,
+            "underline_offset": null
+          },
+          "description_color": null,
+          "header_color": null,
+          "id": 16157,
+          "identifier": "gallery",
+          "is_hidden": null,
+          "is_skew": null,
+          "links": [],
+          "name": "Burger Genuss in Berlin Wilmersdorf",
+          "name_style": null,
+          "page": {
+            "company_id": null,
+            "href": "/",
+            "id": 7188,
+            "identifier": "home",
+            "settings": null,
+            "type": null
+          },
+          "parent_id": null,
+          "settings": {
+            "has_parallax": null,
+            "opening_hours_style": null,
+            "opening_hours_type": null,
+            "show_social_media": null
+          },
+          "sorting_order": 7,
+          "subtitle": null,
+          "title": {
+            "all_capital": false,
+            "color": null,
+            "desktop": null,
+            "font": null,
+            "font_weight": null,
+            "highlighted_text": null,
+            "highlighted_text_color": null,
+            "letter_spacing": null,
+            "mobile": null,
+            "text": "Burger Genuss in Berlin Wilmersdorf",
+            "text_decoration": null,
+            "underline_offset": null
+          },
+          "type": "gallery_section"
+        },
+        {
+          "background_animation": null,
+          "background_color": "secondary_background_color",
+          "background_media": [],
+          "child": null,
+          "content": {
+            "google_places_id": "ChIJh046TYJRqEcRg2B-cWqT-Qg",
+            "google_review_button_props": {
+              "hidden": false,
+              "href": null,
+              "identifier": null,
+              "position": null,
+              "size": null,
+              "sub_text_hidden": true,
+              "target": null,
+              "title": null,
+              "type": null,
+              "variant": "primary_fill"
+            },
+            "id": 1399,
+            "images": [
+              {
+                "extension": "jpg",
+                "id": 39867,
+                "name": "b3cb555c65d12dbb6984c4f7a3774ab2",
+                "type": "image",
+                "url": "https://dtwaeonhht2im.cloudfront.net/b3cb555c65d12dbb6984c4f7a3774ab2.jpg"
+              }
+            ],
+            "title": "Was unsere Kunden sagen…",
+            "type": 3
+          },
+          "description": null,
+          "description_color": null,
+          "header_color": null,
+          "id": 16153,
+          "identifier": "google_reviews",
+          "is_hidden": null,
+          "is_skew": false,
+          "links": [],
+          "name": "Feedback",
+          "name_style": null,
+          "page": {
+            "company_id": null,
+            "href": "/",
+            "id": 7188,
+            "identifier": "home",
+            "settings": null,
+            "type": null
+          },
+          "parent_id": null,
+          "settings": {
+            "has_parallax": null,
+            "opening_hours_style": null,
+            "opening_hours_type": null,
+            "show_social_media": null
+          },
+          "sorting_order": 8,
+          "subtitle": null,
+          "title": {
+            "all_capital": false,
+            "color": null,
+            "desktop": null,
+            "font": null,
+            "font_weight": null,
+            "highlighted_text": null,
+            "highlighted_text_color": null,
+            "letter_spacing": null,
+            "mobile": null,
+            "text": "Was unsere Kunden sagen…",
+            "text_decoration": null,
+            "underline_offset": null
+          },
+          "type": "google_review_section"
+        },
+        {
+          "background_animation": null,
+          "background_color": null,
+          "background_media": [],
+          "child": null,
+          "content": {
+            "background_color": "primary_color",
+            "buttons": [],
+            "description": "Das Wohl unserer Gäste hat für uns höchste Priorität. Bei „doppelt Käse“ verwenden wir ausschließlich hochwertige Zutaten für unsere Burger. Mit viel Liebe zum Detail bereiten wir unsere Gerichte zu, damit Sie ein unvergessliches Geschmackserlebnis genießen können. Ob Cheeseburger, BBQ Burger oder Chicken Burger – bei uns finden Sie köstliche Variationen. Haben Sie spezielle Wünsche? Zögern Sie nicht, uns zu kontaktieren – wir setzen alles daran, Ihre Vorstellungen bei der Zubereitung zu berücksichtigen.",
+            "has_parallax": false,
+            "id": 6920,
+            "lottie_props": null,
+            "media": [
+              {
+                "animation": null,
+                "desktop": null,
+                "extension": "jpg",
+                "id": 39860,
+                "mobile": null,
+                "name": "8cc298ba1d3941db0def6fa0a38c8dad",
+                "type": "image",
+                "url": "https://dtwaeonhht2im.cloudfront.net/8cc298ba1d3941db0def6fa0a38c8dad.jpg"
+              }
+            ],
+            "opening_hours_props": null,
+            "opening_hours_type": null,
+            "social_media_icons_hidden": true,
+            "sub_title": null,
+            "title": "Qualität & Service bei doppelt Käse in Berlin",
+            "type": 19
+          },
+          "description": {
+            "all_capital": null,
+            "color": "light_text_color",
+            "desktop": {
+              "font_size": null,
+              "line_height": null
+            },
+            "font": null,
+            "font_weight": null,
+            "highlighted_text": null,
+            "highlighted_text_color": null,
+            "letter_spacing": null,
+            "mobile": {
+              "font_size": null,
+              "line_height": null
+            },
+            "text": "Das Wohl unserer Gäste hat für uns höchste Priorität. Bei „doppelt Käse“ verwenden wir ausschließlich hochwertige Zutaten für unsere Burger. Mit viel Liebe zum Detail bereiten wir unsere Gerichte zu, damit Sie ein unvergessliches Geschmackserlebnis genießen können. Ob Cheeseburger, BBQ Burger oder Chicken Burger – bei uns finden Sie köstliche Variationen. Haben Sie spezielle Wünsche? Zögern Sie nicht, uns zu kontaktieren – wir setzen alles daran, Ihre Vorstellungen bei der Zubereitung zu berücksichtigen.",
+            "text_decoration": null,
+            "underline_offset": null
+          },
+          "description_color": null,
+          "header_color": null,
+          "id": 16160,
+          "identifier": "quality",
+          "is_hidden": false,
+          "is_skew": null,
+          "links": [],
+          "name": null,
+          "name_style": null,
+          "page": {
+            "company_id": null,
+            "href": "/",
+            "id": 7188,
+            "identifier": "home",
+            "settings": null,
+            "type": null
+          },
+          "parent_id": null,
+          "settings": {
+            "has_parallax": false,
+            "opening_hours_style": null,
+            "opening_hours_type": null,
+            "show_social_media": false
+          },
+          "sorting_order": 9,
+          "subtitle": null,
+          "title": {
+            "all_capital": null,
+            "color": "light_text_color",
+            "desktop": {
+              "font_size": null,
+              "line_height": null
+            },
+            "font": null,
+            "font_weight": null,
+            "highlighted_text": null,
+            "highlighted_text_color": null,
+            "letter_spacing": null,
+            "mobile": {
+              "font_size": null,
+              "line_height": null
+            },
+            "text": "Qualität & Service bei doppelt Käse in Berlin",
+            "text_decoration": null,
+            "underline_offset": null
+          },
+          "type": "customizable_section"
+        },
+        {
+          "background_animation": null,
+          "background_color": null,
+          "background_media": [],
+          "child": null,
+          "content": {
+            "background_color": "primary_color",
+            "buttons": [],
+            "description": "Besuchen Sie unser Burger-Restaurant Doppelt Käse in der Laubacher Straße 11, 14197 Berlin, und genießen Sie die besten Burger der Stadt, darunter unseren Cheeseburger und BBQ Burger. Wir bieten sowohl Abholung als auch Lieferung an!",
+            "has_parallax": false,
+            "id": 6921,
+            "lottie_props": null,
+            "media": [
+              {
+                "animation": null,
+                "desktop": null,
+                "extension": "jpg",
+                "id": 39851,
+                "mobile": null,
+                "name": "d8081c4d9bcd236808392fce59a3cc15",
+                "type": "image",
+                "url": "https://dtwaeonhht2im.cloudfront.net/d8081c4d9bcd236808392fce59a3cc15.jpg"
+              }
+            ],
+            "opening_hours_props": null,
+            "opening_hours_type": null,
+            "social_media_icons_hidden": true,
+            "sub_title": null,
+            "title": "Essen in der Stadt Berlin",
+            "type": 20
+          },
+          "description": {
+            "all_capital": null,
+            "color": "light_text_color",
+            "desktop": {
+              "font_size": null,
+              "line_height": null
+            },
+            "font": null,
+            "font_weight": null,
+            "highlighted_text": null,
+            "highlighted_text_color": null,
+            "letter_spacing": null,
+            "mobile": {
+              "font_size": null,
+              "line_height": null
+            },
+            "text": "Besuchen Sie unser Burger-Restaurant Doppelt Käse in der Laubacher Straße 11, 14197 Berlin, und genießen Sie die besten Burger der Stadt, darunter unseren Cheeseburger und BBQ Burger. Wir bieten sowohl Abholung als auch Lieferung an!",
+            "text_decoration": null,
+            "underline_offset": null
+          },
+          "description_color": null,
+          "header_color": null,
+          "id": 16161,
+          "identifier": "area",
+          "is_hidden": false,
+          "is_skew": null,
+          "links": [],
+          "name": null,
+          "name_style": null,
+          "page": {
+            "company_id": null,
+            "href": "/",
+            "id": 7188,
+            "identifier": "home",
+            "settings": null,
+            "type": null
+          },
+          "parent_id": null,
+          "settings": {
+            "has_parallax": false,
+            "opening_hours_style": null,
+            "opening_hours_type": null,
+            "show_social_media": false
+          },
+          "sorting_order": 10,
+          "subtitle": null,
+          "title": {
+            "all_capital": null,
+            "color": "light_text_color",
+            "desktop": {
+              "font_size": null,
+              "line_height": null
+            },
+            "font": null,
+            "font_weight": null,
+            "highlighted_text": null,
+            "highlighted_text_color": null,
+            "letter_spacing": null,
+            "mobile": {
+              "font_size": null,
+              "line_height": null
+            },
+            "text": "Essen in der Stadt Berlin",
+            "text_decoration": null,
+            "underline_offset": null
+          },
+          "type": "customizable_section"
+        },
+        {
+          "background_animation": null,
+          "background_color": null,
+          "background_media": [
+            {
+              "animation": null,
+              "desktop": null,
+              "extension": "jpg",
+              "id": 39869,
+              "mobile": null,
+              "name": "bf4445b0580e46df6ff944cc5add723e",
+              "type": "image",
+              "url": "https://dtwaeonhht2im.cloudfront.net/bf4445b0580e46df6ff944cc5add723e.jpg"
+            }
+          ],
+          "child": null,
+          "content": {
+            "background_color": null,
+            "buttons": [
+              {
+                "hidden": false,
+                "href": "/standort-und-oeffnungszeiten",
+                "identifier": "first",
+                "position": null,
+                "size": null,
+                "sub_text_hidden": false,
+                "target": null,
+                "title": "Siehe Standort & Öffnungszeiten",
+                "type": null,
+                "variant": null
+              }
+            ],
+            "description": null,
+            "has_parallax": false,
+            "id": 6922,
+            "lottie_props": null,
+            "media": [],
+            "opening_hours_props": null,
+            "opening_hours_type": null,
+            "social_media_icons_hidden": true,
+            "sub_title": null,
+            "title": "doppelt Käse restaurants in Berlin",
+            "type": 1
+          },
+          "description": null,
+          "description_color": null,
+          "header_color": null,
+          "id": 16162,
+          "identifier": "location",
+          "is_hidden": true,
+          "is_skew": null,
+          "links": [
+            {
+              "button_props": {
+                "hidden": false,
+                "href": null,
+                "identifier": null,
+                "position": null,
+                "size": null,
+                "sub_text_hidden": false,
+                "target": null,
+                "title": null,
+                "type": null,
+                "variant": null
+              },
+              "href": "/standort-und-oeffnungszeiten",
+              "id": 16548,
+              "identifier": "first",
+              "target": null,
+              "title": "Siehe Standort & Öffnungszeiten",
+              "type": null
+            }
+          ],
+          "name": null,
+          "name_style": null,
+          "page": {
+            "company_id": null,
+            "href": "/",
+            "id": 7188,
+            "identifier": "home",
+            "settings": null,
+            "type": null
+          },
+          "parent_id": null,
+          "settings": {
+            "has_parallax": false,
+            "opening_hours_style": null,
+            "opening_hours_type": null,
+            "show_social_media": false
+          },
+          "sorting_order": 11,
+          "subtitle": null,
+          "title": {
+            "all_capital": false,
+            "color": null,
+            "desktop": null,
+            "font": null,
+            "font_weight": null,
+            "highlighted_text": null,
+            "highlighted_text_color": null,
+            "letter_spacing": null,
+            "mobile": null,
+            "text": "doppelt Käse restaurants in Berlin",
+            "text_decoration": null,
+            "underline_offset": null
+          },
+          "type": "customizable_section"
+        },
+        {
+          "background_animation": null,
+          "background_color": null,
+          "background_media": [],
+          "child": null,
+          "content": {
+            "background_color": null,
+            "buttons": [],
+            "description": "Erhalten Sie Treuepunkte, sparen Sie Geld, erhalten Sie Ihr Essen schneller und unterstützen Sie unser Unternehmen.",
+            "has_parallax": false,
+            "id": 15914,
+            "lottie_props": null,
+            "media": [
+              {
+                "animation": {
+                  "auto_play": true,
+                  "desktop": null,
+                  "is_debug": false,
+                  "loop": true,
+                  "mobile": null,
+                  "play_on_scroll": false,
+                  "playback_speed_on_scroll": 0.5,
+                  "speed": null
+                },
+                "desktop": {
+                  "cover_mode": null,
+                  "height": null
+                },
+                "extension": "json",
+                "id": 76392,
+                "mobile": {
+                  "cover_mode": null,
+                  "height": null
+                },
+                "name": "c9578a4f92d718122dff7affadc2d74a-30",
+                "type": "document",
+                "url": "https://dtwaeonhht2im.cloudfront.net/c9578a4f92d718122dff7affadc2d74a-30.json"
+              }
+            ],
+            "opening_hours_props": null,
+            "opening_hours_type": null,
+            "social_media_icons_hidden": true,
+            "sub_title": null,
+            "title": "Bestellen Sie direkt auf unserer Website",
+            "type": 28
+          },
+          "description": null,
+          "description_color": null,
+          "header_color": null,
+          "id": 38430,
+          "identifier": null,
+          "is_hidden": false,
+          "is_skew": null,
+          "links": [],
+          "name": "Customizable",
+          "name_style": null,
+          "page": {
+            "company_id": null,
+            "href": "/",
+            "id": 7188,
+            "identifier": "home",
+            "settings": null,
+            "type": null
+          },
+          "parent_id": null,
+          "settings": {
+            "has_parallax": null,
+            "opening_hours_style": null,
+            "opening_hours_type": null,
+            "show_social_media": true
+          },
+          "sorting_order": 12,
+          "subtitle": null,
+          "title": {
+            "all_capital": null,
+            "color": null,
+            "desktop": null,
+            "font": null,
+            "font_weight": null,
+            "highlighted_text": null,
+            "highlighted_text_color": null,
+            "letter_spacing": null,
+            "mobile": null,
+            "text": "Folge uns auf Social Media",
+            "text_decoration": null,
+            "underline_offset": null
+          },
+          "type": "customizable_section"
+        },
+        {
+          "background_animation": null,
+          "background_color": null,
+          "background_media": [],
+          "child": null,
+          "content": {
+            "id": 841,
+            "type": 1
+          },
+          "description": null,
+          "description_color": null,
+          "header_color": null,
+          "id": 16171,
+          "identifier": null,
+          "is_hidden": false,
+          "is_skew": null,
+          "links": [],
+          "name": "Unser Standort",
+          "name_style": null,
+          "page": {
+            "company_id": null,
+            "href": "/",
+            "id": 7188,
+            "identifier": "home",
+            "settings": null,
+            "type": null
+          },
+          "parent_id": null,
+          "settings": {
+            "has_parallax": null,
+            "opening_hours_style": null,
+            "opening_hours_type": null,
+            "show_social_media": null
+          },
+          "sorting_order": 13,
+          "subtitle": null,
+          "title": {
+            "all_capital": false,
+            "color": null,
+            "desktop": null,
+            "font": null,
+            "font_weight": null,
+            "highlighted_text": null,
+            "highlighted_text_color": null,
+            "letter_spacing": null,
+            "mobile": null,
+            "text": "Unser Standort",
+            "text_decoration": null,
+            "underline_offset": null
+          },
+          "type": "location_tracker_section"
+        }
+      ],
+      "seo": {
+        "classification": "Restaurant",
+        "description": "Doppelt Käse in Berlin - Liebhaber von Burgern finden hier die besten Cheeseburger, BBQ Burger und Chicken Burger.",
+        "id": 7200,
+        "image": {
+          "extension": "jpg",
+          "id": 39863,
+          "name": "626772b871eb045e84bfd533af7b7d0e",
+          "type": "image",
+          "url": "https://dtwaeonhht2im.cloudfront.net/626772b871eb045e84bfd533af7b7d0e.jpg"
+        },
+        "keywords": [
+          "Burger Berlin",
+          "Beste Burger Berlin Wilmersdorf",
+          "Burger Restaurant Berlin Wilmersdorf",
+          "Burger Essen Berlin Wilmersdorf",
+          "doppelt Käse Berlin"
+        ],
+        "social_description": "Doppelt Käse in Berlin - Liebhaber von Burgern finden hier die besten Cheeseburger, BBQ Burger und Chicken Burger.",
+        "social_title": "doppelt Käse | Best Burger in Berlin Wilmersdorf",
+        "title": "doppelt Käse | Best Burger in Berlin Wilmersdorf"
+      },
+      "settings": null,
+      "type": null
+    },
+    "id": 1157,
+    "impressums": [
+      {
+        "address": "Laubacher Straße 11",
+        "business_type": null,
+        "commercial_register": null,
+        "commercial_register_number": null,
+        "custom_fields": [],
+        "email": "[REDACTED]",
+        "grantor": "Stadt Berlin",
+        "id": 1143,
+        "legal_disclosure": null,
+        "legal_name": null,
+        "owner": "[REDACTED]",
+        "phone_number": "[REDACTED]",
+        "supervisory_authority": "Gewerbeaufsicht Stadt Berlin",
+        "tax_id": "34/280/00309",
+        "web": null
+      }
+    ],
+    "instagram_link": "https://www.instagram.com/doppeltkaese",
+    "is_gift_cards_enabled": true,
+    "legal_lang": "de",
+    "logo": {
+      "extension": "png",
+      "id": 39861,
+      "name": "e330fe65e5c3e4e72b4a10be706ee968",
+      "type": "image",
+      "url": "https://dtwaeonhht2im.cloudfront.net/e330fe65e5c3e4e72b4a10be706ee968.png"
+    },
+    "main_company_id": null,
+    "mobile_app": {
+      "app_bundle_identifier": "com.doppeltkase.doppeltkase",
+      "app_icon": "https://df82qhw4izaag.cloudfront.net/73e58c98-d8c3-4fa7-a019-6201a48b7e15/app_icon.png",
+      "asc_app_id": 6751851444,
+      "name": "Doppelt Käse",
+      "released": true,
+      "uuid": "73e58c98-d8c3-4fa7-a019-6201a48b7e15"
+    },
+    "name": "doppelt Käse",
+    "navigation_items": [
+      {
+        "children": [],
+        "id": 15241,
+        "is_hidden": false,
+        "is_visible_in_footer": true,
+        "name": "Home",
+        "page": {
+          "company_id": null,
+          "href": "/",
+          "id": 7188,
+          "identifier": "home",
+          "settings": null,
+          "type": null
+        },
+        "parent_id": null,
+        "section_id": null,
+        "sorting_order": 0
+      },
+      {
+        "children": [
+          {
+            "children": [],
+            "id": 15248,
+            "is_hidden": true,
+            "is_visible_in_footer": true,
+            "name": "doppelt Käse",
+            "page": {
+              "company_id": 1271,
+              "href": "/speisekarte/doppeltkase",
+              "id": 7195,
+              "identifier": "menu",
+              "settings": null,
+              "type": null
+            },
+            "parent_id": 15243,
+            "section_id": null,
+            "sorting_order": 5
+          }
+        ],
+        "id": 15243,
+        "is_hidden": false,
+        "is_visible_in_footer": true,
+        "name": "Speisekarte",
+        "page": {
+          "company_id": null,
+          "href": "/speisekarte",
+          "id": 7190,
+          "identifier": "menu",
+          "settings": null,
+          "type": null
+        },
+        "parent_id": null,
+        "section_id": null,
+        "sorting_order": 1
+      },
+      {
+        "children": [],
+        "id": 24927,
+        "is_hidden": false,
+        "is_visible_in_footer": true,
+        "name": "Gutscheine",
+        "page": {
+          "company_id": null,
+          "href": "/gutscheine",
+          "id": 16874,
+          "identifier": "gift-cards",
+          "settings": null,
+          "type": null
+        },
+        "parent_id": null,
+        "section_id": null,
+        "sorting_order": 2
+      },
+      {
+        "children": [],
+        "id": 15242,
+        "is_hidden": false,
+        "is_visible_in_footer": true,
+        "name": "Über Uns",
+        "page": {
+          "company_id": null,
+          "href": "/ueber-uns",
+          "id": 7189,
+          "identifier": "about-us",
+          "settings": null,
+          "type": null
+        },
+        "parent_id": null,
+        "section_id": null,
+        "sorting_order": 3
+      },
+      {
+        "children": [
+          {
+            "children": [],
+            "id": 15245,
+            "is_hidden": true,
+            "is_visible_in_footer": true,
+            "name": "Laubacher Straße 11",
+            "page": {
+              "company_id": 1271,
+              "href": "/standort-und-oeffnungszeiten/1271",
+              "id": 7192,
+              "identifier": "location-and-hours",
+              "settings": {
+                "hide_intro": false,
+                "show_map": false,
+                "title": null
+              },
+              "type": null
+            },
+            "parent_id": 15244,
+            "section_id": null,
+            "sorting_order": 1
+          }
+        ],
+        "id": 15244,
+        "is_hidden": false,
+        "is_visible_in_footer": true,
+        "name": "Standort",
+        "page": {
+          "company_id": null,
+          "href": "/standort-und-oeffnungszeiten",
+          "id": 7191,
+          "identifier": "location-and-hours",
+          "settings": {
+            "hide_intro": true,
+            "show_map": false,
+            "title": null
+          },
+          "type": null
+        },
+        "parent_id": null,
+        "section_id": null,
+        "sorting_order": 4
+      },
+      {
+        "children": [],
+        "id": 15246,
+        "is_hidden": true,
+        "is_visible_in_footer": true,
+        "name": "Coupons",
+        "page": {
+          "company_id": null,
+          "href": "/angebote",
+          "id": 7193,
+          "identifier": "coupons",
+          "settings": null,
+          "type": null
+        },
+        "parent_id": null,
+        "section_id": null,
+        "sorting_order": 5
+      },
+      {
+        "children": [],
+        "id": 15247,
+        "is_hidden": true,
+        "is_visible_in_footer": true,
+        "name": "Belohnungen",
+        "page": {
+          "company_id": null,
+          "href": "/belohnungen",
+          "id": 7194,
+          "identifier": "rewards",
+          "settings": null,
+          "type": null
+        },
+        "parent_id": null,
+        "section_id": null,
+        "sorting_order": 6
+      }
+    ],
+    "news": [
+      "Bestelle Hier & Erhalte €10.00 Rabatt mit Promo-Code: [D_O_P_P_E_L_T]"
+    ],
+    "onboarding_completed": true,
+    "online_shop_url": "https://www.foodamigos-storefront-online-shop.com",
+    "order_online_button_hidden": null,
+    "origin_story": null,
+    "pages": [
+      {
+        "company_id": null,
+        "href": "/ueber-uns",
+        "id": 7189,
+        "identifier": "about-us",
+        "settings": null,
+        "type": null
+      },
+      {
+        "company_id": null,
+        "href": "/belohnungen",
+        "id": 7194,
+        "identifier": "rewards",
+        "settings": null,
+        "type": null
+      },
+      {
+        "company_id": 1271,
+        "href": "/speisekarte/doppeltkase",
+        "id": 7195,
+        "identifier": "menu",
+        "settings": null,
+        "type": null
+      },
+      {
+        "company_id": null,
+        "href": "/",
+        "id": 7188,
+        "identifier": "home",
+        "settings": null,
+        "type": null
+      },
+      {
+        "company_id": null,
+        "href": "/speisekarte",
+        "id": 7190,
+        "identifier": "menu",
+        "settings": null,
+        "type": null
+      },
+      {
+        "company_id": null,
+        "href": "/angebote",
+        "id": 7193,
+        "identifier": "coupons",
+        "settings": null,
+        "type": null
+      },
+      {
+        "company_id": null,
+        "href": "/standort-und-oeffnungszeiten",
+        "id": 7191,
+        "identifier": "location-and-hours",
+        "settings": {
+          "hide_intro": true,
+          "show_map": false,
+          "title": null
+        },
+        "type": null
+      },
+      {
+        "company_id": null,
+        "href": "/gutscheine",
+        "id": 16874,
+        "identifier": "gift-cards",
+        "settings": null,
+        "type": null
+      },
+      {
+        "company_id": 1271,
+        "href": "/standort-und-oeffnungszeiten/1271",
+        "id": 7192,
+        "identifier": "location-and-hours",
+        "settings": {
+          "hide_intro": false,
+          "show_map": false,
+          "title": null
+        },
+        "type": null
+      }
+    ],
+    "phone_number": "+49 30 89733370",
+    "popups": [
+      {
+        "description": null,
+        "expiration_date": null,
+        "floating_button": null,
+        "id": 1709,
+        "is_hidden": false,
+        "links": [],
+        "media": [
+          {
+            "animation": null,
+            "desktop": null,
+            "extension": "jpg",
+            "id": 39897,
+            "mobile": null,
+            "name": "67109d4f99b6fedebbd271e723c9b85b",
+            "type": "image",
+            "url": "https://dtwaeonhht2im.cloudfront.net/67109d4f99b6fedebbd271e723c9b85b.jpg"
+          }
+        ],
+        "page_id": 7188,
+        "start_date": null,
+        "title": null,
+        "type": "collect_emails"
+      }
+    ],
+    "preview_domain": "doppeltkase.foodamigos-storefront.com",
+    "products": [
+      {
+        "description": "mit Salat, Tomaten, gebratenen Zwiebeln und einer Soße deiner Wahl",
+        "id": 7609,
+        "image": {
+          "extension": "jpg",
+          "id": 51530,
+          "name": "f64bf1e5097f717b0a3a441ca10d5f92",
+          "type": "image",
+          "url": "https://dtwaeonhht2im.cloudfront.net/f64bf1e5097f717b0a3a441ca10d5f92.jpg"
+        },
+        "name": "Hamburger",
+        "price": 9.5
+      },
+      {
+        "description": "mit doppeltem Käse, gebratenen Zwiebeln und einer Soße deiner Wahl",
+        "id": 7610,
+        "image": {
+          "extension": "jpg",
+          "id": 51537,
+          "name": "0c4fec849f033b4d63cb503593df7426",
+          "type": "image",
+          "url": "https://dtwaeonhht2im.cloudfront.net/0c4fec849f033b4d63cb503593df7426.jpg"
+        },
+        "name": "Cheeseburger",
+        "price": 10.5
+      },
+      {
+        "description": "mit doppeltem Käse, hausgemachten Röstzwiebeln und hausgemachter Barbecuesoße",
+        "id": 7611,
+        "image": {
+          "extension": "jpg",
+          "id": 51538,
+          "name": "f6b274ba69c2a171329a32affad8aa18",
+          "type": "image",
+          "url": "https://dtwaeonhht2im.cloudfront.net/f6b274ba69c2a171329a32affad8aa18.jpg"
+        },
+        "name": "BBQ Burger",
+        "price": 10.8
+      },
+      {
+        "description": "leicht scharf\nmit doppeltem Käse, Salat, Tomaten, Jalapeños, gebratenen Zwiebeln und hausgemachter Burgersoße",
+        "id": 7612,
+        "image": {
+          "extension": "jpg",
+          "id": 51539,
+          "name": "e7be430f4799fa3b2dbc1b81d8f7e124",
+          "type": "image",
+          "url": "https://dtwaeonhht2im.cloudfront.net/e7be430f4799fa3b2dbc1b81d8f7e124.jpg"
+        },
+        "name": "Chili-Cheeseburger",
+        "price": 10.8
+      },
+      {
+        "description": "mit doppeltem Fleisch, doppeltem Käse, Salat, Tomaten,  hausgemachten Röstzwiebeln und getrüffelter Haussoße",
+        "id": 7613,
+        "image": {
+          "extension": "jpg",
+          "id": 51540,
+          "name": "46ac970c7bae066e1143a630a264fede",
+          "type": "image",
+          "url": "https://dtwaeonhht2im.cloudfront.net/46ac970c7bae066e1143a630a264fede.jpg"
+        },
+        "name": "Der Doppelt Käse-Burger",
+        "price": 12.9
+      },
+      {
+        "description": "mit doppeltem Käse, buntem Krautsalat und hausgemachter Burgersoße",
+        "id": 7614,
+        "image": {
+          "extension": "jpg",
+          "id": 51541,
+          "name": "86da75d08a769f7d45f65eb1b3863006",
+          "type": "image",
+          "url": "https://dtwaeonhht2im.cloudfront.net/86da75d08a769f7d45f65eb1b3863006.jpg"
+        },
+        "name": "Chicken Burger",
+        "price": 9.9
+      },
+      {
+        "description": "scharf\nmit doppeltem Käse, Salat, Tomaten, gebratenen Zwiebeln und Habanero-Soße",
+        "id": 7615,
+        "image": {
+          "extension": "jpg",
+          "id": 51542,
+          "name": "c718fa10bd1bbd88a2a89849c639c649",
+          "type": "image",
+          "url": "https://dtwaeonhht2im.cloudfront.net/c718fa10bd1bbd88a2a89849c639c649.jpg"
+        },
+        "name": "Habanero Burger",
+        "price": 10.9
+      },
+      {
+        "description": "mit Gorgonzola, Salat, Tomaten, gebratenen Zwiebeln und Preiselbeermarmelade",
+        "id": 7616,
+        "image": {
+          "extension": "jpg",
+          "id": 51543,
+          "name": "744fa063e9745870c525092e3f536d99",
+          "type": "image",
+          "url": "https://dtwaeonhht2im.cloudfront.net/744fa063e9745870c525092e3f536d99.jpg"
+        },
+        "name": "Gorgonzola-Preiselbeere-Burger",
+        "price": 11.4
+      },
+      {
+        "description": "mit doppeltem Käse, hausgemachten Röstzwiebeln, Senf und Ketchup",
+        "id": 7617,
+        "image": {
+          "extension": "jpg",
+          "id": 51544,
+          "name": "e5dc7d701d0ede659927bff858422f7d",
+          "type": "image",
+          "url": "https://dtwaeonhht2im.cloudfront.net/e5dc7d701d0ede659927bff858422f7d.jpg"
+        },
+        "name": "Classic Burger",
+        "price": 10
+      },
+      {
+        "description": "mit doppeltem Käse, Salat, Tomaten, gebratenen Zwiebeln, saisonalen Pilzen und Barbecuesoße",
+        "id": 7618,
+        "image": {
+          "extension": "jpg",
+          "id": 51545,
+          "name": "7bb1a6690905e44b29f711a644426ac9",
+          "type": "image",
+          "url": "https://dtwaeonhht2im.cloudfront.net/7bb1a6690905e44b29f711a644426ac9.jpg"
+        },
+        "name": "Pilz-Burger",
+        "price": 11.4
+      }
+    ],
+    "quarter": "Wilmersdorf",
+    "quick_actions": [],
+    "redirect_to_external_web_shop_url": false,
+    "region": {
+      "address_format": "international",
+      "country": "DE",
+      "currency": "EUR",
+      "date_format": "dd.MM.yyyy",
+      "default_locale": "de",
+      "distance_unit": "km",
+      "geometry_data": {
+        "paths": [
+          {
+            "lat": 53.72541076756863,
+            "lng": 14.268643700794144
+          },
+          {
+            "lat": 54.45432833264931,
+            "lng": 12.57657580216835
+          },
+          {
+            "lat": 53.882612516373655,
+            "lng": 11.469569364493736
+          },
+          {
+            "lat": 54.060717556449646,
+            "lng": 10.551413395681436
+          },
+          {
+            "lat": 54.53472544137691,
+            "lng": 10.728225057479762
+          },
+          {
+            "lat": 54.77477423537775,
+            "lng": 9.820320507681743
+          },
+          {
+            "lat": 54.883667854127964,
+            "lng": 8.739798901426923
+          },
+          {
+            "lat": 53.953325005471356,
+            "lng": 8.926731410048063
+          },
+          {
+            "lat": 53.377308692938925,
+            "lng": 8.386763404726366
+          },
+          {
+            "lat": 53.55351489189397,
+            "lng": 7.2468854697943925
+          },
+          {
+            "lat": 52.727715462263575,
+            "lng": 7.143674036501352
+          },
+          {
+            "lat": 51.99074071088833,
+            "lng": 6.841240203643622
+          },
+          {
+            "lat": 51.72755250482504,
+            "lng": 5.869511835406854
+          },
+          {
+            "lat": 50.69854725403897,
+            "lng": 5.760708901059047
+          },
+          {
+            "lat": 50.05871997860976,
+            "lng": 6.724314527963969
+          },
+          {
+            "lat": 49.6123872969259,
+            "lng": 6.300280536189234
+          },
+          {
+            "lat": 48.87693614879581,
+            "lng": 8.08379224396316
+          },
+          {
+            "lat": 47.46872100394256,
+            "lng": 7.551213587654786
+          },
+          {
+            "lat": 47.760741032134746,
+            "lng": 8.673472764141707
+          },
+          {
+            "lat": 47.44232172103182,
+            "lng": 10.084355111831371
+          },
+          {
+            "lat": 48.636105037918355,
+            "lng": 13.966258346017469
+          },
+          {
+            "lat": 50.19873771446612,
+            "lng": 12.593460621853296
+          },
+          {
+            "lat": 50.90018832116209,
+            "lng": 14.973113336901406
+          },
+          {
+            "lat": 53.72541076756863,
+            "lng": 14.268643700794144
+          }
+        ]
+      },
+      "geometry_type": "polygon",
+      "hour_cycle": "h23",
+      "legal_pack": "de",
+      "limits": [],
+      "locales": [
+        "de",
+        "en"
+      ],
+      "number_locale": "de-DE",
+      "timezone": "Europe/Berlin"
+    },
+    "reservation_link": "https://doppeltkase.tischreservieren.com",
+    "restaurant_type": "Burger",
+    "scripts": [],
+    "seo_analysis": {},
+    "service_provider": {
+      "is_master": true,
+      "logo_url": "https://dtwaeonhht2im.cloudfront.net/service-providers/1/logo.png",
+      "mixpanel_api_key": "[REDACTED]",
+      "name": "FoodAmigos",
+      "notification_channels": "[REDACTED]",
+      "website": "www.foodamigos.io"
+    },
+    "setup_error": null,
+    "setup_progress": 100,
+    "setup_step": null,
+    "theme": {
+      "border_radius_type": "full",
+      "border_width_type": "none",
+      "button_text_style": {
+        "all_capital": true,
+        "color": null,
+        "desktop": null,
+        "font": {
+          "name": "Omnes Black",
+          "url": "https://dtwaeonhht2im.cloudfront.net/custom-fonts/Omnes/Omnes-Black.ttf"
+        },
+        "font_weight": null,
+        "letter_spacing": null,
+        "mobile": null,
+        "text_decoration": null,
+        "underline_offset": null
+      },
+      "card_style": null,
+      "color_variables": {
+        "background_color": "rgb(255, 255, 255)",
+        "border_color": "rgb(226, 165, 72)",
+        "card_color": "#FFFFFF",
+        "dark_text_color": "#000000",
+        "description_color": "#000000",
+        "header_color": "rgb(226, 165, 72)",
+        "light_text_color": "#FFFFFF",
+        "primary_color": "#e2a548",
+        "secondary_background_color": "#FFFFFF",
+        "secondary_color": "#000000"
+      },
+      "custom_fonts": [
+        {
+          "extension": "ttf",
+          "id": 76264,
+          "name": "7139817abe8fcf4a4201125f0f80ae56",
+          "type": "font",
+          "url": "https://dtwaeonhht2im.cloudfront.net/7139817abe8fcf4a4201125f0f80ae56.ttf"
+        },
+        {
+          "extension": "otf",
+          "id": 76265,
+          "name": "5b710937ec9a2a5596f54892a9d88b8a",
+          "type": "font",
+          "url": "https://dtwaeonhht2im.cloudfront.net/5b710937ec9a2a5596f54892a9d88b8a.otf"
+        },
+        {
+          "extension": "ttf",
+          "id": 76266,
+          "name": "76ae3a6cc7e37f428f1c63ce5aca7a6e",
+          "type": "font",
+          "url": "https://dtwaeonhht2im.cloudfront.net/76ae3a6cc7e37f428f1c63ce5aca7a6e.ttf"
+        }
+      ],
+      "dark_mode_color_variables": {
+        "background_color": "#1A1A1A",
+        "border_color": "#2D2D2D",
+        "card_color": "#2D2D2D",
+        "dark_text_color": "#1A1A1A",
+        "description_color": "#FFFFFF",
+        "header_color": "#FFFFFF",
+        "light_text_color": "#FFFFFF",
+        "primary_color": "#e2a548",
+        "secondary_background_color": "#272727",
+        "secondary_color": "#000000"
+      },
+      "font_links": [
+        "https://dtwaeonhht2im.cloudfront.net/custom-fonts/Omnes/Omnes-Black.ttf",
+        "https://dtwaeonhht2im.cloudfront.net/76ae3a6cc7e37f428f1c63ce5aca7a6e.ttf",
+        "https://dtwaeonhht2im.cloudfront.net/custom-fonts/Omnes/Omnes-Medium.ttf",
+        "https://dtwaeonhht2im.cloudfront.net/custom-fonts/Omnes/Omnes-Regular.ttf"
+      ],
+      "footer_props": {
+        "about_us_text": null,
+        "background_color": "primary_color",
+        "bottom_bar_background_color": null,
+        "bottom_bar_text_color": null,
+        "card_color": null,
+        "contact_form_props": null,
+        "copy_right_text": null,
+        "description_color": "light_text_color",
+        "has_locations_link": true,
+        "has_powered_by_service_provider": true,
+        "has_social_media_links": true,
+        "header_color": "light_text_color",
+        "learn_more_about_us_text": null,
+        "policy_color": null,
+        "scroll_back_up_button_props": null,
+        "type": null
+      },
+      "has_section_borders": null,
+      "id": 1138,
+      "is_dark_mode": false,
+      "navigation_bar_props": {
+        "background_color": null,
+        "navigation_bar_position": "absolute",
+        "navigation_bar_type": 7,
+        "order_online_button_hidden": false,
+        "order_online_button_props": {
+          "hidden": false,
+          "href": null,
+          "identifier": null,
+          "position": null,
+          "size": null,
+          "sub_text_hidden": false,
+          "target": null,
+          "title": null,
+          "type": null,
+          "variant": null
+        },
+        "text_color": null,
+        "text_size": null
+      },
+      "news_banner_props": null,
+      "page_loading_indicator_props": {
+        "background_color": null,
+        "lottie_props": null,
+        "page_loading_indicator_type": 1,
+        "text_color": null
+      },
+      "template_type": "bold",
+      "text_style": null,
+      "typography_settings": {
+        "h1": {
+          "all_capital": false,
+          "color": "primary_color",
+          "desktop": {
+            "font_size": 80,
+            "line_height": 80
+          },
+          "font": {
+            "name": "76ae3a6cc7e37f428f1c63ce5aca7a6e",
+            "url": "https://dtwaeonhht2im.cloudfront.net/76ae3a6cc7e37f428f1c63ce5aca7a6e.ttf"
+          },
+          "font_weight": 400,
+          "letter_spacing": null,
+          "mobile": {
+            "font_size": null,
+            "line_height": null
+          },
+          "text_decoration": null,
+          "underline_offset": null
+        },
+        "h2": {
+          "all_capital": true,
+          "color": "primary_color",
+          "desktop": {
+            "font_size": 36,
+            "line_height": 44
+          },
+          "font": {
+            "name": "Omnes Black",
+            "url": "https://dtwaeonhht2im.cloudfront.net/custom-fonts/Omnes/Omnes-Black.ttf"
+          },
+          "font_weight": 400,
+          "letter_spacing": null,
+          "mobile": {
+            "font_size": null,
+            "line_height": null
+          },
+          "text_decoration": null,
+          "underline_offset": null
+        },
+        "h3": {
+          "all_capital": true,
+          "color": "header_color",
+          "desktop": {
+            "font_size": 24,
+            "line_height": 24
+          },
+          "font": {
+            "name": "Omnes Black",
+            "url": "https://dtwaeonhht2im.cloudfront.net/custom-fonts/Omnes/Omnes-Black.ttf"
+          },
+          "font_weight": 400,
+          "letter_spacing": null,
+          "mobile": {
+            "font_size": 24,
+            "line_height": 33
+          },
+          "text_decoration": null,
+          "underline_offset": null
+        },
+        "h4": {
+          "all_capital": true,
+          "color": "header_color",
+          "desktop": {
+            "font_size": 22,
+            "line_height": 24
+          },
+          "font": {
+            "name": "Omnes Black",
+            "url": "https://dtwaeonhht2im.cloudfront.net/custom-fonts/Omnes/Omnes-Black.ttf"
+          },
+          "font_weight": 400,
+          "letter_spacing": null,
+          "mobile": {
+            "font_size": 18,
+            "line_height": 24
+          },
+          "text_decoration": null,
+          "underline_offset": null
+        },
+        "h5": {
+          "all_capital": true,
+          "color": "header_color",
+          "desktop": {
+            "font_size": 20,
+            "line_height": 24
+          },
+          "font": {
+            "name": "Omnes Black",
+            "url": "https://dtwaeonhht2im.cloudfront.net/custom-fonts/Omnes/Omnes-Black.ttf"
+          },
+          "font_weight": 400,
+          "letter_spacing": null,
+          "mobile": {
+            "font_size": 16,
+            "line_height": 24
+          },
+          "text_decoration": null,
+          "underline_offset": null
+        },
+        "h6": {
+          "all_capital": true,
+          "color": "header_color",
+          "desktop": {
+            "font_size": 18,
+            "line_height": 24
+          },
+          "font": {
+            "name": "Omnes Black",
+            "url": "https://dtwaeonhht2im.cloudfront.net/custom-fonts/Omnes/Omnes-Black.ttf"
+          },
+          "font_weight": 400,
+          "letter_spacing": null,
+          "mobile": {
+            "font_size": 16,
+            "line_height": 24
+          },
+          "text_decoration": null,
+          "underline_offset": null
+        },
+        "mini": {
+          "all_capital": false,
+          "color": "description_color",
+          "desktop": {
+            "font_size": 14,
+            "line_height": 19
+          },
+          "font": {
+            "name": "Omnes Regular",
+            "url": "https://dtwaeonhht2im.cloudfront.net/custom-fonts/Omnes/Omnes-Regular.ttf"
+          },
+          "font_weight": 400,
+          "letter_spacing": null,
+          "mobile": {
+            "font_size": 14,
+            "line_height": 19
+          },
+          "text_decoration": null,
+          "underline_offset": null
+        },
+        "nano": {
+          "all_capital": false,
+          "color": "description_color",
+          "desktop": {
+            "font_size": 10,
+            "line_height": 12
+          },
+          "font": {
+            "name": "Omnes Regular",
+            "url": "https://dtwaeonhht2im.cloudfront.net/custom-fonts/Omnes/Omnes-Regular.ttf"
+          },
+          "font_weight": 400,
+          "letter_spacing": null,
+          "mobile": {
+            "font_size": 10,
+            "line_height": 12
+          },
+          "text_decoration": null,
+          "underline_offset": null
+        },
+        "p": {
+          "all_capital": false,
+          "color": "description_color",
+          "desktop": {
+            "font_size": 22,
+            "line_height": 24
+          },
+          "font": {
+            "name": "OmnesMedium",
+            "url": "https://dtwaeonhht2im.cloudfront.net/custom-fonts/Omnes/Omnes-Medium.ttf"
+          },
+          "font_weight": 400,
+          "letter_spacing": null,
+          "mobile": {
+            "font_size": 19,
+            "line_height": 19
+          },
+          "text_decoration": null,
+          "underline_offset": null
+        },
+        "small": {
+          "all_capital": false,
+          "color": "description_color",
+          "desktop": {
+            "font_size": 16,
+            "line_height": 22
+          },
+          "font": {
+            "name": "Omnes Regular",
+            "url": "https://dtwaeonhht2im.cloudfront.net/custom-fonts/Omnes/Omnes-Regular.ttf"
+          },
+          "font_weight": 400,
+          "letter_spacing": null,
+          "mobile": {
+            "font_size": 16,
+            "line_height": 22
+          },
+          "text_decoration": null,
+          "underline_offset": null
+        },
+        "subtitle": {
+          "all_capital": false,
+          "color": "description_color",
+          "desktop": {
+            "font_size": 20,
+            "line_height": 24
+          },
+          "font": {
+            "name": "OmnesMedium",
+            "url": "https://dtwaeonhht2im.cloudfront.net/custom-fonts/Omnes/Omnes-Medium.ttf"
+          },
+          "font_weight": 400,
+          "letter_spacing": null,
+          "mobile": {
+            "font_size": 18,
+            "line_height": 18
+          },
+          "text_decoration": null,
+          "underline_offset": null
+        },
+        "tiny": {
+          "all_capital": false,
+          "color": "description_color",
+          "desktop": {
+            "font_size": 12,
+            "line_height": 19
+          },
+          "font": {
+            "name": "Omnes Regular",
+            "url": "https://dtwaeonhht2im.cloudfront.net/custom-fonts/Omnes/Omnes-Regular.ttf"
+          },
+          "font_weight": 400,
+          "letter_spacing": null,
+          "mobile": {
+            "font_size": 12,
+            "line_height": 19
+          },
+          "text_decoration": null,
+          "underline_offset": null
+        }
+      }
+    },
+    "tik_tok_link": null,
+    "timezone": "Europe/Berlin",
+    "uber_link": null,
+    "umami_share_url": "https://cloud.umami.is/share/96f0ada7-9583-4057-8aeb-275e0e2ae1c2",
+    "umami_website_id": "d5c41302-12f6-4b56-8398-74192f714d4c",
+    "uuid": "be6707d5-20f1-4a50-84a7-0a4e2c9fd4e3",
+    "venue_type": "restaurant",
+    "yelp_link": null,
+    "youtube_link": null,
+    "zip_code": "14197"
+  }
+}
