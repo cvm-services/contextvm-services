@@ -116,20 +116,29 @@ Acceptance: an order placed through the CVM is paid, confirmed with an order id,
 operator can see it; the announcement declares `payment.method`, a non-zero `cap` and a
 `pmi` tag; the `D12` ring gate guards the settlement step.
 
-## Track B — Lightning/Cashu reseller (BLOCKED on decisions)
+## Track B — Lightning/Cashu reseller (PARTIALLY UNBLOCKED 2026-10-06)
 
 The customer-facing "pay for my pickup order with Lightning" flow, fronting a third-party
-venue. **Do not write code before these are answered** — each one has killed this pattern
-before:
+venue. **ADR-0004 is now Accepted**: option B is the target, **Cashu before bolt11**, and
+option A only as a spike behind written venue consent.
 
-1. Is a third-party venue's consent realistically available, or is track C the honest
-   target?
-2. Rail: **bitcoin-cashu** (easier reconciliation and refunds, matches `nosms`'s `pmi`
-   posture) or **bitcoin-lightning-bolt11** (what a customer's wallet expects)?
-3. Who is the **merchant of record** for a German sale, and does that need an entity before
-   the first paid pickup order?
-4. Written policy for refunds, no-shows, cancelled items and partial fulfilment — we would
-   hold customer money before the food exists.
+Answered:
+
+1. **Rail — decided: `bitcoin-cashu` first.** A mint does the reconciliation and refunds
+   stay tractable; it matches the `pmi` posture already on `nosms`. `bitcoin-lightning-bolt11`
+   follows only once we can actually settle it.
+2. **Consent — decided: required in writing, and a heavier ask than it looked.** Track A
+   proved neither storefront accepts a basket-prefill parameter, so driving their checkout
+   means driving their SPA as a browser, on their terms. Track C needs no consent at all and
+   remains the honest fallback.
+
+Still blocking, in order:
+
+3. **Merchant of record** for a German sale — who it is, what the receipt says, how the 19%
+   inclusive tax passes through, and whether that needs an entity. This gates the first paid
+   order, not the design.
+4. **Written policy** for refunds, no-shows, cancelled items and partial fulfilment. We would
+   hold customer money before the food exists, and every one of those cases becomes ours.
 
 ## Stage 1 review follow-ups (independent verification of PR #13, 2026-10-06)
 
