@@ -1,0 +1,68 @@
+{
+  "kind": 11317,
+  "pubkey": null,
+  "tags": [
+    [
+      "d",
+      "doppelt-kaese-berlin"
+    ],
+    [
+      "t",
+      "cvm:service:restaurant"
+    ],
+    [
+      "t",
+      "berlin"
+    ],
+    [
+      "t",
+      "burgers"
+    ],
+    [
+      "t",
+      "cvm:req:contact.phone"
+    ],
+    [
+      "t",
+      "cvm:req:ship.address"
+    ],
+    [
+      "t",
+      "cvm:opt:contact.name"
+    ],
+    [
+      "t",
+      "cvm:opt:order.notes"
+    ],
+    [
+      "t",
+      "cvm:tier:fulfilment"
+    ],
+    [
+      "g",
+      "u336"
+    ],
+    [
+      "g",
+      "u336x0"
+    ],
+    [
+      "g",
+      "u336x058"
+    ],
+    [
+      "cap",
+      "tool:order",
+      "0",
+      "sats"
+    ],
+    [
+      "r",
+      "https://www.doppelt-kaese-berlin.de/speisekarte/doppeltkase"
+    ]
+  ],
+  "content": "{\"tools\":[{\"name\":\"order\",\"description\":\"Place an order at Doppelt Käse Laubacher Straße via the venue's own ordering rail (deep-link).\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false}}]}",
+  "tier": "fulfilment",
+  "recomputed_tier": "fulfilment",
+  "warnings": []
+}

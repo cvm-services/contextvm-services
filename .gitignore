@@ -1,3 +1,8 @@
+# S4a secrets + scratch — never commit
+.scratch/
+*.nsec
+*.key
+
 # python bytecode — never commit (compiled artifacts, stale across interpreters)
 __pycache__/
 *.pyc
