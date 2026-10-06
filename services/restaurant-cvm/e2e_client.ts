@@ -101,6 +101,10 @@ async function main() {
   const flags = parse(Deno.args, {
     string: ["server", "relay"],
     boolean: ["json"],
+    // Without collect, a repeated --relay OVERWRITES: passing the announced set
+    // (relay2 + primal) silently used only the last one. The announced relays
+    // are the point of the test, so collect them.
+    collect: ["relay"],
     alias: {},
   });
 
