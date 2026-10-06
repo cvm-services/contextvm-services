@@ -52,9 +52,15 @@ Acceptance criteria:
 4. **Nothing over-claims.** With no settlement implemented, the tool returns a basket +
    the venue's rail and its description says checkout happens on the venue's page. A tool
    that takes items and cannot be paid must not read as "order placed".
-5. **Tool versioning is explicit** — `order.channel` names the rail the order will land
-   on, so a v1 handoff and a v2 settling CVM are distinguishable from the announcement
-   alone.
+5. **Tool versioning is explicit — DECIDED 2026-10-06, amended, not deferred.** The
+   discriminator is the venue's **declared settlement**, not a caller-supplied argument:
+   `declared.settlement` (v1 — names the venue's own rail, handoff is a deep link) versus
+   `payment.method` + a non-zero `cap` + a `pmi` tag (v2 — the CVM settles itself). A
+   client distinguishes them from the announcement alone, which is what this criterion
+   was for. `order.channel` stays an input **we do not require**: the caller cannot
+   influence which rail the venue uses, so demanding it would be inflated appetite
+   (register rule 2). The rail is returned in the order *result* and declared in the
+   announcement. **Rejected:** implementing `order.channel` as a required argument.
 6. Tests: `order.items` validated against the published menu (an unknown **or ambiguous**
    `sku` fails loud), per-method price selection, and the delivery-requires-address
    condition. RED first.
@@ -149,9 +155,14 @@ Open items, in order:
    `required = [contact.phone, order.fulfilment]`; the new `order.items`/`order.when` are
    invisible to clients until republished. Merging the server PR alone does not make a
    venue orderable.
-5. **Criterion 5 is not met as written.** `order.channel` is not implemented as an argument;
-   the rail is returned in the order *result* instead. Either implement it or amend the
-   criterion — do not let it read as satisfied.
+5. ~~Criterion 5 is not met as written.~~ **Resolved 2026-10-06** — criterion 5 was
+   amended to name the declared settlement as the discriminator, and implementing
+   `order.channel` as a required argument is explicitly rejected (see acceptance
+   criteria). Nothing further owed here.
+6. ~~Ambiguous sku resolves silently.~~ **Fixed** on `pr/venue-server` — a colliding sku is
+   refused with the item ids and the products named, and items are addressable by the
+   venue's own `id`, now published by `menu`. Five new tests, RED first
+   (`59 passed | 5 failed` against `d331903` → `64 passed | 0 failed`).
 
 ## Non-goals
 
