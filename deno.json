@@ -1,6 +1,7 @@
 {
   "tasks": {
     "test": "deno test --allow-read",
+    "test:net": "deno test --allow-read --allow-net",
     "fixture": "deno run --allow-read --allow-write tools/nosms_announcement.ts --fixture",
     "check-fixture": "deno run --allow-read tools/nosms_announcement.ts --check",
     "emit": "deno run --allow-read tools/nosms_announcement.ts --emit",

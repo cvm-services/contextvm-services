@@ -32,9 +32,9 @@ function assertThrows(fn: () => unknown, contains: string) {
   throw new Error(`ASSERT (expected throw containing '${contains}'): nothing thrown`);
 }
 
-/** Load a venue fixture from the committed S1 branches (copied to .scratch for tests). */
+/** Load the venue record the S1 adapters committed (venues/<slug>/venue.json). */
 async function loadVenue(slug: string): Promise<VenueRecord> {
-  return JSON.parse(await Deno.readTextFile(new URL(`../.scratch/venues/${slug}.json`, import.meta.url)));
+  return JSON.parse(await Deno.readTextFile(new URL(`../venues/${slug}/venue.json`, import.meta.url)));
 }
 
 const DOPPELT = "doppelt-kaese-berlin";
