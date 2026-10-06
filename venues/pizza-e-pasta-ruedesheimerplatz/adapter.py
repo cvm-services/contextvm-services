@@ -411,7 +411,12 @@ def _norm_group(group: dict, key: str) -> dict:
 
 
 def _item_levels(it: dict) -> tuple[dict, float | None, float | None, str | None]:
-    """Return (levels, payable, list, level_used).  All values copied, never computed.
+    """Return (levels, payable, list, level_used).
+
+    ``list_price`` and ``price_levels`` are COPIED verbatim from the
+    payload.  ``payable`` and ``level_used`` are DERIVED by the rule
+    documented below (the payload has no field for either), and a value
+    the payload omits stays ``None`` — never 0.
 
     The platform numbers a required "Deine Größe" (PriceLevelEnum) addon by its
     option order: ``orderBy 1 -> priceLevel1``, ``orderBy 2 -> priceLevel2``, and
@@ -782,7 +787,28 @@ def verify_rendered(venue: dict, path: Path) -> int:
     return 1 if (mism or checked < 100) else 0
 
 
+def _r2_regression() -> None:
+    """Review r2 (PR#2): a null discounted price must never read as a real 0.0.
+
+    This is the reviewer's own counterexample, kept as a regression: the venue
+    page pre-selects the lowest defined level, so a pizza priced only in
+    `priceLevel1` with no discount must publish 12.50, not "free".
+    """
+    levels, payable, list_price, level = _item_levels({
+        "priceLevel1": 12.50, "discountedPriceLevel1": None,
+        "priceLevel2": None, "price": None, "discountedPrice": None,
+    })
+    assert payable == 12.50, f"null discounted price became {payable!r}"
+    assert list_price == 12.50, f"list price lost: {list_price!r}"
+    assert level == "size1", level
+    assert levels["size1"]["discounted"] is None, levels
+    assert _number(None) is None, "None must not coerce to a number"
+    assert _number("12.50") == 12.5, "numeric-string prices must coerce"
+    print("R2 REVIEW REGRESSION OK")
+
+
 def selftest(venue: dict, raw: dict) -> None:
+    _r2_regression()
     blob2 = (json.dumps(build_venue(copy.deepcopy(raw), HERE / "evidence" / "raw"),
                         ensure_ascii=False, indent=2, sort_keys=True) + "\n").encode("utf-8")
     blob1 = (json.dumps(venue, ensure_ascii=False, indent=2, sort_keys=True) + "\n").encode("utf-8")
