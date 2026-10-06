@@ -48,11 +48,22 @@ export interface VenueRecord {
     };
     dietary_attributes?: string[];
     order_methods?: string[];
+    /** the adapter's own availability facts, not just the summary method list */
+    pickup?: { available?: boolean; estimated_minutes?: number; [k: string]: unknown };
+    delivery?: { available?: boolean; [k: string]: unknown };
+    /** what the venue itself accepts — recorded or explicitly absent, never guessed */
+    settlement?: SettlementFacts | null;
     [k: string]: unknown;
   };
   menu?: {
     currency?: string;
-    items?: Array<{ price?: number; [k: string]: unknown }>;
+    items?: Array<{
+      price?: number;
+      /** per-fulfilment-method price columns (delivery/pickup/dine_in/…) */
+      prices_by_order_method?: Record<string, number>;
+      service_method?: string;
+      [k: string]: unknown;
+    }>;
     [k: string]: unknown;
   };
   [k: string]: unknown;
@@ -65,12 +76,69 @@ const CUISINE_TAGS: Record<string, string[]> = {
 };
 
 /**
- * The fields the venue's own flow collects. Both venues offer delivery, so the
- * deep-link asks for a delivery address (fulfilment) and a phone (contact).
- * A name is requested for the order but is not strictly gating (optional).
+ * The fulfilment methods the venue actually offers: the adapter's summary list,
+ * plus anything its own `pickup`/`delivery` availability flags claim that the
+ * summary missed. Only the three methods the register names are legal here.
  */
-const REQUIRED_FIELDS = ["ship.address", "contact.phone"];
-const OPTIONAL_FIELDS = ["contact.name", "order.notes"];
+export function fulfilmentMethods(v: VenueRecord): string[] {
+  const out: string[] = [];
+  for (const m of v.venue?.order_methods ?? []) {
+    if ((m === "pickup" || m === "delivery" || m === "dine_in") && !out.includes(m)) out.push(m);
+  }
+  if (!out.includes("pickup") && v.venue?.pickup?.available === true) out.push("pickup");
+  if (!out.includes("delivery") && v.venue?.delivery?.available === true) out.push("delivery");
+  return out;
+}
+
+/**
+ * The fields the venue's own flow requires — decided PER VENUE, because the
+ * honest answer depends on which methods it offers.
+ *
+ * `order.fulfilment` is required: the customer must choose pickup or delivery,
+ * and that choice decides whether an address is needed at all (and, at these
+ * venues, which price column applies).
+ *
+ * `ship.address` is required only when the venue delivers and can do nothing
+ * else. Declaring it for a venue that also does pickup is a false claim about the
+ * appetite — register rule 2 forbids it, and it tells every pickup customer they
+ * must hand over an address they never need. (Fixed 2026-10-06: both venues here
+ * offer pickup, and both announcements claimed a required address.)
+ *
+ * `contact.phone` stays required: both venues' rails ask for a number to reach
+ * the customer — a driver or the counter calling the order.
+ *
+ * The register is a flat AND list, so "address, but only when delivery" cannot be
+ * expressed in tags. The honest encoding is an optional field plus the condition
+ * written out in the content's `fulfilment.method_condition`.
+ */
+type SettlementFacts = { rail?: string; currency?: string; tax?: string; cvm_cap?: number | null; [k: string]: unknown };
+
+/**
+/**
+ * The venue's own settlement block, as the adapter recorded it from the venue's
+ * own storefront. Nullable on purpose: when nothing was recorded we say so rather
+ * than name a rail the user would go on to rely on.
+ */
+export function settlementOf(v: VenueRecord): SettlementFacts | null {
+  const s = v.venue?.settlement;
+  return s && typeof s === "object" ? s : null;
+}
+
+/** Required: fulfilment is the choice; an address only when the venue only delivers. */
+export function requiredFields(v: VenueRecord): string[] {
+  const methods = fulfilmentMethods(v);
+  const deliveryOnly = methods.includes("delivery") && !methods.includes("pickup");
+  return deliveryOnly
+    ? ["order.fulfilment", "ship.address", "contact.phone"]
+    : ["order.fulfilment", "contact.phone"];
+}
+
+/** Accepted but not required: the address is here because delivery may be chosen. */
+export function optionalFields(v: VenueRecord): string[] {
+  const methods = fulfilmentMethods(v);
+  const deliveryOnly = methods.includes("delivery") && !methods.includes("pickup");
+  return deliveryOnly ? ["contact.name", "order.notes"] : ["ship.address", "contact.name", "order.notes"];
+}
 
 export interface VenueAnnouncement {
   input: AnnounceInput;
@@ -141,13 +209,15 @@ export function venueToAnnouncement(v: VenueRecord): VenueAnnouncement {
   }
 
   const humanTags = ["berlin", ...(CUISINE_TAGS[v.slug] ?? [])];
+  const methods = fulfilmentMethods(v);
+  const deliveryOnly = methods.includes("delivery") && !methods.includes("pickup");
 
   const input: AnnounceInput = {
     serviceClass: "restaurant",
     d: v.slug,
     geohashes: geohashesFor(lat, lon),
-    required: REQUIRED_FIELDS,
-    optional: OPTIONAL_FIELDS,
+    required: requiredFields(v),
+    optional: optionalFields(v),
     tools: buildTools(),
     urls: [deepLink],
     humanTags,
@@ -157,14 +227,41 @@ export function venueToAnnouncement(v: VenueRecord): VenueAnnouncement {
   // announcement must not become a 200KB menu dump (P3: generated from the
   // same source, i.e. this venue.json, but the catalogue is the rail's job).
   const items = v.menu?.items ?? [];
-  const priced = items.filter((i) => typeof i?.price === "number" && Number.isFinite(i.price));
-  const prices = priced.map((i) => i.price as number);
+  const numeric = (n: unknown): n is number => typeof n === "number" && Number.isFinite(n);
+  const prices = items.filter((i) => numeric(i?.price)).map((i) => i.price as number);
+  // What you pay depends on the fulfilment method: 72 of 76 doppelt items are
+  // cheaper on pickup (Cheeseburger 8.90 pickup vs 9.50 delivery). The item's own
+  // `price` is one column of that table, so quoting min/max from it alone would
+  // hand every pickup customer the delivery price. Publish the table as well.
+  const byMethod: Record<string, number[]> = {};
+  for (const i of items) {
+    const cols = i?.prices_by_order_method;
+    if (cols && typeof cols === "object") {
+      for (const [m, p] of Object.entries(cols)) if (numeric(p)) (byMethod[m] ??= []).push(p);
+    } else if (typeof i?.service_method === "string" && numeric(i?.price)) {
+      (byMethod[i.service_method] ??= []).push(i.price as number);
+    }
+  }
+  const pricedMethods = Object.fromEntries(
+    Object.entries(byMethod)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([m, ps]) => [m, {
+        count: ps.length,
+        currency,
+        min_price: Math.min(...ps),
+        max_price: Math.max(...ps),
+      }]),
+  );
   const menuSummary = {
     item_count: items.length,
     priced_count: prices.length,
     currency,
     min_price: prices.length ? Math.min(...prices) : null,
     max_price: prices.length ? Math.max(...prices) : null,
+    prices_by_method: pricedMethods,
+    price_basis: Object.keys(pricedMethods).length
+      ? "min_price/max_price are the item's own price column; prices_by_method carries what each fulfilment method actually pays"
+      : "min_price/max_price are the item's own price column (this venue publishes no per-method prices)",
   };
 
   const content = {
@@ -182,6 +279,23 @@ export function venueToAnnouncement(v: VenueRecord): VenueAnnouncement {
       primary_url: deepLink,
       order_methods: v.venue?.order_methods ?? [],
     },
+    fulfilment: {
+      methods,
+      pickup: v.venue?.pickup ?? null,
+      delivery: v.venue?.delivery
+        ? {
+          available: v.venue.delivery.available ?? null,
+          areas_named: (v.venue.delivery as { areas_named?: string[] }).areas_named ?? null,
+          areas_note: (v.venue.delivery as { area_note?: string }).area_note ?? null,
+        }
+        : null,
+      // The register is a flat AND list and cannot say "address, but only when
+      // delivery". So the condition is stated here, in words, for the reader.
+      method_condition: deliveryOnly
+        ? "ship.address is required: this venue delivers only."
+        : "ship.address is required for a DELIVERY order only; a PICKUP order needs no address " +
+          "(the venue's own page asks for the address when delivery is chosen).",
+    },
     tools: [
       {
         name: "order",
@@ -189,7 +303,17 @@ export function venueToAnnouncement(v: VenueRecord): VenueAnnouncement {
         inputSchema: { type: "object", properties: {}, additionalProperties: false },
       },
     ],
-    settlement: "venue-rail (ADR-0001 D5)",
+    settlement: {
+      settles: "venue's own rail (ADR-0001 D5): this CVM takes no payment",
+      rail: settlementOf(v)?.rail ?? null,
+      currency,
+      tax: settlementOf(v)?.tax ?? null,
+      cvm_cap_sats: settlementOf(v)?.cvm_cap ?? 0,
+      recorded: settlementOf(v) !== null,
+      note: settlementOf(v) === null
+        ? "the adapter recorded no settlement block for this venue; the venue's own page shows what it accepts"
+        : "rail as recorded from the venue's own storefront",
+    },
   };
 
   return { input, content, deepLink, humanTags };

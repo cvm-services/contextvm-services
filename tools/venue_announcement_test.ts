@@ -127,8 +127,13 @@ Deno.test("exactly one cap per tool, and the flow's required fields are declared
     assertEquals(caps.length, Object.keys(input.tools ?? {}).length, `${slug}: one cap per tool`);
     assertEquals(caps[0][1], "tool:order", `${slug}: the order tool`);
 
-    // the FLOW asks for a delivery address + phone (both venues deliver)
-    assert((input.required ?? []).includes("ship.address"), `${slug}: ship.address required`);
+    // Both venues ALSO do pickup, so the address is an accepted field, not a
+    // requirement: the customer picks fulfilment first and only a delivery order
+    // needs an address. Fixed 2026-10-06 — the assertion that used to live here
+    // (`ship.address required`) encoded a false claim about the appetite.
+    assert(!(input.required ?? []).includes("ship.address"), `${slug}: no required address`);
+    assert((input.optional ?? []).includes("ship.address"), `${slug}: address accepted`);
+    assert((input.required ?? []).includes("order.fulfilment"), `${slug}: fulfilment is the choice`);
     assert((input.required ?? []).includes("contact.phone"), `${slug}: contact.phone required`);
     // the deep-link is carried as `r`
     assert((input.urls ?? []).length >= 1, `${slug}: has a deep-link r`);
@@ -157,6 +162,107 @@ Deno.test("--dry-run output is byte-stable across runs (same sha256)", async () 
     const h2 = await sha256(await dryRunJson(slug));
     assertEquals(h1, h2, `${slug}: dry-run sha256 stable`);
   }
+});
+
+// --- fulfilment methods and the price they imply (2026-10-06) -------------
+//
+// Both venues offer pickup AND delivery. The announcement used to require
+// `ship.address` unconditionally, which is false for a pickup order and inflates
+// the declared appetite (register rule 2). The price list has the same shape of
+// problem: 72 of 76 doppelt items are CHEAPER on pickup (Cheeseburger: 8.90
+// pickup vs 9.50 delivery), so a single min/max taken from `price` silently
+// reports the delivery column.
+
+Deno.test("RED: a pickup-capable venue declares no required address", async () => {
+  for (const slug of [DOPPELT, PIZZA]) {
+    const v = await loadVenue(slug);
+    assert(
+      (v.venue.order_methods ?? []).includes("pickup"),
+      `${slug}: fixture is pickup-capable (venue.json says so)`,
+    );
+    const { input } = venueToAnnouncement(v);
+    const tags = emitAnnouncementTags(input, VOCAB).tags;
+    const req = tags.filter((t) => t[0] === "t" && t[1].startsWith("cvm:req:")).map((t) => t[1]);
+    const opt = tags.filter((t) => t[0] === "t" && t[1].startsWith("cvm:opt:")).map((t) => t[1]);
+    assert(!req.includes("cvm:req:ship.address"), `${slug}: no required address, got ${JSON.stringify(req)}`);
+    assert(opt.includes("cvm:opt:ship.address"), `${slug}: the address is accepted (delivery only)`);
+    assert(req.includes("cvm:req:order.fulfilment"), `${slug}: pickup-vs-delivery is the choice`);
+  }
+});
+
+Deno.test("RED: a delivery-only venue still requires an address (the rule is per venue)", () => {
+  const deliveryOnly = {
+    slug: "only-delivery",
+    venue: {
+      name: "Only Delivery",
+      order_methods: ["delivery"],
+      website: "https://only-delivery.example",
+      address: { lat: 52.5, lon: 13.4 },
+      ordering: { primary_url: "https://only-delivery.example/order" },
+    },
+  } as VenueRecord;
+  const { input } = venueToAnnouncement(deliveryOnly);
+  assert(
+    (input.required ?? []).includes("ship.address"),
+    "a delivery-only venue keeps ship.address required",
+  );
+  assert(
+    !(input.optional ?? []).includes("ship.address"),
+    "...and does not also list the same field as optional",
+  );
+});
+
+Deno.test("RED: the advertised price names the fulfilment method it belongs to", async () => {
+  const v = await loadVenue(DOPPELT);
+  const menu = (venueToAnnouncement(v).content as { menu: Record<string, unknown> }).menu;
+  const byMethod = menu.prices_by_method as Record<string, { min_price: number; max_price: number; count: number }>;
+  assert(byMethod?.pickup && byMethod?.delivery, "both methods are priced separately");
+  assert(
+    byMethod.pickup.max_price < byMethod.delivery.max_price,
+    `pickup is cheaper here (doppelt: 72/76 items) — got ${byMethod.pickup.max_price} vs ${byMethod.delivery.max_price}`,
+  );
+  assert(
+    typeof menu.price_basis === "string" && (menu.price_basis as string).length > 10,
+    "the announcement says what its headline min/max means",
+  );
+});
+
+Deno.test("RED: the announcement states the methods it offers and the pickup wait", async () => {
+  interface FulfilmentContent {
+    methods: string[];
+    pickup?: { available?: boolean; estimated_minutes?: number };
+    delivery?: { available?: boolean } | null;
+    method_condition: string;
+  }
+  for (const slug of [DOPPELT, PIZZA]) {
+    const v = await loadVenue(slug);
+    const content = venueToAnnouncement(v).content as { fulfilment: FulfilmentContent };
+    const f = content.fulfilment;
+    assert(f.methods.includes("pickup") && f.methods.includes("delivery"), `${slug}: methods declared`);
+    assert(
+      typeof f.pickup?.estimated_minutes === "number",
+      `${slug}: the pickup wait is carried through (venue.json has it, the wire did not)`,
+    );
+    // the condition the flat AND register cannot express must be written out
+    assert(
+      /address/i.test(f.method_condition) && /(pickup|delivery)/i.test(f.method_condition),
+      `${slug}: says when an address is needed`,
+    );
+  }
+});
+
+Deno.test("RED: the rail is the venue's own, and no Lightning claim is made", async () => {
+  for (const slug of [DOPPELT, PIZZA]) {
+    const v = await loadVenue(slug);
+    const c = JSON.stringify(venueToAnnouncement(v).content);
+    assert(/venue's own rail/.test(c), `${slug}: says who settles`);
+    assert(!/bitcoin-lightning-bolt11|bolt11/i.test(c), `${slug}: no Lightning claim`);
+  }
+  const d = await loadVenue(DOPPELT);
+  assert(
+    /adyen|stripe|paypal|cash/i.test(JSON.stringify(venueToAnnouncement(d).content)),
+    "doppelt: the adapter-recorded rail is carried through",
+  );
 });
 
 Deno.test("geohash: reference point and invalid inputs", () => {

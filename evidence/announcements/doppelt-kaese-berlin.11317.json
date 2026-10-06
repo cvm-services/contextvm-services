@@ -24,7 +24,7 @@
     ],
     [
       "t",
-      "cvm:req:ship.address"
+      "cvm:req:order.fulfilment"
     ],
     [
       "t",
@@ -33,6 +33,10 @@
     [
       "t",
       "cvm:opt:order.notes"
+    ],
+    [
+      "t",
+      "cvm:opt:ship.address"
     ],
     [
       "t",
