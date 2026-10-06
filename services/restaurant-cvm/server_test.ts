@@ -264,3 +264,114 @@ Deno.test("menu filter by venue_slug returns only that venue", async () => {
     throw new Error(`expected 76 doppelt items, got ${payload.total_items}`);
   }
 });
+
+// ---------------------------------------------------------------------------
+// Ambiguous skus. Pizza lists three skus whose items are DISTINCT products, and
+// sku 36's two items have different prices (Bionade 3.60 / Vitamalz 2.70). A
+// basket that resolves "36" to whichever came first quotes one product's price
+// for the other, so the sku must be refused and the venue item id offered.
+// ---------------------------------------------------------------------------
+
+Deno.test("RED: an ambiguous sku fails loud and names the colliding item ids", async () => {
+  await setup();
+  const res = handleToolCall(index, "order", {
+    venue_slug: "pizza-e-pasta-ruedesheimerplatz",
+    items: [{ sku: "36", qty: 1 }],
+    fulfilment: "pickup",
+    when: "asap",
+  });
+  if (!res.isError) {
+    throw new Error("ambiguous sku 36 must fail loud, not resolve to a product");
+  }
+  const err = JSON.parse(res.content[0].text).error as string;
+  if (!/ambiguous sku: 36/.test(err)) {
+    throw new Error(`expected 'ambiguous sku: 36', got ${err}`);
+  }
+  if (!/6943935/.test(err) || !/6943943/.test(err)) {
+    throw new Error(`error must name both colliding ids, got ${err}`);
+  }
+  if (!/Bionade/.test(err) || !/Vitamalz/.test(err)) {
+    throw new Error(`error must name both products, got ${err}`);
+  }
+});
+
+Deno.test("RED: an ambiguous item is orderable by its venue item id", async () => {
+  await setup();
+  const res = handleToolCall(index, "order", {
+    venue_slug: "pizza-e-pasta-ruedesheimerplatz",
+    items: [{ id: "6943943", qty: 1 }],
+    fulfilment: "pickup",
+    when: "asap",
+  });
+  if (res.isError) throw new Error(`ordering by id should succeed: ${res.content[0].text}`);
+  const payload = JSON.parse(res.content[0].text);
+  const line = payload.lines[0];
+  if (line.id !== "6943943") {
+    throw new Error(`expected line id 6943943, got ${line.id}`);
+  }
+  if (!/Vitamalz/.test(line.name)) {
+    throw new Error(`expected Vitamalz (id 6943943), got ${line.name}`);
+  }
+  if (line.unit_price !== 2.7) {
+    throw new Error(`expected the 2.70 Vitamalz price, got ${line.unit_price}`);
+  }
+});
+
+Deno.test("RED: menu exposes the venue item id, so an ambiguous sku is resolvable", async () => {
+  await setup();
+  const res = handleToolCall(index, "menu", { venue_slug: "pizza-e-pasta-ruedesheimerplatz" });
+  const payload = JSON.parse(res.content[0].text);
+  const items = payload.venues[0].items as Array<Record<string, unknown>>;
+  const missing = items.filter((it) => typeof it.id !== "string" || !it.id);
+  if (missing.length > 0) {
+    throw new Error(`${missing.length} menu items expose no id — a colliding sku is then unusable`);
+  }
+  const thirtySix = items.filter((it) => it.sku === "36");
+  if (thirtySix.length !== 2) {
+    throw new Error(`expected 2 items at sku 36, got ${thirtySix.length}`);
+  }
+  if (new Set(thirtySix.map((it) => it.id)).size !== 2) {
+    throw new Error("sku 36 must expose two DISTINCT ids, otherwise it cannot be disambiguated");
+  }
+});
+
+Deno.test("RED: an item naming both sku and id, or neither, fails loud", async () => {
+  await setup();
+  const base = { venue_slug: "doppelt-kaese-berlin", fulfilment: "pickup", when: "asap" };
+  const both = handleToolCall(index, "order", {
+    ...base,
+    items: [{ sku: "331227", id: "1", qty: 1 }],
+  });
+  if (!both.isError) throw new Error("naming both sku and id must fail");
+  const neither = handleToolCall(index, "order", { ...base, items: [{ qty: 1 }] });
+  if (!neither.isError) throw new Error("an item with neither sku nor id must fail");
+  const badId = handleToolCall(index, "order", { ...base, items: [{ id: "NOPE", qty: 1 }] });
+  if (!badId.isError) throw new Error("an unknown item id must fail");
+  if (!/unknown item id/i.test(JSON.parse(badId.content[0].text).error)) {
+    throw new Error("an unknown item id must say so");
+  }
+});
+
+Deno.test("RED: pizza is priced only for pickup, and a delivery line says so", async () => {
+  await setup();
+  const res = handleToolCall(index, "order", {
+    venue_slug: "pizza-e-pasta-ruedesheimerplatz",
+    items: [{ id: "6943943", qty: 2 }],
+    fulfilment: "delivery",
+    when: "asap",
+    ship: { address: { street: "Teststr. 1", city: "Berlin", postal_code: "10115", country: "DE" } },
+  });
+  if (res.isError) throw new Error(`pizza delivery basket should build: ${res.content[0].text}`);
+  const line = JSON.parse(res.content[0].text).lines[0];
+  if (typeof line.unit_price !== "number" || line.unit_price <= 0) {
+    throw new Error(`a pizza line must never be free/absent, got ${line.unit_price}`);
+  }
+  if (line.method_used !== "pickup") {
+    throw new Error(`expected the pickup price to be reused, got ${line.method_used}`);
+  }
+  if (!line.price_note || !/delivery price not published/.test(line.price_note)) {
+    throw new Error(
+      `a delivery line priced from pickup must carry the note, got ${line.price_note}`,
+    );
+  }
+});

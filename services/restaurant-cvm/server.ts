@@ -21,6 +21,8 @@ import { Relay } from "npm:nostr-tools/relay";
 
 export interface MenuItem {
   venue_slug: string;
+  /** The venue's own item id — unique where a sku is not (pizza collides on 36/110/44). */
+  id: string;
   sku: string;
   name: string;
   prices_by_order_method: Record<string, number>;
@@ -40,7 +42,9 @@ export interface Venue {
 }
 
 interface OrderLine {
-  sku: string;
+  /** Exactly one of sku / id identifies the item; a colliding sku must become an id. */
+  sku?: string;
+  id?: string;
   qty: number;
   options?: Record<string, unknown>;
 }
@@ -132,6 +136,7 @@ export async function loadVenues(): Promise<Venue[]> {
 
       return {
         venue_slug: slug,
+        id: String(it.id ?? ""),
         sku: String(it.sku ?? ""),
         name: String(it.name ?? ""),
         prices_by_order_method: prices,
@@ -171,26 +176,46 @@ function fulfilmentMethods(methods: unknown[]): string[] {
 
 export type VenueIndex = {
   venues: Venue[];
+  /** sku -> item, for skus that identify exactly ONE item. Colliding skus are absent. */
   byVenueSku: Map<string, Map<string, MenuItem>>;
+  /** venue item id -> item. The only reference that survives a colliding sku. */
+  byVenueId: Map<string, Map<string, MenuItem>>;
+  /** sku -> every item carrying it, for the skus that collide. */
+  ambiguousSkus: Map<string, Map<string, MenuItem[]>>;
   allItems: MenuItem[];
 };
 
 export async function buildIndex(): Promise<VenueIndex> {
   const venues = await loadVenues();
   const byVenueSku = new Map<string, Map<string, MenuItem>>();
+  const byVenueId = new Map<string, Map<string, MenuItem>>();
+  const ambiguousSkus = new Map<string, Map<string, MenuItem[]>>();
   const allItems: MenuItem[] = [];
   for (const v of venues) {
-    const map = new Map<string, MenuItem>();
+    // Pizza has three skus (36, 110, 44) that carry DISTINCT products, and sku 36's two
+    // items have different prices (Bionade 3.60 / Vitamalz 2.70). Indexing such a sku by
+    // "first one wins" silently quotes one product's price for the other, so a colliding
+    // sku is NOT indexed at all: the order tool refuses it and asks for the item id.
+    const groups = new Map<string, MenuItem[]>();
+    const ids = new Map<string, MenuItem>();
     for (const it of v.items) {
-      // Pizza venue has duplicate skus (e.g. 110, 36, 44) for distinct items.
-      // The menu keeps all of them; the first occurrence is what an order by
-      // sku resolves to. This matches the venue's own data shape.
-      if (!map.has(it.sku)) map.set(it.sku, it);
+      if (it.id) ids.set(it.id, it);
+      const g = groups.get(it.sku);
+      if (g) g.push(it);
+      else groups.set(it.sku, [it]);
       allItems.push(it);
     }
-    byVenueSku.set(v.slug, map);
+    const bySku = new Map<string, MenuItem>();
+    const collisions = new Map<string, MenuItem[]>();
+    for (const [sku, group] of groups) {
+      if (group.length === 1) bySku.set(sku, group[0]);
+      else collisions.set(sku, group);
+    }
+    byVenueSku.set(v.slug, bySku);
+    byVenueId.set(v.slug, ids);
+    ambiguousSkus.set(v.slug, collisions);
   }
-  return { venues, byVenueSku, allItems };
+  return { venues, byVenueSku, byVenueId, ambiguousSkus, allItems };
 }
 
 // =====================================================================
@@ -222,15 +247,24 @@ export const TOOL_DEFS: McpToolDef[] = [
       properties: {
         items: {
           type: "array",
-          description: "Basket lines: {sku, qty, options?}",
+          description:
+            "Basket lines. Identify each item by `sku` or by the venue's `id` — exactly one. A sku matching more than one item (pizza: 36, 110, 44) is refused; pass `id` there.",
           items: {
             type: "object",
             properties: {
-              sku: { type: "string" },
+              sku: {
+                type: "string",
+                description:
+                  "Venue sku. Refused when it identifies more than one item — use `id` instead.",
+              },
+              id: {
+                type: "string",
+                description: "The venue's own item id, unique where a sku is not.",
+              },
               qty: { type: "integer", minimum: 1 },
               options: { type: "object" },
             },
-            required: ["sku", "qty"],
+            required: ["qty"],
             additionalProperties: false,
           },
         },
@@ -336,6 +370,7 @@ function handleMenu(index: VenueIndex, args: Record<string, unknown>): McpToolRe
     currency: v.currency,
     item_count: v.items.length,
     items: v.items.map((it) => ({
+      id: it.id,
       sku: it.sku,
       name: it.name,
       prices_by_order_method: it.prices_by_order_method,
@@ -380,8 +415,11 @@ function handleOrder(index: VenueIndex, args: Record<string, unknown>): McpToolR
   if (!bySku) {
     return toolError(`internal error: no sku index for venue ${venueSlug}`);
   }
+  const byId = index.byVenueId.get(venueSlug) ?? new Map<string, MenuItem>();
+  const collisions = index.ambiguousSkus.get(venueSlug) ?? new Map<string, MenuItem[]>();
 
   const lines: {
+    id: string;
     sku: string;
     name: string;
     qty: number;
@@ -396,19 +434,38 @@ function handleOrder(index: VenueIndex, args: Record<string, unknown>): McpToolR
 
   for (const raw of itemsRaw) {
     const line = raw as Record<string, unknown>;
-    const sku = String(line.sku ?? "");
-    const item = bySku.get(sku);
-    if (!item) {
-      return toolError(`unknown sku: ${sku}`);
+    const sku = line.sku === undefined || line.sku === null ? "" : String(line.sku);
+    const id = line.id === undefined || line.id === null ? "" : String(line.id);
+    if (sku && id) {
+      return toolError(`item names both sku '${sku}' and id '${id}' — pass exactly one`);
+    }
+    if (!sku && !id) {
+      return toolError("each order item needs a sku or a venue item id");
+    }
+    let item: MenuItem | undefined;
+    if (id) {
+      item = byId.get(id);
+      if (!item) return toolError(`unknown item id: ${id} in venue ${venueSlug}`);
+    } else {
+      const colliding = collisions.get(sku);
+      if (colliding) {
+        const choices = colliding.map((i) => `${i.id} (${i.name})`).join(", ");
+        return toolError(
+          `ambiguous sku: ${sku} matches ${colliding.length} items — pass the venue item id: ${choices}`,
+        );
+      }
+      item = bySku.get(sku);
+      if (!item) return toolError(`unknown sku: ${sku}`);
     }
     const qty = Number(line.qty ?? 1);
     if (!Number.isInteger(qty) || qty < 1) {
-      return toolError(`invalid qty for sku ${sku}: ${qty}`);
+      return toolError(`invalid qty for sku ${item.sku}: ${qty}`);
     }
     const { price, method_used, note } = priceForMethod(item, fulfilment);
     const lineTotal = Math.round(price * qty * 100) / 100;
     lines.push({
-      sku,
+      id: item.id,
+      sku: item.sku,
       name: item.name,
       qty,
       unit_price: price,
