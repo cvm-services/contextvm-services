@@ -281,10 +281,6 @@ def _schedule(rows) -> list[dict]:
     return sorted(out, key=lambda r: (r["day"] if r["day"] is not None else 99))
 
 
-def _num(v):
-    return v if isinstance(v, (int, float)) and not isinstance(v, bool) else None
-
-
 def _number(v):
     """Coerce int/float/numeric-string to float, else None (venue API mixes both)."""
     if isinstance(v, bool) or v is None:
@@ -295,19 +291,48 @@ def _number(v):
         return None
 
 
+def _r1_regression() -> None:
+    """Review r1 (PR#1): numeric-string prices survive; an absent value stays absent.
+
+    Locks the fix for `_num`, which accepted only int/float and therefore threw
+    away every string-valued price the source publishes.
+    """
+    item = build_item("42", {"id": 42, "name": "Käsebrot", "base_price": "7.90",
+                             "is_available": True}, True)
+    assert item["price"] == 7.9, f"numeric-string price dropped: {item['price']!r}"
+    absent = build_item("43", {"id": 43, "name": "X", "is_available": True}, True)
+    assert absent["price"] is None, f"absent price fabricated: {absent['price']!r}"
+    zero = build_item("44", {"id": 44, "name": "Y", "base_price": 0}, True)
+    assert zero["price"] == 0, "an explicit 0 in the source is data, not absence"
+    unknown = build_item("45", {"id": 45, "name": "Z"}, True)
+    assert unknown["available"] is None, "an absent flag is UNKNOWN, not False"
+    grp = build_option_group(
+        "g", {"id": "g", "modifier_ids": [{"id": 7, "type": "modifier"}]},
+        {"7": {"name": "extra", "base_price": "1.50", "is_available": True}},
+    )
+    assert grp["options"][0]["price"] == 1.5, "option price string dropped"
+    bym = build_item("46", {"id": 46, "name": "W", "base_price": 1.0,
+                            "order_method_prices": {"delivery": "9.90",
+                                                    "pickup": None}}, True)
+    assert bym["prices_by_order_method"] == {"delivery": 9.9}, bym["prices_by_order_method"]
+    print("R1 REVIEW REGRESSION OK")
+
+
 def build_item(pid: str, p: dict, listed: bool) -> dict:
     nut = p.get("nutrition_info") or {}
     item = {
         "sku": str(p.get("id", pid)),
         "name": p.get("name"),
         "description": p.get("description") or None,
-        "price": _num(p.get("base_price")),
+        "price": _number(p.get("base_price")),
         "currency": None,  # filled by caller
+        # the venue API mixes 7.9 and "7.90": numeric strings are prices
+        # too, and an unparseable value is DROPPED, never published as 0.
         "prices_by_order_method": {
-            k: v for k, v in (p.get("order_method_prices") or {}).items()
-            if isinstance(v, (int, float))
+            k: n for k, v in (p.get("order_method_prices") or {}).items()
+            if (n := _number(v)) is not None
         },
-        "available": bool(p.get("is_available")),
+        "available": None if p.get("is_available") is None else bool(p.get("is_available")),
         "listed_in_menu": listed,
         "section_ids": [str(c) for c in (p.get("category_ids") or [])],
         "option_group_ids": [str(g) for g in (p.get("modifier_group_ids") or [])],
@@ -334,8 +359,8 @@ def build_option_group(gid: str, g: dict, modifiers: dict) -> dict:
             opts.append({
                 "id": ref_id,
                 "name": m.get("name"),
-                "price": _num(m.get("base_price")),
-                "available": bool(m.get("is_available")),
+                "price": _number(m.get("base_price")),
+                "available": None if m.get("is_available") is None else bool(m.get("is_available")),
             })
         else:  # cross-sell reference to another product
             opts.append({"id": ref_id, "type": "product_ref"})
@@ -409,8 +434,8 @@ def build_venue(store, company, menus, raw_dir: Path) -> dict:
             "quarter": sdata.get("quarter"),
             "state": cdata.get("state"),
             "country": cdata.get("country") or sdata.get("country"),
-            "lat": _num(cdata.get("lat")) if cdata.get("lat") is not None else _num(location.get("lat")),
-            "lon": _num(cdata.get("lon")) if cdata.get("lon") is not None else _num(location.get("lon")),
+            "lat": _number(cdata.get("lat")) if cdata.get("lat") is not None else _number(location.get("lat")),
+            "lon": _number(cdata.get("lon")) if cdata.get("lon") is not None else _number(location.get("lon")),
         },
         "timezone": cdata.get("timezone") or sdata.get("timezone"),
         "currency": currency,
@@ -623,6 +648,7 @@ def run(args) -> int:
     digest = sha256_hex(blob)
 
     if args.selftest:
+        _r1_regression()
         blob2 = (json.dumps(build_venue(*[json.loads(json.dumps(x)) for x in (store, company, menus)],
                                        raw_dir),
                             ensure_ascii=False, indent=2, sort_keys=True) + "\n").encode("utf-8")

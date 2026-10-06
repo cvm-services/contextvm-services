@@ -233,12 +233,12 @@
         "listed_in_menu": true,
         "name": "Sweet Dreams",
         "option_group_ids": [],
-        "price": 8,
+        "price": 8.0,
         "prices_by_order_method": {
-          "delivery": 8,
-          "dine_in": 8,
+          "delivery": 8.0,
+          "dine_in": 8.0,
           "pickup": 7.2,
-          "room_service": 8
+          "room_service": 8.0
         },
         "section_ids": [
           "73125",
@@ -688,7 +688,7 @@
         "prices_by_order_method": {
           "delivery": 6.5,
           "dine_in": 6.5,
-          "pickup": 6,
+          "pickup": 6.0,
           "room_service": 6.5
         },
         "section_ids": [
@@ -709,12 +709,12 @@
         "listed_in_menu": true,
         "name": "Chicken Wings 9 Stück",
         "option_group_ids": [],
-        "price": 9,
+        "price": 9.0,
         "prices_by_order_method": {
-          "delivery": 9,
-          "dine_in": 9,
+          "delivery": 9.0,
+          "dine_in": 9.0,
           "pickup": 8.5,
-          "room_service": 9
+          "room_service": 9.0
         },
         "section_ids": [
           "43369"
@@ -734,12 +734,12 @@
         "listed_in_menu": true,
         "name": "Chicken Wings 12 Stück",
         "option_group_ids": [],
-        "price": 11,
+        "price": 11.0,
         "prices_by_order_method": {
-          "delivery": 11,
-          "dine_in": 11,
+          "delivery": 11.0,
+          "dine_in": 11.0,
           "pickup": 10.5,
-          "room_service": 11
+          "room_service": 11.0
         },
         "section_ids": [
           "43369"
@@ -768,7 +768,7 @@
         "prices_by_order_method": {
           "delivery": 9.9,
           "dine_in": 9.9,
-          "pickup": 9,
+          "pickup": 9.0,
           "room_service": 9.9
         },
         "section_ids": [
@@ -797,7 +797,7 @@
         "prices_by_order_method": {
           "delivery": 11.9,
           "dine_in": 11.9,
-          "pickup": 11,
+          "pickup": 11.0,
           "room_service": 11.9
         },
         "section_ids": [
@@ -822,12 +822,12 @@
         "listed_in_menu": true,
         "name": "Onion Rings 6 Stück",
         "option_group_ids": [],
-        "price": 7,
+        "price": 7.0,
         "prices_by_order_method": {
-          "delivery": 7,
-          "dine_in": 7,
+          "delivery": 7.0,
+          "dine_in": 7.0,
           "pickup": 6.3,
-          "room_service": 7
+          "room_service": 7.0
         },
         "section_ids": [
           "43369"
@@ -854,7 +854,7 @@
         "prices_by_order_method": {
           "delivery": 9.5,
           "dine_in": 9.5,
-          "pickup": 9,
+          "pickup": 9.0,
           "room_service": 9.5
         },
         "section_ids": [
@@ -878,12 +878,12 @@
         "listed_in_menu": true,
         "name": "Onion Rings 18 Stück",
         "option_group_ids": [],
-        "price": 13,
+        "price": 13.0,
         "prices_by_order_method": {
-          "delivery": 13,
-          "dine_in": 13,
+          "delivery": 13.0,
+          "dine_in": 13.0,
           "pickup": 12.5,
-          "room_service": 13
+          "room_service": 13.0
         },
         "section_ids": [
           "43369"
@@ -933,12 +933,12 @@
         "listed_in_menu": true,
         "name": "Caesar-Salat",
         "option_group_ids": [],
-        "price": 9,
+        "price": 9.0,
         "prices_by_order_method": {
-          "delivery": 9,
-          "dine_in": 9,
+          "delivery": 9.0,
+          "dine_in": 9.0,
           "pickup": 8.1,
-          "room_service": 9
+          "room_service": 9.0
         },
         "section_ids": [
           "43370"
@@ -1145,12 +1145,12 @@
         "listed_in_menu": true,
         "name": "Burgersoße",
         "option_group_ids": [],
-        "price": 1,
+        "price": 1.0,
         "prices_by_order_method": {
-          "delivery": 1,
-          "dine_in": 1,
+          "delivery": 1.0,
+          "dine_in": 1.0,
           "pickup": 0.9,
-          "room_service": 1
+          "room_service": 1.0
         },
         "section_ids": [
           "43373"
@@ -1281,12 +1281,12 @@
         "listed_in_menu": true,
         "name": "Barbecuesoße",
         "option_group_ids": [],
-        "price": 1,
+        "price": 1.0,
         "prices_by_order_method": {
-          "delivery": 1,
-          "dine_in": 1,
+          "delivery": 1.0,
+          "dine_in": 1.0,
           "pickup": 0.9,
-          "room_service": 1
+          "room_service": 1.0
         },
         "section_ids": [
           "43373"
@@ -1309,12 +1309,12 @@
         "listed_in_menu": true,
         "name": "Käsesoße",
         "option_group_ids": [],
-        "price": 3,
+        "price": 3.0,
         "prices_by_order_method": {
-          "delivery": 3,
-          "dine_in": 3,
+          "delivery": 3.0,
+          "dine_in": 3.0,
           "pickup": 2.7,
-          "room_service": 3
+          "room_service": 3.0
         },
         "section_ids": [
           "43373"
@@ -1334,12 +1334,12 @@
         "listed_in_menu": true,
         "name": "Sour Cream",
         "option_group_ids": [],
-        "price": 1,
+        "price": 1.0,
         "prices_by_order_method": {
-          "delivery": 1,
-          "dine_in": 1,
+          "delivery": 1.0,
+          "dine_in": 1.0,
           "pickup": 0.9,
-          "room_service": 1
+          "room_service": 1.0
         },
         "section_ids": [
           "43373"
@@ -1362,12 +1362,12 @@
         "listed_in_menu": true,
         "name": "Süß-Sauer-Soße",
         "option_group_ids": [],
-        "price": 1,
+        "price": 1.0,
         "prices_by_order_method": {
-          "delivery": 1,
-          "dine_in": 1,
+          "delivery": 1.0,
+          "dine_in": 1.0,
           "pickup": 0.9,
-          "room_service": 1
+          "room_service": 1.0
         },
         "section_ids": [
           "43373"
@@ -1470,12 +1470,12 @@
         "listed_in_menu": true,
         "name": "Club Mate 0,33 l",
         "option_group_ids": [],
-        "price": 3,
+        "price": 3.0,
         "prices_by_order_method": {
-          "delivery": 3,
-          "dine_in": 3,
+          "delivery": 3.0,
+          "dine_in": 3.0,
           "pickup": 2.9,
-          "room_service": 3
+          "room_service": 3.0
         },
         "section_ids": [
           "43375"
@@ -1500,12 +1500,12 @@
         "listed_in_menu": true,
         "name": "Coca-Cola® 0,33 l",
         "option_group_ids": [],
-        "price": 3,
+        "price": 3.0,
         "prices_by_order_method": {
-          "delivery": 3,
-          "dine_in": 3,
+          "delivery": 3.0,
+          "dine_in": 3.0,
           "pickup": 2.9,
-          "room_service": 3
+          "room_service": 3.0
         },
         "section_ids": [
           "43375"
@@ -1584,12 +1584,12 @@
         "listed_in_menu": true,
         "name": "Coca-Cola® Zero 0,33 l",
         "option_group_ids": [],
-        "price": 3,
+        "price": 3.0,
         "prices_by_order_method": {
-          "delivery": 3,
-          "dine_in": 3,
+          "delivery": 3.0,
+          "dine_in": 3.0,
           "pickup": 2.9,
-          "room_service": 3
+          "room_service": 3.0
         },
         "section_ids": [
           "43375"
@@ -1612,12 +1612,12 @@
         "listed_in_menu": true,
         "name": "Fanta 0,33 l",
         "option_group_ids": [],
-        "price": 3,
+        "price": 3.0,
         "prices_by_order_method": {
-          "delivery": 3,
-          "dine_in": 3,
+          "delivery": 3.0,
+          "dine_in": 3.0,
           "pickup": 2.9,
-          "room_service": 3
+          "room_service": 3.0
         },
         "section_ids": [
           "43375"
@@ -1671,12 +1671,12 @@
         "listed_in_menu": true,
         "name": "Mezzo Mix 0,33 l",
         "option_group_ids": [],
-        "price": 3,
+        "price": 3.0,
         "prices_by_order_method": {
-          "delivery": 3,
-          "dine_in": 3,
+          "delivery": 3.0,
+          "dine_in": 3.0,
           "pickup": 2.9,
-          "room_service": 3
+          "room_service": 3.0
         },
         "section_ids": [
           "43375"
@@ -1724,12 +1724,12 @@
         "listed_in_menu": true,
         "name": "Vio Schorle Apfel 0,33 l",
         "option_group_ids": [],
-        "price": 3,
+        "price": 3.0,
         "prices_by_order_method": {
-          "delivery": 3,
-          "dine_in": 3,
+          "delivery": 3.0,
+          "dine_in": 3.0,
           "pickup": 2.9,
-          "room_service": 3
+          "room_service": 3.0
         },
         "section_ids": [
           "43375"
@@ -1750,12 +1750,12 @@
         "listed_in_menu": true,
         "name": "Sprite 0,33 l",
         "option_group_ids": [],
-        "price": 3,
+        "price": 3.0,
         "prices_by_order_method": {
-          "delivery": 3,
-          "dine_in": 3,
+          "delivery": 3.0,
+          "dine_in": 3.0,
           "pickup": 2.9,
-          "room_service": 3
+          "room_service": 3.0
         },
         "section_ids": [
           "43375"
@@ -1867,12 +1867,12 @@
         "listed_in_menu": true,
         "name": "Rixdorfer Fassbrause 0,33 l",
         "option_group_ids": [],
-        "price": 3,
+        "price": 3.0,
         "prices_by_order_method": {
-          "delivery": 3,
-          "dine_in": 3,
+          "delivery": 3.0,
+          "dine_in": 3.0,
           "pickup": 2.7,
-          "room_service": 3
+          "room_service": 3.0
         },
         "section_ids": [
           "43375"
@@ -1896,12 +1896,12 @@
         "listed_in_menu": true,
         "name": "Ice Tea Peach 0.33l",
         "option_group_ids": [],
-        "price": 3,
+        "price": 3.0,
         "prices_by_order_method": {
-          "delivery": 3,
-          "dine_in": 3,
+          "delivery": 3.0,
+          "dine_in": 3.0,
           "pickup": 2.7,
-          "room_service": 3
+          "room_service": 3.0
         },
         "section_ids": [
           "43375"
@@ -1925,12 +1925,12 @@
         "listed_in_menu": true,
         "name": "Ice Tea Lemon Sparkling 0.33l",
         "option_group_ids": [],
-        "price": 3,
+        "price": 3.0,
         "prices_by_order_method": {
-          "delivery": 3,
-          "dine_in": 3,
+          "delivery": 3.0,
+          "dine_in": 3.0,
           "pickup": 2.7,
-          "room_service": 3
+          "room_service": 3.0
         },
         "section_ids": [
           "43375"
@@ -1954,12 +1954,12 @@
         "listed_in_menu": true,
         "name": "Ice Tea Pineapple Mango 0,33l",
         "option_group_ids": [],
-        "price": 3,
+        "price": 3.0,
         "prices_by_order_method": {
-          "delivery": 3,
-          "dine_in": 3,
+          "delivery": 3.0,
+          "dine_in": 3.0,
           "pickup": 2.7,
-          "room_service": 3
+          "room_service": 3.0
         },
         "section_ids": [
           "43375"
@@ -2165,7 +2165,7 @@
         "prices_by_order_method": {
           "delivery": 9.9,
           "dine_in": 9.9,
-          "pickup": 9,
+          "pickup": 9.0,
           "room_service": 9.9
         },
         "section_ids": [
@@ -2288,7 +2288,7 @@
             "available": true,
             "id": "366859",
             "name": "Hausgemachte Burgersoße",
-            "price": 0
+            "price": 0.0
           },
           {
             "available": true,
@@ -2309,7 +2309,7 @@
             "available": true,
             "id": "366861",
             "name": "Fleischpatty",
-            "price": 3
+            "price": 3.0
           },
           {
             "available": true,
@@ -2345,7 +2345,7 @@
             "available": true,
             "id": "366867",
             "name": "Käse",
-            "price": 1
+            "price": 1.0
           },
           {
             "available": true,
@@ -2378,7 +2378,7 @@
             "available": true,
             "id": "366871",
             "name": "6 Stück",
-            "price": 0
+            "price": 0.0
           },
           {
             "available": true,
@@ -2405,7 +2405,7 @@
             "available": true,
             "id": "366874",
             "name": "Veganer Käse",
-            "price": 1
+            "price": 1.0
           }
         ],
         "required": false
@@ -2644,7 +2644,7 @@
       "items_listed": 76,
       "items_priced_listed": 76,
       "items_unlisted": 11,
-      "max_price_listed": 13,
+      "max_price_listed": 13.0,
       "menus": 2,
       "min_price_all": 0.5,
       "min_price_listed": 0.5,
