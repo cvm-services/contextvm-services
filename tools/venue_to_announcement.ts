@@ -15,11 +15,7 @@
  * declare `cvm:req:none` — the venue page collects contact data.
  */
 
-import {
-  type AnnounceInput,
-  type ToolCap,
-  type Vocab,
-} from "../vendor/cvm-service-kit/src/mod.ts";
+import { type AnnounceInput, type ToolCap, type Vocab } from "../vendor/cvm-service-kit/src/mod.ts";
 import { geohashesFor } from "./geohash.ts";
 
 /** A `venue.json` record as produced by the S1 adapters (schema `cvm.venue/v1`). */
@@ -111,7 +107,13 @@ export function fulfilmentMethods(v: VenueRecord): string[] {
  * expressed in tags. The honest encoding is an optional field plus the condition
  * written out in the content's `fulfilment.method_condition`.
  */
-type SettlementFacts = { rail?: string; currency?: string; tax?: string; cvm_cap?: number | null; [k: string]: unknown };
+type SettlementFacts = {
+  rail?: string;
+  currency?: string;
+  tax?: string;
+  cvm_cap?: number | null;
+  [k: string]: unknown;
+};
 
 /**
 /**
@@ -129,15 +131,17 @@ export function requiredFields(v: VenueRecord): string[] {
   const methods = fulfilmentMethods(v);
   const deliveryOnly = methods.includes("delivery") && !methods.includes("pickup");
   return deliveryOnly
-    ? ["order.fulfilment", "ship.address", "contact.phone"]
-    : ["order.fulfilment", "contact.phone"];
+    ? ["order.items", "order.fulfilment", "order.when", "ship.address", "contact.phone"]
+    : ["order.items", "order.fulfilment", "order.when", "contact.phone"];
 }
 
 /** Accepted but not required: the address is here because delivery may be chosen. */
 export function optionalFields(v: VenueRecord): string[] {
   const methods = fulfilmentMethods(v);
   const deliveryOnly = methods.includes("delivery") && !methods.includes("pickup");
-  return deliveryOnly ? ["contact.name", "order.notes"] : ["ship.address", "contact.name", "order.notes"];
+  return deliveryOnly
+    ? ["contact.name", "order.notes"]
+    : ["ship.address", "contact.name", "order.notes"];
 }
 
 /**
@@ -163,7 +167,81 @@ export interface VenueAnnouncement {
   humanTags: string[];
 }
 
-/** The single v1 tool: place an order via the venue's own rail (deep-link). */
+/** The real Stage-1 order tool schema: basket + fulfilment + when + optional notes/ship/contact. */
+function buildOrderTool(
+  name: string,
+): { name: string; description: string; inputSchema: Record<string, unknown> } {
+  return {
+    name: "order",
+    description:
+      `Build a basket for ${name} on the venue's own ordering rail. Checkout and payment happen on the venue's own page; this tool does not place or settle the order.`,
+    inputSchema: {
+      type: "object",
+      properties: {
+        venue_slug: {
+          type: "string",
+          description: "The venue to order from.",
+        },
+        items: {
+          type: "array",
+          description: "Basket lines: {sku, qty, options?}",
+          items: {
+            type: "object",
+            properties: {
+              sku: { type: "string" },
+              qty: { type: "integer", minimum: 1 },
+              options: { type: "object" },
+            },
+            required: ["sku", "qty"],
+            additionalProperties: false,
+          },
+        },
+        fulfilment: {
+          type: "string",
+          enum: ["pickup", "delivery", "dine_in"],
+          description: "How the order will be fulfilled.",
+        },
+        when: {
+          type: "string",
+          description: "Requested fulfilment time (ISO 8601 or 'asap').",
+        },
+        notes: {
+          type: "string",
+          description: "Free text for the kitchen/handler.",
+        },
+        ship: {
+          type: "object",
+          description: "Required only when fulfilment == 'delivery'.",
+          properties: {
+            address: {
+              type: "object",
+              properties: {
+                street: { type: "string" },
+                city: { type: "string" },
+                postal_code: { type: "string" },
+                country: { type: "string" },
+              },
+            },
+            recipient_name: { type: "string" },
+            notes: { type: "string" },
+          },
+        },
+        contact: {
+          type: "object",
+          properties: {
+            name: { type: "string" },
+            phone: { type: "string" },
+            email: { type: "string" },
+          },
+        },
+      },
+      required: ["venue_slug", "items", "fulfilment", "when"],
+      additionalProperties: false,
+    },
+  };
+}
+
+/** The single v1 tool: build a basket for the venue's own rail (deep-link). */
 function buildTools(): Record<string, ToolCap> {
   // v1: the CVM itself settles nothing — the venue's own rail settles (ADR-0001
   // D5). The tool is a zero-cost deep-link, so its cap is 0 sats.
@@ -313,11 +391,7 @@ export function venueToAnnouncement(v: VenueRecord): VenueAnnouncement {
           "(the venue's own page asks for the address when delivery is chosen).",
     },
     tools: [
-      {
-        name: "order",
-        description: `Place an order at ${name} via the venue's own ordering rail (deep-link).`,
-        inputSchema: { type: "object", properties: {}, additionalProperties: false },
-      },
+      buildOrderTool(name),
     ],
     settlement: {
       settles: "venue's own rail (ADR-0001 D5): this CVM takes no payment",
