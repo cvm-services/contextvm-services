@@ -16,6 +16,8 @@ import {
   publishToRelays,
   RELAY_FRAME_CAP_BYTES,
   RELAY_OPTIONS,
+
+  requestFilter,
 } from "./server.ts";
 import { Relay } from "npm:nostr-tools";
 
@@ -706,5 +708,38 @@ Deno.test("RED: a reply that fits logs no size warning", async () => {
   });
   if (logs.some((l) => l.toLowerCase().includes("frame"))) {
     throw new Error(`a normal reply must not warn; logs=${JSON.stringify(logs)}`);
+  }
+});
+
+// ---------------------------------------------------------------------------
+// The request filter must be ADDRESSED, not a firehose.
+//
+// FINDING-3's corollary: we subscribed to { kinds: [1059, 21059], limit: 0 } --
+// every gift wrap on the relay -- and filtered by recipient in the handler. The
+// relay-side filter `#p` is exact (a CVM request names the server's key in its
+// `p` tag), and the whole-relay firehose is what drove relay2's reader stalls
+// (2635 x `1006/Resource temporarily unavailable` in 90 min).
+// ---------------------------------------------------------------------------
+
+Deno.test("RED: the subscription filter is addressed to the server key", () => {
+  const serverPk = "a1".repeat(32);
+  const filter = requestFilter(serverPk);
+
+  if (!filter.kinds.includes(1059) || !filter.kinds.includes(21059)) {
+    throw new Error(`both CVM request kinds must be requested; kinds=${filter.kinds}`);
+  }
+  const p = filter["#p"];
+  if (!Array.isArray(p) || p.length !== 1 || p[0] !== serverPk) {
+    throw new Error(
+      `filter must be addressed to exactly the server key, got ${JSON.stringify(p)}`,
+    );
+  }
+});
+
+Deno.test("RED: the filter no longer asks for unaddressed events", () => {
+  const filter = requestFilter("b2".repeat(32));
+  // A firehose filter has no `#p`; that is the regression this pins.
+  if (!("#p" in filter)) {
+    throw new Error("a filter without #p is the whole-relay firehose, not an addressed subscription");
   }
 });

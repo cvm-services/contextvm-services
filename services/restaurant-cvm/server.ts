@@ -734,7 +734,7 @@ export async function serve(options: ServeOptions): Promise<() => void> {
       log(`[venue-cvm] connected to ${url} (reconnect + ping on)`);
 
       relay.subscribe(
-        [{ kinds: [1059, 21059], limit: 0 }],
+        [requestFilter(serverPk)],
         {
           onevent: async (event) => {
             try {
@@ -799,6 +799,17 @@ export function parseRelayList(
  * Absent or effectively empty => `null` (serve ALL venues, today's default).
  * A non-empty list => an array of the slugs this instance is scoped to.
  */
+// The request filter is ADDRESSED, not a firehose: a CVM request is a gift wrap
+// whose `p` tag names this server's key, so asking the relay for `#p` is exact
+// and avoids pulling every kind-1059 event the relay carries (relay2 logged
+// 2635 x "1006/Resource temporarily unavailable" in 90 min under that load).
+// The handler's own p-tag check stays as defence in depth.
+export function requestFilter(
+  serverPk: string,
+): { kinds: number[]; "#p": string[]; limit: number } {
+  return { kinds: [1059, 21059], "#p": [serverPk], limit: 0 };
+}
+
 export function parseVenueFilter(value: string | undefined): string[] | null {
   const out = (value ?? "")
     .split(",")
