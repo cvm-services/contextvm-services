@@ -1,0 +1,11 @@
+"deliveryFee": 0,
+  "deliveryMinimumAmount": 0,
+  "deliveryTime": 60,
+  "externalRPId": "AppSmart_8871",
+  "familyId": 14842,
+  "id": 45842,
+  "imprintEmail": "[REDACTED]",
+  "lastDeliveryTime": 0,
+  "lastTakeAwayTime": 0,
+  "latitude": 52.472589,
+  "longitude
