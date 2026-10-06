@@ -35,5 +35,5 @@ export VENUE_SERVER_RELAYS="$RELAYS"
 exec ~/.local/bin/deno run \
   --allow-net \
   --allow-read="$PWD/venues","$PWD/services" \
-  --allow-env=SERVER_HEX \
+  --allow-env=SERVER_HEX,VENUE_SERVER_RELAYS \
   services/restaurant-cvm/server.ts
