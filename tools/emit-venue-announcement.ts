@@ -12,71 +12,20 @@
  * The tier is never supplied: the vendored emitter recomputes `cvm:tier:<max>`
  * and this CLI asserts the emitted tag equals the recomputed value before
  * printing or publishing anything.
+ *
+ * NOTE (2026-10-05): one key per venue. kind 11316/11317 are in NIP-16's
+ * replaceable range, so relays key them by (kind, pubkey) alone — signing two
+ * venues with one key makes each announcement silently overwrite the other.
  */
 
 import { parse } from "https://deno.land/std@0.224.0/flags/mod.ts";
 import { emitAnnouncement, parseVocab, recomputeTier } from "../vendor/cvm-service-kit/src/mod.ts";
 import { venueToAnnouncement } from "./venue_to_announcement.ts";
-import { generateSecretKey, finalizeEvent } from "npm:nostr-tools/pure";
-import { decode as nip19Decode, npubEncode } from "npm:nostr-tools/nip19";
+import { fail, publish, readKey, relayList, signEvent } from "./nostr.ts";
 
 const VOCAB_PATH = new URL("../vendor/cvm-service-kit/vocab/service-inputs.json", import.meta.url);
 const ANNOUNCE_SERVER = 11316;
 const ANNOUNCE_TOOLS = 11317;
-
-function fail(msg: string): never {
-  console.error("ERROR: " + msg);
-  Deno.exit(1);
-}
-
-function hexToBytes(hex: string): Uint8Array {
-  const out = new Uint8Array(hex.length / 2);
-  for (let i = 0; i < out.length; i++) out[i] = parseInt(hex.slice(i * 2, i * 2 + 2), 16);
-  return out;
-}
-
-async function readKey(keyFile: string, create: boolean): Promise<{ hex: string; npub: string }> {
-  const path = keyFile.startsWith("/") ? keyFile : `${Deno.cwd()}/${keyFile}`;
-  let text = "";
-  try {
-    text = (await Deno.readTextFile(path)).trim();
-  } catch {
-    if (!create) fail(`key file '${keyFile}' not found (run without --dry-run to create it)`);
-  }
-  if (text) {
-    let hex = text;
-    if (text.startsWith("nsec")) {
-      const d = nip19Decode(text);
-      if (d.type !== "nsec") fail("key file is not an nsec");
-      hex = d.data as string;
-    }
-    if (!/^[0-9a-f]{64}$/.test(hex)) fail("key file is not 64-char hex or nsec");
-    return { hex, npub: npubEncode(hex) };
-  }
-  // create + persist (mode 600)
-  const sk = generateSecretKey();
-  const hex = Buffer.from(sk).toString("hex");
-  await Deno.writeTextFile(path, hex + "\n", { mode: 0o600 });
-  await Deno.chmod(path, 0o600);
-  return { hex, npub: npubEncode(hex) };
-}
-
-async function publish(relay: string, event: unknown): Promise<{ accepted: boolean; msg: string }> {
-  const ws = new WebSocket(relay);
-  await new Promise<void>((resolve, reject) => {
-    const t = setTimeout(() => reject(new Error(`timeout connecting ${relay}`)), 15000);
-    ws.onopen = () => { clearTimeout(t); resolve(); };
-    ws.onerror = () => { clearTimeout(t); reject(new Error(`error connecting ${relay}`)); };
-  });
-  return new Promise<{ accepted: boolean; msg: string }>((resolve) => {
-    ws.onmessage = (m) => {
-      const data = JSON.parse(typeof m.data === "string" ? m.data : new TextDecoder().decode(m.data));
-      if (data[0] === "OK") resolve({ accepted: data[2] === true, msg: `${data[2]} ${data[3]}` });
-    };
-    ws.send(JSON.stringify(["EVENT", event]));
-    setTimeout(() => resolve({ accepted: false, msg: "timeout awaiting OK" }), 10000);
-  });
-}
 
 async function main() {
   const flags = parse(Deno.args, {
@@ -126,9 +75,7 @@ async function main() {
     fail(`no cvm:tier:<max> tag equal to recomputed value`);
   }
 
-  let relays: string[] = [];
-  if (typeof flags.relays === "string") relays = [flags.relays];
-  else if (Array.isArray(flags.relays)) relays = flags.relays;
+  const relays = relayList(flags.relays);
 
   const eventContent = kind === ANNOUNCE_SERVER
     ? JSON.stringify(content)
@@ -150,7 +97,7 @@ async function main() {
   if (!flags["key-file"]) fail("--key-file required to publish");
   if (relays.length === 0) fail("--relays required to publish");
 
-  const key = await readKey(flags["key-file"], true);
+  const key = await readKey(String(flags["key-file"]), true);
   console.error(`service npub ${key.npub}`);
 
   const unsigned = {
@@ -159,7 +106,7 @@ async function main() {
     tags: emitted.tags,
     content: eventContent,
   };
-  const signed = finalizeEvent(unsigned, hexToBytes(key.hex));
+  const signed = signEvent(key.hex, unsigned);
 
   console.log(JSON.stringify(signed, null, 2));
   for (const r of relays) {
@@ -169,4 +116,4 @@ async function main() {
   }
 }
 
-if (import.meta.main) main();
+if (import.meta.main) await main();
