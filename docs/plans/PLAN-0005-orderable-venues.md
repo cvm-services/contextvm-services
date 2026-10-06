@@ -55,8 +55,14 @@ Acceptance criteria:
 5. **Tool versioning is explicit** — `order.channel` names the rail the order will land
    on, so a v1 handoff and a v2 settling CVM are distinguishable from the announcement
    alone.
-6. Tests: `order.items` validated against the published menu (an unknown `sku` fails loud),
-   per-method price selection, and the delivery-requires-address condition. RED first.
+6. Tests: `order.items` validated against the published menu (an unknown **or ambiguous**
+   `sku` fails loud), per-method price selection, and the delivery-requires-address
+   condition. RED first.
+7. **The transport is exercised, not just the tool logic.** One end-to-end run against a
+   real relay; a suite whose header says "no relay required" proves the schema, not the
+   server.
+8. **The announcement is republished** once the server is reachable. A schema change that
+   exists only in the repo is invisible to every client.
 
 ## Track A — read-only prefill spike (SOON, parallel, 1 worker)
 
@@ -69,6 +75,27 @@ URL. Timebox: one worker, one report. Evidence = the URL shape and what the page
 
 **Outcome either way is useful:** a no tells us the handoff ends at a plain link, which
 bounds what any honest video can show.
+
+**CLOSED 2026-10-06 — NEGATIVE. No storefront accepts a basket-prefill parameter.**
+
+- **Doppelt Käse (FoodAmigos) — impossible.** The basket is a Redux `BASKET` slice
+  (`addItem`/`addItems`, internal dispatch only). The bundle's only query-string consumers
+  are `order_draft_uuid` (resumes an *existing* draft), `auth_grant`/`auth_token`, `search`
+  (menu filter) and payment-redirect keys. `?items=331227:2`, `?cart=…`, `?add=…&qty=…`,
+  `?product=…`, `?sku=…` each returned the identical 2138-byte SPA shell — ignored.
+- **Pizza e Pasta (OrderYoyo/Next.js) — impossible.** The basket uuid is minted server-side
+  (`POST /oyy-api/Order/restaurants/45842/basket/{uuid}`) and kept in `BASKET_SESSION`
+  storage; `orderId` is a post-checkout route segment. Bundle grep found only UTMs,
+  analytics and Sentry params.
+- **Could not verify:** the pizza page's live rendered response to a query string —
+  Cloudflare answered curl with 403 *"Just a moment…"*. Its `/_next/static/*` bundles
+  served 200 and were fully inspected, so the verdict does not rest on the blocked fetch.
+- **Not enumerated:** FoodAmigos' single-product deep-link path (a page link, not a basket
+  prefill; does not change the verdict).
+
+**Consequence:** an `order` tool can hand over a bare menu (or single-product) link — never
+a loaded cart — on either rail. Track A produces no code and is closed; the honest video
+ending stays "basket proposed + handoff link", and only Track C can reach a receipt.
 
 ## Track C — our own counter (SOON, the demonstrable completed order)
 
@@ -97,6 +124,34 @@ before:
    the first paid pickup order?
 4. Written policy for refunds, no-shows, cancelled items and partial fulfilment — we would
    hold customer money before the food exists.
+
+## Stage 1 review follow-ups (independent verification of PR #13, 2026-10-06)
+
+Confirmed by re-running the gates, not by the worker's summary: `deno task test` →
+`59 passed / 0 failed`; `deno check` clean; menu sourced from `venue.json` (`menu.items`,
+188 items); real `order` arguments (`venue_slug`, `items[]`, `fulfilment`, `when`) with
+`ship.address` required iff `fulfilment == "delivery"`; zero settlement code in the diff.
+
+Open items, in order:
+
+1. **Ambiguous sku resolves silently.** Pizza has three skus serving *distinct* products —
+   `36` = Bionade Ingwer-Orange €3.60 **and** Vitamalz €2.70 (different prices), `110` two
+   different pizzas, `44` two different beers. `buildIndex()` keeps the first occurrence,
+   so a basket can quote one product's price for another. Accept the venue item `id`
+   (unique), or fail loud: `ambiguous sku: 36 (2 items) — pass id`.
+2. **Relay transport unexercised.** `server_test.ts` runs the tool logic "directly (no
+   relay required)". One live run is owed before a venue is called reachable.
+3. **Pizza has no `prices_by_order_method` at all** (0/112 items; it stores one `price` +
+   `service_method` + `price_levels`), unlike doppelt (76/76 items, four methods). The
+   delivery-price fallback is honest but carries no venue price — Stage 2 must never quote
+   that fallback as a price.
+4. **Republish the announcements.** Live still declares the pre-Stage-1
+   `required = [contact.phone, order.fulfilment]`; the new `order.items`/`order.when` are
+   invisible to clients until republished. Merging the server PR alone does not make a
+   venue orderable.
+5. **Criterion 5 is not met as written.** `order.channel` is not implemented as an argument;
+   the rail is returned in the order *result* instead. Either implement it or amend the
+   criterion — do not let it read as satisfied.
 
 ## Non-goals
 
