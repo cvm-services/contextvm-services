@@ -15,7 +15,11 @@
  * declare `cvm:req:none` — the venue page collects contact data.
  */
 
-import type { AnnounceInput, ToolCap } from "../vendor/cvm-service-kit/src/mod.ts";
+import {
+  type AnnounceInput,
+  type ToolCap,
+  type Vocab,
+} from "../vendor/cvm-service-kit/src/mod.ts";
 import { geohashesFor } from "./geohash.ts";
 
 /** A `venue.json` record as produced by the S1 adapters (schema `cvm.venue/v1`). */
@@ -83,6 +87,46 @@ function buildTools(): Record<string, ToolCap> {
   return { order: { amount: 0, unit: "sats" } };
 }
 
+/** The one factual line both the content and the `about` tag carry (P3: one source). */
+export function aboutLine(name: string): string {
+  return `${name} — restaurant in Berlin, announced over ContextVM (CEP-6). ` +
+    `Order via the venue's own rail; the deep-link asks for a delivery address and phone.`;
+}
+
+/**
+ * The S5a §6 payload tags (D2): the multi-letter tags the registry reads for
+ * display — `name`, `about`, `website` — which the kit neither emits nor
+ * validates, so the publisher appends them verbatim.
+ *
+ * This is not cosmetic. The dashboard renders `e.name ?? e.d`
+ * (cvm-registry site/app.js) and the collector fills `name` from the `name` TAG
+ * (`tagValues(e.tags, "name")`), never from the content. Without these tags the
+ * card falls back to the bare slug (`doppelt-kaese-berlin`). The nosms reference
+ * appends its own PAYLOAD_TAGS for exactly this reason.
+ */
+export function venuePayloadTags(v: VenueRecord): string[][] {
+  const name = v.venue?.name ?? v.slug;
+  const website = v.venue?.website ?? v.venue?.ordering?.primary_url;
+  const tags: string[][] = [
+    ["name", name],
+    ["about", aboutLine(name)],
+  ];
+  // Never claim a link we do not have: an absent website must not reach the
+  // registry as the literal string "undefined" in a tag it renders as an anchor.
+  if (website) tags.push(["website", website]);
+  return tags;
+}
+
+/**
+ * The wire tag set: the kit's contract tags, then the S5a §6 payload tags.
+ *
+ * The CLI and the tests both build the published set through here, so the set
+ * the tests assert on cannot drift from the set that goes on the wire.
+ */
+export function venueWireTags(emittedTags: string[][], v: VenueRecord): string[][] {
+  return [...emittedTags, ...venuePayloadTags(v)];
+}
+
 export function venueToAnnouncement(v: VenueRecord): VenueAnnouncement {
   const name = v.venue?.name ?? v.slug;
   const currency = v.venue?.currency ?? v.menu?.currency ?? "EUR";
@@ -125,8 +169,7 @@ export function venueToAnnouncement(v: VenueRecord): VenueAnnouncement {
 
   const content = {
     name,
-    about: `${name} — restaurant in Berlin, announced over ContextVM (CEP-6). ` +
-      `Order via the venue's own rail; the deep-link asks for a delivery address and phone.`,
+    about: aboutLine(name),
     schema: "cvm.venue/v1",
     currency,
     area: {
