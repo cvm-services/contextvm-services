@@ -111,3 +111,30 @@ the symptom was relay2-side, the causes were ours.
 Measurement note: never `grep -oE 'publish warning: .*'` on this log -- those
 lines embed whole gift-wrapped events (280 KB of ciphertext per run). Match a
 bounded prefix.
+
+## relay2's own defect, quantified (read-only diagnosis on the relay host)
+
+Taken from relay2's own strfry container logs (last ~90 min; container
+`tollgate-strfry` on 23.182.128.51, up since 2026-10-03, Restarts=0 -- so this is
+NOT a restart artefact, it is per-connection churn):
+
+- 2635 x `1006/Resource temporarily unavailable`   <- bulk drops, resource exhaustion
+- 215 x `1006/auto ping timeout`
+- 4+2+2 x `1006/Websocket frame size exceeded (131595 > 131072)` and larger
+- 4 x broken pipe, 3 x socket status closed
+
+This closes the relay2 question. relay2 does not "carry discovery but not
+conversation" for a subtle reason: it drops connections continuously (EAGAIN),
+closes idle ones on its own ping timeout, and rejects any frame over 128 KiB.
+Our probes passed because a fresh connection in the first seconds is fine.
+
+Consequence for us, after the fixes below landed: a client on PRIMAL is served
+reliably (4/4, repeated). relay2-only still fails intermittently because the
+relay itself keeps dropping the connection; our 10 s reconnect backoff cannot
+paper over a relay that drops every ~30 s. relay2 needs an infra-side fix (fd/
+resource limits, ping policy, frame cap) -- it is not fixable from the CVM server.
+
+Final state, fixed tree, same relays:
+- primal only -- all_passed=true (4/4), repeated
+- both        -- 3/4 to 4/4 depending on relay2's mood in that window
+- relay2 only -- 2/4, or a full hang, when relay2 is in a drop burst
