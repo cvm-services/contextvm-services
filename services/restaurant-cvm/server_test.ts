@@ -12,6 +12,7 @@ import {
   type VenueIndex,
   parseRelayList,
   parseVenueFilter,
+  publishToRelays,
 } from "./server.ts";
 
 let index: VenueIndex;
@@ -473,5 +474,103 @@ Deno.test("RED: a venue-filtered instance still orders its own venue normally", 
   if (payload.status !== "basket") throw new Error("expected basket status");
   if (payload.venue.slug !== "pizza-e-pasta-ruedesheimerplatz") {
     throw new Error(`expected pizza venue in response, got ${payload.venue.slug}`);
+  }
+});
+
+// ---------------------------------------------------------------------------
+// Relay publishing must be INDEPENDENT per relay and BOUNDED in time.
+//
+// Production, 2026-10-06: sendResponse() published with a sequential
+// `for (...) await relay.publish(...)`. A relay that is CONNECTED but SILENT
+// (open socket, never answers with an OK) therefore parked the loop, and every
+// relay after it in the list delivered nothing -- the client timed out even
+// though a healthy relay was in the set. That is why both-relay runs failed on
+// different checks each time, why restarting the server did not cure it, and
+// why a green primal-only run proved nothing about the relay set. See
+// evidence/relay-e2e/FINDING-2-sequential-publish-suppresses-every-reply.md.
+// ---------------------------------------------------------------------------
+
+type FakeTarget = { publish: (e: unknown) => Promise<string> };
+const FAKE_EVENT = { id: "e".repeat(64) };
+
+function silentTarget(counter: { calls: number }): FakeTarget {
+  return {
+    publish: () => {
+      counter.calls++;
+      return new Promise<string>(() => {}); // connected, never answers
+    },
+  };
+}
+
+Deno.test("RED: a silent relay does not withhold the reply from a healthy relay", async () => {
+  const got: unknown[] = [];
+  const counter = { calls: 0 };
+  const healthy: FakeTarget = {
+    publish: (e) => {
+      got.push(e);
+      return Promise.resolve("");
+    },
+  };
+
+  const started = Date.now();
+  const res = await publishToRelays([silentTarget(counter), healthy], FAKE_EVENT, {
+    timeoutMs: 400,
+  });
+  const elapsed = Date.now() - started;
+
+  if (got.length !== 1) throw new Error(`healthy relay must receive the reply; got ${got.length}`);
+  if (counter.calls !== 1) throw new Error(`silent relay must be attempted once; got ${counter.calls}`);
+  if (res.delivered !== 1 || res.failed !== 1) {
+    throw new Error(`expected 1 delivered/1 failed; got ${JSON.stringify(res)}`);
+  }
+  if (elapsed > 3000) throw new Error(`deadline must bound the stall; took ${elapsed}ms`);
+});
+
+Deno.test("RED: relay order does not change the outcome (silent relay last)", async () => {
+  const got: unknown[] = [];
+  const counter = { calls: 0 };
+  const healthy: FakeTarget = {
+    publish: (e) => {
+      got.push(e);
+      return Promise.resolve("");
+    },
+  };
+  const res = await publishToRelays([healthy, silentTarget(counter)], FAKE_EVENT, {
+    timeoutMs: 400,
+  });
+  if (got.length !== 1) throw new Error(`healthy relay must receive the reply; got ${got.length}`);
+  if (res.delivered !== 1 || res.failed !== 1) {
+    throw new Error(`expected 1 delivered/1 failed; got ${JSON.stringify(res)}`);
+  }
+});
+
+Deno.test("RED: a relay that refuses the event is counted failed, others still deliver", async () => {
+  const got: unknown[] = [];
+  const healthy: FakeTarget = {
+    publish: (e) => {
+      got.push(e);
+      return Promise.resolve("");
+    },
+  };
+  const refusing: FakeTarget = { publish: () => Promise.reject(new Error("blocked: not allowed")) };
+  const res = await publishToRelays([refusing, healthy], FAKE_EVENT, { timeoutMs: 400 });
+  if (got.length !== 1) throw new Error("healthy relay must still receive the reply");
+  if (res.delivered !== 1 || res.failed !== 1) {
+    throw new Error(`expected 1 delivered/1 failed; got ${JSON.stringify(res)}`);
+  }
+});
+
+Deno.test("RED: all healthy relays deliver, none are counted failed", async () => {
+  const got: unknown[] = [];
+  const mk = (): FakeTarget => ({
+    publish: (e) => {
+      got.push(e);
+      return Promise.resolve("");
+    },
+  });
+  const res = await publishToRelays([mk(), mk(), mk()], FAKE_EVENT, { timeoutMs: 400 });
+  if (got.length !== 3) throw new Error(`all three relays must receive the reply; got ${got.length}`);
+  if (res.delivered !== 3 || res.failed !== 0) {
+    throw new Error(`expected 3 delivered/0 failed; got ${JSON.stringify(res)}`);
   }
 });

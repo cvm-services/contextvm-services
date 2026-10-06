@@ -587,6 +587,60 @@ export async function handleMcpMessage(
 // LIVE NOSTR SERVER (direct nostr-tools implementation, Deno-compatible)
 // =====================================================================
 
+// How long a single relay gets to acknowledge a publish. A relay that is
+// connected but silent must not be able to hold the reply back from the relays
+// that ARE answering.
+export const PUBLISH_TIMEOUT_MS = 5000;
+
+export interface PublishTarget<T> {
+  publish(event: T): Promise<string>;
+}
+
+export interface PublishOutcome {
+  delivered: number;
+  failed: number;
+}
+
+// Publish ONE event to every relay INDEPENDENTLY and BOUNDED in time.
+//
+// The previous implementation awaited each relay in sequence, so a relay that
+// was connected but silent (open socket, no OK) parked the loop and every relay
+// after it delivered nothing -- a client on a healthy relay then timed out
+// against a venue that had in fact answered. Relays are peers; one peer's
+// silence must never decide whether the others deliver.
+export async function publishToRelays<T>(
+  targets: PublishTarget<T>[],
+  event: T,
+  opts: { timeoutMs?: number; log?: (msg: string) => void } = {},
+): Promise<PublishOutcome> {
+  const timeoutMs = opts.timeoutMs ?? PUBLISH_TIMEOUT_MS;
+  const log = opts.log ?? (() => {});
+  let delivered = 0;
+  let failed = 0;
+
+  await Promise.all(
+    targets.map(async (target) => {
+      try {
+        await Promise.race([
+          target.publish(event),
+          new Promise<never>((_, reject) =>
+            setTimeout(
+              () => reject(new Error(`publish timed out after ${timeoutMs}ms`)),
+              timeoutMs,
+            )
+          ),
+        ]);
+        delivered++;
+      } catch (e) {
+        failed++;
+        log(`[venue-cvm] publish warning: ${(e as Error).message}`);
+      }
+    }),
+  );
+
+  return { delivered, failed };
+}
+
 export interface ServeOptions {
   serverHex: string;
   relays?: string[];
@@ -634,13 +688,9 @@ export async function serve(options: ServeOptions): Promise<() => void> {
     };
     const signedGiftWrap = finalizeEvent(giftWrap, wrapSk);
 
-    for (const relay of connectedRelays) {
-      try {
-        await relay.publish(signedGiftWrap);
-      } catch (e) {
-        log(`[venue-cvm] publish warning: ${(e as Error).message}`);
-      }
-    }
+    // Relays are peers: publish concurrently with a per-relay deadline so one
+    // silent relay cannot delay or suppress delivery to the others.
+    await publishToRelays(connectedRelays, signedGiftWrap, { log });
   }
 
   for (const url of relays) {
