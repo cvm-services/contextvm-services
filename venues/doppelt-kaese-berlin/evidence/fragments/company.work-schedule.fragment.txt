@@ -1,0 +1,25 @@
+"work_schedule": [
+      {
+        "close": {
+          "day": 0,
+          "hour": 21,
+          "minute": 0,
+          "timezone": "Europe/Berlin"
+        },
+        "open": {
+          "day": 0,
+          "hour": 12,
+          "minute": 0,
+          "timezone": "Europe/Berlin"
+        },
+        "timezone": "Europe/Berlin"
+      },
+      {
+        "close": {
+          "day": 1,
+          "hour": 21,
+          "minute": 15,
+          "timezone": "Europe/Berlin"
+        },
+        "open": {
+   

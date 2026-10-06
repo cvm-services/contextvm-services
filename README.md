@@ -4,7 +4,23 @@ Paid **ContextVM (CVM)** wrappers around real-world services — a restaurant th
 takes an order, a car charger that starts a session — plus a **dashboard** for
 discovering such services.
 
-**Status: design only.** No feature code yet.
+**Status: design + venue catalog.** The specs and ADRs are still drafts awaiting
+operator sign-off; the first real venue record now exists under [`venues/`](venues/).
+
+## Venue catalog
+
+`venues/<slug>/` holds one **PR-able directory per venue**: an adapter that reads
+the venue's *own* public API, the normalised `venue.json` it produces, and the
+evidence (raw responses + rendered page + provenance hashes) the record was built
+from. See [`venues/README.md`](venues/README.md) for the rules.
+
+| venue | source | status |
+|-------|--------|--------|
+| [doppelt-kaese-berlin](venues/doppelt-kaese-berlin/) | `doppelt-kaese-berlin.de` (FoodAmigos storefront) | ✅ 9 sections, 76/76 priced items, idempotent |
+
+The point of the catalog is CEP-0001 §P3: a provider's content MUST be generated
+from the same source the venue itself serves. Each adapter here does exactly that
+and proves it (price cross-check against the rendered page, hash-stable re-runs).
 
 ## Repo split (this org)
 

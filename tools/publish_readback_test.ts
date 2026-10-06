@@ -28,6 +28,25 @@ const VOCAB: Vocab = parseVocab(
   JSON.parse(await Deno.readTextFile(new URL("../vendor/cvm-service-kit/vocab/service-inputs.json", import.meta.url))),
 );
 
+/**
+ * The two tests below talk to real relays. Without `--allow-net` Deno throws on
+ * `new WebSocket(...)` — a hard failure that said nothing about the relay. Ask
+ * for the permission instead: if it was not granted, skip LOUDLY and point at
+ * the task that grants it, so an offline `deno task test` stays green without
+ * pretending the publish was verified.
+ */
+async function netGranted(): Promise<boolean> {
+  try {
+    return (await Deno.permissions.query({ name: "net" })).state === "granted";
+  } catch {
+    return false;
+  }
+}
+
+const NO_NET =
+  "\n[SKIP] needs --allow-net: the publish/read-back is NOT verified here. " +
+  "Run `deno task test:net` to verify it.\n";
+
 function assert(cond: unknown, msg: string): asserts cond {
   if (!cond) throw new Error("ASSERT: " + msg);
 }
@@ -82,12 +101,16 @@ async function readBack(url: string, filter: unknown, timeoutMs = 8000): Promise
 }
 
 Deno.test("FINDING: the 'local strfry' is a NIP-29 group relay and rejects CEP-6 announcements", async () => {
+  if (!await netGranted()) {
+    console.error(NO_NET);
+    return;
+  }
   if (!await reachable(LOCAL_GROUP_RELAY)) {
     console.error(`\n[SKIP] local relay ${LOCAL_GROUP_RELAY} unreachable (nothing to document)\n`);
     return; // loud skip
   }
   const v = JSON.parse(
-    await Deno.readTextFile(new URL("../.scratch/venues/doppelt-kaese-berlin.json", import.meta.url)),
+    await Deno.readTextFile(new URL("../venues/doppelt-kaese-berlin/venue.json", import.meta.url)),
   ) as VenueRecord;
   const { input } = venueToAnnouncement(v);
   const emitted = emitAnnouncement(input, VOCAB);
@@ -105,6 +128,10 @@ Deno.test("FINDING: the 'local strfry' is a NIP-29 group relay and rejects CEP-6
 });
 
 Deno.test("publish a real 11317 to relay2.orangesync.tech and read it back", async () => {
+  if (!await netGranted()) {
+    console.error(NO_NET);
+    return;
+  }
   if (!await reachable(PUBLISH_RELAY)) {
     console.error(
       `\n[SKIP] ${PUBLISH_RELAY} is unreachable — publish→read-back NOT verified. ` +
@@ -114,7 +141,7 @@ Deno.test("publish a real 11317 to relay2.orangesync.tech and read it back", asy
   }
 
   const v = JSON.parse(
-    await Deno.readTextFile(new URL("../.scratch/venues/pizza-e-pasta-ruedesheimerplatz.json", import.meta.url)),
+    await Deno.readTextFile(new URL("../venues/pizza-e-pasta-ruedesheimerplatz/venue.json", import.meta.url)),
   ) as VenueRecord;
   const { input } = venueToAnnouncement(v);
   const emitted = emitAnnouncement(input, VOCAB);

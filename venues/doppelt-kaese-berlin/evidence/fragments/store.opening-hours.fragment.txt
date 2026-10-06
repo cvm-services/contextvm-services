@@ -1,0 +1,24 @@
+"opening_hours": [
+          {
+            "close": {
+              "day": 0,
+              "hour": 21,
+              "minute": 0
+            },
+            "open": {
+              "day": 0,
+              "hour": 12,
+              "minute": 0
+            }
+          },
+          {
+            "close": {
+              "day": 1,
+              "hour": 21,
+              "minute": 15
+            },
+            "open": {
+              "day": 1,
+              "hour": 16,
+              "minute": 30
+    

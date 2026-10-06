@@ -1,0 +1,23 @@
+{
+  "response": {
+    "appLogoUrlRaw": "https://pizzaepasta-ruedesheimerplatz.de/cf-cgi/families/14842/resource-types/app-logo.png",
+    "appName": "Pizza e Pasta",
+    "apps": {
+      "android": {
+        "appLink": "https://play.google.com/store/apps/details?id=com.appsmart.pizzaepasta",
+        "bundleId": "com.appsmart.pizzaepasta",
+        "isLatest": false,
+        "version": "13.0.0"
+      },
+      "ios": {
+        "isLatest": false,
+        "version": "3.1.1"
+      }
+    },
+    "backgroundColor": "#ffffff",
+    "logoUrl": "https://pizzaepasta-ruedesheimerplatz.de/cf-cgi/families/14842/resource-types/app-logo.png",
+    "privacyPolicyUrl": "https://pizzaepasta-ruedesheimerplatz.de/privacy-promise",
+    "termsAndConditionsUrl": "https://pizzaepasta-ruedesheimerplatz.de/terms-of-use"
+  },
+  "status": 200
+}

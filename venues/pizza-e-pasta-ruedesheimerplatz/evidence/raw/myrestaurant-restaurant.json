@@ -1,0 +1,171 @@
+{
+  "address": "Rüdesheimer Str. 9, 14197 Berlin",
+  "availablePaymentMethods": [
+    "Braintree",
+    "Cash",
+    "ApplePay",
+    "AndroidPay",
+    "PayPal"
+  ],
+  "canCancelOrder": true,
+  "canPreOrderNextDay": "AsapTodayTomorrow",
+  "canRejectOrder": false,
+  "code": "00000",
+  "coordinates": {
+    "latitude": 52.472589,
+    "longitude": 13.314825
+  },
+  "countryCode": "DE",
+  "countryId": 6,
+  "currency": {
+    "id": 2,
+    "isoCode": "EUR",
+    "symbol": "€"
+  },
+  "deliveryFee": 0,
+  "deliveryMinimumAmount": 0,
+  "deliveryTime": 60,
+  "externalRPId": "AppSmart_8871",
+  "familyId": 14842,
+  "id": 45842,
+  "imprintEmail": "[REDACTED]",
+  "lastDeliveryTime": 0,
+  "lastTakeAwayTime": 0,
+  "latitude": 52.472589,
+  "longitude": 13.314825,
+  "name": "Pizza e Pasta",
+  "onboarder": "",
+  "openingHours": {
+    "allDaysDeliveryHours": [
+      {
+        "dayOfWeek": 0,
+        "from": "12:00",
+        "to": "23:00",
+        "workingAfterMidnight": false
+      },
+      {
+        "dayOfWeek": 1,
+        "from": "12:00",
+        "to": "23:00",
+        "workingAfterMidnight": false
+      },
+      {
+        "dayOfWeek": 2,
+        "from": "12:00",
+        "to": "23:00",
+        "workingAfterMidnight": false
+      },
+      {
+        "dayOfWeek": 3,
+        "from": "12:00",
+        "to": "23:00",
+        "workingAfterMidnight": false
+      },
+      {
+        "dayOfWeek": 4,
+        "from": "12:00",
+        "to": "23:00",
+        "workingAfterMidnight": false
+      },
+      {
+        "dayOfWeek": 5,
+        "from": "12:00",
+        "to": "00:00",
+        "workingAfterMidnight": true
+      },
+      {
+        "dayOfWeek": 6,
+        "from": "12:00",
+        "to": "23:00",
+        "workingAfterMidnight": false
+      }
+    ],
+    "allDaysOpeningHours": [
+      {
+        "dayOfWeek": 0,
+        "from": "12:00",
+        "to": "23:00",
+        "workingAfterMidnight": false
+      },
+      {
+        "dayOfWeek": 1,
+        "from": "12:00",
+        "to": "23:00",
+        "workingAfterMidnight": false
+      },
+      {
+        "dayOfWeek": 2,
+        "from": "12:00",
+        "to": "23:00",
+        "workingAfterMidnight": false
+      },
+      {
+        "dayOfWeek": 3,
+        "from": "12:00",
+        "to": "23:00",
+        "workingAfterMidnight": false
+      },
+      {
+        "dayOfWeek": 4,
+        "from": "12:00",
+        "to": "23:00",
+        "workingAfterMidnight": false
+      },
+      {
+        "dayOfWeek": 5,
+        "from": "12:00",
+        "to": "00:00",
+        "workingAfterMidnight": true
+      },
+      {
+        "dayOfWeek": 6,
+        "from": "12:00",
+        "to": "23:00",
+        "workingAfterMidnight": false
+      }
+    ],
+    "hasDelivery": true,
+    "specialOpeningHours": [],
+    "timeZoneOffset": "02:00:00",
+    "todayDeliveryHours": {
+      "dayOfWeek": 5,
+      "from": "12:00",
+      "to": "00:00",
+      "workingAfterMidnight": true
+    },
+    "todayOpeningHours": {
+      "dayOfWeek": 5,
+      "from": "12:00",
+      "to": "00:00",
+      "workingAfterMidnight": true
+    },
+    "vacations": []
+  },
+  "ownerOrContactPerson": "WAGA Betriebs GmbH",
+  "phone": "03082007546",
+  "printerMode": "OrderManager",
+  "promo": {},
+  "reservationSettings": {
+    "email": "",
+    "isEnabled": false,
+    "isTextMessageEnabled": false,
+    "lastReservationTime": 0,
+    "maxSize": 0,
+    "reservationMaxDaysInAdvance": 0
+  },
+  "serviceFee": 0.39,
+  "serviceMethods": [
+    "Delivery",
+    "Pickup"
+  ],
+  "shouldShowImprint": true,
+  "showMigrationBanner": true,
+  "slug": "pizza-e-pasta",
+  "takeAwayTime": 20,
+  "timeZone": {
+    "ianaId": "Europe/Berlin",
+    "microsoftId": "W. Europe Standard Time"
+  },
+  "timeZoneId": "W. Europe Standard Time",
+  "vatNumber": "27/041/01000"
+}
