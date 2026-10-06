@@ -1,0 +1,312 @@
+{
+  "client_pubkey": "cc48bad7608ce9b45f7eadddd74c7ed1dd7c52114bc4412bb8b19b95af5bd618",
+  "server_pubkey": "fe700a09094950660077447bedd4e0b3abc14a82e95227b313aebf83b7798984",
+  "venue": null,
+  "relays": [
+    "wss://relay2.orangesync.tech"
+  ],
+  "started_at": 1791318076,
+  "checks": [
+    {
+      "name": "initialize",
+      "ok": true,
+      "detail": "serverInfo.name=contextvm-venue-server"
+    },
+    {
+      "name": "tools/list",
+      "ok": true,
+      "detail": "tools=[\"menu\",\"order\"]"
+    },
+    {
+      "name": "tools/call:menu",
+      "ok": false,
+      "detail": "no response (timeout)"
+    },
+    {
+      "name": "tools/call:order",
+      "ok": false,
+      "detail": "no response (timeout)"
+    }
+  ],
+  "all_passed": false,
+  "transcript": [
+    {
+      "phase": "request",
+      "method": "initialize",
+      "id": 0,
+      "inner_event": {
+        "kind": 25910,
+        "pubkey": "cc48bad7608ce9b45f7eadddd74c7ed1dd7c52114bc4412bb8b19b95af5bd618",
+        "tags": [
+          [
+            "p",
+            "fe700a09094950660077447bedd4e0b3abc14a82e95227b313aebf83b7798984"
+          ]
+        ],
+        "content": "{\"jsonrpc\":\"2.0\",\"id\":0,\"method\":\"initialize\",\"params\":{\"protocolVersion\":\"2024-11-05\",\"capabilities\":{},\"clientInfo\":{\"name\":\"venue-e2e-client\",\"version\":\"1.0.0\"}}}",
+        "created_at": 1791318076,
+        "id": "612c8011b2b7b8950a35911034b89259ffd1401fbf2741df03efd7ab4d667f3d",
+        "sig": "02df94988d69b3d3daab291b7abd9ecb8e2892edc969455ca4c3f8cfd9447dfdb01405636d25604964a37bb97f178054ff6e49307a0256cb0ce35bb7d224131b"
+      },
+      "gift_wrap_event_id": "def89cfae201cf75290167dd99a3f6004170c116751848dbd4f3bf3dc9941061",
+      "gift_wrap_kind": 1059,
+      "publish_ok": {
+        "wss://relay2.orangesync.tech": true
+      }
+    },
+    {
+      "phase": "response",
+      "method": "initialize",
+      "id": 0,
+      "inner_event": {
+        "pubkey": "fe700a09094950660077447bedd4e0b3abc14a82e95227b313aebf83b7798984",
+        "kind": 25910,
+        "tags": [
+          [
+            "p",
+            "cc48bad7608ce9b45f7eadddd74c7ed1dd7c52114bc4412bb8b19b95af5bd618"
+          ]
+        ],
+        "content": "{\"jsonrpc\":\"2.0\",\"id\":0,\"result\":{\"protocolVersion\":\"2024-11-05\",\"capabilities\":{\"tools\":{}},\"serverInfo\":{\"name\":\"contextvm-venue-server\",\"version\":\"1.0.0\"}}}",
+        "created_at": 1791318076,
+        "id": "d43001325fe9224cc31775e9c46991fb7179f8f9c1790649120e7ea60faa6a22",
+        "sig": "5a27c64a2088898425f08df7bfb5aa6c3300a65e7d320e46dfefe00d89e629a25e51009de85f0a9f1c4152a49c8c93f7c2bb5302fb48e8380b57a1ad4330e238"
+      },
+      "mcp": {
+        "jsonrpc": "2.0",
+        "id": 0,
+        "result": {
+          "protocolVersion": "2024-11-05",
+          "capabilities": {
+            "tools": {}
+          },
+          "serverInfo": {
+            "name": "contextvm-venue-server",
+            "version": "1.0.0"
+          }
+        }
+      }
+    },
+    {
+      "phase": "request",
+      "method": "tools/list",
+      "id": 1,
+      "inner_event": {
+        "kind": 25910,
+        "pubkey": "cc48bad7608ce9b45f7eadddd74c7ed1dd7c52114bc4412bb8b19b95af5bd618",
+        "tags": [
+          [
+            "p",
+            "fe700a09094950660077447bedd4e0b3abc14a82e95227b313aebf83b7798984"
+          ]
+        ],
+        "content": "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"tools/list\",\"params\":{}}",
+        "created_at": 1791318077,
+        "id": "445223f60379c48b322951f76c6369c873b77687ccf009a904899ff746bd4f73",
+        "sig": "0be8b0cc5b275e70077825b353caf48642f65296a7bfd63d35709a5cd34ce4b51691da5185113f796ff149d2f0cb15afe3433c45bca33d3da6990a3b336c8c24"
+      },
+      "gift_wrap_event_id": "90a37103363ecb39f2e32d6290d8e0cde9811d934e1c34f8dc0f8af140251b04",
+      "gift_wrap_kind": 1059,
+      "publish_ok": {
+        "wss://relay2.orangesync.tech": true
+      }
+    },
+    {
+      "phase": "response",
+      "method": "tools/list",
+      "id": 1,
+      "inner_event": {
+        "pubkey": "fe700a09094950660077447bedd4e0b3abc14a82e95227b313aebf83b7798984",
+        "kind": 25910,
+        "tags": [
+          [
+            "p",
+            "cc48bad7608ce9b45f7eadddd74c7ed1dd7c52114bc4412bb8b19b95af5bd618"
+          ]
+        ],
+        "content": "{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":{\"tools\":[{\"name\":\"menu\",\"description\":\"Return the full menu for all announced venues. Each item carries sku, name, prices_by_order_method, available, and allergens.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"venue_slug\":{\"type\":\"string\",\"description\":\"Optional: filter to a single venue slug. Omit to receive all venues.\"}},\"additionalProperties\":false}},{\"name\":\"order\",\"description\":\"Build a basket for the venue's own ordering rail. Checkout and payment happen on the venue's own page; this tool does not place or settle the order.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"items\":{\"type\":\"array\",\"description\":\"Basket lines. Identify each item by `sku` or by the venue's `id` — exactly one. A sku matching more than one item (pizza: 36, 110, 44) is refused; pass `id` there.\",\"items\":{\"type\":\"object\",\"properties\":{\"sku\":{\"type\":\"string\",\"description\":\"Venue sku. Refused when it identifies more than one item — use `id` instead.\"},\"id\":{\"type\":\"string\",\"description\":\"The venue's own item id, unique where a sku is not.\"},\"qty\":{\"type\":\"integer\",\"minimum\":1},\"options\":{\"type\":\"object\"}},\"required\":[\"qty\"],\"additionalProperties\":false}},\"fulfilment\":{\"type\":\"string\",\"enum\":[\"pickup\",\"delivery\",\"dine_in\"],\"description\":\"How the order will be fulfilled.\"},\"when\":{\"type\":\"string\",\"description\":\"Requested fulfilment time (ISO 8601 or 'asap').\"},\"notes\":{\"type\":\"string\",\"description\":\"Free text for the kitchen/handler.\"},\"ship\":{\"type\":\"object\",\"description\":\"Required only when fulfilment == 'delivery'.\",\"properties\":{\"address\":{\"type\":\"object\",\"properties\":{\"street\":{\"type\":\"string\"},\"city\":{\"type\":\"string\"},\"postal_code\":{\"type\":\"string\"},\"country\":{\"type\":\"string\"}}},\"recipient_name\":{\"type\":\"string\"},\"notes\":{\"type\":\"string\"}}},\"venue_slug\":{\"type\":\"string\",\"description\":\"The venue to order from.\"},\"contact\":{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"},\"phone\":{\"type\":\"string\"},\"email\":{\"type\":\"string\"}}}},\"required\":[\"venue_slug\",\"items\",\"fulfilment\",\"when\"],\"additionalProperties\":false}}]}}",
+        "created_at": 1791318078,
+        "id": "eac77a7d3901bfe8ab746aea5f3be166825073326d9c2ebc7547f332e8e5a8c7",
+        "sig": "a47c2bb1b430e72aa9f3e6b744d5297c7f6716009c40404891687d473fd3dd000e1ba825df7a8f0f4b09d678957c40c699ea00a1cbc6a57ac40f7fda16f6771c"
+      },
+      "mcp": {
+        "jsonrpc": "2.0",
+        "id": 1,
+        "result": {
+          "tools": [
+            {
+              "name": "menu",
+              "description": "Return the full menu for all announced venues. Each item carries sku, name, prices_by_order_method, available, and allergens.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "venue_slug": {
+                    "type": "string",
+                    "description": "Optional: filter to a single venue slug. Omit to receive all venues."
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            {
+              "name": "order",
+              "description": "Build a basket for the venue's own ordering rail. Checkout and payment happen on the venue's own page; this tool does not place or settle the order.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "items": {
+                    "type": "array",
+                    "description": "Basket lines. Identify each item by `sku` or by the venue's `id` — exactly one. A sku matching more than one item (pizza: 36, 110, 44) is refused; pass `id` there.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "sku": {
+                          "type": "string",
+                          "description": "Venue sku. Refused when it identifies more than one item — use `id` instead."
+                        },
+                        "id": {
+                          "type": "string",
+                          "description": "The venue's own item id, unique where a sku is not."
+                        },
+                        "qty": {
+                          "type": "integer",
+                          "minimum": 1
+                        },
+                        "options": {
+                          "type": "object"
+                        }
+                      },
+                      "required": [
+                        "qty"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "fulfilment": {
+                    "type": "string",
+                    "enum": [
+                      "pickup",
+                      "delivery",
+                      "dine_in"
+                    ],
+                    "description": "How the order will be fulfilled."
+                  },
+                  "when": {
+                    "type": "string",
+                    "description": "Requested fulfilment time (ISO 8601 or 'asap')."
+                  },
+                  "notes": {
+                    "type": "string",
+                    "description": "Free text for the kitchen/handler."
+                  },
+                  "ship": {
+                    "type": "object",
+                    "description": "Required only when fulfilment == 'delivery'.",
+                    "properties": {
+                      "address": {
+                        "type": "object",
+                        "properties": {
+                          "street": {
+                            "type": "string"
+                          },
+                          "city": {
+                            "type": "string"
+                          },
+                          "postal_code": {
+                            "type": "string"
+                          },
+                          "country": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "recipient_name": {
+                        "type": "string"
+                      },
+                      "notes": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "venue_slug": {
+                    "type": "string",
+                    "description": "The venue to order from."
+                  },
+                  "contact": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "phone": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "venue_slug",
+                  "items",
+                  "fulfilment",
+                  "when"
+                ],
+                "additionalProperties": false
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "phase": "request",
+      "method": "tools/call",
+      "id": 2,
+      "inner_event": {
+        "kind": 25910,
+        "pubkey": "cc48bad7608ce9b45f7eadddd74c7ed1dd7c52114bc4412bb8b19b95af5bd618",
+        "tags": [
+          [
+            "p",
+            "fe700a09094950660077447bedd4e0b3abc14a82e95227b313aebf83b7798984"
+          ]
+        ],
+        "content": "{\"jsonrpc\":\"2.0\",\"id\":2,\"method\":\"tools/call\",\"params\":{\"name\":\"menu\",\"arguments\":{}}}",
+        "created_at": 1791318078,
+        "id": "6c16d99499add3c4b4ccd5c90993f98d7a516990247dc0e5c8cdf1a863f79019",
+        "sig": "e8a4b9e773ed2f3b6d04bbbd8e338fac5a74cdaa156640f2e76fb8bef80a37740ce7cb57f0311efde42747ba21117d990845f6c91210a244f52b3cd875bc3049"
+      },
+      "gift_wrap_event_id": "027b6f2b7dbceffaabbef5fcbb0dc63212743d79e0e30d73808bafab79234a00",
+      "gift_wrap_kind": 1059,
+      "publish_ok": {
+        "wss://relay2.orangesync.tech": true
+      }
+    },
+    {
+      "phase": "request",
+      "method": "tools/call",
+      "id": 3,
+      "inner_event": {
+        "kind": 25910,
+        "pubkey": "cc48bad7608ce9b45f7eadddd74c7ed1dd7c52114bc4412bb8b19b95af5bd618",
+        "tags": [
+          [
+            "p",
+            "fe700a09094950660077447bedd4e0b3abc14a82e95227b313aebf83b7798984"
+          ]
+        ],
+        "content": "{\"jsonrpc\":\"2.0\",\"id\":3,\"method\":\"tools/call\",\"params\":{\"name\":\"order\",\"arguments\":{\"venue_slug\":\"doppelt-kaese-berlin\",\"items\":[{\"sku\":\"331227\",\"qty\":2},{\"sku\":\"331233\",\"qty\":1}],\"fulfilment\":\"pickup\",\"when\":\"asap\",\"notes\":\"e2e relay round-trip\"}}}",
+        "created_at": 1791318109,
+        "id": "9933edb74dfee8f1e1474ebd4b844a503f45355d3f3fc635939b5265da0bc5ea",
+        "sig": "edb901eab6c086cd8c7ecc9b139b920ec71375fb51f2f63e6204bf1b18c326785bb3d8b11ba54c6f62d2ec8688df406b6228aa8b431c10fa4822c8f34325dbdb"
+      },
+      "gift_wrap_event_id": "d80aff481040a320debf5ad263e96f0592abad31fdd8fde9554892b35f9e3ae0",
+      "gift_wrap_kind": 1059,
+      "publish_ok": {
+        "wss://relay2.orangesync.tech": true
+      }
+    }
+  ]
+}

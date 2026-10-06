@@ -12,7 +12,14 @@ import {
   type VenueIndex,
   parseRelayList,
   parseVenueFilter,
+  frameBytes,
+  publishToRelays,
+  RELAY_FRAME_CAP_BYTES,
+  RELAY_OPTIONS,
+
+  requestFilter,
 } from "./server.ts";
+import { Relay } from "npm:nostr-tools";
 
 let index: VenueIndex;
 
@@ -473,5 +480,266 @@ Deno.test("RED: a venue-filtered instance still orders its own venue normally", 
   if (payload.status !== "basket") throw new Error("expected basket status");
   if (payload.venue.slug !== "pizza-e-pasta-ruedesheimerplatz") {
     throw new Error(`expected pizza venue in response, got ${payload.venue.slug}`);
+  }
+});
+
+// ---------------------------------------------------------------------------
+// Relay publishing must be INDEPENDENT per relay and BOUNDED in time.
+//
+// Production, 2026-10-06: sendResponse() published with a sequential
+// `for (...) await relay.publish(...)`. A relay that is CONNECTED but SILENT
+// (open socket, never answers with an OK) therefore parked the loop, and every
+// relay after it in the list delivered nothing -- the client timed out even
+// though a healthy relay was in the set. That is why both-relay runs failed on
+// different checks each time, why restarting the server did not cure it, and
+// why a green primal-only run proved nothing about the relay set. See
+// evidence/relay-e2e/FINDING-2-sequential-publish-suppresses-every-reply.md.
+// ---------------------------------------------------------------------------
+
+type FakeTarget = { publish: (e: unknown) => Promise<string> };
+const FAKE_EVENT = { id: "e".repeat(64) };
+
+function silentTarget(counter: { calls: number }): FakeTarget {
+  return {
+    publish: () => {
+      counter.calls++;
+      return new Promise<string>(() => {}); // connected, never answers
+    },
+  };
+}
+
+Deno.test("RED: a silent relay does not withhold the reply from a healthy relay", async () => {
+  const got: unknown[] = [];
+  const counter = { calls: 0 };
+  const healthy: FakeTarget = {
+    publish: (e) => {
+      got.push(e);
+      return Promise.resolve("");
+    },
+  };
+
+  const started = Date.now();
+  const res = await publishToRelays([silentTarget(counter), healthy], FAKE_EVENT, {
+    timeoutMs: 400,
+  });
+  const elapsed = Date.now() - started;
+
+  if (got.length !== 1) throw new Error(`healthy relay must receive the reply; got ${got.length}`);
+  if (counter.calls !== 1) throw new Error(`silent relay must be attempted once; got ${counter.calls}`);
+  if (res.delivered !== 1 || res.failed !== 1) {
+    throw new Error(`expected 1 delivered/1 failed; got ${JSON.stringify(res)}`);
+  }
+  if (elapsed > 3000) throw new Error(`deadline must bound the stall; took ${elapsed}ms`);
+});
+
+Deno.test("RED: relay order does not change the outcome (silent relay last)", async () => {
+  const got: unknown[] = [];
+  const counter = { calls: 0 };
+  const healthy: FakeTarget = {
+    publish: (e) => {
+      got.push(e);
+      return Promise.resolve("");
+    },
+  };
+  const res = await publishToRelays([healthy, silentTarget(counter)], FAKE_EVENT, {
+    timeoutMs: 400,
+  });
+  if (got.length !== 1) throw new Error(`healthy relay must receive the reply; got ${got.length}`);
+  if (res.delivered !== 1 || res.failed !== 1) {
+    throw new Error(`expected 1 delivered/1 failed; got ${JSON.stringify(res)}`);
+  }
+});
+
+Deno.test("RED: a relay that refuses the event is counted failed, others still deliver", async () => {
+  const got: unknown[] = [];
+  const healthy: FakeTarget = {
+    publish: (e) => {
+      got.push(e);
+      return Promise.resolve("");
+    },
+  };
+  const refusing: FakeTarget = { publish: () => Promise.reject(new Error("blocked: not allowed")) };
+  const res = await publishToRelays([refusing, healthy], FAKE_EVENT, { timeoutMs: 400 });
+  if (got.length !== 1) throw new Error("healthy relay must still receive the reply");
+  if (res.delivered !== 1 || res.failed !== 1) {
+    throw new Error(`expected 1 delivered/1 failed; got ${JSON.stringify(res)}`);
+  }
+});
+
+Deno.test("RED: all healthy relays deliver, none are counted failed", async () => {
+  const got: unknown[] = [];
+  const mk = (): FakeTarget => ({
+    publish: (e) => {
+      got.push(e);
+      return Promise.resolve("");
+    },
+  });
+  const res = await publishToRelays([mk(), mk(), mk()], FAKE_EVENT, { timeoutMs: 400 });
+  if (got.length !== 3) throw new Error(`all three relays must receive the reply; got ${got.length}`);
+  if (res.delivered !== 3 || res.failed !== 0) {
+    throw new Error(`expected 3 delivered/0 failed; got ${JSON.stringify(res)}`);
+  }
+});
+
+// ---------------------------------------------------------------------------
+// A dropped relay must come BACK, and a half-dead socket must be noticed.
+//
+// Production, 2026-10-06: relay2 closes the socket mid-run ("Tried to send
+// message ... on a closed connection to wss://relay2.orangesync.tech/") and the
+// server never set nostr-tools' enableReconnect, so AbstractRelay.handleHardClose
+// took the ELSE branch -- onclose + closeAllSubscriptions -- and that Relay
+// object stayed dead for the whole process lifetime. A client reading only from
+// relay2 stopped being served at the moment of the close: the 2/4 e2e shape.
+//
+// nostr-tools ALREADY implements reconnect-with-backoff and re-fires every open
+// subscription in ws.onopen; both are off unless asked for. Enabling them is the
+// fix -- not a hand-rolled supervisor, which would duplicate tested library code.
+// These tests keep the flags on: deleting one silently restores the outage.
+// ---------------------------------------------------------------------------
+
+Deno.test("RED: the relay client is told to reconnect and to ping", () => {
+  if (RELAY_OPTIONS.enableReconnect !== true) {
+    throw new Error(
+      "enableReconnect must be true -- nostr-tools defaults it OFF, and with it off a dropped relay is dead for the life of the process",
+    );
+  }
+  if (RELAY_OPTIONS.enablePing !== true) {
+    throw new Error(
+      "enablePing must be true -- without it a socket that is open but never answers is never detected",
+    );
+  }
+});
+
+const canNet = (await Deno.permissions.query({ name: "net" })).state === "granted";
+
+Deno.test({
+  name: "RED: a relay whose socket closes is reconnected AND re-subscribed (net)",
+  ignore: !canNet,
+  fn: async () => {
+    let connections = 0;
+    let reqs = 0;
+    const ac = new AbortController();
+    const server = Deno.serve({ port: 0, signal: ac.signal, onListen: () => {} }, (req) => {
+      if (req.headers.get("upgrade") !== "websocket") {
+        return new Response("no upgrade", { status: 400 });
+      }
+      const { socket, response } = Deno.upgradeWebSocket(req);
+      socket.onopen = () => {
+        connections++;
+        // drop every socket shortly after it opens, so a successful test can
+        // only pass by reconnecting
+        setTimeout(() => {
+          try {
+            socket.close();
+          } catch (_) {
+            // already closed
+          }
+        }, 200);
+      };
+      socket.onmessage = (ev) => {
+        if (String(ev.data).startsWith('["REQ"')) reqs++;
+      };
+      return response;
+    });
+    const url = `ws://localhost:${(server.addr as Deno.NetAddr).port}`;
+
+    try {
+      const relay = await Relay.connect(url, { ...RELAY_OPTIONS });
+      // the real backoff starts at 10s; keep the test fast but exercise the
+      // library's own reconnect path
+      relay.resubscribeBackoff = [50, 50, 50, 50];
+      relay.subscribe([{ kinds: [1059], limit: 0 }], { onevent: () => {} });
+
+      await new Promise((r) => setTimeout(r, 2000));
+      relay.close();
+
+      if (connections < 2) {
+        throw new Error(`a dropped relay must be reconnected; connections=${connections}`);
+      }
+      if (reqs < 2) {
+        throw new Error(`a reconnected relay must be re-subscribed; REQs=${reqs}`);
+      }
+    } finally {
+      ac.abort();
+    }
+  },
+});
+
+// ---------------------------------------------------------------------------
+// An undeliverable reply must be LOUD, not silent.
+//
+// FINDING-3: the all-venues menu gift wrap measures 131595 B, over strfry's
+// default maxWebsocketPayloadSize (131072). relay2 rejects that frame outright
+// -- "131595 > 131072" is in its own log -- and from our side the client just
+// timed out, with nothing in our logs to say why. Relays differ (primal accepted
+// the same frame), so we still attempt the publish everywhere; we simply refuse
+// to do it silently.
+// ---------------------------------------------------------------------------
+
+Deno.test("RED: an oversized reply frame is called out locally", async () => {
+  const logs: string[] = [];
+  const delivered: unknown[] = [];
+  const target = {
+    publish: (e: unknown) => {
+      delivered.push(e);
+      return Promise.resolve("");
+    },
+  };
+  const big = { id: "0".repeat(64), content: "a".repeat(RELAY_FRAME_CAP_BYTES) };
+
+  if (frameBytes(big) <= RELAY_FRAME_CAP_BYTES) {
+    throw new Error("test premise: this event must exceed the frame cap");
+  }
+  await publishToRelays([target], big, { log: (m) => logs.push(m) });
+
+  if (delivered.length !== 1) {
+    throw new Error("relays differ: an oversized frame must still be attempted, not withheld");
+  }
+  if (!logs.some((l) => l.includes("WARNING") && l.toLowerCase().includes("frame"))) {
+    throw new Error(`an oversized frame must raise a local warning; logs=${JSON.stringify(logs)}`);
+  }
+});
+
+Deno.test("RED: a reply that fits logs no size warning", async () => {
+  const logs: string[] = [];
+  const target = { publish: () => Promise.resolve("") };
+  await publishToRelays([target], { id: "0".repeat(64), content: "ok" }, {
+    log: (m) => logs.push(m),
+  });
+  if (logs.some((l) => l.toLowerCase().includes("frame"))) {
+    throw new Error(`a normal reply must not warn; logs=${JSON.stringify(logs)}`);
+  }
+});
+
+// ---------------------------------------------------------------------------
+// The request filter must be ADDRESSED, not a firehose.
+//
+// FINDING-3's corollary: we subscribed to { kinds: [1059, 21059], limit: 0 } --
+// every gift wrap on the relay -- and filtered by recipient in the handler. The
+// relay-side filter `#p` is exact (a CVM request names the server's key in its
+// `p` tag), and the whole-relay firehose is what drove relay2's reader stalls
+// (2635 x `1006/Resource temporarily unavailable` in 90 min).
+// ---------------------------------------------------------------------------
+
+Deno.test("RED: the subscription filter is addressed to the server key", () => {
+  const serverPk = "a1".repeat(32);
+  const filter = requestFilter(serverPk);
+
+  if (!filter.kinds.includes(1059) || !filter.kinds.includes(21059)) {
+    throw new Error(`both CVM request kinds must be requested; kinds=${filter.kinds}`);
+  }
+  const p = filter["#p"];
+  if (!Array.isArray(p) || p.length !== 1 || p[0] !== serverPk) {
+    throw new Error(
+      `filter must be addressed to exactly the server key, got ${JSON.stringify(p)}`,
+    );
+  }
+});
+
+Deno.test("RED: the filter no longer asks for unaddressed events", () => {
+  const filter = requestFilter("b2".repeat(32));
+  // A firehose filter has no `#p`; that is the regression this pins.
+  if (!("#p" in filter)) {
+    throw new Error("a filter without #p is the whole-relay firehose, not an addressed subscription");
   }
 });
