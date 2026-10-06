@@ -1,0 +1,50 @@
+[
+  {
+    "domain": ".pizzaepasta-ruedesheimerplatz.de",
+    "httpOnly": true,
+    "name": "_cfuvid",
+    "path": "/",
+    "secure": true,
+    "value": "[REDACTED]"
+  },
+  {
+    "domain": "pizzaepasta-ruedesheimerplatz.de",
+    "httpOnly": false,
+    "name": "splitVar",
+    "path": "/",
+    "secure": false,
+    "value": "[REDACTED]"
+  },
+  {
+    "domain": "pizzaepasta-ruedesheimerplatz.de",
+    "httpOnly": false,
+    "name": "rwgToken",
+    "path": "/",
+    "secure": false,
+    "value": "[REDACTED]"
+  },
+  {
+    "domain": ".pizzaepasta-ruedesheimerplatz.de",
+    "httpOnly": true,
+    "name": "cf_clearance",
+    "path": "/",
+    "secure": true,
+    "value": "[REDACTED]"
+  },
+  {
+    "domain": ".pizzaepasta-ruedesheimerplatz.de",
+    "httpOnly": true,
+    "name": "__cf_bm",
+    "path": "/",
+    "secure": true,
+    "value": "[REDACTED]"
+  },
+  {
+    "domain": ".pizzaepasta-ruedesheimerplatz.de",
+    "httpOnly": false,
+    "name": "ajs_anonymous_id",
+    "path": "/",
+    "secure": false,
+    "value": "[REDACTED]"
+  }
+]

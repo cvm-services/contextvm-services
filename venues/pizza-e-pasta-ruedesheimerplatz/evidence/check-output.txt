@@ -1,0 +1,1 @@
+PARSE OK sections=9 popular_views=1 items_listed=112 priced=112 min_price=2.70 max_price=16.65 currency=EUR method=pickup sha256=a47b20fce4b2727565d8d05039949e400c115484a677cf215b32e649eb7ad51b MATCH

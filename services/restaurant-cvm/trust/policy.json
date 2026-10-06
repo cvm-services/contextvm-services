@@ -1,0 +1,9 @@
+{
+  "expiry_s": 3600,
+  "k_min": 4,
+  "required": true,
+  "seen_scope": "order",
+  "set_file": "burger-vendors-berlin.json",
+  "set_slug": "burger-vendors-berlin",
+  "verifier_id": "npub1gkfurgp0qrxvw5gdma78pczwnnqsmul3synj0huw6umexvlvfg6ss3ntn3"
+}

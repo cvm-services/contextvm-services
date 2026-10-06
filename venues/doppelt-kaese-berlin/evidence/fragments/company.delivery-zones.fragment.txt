@@ -1,0 +1,19 @@
+"delivery_zones": [
+      {
+        "color": "#69CE8C",
+        "fee": 5,
+        "geometry_data": {
+          "center": {
+            "lat": 52.4707069,
+            "lng": 13.3202819
+          },
+          "radius": 5000
+        },
+        "geometry_type": "circle",
+        "id": 2454,
+        "max_threshold": 750,
+        "min_threshold": 20,
+        "name": "External delivery"
+      }
+    ],
+  

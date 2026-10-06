@@ -1,0 +1,14 @@
+"address": "Rüdesheimer Str. 9, 14197 Berlin",
+  "availablePaymentMethods": [
+    "Braintree",
+    "Cash",
+    "ApplePay",
+    "AndroidPay",
+    "PayPal"
+  ],
+  "canCancelOrder": true,
+  "canPreOrderNextDay": "AsapTodayTomorrow",
+  "canRejectOrder": false,
+  "code": "00000",
+  "coordinates": {
+    "latitude": 52.4725

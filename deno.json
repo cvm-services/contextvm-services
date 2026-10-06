@@ -1,15 +1,31 @@
 {
-  "name": "contextvm-services",
-  "version": "0.1.0",
   "tasks": {
-    "test": "deno test --allow-read --allow-net --allow-write",
+    "test": "deno test --allow-read",
+    "test:net": "deno test --allow-read --allow-net",
+    "fixture": "deno run --allow-read --allow-write tools/nosms_announcement.ts --fixture",
+    "check-fixture": "deno run --allow-read tools/nosms_announcement.ts --check",
+    "emit": "deno run --allow-read tools/nosms_announcement.ts --emit",
     "check": "deno check tools/emit-venue-announcement.ts"
   },
   "fmt": {
     "lineWidth": 100,
-    "exclude": ["vendor/", "vocab/", "venues/"]
+    "exclude": [
+      "vendor/",
+      "docs/",
+      "vocab/",
+      "fixtures/",
+      "evidence/",
+      "venues/"
+    ]
   },
   "lint": {
-    "exclude": ["vendor/", "vocab/", "venues/"]
+    "exclude": [
+      "vendor/",
+      "docs/",
+      "vocab/",
+      "fixtures/",
+      "evidence/",
+      "venues/"
+    ]
   }
 }

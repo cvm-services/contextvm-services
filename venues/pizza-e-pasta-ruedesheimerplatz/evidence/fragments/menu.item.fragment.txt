@@ -1,0 +1,32 @@
+"title": "Pizza Funghi"
+          },
+          {
+            "additives": [
+              {
+                "code": "PRESERV",
+                "id": 120,
+                "title": "mit Konservierungsstoff"
+              }
+            ],
+            "addons": [
+              {
+                "addonItems": [
+                  {
+                    "discountedPrice": 12.6,
+                    "id": 43938710,
+                    "orderBy": 2,
+                    "price": 14,
+                    "title": "Ø 32cm"
+                  }
+                ],
+                "id": 4454494,
+                "isRequired": true,
+                "priceLevelDependent": true,
+                "title": "Deine Größe",
+                "type": "PriceLevelEnum"
+              },
+              {
+                "addonItems": [
+                  {
+                    "discountedPrice": 1.8,
+                    "d
