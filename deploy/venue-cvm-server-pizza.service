@@ -6,10 +6,8 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-# NOTE: this path is a git worktree, not the canonical checkout. Point this at
-# the deployed checkout once the branch is merged. If the worktree is pruned the
-# unit breaks.
-WorkingDirectory=/home/c03rad0r/worktrees/cs-pizza-identity
+# Deployed checkout on main (a clone, not a worktree): survives worktree pruning.
+WorkingDirectory=%h/repos/contextvm-services
 # The ANNOUNCED relay set, deliberately including relay2 even though relay2
 # currently drops long-lived subscribed sockets: dropping it here would hide the
 # blocker rather than surface it. See the FINDING doc above.
@@ -20,7 +18,7 @@ Environment=VENUE_SERVER_VENUES=pizza-e-pasta-ruedesheimerplatz
 # The wrapper reads the venue secret from the 0600 key file into this process
 # only. No key material is stored in this unit.
 Environment=VENUE_SERVER_KEY_FILE=/home/c03rad0r/.hermes/secrets/venues/pizza-e-pasta-ruedesheimerplatz.nsec
-ExecStart=/home/c03rad0r/worktrees/cs-pizza-identity/services/restaurant-cvm/run-venue-server.sh
+ExecStart=%h/repos/contextvm-services/services/restaurant-cvm/run-venue-server.sh
 Restart=always
 RestartSec=10
 
