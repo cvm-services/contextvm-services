@@ -1,0 +1,35 @@
+[0m[32mTask[0m [0m[36mtest[0m deno test --allow-read
+[0m[32mCheck[0m services/restaurant-cvm/server_test.ts
+[0m[32mCheck[0m tests/attestation_test.ts
+[0m[32mCheck[0m tests/key_text_test.ts
+[0m[32mCheck[0m tests/review_event_test.ts
+[0m[32mCheck[0m tools/nosms_announcement_test.ts
+[0m[32mCheck[0m tools/nosms_live_capture_test.ts
+[0m[32mCheck[0m tools/publish_readback_test.ts
+[0m[32mCheck[0m tools/venue_announcement_test.ts
+[0m[1mTS2305 [0m[ERROR]: Module '"file:///home/c03rad0r/worktrees/cs-pizza-identity/services/restaurant-cvm/server.ts"' has no exported member 'parseVenueFilter'.
+  parseVenueFilter,
+[0m[31m  ~~~~~~~~~~~~~~~~[0m
+    at [0m[36mfile:///home/c03rad0r/worktrees/cs-pizza-identity/services/restaurant-cvm/server_test.ts[0m:[0m[33m14[0m:[0m[33m3[0m
+
+[0m[1mTS2554 [0m[ERROR]: Expected 0 arguments, but got 1.
+  const filtered = await buildIndex(["pizza-e-pasta-ruedesheimerplatz"]);
+[0m[31m                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+    at [0m[36mfile:///home/c03rad0r/worktrees/cs-pizza-identity/services/restaurant-cvm/server_test.ts[0m:[0m[33m433[0m:[0m[33m37[0m
+
+[0m[1mTS2554 [0m[ERROR]: Expected 0 arguments, but got 1.
+  const filtered = await buildIndex(["pizza-e-pasta-ruedesheimerplatz"]);
+[0m[31m                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+    at [0m[36mfile:///home/c03rad0r/worktrees/cs-pizza-identity/services/restaurant-cvm/server_test.ts[0m:[0m[33m447[0m:[0m[33m37[0m
+
+[0m[1mTS2554 [0m[ERROR]: Expected 0 arguments, but got 1.
+  const filtered = await buildIndex(["pizza-e-pasta-ruedesheimerplatz"]);
+[0m[31m                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+    at [0m[36mfile:///home/c03rad0r/worktrees/cs-pizza-identity/services/restaurant-cvm/server_test.ts[0m:[0m[33m464[0m:[0m[33m37[0m
+
+Found 4 errors.
+
+[0m[1m[31merror[0m: Type checking failed.
+
+  [33minfo:[39m The program failed type-checking, but it still might work correctly.
+  [36mhint:[39m Re-run with [4m--no-check[24m to skip type-checking.

@@ -1,0 +1,23 @@
+Oct 06 22:12:52 CobradorWave systemd[2143]: Stopping venue-cvm-server.service - ContextVM venue CVM server — doppelt-kaese-berlin (Stage 1: menu + order deep-link handoff)...
+Oct 06 22:12:52 CobradorWave systemd[2143]: Stopped venue-cvm-server.service - ContextVM venue CVM server — doppelt-kaese-berlin (Stage 1: menu + order deep-link handoff).
+Oct 06 22:12:52 CobradorWave systemd[2143]: venue-cvm-server.service: Consumed 3min 49.574s CPU time over 2h 26min 8.999s wall clock time, 92.5M memory peak, 38.8M memory swap peak.
+Oct 06 22:12:52 CobradorWave systemd[2143]: Started venue-cvm-server.service - ContextVM venue CVM server — doppelt-kaese-berlin (Stage 1: menu + order deep-link handoff).
+Oct 06 22:12:52 CobradorWave run-venue-server.sh[3482752]: [venue-cvm] starting; pubkey fe700a09094950660077447bedd4e0b3abc14a82e95227b313aebf83b7798984
+Oct 06 22:12:52 CobradorWave run-venue-server.sh[3482752]: [venue-cvm] menu loaded: 76 items across 1 venues
+Oct 06 22:12:54 CobradorWave run-venue-server.sh[3482752]: [venue-cvm] connected to wss://relay2.orangesync.tech
+Oct 06 22:12:54 CobradorWave run-venue-server.sh[3482752]: [venue-cvm] EOSE from wss://relay2.orangesync.tech
+Oct 06 22:12:54 CobradorWave run-venue-server.sh[3482752]: [venue-cvm] connected to wss://relay.primal.net
+Oct 06 22:12:54 CobradorWave run-venue-server.sh[3482752]: [venue-cvm] live; 2/2 relays connected
+Oct 06 22:12:54 CobradorWave run-venue-server.sh[3482752]: [venue-cvm] EOSE from wss://relay.primal.net
+Oct 06 22:13:03 CobradorWave systemd[2143]: Stopping venue-cvm-server.service - ContextVM venue CVM server — doppelt-kaese-berlin (Stage 1: menu + order deep-link handoff)...
+Oct 06 22:13:03 CobradorWave systemd[2143]: Stopped venue-cvm-server.service - ContextVM venue CVM server — doppelt-kaese-berlin (Stage 1: menu + order deep-link handoff).
+Oct 06 22:13:03 CobradorWave systemd[2143]: Started venue-cvm-server.service - ContextVM venue CVM server — doppelt-kaese-berlin (Stage 1: menu + order deep-link handoff).
+Oct 06 22:13:03 CobradorWave run-venue-server.sh[3483100]: [venue-cvm] starting; pubkey fe700a09094950660077447bedd4e0b3abc14a82e95227b313aebf83b7798984
+Oct 06 22:13:03 CobradorWave run-venue-server.sh[3483100]: [venue-cvm] menu loaded: 76 items across 1 venues
+Oct 06 22:13:04 CobradorWave run-venue-server.sh[3483100]: [venue-cvm] connected to wss://relay2.orangesync.tech
+Oct 06 22:13:04 CobradorWave run-venue-server.sh[3483100]: [venue-cvm] EOSE from wss://relay2.orangesync.tech
+Oct 06 22:13:04 CobradorWave run-venue-server.sh[3483100]: [venue-cvm] connected to wss://relay.primal.net
+Oct 06 22:13:04 CobradorWave run-venue-server.sh[3483100]: [venue-cvm] live; 2/2 relays connected
+Oct 06 22:13:04 CobradorWave run-venue-server.sh[3483100]: [venue-cvm] EOSE from wss://relay.primal.net
+Oct 06 22:13:28 CobradorWave run-venue-server.sh[3483100]: [venue-cvm] publish warning: invalid: event too large: 66045
+Oct 06 22:15:39 CobradorWave run-venue-server.sh[3483100]: [venue-cvm] publish warning: invalid: event too large: 66045

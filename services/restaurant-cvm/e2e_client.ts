@@ -27,7 +27,11 @@
 //   deno run --allow-net --allow-read --allow-env \
 //     services/restaurant-cvm/e2e_client.ts \
 //     --server <server-pubkey-hex> --relay wss://... [--relay wss://...] \
-//     [--json] [--timeout-ms 30000]
+//     [--venue <venue-slug>] [--json] [--timeout-ms 30000]
+//
+// --venue scopes the assertions to a single announced identity: the client
+// expects ONLY that venue's menu (slug set + item count) and orders against it.
+// Omit --venue to assert the combined two-venue catalogue (the pre-filter default).
 //
 // Prints the raw request and response events to stdout. Exit 0 if
 // tools/list AND tools/call both return a well-formed result; non-zero
@@ -45,6 +49,37 @@ import { Relay } from "npm:nostr-tools/relay";
 const CTXVM_MESSAGES_KIND = 25910;
 const GIFT_WRAP_KIND = 1059;
 const EPHEMERAL_GIFT_WRAP_KIND = 21059;
+
+// Per-venue expectations for a filtered instance. When --venue is set the client
+// asserts the instance serves ONLY that venue (menu slug set + item count) and
+// places a real order against it. Absent --venue, the client asserts the
+// combined two-venue catalogue (the pre-filter default).
+const VENUE_CFG: Record<
+  string,
+  { items: number; order: { venue_slug: string; items: Array<Record<string, unknown>>; fulfilment: string; when: string; notes: string; ship?: Record<string, unknown> } }
+> = {
+  "doppelt-kaese-berlin": {
+    items: 76,
+    order: {
+      venue_slug: "doppelt-kaese-berlin",
+      items: [{ sku: "331227", qty: 2 }, { sku: "331233", qty: 1 }],
+      fulfilment: "pickup",
+      when: "asap",
+      notes: "e2e relay round-trip (doppelt)",
+    },
+  },
+  "pizza-e-pasta-ruedesheimerplatz": {
+    items: 112,
+    order: {
+      venue_slug: "pizza-e-pasta-ruedesheimerplatz",
+      // sku 36 collides on two products, so order by the venue item id.
+      items: [{ id: "6943943", qty: 1 }],
+      fulfilment: "pickup",
+      when: "asap",
+      notes: "e2e relay round-trip (pizza)",
+    },
+  },
+};
 
 interface NostrEvent {
   id: string;
@@ -99,7 +134,7 @@ function hexToBytes(hex: string): Uint8Array {
 
 async function main() {
   const flags = parse(Deno.args, {
-    string: ["server", "relay"],
+    string: ["server", "relay", "venue"],
     boolean: ["json"],
     // Without collect, a repeated --relay OVERWRITES: passing the announced set
     // (relay2 + primal) silently used only the last one. The announced relays
@@ -111,6 +146,11 @@ async function main() {
   const serverPk = flags.server;
   if (!serverPk || !/^[0-9a-f]{64}$/.test(serverPk)) {
     console.error("--server <64-hex pubkey> is required");
+    Deno.exit(2);
+  }
+  const venueSlug = flags.venue ? String(flags.venue) : null;
+  if (venueSlug && !VENUE_CFG[venueSlug]) {
+    console.error(`--venue ${venueSlug} is not a known venue (${Object.keys(VENUE_CFG).join(", ")})`);
     Deno.exit(2);
   }
   const relays = (Array.isArray(flags.relay) ? flags.relay : flags.relay ? [flags.relay] : []);
@@ -287,7 +327,7 @@ async function main() {
     log(`[e2e] <- tools/list: tools=${JSON.stringify(names)}`);
   }
 
-  // 3. tools/call menu (full catalogue)
+  // 3. tools/call menu (the venue-scoped catalogue, or the full one)
   const menuResp = await request("tools/call", { name: "menu", arguments: {} }, 2);
   if (!menuResp) {
     checks.push({ name: "tools/call:menu", ok: false, detail: "no response (timeout)" });
@@ -299,19 +339,23 @@ async function main() {
     const venueSlugs = Array.isArray(payload?.venues)
       ? payload.venues.map((v: { venue_slug: string }) => v.venue_slug)
       : [];
+    // Venue-scoped: exactly one venue, the requested one, with its item count.
+    // Unscoped (default): both venues, 188 items.
+    const expectSlugs = venueSlug ? [venueSlug] : ["doppelt-kaese-berlin", "pizza-e-pasta-ruedesheimerplatz"];
+    const expectTotal = venueSlug ? VENUE_CFG[venueSlug].items : 188;
+    const slugsMatch = JSON.stringify([...venueSlugs].sort()) === JSON.stringify([...expectSlugs].sort());
     checks.push({
       name: "tools/call:menu",
-      ok: total === 188 && venueSlugs.includes("doppelt-kaese-berlin") &&
-        venueSlugs.includes("pizza-e-pasta-ruedesheimerplatz"),
-      detail: `total_items=${total} venues=${JSON.stringify(venueSlugs)}`,
+      ok: total === expectTotal && slugsMatch,
+      detail: `total_items=${total} venues=${JSON.stringify(venueSlugs)} expected=${JSON.stringify(expectSlugs)}/${expectTotal}`,
     });
     log(`[e2e] <- tools/call menu: total_items=${total} venues=${JSON.stringify(venueSlugs)}`);
   }
 
   // 4. tools/call order (a real basket — pickup, no address needed)
-  const orderResp = await request("tools/call", {
-    name: "order",
-    arguments: {
+  const orderArgs = venueSlug
+    ? VENUE_CFG[venueSlug].order
+    : {
       venue_slug: "doppelt-kaese-berlin",
       items: [
         { sku: "331227", qty: 2 },
@@ -320,22 +364,24 @@ async function main() {
       fulfilment: "pickup",
       when: "asap",
       notes: "e2e relay round-trip",
-    },
-  }, 3);
+    };
+  const orderResp = await request("tools/call", { name: "order", arguments: orderArgs }, 3);
   if (!orderResp) {
     checks.push({ name: "tools/call:order", ok: false, detail: "no response (timeout)" });
   } else {
     const m = JSON.parse(orderResp.content);
     transcript.push({ phase: "response", method: "tools/call", id: 3, tool: "order", inner_event: orderResp, mcp: m });
     const payload = JSON.parse(m?.result?.content?.[0]?.text ?? "{}");
+    const expectedLines = (orderArgs.items as unknown[]).length;
     const okOrder = payload?.status === "basket" &&
-      Array.isArray(payload?.lines) && payload.lines.length === 2 &&
+      Array.isArray(payload?.lines) && payload.lines.length === expectedLines &&
       typeof payload?.total === "number" &&
-      !!payload?.venue?.deep_link;
+      !!payload?.venue?.deep_link &&
+      payload?.venue?.slug === orderArgs.venue_slug;
     checks.push({
       name: "tools/call:order",
       ok: okOrder,
-      detail: `status=${payload?.status} lines=${payload?.lines?.length} total=${payload?.total} deep_link=${payload?.venue?.deep_link}`,
+      detail: `status=${payload?.status} lines=${payload?.lines?.length} total=${payload?.total} venue=${payload?.venue?.slug} deep_link=${payload?.venue?.deep_link}`,
     });
     log(`[e2e] <- tools/call order: status=${payload?.status} total=${payload?.total}`);
   }
@@ -344,6 +390,7 @@ async function main() {
   console.log(JSON.stringify({
     client_pubkey: clientPk,
     server_pubkey: serverPk,
+    venue: venueSlug,
     relays,
     started_at: since,
     checks,

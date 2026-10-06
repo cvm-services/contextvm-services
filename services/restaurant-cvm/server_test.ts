@@ -11,6 +11,7 @@ import {
   type McpRequest,
   type VenueIndex,
   parseRelayList,
+  parseVenueFilter,
 } from "./server.ts";
 
 let index: VenueIndex;
@@ -401,5 +402,76 @@ Deno.test("RED: pizza is priced only for pickup, and a delivery line says so", a
     throw new Error(
       `a delivery line priced from pickup must carry the note, got ${line.price_note}`,
     );
+  }
+});
+
+// ---------------------------------------------------------------------------
+// Per-venue identity (Stage 1b). Each venue is announced under its OWN pubkey,
+// so a single process that answers for both venues makes discovery a dead end
+// for the venue whose key is NOT the one the process runs under. The fix is one
+// server instance per announced identity: VENUE_SERVER_VENUES scopes an instance
+// to a subset of venues. Absent/empty => all venues (unchanged default).
+// ---------------------------------------------------------------------------
+
+Deno.test("RED: parseVenueFilter maps absent/empty to null, and splits a list", () => {
+  if (parseVenueFilter(undefined) !== null) {
+    throw new Error("absent env must mean 'all venues' (null)");
+  }
+  if (parseVenueFilter("") !== null) {
+    throw new Error("empty env must mean 'all venues' (null)");
+  }
+  if (parseVenueFilter("  ,  ") !== null) {
+    throw new Error("whitespace-only env must mean 'all venues' (null)");
+  }
+  const got = parseVenueFilter("pizza-e-pasta-ruedesheimerplatz, doppelt-kaese-berlin");
+  if (JSON.stringify(got) !== JSON.stringify(["pizza-e-pasta-ruedesheimerplatz", "doppelt-kaese-berlin"])) {
+    throw new Error(`filter not split/trimmed: ${JSON.stringify(got)}`);
+  }
+});
+
+Deno.test("RED: a venue-filtered instance serves ONLY that venue's menu", async () => {
+  const filtered = await buildIndex(["pizza-e-pasta-ruedesheimerplatz"]);
+  const res = handleToolCall(filtered, "menu", {});
+  if (res.isError) throw new Error(res.content[0].text);
+  const payload = JSON.parse(res.content[0].text);
+  const slugs = payload.venues.map((v: { venue_slug: string }) => v.venue_slug);
+  if (JSON.stringify(slugs) !== JSON.stringify(["pizza-e-pasta-ruedesheimerplatz"])) {
+    throw new Error(`expected only pizza, got ${JSON.stringify(slugs)}`);
+  }
+  if (payload.total_items !== 112) {
+    throw new Error(`expected 112 pizza items, got ${payload.total_items}`);
+  }
+});
+
+Deno.test("RED: a venue-filtered instance refuses an order for a venue it does not serve", async () => {
+  const filtered = await buildIndex(["pizza-e-pasta-ruedesheimerplatz"]);
+  const res = handleToolCall(filtered, "order", {
+    venue_slug: "doppelt-kaese-berlin",
+    items: [{ sku: "331227", qty: 1 }],
+    fulfilment: "pickup",
+    when: "asap",
+  });
+  if (!res.isError) {
+    throw new Error("an order for a venue this instance does not serve must fail loud");
+  }
+  const err = JSON.parse(res.content[0].text).error as string;
+  if (!/unknown venue_slug: doppelt-kaese-berlin/.test(err)) {
+    throw new Error(`error must name the unknown venue, got ${err}`);
+  }
+});
+
+Deno.test("RED: a venue-filtered instance still orders its own venue normally", async () => {
+  const filtered = await buildIndex(["pizza-e-pasta-ruedesheimerplatz"]);
+  const res = handleToolCall(filtered, "order", {
+    venue_slug: "pizza-e-pasta-ruedesheimerplatz",
+    items: [{ id: "6943943", qty: 1 }],
+    fulfilment: "pickup",
+    when: "asap",
+  });
+  if (res.isError) throw new Error(`own venue order should succeed: ${res.content[0].text}`);
+  const payload = JSON.parse(res.content[0].text);
+  if (payload.status !== "basket") throw new Error("expected basket status");
+  if (payload.venue.slug !== "pizza-e-pasta-ruedesheimerplatz") {
+    throw new Error(`expected pizza venue in response, got ${payload.venue.slug}`);
   }
 });

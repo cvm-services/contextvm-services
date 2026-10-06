@@ -1,5 +1,5 @@
 [Unit]
-Description=ContextVM venue CVM server — doppelt-kaese-berlin (Stage 1: menu + order deep-link handoff)
+Description=ContextVM venue CVM server — pizza-e-pasta-ruedesheimerplatz (Stage 1: menu + order deep-link handoff)
 Documentation=https://github.com/cvm-services/contextvm-services/blob/relay-e2e/evidence/relay-e2e/FINDING-relay2-carries-discovery-but-not-conversation.md
 After=network-online.target
 Wants=network-online.target
@@ -14,12 +14,12 @@ WorkingDirectory=/home/c03rad0r/worktrees/cs-pizza-identity
 # currently drops long-lived subscribed sockets: dropping it here would hide the
 # blocker rather than surface it. See the FINDING doc above.
 Environment=VENUE_SERVER_RELAYS=wss://relay2.orangesync.tech,wss://relay.primal.net
-# One server instance per announced identity. This unit serves ONLY doppelt,
-# signed by doppelt's key (the default VENUE_SERVER_KEY_FILE), matching its
-# kind-11317 announcement (fe700a09...).
-Environment=VENUE_SERVER_VENUES=doppelt-kaese-berlin
+# One server instance per announced identity. This unit serves ONLY pizza,
+# signed by pizza's key, matching its kind-11317 announcement (ef070a5d...).
+Environment=VENUE_SERVER_VENUES=pizza-e-pasta-ruedesheimerplatz
 # The wrapper reads the venue secret from the 0600 key file into this process
 # only. No key material is stored in this unit.
+Environment=VENUE_SERVER_KEY_FILE=/home/c03rad0r/.hermes/secrets/venues/pizza-e-pasta-ruedesheimerplatz.nsec
 ExecStart=/home/c03rad0r/worktrees/cs-pizza-identity/services/restaurant-cvm/run-venue-server.sh
 Restart=always
 RestartSec=10
