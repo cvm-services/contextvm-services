@@ -1,4 +1,30 @@
-# FINDING 2 — one silent relay suppresses every reply: our publish loop is sequential
+# FINDING 2 — the publish loop was sequential
+
+*(Title corrected 2026-10-06: the original said "one silent relay suppresses every
+reply". It does not suppress; it delays. See CORRECTION below.)*
+
+> **CORRECTION (2026-10-06, same day, after merge -- cold cross-family review).**
+> This finding's headline claim is **false**, and the evidence that falsifies it was
+> already printed three lines below the claim. nostr-tools@2.25.2 sets
+> `publishTimeout = 4400` and rejects with `new Error("publish timed out")` -- the
+> log line this document quotes as its "signature" **is** that rejection. A
+> connected-but-silent relay therefore **delays** the sequential loop by its ~4.4 s
+> timeout and the loop then **continues**: it does not suppress the relays after it,
+> and it was **not** the cause of the relay2-only failures (those are relay2
+> refusing the reply -- see the correction in FINDING-3).
+>
+> The refuted text below is kept, not deleted: a caught wrong claim is worth more to
+> the next reader than a quiet edit. Corrected on branch
+> `fix/claim-vs-code-publish-rationale`.
+>
+> **What is true, and what the fix actually buys:** a silent relay used to charge its
+> full 4400 ms to *every* reply before the next relay was attempted, so the delays
+> summed across the relay set -- and a reply could not reach a healthy relay until
+> the silent one's timeout elapsed. Publishing concurrently with a per-relay deadline
+> bounds total publish latency to one relay's timeout instead of their sum, and stops
+> a rejected relay from holding a later one. The reconnect/ping half of the fix
+> (defect 2 below) is verified behaviourally and is unaffected by this correction.
+
 
 Measured 2026-10-06, same session as FINDING 1.
 
@@ -29,6 +55,9 @@ Leaving the falsified claim in place would have sent the fix to the wrong side o
       }
     }
 
+**REFUTED 2026-10-06 -- see the CORRECTION at the top of this file.** The paragraph
+below is wrong on its central fact and is kept only for the record.
+
 `relay.publish` has no timeout and resolves only when the relay sends its OK. A relay
 that is *connected but silent* — an open socket that never answers — parks the loop.
 Every relay after it in the list receives **no reply at all**, and the client's request
@@ -42,8 +71,8 @@ Evidence from the supervised unit's journal, one process, one minute:
     19:47:18  publish warning: publish timed out          <-- a stall, not a rejection
     19:47:28  Tried to send message ... on a closed connection
 
-`publish timed out` is the signature. A rejection would have thrown a reason; silence
-stalls the loop.
+**REFUTED:** `publish timed out` is nostr-tools' own 4400 ms rejection -- a rejection,
+not silence, and the loop continues after the catch. There was no stall.
 
 ## Behaviour this explains that nothing else did
 
@@ -87,7 +116,7 @@ tree, same relays, 20s per-check timeout:
 - both        -- all_passed=false (3/4); tools/list timed out
 - relay2 only -- all_passed=false (2/4); menu and order timed out
 
-The suppression is gone: primal is served even while relay2 is failing, and the
+The serialisation is gone: primal is served while relay2 is stalling, and the
 both-relay run went from 0-2/4 to 3/4. What remains is a SECOND, independent
 defect, visible now only because the first one no longer hides it:
 
@@ -102,7 +131,9 @@ from relay2 stops being served at the moment of the close, which is exactly the
 FRESH connection to relay2 works, so reconnecting would recover it.
 
 Two defects, both ours, one code path:
-  1. sequential publish (fixed) -- one silent relay suppressed all the others.
+  1. sequential publish (fixed) -- one silent relay added its 4.4 s library
+     timeout to every reply before the next relay was tried. NOT a suppression;
+     corrected at the top of this file.
   2. no reconnect / no re-subscribe on close (open) -- a dropped relay is dead
      for the process lifetime.
 This is why the original incident read as "relay2 cannot carry conversation":

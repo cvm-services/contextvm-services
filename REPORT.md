@@ -16,9 +16,15 @@ Branch `fix/publish-concurrency` (PR #17). All work is committed and pushed:
    the real causes turned out to be OURS. Two defects, both fixed:
 
    - `server.ts` published SEQUENTIALLY (`for ... await relay.publish(...)`).
-     `relay.publish` has no timeout and resolves only on the relay's OK, so a
-     relay that is connected but SILENT parked the loop and every relay after it
-     delivered nothing. Fixed: concurrent publish with a per-relay deadline.
+     a relay that is connected but SILENT charged its whole library publish
+     timeout (nostr-tools `publishTimeout = 4400ms`) to every reply before the
+     next relay was attempted, so the delays summed across the relay set. Fixed:
+     concurrent publish with a per-relay deadline.
+     CORRECTED 2026-10-06 (cold review, after merge): an earlier revision of this
+     bullet said `relay.publish` "has no timeout" and that one silent relay
+     "suppressed" every relay after it. Both are false -- the library rejects at
+     4400 ms and the loop continues. Refuted wording preserved in
+     evidence/relay-e2e/FINDING-2-sequential-publish-suppresses-every-reply.md.
      RED first (4 tests failed: `TS2305 no exported member 'publishToRelays'`),
      GREEN 73/0.
    - `nostr-tools`' `enableReconnect`/`enablePing` were never set, so
