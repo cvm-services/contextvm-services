@@ -1,84 +1,81 @@
-# Report -- venue CVM server (Stage 1)
+# Report — per-venue identity for the venue CVM server
 
-## What was built
+## Outcome
 
-- `services/restaurant-cvm/server.ts` -- a Deno CVM server that exposes two MCP tools:
-  - `menu`: returns the full 188-item catalogue from `venues/*/venue.json`, with
-    `sku`, `name`, `prices_by_order_method`, `available`, `allergens`, and
-    `option_group_ids`.
-  - `order`: validates a basket against the menu, computes a per-fulfilment-method
-    total, enforces the conditional delivery-address rule, and returns a basket
-    plus the venue's rail and deep-link. It does **not** place, settle, or pay
-    anything.
-- `services/restaurant-cvm/server_test.ts` -- RED-first tests covering:
-  - `tools/list` shape and real `order` inputSchema
-  - 188 menu items and a known SKU price match
-  - unknown-SKU failure
-  - `ship.address` required only for `delivery`
-  - response is a basket, not "order placed"
-- Updated `tools/venue_to_announcement.ts` to emit the real `order` tool schema
-  instead of the zero-argument placeholder, and updated declared required/optional
-  fields to match (`order.items`, `order.fulfilment`, `order.when`, `contact.phone`,
-  `ship.address` optional, etc.).
-- `PROGRESS.md` appended at worktree root.
+Pizza e Pasta (Ruedesheimerplatz) is now reachable under its own announced pubkey
+`ef070a5d…` with a menu scoped to pizza only and a real, orderable basket. The
+fix is one server instance per announced identity, wired through a
+`VENUE_SERVER_VENUES` filter.
 
-## Test command and real tail
+## What changed
 
-```
-cd /home/c03rad0r/worktrees/cs-venue-server
-deno task test
-```
+1. **`services/restaurant-cvm/server.ts`**
+   - Added `parseVenueFilter(value)` — maps absent/empty to `null` (all venues),
+     else a trimmed, deduped array of slugs.
+   - `loadVenues(filter?)`, `buildIndex(filter?)`, `serve({ venues })` now thread
+     an optional venue filter; a filtered instance loads and serves only those
+     venues.
+   - CLI reads `VENUE_SERVER_VENUES` and passes it through.
 
-Tail of the actual run:
+2. **`services/restaurant-cvm/server_test.ts`** — 4 RED tests added:
+   - `parseVenueFilter` absent/empty/list behaviour.
+   - a filtered instance serves ONLY that venue's menu (112 pizza items).
+   - a filtered instance refuses an `order` for a venue it does not serve,
+     naming the unknown venue (`unknown venue_slug: doppelt-kaese-berlin`).
+   - a filtered instance still orders its own venue normally.
+   Proved RED first (TS2305/TS2554 against the unfixed tree), then GREEN.
 
-```
-running 10 tests from ./services/restaurant-cvm/server_test.ts
-RED: tools/list exposes menu and order with real schemas ... ok
-RED: menu returns 188 items with sku, name, prices, available, allergens ... ok
-RED: a known sku price matches venue.json exactly ... ok
-RED: order with an unknown sku fails loud ... ok
-RED: delivery requires ship.address; pickup and dine_in do not ... ok
-RED: order returns basket + rail + deep-link, not 'order placed' ... ok
-loadVenues loads two venues with 188 total items ... ok
-tools/call returns unknown-tool error ... ok
-initialize returns serverInfo ... ok
-order fails loud for sku not in chosen venue ... ok
-menu filter by venue_slug returns only that venue ... ok
-...
-ok | 59 passed | 0 failed (6s)
-```
+3. **`services/restaurant-cvm/run-venue-server.sh`** — reads/forwards
+   `VENUE_SERVER_VENUES`, added it to `--allow-env`.
 
-(The full suite includes 49 pre-existing tests; all 59 pass.)
+4. **`services/restaurant-cvm/e2e_client.ts`** — added `--venue` so a run asserts
+   a single announced identity (menu slug set + item count + order against that
+   venue). Unscoped runs keep the combined 188-item assertion.
 
-## Menu item count
+5. **`deploy/`** — added `venue-cvm-server-pizza.service` (pizza key +
+   `VENUE_SERVER_VENUES=pizza-e-pasta-ruedesheimerplatz`) and set
+   `VENUE_SERVER_VENUES=doppelt-kaese-berlin` on the existing doppelt unit, so the
+   two instances are 1:1 with their kind-11317 announcements.
 
-188 items served (76 doppelt-kaese-berlin + 112 pizza-e-pasta-ruedesheimerplatz).
+## Proof (raw, committed under `evidence/pizza-identity/`)
 
-## Data caveat handled honestly
+Both runs driven by `e2e_client.ts` over `wss://relay.primal.net`:
 
-`pizza-e-pasta-ruedesheimerplatz/venue.json` does **not** contain
-`prices_by_order_method` per item; its menu was captured for `pickup` only. The
-server wraps the item's `price` into `{ pickup: price }` so the published field
-shape is consistent, without retyping any price. Delivery prices for this venue
-are not in the source data; the order response notes when a fallback method is
-used.
+| target | pubkey | menu | order |
+|---|---|---|---|
+| pizza | `ef070a5d…` | 112 items, `["pizza-e-pasta-ruedesheimerplatz"]` only | status=basket, 1 line, total 2.70, deep_link present |
+| doppelt (regression) | `fe700a09…` | 76 items, `["doppelt-kaese-berlin"]` only | status=basket, 2 lines, total 22.30, deep_link present |
 
-## What was not verified
+- `pizza-e2e-primal.json` / `doppelt-e2e-primal.json` — full transcripts,
+  `all_passed: true`, `checks` all `ok`.
+- `pizza-server.log` / `doppelt-server.log` — each instance's own journal:
+  pizza loads 112 items/1 venue signed as `ef070a5d…`; doppelt 76/1 signed
+  `fe700a09…`.
 
-- No live relay run was attempted. `deno task test` is green with `--allow-read`
-  only; `deno task test:net` (which exercises relay publish/read-back) was not
-  run because it requires network and the server test path is local.
-- The CLI `serve()` path using `SERVER_HEX` was not exercised end-to-end against
-  a real CVM client; only the `handleMcpMessage`/`handleToolCall` paths are
-  tested.
-- The updated `venue_to_announcement.ts` content (new `order` tool schema) was
-  not re-published to relays; existing committed evidence files under
-  `evidence/announcements/` are unchanged.
-- `order.channel` (the explicit rail/versioning field from acceptance criterion
-  5 of PLAN-0005) is not implemented as a separate argument; the rail is
-  identified via `venue_slug`. This should be discussed in the PR.
+## Deployed
 
-## PR
+Both `systemd --user` units installed (`~/.config/systemd/user/`), enabled
+`--now`, Linger already yes:
 
-Branch `pr/venue-server` pushed; PR opened against `main` (not merged, per
-operator rule).
+- `venue-cvm-server.service` — doppelt, 76 items, `fe700a09…`, 2/2 relays.
+- `venue-cvm-server-pizza.service` — pizza, 112 items, `ef070a5d…`, 2/2 relays.
+
+## Tests
+
+`deno task test` → **69 passed | 0 failed** (baseline was 65).
+
+## Known issue (pre-existing, not fixed here, not caused by this change)
+
+relay2.orangesync.tech drops long-lived subscribed sockets (see
+`evidence/relay-e2e/FINDING-…`). This work also surfaced a second relay2
+limitation in the server logs: a 76-item (~66 KB) or 112-item (~77 KB) menu
+gift-wrap is rejected by relay2 with `invalid: event too large`, while
+`wss://relay.primal.net` accepts it. All proof above runs over primal, which
+round-trips cleanly. This is a separate relay2 finding to be diagnosed in
+parallel; not addressed here.
+
+## Not done (by design)
+
+No announcement was created or republished — publishing is the manager's call
+and is gated. Nothing merged. Branch `pizza-identity` carries the code, tests,
+units, and raw proof.

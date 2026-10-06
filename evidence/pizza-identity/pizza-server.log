@@ -1,0 +1,20 @@
+Oct 06 22:12:49 CobradorWave systemd[2143]: Started venue-cvm-server-pizza.service - ContextVM venue CVM server — pizza-e-pasta-ruedesheimerplatz (Stage 1: menu + order deep-link handoff).
+Oct 06 22:12:49 CobradorWave run-venue-server.sh[3482388]: [venue-cvm] starting; pubkey ef070a5dcaaa368d05d6a248041195e9f3b388ea323ca0c0a1d73ed44e31ea2b
+Oct 06 22:12:49 CobradorWave run-venue-server.sh[3482388]: [venue-cvm] menu loaded: 112 items across 1 venues
+Oct 06 22:12:50 CobradorWave run-venue-server.sh[3482388]: [venue-cvm] connected to wss://relay2.orangesync.tech
+Oct 06 22:12:50 CobradorWave run-venue-server.sh[3482388]: [venue-cvm] EOSE from wss://relay2.orangesync.tech
+Oct 06 22:12:50 CobradorWave run-venue-server.sh[3482388]: [venue-cvm] connected to wss://relay.primal.net
+Oct 06 22:12:50 CobradorWave run-venue-server.sh[3482388]: [venue-cvm] live; 2/2 relays connected
+Oct 06 22:12:50 CobradorWave run-venue-server.sh[3482388]: [venue-cvm] EOSE from wss://relay.primal.net
+Oct 06 22:12:52 CobradorWave systemd[2143]: Stopping venue-cvm-server-pizza.service - ContextVM venue CVM server — pizza-e-pasta-ruedesheimerplatz (Stage 1: menu + order deep-link handoff)...
+Oct 06 22:12:52 CobradorWave systemd[2143]: Stopped venue-cvm-server-pizza.service - ContextVM venue CVM server — pizza-e-pasta-ruedesheimerplatz (Stage 1: menu + order deep-link handoff).
+Oct 06 22:12:52 CobradorWave systemd[2143]: Started venue-cvm-server-pizza.service - ContextVM venue CVM server — pizza-e-pasta-ruedesheimerplatz (Stage 1: menu + order deep-link handoff).
+Oct 06 22:12:52 CobradorWave run-venue-server.sh[3482750]: [venue-cvm] starting; pubkey ef070a5dcaaa368d05d6a248041195e9f3b388ea323ca0c0a1d73ed44e31ea2b
+Oct 06 22:12:52 CobradorWave run-venue-server.sh[3482750]: [venue-cvm] menu loaded: 112 items across 1 venues
+Oct 06 22:12:54 CobradorWave run-venue-server.sh[3482750]: [venue-cvm] connected to wss://relay2.orangesync.tech
+Oct 06 22:12:54 CobradorWave run-venue-server.sh[3482750]: [venue-cvm] EOSE from wss://relay2.orangesync.tech
+Oct 06 22:12:54 CobradorWave run-venue-server.sh[3482750]: [venue-cvm] connected to wss://relay.primal.net
+Oct 06 22:12:54 CobradorWave run-venue-server.sh[3482750]: [venue-cvm] live; 2/2 relays connected
+Oct 06 22:12:54 CobradorWave run-venue-server.sh[3482750]: [venue-cvm] EOSE from wss://relay.primal.net
+Oct 06 22:15:12 CobradorWave run-venue-server.sh[3482750]: [venue-cvm] publish warning: invalid: event too large: 76965
+Oct 06 22:15:17 CobradorWave run-venue-server.sh[3482750]: [venue-cvm] publish warning: publish timed out
