@@ -19,8 +19,13 @@
  */
 
 import { parse } from "https://deno.land/std@0.224.0/flags/mod.ts";
-import { emitAnnouncement, parseVocab, recomputeTier } from "../vendor/cvm-service-kit/src/mod.ts";
-import { venueToAnnouncement } from "./venue_to_announcement.ts";
+import {
+  assessAnnouncementTags,
+  emitAnnouncement,
+  parseVocab,
+  recomputeTier,
+} from "../vendor/cvm-service-kit/src/mod.ts";
+import { venueToAnnouncement, venueWireTags } from "./venue_to_announcement.ts";
 import { fail, publish, readKey, relayList, signEvent } from "./nostr.ts";
 
 const VOCAB_PATH = new URL("../vendor/cvm-service-kit/vocab/service-inputs.json", import.meta.url);
@@ -57,6 +62,22 @@ async function main() {
   // Build via the vendored emitter — it computes the tier, we never supply it.
   const emitted = emitAnnouncement(input, vocab);
 
+  // The wire set = the kit's contract tags ++ the S5a §6 payload tags (the
+  // registry reads `name`/`about`/`website` for display). Built through the one
+  // shared helper, so the published set is the set the tests assert on.
+  const wireTags = venueWireTags(emitted.tags, venueRaw);
+
+  // Appending must not break conformance. The validator ignores tag letters it
+  // does not own, so that claim is asserted here on the FULL set — before
+  // anything is printed or published — and not merely assumed.
+  const full = assessAnnouncementTags(wireTags, vocab);
+  if (full.violations.length > 0) {
+    fail(`non-conforming after appending the payload tags:\n - ${full.violations.join("\n - ")}`);
+  }
+  if (full.tierMismatch) {
+    fail("the tier stops recomputing after the payload tags are appended");
+  }
+
   // Assert the emitted tier equals the recomputed max (the contract, S4a).
   const rec = recomputeTier(
     {
@@ -85,7 +106,7 @@ async function main() {
     console.log(JSON.stringify({
       kind,
       pubkey: null, // unsigned in dry-run
-      tags: emitted.tags,
+      tags: wireTags,
       content: eventContent,
       tier: emitted.tier,
       recomputed_tier: rec.tier,
@@ -103,7 +124,7 @@ async function main() {
   const unsigned = {
     kind,
     created_at: Math.floor(Date.now() / 1000),
-    tags: emitted.tags,
+    tags: wireTags,
     content: eventContent,
   };
   const signed = signEvent(key.secret_hex, unsigned);

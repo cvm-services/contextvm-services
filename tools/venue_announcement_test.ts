@@ -5,8 +5,20 @@
  * vendored emitter. Run: deno task test
  */
 
-import { emitAnnouncement, emitAnnouncementTags, parseVocab, recomputeTier, type Vocab } from "../vendor/cvm-service-kit/src/mod.ts";
-import { venueToAnnouncement, type VenueRecord } from "../tools/venue_to_announcement.ts";
+import {
+  assessAnnouncementTags,
+  emitAnnouncement,
+  emitAnnouncementTags,
+  parseVocab,
+  recomputeTier,
+  type Vocab,
+} from "../vendor/cvm-service-kit/src/mod.ts";
+import {
+  venuePayloadTags,
+  venueToAnnouncement,
+  venueWireTags,
+  type VenueRecord,
+} from "../tools/venue_to_announcement.ts";
 import { encodeGeohash } from "../tools/geohash.ts";
 
 const VOCAB: Vocab = parseVocab(
@@ -152,4 +164,71 @@ Deno.test("geohash: reference point and invalid inputs", () => {
   assertThrows(() => encodeGeohash(NaN, 13, 4), "finite");
   assertThrows(() => encodeGeohash(52.5, 13.4, 0), "precision");
   assertThrows(() => encodeGeohash(52.5, 13.4, 13), "precision");
+});
+
+// --- S5a §6 payload tags: what the registry reads for display -------------
+//
+// The dashboard card renders `e.name ?? e.d` (cvm-registry site/app.js:317) and
+// the collector fills `name` from tagValues(tags, "name") — the TAG, not the
+// content (collector/lib.ts:413). The nosms reference appends PAYLOAD_TAGS for
+// exactly this reason (tools/nosms_announcement.ts, `payload_tags`); the venue
+// path never appended anything, so both venue cards fell back to the slug.
+
+/** Every value of tag `k`, the way the registry's collector reads them. */
+function tagValues(tags: string[][], k: string): string[] {
+  return tags.filter((t) => Array.isArray(t) && t[0] === k).map((t) => String(t[1]));
+}
+
+Deno.test("RED: the published announcement carries the 'name' tag the registry reads", async () => {
+  for (const slug of [DOPPELT, PIZZA]) {
+    const v = await loadVenue(slug);
+    const evidenceUrl = new URL(`../evidence/announcements/${slug}.11317.json`, import.meta.url);
+    const ev = JSON.parse(await Deno.readTextFile(evidenceUrl));
+    const names = tagValues(ev.tags, "name");
+    assert(
+      names.length === 1,
+      `${slug}: the published 11317 carries exactly one 'name' tag, got ${JSON.stringify(names)}`,
+    );
+    assertEquals(names[0], v.venue?.name, `${slug}: the tag is the venue's own name`);
+  }
+});
+
+Deno.test("RED: the wire tag set appends name/about/website without disturbing the contract", async () => {
+  for (const slug of [DOPPELT, PIZZA]) {
+    const v = await loadVenue(slug);
+    const a = venueToAnnouncement(v);
+    const emitted = emitAnnouncement(a.input, VOCAB);
+    const wire = venueWireTags(emitted.tags, v);
+
+    assertEquals(
+      wire.slice(0, emitted.tags.length),
+      emitted.tags,
+      `${slug}: the kit's contract tags are untouched and keep their order`,
+    );
+    assertEquals(
+      wire.length - emitted.tags.length,
+      venuePayloadTags(v).length,
+      `${slug}: payload tags are appended`,
+    );
+
+    const name = tagValues(wire, "name");
+    assert(name.length === 1, `${slug}: exactly one 'name'`);
+    assertEquals(name[0], v.venue?.name, `${slug}: name is the venue's name, not the slug`);
+    assert(name[0] !== slug, `${slug}: the slug is not the display name`);
+
+    const about = tagValues(wire, "about");
+    assert(about.length === 1 && about[0].length > 20, `${slug}: an 'about' line`);
+    const website = tagValues(wire, "website");
+    assert(website.length === 1 && /^https?:\/\//.test(website[0]), `${slug}: a 'website' URL`);
+
+    // The validator ignores tag letters it does not own, so appending must keep
+    // the full set conforming and the tier recomputing — asserted, not assumed.
+    const assessment = assessAnnouncementTags(wire, VOCAB);
+    assertEquals(assessment.violations, [], `${slug}: no violations on the full set`);
+    assertEquals(assessment.tierMismatch, false, `${slug}: the tier still recomputes`);
+
+    // one definition of the payload tags, so the tag and the content cannot drift
+    const contentAbout = (a.content as { about: string }).about;
+    assertEquals(about[0], contentAbout, `${slug}: the tag's about IS the content's about`);
+  }
 });

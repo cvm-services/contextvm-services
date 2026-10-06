@@ -1,5 +1,5 @@
 {
-  "kind": 11317,
+  "kind": 11316,
   "pubkey": null,
   "tags": [
     [
@@ -81,7 +81,7 @@
       "https://pizzaepasta-ruedesheimerplatz.de"
     ]
   ],
-  "content": "{\"tools\":[{\"name\":\"order\",\"description\":\"Place an order at Pizza e Pasta via the venue's own ordering rail (deep-link).\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false}}]}",
+  "content": "{\"name\":\"Pizza e Pasta\",\"about\":\"Pizza e Pasta — restaurant in Berlin, announced over ContextVM (CEP-6). Order via the venue's own rail; the deep-link asks for a delivery address and phone.\",\"schema\":\"cvm.venue/v1\",\"currency\":\"EUR\",\"area\":{\"city\":\"Berlin\",\"country\":\"DE\"},\"location\":{\"lat\":52.472589,\"lon\":13.314825},\"menu\":{\"item_count\":112,\"priced_count\":112,\"currency\":\"EUR\",\"min_price\":2.7,\"max_price\":16.65},\"ordering\":{\"primary_url\":\"https://pizzaepasta-ruedesheimerplatz.de/pizza-e-pasta/takeaway\",\"order_methods\":[\"delivery\",\"pickup\"]},\"tools\":[{\"name\":\"order\",\"description\":\"Place an order at Pizza e Pasta via the venue's own ordering rail (deep-link).\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false}}],\"settlement\":\"venue-rail (ADR-0001 D5)\"}",
   "tier": "fulfilment",
   "recomputed_tier": "fulfilment",
   "warnings": []

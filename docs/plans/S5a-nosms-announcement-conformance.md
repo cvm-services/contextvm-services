@@ -89,6 +89,27 @@ actually emits.
 validator ignores tag letters it does not own, so appending them to the kit's output keeps
 `assertAnnouncementTags` green — proven by the test, not assumed.
 
+### 7. The venue path appends the same payload tags (2026-10-06)
+
+Section 6 is a rule, so it needs a second consumer to be a contract. The S4a venue
+glue (`tools/venue_to_announcement.ts`) did not append anything, and the effect was
+visible on the dashboard: both venue cards rendered as their bare slug
+(`doppelt-kaese-berlin`) while the announcement itself looked complete — the name
+was in the JSON content, and the registry never reads the content for it
+(`tagValues(tags, "name")` in `cvm-registry/collector/lib.ts`; the card renders
+`e.name ?? e.d`).
+
+Fixed by the same shape as nosms: `venuePayloadTags()` returns
+`name`/`about`/`website`, `venueWireTags()` appends them to the kit's contract
+tags, and the CLI asserts the full appended set is still conforming (no
+violations, tier still recomputing) before it prints or publishes. `aboutLine()`
+is the one definition of the about text, shared by the tag and the content, so
+the two cannot drift.
+
+Live evidence (2026-10-06): all four events (11316 + 11317 x 2 venues) republished
+to relay2 and primal, read back with `nak req`, live tag sets byte-equal to
+`evidence/announcements/*.json`; live collect shows 4 services with real names.
+
 ## What is where
 
 | Artifact | Purpose |
