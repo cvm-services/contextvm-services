@@ -1,0 +1,36 @@
+{
+  "kind": 30317,
+  "created_at": 1791231601,
+  "tags": [
+    [
+      "d",
+      "doppelt-kaese-berlin:4e5970390303ed7c17be1d5f2656b6a7edf8ca9c2e97796bed97956ba578a50d"
+    ],
+    [
+      "a",
+      "11317:ae317038b9c8c2fb681b163e9903d179785292b95d964dcb89bd053ba83e84bd:doppelt-kaese-berlin"
+    ],
+    [
+      "p",
+      "4e5970390303ed7c17be1d5f2656b6a7edf8ca9c2e97796bed97956ba578a50d"
+    ],
+    [
+      "t",
+      "cvm:attestation"
+    ],
+    [
+      "t",
+      "cvm:attestation:venue-signed"
+    ],
+    [
+      "e",
+      "95ffbfe506e79bacbef91a295b540f449b1cdfddd428380bbfbf901cd2dc848a",
+      "",
+      "review"
+    ]
+  ],
+  "content": "This reviewer placed an order at this venue.",
+  "pubkey": "ae317038b9c8c2fb681b163e9903d179785292b95d964dcb89bd053ba83e84bd",
+  "id": "e17a630dc21bbab23fb27e2ac508680f516c79c7e8452c6ef63b999065b4b55d",
+  "sig": "9e6fac299d658b4a7c9e3fff06c97ef00a57a3367931189435714c3648f10324a1e83e57a4aea76069789ed0403109b4c7b9c0b21bc3a60f38f16f2c5ffabf15"
+}

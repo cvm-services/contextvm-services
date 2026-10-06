@@ -63,7 +63,7 @@ async function main() {
     if (!flags["provider-key-file"]) {
       fail("need --provider-pubkey <hex> or --provider-key-file <file> to identify the reviewed provider");
     }
-    providerPubkey = (await readKey(String(flags["provider-key-file"]), false)).hex;
+    providerPubkey = (await readKey(String(flags["provider-key-file"]), false)).pubkey_hex;
   }
   if (!/^[0-9a-f]{64}$/.test(providerPubkey)) fail("provider pubkey is not 64-char hex");
 
@@ -98,7 +98,7 @@ async function main() {
   if (relays.length === 0) fail("--relays required to publish");
 
   const { signEvent } = await import("./nostr.ts");
-  const signed = signEvent(reviewer.hex, template as unknown as Record<string, unknown>) as {
+  const signed = signEvent(reviewer.secret_hex, template as unknown as Record<string, unknown>) as {
     id: string; pubkey: string;
   };
   console.log(`signed review id=${signed.id} reviewer=${signed.pubkey}`);
