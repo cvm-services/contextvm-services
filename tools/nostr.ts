@@ -44,6 +44,31 @@ export interface Identity {
 }
 
 /**
+ * Decode key-file text (64-char hex or an nsec1… string) to 64-char hex. Throws
+ * on anything else, so the caller can turn it into one stable error string.
+ *
+ * `nip19.decode` returns BYTES for an nsec in nostr-tools >= 2. The old
+ * `d.data as string` cast therefore produced a non-hex value, the 64-hex guard
+ * rejected it, and every nsec key file died with "not 64-char hex or nsec" —
+ * the exact format this CLI documents in its usage line. Only 64-char hex files
+ * ever worked, which is why it went unnoticed.
+ */
+export function keyTextToSecretHex(text: string): string {
+  const t = text.trim();
+  if (!t) throw new Error("key file is empty");
+  let hex = t;
+  if (t.startsWith("nsec")) {
+    const d = nip19Decode(t);
+    if (d.type !== "nsec") throw new Error("key file is not an nsec");
+    hex = typeof d.data === "string"
+      ? d.data
+      : Array.from(d.data as Uint8Array).map((b) => b.toString(16).padStart(2, "0")).join("");
+  }
+  if (!/^[0-9a-f]{64}$/.test(hex)) throw new Error("key file is not 64-char hex or nsec");
+  return hex;
+}
+
+/**
  * Read (or, when `create`, generate and persist) the signing key.
  * The file may hold 64-char hex or an nsec1… string. Created files are 0600.
  */
@@ -57,13 +82,11 @@ export async function readKey(keyFile: string, create: boolean): Promise<Identit
   }
   let secretHex: string;
   if (text) {
-    secretHex = text;
-    if (text.startsWith("nsec")) {
-      const d = nip19Decode(text);
-      if (d.type !== "nsec") fail("key file is not an nsec");
-      secretHex = d.data as string;
+    try {
+      secretHex = keyTextToSecretHex(text);
+    } catch (err) {
+      fail((err as Error).message);
     }
-    if (!/^[0-9a-f]{64}$/.test(secretHex)) fail("key file is not 64-char hex or nsec");
   } else {
     const sk = generateSecretKey();
     secretHex = Buffer.from(sk).toString("hex");
