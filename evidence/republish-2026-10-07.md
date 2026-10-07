@@ -73,8 +73,14 @@ collector's next run will pick them up.
 
 - before: catalog generated_at 1791405175 (`2026-10-07T20:32:55Z`), both venues
   `required: [contact.phone, order.fulfilment]`
-- after: recorded in the card comment at completion time — see the kanban card
-  for the generated_at and required list the refreshed catalog shows.
+- after: catalog generated_at 1791406977 (`2026-10-07T21:02:57Z`, first poll
+  ~3.5 min after the last publish) — all four entries now carry the NEW event
+  ids (doppelt 11316 `399f972a`, doppelt 11317 `7b6a4010`, pizza 11316
+  `a41f4e5c`, pizza 11317 `ace6d6ec`), each with
+  `required: [contact.phone, order.fulfilment, order.items, order.when]`,
+  `optional: [contact.name, order.notes, ship.address]`, tier
+  `declared=fulfilment, recomputed=fulfilment, mismatch=false`, classes
+  `[meatspace, restaurant]`. The Stage-1 schema is live for clients.
 
 ## 5. Artifacts
 
