@@ -94,3 +94,25 @@ independent. T1 first because *neither* UI can tell the truth without it.
 - Announcements keep `settlement: null` until a settlement path exists **per
   venue** (PLAN-0006 Q3).
 - Menus are **captures**, not live feeds; staleness policy lands in T6.
+
+
+## Acceptance evidence — mandatory for T3 and T4 (operator requirement 2026-10-08)
+
+Both user-facing tracks ship a **Playwright happy-path video** as part of their
+review package, and neither card reaches review without it:
+
+- **T3 customer** — one test, one video: venue list -> menu -> item+options ->
+  basket (fee line) -> pay (real bolt11 QR + expiry) -> status timeline polling
+  until the order leaves `paid`.
+- **T4 facilitator** — one test, one video: sign-in-with-Nostr challenge ->
+  paid-basket queue (5-min SLA) -> placing screen recording the venue order
+  number + ready time -> mark ready -> settlements view (fees in sats, fiat
+  spent, refunds owed).
+
+Rules: a real user-facing flow filmed end-to-end in a single test (coherent
+recording, not a library/assertion checklist); `video:on` at 1280x720; the mp4
+is probed (frame count + brightness) so a stub cannot pass as a recording; the
+mp4 is attached to the PR as a comment **and** sent inline as a Signal `MEDIA:`
+attachment; a closing provenance frame names the repo + commit SHA under test.
+No mocked money — real cvm-orders test mint / real bolt11 invoice from the paid
+leg.
