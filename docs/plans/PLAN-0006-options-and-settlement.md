@@ -1,5 +1,17 @@
 # PLAN-0006 — Options, and the road from a basket to a settled order
 
+> **UPDATE 2026-10-08 — partly superseded by [PLAN-0007](PLAN-0007-facilitated-orders.md).**
+> The operator approved the facilitated two-persona model (customer pays sats,
+> facilitator pays fiat at the venue). Consequences for this plan:
+> - **Track E (settlement)** is now **facilitator-mediated** (PLAN-0007 T2): the paid
+>   leg takes the money and the *facilitator* places the order — the "honest stop"
+>   below (G-e) is answered by a human, not by venue APIs.
+> - **Track C (own counter)** is **deferred** (PLAN-0007 D10) — no longer required
+>   for the v2 demo; kept as a later venue.
+> - **Track D (options)** is unchanged and absorbed as **PLAN-0007 T5**.
+> - Open questions 1–3 at the end of this document are **answered** (PLAN-0007 D9,
+>   D10, and Q3 confirmed: `settlement: null` stays).
+
 - **Status:** **Draft — awaits operator sign-off.** No code until approved (the
   standing plan gate).
 - **Date:** 2026-10-07
