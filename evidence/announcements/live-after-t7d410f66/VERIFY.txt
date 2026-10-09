@@ -1,0 +1,32 @@
+
+=== doppelt-kaese-berlin — kind 11316
+  live      id=12ee1fdbc200243c created_at=1791586660 relays=['wss://relay2.orangesync.tech', 'wss://relay.primal.net']
+  live content == committed content : False
+  live content == regenerated content: True
+  live tags    == committed tags    : False
+  live tags    == regenerated tags  : True
+  note: match against committed==False; card claim must use live
+
+=== doppelt-kaese-berlin — kind 11317
+  live      id=7b6a4010412b2765 created_at=1791406630 relays=['wss://relay2.orangesync.tech', 'wss://relay.primal.net']
+  live content == committed content : False
+  live content == regenerated content: True
+  live tags    == committed tags    : False
+  live tags    == regenerated tags  : True
+  note: match against committed==False; card claim must use live
+
+=== pizza-e-pasta-ruedesheimerplatz — kind 11316
+  live      id=d58b21fbc10232a8 created_at=1791588772 relays=['wss://relay2.orangesync.tech', 'wss://relay.primal.net']
+  live content == committed content : False
+  live content == regenerated content: True
+  live tags    == committed tags    : False
+  live tags    == regenerated tags  : True
+  note: match against committed==False; card claim must use live
+
+=== pizza-e-pasta-ruedesheimerplatz — kind 11317
+  live      id=ace6d6ec802c5a08 created_at=1791406720 relays=['wss://relay2.orangesync.tech', 'wss://relay.primal.net']
+  live content == committed content : False
+  live content == regenerated content: True
+  live tags    == committed tags    : False
+  live tags    == regenerated tags  : True
+  note: match against committed==False; card claim must use live

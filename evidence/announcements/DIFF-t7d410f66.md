@@ -5,6 +5,14 @@ from the artifacts kept in `before-t7d410f66/` (the announcements as they
 stood before this card) against the current ones — reproduce the latter with
 `tools/emit-venue-announcement.ts --dry-run`.
 
+**Read this together with `LIVE-DIFF-t7d410f66.md` and
+`live-after-t7d410f66/TABLE.md`.** This file diffs *artifacts*: the
+`before-t7d410f66/` copies predate the emitter's ADR-0011 order-input drift, so
+for the two kind-11317 events the diff below shows drift the relays had ALREADY
+carried — republishing them was NOT needed and was not done. The
+`live-*` files show what the relays actually served before and after, and which
+event ids replaced which.
+
 Each artifact is a CEP-6 event whose `content` is a JSON **string**. The diff
 below is of the parsed content, so it shows what a client actually sees.
 
