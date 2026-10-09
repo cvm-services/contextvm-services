@@ -39,3 +39,15 @@ and Steglitz adds 87 more venues, 47 with both a site and a phone.
   2026-10-06 capture, and a basket built from stale data must not reach the pay step.
 - **Declared fulfilment facts are suspect.** The venue announcement declares delivery areas
   (Mitte/Kreuzberg/Friedrichshain) that are not where the venue is; card `t_7d410f66` re-derives them.
+
+## Amendment 2026-10-09 (contact identity resolved)
+
+The operator decided the delivery contact leg: **the operator's own mobile number**, supplied as an
+input to the venue CVM for that order. The CVMs stay **out of the contact path** entirely - they do
+not own, rent or relay the number a delivery driver calls. The SMS-only identity the CVMs manage
+(nosms pooled, routed to an npub) is therefore **not** the contact and must not be offered as one: a
+driver cannot call an npub.
+
+Consequence: a contact phone is a **per-order input**, required when the venue's rail needs one, and
+never a property of the venue announcement. The venue's CVM must reject an order that needs a contact
+number and was given none, rather than substituting anything.
