@@ -535,6 +535,93 @@ def build_menu(menu_payload: dict) -> dict:
     }
 
 
+def _capture_facts(raw_dir: Path) -> dict:
+    """When the ingested payloads were actually served.
+
+    The five payloads are slices of ONE HTTP 200 document response, so the page's
+    own network log (`evidence/requests.json`, committed) is the fetch time: the
+    document `ts` is when the server handed over the hydration cache. Recorded,
+    not guessed - if the log is absent, the times are reported as unknown rather
+    than defaulted.
+    """
+    log = Path(raw_dir).parent / "requests.json"
+    if not log.exists():
+        return {"fetched_at_utc": None, "captured_at_utc": None,
+                "stated_in": "evidence/requests.json (absent)"}
+    rec = json.loads(log.read_text(encoding="utf-8"))
+    doc_ts = None
+    for r in rec.get("requests") or []:
+        if r.get("resource_type") == "document" and r.get("status") == 200:
+            doc_ts = r.get("ts")
+            break
+    def norm(ts):
+        # 2026-10-05T01:37:14.601003+00:00 -> 2026-10-05T01:37:14Z
+        return ts.split(".")[0] + "Z" if ts else None
+    return {
+        "fetched_at_utc": norm(doc_ts),
+        "captured_at_utc": norm(rec.get("captured_at")),
+        "stated_in": "evidence/requests.json (committed network log of the one "
+                     "successful HTTP 200 page load)",
+    }
+
+
+# What this rail does NOT carry about fulfilment. Naming an absent fact is the
+# point: an unknown must read as unknown, never as a plausible-looking value.
+PIZZA_NOT_VERIFIABLE = [
+    "delivery postcodes / delivery areas: deliveryMode=PostCode, so the venue "
+    "resolves deliverability from the customer's address server-side. The public "
+    "payload publishes no postcode list and no radius; the route that would "
+    "answer it (/oyy-api/MyRestaurant/restaurant/<id>/delivery-area) is behind "
+    "the origin's Cloudflare managed challenge and returns HTTP 403 to any "
+    "non-browser client. NO postcode list is asserted.",
+    "whether a specific address is inside the delivery area: only the venue's own "
+    "shop can answer this, at order time, from the customer's address.",
+    "delivery fee / minimum order per delivery area: the payload carries one "
+    "deliveryFee and one deliveryMinimumAmount for the whole restaurant "
+    "(0.00 / 0.00 as recorded); no per-area variant is exposed, so no per-area "
+    "value is asserted.",
+]
+
+
+def _fulfilment_provenance(prov: dict, capture: dict) -> dict:
+    """Per-field source + fetch time for every fulfilment fact we declare."""
+    def call(slug: str, field: str, **extra) -> dict:
+        return {
+            "source_call": slug,
+            "url": prov.get(slug, {}).get("url", endpoint(slug)),
+            "fetched_at_utc": capture["fetched_at_utc"],
+            "field": field,
+            **extra,
+        }
+
+    return {
+        "derived_at_utc": capture["fetched_at_utc"],
+        "capture": capture,
+        "fields": {
+            "venue.order_methods": call("myrestaurant-restaurant", "serviceMethods"),
+            "venue.opening_hours": call(
+                "myrestaurant-restaurant", "openingHours.allDaysOpeningHours"),
+            "pickup.available": call("myrestaurant-restaurant", "serviceMethods (pickup)"),
+            "pickup.estimated_minutes": call("myrestaurant-restaurant", "takeAwayTime"),
+            "delivery.available": call("myrestaurant-restaurant", "serviceMethods (delivery)"),
+            "delivery.enabled": call("myrestaurant-restaurant", "openingHours.hasDelivery"),
+            "delivery.mode": call("myrestaurant-family", "deliveryMode"),
+            "delivery.estimated_minutes": call("myrestaurant-restaurant", "deliveryTime"),
+            "delivery.fee": call("myrestaurant-restaurant", "deliveryFee"),
+            "delivery.minimum_order": call(
+                "myrestaurant-restaurant", "deliveryMinimumAmount"),
+            "delivery.schedule": call(
+                "myrestaurant-restaurant", "openingHours.allDaysDeliveryHours"),
+            "delivery.areas": call(
+                "myrestaurant-family", "deliveryMode",
+                status="UNKNOWN",
+                reason=PIZZA_NOT_VERIFIABLE[0]),
+            "address.lat_lon": call("myrestaurant-restaurant", "latitude, longitude"),
+        },
+        "not_verifiable_from_rail": PIZZA_NOT_VERIFIABLE,
+    }
+
+
 def build_venue(raw: dict, raw_dir: Path) -> dict:
     restaurants = raw["myrestaurant-restaurants"]
     rest = raw["myrestaurant-restaurant"]
@@ -589,6 +676,7 @@ def build_venue(raw: dict, raw_dir: Path) -> dict:
         "schema": "cvm.venue/v1",
         "slug": CONFIG["slug"],
         "generated_by": f"venues/{CONFIG['slug']}/adapter.py",
+        "provenance": _fulfilment_provenance(prov, _capture_facts(raw_dir)),
         "venue": {
             "name": rest.get("name"),
             "display_name": rest.get("name"),
