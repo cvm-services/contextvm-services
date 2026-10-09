@@ -4,8 +4,16 @@
   provide support via nostr DM in such situations").
 - **Date:** 2026-10-09
 - **Decided:** when sats are final and the fiat leg fails, or a duplicate order is possible, the CVM
-  **escalates to a human over Nostr DM** as part of the order's durable state. The run-1 loss stays
-  with the operator, capped at EUR 30, but it is a notified loss, not a silent one.
+  **initiates** support over Nostr DM **to its operator** - the CVM is the actor, not an inbox someone
+  is expected to watch - as part of the order's durable state. The run-1 loss stays with the operator,
+  capped at EUR 30, but it is a notified loss, not a silent one.
+- **Operator refinement 2026-10-09:** "the contextvm should have an option to initiate support via
+  nostrdm to its operator in such situations" - initiation and the operator as recipient are the
+  required parts.
+- **The operator identity already exists: no new support identity is needed.** `cvm-2fiat` takes
+  `OWNER_NPUB_HEX` (secret, env) and `assertOwner()` gates the owner-only `card.balance` on exactly
+  that key (`services/cvm-2fiat/src/tools.ts`). The escalation writes to the same owner identity. A
+  second, separately-managed "support npub" would be a second thing to rotate and lose.
 - **Tier:** docs/light
 - **Depends on:** ADR-0008 (real sats + fiat gate), ADR-0011 (declared inputs), ADR-0004.
 
