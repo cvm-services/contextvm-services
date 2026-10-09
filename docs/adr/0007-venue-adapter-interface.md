@@ -50,3 +50,43 @@ alternative: 54 venues have a phone, 59 a website, 47 both; only **7** sit on a 
 - The CVM is not the settlement rail and does not need aggregator integration to grow.
 - A Class 2 venue must record, per venue, who holds the credential and what happens on a ban; that is
   a reviewable artifact, not an implementation detail.
+
+## Amendment 2026-10-09 (adversarial review: the boundary holds, the order of the classes changed)
+
+An adversarial review was commissioned against this decision specifically to break it
+(`~/reports/cvm-venue-adapter-consult-2026-10-09.md`, archived privately in `soveng-archive`). Verdict:
+**keep the boundary, re-order the roadmap.**
+
+1. **A now.** Deep-link + human is the only class aligned with the server as it exists (it returns a
+   hand-off payload and places no order), and it covers essentially all 87 surveyed venues.
+2. **E before B.** Independent venues on their own rails come *before* browser automation. E breaks on
+   sales effort and heterogeneous sites, not on platform terms, and it creates durable controllable
+   rails. Rushing to Class 2 trades a human queue for an account-operations and incident-response
+   system.
+3. **B last, and only after two prerequisites exist:** the adapter contract below, and a passing
+   duplicate-order recovery test. Class 2 breaks on DOM/anti-bot/CAPTCHA/OTP/3DS drift, session
+   expiry, delivery-zone and price drift, and duplicate retries - and it adds browser memory to a
+   four-core host that already kills workers about a minute after spawn.
+4. **C is a contract-gated partner integration, never a generic fallback.** Deliverect/HubRise/Otter
+   require merchant/partner OAuth, account and location context; none is an anonymous consumer API,
+   and onboarding + per-merchant contracts dominate.
+
+The named strongest counter-argument was **coverage and unattended scale** - an aggregator looks like
+it unlocks a large catalogue instantly. It is illusory: no anonymous consumer API was verified, the
+only implementation is consumer-account automation (the very risk Class 2 isolates, concentrated in a
+third party whose terms we do not control), on a machine that cannot afford browser workers.
+
+**Contract requirements this adds (the smallest future-proof change):** one `VenueAdapter` contract,
+onboarding declarative (`venue.json`), and every adapter must expose `capabilities`
+(menu/quote/submit/status), `human_steps`, credential owner/scope, payment authority, an idempotency
+key, and a durable order receipt/state. An adapter whose required capability is unavailable must be
+**rejected**, not silently degraded - otherwise polymorphism hides the risk and makes an unsafe
+adapter look equivalent to A. Adding E or a contracted C then changes venue config plus an adapter
+module, not the CVM protocol, the UI or the settlement gate.
+
+**Three questions that must be answered before any of this is coded:** (1) who is the legal/operational
+merchant of record, and who pays when sats settle but the fiat checkout fails or a duplicate order is
+delivered; (2) for the first order, what exact rail, fulfilment mode, contact, freshness proof,
+card/3DS human step and maximum fiat amount are authorized; (3) for any B/C path, who has written
+venue/platform permission, owns the credentials, approves each spend, and may cancel/refund/reconcile
+an ambiguous order.
