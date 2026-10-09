@@ -34,6 +34,7 @@
   },
   "fields": {
     "order.items":       {"tier": "fulfilment", "type": "array",  "note": "basket (line items + quantities); usually a tool argument, still declared"},
+    "order.items[].options": {"tier": "fulfilment", "type": "object", "note": "chosen options for one line, keyed by the venue's OWN option group id -> array of choice ids from the groups the `menu` tool serves for that item; the names are served data, never a vocabulary of our own" },
     "order.notes":       {"tier": "fulfilment", "type": "string"},
     "order.fulfilment":  {"tier": "fulfilment", "type": "enum",   "values": ["pickup", "delivery", "dine_in"]},
     "order.when":        {"tier": "fulfilment", "type": "string", "note": "ISO 8601 or 'asap'"},

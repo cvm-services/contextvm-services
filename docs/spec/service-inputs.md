@@ -147,6 +147,17 @@ publish the sub-fields it actually uses.
 **Order / goods**
 
 - `order.items` — the basket (line items + quantities). Usually a tool argument, not a form.
+- `order.items[].options` — the chosen options for one line, keyed by option group id,
+  each value a list of choice ids. The names are the venue's own: the group ids,
+  choice ids, limits and prices are **served data**, drawn from the groups the
+  `menu` tool lists for that item (each item names the groups it offers). Nothing
+  here is a vocabulary of its own — a CVM MUST NOT invent a choice name. A required
+  group that is absent, a choice that is not in the item's groups, one over the
+  group's `max_count`, a second choice in a single-select group, an unavailable
+  choice, and a choice the venue prices nowhere at that item's level are each
+  **refused by name** (rule 3 below): silence would be a basket the customer did
+  not mean. The price of a choice is read from the venue's own numbers for the
+  item's own price level, never computed.
 - `order.notes` — free text for the kitchen/handler.
 - `order.fulfilment` — `pickup` | `delivery` | `dine_in`.
 - `order.when` — requested fulfilment time (ISO 8601, or `asap`).

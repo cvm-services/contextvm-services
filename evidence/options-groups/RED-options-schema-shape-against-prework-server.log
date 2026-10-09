@@ -1,0 +1,37 @@
+# RED proof — the options-shape drift test against the pre-work server
+
+Task: t_f881bb6a (PLAN-0006 Track D). Test: "RED: both order schemas declare
+items[].options as group id -> array of choice ids, and the server accepts it"
+(services/restaurant-cvm/server_test.ts).
+
+Method: `git checkout 7aa2829 -- services/restaurant-cvm/server.ts
+tools/venue_to_announcement.ts` (the branch base, i.e. the server BEFORE this
+work), keep the new test file, then run:
+
+    deno test --no-check --allow-read services/restaurant-cvm/server_test.ts \
+      --filter "both order schemas declare items"
+
+(--no-check because `deno test` type-checks, and the pre-work sources do not carry
+the option types the new test file imports; the type error is not the RED signal.)
+
+Result — failed, for the intended reason (the announced schema carried no typed
+`options` property at all):
+
+    error: TypeError: Cannot read properties of undefined (reading 'items')
+        }).properties.items.items.properties.options;
+                      ^
+        at .../services/restaurant-cvm/server_test.ts:910:19
+
+     FAILURES
+    RED: both order schemas declare items[].options as group id -> array of
+    choice ids, and the server accepts it => ./services/restaurant-cvm/server_test.ts:889:6
+
+    FAILED | 0 passed | 1 failed | 43 filtered out (328ms)
+
+Then the pre-work sources were restored and the full suite run green
+(97 passed | 0 failed | 1 ignored; see REPORT.md for the run).
+
+Why this test exists at all: the older drift test compares the announced and the
+served order schema to EACH OTHER, so both sides can move together to a bare
+`{type: "object"}` and still pass. This one asserts the shape on both sides AND
+that the server accepts the shape its own schema declares.

@@ -880,6 +880,59 @@ Deno.test("RED: the announced order schema matches the schema the server answers
   }
 });
 
+// The comparison above holds the two schemas to EACH OTHER, so both sides could move
+// together to a bare `{type: "object"}` and still pass while telling a client nothing
+// about what `options` accepts. PLAN-0006 Track D AC6 asks for `order.items[].options`
+// to be documented and for the drift test to cover options, so this asserts the SHAPE
+// itself, on both sides, and then that the declared shape is the one the server
+// accepts — a schema a client obeys and the server refuses is the drift that matters.
+Deno.test("RED: both order schemas declare items[].options as group id -> array of choice ids, and the server accepts it", async () => {
+  await setup();
+  const listed = await handleMcpMessage(index, { method: "tools/list", id: 11 });
+  if (!listed || "error" in listed) throw new Error("tools/list failed");
+  const served = (listed.result as { tools: Array<Record<string, unknown>> }).tools
+    .find((t) => t.name === "order")?.inputSchema;
+
+  const raw = JSON.parse(
+    await Deno.readTextFile(
+      new URL("../../venues/doppelt-kaese-berlin/venue.json", import.meta.url),
+    ),
+  );
+  const announcedContent = venueToAnnouncement(raw).content as {
+    tools: Array<{ name: string; inputSchema: unknown }>;
+  };
+  const announced = announcedContent.tools.find((t) => t.name === "order")?.inputSchema;
+
+  for (const [side, schema] of [["served", served], ["announced", announced]] as const) {
+    if (!schema) throw new Error(`${side} order schema is missing`);
+    const options = ((schema as unknown) as {
+      properties: {
+        items: { items: { properties: Record<string, Record<string, unknown>> } };
+      };
+    }).properties.items.items.properties.options;
+    if (!options) throw new Error(`${side} order schema declares no items[].options`);
+    if (options.type !== "object") {
+      throw new Error(`${side} declares options as ${String(options.type)}, not an object`);
+    }
+    const value = options.additionalProperties as Record<string, unknown> | undefined;
+    if (!value || value.type !== "array") {
+      throw new Error(`${side} does not declare options values as arrays of choice ids`);
+    }
+    if ((value.items as Record<string, unknown> | undefined)?.type !== "string") {
+      throw new Error(`${side} does not declare the choice ids as strings`);
+    }
+  }
+
+  // The declared shape is the shape the server takes: one group id, its choice ids.
+  const accepted = orderWith(
+    { venue_slug: "doppelt-kaese-berlin", sku: "331227" },
+    { "68405": ["366860"] },
+  );
+  if (accepted.isError) {
+    throw new Error(`the server refuses the shape its own schema declares: ${JSON.stringify(accepted)}`);
+  }
+});
+
 // ===========================================================================
 // PLAN-0006 Track D — options. Gap G-c: `order` accepted `options` and did
 // nothing with it, and `menu` published `option_group_ids` with no group content.

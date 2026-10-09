@@ -17,3 +17,18 @@
 - publish path: nostr-tools enableReconnect/enablePing unset -> dropped relay dead for process lifetime; now on (89d6f0d), net test proves reconnect+resubscribe, 74/75 green
 - relay2 quantified relay-side: 2635x 1006/EAGAIN + 215x ping-timeout + >128KiB frame rejects per 90min (7a3578a). primal-only 4/4 reproducible.
 - pizza identity: one instance per announced key (PR #16), all_passed 4/4 both venues. REPORT.md has the full account.
+
+# t_f881bb6a — Options resolution (PLAN-0006 Track D / PLAN-0007 T5, gap G-c)
+
+Branch `pr/options-groups`, PR https://github.com/cvm-services/contextvm-services/pull/35
+
+- 2026-10-09 (attempt 3 resumed attempt 2's uncommitted tree): server half found already
+  written and green — tools/venue_option_groups.ts (one model, shared by the server and
+  the announcement adapter), server.ts menu catalogue + order validateOptions(), 10 RED
+  tests proven against the branch base. Committed as 2878bb9, pushed, PR #35 opened.
+- 2026-10-09: AC6 docs — `order.items[].options` added to docs/spec/service-inputs.md and
+  vocab/service-inputs.json; new options-shape drift test (RED proven against 7aa2829 in
+  evidence/options-groups/RED-options-schema-shape-against-prework-server.log). 91/91 green.
+- STILL OPEN: AC5 live e2e with an options basket; coverage evidence; cold cross-family
+  review published to PR #35; client OptionPicker (cvm-registry site/order, branch
+  pr/customer-order-pwa); consolidation/merge.
