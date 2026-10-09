@@ -1,0 +1,19 @@
+[0m[38;5;245mrunning 1 test from ./tools/nostr_publish_test.ts[0m
+publish() closes its socket after the relay's OK (so the CLI can exit) ... [0m[31mFAILED[0m [0m[38;5;245m(5s)[0m
+
+[0m[1m[37m[41m ERRORS [0m
+
+publish() closes its socket after the relay's OK (so the CLI can exit) [0m[38;5;245m=> ./tools/nostr_publish_test.ts:70:6[0m
+[0m[1m[31merror[0m: Error: ASSERT: publish() left the socket open - TIMEOUT: socket still open 5s after OK
+  if (!cond) throw new Error("ASSERT: " + msg);
+[0m[31m                   ^[0m
+    at [0m[1m[3massert[0m ([0m[2m[38;5;245mfile:///home/c03rad0r/worktrees/t_7d410f66/[0m[0m[36mtools/nostr_publish_test.ts[0m:[0m[33m33[0m:[0m[33m20[0m)
+    at [0m[2m[38;5;245mfile:///home/c03rad0r/worktrees/t_7d410f66/[0m[0m[36mtools/nostr_publish_test.ts[0m:[0m[33m86[0m:[0m[33m5[0m
+
+[0m[1m[37m[41m FAILURES [0m
+
+publish() closes its socket after the relay's OK (so the CLI can exit) [0m[38;5;245m=> ./tools/nostr_publish_test.ts:70:6[0m
+
+[0m[31mFAILED[0m | 0 passed | 1 failed [0m[38;5;245m(5s)[0m
+
+[0m[1m[31merror[0m: Test failed

@@ -1,0 +1,9 @@
+{
+ "url": "https://app.foodamigos.io/api/companies/doppeltkase/data?hostname=doppelt-kaese-berlin.de",
+ "http_status": "200",
+ "fetched_at_utc": "2026-10-09T23:37:43Z",
+ "sha256": "b841e2c8e40e37060b46c83741cde35948a1b2c0fc865d1b424e3a6db5e919a5",
+ "bytes": 10519,
+ "recorded_sha256": "b841e2c8e40e37060b46c83741cde35948a1b2c0fc865d1b424e3a6db5e919a5",
+ "match": true
+}

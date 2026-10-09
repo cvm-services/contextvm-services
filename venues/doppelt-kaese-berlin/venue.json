@@ -2965,17 +2965,102 @@
       }
     ]
   },
+  "provenance": {
+    "derived_at_utc": "2026-10-09T22:44:30Z",
+    "fields": {
+      "address.lat_lon": {
+        "fetched_at_utc": "2026-10-09T22:44:30Z",
+        "field": "company.lat, company.lon",
+        "source_call": "company",
+        "url": "https://app.foodamigos.io/api/companies/doppeltkase/data?hostname=doppelt-kaese-berlin.de"
+      },
+      "delivery.area": {
+        "fetched_at_utc": "2026-10-09T22:44:30Z",
+        "field": "company.delivery_zones[*].geometry_data",
+        "source_call": "company",
+        "url": "https://app.foodamigos.io/api/companies/doppeltkase/data?hostname=doppelt-kaese-berlin.de"
+      },
+      "delivery.areas_named": {
+        "fetched_at_utc": "2026-10-09T22:44:30Z",
+        "field": "data.delivery_areas",
+        "reason": "`data.delivery_areas` is a list of Berlin district NAMES on the venue's own storefront payload. It is not a delivery area this venue can honour: the same rail's company payload publishes the venue's delivery geometry as a single circle of 5000 m centred on the venue's own coordinates, and the named list names districts that circle cannot reach (Prenzlauer Berg, Friedrichshain, Pankow, Lichtenberg, Mitte, Kreuzberg, Wedding, Moabit, Neukölln, Tiergarten, Charlottenburg - 11 of the 15 names). Two fields served by the same rail disagree, so the name list is retracted and the announced area is the venue's own geometry. Retained here so the retraction is auditable; it is NOT a declared delivery area.",
+        "source_call": "store",
+        "status": "RETRACTED",
+        "url": "https://www.doppelt-kaese-berlin.de/api/store"
+      },
+      "delivery.available": {
+        "fetched_at_utc": "2026-10-09T22:44:30Z",
+        "field": "company.has_delivery",
+        "source_call": "company",
+        "url": "https://app.foodamigos.io/api/companies/doppeltkase/data?hostname=doppelt-kaese-berlin.de"
+      },
+      "delivery.enabled": {
+        "fetched_at_utc": "2026-10-09T22:44:30Z",
+        "field": "company.delivery_enabled",
+        "source_call": "company",
+        "url": "https://app.foodamigos.io/api/companies/doppeltkase/data?hostname=doppelt-kaese-berlin.de"
+      },
+      "delivery.estimated_minutes": {
+        "fetched_at_utc": "2026-10-09T22:44:30Z",
+        "field": "company.average_order_delivery_time.min",
+        "source_call": "company",
+        "url": "https://app.foodamigos.io/api/companies/doppeltkase/data?hostname=doppelt-kaese-berlin.de"
+      },
+      "delivery.mode": {
+        "fetched_at_utc": "2026-10-09T22:44:30Z",
+        "field": "company.delivery_mode",
+        "source_call": "company",
+        "url": "https://app.foodamigos.io/api/companies/doppeltkase/data?hostname=doppelt-kaese-berlin.de"
+      },
+      "delivery.schedule": {
+        "fetched_at_utc": "2026-10-09T22:44:30Z",
+        "field": "company.delivery_schedule",
+        "source_call": "company",
+        "url": "https://app.foodamigos.io/api/companies/doppeltkase/data?hostname=doppelt-kaese-berlin.de"
+      },
+      "opening_hours": {
+        "fetched_at_utc": "2026-10-09T22:44:30Z",
+        "field": "company.work_schedule",
+        "source_call": "company",
+        "url": "https://app.foodamigos.io/api/companies/doppeltkase/data?hostname=doppelt-kaese-berlin.de"
+      },
+      "pickup.available": {
+        "fetched_at_utc": "2026-10-09T22:44:30Z",
+        "field": "company.has_pickup",
+        "source_call": "company",
+        "url": "https://app.foodamigos.io/api/companies/doppeltkase/data?hostname=doppelt-kaese-berlin.de"
+      },
+      "pickup.estimated_minutes": {
+        "fetched_at_utc": "2026-10-09T22:44:30Z",
+        "field": "company.average_order_preparation_time.min",
+        "source_call": "company",
+        "url": "https://app.foodamigos.io/api/companies/doppeltkase/data?hostname=doppelt-kaese-berlin.de"
+      },
+      "venue.order_methods": {
+        "fetched_at_utc": "2026-10-09T22:44:30Z",
+        "field": "company.has_pickup, company.has_delivery",
+        "source_call": "company",
+        "url": "https://app.foodamigos.io/api/companies/doppeltkase/data?hostname=doppelt-kaese-berlin.de"
+      }
+    },
+    "not_verifiable_from_rail": [
+      "delivery postcode coverage: this rail exposes no postcode list and no per-address deliverability endpoint (delivery.area_selector_url is null), so which postcodes are served is NOT derivable from the rail.",
+      "reachability INSIDE the declared 5000 m circle: the rail publishes the geometry only; it does not publish which addresses the venue actually serves within it.",
+      "the storefront's named delivery districts (data.delivery_areas): retracted, not a fact of this venue - see delivery.areas_retracted."
+    ]
+  },
   "schema": "cvm.venue/v1",
   "slug": "doppelt-kaese-berlin",
   "source": {
     "attribution": "Venue facts, menu and prices (c) doppelt Käse, Laubacher Straße 11, 14197 Berlin — retrieved from the venue's own public JSON API (FoodAmigos storefront). Product images are referenced by URL only and are not copied into this repository.",
     "calls": {
       "company": {
-        "bytes": 10428,
+        "bytes": 10519,
         "committed_copy_redacted": true,
-        "committed_copy_sha256": "8cfe0b7d5c9868f2a7ce599c35053bf790a8f40f624f209eb0f75e4085dd6894",
+        "committed_copy_sha256": "10b75f75f121d9e32cf1137eb0fd6667aa8c6b260461bf1ee93ac67bdeac692b",
+        "fetched_at_utc": "2026-10-09T22:44:30Z",
         "file": "evidence/raw/company.json",
-        "sha256": "5cc4090d8d5d9e0d2d193a4c5b68c4c7c72f52f3fa288f0693377df16359167f",
+        "sha256": "b841e2c8e40e37060b46c83741cde35948a1b2c0fc865d1b424e3a6db5e919a5",
         "url": "https://app.foodamigos.io/api/companies/doppeltkase/data?hostname=doppelt-kaese-berlin.de"
       },
       "menus": {
@@ -2987,11 +3072,12 @@
         "url": "https://app.foodamigos.io/api/companies/1387/menus"
       },
       "store": {
-        "bytes": 55072,
+        "bytes": 55124,
         "committed_copy_redacted": true,
-        "committed_copy_sha256": "bfb5f48a072477f96162f1f0018a1846aabb0e4a5ee14395c1749a6a98c4a9f5",
+        "committed_copy_sha256": "1562eba20a2bec596fb9bff34883409a188c38918e572bb3826ad792f0296810",
+        "fetched_at_utc": "2026-10-09T22:44:30Z",
         "file": "evidence/raw/store.json",
-        "sha256": "a6ca1f2bcc1ae0ddd71a08e1f30db3b3d8148af9e9f897a85107e101d41d6f0b",
+        "sha256": "e2daaa2b66224e4608b748141d73af0abd6de342fcabd6e9d383321846235e85",
         "url": "https://www.doppelt-kaese-berlin.de/api/store"
       }
     },
@@ -3016,23 +3102,35 @@
     ],
     "currency": "EUR",
     "delivery": {
-      "areas_named": [
-        "Mitte",
-        "Kreuzberg",
-        "Friedrichshain",
-        "Prenzlauer Berg",
-        "Tiergarten",
-        "Moabit",
-        "Wedding",
-        "Charlottenburg",
-        "Schöneberg",
-        "Neukölln",
-        "Tempelhof",
-        "Wilmersdorf",
-        "Lichtenberg",
-        "Treptow",
-        "Pankow."
-      ],
+      "area_mode": "radius",
+      "area_note": "Deliverable area is NOT asserted as a list of districts. The venue's own rail publishes its delivery zone as a circle: radius 5000 m centred on the venue's own coordinates, minimum order 20 EUR, delivery fee 5 EUR (company payload, delivery_zones[0]). That geometry is the declared area. The storefront's district-name list (data.delivery_areas) is retracted under delivery.areas_retracted.",
+      "area_selector_url": null,
+      "areas_named": null,
+      "areas_retracted": {
+        "fetched_at_utc": "2026-10-09T22:44:30Z",
+        "field": "data.delivery_areas",
+        "reason": "`data.delivery_areas` is a list of Berlin district NAMES on the venue's own storefront payload. It is not a delivery area this venue can honour: the same rail's company payload publishes the venue's delivery geometry as a single circle of 5000 m centred on the venue's own coordinates, and the named list names districts that circle cannot reach (Prenzlauer Berg, Friedrichshain, Pankow, Lichtenberg, Mitte, Kreuzberg, Wedding, Moabit, Neukölln, Tiergarten, Charlottenburg - 11 of the 15 names). Two fields served by the same rail disagree, so the name list is retracted and the announced area is the venue's own geometry. Retained here so the retraction is auditable; it is NOT a declared delivery area.",
+        "retracted_at_utc": "2026-10-09T22:44:30Z",
+        "source_call": "store",
+        "url": "https://www.doppelt-kaese-berlin.de/api/store",
+        "value": [
+          "Mitte",
+          "Kreuzberg",
+          "Friedrichshain",
+          "Prenzlauer Berg",
+          "Tiergarten",
+          "Moabit",
+          "Wedding",
+          "Charlottenburg",
+          "Schöneberg",
+          "Neukölln",
+          "Tempelhof",
+          "Wilmersdorf",
+          "Lichtenberg",
+          "Treptow",
+          "Pankow."
+        ]
+      },
       "available": true,
       "enabled": true,
       "estimated_minutes": 40,
@@ -3069,21 +3167,21 @@
         {
           "closes": "21:15",
           "day": 4,
-          "opens": "13:00",
+          "opens": "12:00",
           "timezone": "Europe/Berlin",
           "weekday": "thursday"
         },
         {
           "closes": "21:15",
           "day": 5,
-          "opens": "13:00",
+          "opens": "12:00",
           "timezone": "Europe/Berlin",
           "weekday": "friday"
         },
         {
           "closes": "21:15",
           "day": 6,
-          "opens": "13:00",
+          "opens": "12:00",
           "timezone": "Europe/Berlin",
           "weekday": "saturday"
         }
@@ -3150,21 +3248,21 @@
       {
         "closes": "21:15",
         "day": 4,
-        "opens": "13:00",
+        "opens": "12:00",
         "timezone": "Europe/Berlin",
         "weekday": "thursday"
       },
       {
         "closes": "21:15",
         "day": 5,
-        "opens": "13:00",
+        "opens": "12:00",
         "timezone": "Europe/Berlin",
         "weekday": "friday"
       },
       {
         "closes": "21:15",
         "day": 6,
-        "opens": "13:00",
+        "opens": "12:00",
         "timezone": "Europe/Berlin",
         "weekday": "saturday"
       }
