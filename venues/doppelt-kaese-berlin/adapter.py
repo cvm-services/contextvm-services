@@ -45,6 +45,7 @@ import re
 import sys
 import urllib.error
 import urllib.request
+from datetime import datetime, timezone
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -120,6 +121,60 @@ FRAGMENT_SPECS = {
 # taken from the already-redacted copies, so a hit here is a real defect.
 PII_GUARD = [b"@", b"owner_", b"stripe_key", b"adyen_key", b"notification_channels"]
 
+# --------------------------------------------------------------------------- #
+# Fulfilment facts: what the announcement may declare, and why the storefront's
+# `delivery_areas` list may not (card t_7d410f66, 2026-10-09)
+# --------------------------------------------------------------------------- #
+# The storefront payload and the company payload are BOTH the venue's own rail,
+# and they disagree about where this venue delivers:
+#
+#   store  data.delivery_areas  = 15 Berlin district NAMES
+#                                 ("Mitte", "Kreuzberg", … "Pankow.")
+#   company delivery_zones[0]   = ONE circle, radius 5000 m, centred on the
+#                                 venue's own coordinates (52.4707069, 13.3202819)
+#
+# The name list names districts the venue's own 5000 m circle cannot reach, so it
+# is not a delivery area this venue can honour. Publishing it (which the
+# announcement did until this card) told a customer in Prenzlauer Berg they were
+# in range of a venue that is ~10.6 km away. Two more tells that the field is not
+# a per-venue computation: its last element is the literal string "Pankow." with a
+# trailing period, and it contains no district adjacent-and-only.
+#
+# What replaces it: the venue's own geometry, verbatim, plus an explicit
+# retraction record so the discarded value is auditable rather than silently gone.
+RETRACTION_REASON = (
+    "`data.delivery_areas` is a list of Berlin district NAMES on the venue's own "
+    "storefront payload. It is not a delivery area this venue can honour: the same "
+    "rail's company payload publishes the venue's delivery geometry as a single "
+    "circle of 5000 m centred on the venue's own coordinates, and the named list "
+    "names districts that circle cannot reach (Prenzlauer Berg, Friedrichshain, "
+    "Pankow, Lichtenberg, Mitte, Kreuzberg, Wedding, Moabit, Neukölln, Tiergarten, "
+    "Charlottenburg - 11 of the 15 names). Two fields served by the same rail "
+    "disagree, so the name list is retracted and the announced area is the venue's "
+    "own geometry. Retained here so the retraction is auditable; it is NOT a "
+    "declared delivery area."
+)
+AREA_NOTE = (
+    "Deliverable area is NOT asserted as a list of districts. The venue's own rail "
+    "publishes its delivery zone as a circle: radius 5000 m centred on the venue's "
+    "own coordinates, minimum order 20 EUR, delivery fee 5 EUR (company payload, "
+    "delivery_zones[0]). That geometry is the declared area. The storefront's "
+    "district-name list (data.delivery_areas) is retracted under "
+    "delivery.areas_retracted."
+)
+# Fields the rail simply does not carry. Naming them is the point: an absent fact
+# must read as absent, never as a plausible-looking default.
+NOT_VERIFIABLE = [
+    "delivery postcode coverage: this rail exposes no postcode list and no "
+    "per-address deliverability endpoint (delivery.area_selector_url is null), so "
+    "which postcodes are served is NOT derivable from the rail.",
+    "reachability INSIDE the declared 5000 m circle: the rail publishes the "
+    "geometry only; it does not publish which addresses the venue actually serves "
+    "within it.",
+    "the storefront's named delivery districts (data.delivery_areas): retracted, "
+    "not a fact of this venue - see delivery.areas_retracted.",
+]
+
 
 # --------------------------------------------------------------------------- #
 # fetch / io
@@ -139,6 +194,11 @@ def http_get_json(url: str, timeout: int = 45) -> tuple[bytes, object]:
 
 def sha256_hex(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
+
+
+def utcnow() -> str:
+    """Fetch time recorded next to every field, so a reader can age the fact."""
+    return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
 def redact(obj, paths: list[str]):
@@ -202,6 +262,7 @@ def write_fragments(kind: str, raw: bytes, out_dir: Path) -> list[str]:
 def fetch_all(raw_dir: Path) -> dict:
     """Fetch the three source calls; write redacted, canonical evidence copies."""
     store_url = f"{CONFIG['storefront_origin']}/api/store"
+    t_store = utcnow()
     raw_store, store = http_get_json(store_url)
 
     store_data = store.get("data", store)
@@ -211,20 +272,25 @@ def fetch_all(raw_dir: Path) -> dict:
     company_url = (
         f"{CONFIG['backend_api']}/companies/{franchise_slug}/data?hostname={domain}"
     )
+    t_company = utcnow()
     raw_company, company = http_get_json(company_url)
     company_id = company["company"]["id"]
 
     menus_url = f"{CONFIG['backend_api']}/companies/{company_id}/menus"
+    t_menus = utcnow()
     raw_menus, menus = http_get_json(menus_url)
 
     # provenance hashes are taken on the bytes as fetched (pre-redaction)
     hashes = {
         "store": {"url": store_url, "file": "evidence/raw/store.json",
-                  "bytes": len(raw_store), "sha256": sha256_hex(raw_store)},
+                  "bytes": len(raw_store), "sha256": sha256_hex(raw_store),
+                  "fetched_at_utc": t_store},
         "company": {"url": company_url, "file": "evidence/raw/company.json",
-                    "bytes": len(raw_company), "sha256": sha256_hex(raw_company)},
+                    "bytes": len(raw_company), "sha256": sha256_hex(raw_company),
+                    "fetched_at_utc": t_company},
         "menus": {"url": menus_url, "file": "evidence/raw/menus.json",
-                  "bytes": len(raw_menus), "sha256": sha256_hex(raw_menus)},
+                  "bytes": len(raw_menus), "sha256": sha256_hex(raw_menus),
+                  "fetched_at_utc": t_menus},
     }
 
     store = redact(copy.deepcopy(store), STORE_REDACTIONS)
@@ -244,6 +310,64 @@ def fetch_all(raw_dir: Path) -> dict:
         hashes[key]["committed_copy_sha256"] = sha256_hex(blob)
 
     write_json(raw_dir / "_provenance.json", hashes)
+    return hashes
+
+
+def fetch_fulfilment_only(raw_dir: Path) -> dict:
+    """Re-fetch ONLY the two calls that carry the venue's fulfilment facts.
+
+    Card t_7d410f66 re-derives what the announcement declares about delivery and
+    opening hours from the venue's OWN rail. The venue record is built from THREE
+    calls, but the fulfilment facts all live in two of them:
+
+      * `GET <venue>/api/store`      -> `data.delivery_areas` (the suspect field)
+      * `GET app.foodamigos.io/.../companies/<slug>/data` -> `delivery_zones`,
+        `work_schedule`, `delivery_schedule`, `has_pickup/has_delivery`,
+        `average_order_*_time`
+
+    The menu call is deliberately NOT re-fetched. Menu freshness is a separate
+    tracked gap (G7) and re-fetching the 124 KB menu payload here would move every
+    price in the diff of a card about delivery areas. The menus evidence entry
+    keeps its original provenance and no `fetched_at_utc` (the S1a capture date is
+    recorded in evidence/PROVENANCE.md; the exact time was not recorded then).
+    """
+    prov_path = raw_dir / "_provenance.json"
+    existing = json.loads(prov_path.read_text(encoding="utf-8")) if prov_path.exists() else {}
+
+    store_url = f"{CONFIG['storefront_origin']}/api/store"
+    t_store = utcnow()
+    raw_store, store = http_get_json(store_url)
+
+    store_data = store["data"] if isinstance(store, dict) and "data" in store else store
+    if not isinstance(store_data, dict):
+        raise RuntimeError("store payload has no data object")
+    domain = store_data["domain"]
+    franchises = store_data["franchise_slug"]
+
+    company_url = (
+        f"{CONFIG['backend_api']}/companies/{franchises}/data?hostname={domain}"
+    )
+    t_company = utcnow()
+    raw_company, company = http_get_json(company_url)
+
+    store = redact(copy.deepcopy(store), STORE_REDACTIONS)
+    company = redact(copy.deepcopy(company), COMPANY_REDACTIONS)
+    store_blob = write_json(raw_dir / "store.json", store)
+    company_blob = write_json(raw_dir / "company.json", company)
+    write_fragments("store", store_blob, raw_dir.parent / "fragments")
+    write_fragments("company", company_blob, raw_dir.parent / "fragments")
+
+    hashes = dict(existing)
+    hashes["store"] = {"url": store_url, "file": "evidence/raw/store.json",
+                       "bytes": len(raw_store), "sha256": sha256_hex(raw_store),
+                       "fetched_at_utc": t_store,
+                       "committed_copy_sha256": sha256_hex(store_blob)}
+    hashes["company"] = {"url": company_url, "file": "evidence/raw/company.json",
+                         "bytes": len(raw_company), "sha256": sha256_hex(raw_company),
+                         "fetched_at_utc": t_company,
+                         "committed_copy_sha256": sha256_hex(company_blob)}
+    hashes.setdefault("menus", {})
+    write_json(prov_path, hashes)
     return hashes
 
 
@@ -374,11 +498,62 @@ def build_option_group(gid: str, g: dict, modifiers: dict) -> dict:
     }
 
 
+def _fulfilment_provenance(calls: dict, derived_at):
+    """Per-field fetch-time provenance for every fulfilment fact we declare.
+
+    A declared fact without a source and a fetch time is a fact nobody can age
+    or refute. Each entry names the source call, its URL, when it was fetched,
+    and the field within that payload the value was read from.
+    """
+    def call(name: str, field: str, **extra) -> dict:
+        c = calls.get(name) or {}
+        return {
+            "source_call": name,
+            "url": c.get("url"),
+            "fetched_at_utc": c.get("fetched_at_utc"),
+            "field": field,
+            **extra,
+        }
+
+    return {
+        "derived_at_utc": derived_at,
+        "fields": {
+            "venue.order_methods": call("company", "company.has_pickup, company.has_delivery"),
+            "delivery.available": call("company", "company.has_delivery"),
+            "delivery.enabled": call("company", "company.delivery_enabled"),
+            "delivery.mode": call("company", "company.delivery_mode"),
+            "delivery.area": call("company", "company.delivery_zones[*].geometry_data"),
+            "delivery.estimated_minutes": call(
+                "company", "company.average_order_delivery_time.min"),
+            "delivery.schedule": call("company", "company.delivery_schedule"),
+            "pickup.available": call("company", "company.has_pickup"),
+            "pickup.estimated_minutes": call(
+                "company", "company.average_order_preparation_time.min"),
+            "opening_hours": call("company", "company.work_schedule"),
+            "address.lat_lon": call("company", "company.lat, company.lon"),
+            "delivery.areas_named": call(
+                "store", "data.delivery_areas",
+                status="RETRACTED",
+                reason=RETRACTION_REASON),
+        },
+        "not_verifiable_from_rail": NOT_VERIFIABLE,
+    }
+
+
 def build_venue(store, company, menus, raw_dir: Path) -> dict:
     sdata = store.get("data", store)
     cdata = company["company"]
     fdata = company.get("franchise", {})
     mdata = menus.get("data", menus)
+
+    # Provenance for the fulfilment facts. Read here (not only at the end) so each
+    # declared field can carry the URL it came from and the time it was fetched.
+    prov_path = Path(raw_dir) / "_provenance.json"
+    calls = json.loads(prov_path.read_text(encoding="utf-8")) if prov_path.exists() else {}
+    # Deterministic: the derivation timestamp is the source call's fetch time, not
+    # "now", so a rebuild from committed evidence is byte-identical (--check).
+    derived_at = (calls.get("company") or {}).get("fetched_at_utc") \
+        or (calls.get("store") or {}).get("fetched_at_utc")
 
     company_rec = (sdata.get("companies") or [{}])[0]
     location = (cdata.get("locations") or [{}])[0]
@@ -391,24 +566,46 @@ def build_venue(store, company, menus, raw_dir: Path) -> dict:
     }
     ordering_urls = {k: v for k, v in ordering_urls.items() if v}
 
+    zones = [{
+        "id": z.get("id"),
+        "name": z.get("name"),
+        "geometry_type": z.get("geometry_type"),
+        "center": (z.get("geometry_data") or {}).get("center"),
+        "radius_m": (z.get("geometry_data") or {}).get("radius"),
+        "min_order": z.get("min_threshold"),
+        "max_order": z.get("max_threshold"),
+        "fee": z.get("fee"),
+        "currency": currency,
+    } for z in (cdata.get("delivery_zones") or [])]
+    circle_zones = [z for z in zones if z["geometry_type"] == "circle" and z["radius_m"]]
+    storefront_areas = list(sdata.get("delivery_areas") or [])
+
     delivery = {
         "available": bool(cdata.get("has_delivery")),
         "enabled": bool(cdata.get("delivery_enabled")),
         "mode": cdata.get("delivery_mode"),
+        # `area_mode` is what the announcement may declare as "where we deliver".
+        # `radius` = the venue's own circle geometry is the area. There is no
+        # postcode mode here, and no per-address endpoint is exposed.
+        "area_mode": "radius" if circle_zones else None,
+        "area_selector_url": None,
         "estimated_minutes": (cdata.get("average_order_delivery_time") or {}).get("min"),
         "schedule": _schedule(cdata.get("delivery_schedule")),
-        "zones": [{
-            "id": z.get("id"),
-            "name": z.get("name"),
-            "geometry_type": z.get("geometry_type"),
-            "center": (z.get("geometry_data") or {}).get("center"),
-            "radius_m": (z.get("geometry_data") or {}).get("radius"),
-            "min_order": z.get("min_threshold"),
-            "max_order": z.get("max_threshold"),
-            "fee": z.get("fee"),
-            "currency": currency,
-        } for z in (cdata.get("delivery_zones") or [])],
-        "areas_named": list(sdata.get("delivery_areas") or []),
+        "zones": zones,
+        # RETRACTED (card t_7d410f66): this field WAS published as the venue's
+        # delivery area and is not one. Nothing is declared here unless the rail's
+        # own geometry supports it.
+        "areas_named": None,
+        "areas_retracted": {
+            "value": storefront_areas,
+            "source_call": "store",
+            "field": "data.delivery_areas",
+            "url": (calls.get("store") or {}).get("url"),
+            "fetched_at_utc": (calls.get("store") or {}).get("fetched_at_utc"),
+            "retracted_at_utc": derived_at,
+            "reason": RETRACTION_REASON,
+        } if storefront_areas else None,
+        "area_note": AREA_NOTE,
     }
 
     venue_block = {
@@ -557,6 +754,7 @@ def build_venue(store, company, menus, raw_dir: Path) -> dict:
         "generated_by": "venues/doppelt-kaese-berlin/adapter.py",
         "venue": venue_block,
         "menu": menu_block,
+        "provenance": _fulfilment_provenance(calls, derived_at),
         "source": {
             "attribution": (
                 "Venue facts, menu and prices (c) doppelt Käse, Laubacher Straße 11, "
@@ -638,6 +836,11 @@ def run(args) -> int:
     raw_dir = Path(args.raw_dir)
     venue_path = Path(args.venue)
 
+    if args.refetch_fulfilment:
+        print(f"re-deriving fulfilment facts from {CONFIG['storefront_origin']} "
+              f"(store + company calls only) ...", file=sys.stderr)
+        fetch_fulfilment_only(raw_dir)
+
     if args.fetch or not (raw_dir / "menus.json").exists():
         print(f"fetching {CONFIG['storefront_origin']} ...", file=sys.stderr)
         fetch_all(raw_dir)
@@ -691,6 +894,10 @@ def main() -> int:
     ap.add_argument("--raw-dir", default=str(HERE / "evidence" / "raw"))
     ap.add_argument("--venue", default=str(HERE / "venue.json"))
     ap.add_argument("--fetch", action="store_true", help="force re-fetch from the source")
+    ap.add_argument("--refetch-fulfilment", action="store_true", dest="refetch_fulfilment",
+                    help="re-fetch ONLY the store + company calls and re-derive the "
+                         "fulfilment fields (delivery area/availability, opening hours). "
+                         "The menus call is deliberately NOT re-fetched, so no price churns.")
     ap.add_argument("--check", action="store_true", help="rebuild and compare with venue.json")
     ap.add_argument("--selftest", action="store_true", help="determinism + invariant assertions")
     ap.add_argument("--verify-rendered", metavar="FILE",
