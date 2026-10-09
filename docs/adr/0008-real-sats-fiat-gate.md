@@ -36,8 +36,33 @@ interface; `cvm-2fiat` deliberately never consumes it.
    unreachable until the sats payment is observed settled. Cashu receive and Lightning payment are
    FINAL — there is no un-pay — so the failure mode (sats settled, fiat leg then fails) is accepted
    and handled by a *manual* refund, stated in the contract.
-3. The gate is enforced at the service boundary (the kit's `ExplicitGate` pattern), not inside the
-   adapter: the adapter is never entered on an unpaid call. RED-first test required.
+3. The gate is enforced at the service boundary, not inside the adapter: the adapter is never entered
+   on an unpaid call, and it must not be callable through any alternate tool, background retry,
+   callback or transport path. The adapter interface takes the immutable intent/order id and the max
+   amount, and refuses any intent not in the durable `settled-and-reserved` state. RED-first test
+   required.
+4. **The kit's `ExplicitGate` as it stands is NOT safe for real money** (consult design review,
+   `~/reports/consult-fiat-gate-and-venue-credentials-2026-10-09.md`, with file:line evidence):
+   - `cvm-service-kit/src/payment.ts:131-157` sets the status to `paid` **before** `run()`. If `run()`
+     fails the order stays `paid`, so a retry calls `run()` again - **two fiat attempts after one sats
+     payment**.
+   - there is no atomic claim/lock around the `get` + status transition, so **concurrent calls can both
+     pass** and both invoke the adapter.
+   - `MemoryOrderStore` is process-local (`payment.ts:83-87`) and the SQLite store's `put` is not a
+     compare-and-set transaction (`src/gate-store.ts:9-65`).
+   - replay suppression (`src/transport.ts:52-55,105-113`) is an in-memory event-id cache with a 10-min
+     TTL: a restart loses it, and a captured/re-published gift wrap with a new event id is not stopped.
+   Reusing this pattern naively for a real card payment would be a double-spend of the same payment.
+5. **Minimum-safe design** (required before any real fiat spend): a durable payment-intent table keyed
+   by a cryptographically unique id, binding tool + caller + exact order hash + sats amount +
+   processor/quote + fiat cap; an atomic `awaiting_payment -> settled_reserved` transition that happens
+   **exactly once**; rejection of mismatched re-use, duplicate proof, changed amount/order, wrong
+   caller and cross-tool use; terminal failure states; and replay protection that survives restart.
+   "Settled" means **processor-confirmed final receipt**, not an invoice or token presented: for
+   Lightning, verification returns only once the payment is actually settled/claimed; for Cashu, the
+   token is atomically redeemed at the mint and its proofs marked spent.
+6. **Build order:** the settlement state machine first, then the private card adapter. Collecting real
+   sats before the complete gated path has passed a live checkout rehearsal is forbidden.
 4. **Honest limit, recorded now:** no fully unattended fiat payment is possible on this rail. 2fiat
    exposes no authorize endpoint, the card material sits behind an emailed OTP, and 3DS/SCA is
    mandatory. A human completes the last step. Any plan that assumes "the CVM just pays the card"
