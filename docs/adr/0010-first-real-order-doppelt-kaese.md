@@ -51,3 +51,29 @@ driver cannot call an npub.
 Consequence: a contact phone is a **per-order input**, required when the venue's rail needs one, and
 never a property of the venue announcement. The venue's CVM must reject an order that needs a contact
 number and was given none, rather than substituting anything.
+
+## Amendment 2026-10-09 (fulfilment: pickup for run 1)
+
+The operator asked whether he can collect at the restaurant. Yes - and both venues already
+publish a pickup price for every item (`prices_by_order_method` carries `pickup` next to
+`delivery`; Doppelt Kase quotes pickup at 10 minutes), so pickup is not a workaround, it is an
+offered method.
+
+Run 1 is therefore **pickup**, and delivery becomes a separately-verified capability rather than a
+default. This is not a downgrade, it removes three of the top failure risks at once:
+
+- **no delivery-area question.** The templated delivery-area facts (card `t_7d410f66`) stop gating
+  the first order: we are not claiming a delivery the venue may refuse.
+- **no driver call.** The SMS-only contact problem disappears for run 1 - nobody needs to phone a
+  human at the door. (The contact-phone input stays for delivery and for a venue that rings when an
+  order is ready.)
+- **no delivery-fee surprise.** The stale-menu risk that matters most (a basket priced from a
+  2026-10-06 capture) is smaller when the number of priced inputs is small.
+
+Honest consequence to keep visible: **the card-on-the-venue-rail leg is only exercised if the order
+is paid online at checkout.** If the venue offers collection payment (cash/own card at the counter),
+run 1 can complete without the fiat rail at all - which would leave the sats-to-fiat gate unproven.
+The verification card must therefore report whether online card payment is offered *for pickup*, so
+this is a fact, not an assumption. Run-1 cap and refund policy, if the operator does not restate
+them, default to EUR 30 including fees and 'the operator bears a first-run settled-sats/failed-fiat
+loss'.
