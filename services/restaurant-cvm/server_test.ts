@@ -1219,3 +1219,109 @@ Deno.test("RED: menu serves the option catalogue once per venue, with the price 
     throw new Error("the PriceLevelEnum size group must be served absolute_price:true");
   }
 });
+
+// ===========================================================================
+// The refusals and the accepted shapes the served schema declares but the tests
+// above never reached. Measured 2026-10-09 (deno test --coverage, server.ts):
+// four branches of validateOptions had never executed — the over-limit refusal and
+// the three shape refusals — so the schema's promises about `options` were only
+// asserted, never exercised.
+// ===========================================================================
+
+Deno.test("RED: an options list over the group's own max_count is refused, naming the group and the venue's limit", async () => {
+  await setup();
+  // 68406 "Deine Extras" is served multi_select:true with max_count 10 (R4: the
+  // venue's own `max_count`, not its contradicting `multiply:false`), and it carries
+  // exactly ten choices — so no request made of valid choices can exceed its limit.
+  // The limit is still a limit: eleven DISTINCT ids (one of them unknown) are over
+  // the venue's own count, and the refusal says so before naming the unknown id.
+  //
+  // The comment on the earlier test claimed this branch was covered by the
+  // single-select case. It was not: that refusal comes from the multi_select check,
+  // which fires first, so this branch had never executed.
+  const over = orderWith(CHEESEBURGER, {
+    "68405": ["366859"],
+    "68406": [
+      "366861",
+      "366862",
+      "366863",
+      "366864",
+      "366867",
+      "366868",
+      "366869",
+      "366870",
+      "366865",
+      "366866",
+      "99999999",
+    ],
+  });
+  if (!over.isError) {
+    throw new Error("eleven distinct choices must be refused by a group whose own limit is ten");
+  }
+  const reason = reasonOf(over);
+  if (!/Deine Extras/.test(reason)) throw new Error(`the refusal must name the group: ${reason}`);
+  if (!/at most 10 choices/.test(reason)) {
+    throw new Error(`the refusal must name the venue's own limit: ${reason}`);
+  }
+});
+
+Deno.test("RED: a bare choice id is taken for a single-choice group and prices the same as a one-element list", async () => {
+  await setup();
+  // The served schema declares values as ARRAYS of choice ids. The validator also
+  // takes a lone id, and that leniency is a decision, not an accident: it is tested
+  // here, and it must not become a second pricing path — the delta, the recorded
+  // selection and the unit price are identical to the list spelling.
+  const asString = orderWith(CHEESEBURGER, { "68405": "366860" } as unknown as Record<string, string[]>);
+  if (asString.isError) {
+    throw new Error(`a lone choice id must be accepted: ${asString.content[0].text}`);
+  }
+  const asList = orderWith(CHEESEBURGER, { "68405": ["366860"] });
+  if (asList.isError) throw new Error(`the list form must be accepted: ${asList.content[0].text}`);
+  const one = JSON.parse(asString.content[0].text).lines[0];
+  const many = JSON.parse(asList.content[0].text).lines[0];
+  if (one.unit_price !== many.unit_price || one.options_delta !== many.options_delta) {
+    throw new Error(
+      `the two spellings must price identically: ${one.unit_price}/${one.options_delta} vs ${many.unit_price}/${many.options_delta}`,
+    );
+  }
+  if (one.unit_price !== 9.4) throw new Error(`8.90 + 0.50 = 9.40, got ${one.unit_price}`);
+  if (JSON.stringify(one.options["68405"]) !== JSON.stringify(["366860"])) {
+    throw new Error(`the served line must record the list form the schema declares: ${JSON.stringify(one.options)}`);
+  }
+});
+
+Deno.test("RED: an options value that is neither a choice id nor a list of them is refused, never coerced", async () => {
+  await setup();
+  const bads: unknown[] = [42, true, null, { id: "366860" }, ["366860", 42]];
+  for (const bad of bads) {
+    const res = handleToolCall(index, "order", {
+      venue_slug: "doppelt-kaese-berlin",
+      items: [{ sku: "331227", qty: 1, options: { "68405": bad } }],
+      fulfilment: "pickup",
+      when: "asap",
+    });
+    if (!res.isError) throw new Error(`options value ${JSON.stringify(bad)} must be refused`);
+    const reason = reasonOf(res);
+    if (!/68405/.test(reason)) {
+      throw new Error(`the refusal must name the group it could not read: ${reason}`);
+    }
+  }
+});
+
+Deno.test("RED: an `options` that is not an object keyed by group id is refused", async () => {
+  await setup();
+  const bads: unknown[] = [["68405"], "68405", 5, true];
+  for (const bad of bads) {
+    const res = handleToolCall(index, "order", {
+      venue_slug: "doppelt-kaese-berlin",
+      items: [{ sku: "331227", qty: 1, options: bad }],
+      fulfilment: "pickup",
+      when: "asap",
+    });
+    if (!res.isError) throw new Error(`options ${JSON.stringify(bad)} must be refused`);
+    const reason = reasonOf(res);
+    if (!/must be an object keyed by option group id/.test(reason)) {
+      throw new Error(`wrong reason: ${reason}`);
+    }
+  }
+});

@@ -1,0 +1,21 @@
+# RED proof — the four validation branches, against the branch base 7aa2829
+
+Branch base: server.ts + tools/venue_to_announcement.ts from 7aa2829 (the work before
+this card), keeping the new test file. Run 2026-10-09:
+
+    deno test --no-check --allow-read services/restaurant-cvm/server_test.ts
+
+(--no-check because deno test type-checks and the base sources carry none of the
+option types the new tests import; the type error is not the signal.)
+
+Base result: 33 passed | 14 failed | 1 ignored.
+
+The four tests added for the branches coverage found unexercised all fail here:
+
+
+RED: an options list over the group's own max_count is refused, naming the group and the venue's limit ... [0m[31mFAILED[0m [0m[38;5;245m(3ms)[0m
+RED: a bare choice id is taken for a single-choice group and prices the same as a one-element list ... [0m[31mFAILED[0m [0m[38;5;245m(4ms)[0m
+RED: an options value that is neither a choice id nor a list of them is refused, never coerced ... [0m[31mFAILED[0m [0m[38;5;245m(2ms)[0m
+RED: an `options` that is not an object keyed by group id is refused ... [0m[31mFAILED[0m [0m[38;5;245m(3ms)[0m
+
+After restoring the work: 95 passed | 0 failed | 1 ignored (see REPORT.md).

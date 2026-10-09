@@ -1,0 +1,20 @@
+=== coverage (deno test --coverage) ===
+file | branch% | function% | line%
+| [0m[32mservices/restaurant-cvm/server.ts     [0m | [0m[32m    87.3[0m | [0m[32m      94.7[0m | [0m[32m  81.4[0m |
+| [0m[32mtools/venue_option_groups.ts          [0m | [0m[32m    84.1[0m | [0m[32m     100.0[0m | [0m[32m  94.7[0m |
+| [0m[32mtools/venue_to_announcement.ts        [0m | [0m[32m    83.5[0m | [0m[32m     100.0[0m | [0m[32m  96.7[0m |
+| [0m[33mAll files                             [0m | [0m[32m    84.3[0m | [0m[32m      85.0[0m | [0m[33m  77.6[0m |
+
+# Measured 2026-10-09 on the tip of pr/options-groups (95 passed | 0 failed | 1 ignored).
+# command: deno test --allow-read --coverage=.scratch/cov && deno coverage .scratch/cov
+#
+# All three files this card changes clear 80% on branch, function AND line. That is not
+# automatic: before the four shape/limit tests added with this evidence, server.ts was
+# 85.0 / 94.7 / 79.3 — validateOptions' over-limit branch and its three shape refusals
+# had never executed, i.e. the schema's promises about `options` were asserted but not
+# exercised. They are now (RED proven against base 7aa2829 in
+# RED-validate-options-branches-against-base.log).
+#
+# What the remaining ~19% of server.ts lines are: the relay path (serve(), the NIP-59
+# gift wrap, publish/subscribe) — exercised only by deno task test:net / the live E2E
+# lane, deliberately outside the hermetic gate (.ngit/README.md).
