@@ -157,7 +157,7 @@ Deno.test("RED: delivery requires ship.address; pickup and dine_in do not", asyn
 
   const baseOrder = {
     venue_slug: "doppelt-kaese-berlin",
-    items: [{ sku: "331227", qty: 1 }],
+    items: [{ sku: "331227", qty: 1, options: { "68405": ["366859"] } }],
     when: "asap",
   };
 
@@ -206,7 +206,7 @@ Deno.test("RED: order returns basket + rail + deep-link, not 'order placed'", as
   const res = handleToolCall(index, "order", {
     venue_slug: "doppelt-kaese-berlin",
     items: [
-      { sku: "331227", qty: 2 },
+      { sku: "331227", qty: 2, options: { "68405": ["366859"] } },
       { sku: "331233", qty: 1 },
     ],
     fulfilment: "pickup",
@@ -877,5 +877,292 @@ Deno.test("RED: the announced order schema matches the schema the server answers
   }
   if (!items.required.includes("qty")) {
     throw new Error("items must still require a qty");
+  }
+});
+
+// ===========================================================================
+// PLAN-0006 Track D — options. Gap G-c: `order` accepted `options` and did
+// nothing with it, and `menu` published `option_group_ids` with no group content.
+//
+// Every fixture below is the venue's own served data, quoted from
+// venues/*/venue.json (read 2026-10-09):
+//   doppelt Cheeseburger  sku 331227  pickup 8.90
+//     group 68405 "Deine Soße"   required, single-select
+//       choice 366859 "Hausgemachte Burgersoße" +0
+//       choice 366860 "Getrüffelte Haussoße"    +0.50
+//     group 68406 "Deine Extras" multi (max 10)
+//       choice 366862 "Speck"            +1.10
+//       choice 366863 "Jalapeños"        +0.50
+//       choice 366865 "Guacamole"        available: false
+//   pizza Pizza Margherita  id 6943882  pickup 9.90  price_level_used size2
+//     group 4454494 "Deine Größe" PriceLevelEnum, required, one choice
+//       choice 43938710 "Ø 32cm"  discounted_price 9.0  (ABSOLUTE, see R7)
+//     group 4454495 "Extrazutaten auf Wunsch" multi
+//       choice 43938711 "Ananas"  price_level2 2.70 / list 1.80
+// ===========================================================================
+
+const CHEESEBURGER = { venue_slug: "doppelt-kaese-berlin", sku: "331227" } as const;
+
+function orderWith(item: Record<string, unknown>, options?: Record<string, string[]>) {
+  return handleToolCall(index, "order", {
+    venue_slug: item.venue_slug,
+    items: [{ sku: item.sku, qty: 1, ...(options ? { options } : {}) }],
+    fulfilment: "pickup",
+    when: "asap",
+  });
+}
+
+function reasonOf(res: { isError?: boolean; content: { text: string }[] }): string {
+  const payload = JSON.parse(res.content[0].text) as { error?: string };
+  return payload.error ?? "";
+}
+
+Deno.test("RED: a required option group left out is refused, naming the group and the item", async () => {
+  await setup();
+  const res = orderWith(CHEESEBURGER);
+  if (!res.isError) throw new Error("a missing required group must be refused, not silently ordered");
+  const reason = reasonOf(res);
+  if (!/Deine Soße/.test(reason)) throw new Error(`refusal must name the group: ${reason}`);
+  if (!/Cheeseburger/.test(reason)) throw new Error(`refusal must name the item: ${reason}`);
+});
+
+Deno.test("RED: a choice from another group, and an unknown group, are refused naming both sides", async () => {
+  await setup();
+  // 366862 (Speck) is a real choice — of group 68406, not of 68405.
+  const wrongGroup = orderWith(CHEESEBURGER, { "68405": ["366862"] });
+  if (!wrongGroup.isError) throw new Error("a choice from another group must be refused");
+  const r1 = reasonOf(wrongGroup);
+  if (!/366862/.test(r1) || !/Deine Soße/.test(r1)) {
+    throw new Error(`the refusal must name the choice and the group: ${r1}`);
+  }
+
+  const unknownGroup = orderWith(CHEESEBURGER, { "99999": ["1"] });
+  if (!unknownGroup.isError) throw new Error("an unknown option group must fail loud, never be ignored");
+  const r2 = reasonOf(unknownGroup);
+  if (!/99999/.test(r2) || !/not offered/.test(r2)) {
+    throw new Error(`an unknown group must be named as not offered: ${r2}`);
+  }
+});
+
+Deno.test("RED: a single-select group takes one choice, and a multi group takes its whole priced max", async () => {
+  await setup();
+  const two = orderWith(CHEESEBURGER, { "68405": ["366859", "366860"] });
+  if (!two.isError) throw new Error("multi_select:false must refuse a second choice");
+  if (!/at most one choice/.test(reasonOf(two))) throw new Error(`wrong reason: ${reasonOf(two)}`);
+
+  // 68406 "Deine Extras" publishes ten choices with max_count 10 (raw venue API:
+  // `multiply: false` AND `max_count: 10`). R4 reads the count, not the multiply
+  // flag, so all eight AVAILABLE extras must be accepted — and the delta must be the
+  // sum of the venue's own eight numbers (3.0 + 1.1 + 0.5 + 0.5 + 1.0 + 1.8 + 1.1
+  // + 1.9 = 10.9). Measured: NO served group can exceed its own max_count with
+  // distinct choices, so this boundary is the reachable form of that rule; the
+  // over-limit branch is kept and covered by the single-select case above.
+  const all = orderWith(CHEESEBURGER, {
+    "68405": ["366859"],
+    "68406": ["366861", "366862", "366863", "366864", "366867", "366868", "366869", "366870"],
+  });
+  if (all.isError) throw new Error(`ten-priced-extras group must accept eight: ${all.content[0].text}`);
+  const line = JSON.parse(all.content[0].text).lines[0];
+  if (line.options_delta !== 10.9) throw new Error(`expected 10.90 of extras, got ${line.options_delta}`);
+  if (line.unit_price !== 19.8) throw new Error(`expected 8.90 + 10.90 = 19.80, got ${line.unit_price}`);
+
+  // The count is a count of DISTINCT choices: the same id twice does not become a
+  // second extra, so eight distinct + one repeat stays legal where the group's own
+  // limit is 10 (and would still be legal at a limit of 8).
+  const nine = orderWith(CHEESEBURGER, {
+    "68405": ["366859"],
+    "68406": ["366861", "366862", "366863", "366864", "366867", "366868", "366869", "366870", "366870"],
+  });
+  if (nine.isError) throw new Error("a repeated choice is one choice, not a ninth");
+});
+
+Deno.test("RED: an unavailable choice is refused by name", async () => {
+  await setup();
+  // 366865 Guacamole is in group 68406 with available:false in venue.json.
+  const res = orderWith(CHEESEBURGER, { "68405": ["366859"], "68406": ["366865"] });
+  if (!res.isError) throw new Error("an unavailable choice must be refused");
+  const reason = reasonOf(res);
+  if (!/Guacamole/.test(reason) || !/unavailable/.test(reason)) {
+    throw new Error(`the refusal must name the unavailable choice: ${reason}`);
+  }
+});
+
+const MARGHERITA = {
+  venue_slug: "pizza-e-pasta-ruedesheimerplatz",
+  sku: "100",
+  id: "6943882",
+} as const;
+
+Deno.test("RED: pizza's option delta is read at the item's OWN size level, not the level-independent one", async () => {
+  await setup();
+  const res = handleToolCall(index, "order", {
+    venue_slug: MARGHERITA.venue_slug,
+    items: [{
+      id: MARGHERITA.id,
+      qty: 1,
+      options: { "4454494": ["43938710"], "4454495": ["43938711"] },
+    }],
+    fulfilment: "pickup",
+    when: "asap",
+  });
+  if (res.isError) throw new Error(`this is a real, priced basket: ${res.content[0].text}`);
+  const line = JSON.parse(res.content[0].text).lines[0];
+  // Ananas is 2.70 at price_level2 and 1.80 in the level-independent column; the
+  // item's own level is size2, so 2.70 is the served number that applies.
+  if (line.options_delta !== 2.7) {
+    throw new Error(`expected the size-2 delta 2.70, got ${line.options_delta}`);
+  }
+  if (line.unit_price !== 12.6) {
+    throw new Error(`expected 9.90 + 2.70 = 12.60, got ${line.unit_price}`);
+  }
+});
+
+Deno.test("RED: a PriceLevelEnum choice is the item's own price, so it is not charged twice", async () => {
+  await setup();
+  // Item 6943882 is 9.90; its required "Deine Größe" choice 43938710 says 9.0.
+  // The venue's own rendered page (evidence/rendered-ordering-page.txt) shows the
+  // dish at 9,90 €, so 9.90 + 9.00 = 18.90 would be inventing a price.
+  const res = handleToolCall(index, "order", {
+    venue_slug: MARGHERITA.venue_slug,
+    items: [{ id: MARGHERITA.id, qty: 1, options: { "4454494": ["43938710"] } }],
+    fulfilment: "pickup",
+    when: "asap",
+  });
+  if (res.isError) throw new Error(`the venue's own required size choice must be orderable: ${res.content[0].text}`);
+  const line = JSON.parse(res.content[0].text).lines[0];
+  if (line.options_delta !== 0) {
+    throw new Error(`a PriceLevelEnum choice is absolute — delta must be 0, got ${line.options_delta}`);
+  }
+  if (line.unit_price !== 9.9) {
+    throw new Error(`expected the item's own 9.90, got ${line.unit_price}`);
+  }
+  if (line.options["4454494"][0] !== "43938710") {
+    throw new Error("the chosen size must still be recorded on the line, not dropped");
+  }
+});
+
+Deno.test("RED: a choice the venue prices nowhere is a no-surcharge choice, not a refusal", async () => {
+  await setup();
+  // pizza group 4454489 "Dressing nach Wahl" is required and its four choices carry
+  // no price field at all in the venue's own response ({id, orderBy, title}), and the
+  // dish's own description says all dishes come with a dressing of your choice.
+  // Refusing would make every salad unorderable.
+  const res = handleToolCall(index, "order", {
+    venue_slug: "pizza-e-pasta-ruedesheimerplatz",
+    items: [{ sku: "11", qty: 1, options: { "4454489": ["43938692"] } }],
+    fulfilment: "pickup",
+    when: "asap",
+  });
+  if (res.isError) throw new Error(`the dressing choice carries no surcharge, not an error: ${res.content[0].text}`);
+  const line = JSON.parse(res.content[0].text).lines[0];
+  if (line.options_delta !== 0) {
+    throw new Error(`expected delta 0 for a no-surcharge choice, got ${line.options_delta}`);
+  }
+  if (line.unit_price !== 11.7) throw new Error(`expected the item's own 11.70, got ${line.unit_price}`);
+});
+
+Deno.test("RED: a basket carrying options totals the sum of the served numbers", async () => {
+  await setup();
+  const res = handleToolCall(index, "order", {
+    venue_slug: "doppelt-kaese-berlin",
+    items: [
+      {
+        sku: "331227",
+        qty: 2,
+        // 8.90 + 0.50 (Getrüffelte Haussoße) + 1.10 (Speck) + 0.50 (Jalapeños) = 11.00
+        options: { "68405": ["366860"], "68406": ["366862", "366863"] },
+      },
+    ],
+    fulfilment: "pickup",
+    when: "asap",
+  });
+  if (res.isError) throw new Error(res.content[0].text);
+  const payload = JSON.parse(res.content[0].text);
+  const line = payload.lines[0];
+  if (line.options_delta !== 2.1) throw new Error(`delta 2.10 expected, got ${line.options_delta}`);
+  if (line.unit_price !== 11.0) throw new Error(`unit 11.00 expected, got ${line.unit_price}`);
+  if (line.line_total !== 22.0) throw new Error(`line total 22.00 expected, got ${line.line_total}`);
+  if (payload.total !== 22.0) throw new Error(`basket total 22.00 expected, got ${payload.total}`);
+
+  // The same basket with the SAME choice twice is one choice: 8.90 + 0.50 = 9.40.
+  const twice = orderWith(CHEESEBURGER, { "68405": ["366860", "366860"] })
+    .content[0].text;
+  const twiceLine = JSON.parse(twice).lines[0];
+  if (twiceLine.unit_price !== 9.4 || twiceLine.options_delta !== 0.5) {
+    throw new Error(`the same choice twice must count once: ${JSON.stringify(twiceLine)}`);
+  }
+  if (twiceLine.options["68405"].length !== 1) {
+    throw new Error("the line must carry the selection once, not twice");
+  }
+});
+
+Deno.test("RED: menu serves the option catalogue once per venue, with the price rule stated in the data", async () => {
+  await setup();
+  const payload = JSON.parse(handleToolCall(index, "menu", {}).content[0].text);
+  const venues = payload.venues as Array<Record<string, unknown>>;
+  if (venues.length === 0) throw new Error("no venues in the menu");
+
+  for (const v of venues) {
+    const groups = v.option_groups as Array<Record<string, unknown>>;
+    if (!Array.isArray(groups)) throw new Error(`${v.venue_slug} serves no option catalogue`);
+    // The catalogue is served ONCE: no group id may be repeated (R6).
+    const ids = groups.map((g) => g.id);
+    if (new Set(ids).size !== ids.length) {
+      throw new Error(`${v.venue_slug} repeats an option group id: ${JSON.stringify(ids)}`);
+    }
+    if (typeof v.option_price_rule !== "string" || !/price_level_key/.test(String(v.option_price_rule))) {
+      throw new Error(`${v.venue_slug} does not state the served price rule`);
+    }
+    for (const g of groups) {
+      if (typeof g.absolute_price !== "boolean") {
+        throw new Error(`group ${g.id} carries no absolute_price flag`);
+      }
+      const choices = g.choices as Array<Record<string, unknown>>;
+      if (!Array.isArray(choices)) throw new Error(`group ${g.id} serves no choices`);
+      if (g.required === true && Number(g.min_count) < 1) {
+        throw new Error(`required group ${g.id} must have min_count >= 1`);
+      }
+      if (g.multi_select === false && Number(g.max_count) !== 1) {
+        throw new Error(`single-select group ${g.id} must serve max_count 1, got ${g.max_count}`);
+      }
+      for (const c of choices) {
+        if (typeof c.prices !== "object" || c.prices === null) {
+          throw new Error(`choice ${c.id} serves no prices object`);
+        }
+        if (typeof c.available !== "boolean") throw new Error(`choice ${c.id} serves no availability`);
+      }
+    }
+    // Every item must say which key its own prices are read at, and every id it names
+    // must resolve in the catalogue it was served with.
+    const byId = new Set(ids);
+    for (const it of v.items as Array<Record<string, unknown>>) {
+      const gids = it.option_group_ids as string[];
+      if (!Array.isArray(gids)) throw new Error(`item ${it.sku} serves no option_group_ids`);
+      if (typeof it.price_level_key !== "string") {
+        throw new Error(`item ${it.sku} serves no price_level_key`);
+      }
+      for (const gid of gids) {
+        if (!byId.has(gid)) {
+          throw new Error(`item ${it.sku} names group ${gid}, which the catalogue does not serve`);
+        }
+      }
+    }
+  }
+
+  // The one fixture the money tests use: Margherita at size2, Ananas priced 2.70.
+  const pizza = venues.find((v) => v.venue_slug === "pizza-e-pasta-ruedesheimerplatz")!;
+  const margherita = (pizza.items as Array<Record<string, unknown>>).find((it) => it.id === "6943882")!;
+  if (margherita.price_level_key !== "2") {
+    throw new Error(`Margherita's level key must be the size-2 key, got ${margherita.price_level_key}`);
+  }
+  const extras = (pizza.option_groups as Array<Record<string, unknown>>).find((g) => g.id === "4454495")!;
+  const ananas = (extras.choices as Array<Record<string, unknown>>).find((c) => c.id === "43938711")!;
+  const prices = ananas.prices as Record<string, number>;
+  if (prices["2"] !== 2.7 || prices.default !== 1.8) {
+    throw new Error(`Ananas must serve both columns verbatim, got ${JSON.stringify(prices)}`);
+  }
+  const sizeGroup = (pizza.option_groups as Array<Record<string, unknown>>).find((g) => g.id === "4454494")!;
+  if (sizeGroup.absolute_price !== true) {
+    throw new Error("the PriceLevelEnum size group must be served absolute_price:true");
   }
 });
