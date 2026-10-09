@@ -1,0 +1,88 @@
+{
+  "kind": 11316,
+  "pubkey": null,
+  "tags": [
+    [
+      "d",
+      "doppelt-kaese-berlin"
+    ],
+    [
+      "t",
+      "cvm:service:restaurant"
+    ],
+    [
+      "t",
+      "cvm:service:meatspace"
+    ],
+    [
+      "t",
+      "berlin"
+    ],
+    [
+      "t",
+      "burgers"
+    ],
+    [
+      "t",
+      "cvm:req:contact.phone"
+    ],
+    [
+      "t",
+      "cvm:req:order.fulfilment"
+    ],
+    [
+      "t",
+      "cvm:opt:contact.name"
+    ],
+    [
+      "t",
+      "cvm:opt:order.notes"
+    ],
+    [
+      "t",
+      "cvm:opt:ship.address"
+    ],
+    [
+      "t",
+      "cvm:tier:fulfilment"
+    ],
+    [
+      "g",
+      "u336"
+    ],
+    [
+      "g",
+      "u336x0"
+    ],
+    [
+      "g",
+      "u336x058"
+    ],
+    [
+      "cap",
+      "tool:order",
+      "0",
+      "sats"
+    ],
+    [
+      "r",
+      "https://www.doppelt-kaese-berlin.de/speisekarte/doppeltkase"
+    ],
+    [
+      "name",
+      "Doppelt Käse Laubacher Straße"
+    ],
+    [
+      "about",
+      "Doppelt Käse Laubacher Straße — restaurant in Berlin, announced over ContextVM (CEP-6). Order via the venue's own rail; the deep-link asks for a delivery address and phone."
+    ],
+    [
+      "website",
+      "https://doppelt-kaese-berlin.de"
+    ]
+  ],
+  "content": "{\"name\":\"Doppelt Käse Laubacher Straße\",\"about\":\"Doppelt Käse Laubacher Straße — restaurant in Berlin, announced over ContextVM (CEP-6). Order via the venue's own rail; the deep-link asks for a delivery address and phone.\",\"schema\":\"cvm.venue/v1\",\"currency\":\"EUR\",\"area\":{\"city\":\"Berlin\",\"country\":\"DE\"},\"location\":{\"lat\":52.4707069,\"lon\":13.3202819},\"menu\":{\"item_count\":76,\"priced_count\":76,\"currency\":\"EUR\",\"min_price\":0.5,\"max_price\":13,\"prices_by_method\":{\"delivery\":{\"count\":76,\"currency\":\"EUR\",\"min_price\":0.5,\"max_price\":13},\"dine_in\":{\"count\":76,\"currency\":\"EUR\",\"min_price\":0.5,\"max_price\":13},\"pickup\":{\"count\":76,\"currency\":\"EUR\",\"min_price\":0.5,\"max_price\":12.5},\"room_service\":{\"count\":76,\"currency\":\"EUR\",\"min_price\":0.5,\"max_price\":13}},\"price_basis\":\"min_price/max_price are the item's own price column; prices_by_method carries what each fulfilment method actually pays\"},\"ordering\":{\"primary_url\":\"https://www.doppelt-kaese-berlin.de/speisekarte/doppeltkase\",\"order_methods\":[\"pickup\",\"delivery\"]},\"fulfilment\":{\"methods\":[\"pickup\",\"delivery\"],\"pickup\":{\"available\":true,\"estimated_minutes\":10},\"delivery\":{\"available\":true,\"areas_named\":[\"Mitte\",\"Kreuzberg\",\"Friedrichshain\",\"Prenzlauer Berg\",\"Tiergarten\",\"Moabit\",\"Wedding\",\"Charlottenburg\",\"Schöneberg\",\"Neukölln\",\"Tempelhof\",\"Wilmersdorf\",\"Lichtenberg\",\"Treptow\",\"Pankow.\"],\"areas_note\":null},\"method_condition\":\"ship.address is required for a DELIVERY order only; a PICKUP order needs no address (the venue's own page asks for the address when delivery is chosen).\"},\"tools\":[{\"name\":\"order\",\"description\":\"Place an order at Doppelt Käse Laubacher Straße via the venue's own ordering rail (deep-link).\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false}}],\"settlement\":{\"settles\":\"venue's own rail (ADR-0001 D5): this CVM takes no payment\",\"rail\":\"venue's own rail (FoodAmigos storefront: Adyen/Stripe/PayPal/cash)\",\"currency\":\"EUR\",\"tax\":\"inclusive 19%\",\"cvm_cap_sats\":0,\"recorded\":true,\"note\":\"rail as recorded from the venue's own storefront\"}}",
+  "tier": "fulfilment",
+  "recomputed_tier": "fulfilment",
+  "warnings": []
+}
