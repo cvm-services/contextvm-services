@@ -1,0 +1,3254 @@
+{
+  "capture": {
+    "extractor": "html_block_text",
+    "fragments": [
+      [
+        "Tomatencremesuppe",
+        220
+      ],
+      [
+        "Fajita de Pollo",
+        200
+      ],
+      [
+        "Spezialitäten des Hauses",
+        260
+      ]
+    ],
+    "item_line_pattern": "^(?P<sku>\\d{1,3})\\.\\s+(?P<name>.{2,80})$",
+    "mode": "pair",
+    "price_line_pattern": "^(?P<price>\\d{1,3},\\d{2})$",
+    "price_method": "dine_in",
+    "section_names": [
+      "Suppen",
+      "Vorspeisen",
+      "Salate",
+      "Pasta",
+      "Steaks vom Grill",
+      "Beilagen",
+      "Saucen",
+      "Medaillons vom Schwein",
+      "Fisch",
+      "Pizza",
+      "Spezialitäten des Hauses",
+      "Doreedos Spezialitäten",
+      "Fajitas",
+      "Kinder-Menü",
+      "Desserts"
+    ],
+    "service_method_note": "the venue publishes one card for guests in the house (dine-in); it is a steakhouse, not a delivery shop",
+    "sku_from": "leading-number",
+    "sku_policy_note": "sku is the item number the venue prints on its own card; it is stable while the card is",
+    "source_note": "captured from the venue's own Speisekarte page (doreedos-steakhaus.de/speisekarte); name and price are printed on two lines, so the capture pairs them",
+    "start_after": "Speisekarte",
+    "stop_before": [
+      "DOREEDOS STEGLITZ"
+    ],
+    "url": "https://doreedos-steakhaus.de/speisekarte"
+  },
+  "generated_by": "venues/tools/capture_menu.py",
+  "menu": {
+    "availability_note": "the venue publishes this list as its current offering; availability is declared true from that publication, not from a stock API (no stock API exists)",
+    "captured_at": "2026-10-10T08:05:06+00:00",
+    "currency": "EUR",
+    "generated_by": "venues/tools/capture_menu.py",
+    "items": [
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "1",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Tomatencremesuppe",
+        "option_group_ids": [],
+        "price": 3.99,
+        "prices_by_order_method": {
+          "dine_in": 3.99
+        },
+        "section_ids": [
+          "suppen"
+        ],
+        "sku": "1",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "3",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Broccolisuppe",
+        "option_group_ids": [],
+        "price": 3.99,
+        "prices_by_order_method": {
+          "dine_in": 3.99
+        },
+        "section_ids": [
+          "suppen"
+        ],
+        "sku": "3",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "4",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Gulaschsuppe",
+        "option_group_ids": [],
+        "price": 5.5,
+        "prices_by_order_method": {
+          "dine_in": 5.5
+        },
+        "section_ids": [
+          "suppen"
+        ],
+        "sku": "4",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "5",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Knoblauchsuppe",
+        "option_group_ids": [],
+        "price": 3.99,
+        "prices_by_order_method": {
+          "dine_in": 3.99
+        },
+        "section_ids": [
+          "suppen"
+        ],
+        "sku": "5",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "8",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Chili con Carne",
+        "option_group_ids": [],
+        "price": 5.5,
+        "prices_by_order_method": {
+          "dine_in": 5.5
+        },
+        "section_ids": [
+          "suppen"
+        ],
+        "sku": "8",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "6",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Focaccia Gorgonzola",
+        "option_group_ids": [],
+        "price": 8.99,
+        "prices_by_order_method": {
+          "dine_in": 8.99
+        },
+        "section_ids": [
+          "vorspeisen"
+        ],
+        "sku": "6",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "7",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Funghi Ripieni",
+        "option_group_ids": [],
+        "price": 8.99,
+        "prices_by_order_method": {
+          "dine_in": 8.99
+        },
+        "section_ids": [
+          "vorspeisen"
+        ],
+        "sku": "7",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "10",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Mozzarella",
+        "option_group_ids": [],
+        "price": 8.99,
+        "prices_by_order_method": {
+          "dine_in": 8.99
+        },
+        "section_ids": [
+          "vorspeisen"
+        ],
+        "sku": "10",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "11",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Krabbencocktail",
+        "option_group_ids": [],
+        "price": 6.99,
+        "prices_by_order_method": {
+          "dine_in": 6.99
+        },
+        "section_ids": [
+          "vorspeisen"
+        ],
+        "sku": "11",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "12",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Gebackener Camembert",
+        "option_group_ids": [],
+        "price": 7.99,
+        "prices_by_order_method": {
+          "dine_in": 7.99
+        },
+        "section_ids": [
+          "vorspeisen"
+        ],
+        "sku": "12",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "13",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Lumache al Forno",
+        "option_group_ids": [],
+        "price": 4.99,
+        "prices_by_order_method": {
+          "dine_in": 4.99
+        },
+        "section_ids": [
+          "vorspeisen"
+        ],
+        "sku": "13",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "14",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Broccoli al Forno",
+        "option_group_ids": [],
+        "price": 8.99,
+        "prices_by_order_method": {
+          "dine_in": 8.99
+        },
+        "section_ids": [
+          "vorspeisen"
+        ],
+        "sku": "14",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "15",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Maiskolben",
+        "option_group_ids": [],
+        "price": 4.99,
+        "prices_by_order_method": {
+          "dine_in": 4.99
+        },
+        "section_ids": [
+          "vorspeisen"
+        ],
+        "sku": "15",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "16",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Carpaccio",
+        "option_group_ids": [],
+        "price": 9.99,
+        "prices_by_order_method": {
+          "dine_in": 9.99
+        },
+        "section_ids": [
+          "vorspeisen"
+        ],
+        "sku": "16",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "17",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Knoblauchbrot",
+        "option_group_ids": [],
+        "price": 1.99,
+        "prices_by_order_method": {
+          "dine_in": 1.99
+        },
+        "section_ids": [
+          "vorspeisen"
+        ],
+        "sku": "17",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "18",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Bruschetta",
+        "option_group_ids": [],
+        "price": 1.99,
+        "prices_by_order_method": {
+          "dine_in": 1.99
+        },
+        "section_ids": [
+          "vorspeisen"
+        ],
+        "sku": "18",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "20",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Gemischter Salat",
+        "option_group_ids": [],
+        "price": 5.99,
+        "prices_by_order_method": {
+          "dine_in": 5.99
+        },
+        "section_ids": [
+          "salate"
+        ],
+        "sku": "20",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "21",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Thunfischsalat",
+        "option_group_ids": [],
+        "price": 9.99,
+        "prices_by_order_method": {
+          "dine_in": 9.99
+        },
+        "section_ids": [
+          "salate"
+        ],
+        "sku": "21",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "22",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Käsesalat",
+        "option_group_ids": [],
+        "price": 9.99,
+        "prices_by_order_method": {
+          "dine_in": 9.99
+        },
+        "section_ids": [
+          "salate"
+        ],
+        "sku": "22",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "23",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Salat Frutti di Mare",
+        "option_group_ids": [],
+        "price": 9.99,
+        "prices_by_order_method": {
+          "dine_in": 9.99
+        },
+        "section_ids": [
+          "salate"
+        ],
+        "sku": "23",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "24",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Salat Doreedos",
+        "option_group_ids": [],
+        "price": 10.99,
+        "prices_by_order_method": {
+          "dine_in": 10.99
+        },
+        "section_ids": [
+          "salate"
+        ],
+        "sku": "24",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "25",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Rucola Salat",
+        "option_group_ids": [],
+        "price": 9.99,
+        "prices_by_order_method": {
+          "dine_in": 9.99
+        },
+        "section_ids": [
+          "salate"
+        ],
+        "sku": "25",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "26",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Mais Salat",
+        "option_group_ids": [],
+        "price": 6.99,
+        "prices_by_order_method": {
+          "dine_in": 6.99
+        },
+        "section_ids": [
+          "salate"
+        ],
+        "sku": "26",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "30",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Spaghetti Bolognese",
+        "option_group_ids": [],
+        "price": 9.99,
+        "prices_by_order_method": {
+          "dine_in": 9.99
+        },
+        "section_ids": [
+          "pasta"
+        ],
+        "sku": "30",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "31",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Spaghetti Carbonara",
+        "option_group_ids": [],
+        "price": 9.99,
+        "prices_by_order_method": {
+          "dine_in": 9.99
+        },
+        "section_ids": [
+          "pasta"
+        ],
+        "sku": "31",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "32",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Lasagne",
+        "option_group_ids": [],
+        "price": 9.99,
+        "prices_by_order_method": {
+          "dine_in": 9.99
+        },
+        "section_ids": [
+          "pasta"
+        ],
+        "sku": "32",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "33",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Tortellini alla Panna",
+        "option_group_ids": [],
+        "price": 9.99,
+        "prices_by_order_method": {
+          "dine_in": 9.99
+        },
+        "section_ids": [
+          "pasta"
+        ],
+        "sku": "33",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "34",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Regatoni con Pepe",
+        "option_group_ids": [],
+        "price": 11.99,
+        "prices_by_order_method": {
+          "dine_in": 11.99
+        },
+        "section_ids": [
+          "pasta"
+        ],
+        "sku": "34",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "35",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Spaghetti Frutti di Mare",
+        "option_group_ids": [],
+        "price": 11.99,
+        "prices_by_order_method": {
+          "dine_in": 11.99
+        },
+        "section_ids": [
+          "pasta"
+        ],
+        "sku": "35",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "36",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Rigatoni Gorgonzola",
+        "option_group_ids": [],
+        "price": 10.99,
+        "prices_by_order_method": {
+          "dine_in": 10.99
+        },
+        "section_ids": [
+          "pasta"
+        ],
+        "sku": "36",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "37",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Rigatoni Doreedos",
+        "option_group_ids": [],
+        "price": 12.99,
+        "prices_by_order_method": {
+          "dine_in": 12.99
+        },
+        "section_ids": [
+          "pasta"
+        ],
+        "sku": "37",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "38",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Rigatoni Spezial",
+        "option_group_ids": [],
+        "price": 12.99,
+        "prices_by_order_method": {
+          "dine_in": 12.99
+        },
+        "section_ids": [
+          "pasta"
+        ],
+        "sku": "38",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "39",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Rigatoni Scampi",
+        "option_group_ids": [],
+        "price": 13.99,
+        "prices_by_order_method": {
+          "dine_in": 13.99
+        },
+        "section_ids": [
+          "pasta"
+        ],
+        "sku": "39",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "29",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Spaghetti Doreedos",
+        "option_group_ids": [],
+        "price": 13.99,
+        "prices_by_order_method": {
+          "dine_in": 13.99
+        },
+        "section_ids": [
+          "pasta"
+        ],
+        "sku": "29",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "40",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Hüftsteak 180 g",
+        "option_group_ids": [],
+        "price": 12.99,
+        "prices_by_order_method": {
+          "dine_in": 12.99
+        },
+        "section_ids": [
+          "steaks-vom-grill"
+        ],
+        "sku": "40",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "41",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Hüftsteak 250 g",
+        "option_group_ids": [],
+        "price": 15.99,
+        "prices_by_order_method": {
+          "dine_in": 15.99
+        },
+        "section_ids": [
+          "steaks-vom-grill"
+        ],
+        "sku": "41",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "42",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Rumpsteak 180 g",
+        "option_group_ids": [],
+        "price": 13.99,
+        "prices_by_order_method": {
+          "dine_in": 13.99
+        },
+        "section_ids": [
+          "steaks-vom-grill"
+        ],
+        "sku": "42",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "43",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Rumpsteak 250 g",
+        "option_group_ids": [],
+        "price": 17.99,
+        "prices_by_order_method": {
+          "dine_in": 17.99
+        },
+        "section_ids": [
+          "steaks-vom-grill"
+        ],
+        "sku": "43",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "44",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Entrecôte 200 g",
+        "option_group_ids": [],
+        "price": 15.99,
+        "prices_by_order_method": {
+          "dine_in": 15.99
+        },
+        "section_ids": [
+          "steaks-vom-grill"
+        ],
+        "sku": "44",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "45",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Entrecôte 250 g",
+        "option_group_ids": [],
+        "price": 15.99,
+        "prices_by_order_method": {
+          "dine_in": 15.99
+        },
+        "section_ids": [
+          "steaks-vom-grill"
+        ],
+        "sku": "45",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "46",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Filetsteak 180 g",
+        "option_group_ids": [],
+        "price": 16.99,
+        "prices_by_order_method": {
+          "dine_in": 16.99
+        },
+        "section_ids": [
+          "steaks-vom-grill"
+        ],
+        "sku": "46",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "47",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Filetsteak 250 g",
+        "option_group_ids": [],
+        "price": 19.99,
+        "prices_by_order_method": {
+          "dine_in": 19.99
+        },
+        "section_ids": [
+          "steaks-vom-grill"
+        ],
+        "sku": "47",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "48",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Lammfilet 180 g",
+        "option_group_ids": [],
+        "price": 15.99,
+        "prices_by_order_method": {
+          "dine_in": 15.99
+        },
+        "section_ids": [
+          "steaks-vom-grill"
+        ],
+        "sku": "48",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "49",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Lammfilet 250 g",
+        "option_group_ids": [],
+        "price": 19.99,
+        "prices_by_order_method": {
+          "dine_in": 19.99
+        },
+        "section_ids": [
+          "steaks-vom-grill"
+        ],
+        "sku": "49",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "50",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Lammkotelett",
+        "option_group_ids": [],
+        "price": 19.99,
+        "prices_by_order_method": {
+          "dine_in": 19.99
+        },
+        "section_ids": [
+          "steaks-vom-grill"
+        ],
+        "sku": "50",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "51",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Schweinesteak 180 g",
+        "option_group_ids": [],
+        "price": 11.99,
+        "prices_by_order_method": {
+          "dine_in": 11.99
+        },
+        "section_ids": [
+          "steaks-vom-grill"
+        ],
+        "sku": "51",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "52",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Schweinesteak 250 g",
+        "option_group_ids": [],
+        "price": 13.99,
+        "prices_by_order_method": {
+          "dine_in": 13.99
+        },
+        "section_ids": [
+          "steaks-vom-grill"
+        ],
+        "sku": "52",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "53",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Schweinefilet 250 g",
+        "option_group_ids": [],
+        "price": 16.99,
+        "prices_by_order_method": {
+          "dine_in": 16.99
+        },
+        "section_ids": [
+          "steaks-vom-grill"
+        ],
+        "sku": "53",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "54",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Grillteller 300 g",
+        "option_group_ids": [],
+        "price": 15.99,
+        "prices_by_order_method": {
+          "dine_in": 15.99
+        },
+        "section_ids": [
+          "steaks-vom-grill"
+        ],
+        "sku": "54",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "55",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Grillplatte für 2 Personen",
+        "option_group_ids": [],
+        "price": 32.99,
+        "prices_by_order_method": {
+          "dine_in": 32.99
+        },
+        "section_ids": [
+          "steaks-vom-grill"
+        ],
+        "sku": "55",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "56",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Medaillon von der Rinderhüfte",
+        "option_group_ids": [],
+        "price": 20.99,
+        "prices_by_order_method": {
+          "dine_in": 20.99
+        },
+        "section_ids": [
+          "steaks-vom-grill"
+        ],
+        "sku": "56",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "57",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "XXL Schnitzel „Wiener Art“",
+        "option_group_ids": [],
+        "price": 12.99,
+        "prices_by_order_method": {
+          "dine_in": 12.99
+        },
+        "section_ids": [
+          "steaks-vom-grill"
+        ],
+        "sku": "57",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "58",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "XL Hüfte 400 g",
+        "option_group_ids": [],
+        "price": 22.99,
+        "prices_by_order_method": {
+          "dine_in": 22.99
+        },
+        "section_ids": [
+          "steaks-vom-grill"
+        ],
+        "sku": "58",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "59",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "XL Rumpsteak 400 g",
+        "option_group_ids": [],
+        "price": 24.99,
+        "prices_by_order_method": {
+          "dine_in": 24.99
+        },
+        "section_ids": [
+          "steaks-vom-grill"
+        ],
+        "sku": "59",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "60",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "XXL Hüfte 600 g",
+        "option_group_ids": [],
+        "price": 29.99,
+        "prices_by_order_method": {
+          "dine_in": 29.99
+        },
+        "section_ids": [
+          "steaks-vom-grill"
+        ],
+        "sku": "60",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "61",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "XXL Rumpsteak 600 g",
+        "option_group_ids": [],
+        "price": 29.99,
+        "prices_by_order_method": {
+          "dine_in": 29.99
+        },
+        "section_ids": [
+          "steaks-vom-grill"
+        ],
+        "sku": "61",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "62",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "XXXL Hüfte 800 g",
+        "option_group_ids": [],
+        "price": 39.99,
+        "prices_by_order_method": {
+          "dine_in": 39.99
+        },
+        "section_ids": [
+          "steaks-vom-grill"
+        ],
+        "sku": "62",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "63",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "XXXL Rumpsteak 800 g",
+        "option_group_ids": [],
+        "price": 39.99,
+        "prices_by_order_method": {
+          "dine_in": 39.99
+        },
+        "section_ids": [
+          "steaks-vom-grill"
+        ],
+        "sku": "63",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "64",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "XL Entrecôte 400 g",
+        "option_group_ids": [],
+        "price": 26.99,
+        "prices_by_order_method": {
+          "dine_in": 26.99
+        },
+        "section_ids": [
+          "steaks-vom-grill"
+        ],
+        "sku": "64",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "65",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "XL Filetsteak 400 g",
+        "option_group_ids": [],
+        "price": 31.99,
+        "prices_by_order_method": {
+          "dine_in": 31.99
+        },
+        "section_ids": [
+          "steaks-vom-grill"
+        ],
+        "sku": "65",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "70",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Kräuterbutter",
+        "option_group_ids": [],
+        "price": 1.99,
+        "prices_by_order_method": {
+          "dine_in": 1.99
+        },
+        "section_ids": [
+          "beilagen"
+        ],
+        "sku": "70",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "71",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Geschroteter Pfeffer",
+        "option_group_ids": [],
+        "price": 0.99,
+        "prices_by_order_method": {
+          "dine_in": 0.99
+        },
+        "section_ids": [
+          "beilagen"
+        ],
+        "sku": "71",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "72",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Gegrillte Tomate",
+        "option_group_ids": [],
+        "price": 1.5,
+        "prices_by_order_method": {
+          "dine_in": 1.5
+        },
+        "section_ids": [
+          "beilagen"
+        ],
+        "sku": "72",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "74",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Geröstete Zwiebeln",
+        "option_group_ids": [],
+        "price": 3.99,
+        "prices_by_order_method": {
+          "dine_in": 3.99
+        },
+        "section_ids": [
+          "beilagen"
+        ],
+        "sku": "74",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "75",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Pommes frites",
+        "option_group_ids": [],
+        "price": 3.99,
+        "prices_by_order_method": {
+          "dine_in": 3.99
+        },
+        "section_ids": [
+          "beilagen"
+        ],
+        "sku": "75",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "76",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Bratkartoffeln",
+        "option_group_ids": [],
+        "price": 3.99,
+        "prices_by_order_method": {
+          "dine_in": 3.99
+        },
+        "section_ids": [
+          "beilagen"
+        ],
+        "sku": "76",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "77",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Kroketten",
+        "option_group_ids": [],
+        "price": 3.99,
+        "prices_by_order_method": {
+          "dine_in": 3.99
+        },
+        "section_ids": [
+          "beilagen"
+        ],
+        "sku": "77",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "78",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Portion Spinat",
+        "option_group_ids": [],
+        "price": 4.5,
+        "prices_by_order_method": {
+          "dine_in": 4.5
+        },
+        "section_ids": [
+          "beilagen"
+        ],
+        "sku": "78",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "79",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Portion grüne Bohnen",
+        "option_group_ids": [],
+        "price": 4.5,
+        "prices_by_order_method": {
+          "dine_in": 4.5
+        },
+        "section_ids": [
+          "beilagen"
+        ],
+        "sku": "79",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "80",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Portion Broccoli",
+        "option_group_ids": [],
+        "price": 4.5,
+        "prices_by_order_method": {
+          "dine_in": 4.5
+        },
+        "section_ids": [
+          "beilagen"
+        ],
+        "sku": "80",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "81",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Mexican Potatoes",
+        "option_group_ids": [],
+        "price": 3.99,
+        "prices_by_order_method": {
+          "dine_in": 3.99
+        },
+        "section_ids": [
+          "beilagen"
+        ],
+        "sku": "81",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "82",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Gebackene Kartoffel",
+        "option_group_ids": [],
+        "price": 4.99,
+        "prices_by_order_method": {
+          "dine_in": 4.99
+        },
+        "section_ids": [
+          "beilagen"
+        ],
+        "sku": "82",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "84",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Champignons",
+        "option_group_ids": [],
+        "price": 4.5,
+        "prices_by_order_method": {
+          "dine_in": 4.5
+        },
+        "section_ids": [
+          "beilagen"
+        ],
+        "sku": "84",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "91",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Portion Reis",
+        "option_group_ids": [],
+        "price": 3.99,
+        "prices_by_order_method": {
+          "dine_in": 3.99
+        },
+        "section_ids": [
+          "beilagen"
+        ],
+        "sku": "91",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "73",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Bratkartoffeln mit Speck",
+        "option_group_ids": [],
+        "price": 4.99,
+        "prices_by_order_method": {
+          "dine_in": 4.99
+        },
+        "section_ids": [
+          "beilagen"
+        ],
+        "sku": "73",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "85",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Pfeffer-Sahnesauce",
+        "option_group_ids": [],
+        "price": 3.5,
+        "prices_by_order_method": {
+          "dine_in": 3.5
+        },
+        "section_ids": [
+          "saucen"
+        ],
+        "sku": "85",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "86",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Champignon-Sahnesauce",
+        "option_group_ids": [],
+        "price": 3.5,
+        "prices_by_order_method": {
+          "dine_in": 3.5
+        },
+        "section_ids": [
+          "saucen"
+        ],
+        "sku": "86",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "87",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Gorgonzola-Sahnesauce",
+        "option_group_ids": [],
+        "price": 3.99,
+        "prices_by_order_method": {
+          "dine_in": 3.99
+        },
+        "section_ids": [
+          "saucen"
+        ],
+        "sku": "87",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "88",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Sauce Bearnaise",
+        "option_group_ids": [],
+        "price": 3.99,
+        "prices_by_order_method": {
+          "dine_in": 3.99
+        },
+        "section_ids": [
+          "saucen"
+        ],
+        "sku": "88",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "89",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Pfifferling-Sahnesauce",
+        "option_group_ids": [],
+        "price": 3.5,
+        "prices_by_order_method": {
+          "dine_in": 3.5
+        },
+        "section_ids": [
+          "saucen"
+        ],
+        "sku": "89",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "90",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Steak-Sauce",
+        "option_group_ids": [],
+        "price": 2.5,
+        "prices_by_order_method": {
+          "dine_in": 2.5
+        },
+        "section_ids": [
+          "saucen"
+        ],
+        "sku": "90",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "100",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Paniertes Schnitzel",
+        "option_group_ids": [],
+        "price": 10.99,
+        "prices_by_order_method": {
+          "dine_in": 10.99
+        },
+        "section_ids": [
+          "medaillons-vom-schwein"
+        ],
+        "sku": "100",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "101",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Medaillons al Pepe",
+        "option_group_ids": [],
+        "price": 12.99,
+        "prices_by_order_method": {
+          "dine_in": 12.99
+        },
+        "section_ids": [
+          "medaillons-vom-schwein"
+        ],
+        "sku": "101",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "102",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Medaillons ai Funghi",
+        "option_group_ids": [],
+        "price": 12.99,
+        "prices_by_order_method": {
+          "dine_in": 12.99
+        },
+        "section_ids": [
+          "medaillons-vom-schwein"
+        ],
+        "sku": "102",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "103",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Medaillons alla Gorgonzola",
+        "option_group_ids": [],
+        "price": 12.99,
+        "prices_by_order_method": {
+          "dine_in": 12.99
+        },
+        "section_ids": [
+          "medaillons-vom-schwein"
+        ],
+        "sku": "103",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "104",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Cordon Bleu",
+        "option_group_ids": [],
+        "price": 12.99,
+        "prices_by_order_method": {
+          "dine_in": 12.99
+        },
+        "section_ids": [
+          "medaillons-vom-schwein"
+        ],
+        "sku": "104",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "105",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Scaloppa Bolognese",
+        "option_group_ids": [],
+        "price": 13.99,
+        "prices_by_order_method": {
+          "dine_in": 13.99
+        },
+        "section_ids": [
+          "medaillons-vom-schwein"
+        ],
+        "sku": "105",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "110",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Scampi",
+        "option_group_ids": [],
+        "price": 14.99,
+        "prices_by_order_method": {
+          "dine_in": 14.99
+        },
+        "section_ids": [
+          "fisch"
+        ],
+        "sku": "110",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "111",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Scampi al Pepe",
+        "option_group_ids": [],
+        "price": 15.99,
+        "prices_by_order_method": {
+          "dine_in": 15.99
+        },
+        "section_ids": [
+          "fisch"
+        ],
+        "sku": "111",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "112",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Scampi Livornese",
+        "option_group_ids": [],
+        "price": 15.99,
+        "prices_by_order_method": {
+          "dine_in": 15.99
+        },
+        "section_ids": [
+          "fisch"
+        ],
+        "sku": "112",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "113",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Zanderfilet",
+        "option_group_ids": [],
+        "price": 15.99,
+        "prices_by_order_method": {
+          "dine_in": 15.99
+        },
+        "section_ids": [
+          "fisch"
+        ],
+        "sku": "113",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "114",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Lachs",
+        "option_group_ids": [],
+        "price": 15.99,
+        "prices_by_order_method": {
+          "dine_in": 15.99
+        },
+        "section_ids": [
+          "fisch"
+        ],
+        "sku": "114",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "115",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Fischteller",
+        "option_group_ids": [],
+        "price": 17.99,
+        "prices_by_order_method": {
+          "dine_in": 17.99
+        },
+        "section_ids": [
+          "fisch"
+        ],
+        "sku": "115",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "120",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Pizza Margherita",
+        "option_group_ids": [],
+        "price": 9.99,
+        "prices_by_order_method": {
+          "dine_in": 9.99
+        },
+        "section_ids": [
+          "pizza"
+        ],
+        "sku": "120",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "121",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Pizza Salami",
+        "option_group_ids": [],
+        "price": 10.99,
+        "prices_by_order_method": {
+          "dine_in": 10.99
+        },
+        "section_ids": [
+          "pizza"
+        ],
+        "sku": "121",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "122",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Pizza Funghi",
+        "option_group_ids": [],
+        "price": 10.99,
+        "prices_by_order_method": {
+          "dine_in": 10.99
+        },
+        "section_ids": [
+          "pizza"
+        ],
+        "sku": "122",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "123",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Pizza Prosciutto",
+        "option_group_ids": [],
+        "price": 10.99,
+        "prices_by_order_method": {
+          "dine_in": 10.99
+        },
+        "section_ids": [
+          "pizza"
+        ],
+        "sku": "123",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "124",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Pizza Primavera",
+        "option_group_ids": [],
+        "price": 10.99,
+        "prices_by_order_method": {
+          "dine_in": 10.99
+        },
+        "section_ids": [
+          "pizza"
+        ],
+        "sku": "124",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "125",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Pizza Mista",
+        "option_group_ids": [],
+        "price": 10.99,
+        "prices_by_order_method": {
+          "dine_in": 10.99
+        },
+        "section_ids": [
+          "pizza"
+        ],
+        "sku": "125",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "126",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Pizza Hawaii",
+        "option_group_ids": [],
+        "price": 10.99,
+        "prices_by_order_method": {
+          "dine_in": 10.99
+        },
+        "section_ids": [
+          "pizza"
+        ],
+        "sku": "126",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "127",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Pizza Amore",
+        "option_group_ids": [],
+        "price": 10.99,
+        "prices_by_order_method": {
+          "dine_in": 10.99
+        },
+        "section_ids": [
+          "pizza"
+        ],
+        "sku": "127",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "128",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Pizza Tonno",
+        "option_group_ids": [],
+        "price": 10.99,
+        "prices_by_order_method": {
+          "dine_in": 10.99
+        },
+        "section_ids": [
+          "pizza"
+        ],
+        "sku": "128",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "129",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Pizza Frutti di Mare",
+        "option_group_ids": [],
+        "price": 12.99,
+        "prices_by_order_method": {
+          "dine_in": 12.99
+        },
+        "section_ids": [
+          "pizza"
+        ],
+        "sku": "129",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "130",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Pizza Gorgonzola",
+        "option_group_ids": [],
+        "price": 12.99,
+        "prices_by_order_method": {
+          "dine_in": 12.99
+        },
+        "section_ids": [
+          "pizza"
+        ],
+        "sku": "130",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "131",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Pizza Mozzarella",
+        "option_group_ids": [],
+        "price": 11.99,
+        "prices_by_order_method": {
+          "dine_in": 11.99
+        },
+        "section_ids": [
+          "pizza"
+        ],
+        "sku": "131",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "132",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Pizza Doreedos",
+        "option_group_ids": [],
+        "price": 12.99,
+        "prices_by_order_method": {
+          "dine_in": 12.99
+        },
+        "section_ids": [
+          "pizza"
+        ],
+        "sku": "132",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "133",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Pizza Scampi",
+        "option_group_ids": [],
+        "price": 14.99,
+        "prices_by_order_method": {
+          "dine_in": 14.99
+        },
+        "section_ids": [
+          "pizza"
+        ],
+        "sku": "133",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "134",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Pizza Pollo",
+        "option_group_ids": [],
+        "price": 12.99,
+        "prices_by_order_method": {
+          "dine_in": 12.99
+        },
+        "section_ids": [
+          "pizza"
+        ],
+        "sku": "134",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "135",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Pizza Diavolo",
+        "option_group_ids": [],
+        "price": 12.99,
+        "prices_by_order_method": {
+          "dine_in": 12.99
+        },
+        "section_ids": [
+          "pizza"
+        ],
+        "sku": "135",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "140",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Hähnchenbrustfilet",
+        "option_group_ids": [],
+        "price": 13.99,
+        "prices_by_order_method": {
+          "dine_in": 13.99
+        },
+        "section_ids": [
+          "spezialitaeten-des-hauses"
+        ],
+        "sku": "140",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "141",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Geschnetzeltes vom Rind",
+        "option_group_ids": [],
+        "price": 13.99,
+        "prices_by_order_method": {
+          "dine_in": 13.99
+        },
+        "section_ids": [
+          "spezialitaeten-des-hauses"
+        ],
+        "sku": "141",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "142",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Doreedos Teller",
+        "option_group_ids": [],
+        "price": 13.99,
+        "prices_by_order_method": {
+          "dine_in": 13.99
+        },
+        "section_ids": [
+          "spezialitaeten-des-hauses"
+        ],
+        "sku": "142",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "143",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Hähnchenbrustfilet gegrillt",
+        "option_group_ids": [],
+        "price": 13.99,
+        "prices_by_order_method": {
+          "dine_in": 13.99
+        },
+        "section_ids": [
+          "spezialitaeten-des-hauses"
+        ],
+        "sku": "143",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "139",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Spare Ribs",
+        "option_group_ids": [],
+        "price": 15.99,
+        "prices_by_order_method": {
+          "dine_in": 15.99
+        },
+        "section_ids": [
+          "spezialitaeten-des-hauses"
+        ],
+        "sku": "139",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "144",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Doreedos – Rostbraten 180g",
+        "option_group_ids": [],
+        "price": 15.99,
+        "prices_by_order_method": {
+          "dine_in": 15.99
+        },
+        "section_ids": [
+          "doreedos-spezialitaeten"
+        ],
+        "sku": "144",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "146",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Pollo con Piña",
+        "option_group_ids": [],
+        "price": 13.99,
+        "prices_by_order_method": {
+          "dine_in": 13.99
+        },
+        "section_ids": [
+          "doreedos-spezialitaeten"
+        ],
+        "sku": "146",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "147",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Mole Verde á la Pepitas",
+        "option_group_ids": [],
+        "price": 13.99,
+        "prices_by_order_method": {
+          "dine_in": 13.99
+        },
+        "section_ids": [
+          "doreedos-spezialitaeten"
+        ],
+        "sku": "147",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "149",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Steak nach Art des Hauses 250g",
+        "option_group_ids": [],
+        "price": 17.99,
+        "prices_by_order_method": {
+          "dine_in": 17.99
+        },
+        "section_ids": [
+          "doreedos-spezialitaeten"
+        ],
+        "sku": "149",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "67",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Hähnchen Curry",
+        "option_group_ids": [],
+        "price": 16.99,
+        "prices_by_order_method": {
+          "dine_in": 16.99
+        },
+        "section_ids": [
+          "doreedos-spezialitaeten"
+        ],
+        "sku": "67",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "68",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Lamm Curry",
+        "option_group_ids": [],
+        "price": 17.99,
+        "prices_by_order_method": {
+          "dine_in": 17.99
+        },
+        "section_ids": [
+          "doreedos-spezialitaeten"
+        ],
+        "sku": "68",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "69",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Scampi Curry",
+        "option_group_ids": [],
+        "price": 17.99,
+        "prices_by_order_method": {
+          "dine_in": 17.99
+        },
+        "section_ids": [
+          "doreedos-spezialitaeten"
+        ],
+        "sku": "69",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "108",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Hähnchenbrustfilet",
+        "option_group_ids": [],
+        "price": 13.99,
+        "prices_by_order_method": {
+          "dine_in": 13.99
+        },
+        "section_ids": [
+          "doreedos-spezialitaeten"
+        ],
+        "sku": "108",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "145",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Pechugas Poblano",
+        "option_group_ids": [],
+        "price": 13.99,
+        "prices_by_order_method": {
+          "dine_in": 13.99
+        },
+        "section_ids": [
+          "doreedos-spezialitaeten"
+        ],
+        "sku": "145",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "148",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Doreedos Spieß vom Rind",
+        "option_group_ids": [],
+        "price": 19.99,
+        "prices_by_order_method": {
+          "dine_in": 19.99
+        },
+        "section_ids": [
+          "doreedos-spezialitaeten"
+        ],
+        "sku": "148",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "66",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Frango Indianer",
+        "option_group_ids": [],
+        "price": 16.99,
+        "prices_by_order_method": {
+          "dine_in": 16.99
+        },
+        "section_ids": [
+          "doreedos-spezialitaeten"
+        ],
+        "sku": "66",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "109",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Kalbsleber gebraten",
+        "option_group_ids": [],
+        "price": 16.99,
+        "prices_by_order_method": {
+          "dine_in": 16.99
+        },
+        "section_ids": [
+          "doreedos-spezialitaeten"
+        ],
+        "sku": "109",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "83",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "1 x Tortilla",
+        "option_group_ids": [],
+        "price": 0.8,
+        "prices_by_order_method": {
+          "dine_in": 0.8
+        },
+        "section_ids": [
+          "fajitas"
+        ],
+        "sku": "83",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "150",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Fajita de Pollo",
+        "option_group_ids": [],
+        "price": 14.99,
+        "prices_by_order_method": {
+          "dine_in": 14.99
+        },
+        "section_ids": [
+          "fajitas"
+        ],
+        "sku": "150",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "151",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Fajita de Carne",
+        "option_group_ids": [],
+        "price": 14.99,
+        "prices_by_order_method": {
+          "dine_in": 14.99
+        },
+        "section_ids": [
+          "fajitas"
+        ],
+        "sku": "151",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "152",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Fajita de Cerdo",
+        "option_group_ids": [],
+        "price": 14.99,
+        "prices_by_order_method": {
+          "dine_in": 14.99
+        },
+        "section_ids": [
+          "fajitas"
+        ],
+        "sku": "152",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "153",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Fajita Combinadas",
+        "option_group_ids": [],
+        "price": 14.99,
+        "prices_by_order_method": {
+          "dine_in": 14.99
+        },
+        "section_ids": [
+          "fajitas"
+        ],
+        "sku": "153",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "154",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Fajita Scampi",
+        "option_group_ids": [],
+        "price": 15.99,
+        "prices_by_order_method": {
+          "dine_in": 15.99
+        },
+        "section_ids": [
+          "fajitas"
+        ],
+        "sku": "154",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "155",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Fajita Vegetarisch",
+        "option_group_ids": [],
+        "price": 12.99,
+        "prices_by_order_method": {
+          "dine_in": 12.99
+        },
+        "section_ids": [
+          "fajitas"
+        ],
+        "sku": "155",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "156",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Fischstäbchen",
+        "option_group_ids": [],
+        "price": 7.99,
+        "prices_by_order_method": {
+          "dine_in": 7.99
+        },
+        "section_ids": [
+          "kinder-menue"
+        ],
+        "sku": "156",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "157",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Kinder Hüftsteak",
+        "option_group_ids": [],
+        "price": 8.99,
+        "prices_by_order_method": {
+          "dine_in": 8.99
+        },
+        "section_ids": [
+          "kinder-menue"
+        ],
+        "sku": "157",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "158",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Crazy Chicken",
+        "option_group_ids": [],
+        "price": 7.99,
+        "prices_by_order_method": {
+          "dine_in": 7.99
+        },
+        "section_ids": [
+          "kinder-menue"
+        ],
+        "sku": "158",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "170",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Gemischtes Eis",
+        "option_group_ids": [],
+        "price": 2.4,
+        "prices_by_order_method": {
+          "dine_in": 2.4
+        },
+        "section_ids": [
+          "desserts"
+        ],
+        "sku": "170",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "171",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Gemischtes Eis",
+        "option_group_ids": [],
+        "price": 4.99,
+        "prices_by_order_method": {
+          "dine_in": 4.99
+        },
+        "section_ids": [
+          "desserts"
+        ],
+        "sku": "171",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "172",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Eiskaffee",
+        "option_group_ids": [],
+        "price": 4.99,
+        "prices_by_order_method": {
+          "dine_in": 4.99
+        },
+        "section_ids": [
+          "desserts"
+        ],
+        "sku": "172",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "173",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Eisbecher",
+        "option_group_ids": [],
+        "price": 5.99,
+        "prices_by_order_method": {
+          "dine_in": 5.99
+        },
+        "section_ids": [
+          "desserts"
+        ],
+        "sku": "173",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "174",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Bananensplit",
+        "option_group_ids": [],
+        "price": 5.99,
+        "prices_by_order_method": {
+          "dine_in": 5.99
+        },
+        "section_ids": [
+          "desserts"
+        ],
+        "sku": "174",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "175",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Tiramisu",
+        "option_group_ids": [],
+        "price": 5.99,
+        "prices_by_order_method": {
+          "dine_in": 5.99
+        },
+        "section_ids": [
+          "desserts"
+        ],
+        "sku": "175",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "176",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Shakes",
+        "option_group_ids": [],
+        "price": 5.99,
+        "prices_by_order_method": {
+          "dine_in": 5.99
+        },
+        "section_ids": [
+          "desserts"
+        ],
+        "sku": "176",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "177",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Crépes",
+        "option_group_ids": [],
+        "price": 5.99,
+        "prices_by_order_method": {
+          "dine_in": 5.99
+        },
+        "section_ids": [
+          "desserts"
+        ],
+        "sku": "177",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "178",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Vanilleeis",
+        "option_group_ids": [],
+        "price": 5.99,
+        "prices_by_order_method": {
+          "dine_in": 5.99
+        },
+        "section_ids": [
+          "desserts"
+        ],
+        "sku": "178",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "179",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Vanilleeis",
+        "option_group_ids": [],
+        "price": 5.99,
+        "prices_by_order_method": {
+          "dine_in": 5.99
+        },
+        "section_ids": [
+          "desserts"
+        ],
+        "sku": "179",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "167",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Apfelstrudel",
+        "option_group_ids": [],
+        "price": 5.99,
+        "prices_by_order_method": {
+          "dine_in": 5.99
+        },
+        "section_ids": [
+          "desserts"
+        ],
+        "sku": "167",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "168",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Creme Caramel",
+        "option_group_ids": [],
+        "price": 5.99,
+        "prices_by_order_method": {
+          "dine_in": 5.99
+        },
+        "section_ids": [
+          "desserts"
+        ],
+        "sku": "168",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "169",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Panna Cotta",
+        "option_group_ids": [],
+        "price": 5.99,
+        "prices_by_order_method": {
+          "dine_in": 5.99
+        },
+        "section_ids": [
+          "desserts"
+        ],
+        "sku": "169",
+        "source": "venue-site-page"
+      },
+      {
+        "allergens": null,
+        "available": true,
+        "currency": "EUR",
+        "id": "160",
+        "image_url": null,
+        "listed_in_menu": true,
+        "name": "Tartufo",
+        "option_group_ids": [],
+        "price": 5.99,
+        "prices_by_order_method": {
+          "dine_in": 5.99
+        },
+        "section_ids": [
+          "desserts"
+        ],
+        "sku": "160",
+        "source": "venue-site-page"
+      }
+    ],
+    "sections": [
+      {
+        "id": "suppen",
+        "item_skus": [
+          "1",
+          "3",
+          "4",
+          "5",
+          "8"
+        ],
+        "kind": "menu_section",
+        "name": "Suppen"
+      },
+      {
+        "id": "vorspeisen",
+        "item_skus": [
+          "6",
+          "7",
+          "10",
+          "11",
+          "12",
+          "13",
+          "14",
+          "15",
+          "16",
+          "17",
+          "18"
+        ],
+        "kind": "menu_section",
+        "name": "Vorspeisen"
+      },
+      {
+        "id": "salate",
+        "item_skus": [
+          "20",
+          "21",
+          "22",
+          "23",
+          "24",
+          "25",
+          "26"
+        ],
+        "kind": "menu_section",
+        "name": "Salate"
+      },
+      {
+        "id": "pasta",
+        "item_skus": [
+          "30",
+          "31",
+          "32",
+          "33",
+          "34",
+          "35",
+          "36",
+          "37",
+          "38",
+          "39",
+          "29"
+        ],
+        "kind": "menu_section",
+        "name": "Pasta"
+      },
+      {
+        "id": "steaks-vom-grill",
+        "item_skus": [
+          "40",
+          "41",
+          "42",
+          "43",
+          "44",
+          "45",
+          "46",
+          "47",
+          "48",
+          "49",
+          "50",
+          "51",
+          "52",
+          "53",
+          "54",
+          "55",
+          "56",
+          "57",
+          "58",
+          "59",
+          "60",
+          "61",
+          "62",
+          "63",
+          "64",
+          "65"
+        ],
+        "kind": "menu_section",
+        "name": "Steaks vom Grill"
+      },
+      {
+        "id": "beilagen",
+        "item_skus": [
+          "70",
+          "71",
+          "72",
+          "74",
+          "75",
+          "76",
+          "77",
+          "78",
+          "79",
+          "80",
+          "81",
+          "82",
+          "84",
+          "91",
+          "73"
+        ],
+        "kind": "menu_section",
+        "name": "Beilagen"
+      },
+      {
+        "id": "saucen",
+        "item_skus": [
+          "85",
+          "86",
+          "87",
+          "88",
+          "89",
+          "90"
+        ],
+        "kind": "menu_section",
+        "name": "Saucen"
+      },
+      {
+        "id": "medaillons-vom-schwein",
+        "item_skus": [
+          "100",
+          "101",
+          "102",
+          "103",
+          "104",
+          "105"
+        ],
+        "kind": "menu_section",
+        "name": "Medaillons vom Schwein"
+      },
+      {
+        "id": "fisch",
+        "item_skus": [
+          "110",
+          "111",
+          "112",
+          "113",
+          "114",
+          "115"
+        ],
+        "kind": "menu_section",
+        "name": "Fisch"
+      },
+      {
+        "id": "pizza",
+        "item_skus": [
+          "120",
+          "121",
+          "122",
+          "123",
+          "124",
+          "125",
+          "126",
+          "127",
+          "128",
+          "129",
+          "130",
+          "131",
+          "132",
+          "133",
+          "134",
+          "135"
+        ],
+        "kind": "menu_section",
+        "name": "Pizza"
+      },
+      {
+        "id": "spezialitaeten-des-hauses",
+        "item_skus": [
+          "140",
+          "141",
+          "142",
+          "143",
+          "139"
+        ],
+        "kind": "menu_section",
+        "name": "Spezialitäten des Hauses"
+      },
+      {
+        "id": "doreedos-spezialitaeten",
+        "item_skus": [
+          "144",
+          "146",
+          "147",
+          "149",
+          "67",
+          "68",
+          "69",
+          "108",
+          "145",
+          "148",
+          "66",
+          "109"
+        ],
+        "kind": "menu_section",
+        "name": "Doreedos Spezialitäten"
+      },
+      {
+        "id": "fajitas",
+        "item_skus": [
+          "83",
+          "150",
+          "151",
+          "152",
+          "153",
+          "154",
+          "155"
+        ],
+        "kind": "menu_section",
+        "name": "Fajitas"
+      },
+      {
+        "id": "kinder-menue",
+        "item_skus": [
+          "156",
+          "157",
+          "158"
+        ],
+        "kind": "menu_section",
+        "name": "Kinder-Menü"
+      },
+      {
+        "id": "desserts",
+        "item_skus": [
+          "170",
+          "171",
+          "172",
+          "173",
+          "174",
+          "175",
+          "176",
+          "177",
+          "178",
+          "179",
+          "167",
+          "168",
+          "169",
+          "160"
+        ],
+        "kind": "menu_section",
+        "name": "Desserts"
+      }
+    ],
+    "service_method": "dine_in",
+    "service_method_note": "the venue publishes one card for guests in the house (dine-in); it is a steakhouse, not a delivery shop",
+    "sku_policy": "sku is the item number the venue prints on its own card; it is stable while the card is",
+    "source": {
+      "bytes": 237300,
+      "captured_at": "2026-10-10T08:05:06+00:00",
+      "extractor": "html_block_text",
+      "note": "captured from the venue's own Speisekarte page (doreedos-steakhaus.de/speisekarte); name and price are printed on two lines, so the capture pairs them",
+      "sha256_response": "e14b6696a78a2235b73064955b643f0697900209bbff6369196a9122bb102883",
+      "url": "https://doreedos-steakhaus.de/speisekarte"
+    },
+    "stats": {
+      "items_listed": 150,
+      "items_priced_listed": 150,
+      "max_price_listed": 39.99,
+      "min_price_listed": 0.8,
+      "quarantined_items": 0,
+      "sections": 15,
+      "unparsed_line_count": 99
+    }
+  },
+  "schema": "cvm.venue/v1",
+  "slug": "doreedos-steakhaus-berlin",
+  "source": {
+    "attribution": "Venue facts, menu and prices (c) Doreedos Steakhaus, Lepsiusstraße 45, 12163 Berlin — retrieved from the venue's own Speisekarte page. Nothing is copied into this repository except the redacted canonical text the record was derived from."
+  },
+  "venue": {
+    "adapter": {
+      "capabilities": {
+        "menu": true,
+        "quote": true,
+        "status": false,
+        "submit": false
+      },
+      "class": "deep_link_human",
+      "credentials": {
+        "owner": "none",
+        "scope": "the venue's own page is public; the CVM holds no credential for this venue"
+      },
+      "human_steps": [
+        "the CVM returns the basket and the venue's own deep link; it places nothing",
+        "a human telephones the venue or orders in the house and places the order there",
+        "a human pays the venue directly (in the house); the CVM never takes payment",
+        "a human records the venue's own confirmation (staff name + time) as the receipt"
+      ],
+      "idempotency": {
+        "key": "venue_slug + basket_sha256 + fulfilment + when",
+        "on_duplicate": "the CVM places nothing, so it cannot double-place; the venue's own telephone record is the authority"
+      },
+      "payment_authority": {
+        "authority": "the human who places the order, on the venue's own premises",
+        "cvm_cap_sats": 0
+      },
+      "receipt": {
+        "durable": "the venue's own record; the operator log for the manual test",
+        "form": "the venue's own confirmation (staff name + time for a telephone order)"
+      }
+    },
+    "address": {
+      "city": "Berlin",
+      "country": "DE",
+      "postal_code": "12163",
+      "quarter": "Steglitz",
+      "state": "Berlin",
+      "street": "Lepsiusstraße 45"
+    },
+    "cuisine": [
+      "steakhouse",
+      "mexican",
+      "italian"
+    ],
+    "currency": "EUR",
+    "display_name": "Doreedos",
+    "locale": "de-DE",
+    "name": "Doreedos Steakhaus",
+    "opening_hours_note": "täglich 11:30–24:00 Uhr (from the venue's own site, 2026-10-10)",
+    "order_methods": [
+      "dine_in"
+    ],
+    "ordering": {
+      "method": "deep_link_human",
+      "note": "the venue publishes a telephone number (030 – 89 78 22 50) and a contact page; the CVM hands over the basket and the venue's own page and places nothing",
+      "primary_url": "https://doreedos-steakhaus.de/kontakt"
+    },
+    "phone": "+49 30 89782250",
+    "timezone": "Europe/Berlin",
+    "type": "restaurant",
+    "verified_at": "2026-10-10",
+    "website": "https://doreedos-steakhaus.de/"
+  }
+}

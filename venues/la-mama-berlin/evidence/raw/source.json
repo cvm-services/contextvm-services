@@ -1,0 +1,16 @@
+{
+  "bytes": 190089,
+  "captured_at": "2026-10-10T08:05:08+00:00",
+  "content_type": "text/html; charset=UTF-8",
+  "extractor": "html_block_text",
+  "http_status": 200,
+  "redaction_policy": "venues/README.md rule 5 (owner e-mail addresses and phone numbers)",
+  "redactions_applied": {
+    "email": 0,
+    "phone": 1
+  },
+  "sha256_canonical_text": "e79d44dccbe7d50844b0a369965139969ed4cb6b5cf7d6a42e6de20372cf9ee4",
+  "sha256_response": "5cd8a76c272e420a3e6ca3acba4b4247149a862b5293f64bbb3102a4bb92533f",
+  "url": "https://la-mama-steglitz.de/menu/",
+  "user_agent": "cvm-services-venue-adapter/1.0 (+https://github.com/cvm-services/contextvm-services)"
+}
