@@ -1,0 +1,16 @@
+{
+  "bytes": 805222,
+  "captured_at": "2026-10-10T08:05:05+00:00",
+  "content_type": "application/pdf",
+  "extractor": "pdf_text",
+  "http_status": 200,
+  "redaction_policy": "venues/README.md rule 5 (owner e-mail addresses and phone numbers)",
+  "redactions_applied": {
+    "email": 0,
+    "phone": 0
+  },
+  "sha256_canonical_text": "cf165007bc8812f964f0c18c3470972dce5085a4247180043b675278f5b22104",
+  "sha256_response": "95cb31fcf00a4848fe01d79b126d169617fb75113de459c0a5237ff8b9891cf9",
+  "url": "https://chandi-restaurant.com/wp-content/uploads/2025/06/menue_2025.pdf",
+  "user_agent": "cvm-services-venue-adapter/1.0 (+https://github.com/cvm-services/contextvm-services)"
+}

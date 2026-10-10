@@ -1,0 +1,16 @@
+{
+  "bytes": 237300,
+  "captured_at": "2026-10-10T08:05:06+00:00",
+  "content_type": "text/html; charset=UTF-8",
+  "extractor": "html_block_text",
+  "http_status": 200,
+  "redaction_policy": "venues/README.md rule 5 (owner e-mail addresses and phone numbers)",
+  "redactions_applied": {
+    "email": 0,
+    "phone": 1
+  },
+  "sha256_canonical_text": "65011b762253ad68318439eca50f2792af5b82bba0e7bcb61d6352af34eab8eb",
+  "sha256_response": "e14b6696a78a2235b73064955b643f0697900209bbff6369196a9122bb102883",
+  "url": "https://doreedos-steakhaus.de/speisekarte",
+  "user_agent": "cvm-services-venue-adapter/1.0 (+https://github.com/cvm-services/contextvm-services)"
+}
