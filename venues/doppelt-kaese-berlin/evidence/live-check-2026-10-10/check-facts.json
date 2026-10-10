@@ -1,0 +1,102 @@
+{
+  "_what": "Secret-free extract of doppelt Käse's OWN rail config, for run-1 PICKUP verification (card t_52640123). No credentials, no PII.",
+  "company_config": {
+    "average_order_delivery_time": {
+      "max": null,
+      "min": 40
+    },
+    "average_order_preparation_time": {
+      "max": null,
+      "min": 10
+    },
+    "currency": "EUR",
+    "delivery_enabled": true,
+    "delivery_mode": "external",
+    "gift_card_unavailable_payment_methods": [],
+    "has_asap_orders": true,
+    "has_delivery": true,
+    "has_in_store_card_payments": false,
+    "has_pickup": true,
+    "has_pre_order": true,
+    "has_room_service": false,
+    "has_scheduled_orders": true,
+    "hidden_order_methods": [
+      "room_service"
+    ],
+    "hidden_payment_methods": [],
+    "is_live": true,
+    "last_order_gap_delivery": 30,
+    "last_order_gap_pickup": 30,
+    "max_pre_order_days": 7,
+    "min_schedule_ahead_time_delivery": 120,
+    "min_schedule_ahead_time_pickup": 45,
+    "open_now": false,
+    "open_now_for_pickup": false,
+    "overwrite_cash_payments_to_invoice": false,
+    "payment_gateway": "adyen",
+    "payment_gateways": [
+      "adyen",
+      "stripe"
+    ],
+    "saved_cards_enabled": true,
+    "scheduled_orders_time_slot_interval": 10,
+    "stripe_platform_payment_methods": [
+      "paypal"
+    ],
+    "supported_payment_methods": [
+      "apple_pay",
+      "google_pay",
+      "card",
+      "pay_by_bank",
+      "paypal"
+    ],
+    "tax_behaviour": "inclusive",
+    "tax_percentage": 19,
+    "timezone": "Europe/Berlin"
+  },
+  "delivery_zones": [
+    {
+      "center": {
+        "lat": 52.4707069,
+        "lng": 13.3202819
+      },
+      "fee": 5,
+      "geometry_type": "circle",
+      "id": 2454,
+      "max_threshold": 750,
+      "min_threshold": 20,
+      "name": "External delivery",
+      "radius_m": 5000
+    }
+  ],
+  "fetched": "2026-10-10T02:06Z",
+  "sources": {
+    "company": {
+      "bytes": 10519,
+      "sha256_as_fetched": "b841e2c8e40e37060b46c83741cde35948a1b2c0fc865d1b424e3a6db5e919a5",
+      "url": "https://app.foodamigos.io/api/companies/doppeltkase/data?hostname=doppelt-kaese-berlin.de"
+    },
+    "menus": {
+      "bytes": 123592,
+      "sha256_as_fetched": "be94ef8742f14d8705235135192ee2fe8418c63a0bc20369893d396f6bb24c34",
+      "url": "https://app.foodamigos.io/api/companies/1387/menus"
+    },
+    "ordering_app": {
+      "bytes": 9288720,
+      "sha256_as_fetched": "a42e9d46bd532933c97a3cf7d766ca941f8f2147d84abc212265f7e6a2ddb196",
+      "url": "https://www.foodamigos-storefront-online-shop.com/assets/index-DMm5n3TU.js"
+    },
+    "store": {
+      "bytes": 55124,
+      "sha256_as_fetched": "e2daaa2b66224e4608b748141d73af0abd6de342fcabd6e9d383321846235e85",
+      "url": "https://www.doppelt-kaese-berlin.de/api/store"
+    }
+  },
+  "store": {
+    "has_delivery": true,
+    "has_pickup": true,
+    "venue_declared_text_de": "…Cheeseburger, BBQ Burger und Chicken Burger bieten wir sowohl Abholung als auch Lieferung an, um unseren Gästen den besten Service zu bieten.",
+    "venue_declared_text_short_de": "Wir bieten sowohl Abholung als auch Lieferung an!"
+  },
+  "venue": "doppelt-kaese-berlin (FoodAmigos storefront; company id 1387, franchise doppeltkase)"
+}

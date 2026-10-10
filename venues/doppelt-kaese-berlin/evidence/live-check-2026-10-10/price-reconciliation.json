@@ -1,0 +1,110 @@
+{
+  "_what": "Price reconciliation: live doppelt Käse menus vs our committed 2026-10-05/06 capture (card t_52640123, run 1 = pickup).",
+  "capture": {
+    "file": "evidence/raw/menus.json",
+    "sha256": "a6bd6bdc8eb7e2a2a3ff7f24ca54b94b797d09fc831dbba8237fb5e177584791"
+  },
+  "concrete_basket_pickup": {
+    "capture_total": 13.4,
+    "items": [
+      {
+        "capture_pickup": 8.9,
+        "live_pickup": 8.9,
+        "name": "Cheeseburger",
+        "sku": "331227"
+      },
+      {
+        "capture_pickup": 4.5,
+        "live_pickup": 4.5,
+        "name": "Curly Fries",
+        "sku": "331233"
+      }
+    ],
+    "live_total": 13.4,
+    "order_method": "pickup"
+  },
+  "counts": {
+    "categories_capture": 9,
+    "categories_live": 9,
+    "modifier_groups_capture": 5,
+    "modifier_groups_live": 5,
+    "products_capture": 87,
+    "products_live": 87
+  },
+  "live": {
+    "bytes": 123592,
+    "fetched": "2026-10-10T02:06Z",
+    "sha256_as_fetched": "be94ef8742f14d8705235135192ee2fe8418c63a0bc20369893d396f6bb24c34",
+    "url": "https://app.foodamigos.io/api/companies/1387/menus"
+  },
+  "menu_level_diffs": [
+    {
+      "capture": false,
+      "field": "is_active",
+      "index": 0,
+      "live": true
+    }
+  ],
+  "non_price_state_diffs": [
+    {
+      "capture": 26,
+      "field": "likes_count",
+      "live": 27,
+      "name": "Der Doppelt Käse-Burger",
+      "sku": "331230"
+    },
+    {
+      "capture": false,
+      "field": "is_available",
+      "live": true,
+      "name": "Chicken Fingers 9 Stück",
+      "sku": "331239"
+    },
+    {
+      "capture": 14,
+      "field": "likes_count",
+      "live": 15,
+      "name": "Beyond Meat-Burger",
+      "sku": "331243"
+    },
+    {
+      "capture": false,
+      "field": "is_available",
+      "live": true,
+      "name": "Pilz-Burger",
+      "sku": "331262"
+    },
+    {
+      "capture": false,
+      "field": "is_available",
+      "live": true,
+      "name": "Beyond Pilz-Burger",
+      "sku": "331266"
+    },
+    {
+      "capture": false,
+      "field": "is_available",
+      "live": true,
+      "name": "Chicken Fingers 6 Stück",
+      "sku": "334624"
+    },
+    {
+      "capture": false,
+      "field": "is_available",
+      "live": true,
+      "name": "Chicken Fingers 12 Stück",
+      "sku": "334625"
+    },
+    {
+      "capture": 0,
+      "field": "likes_count",
+      "live": 1,
+      "name": "Onion Rings 12 Stück",
+      "sku": "334626"
+    }
+  ],
+  "price_diffs": [],
+  "skus_only_in_capture": [],
+  "skus_only_in_live": [],
+  "verdict": "NO DIFF OBSERVED"
+}
