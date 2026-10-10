@@ -1,0 +1,47 @@
+{
+  "blocked": true,
+  "captured_at": "2026-10-10T00:06:40.036131+00:00",
+  "links": [],
+  "login_screen": {},
+  "navigations": [
+    {
+      "status": 403,
+      "title": "Nur einen Moment…",
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/pizza-e-pasta/takeaway"
+    }
+  ],
+  "profile": "/home/c03rad0r/.hermes/profiles/manager/state/pep-browser",
+  "start_url": "https://pizzaepasta-ruedesheimerplatz.de/pizza-e-pasta/takeaway",
+  "storage_keys": {},
+  "target_base": "https://pizzaepasta-ruedesheimerplatz.de",
+  "xhr": [
+    {
+      "content_type": "text/plain; charset=UTF-8",
+      "method": "POST",
+      "post_body_keys": null,
+      "status": 200,
+      "url": "https://pizzaepasta-ruedesheimerplatz.de/cdn-cgi/challenge-platform/h/g/fo/2847352019:1791587215:vlkoV5jWPu9S5SKRs0m4uXMa8Jp8Fm6hdE3jpmd9dCg/a48161a5c99ee519/.mKm5INMaXYdOZ8UG3HwbIYYAk1sYNhYyGntysFxug8-1791590810-1.2.1.1-_sBgKYNeTz.LN6E3aP2ki3fdtAiNKpeeIHLVMYwEkLzd_7YBcquFTEfsEEa2a66H"
+    },
+    {
+      "content_type": "text/plain; charset=UTF-8",
+      "method": "POST",
+      "post_body_keys": null,
+      "status": 200,
+      "url": "https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/g/fo/2795264318:1791587217:TwDOofJXSdwIh59yMiFMzAIqo_FFqSU4Bl7axtNO_jw/a48161b20cfa24b5/kIfNozsd80eOC9blmgxA9l7Y2bxBzNEm9Gmx8XZnusE-1791590812-1.2.1.1-yOs6HEhyUx_mYh.2PjejgXo6XLlFR8d34KvXIpFwoUMxcjY0nWVj1xgWkXCb_IyP"
+    },
+    {
+      "content_type": "text/plain; charset=utf-8",
+      "method": "GET",
+      "post_body_keys": null,
+      "status": 401,
+      "url": "https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/g/pat/a48161b20cfa24b5/1791590813130/5cd8d3f29f27cb9f97d2e6d966d2d892aacfec89f628128df42441be09ae4101/QnW6uhqszP4xhz5e5Jj9Se0yENs353YDEHnZNRzl2rc-1791590813-1.3.1.1-9FDTcGZtsoM6dJbE5OXgr9D.qZXmy95XeYXlxAiQN9W68RSiP8U98dKTTrsOzIErHUxPjPnfiityK2gMJSbOwMAH9asiuHw0akOzSuyEPLV0SwfsfYChqiQ3muuudPec4PyQfpL5FroPw8McTViy04ZTKN2zLf2k7P4yJxMyKUfVGx5F8V2a6.ZvxZCqE17jurx8VpWGvMIKrhcB7JGMoIBNI4cApmPUUh9hfcEv_CePDdoU8ahlluBX5bt8H4x3.UGMktkNoCxkbnZwKncOgo3P7BdqTYombz1ANo5ytRDgxTFZspCUq3YQT6KxiiMD_q2nfiEbmX_HpoqzPJR1JsdjITeRKQh0KiWlWGVym3In1W4m9AyElkdjq_iBpKVjO2tl4_cdlzVqKWeolyf2WAjLl2Qnx4Lgz8sUAQvCLKOeLU8_7JQQUz3ZsFzpourTbBHriaN4lUgedhYQ5O7nCrmvrPu_xCgoOmkTUWNPNdtqh8T3BBQwmzpd0Cc9807f1v7nhpELsgnLnt4PG9pp3DB44C8a3S8JRi_Miw.U721KnGSbiAI3FHgeR6ZFWC3yM81t_wXCHKEKCsAYxu5jv.5cRjxHlrDbKURG3d.AgwvETUCZnmx02lMkQ_ezpVu9G_1h.6mC8B6beXkwNQ2.6lS95GGCitC.QHy94kbb5jIZyAZJGqF.UgShV7BrLgt4xRMp20fEKNlRG.H7B1lz5nEMnt4_GaSN5UfzhaN7l1cRIPYhwhegWMkUB6NvPo4B3g0YOqVJdiLqQm78YfNZs_jAEZ4JIBAt3qo4.VkHrTuLH00koO_o0TEoYZQ0KOIq7_fJ_op9kUxyW9F.n2BGZA"
+    },
+    {
+      "content_type": "",
+      "method": "GET",
+      "post_body_keys": null,
+      "status": 204,
+      "url": "https://hagen.challenges.cloudflare.com/cdn-cgi/challenge-platform/h/g/i/a48161b20cfa24b5/kIfNozsd80eOC9blmgxA9l7Y2bxBzNEm9Gmx8XZnusE-1791590812-1.2.1.1-yOs6HEhyUx_mYh.2PjejgXo6XLlFR8d34KvXIpFwoUMxcjY0nWVj1xgWkXCb_IyP"
+    }
+  ]
+}

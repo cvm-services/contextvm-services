@@ -64,6 +64,9 @@ def main() -> int:
     ap.add_argument("--profile", default=DEFAULT_PROFILE)
     ap.add_argument("--register", action="store_true",
                     help="ALSO walk the registration form (does not submit)")
+    ap.add_argument("--challenge-budget", type=int, default=170,
+                    help="seconds to wait for the managed challenge to clear")
+    ap.add_argument("--max-attempts", type=int, default=3)
     args = ap.parse_args()
 
     from playwright.sync_api import sync_playwright
@@ -124,11 +127,35 @@ def main() -> int:
         def settle(seconds: float = 6.0) -> None:
             time.sleep(seconds)
 
-        nav = pg.goto(START, wait_until="domcontentloaded", timeout=60000)
-        settle()
+        # A Cloudflare managed challenge answers 403 with title "Nur einen
+        # Moment…" and then clears itself in the same navigation. Wait it out
+        # (the capture script does the same, budget 170s) before declaring a
+        # block — the distinction matters: a cleared challenge is a usable page.
+        nav = None
+        for attempt in range(1, args.max_attempts + 1):
+            try:
+                nav = pg.goto(START, wait_until="domcontentloaded", timeout=60000)
+            except Exception as exc:  # noqa: BLE001
+                report["navigations"].append({"url": START, "attempt": attempt,
+                                              "error": str(exc)})
+                time.sleep(15)
+                continue
+            t0 = time.time()
+            while time.time() - t0 < args.challenge_budget:
+                if "moment" not in (pg.title() or "").lower():
+                    break
+                time.sleep(3)
+            settle()
+            title = pg.title()
+            entry = {"url": START, "attempt": attempt,
+                     "status": nav.status if nav else None, "title": title,
+                     "challenged": "moment" in (title or "").lower(),
+                     "waited_s": round(time.time() - t0, 1)}
+            report["navigations"].append(entry)
+            if nav is not None and nav.status == 200 and not entry["challenged"]:
+                break
+            time.sleep(20)
         title = pg.title()
-        report["navigations"].append({"url": START, "status": nav.status if nav else None,
-                                      "title": title})
         if nav is None or nav.status != 200 or "moment" in (title or "").lower():
             report["blocked"] = True
             out.write_text(json.dumps(report, ensure_ascii=False, indent=2,
