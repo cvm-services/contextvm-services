@@ -21,6 +21,14 @@ Response 2 and 3 carry live credentials/PII in other fields; **they are delibera
 committed**. The sha256 above is of the response as fetched, so anyone entitled to re-fetch
 can still check provenance. The extracted, secret-free facts are in `check-facts.json`.
 
+**Method and its limits.** Q1 and Q3 rest on two kinds of statement, and they are labelled as
+such below: (a) values the venue's payload declares, quoted verbatim, and (b) how the rail's
+own ordering app behaves, read out of the served bundle (response 5) — the same bundle the
+venue's own `/speisekarte/doppeltkase` page loads as `assets/index-DMm5n3TU.js`. Reading
+behaviour out of the shipped client is evidence about the rail, not about the venue's intent;
+where the venue has no field for something, that is called out. **No order was placed and no
+checkout page was driven**, so nothing here observes a real order being accepted.
+
 Caveat on the window: at 02:06 UTC the venue was **closed** (`open_now: false`), so every
 answer below is the rail's *published configuration*, not a live open-for-orders
 observation. Order-method availability while open was not observed.
@@ -111,13 +119,23 @@ additionally hidden *for pickup*.
 - **Card / Apple Pay / Google Pay / Pay by Bank → Adyen** (`payment_gateway: adyen`; the
   bundle maps `scheme→card`, `applepay→apple_pay`, `googlepay→google_pay`,
   `paybybank→pay_by_bank`).
-- **PayPal → the platform's Stripe leg** (`stripe_platform_payment_methods: ["paypal"]`).
+- **PayPal → the platform's Stripe leg** (`stripe_platform_payment_methods: ["paypal"]` —
+  absent in the 2026-10-06 capture, new on the live payload).
+
+**Stability check.** Every field above that Q1–Q3 rests on is **identical** between our
+committed 2026-10-06 capture and the live 2026-10-10 payload (`has_pickup`,
+`hidden_order_methods`, all five `supported_payment_methods`, `hidden_payment_methods`,
+`has_in_store_card_payments`, `overwrite_cash_payments_to_invoice`, `payment_gateway(s)`,
+`average_order_preparation_time`, `min_schedule_ahead_time_pickup`, `last_order_gap_pickup`,
+`has_asap_orders`, `has_pre_order`, `max_pre_order_days`). The only payment-side drift is the
+new `stripe_platform_payment_methods: ["paypal"]`. So these answers are not artefacts of how
+I fetched them — the capture already said the same thing four days earlier.
 
 **Consequence for the run-1 gate (state it plainly):** there is *no* collect-at-counter
 fallback, so the fiat rail **is** exercised on run 1. If the sats→fiat leg cannot complete an
 Adyen checkout, run 1 cannot be paid for on the venue's own rail at all.
 
-## 4. Price reconciliation against our stored 2026-10-05/06 capture
+## 4. Price reconciliation against our stored 2026-10-06 capture
 
 **NO DIFF OBSERVED.** Live menus re-fetched 2026-10-10T02:06Z vs
 `venues/doppelt-kaese-berlin/evidence/raw/menus.json`:
