@@ -3220,6 +3220,9 @@
       }
     },
     "address": {
+      "lat": 52.461938,
+      "lon": 13.318672,
+      "geocode": "coordinates from OpenStreetMap Nominatim (jsonv2) on 2026-10-10, card t_a640b7ca; the licence requires attribution: (c) OpenStreetMap contributors, ODbL",
       "city": "Berlin",
       "country": "DE",
       "postal_code": "12163",
