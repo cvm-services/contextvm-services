@@ -1,6 +1,11 @@
 # PLAN-0008 — Account creation and login on a venue-owned rail (Class 2, pizza-e-pasta only)
 
 - **Status:** plan for review, 2026-10-10. Implementation is gated on this plan's cold review.
+- Plan review: the cold review is in `docs/reviews/PLAN-0008-cold-review.md` and its verdict is
+  APPROVE-WITH-CHANGES (reviewer family deepseek, i.e. not the author lane; the router-served model
+  id is recorded in that file). Its blocking
+  findings B1–B6 are resolved in §9 (R1) below, which supersedes the earlier wording of D2, D4, D5,
+  D6, D7 and D9 wherever they conflict.
 - **Card:** `t_5b352cfb` — "Venue CVM: account creation + login on a venue-owned rail (Class 2, plan first)".
 - **Urgency:** NOW (manager escalation CG-11; the SOON deadline had passed undelivered).
 - **Depends on:** ADR-0009 (this capability, decided, design deliberately open), ADR-0007 (adapter classes;
@@ -271,3 +276,52 @@ existing persistent profile and records, redacted:
 
 Answer goes to `evidence/auth-recon.json`; §2's D3/D4/D5 and §6's question 5 are then restated against
 it in the review.
+
+**No-value-logging constraint (review finding N8):** this script lives in the public repo and drives an
+authenticated profile, so it is bound by D2 by construction: it records field names, routes, statuses and
+storage key **names**, never a value, and it must never read or write a value-bearing path. Any change to
+it that could log a value is a defect, not a preference.
+
+## 9. R1 — resolutions of the cold review (this section wins over §2 where they conflict)
+
+The review returned `APPROVE-WITH-CHANGES` with six blocking findings. Each is accepted; the plan text
+above stands as the reasoning, and the following is the binding wording.
+
+| # | Finding | Resolution (binding) |
+|---|---|---|
+| **R1.1** | **B1** — a non-owner caller could *trigger* account activity via the public `order` tool, though D2.2/D9 only promised it could not *read* material (T3 checks response shape, not side effects). | `assertOwner` is enforced **at the trigger**, not only at the read: `ensureSession()` and `create()` are called only after an owner check, and a non-owner `order` call must never open the local socket. New test **T7** (below) asserts exactly that, by asserting the socket was never connected. D9 is amended: “a non-owner caller can neither see the account nor cause a login attempt.” |
+| **R1.2** | **B2** — as written, an anti-bot refusal is indistinguishable from a rejected sign-in, so a Cloudflare cooldown would fire the D5 ban path and the ADR-0012 loss path. | `blocked` requires a **positive ban signal**: an explicit deactivated/blocked message, or the account view missing the account **while authenticated**. Everything else — a challenge, a 403 on submit, a timeout, a 5xx — is the new terminal-for-this-attempt state **`challenge_blocked`**, which does **not** escalate the loss path and does **not** change the stored account state. D5's “login refused while the stored login is known valid” line is deleted; a login refused under a challenge is `challenge_blocked`. |
+| **R1.3** | **B3** — an ambiguous submit (response lost) could pay the loss path *and* let the venue fulfil, because the idempotency key only guards retries and the plan forbids retries. | A **reconciliation step precedes any loss declaration**: on an ambiguous submit, query the venue for an order bearing this order's idempotency key (its own order history / the rail's confirm endpoint). Fulfilled ⇒ report `placed` and complete the settlement path; not found ⇒ then, and only then, the ADR-0012 loss path. The idempotency key's existence on the rail is now **verified during recon (A2/A3's session)**, not assumed. |
+| **R1.4** | **B4** — A2/A3 may be unachievable behind the challenge, with no contingency. | A2/A3 are **explicitly deferred, not claimed**. Measured condition recorded in `evidence/auth-recon.json` (three navigations, 403 `Nur einen Moment…`, ~180 s each). Two-part contingency: (a) if a challenge needs a human, `capabilities().needs_human_step` is true and the human step is an operator action outside the CVM — recorded, never automated; (b) acceptable interim evidence is the timestamped attempt log plus the recon file, with A2/A3 named as **outstanding, owner = operator**, and the card not marked done on their behalf. |
+| **R1.5** | **B5** — per-venue opt-in was asserted; T1/T2 do not show the CVM gates the flow. | The gate is named and tested: `server.ts` reads `venue.account.enabled` per venue, and the account path is unreachable for any venue without it. New tests **T8** (a venue whose `account` block is absent/disabled cannot trigger the account path — asserted by the socket never opening) and **T9** (a venue with `enabled: false` is refused even if an adapter exists for its slug). The other venue's file being untouched is a *fact*, not the proof. |
+| **R1.6** | **B6** — D6 recorded the email alias in the public venue record while D2.3 forbids account material in durable artifacts. | The alias is **not** recorded — not in `venue.json`, not in the README, not in any evidence file. Only an opaque, randomly-generated `account_ref` appears (see R2.1). D6's “recorded in the venue record as which alias” is deleted; D8.2 documents custody without naming the identifier. |
+
+Non-blocking findings, all accepted:
+
+| # | Finding | Change |
+|---|---|---|
+| **R2.1** | **N1** — `account_ref` was an underspecified handle that could be derived from the account. | `account_ref` is defined as a **random per-install id** (opaque; carries no alias, no venue-derived substring, no sequence). |
+| **R2.2** | **N2** — “secret-shaped” is undefined; a pattern grep proves absence of *known* patterns only. | T3 gains a **positive control**: with a known sentinel value deliberately placed where a leak would appear, the same test must FAIL — proving the test can detect a leak at all, not merely that it found none. |
+| **R2.3** | **N3** — T6 tests the redactor, not the call sites. | New test **T10**: the session value is never passed to any response builder (asserted at the call boundary, not inside the redactor). |
+| **R2.4** | **N4** — no transition for “re-login succeeded but the preflight is still stale.” | Defined: it transitions to **`blocked`** (the login is known valid and the authenticated view is still absent — that *is* the positive ban signal from R1.2), and it escalates once, with no second attempt. |
+| **R2.5** | **N5** — the single re-login attempt had no cooldown wait, so it could extend a cooldown. | A **minimum wait** before any re-login, derived from the measured challenge behaviour (the recon's per-navigation cost, ~180 s of waiting), and the attempt is skipped entirely if the state is `challenge_blocked`. |
+| **R2.6** | **N6** — “ordering requires an account” was inferred from an `Anmeldung` entry point. | Open question 5 is now a **gate on `required_for`**: until recon says whether pickup is blocked too, `required_for` must not be asserted as `["delivery"]`. The venue record ships with the value recon produces, or with the field absent and a note. |
+| **R2.7** | **N7** — the ownership field in the venue record could reach the announcement. | Confirmed a real path: the announcement builder maps the venue record into its input. The account block is **not** consumed by that mapping, and **T2** stays a byte comparison as the guard. The ownership field is a reference, never a key. |
+| **R2.8** | **N8** — the recon script could log values. | §8 now carries the no-value-logging constraint. |
+| **R2.9** | **N9** — no revocation path on the venue side. | D8.2's revoke step is extended: delete the local profile + secret, **and** record that the venue-side account still exists (so revocation of the local custody is not mistaken for deletion of the account); deletion on the venue side, if wanted, is a named operator action. |
+
+Amended tests, as the final set: **T1–T6 as above**, plus
+
+| # | Test | Fails when |
+|---|---|---|
+| T7 | a non-owner `order` call never opens the local socket | a non-owner call can cause a login attempt |
+| T8 | a venue with no `account` block cannot reach the account path | the gate is not enforced in `server.ts` |
+| T9 | a venue with `account.enabled = false` is refused even if an adapter exists for its slug | opt-out by config is not honoured |
+| T10 | the session value is never passed to a response builder | a call site hands a session value to a builder |
+
+### A2/A3 status (honest)
+
+A1 (plan + review) is **done**. A2/A3 remain **outstanding** and are not claimed: the rail refused every
+headed navigation on this host this week (measured, `evidence/auth-recon.json`). They stay with the
+operator, with the recon record as the interim evidence.
+
