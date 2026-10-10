@@ -39,6 +39,51 @@ export interface Venue {
   rail: string | null;
   order_methods: string[];
   items: MenuItem[];
+  /** The declared adapter contract (ADR-0007 amendment 2026-10-09). */
+  adapter: AdapterContract | null;
+  /** When the menu this venue serves was captured from the venue's own rail. */
+  captured_at: string | null;
+}
+
+/**
+ * The adapter contract every venue must declare.
+ *
+ * Onboarding a venue is a CONFIG change: the venue's `venue.json` declares which
+ * class of adapter it uses, which capabilities that adapter actually has, and
+ * who does the parts a machine does not do (human_steps), who owns the
+ * credential, who has payment authority, how a duplicate is detected
+ * (idempotency) and where a durable receipt comes from (receipt).
+ *
+ * A class that needs a capability the venue cannot provide is REJECTED at load
+ * time (see `validateAdapter`), never silently degraded into a weaker adapter.
+ */
+export interface AdapterContract {
+  /** deep_link_human | browser_automation | direct_api (ADR-0007). */
+  class: string;
+  /** menu / quote / submit / status — what this adapter can actually do. */
+  capabilities: Record<string, boolean>;
+  /** What a human still has to do (class 1: everything after the basket). */
+  human_steps: string[];
+  /** Who holds the credential, and what it can reach. */
+  credentials: { owner: string; scope: string };
+  /** Who is allowed to spend fiat, and the ceiling the CVM declares. */
+  payment_authority: { authority: string; cvm_cap_sats: number };
+  /** How a retry is made safe. */
+  idempotency: { key: string; on_duplicate: string };
+  /** Where the proof of a placed order lives. */
+  receipt: { form: string; durable: string };
+}
+
+/** A venue that declared an adapter the contract or the class cannot honour. */
+export interface VenueRejection {
+  slug: string;
+  reason: string;
+}
+
+/** The venue set this instance serves, plus anything it refused to serve. */
+export interface VenueSet {
+  venues: Venue[];
+  rejections: VenueRejection[];
 }
 
 interface OrderLine {
@@ -94,33 +139,150 @@ interface McpToolDef {
 // MENU LOADING
 // =====================================================================
 
-const VENUE_PATHS: [string, string][] = [
-  ["doppelt-kaese-berlin", "../../venues/doppelt-kaese-berlin/venue.json"],
-  ["pizza-e-pasta-ruedesheimerplatz", "../../venues/pizza-e-pasta-ruedesheimerplatz/venue.json"],
-];
+// Declarative venue discovery. Onboarding a venue MUST NOT touch this file:
+// the served set comes from `venues/index.json` when it exists (an explicit,
+// committed list of slugs) and otherwise from a scan of `venues/*/venue.json`.
+// Both are data. Adding `venues/<slug>/` + `venues/<slug>/venue.json` is the
+// whole onboarding procedure — that is the claim measured on card t_a640b7ca.
+const VENUES_DIR = new URL("../../venues/", import.meta.url);
+const VENUE_INDEX_FILE = new URL("../../venues/index.json", import.meta.url);
+
+/** Capabilities a class must actually have. A missing one is a REJECTION. */
+const REQUIRED_CAPABILITIES: Record<string, string[]> = {
+  // Class 1: a human places the order, so `submit` is a human step, not a machine one.
+  deep_link_human: ["menu", "quote"],
+  // Classes 2/3 drive the order themselves and must be able to say what happened.
+  browser_automation: ["menu", "quote", "submit", "status"],
+  direct_api: ["menu", "quote", "submit", "status"],
+};
+
+/**
+ * Enforce the adapter contract on a venue record.
+ *
+ * Fail closed: a class that requires a capability the venue does not have is
+ * rejected with the reason named, instead of being quietly served as a weaker
+ * adapter (ADR-0007 amendment: "rejected, not silently degraded").
+ */
+export function validateAdapter(
+  rawVenue: Record<string, unknown>,
+): { ok: true; adapter: AdapterContract } | { ok: false; reason: string } {
+  const a = rawVenue.adapter as Record<string, unknown> | undefined;
+  if (!a || typeof a !== "object") {
+    return { ok: false, reason: "no adapter block: onboarding must declare its class and capabilities" };
+  }
+  const cls = String(a.class ?? "");
+  const required = REQUIRED_CAPABILITIES[cls];
+  if (!required) {
+    const known = Object.keys(REQUIRED_CAPABILITIES).join(", ");
+    return { ok: false, reason: `unknown adapter class '${cls}' (known: ${known})` };
+  }
+  const caps = (a.capabilities ?? {}) as Record<string, unknown>;
+  const missing = required.filter((c) => caps[c] !== true);
+  if (missing.length > 0) {
+    return {
+      ok: false,
+      reason:
+        `class ${cls} requires capability ${missing.join(", ")} — declared capabilities are ` +
+        `unavailable, so the adapter is rejected rather than served as a weaker one`,
+    };
+  }
+  const humanSteps = Array.isArray(a.human_steps) ? a.human_steps.map(String) : [];
+  if (cls === "deep_link_human" && humanSteps.length === 0) {
+    return {
+      ok: false,
+      reason: "class deep_link_human must declare the human_steps that place the order",
+    };
+  }
+  const credentials = a.credentials as { owner?: unknown } | undefined;
+  if (!credentials || typeof credentials !== "object" || !credentials.owner) {
+    return { ok: false, reason: "adapter declares no credential owner" };
+  }
+  if (cls !== "deep_link_human" && String(credentials.owner) === "none") {
+    return {
+      ok: false,
+      reason: `class ${cls} drives a rail itself and therefore needs a credential owner; ` +
+        `'none' is only valid for a human-handoff adapter`,
+    };
+  }
+  for (const field of ["payment_authority", "idempotency", "receipt"]) {
+    const v = a[field];
+    if (!v || typeof v !== "object") {
+      return { ok: false, reason: `adapter is missing '${field}'` };
+    }
+  }
+  return { ok: true, adapter: a as unknown as AdapterContract };
+}
+
+/**
+ * The slugs this instance serves: `venues/index.json` if present, else the
+ * directory scan. Deterministic order, so a build is reproducible.
+ */
+export async function discoverVenueSlugs(): Promise<string[]> {
+  try {
+    const raw = JSON.parse(await Deno.readTextFile(VENUE_INDEX_FILE));
+    const list = Array.isArray(raw) ? raw : (raw as { venues?: unknown[] }).venues ?? [];
+    const slugs = list
+      .map((entry) =>
+        typeof entry === "string" ? entry : String((entry as { slug?: unknown })?.slug ?? "")
+      )
+      .filter((s) => s.length > 0);
+    if (slugs.length > 0) return slugs;
+  } catch {
+    // No index file (or an unreadable one): fall through to the directory scan.
+  }
+  const found: string[] = [];
+  for await (const entry of Deno.readDir(VENUES_DIR)) {
+    if (!entry.isDirectory || entry.name.startsWith(".") || entry.name === "tools") continue;
+    try {
+      await Deno.stat(new URL(`${entry.name}/venue.json`, VENUES_DIR));
+      found.push(entry.name);
+    } catch {
+      // a directory without venue.json is not a venue (evidence dirs, fixtures)
+    }
+  }
+  return found.sort();
+}
 
 function numeric(n: unknown): n is number {
   return typeof n === "number" && Number.isFinite(n);
 }
 
-export async function loadVenues(filter?: string[]): Promise<Venue[]> {
+/**
+ * Load the served venues, refusing any that cannot honour its declared adapter.
+ */
+export async function loadVenueSet(filter?: string[]): Promise<VenueSet> {
   const venues: Venue[] = [];
-  for (const [slug, relPath] of VENUE_PATHS) {
+  const rejections: VenueRejection[] = [];
+  for (const slug of await discoverVenueSlugs()) {
     if (filter && filter.length > 0 && !filter.includes(slug)) continue;
-    const url = new URL(relPath, import.meta.url);
-    const raw = JSON.parse(await Deno.readTextFile(url));
-    const v = raw.venue ?? {};
-    const menu = raw.menu ?? {};
-    const currency = v.currency ?? menu.currency ?? "EUR";
-    const deepLink = v.ordering?.primary_url ?? v.website ?? null;
+    const url = new URL(`${slug}/venue.json`, VENUES_DIR);
+    let raw: Record<string, unknown>;
+    try {
+      raw = JSON.parse(await Deno.readTextFile(url));
+    } catch (err) {
+      rejections.push({ slug, reason: `venue.json unreadable: ${(err as Error).message}` });
+      continue;
+    }
+    const v = (raw.venue ?? {}) as Record<string, unknown>;
+    const menu = (raw.menu ?? {}) as Record<string, unknown>;
+    const verdict = validateAdapter(v);
+    if (!verdict.ok) {
+      rejections.push({ slug, reason: verdict.reason });
+      continue;
+    }
+    const currency = String(v.currency ?? menu.currency ?? "EUR");
+    const deepLink = (v.ordering as { primary_url?: string } | undefined)?.primary_url ??
+      (v.website as string | undefined) ?? null;
     if (!deepLink) {
-      throw new Error(`venue '${slug}' has no ordering.primary_url or website`);
+      rejections.push({ slug, reason: "no ordering.primary_url or website to hand off to" });
+      continue;
     }
 
-    const methods = fulfilmentMethods(v.order_methods ?? []);
+    const methods = fulfilmentMethods((v.order_methods ?? []) as unknown[]);
     const capturedMethod = String(menu.service_method ?? "");
 
-    const items: MenuItem[] = (menu.items ?? []).map((it: Record<string, unknown>) => {
+    const items: MenuItem[] = ((menu.items ?? []) as Record<string, unknown>[]).map(
+      (it: Record<string, unknown>) => {
       let prices: Record<string, number>;
       if (
         it.prices_by_order_method && typeof it.prices_by_order_method === "object" &&
@@ -151,15 +313,25 @@ export async function loadVenues(filter?: string[]): Promise<Venue[]> {
 
     venues.push({
       slug,
-      name: v.name ?? slug,
+      name: String(v.name ?? slug),
       currency,
       deep_link: deepLink,
-      rail: v.settlement?.rail ?? null,
+      rail: (v.settlement as { rail?: string } | undefined)?.rail ?? null,
       order_methods: methods,
       items,
+      adapter: verdict.adapter,
+      captured_at: menu.captured_at ? String(menu.captured_at) : null,
     });
   }
-  return venues;
+  return { venues, rejections };
+}
+
+/**
+ * The served venues. A thin wrapper so callers that only need the list (and not
+ * the refusal reasons) keep working; `loadVenueSet` is the full answer.
+ */
+export async function loadVenues(filter?: string[]): Promise<Venue[]> {
+  return (await loadVenueSet(filter)).venues;
 }
 
 function fulfilmentMethods(methods: unknown[]): string[] {
@@ -184,10 +356,12 @@ export type VenueIndex = {
   /** sku -> every item carrying it, for the skus that collide. */
   ambiguousSkus: Map<string, Map<string, MenuItem[]>>;
   allItems: MenuItem[];
+  /** Venues this instance refused to serve, and why (fail closed, never silent). */
+  rejections: VenueRejection[];
 };
 
 export async function buildIndex(filter?: string[]): Promise<VenueIndex> {
-  const venues = await loadVenues(filter);
+  const { venues, rejections } = await loadVenueSet(filter);
   const byVenueSku = new Map<string, Map<string, MenuItem>>();
   const byVenueId = new Map<string, Map<string, MenuItem>>();
   const ambiguousSkus = new Map<string, Map<string, MenuItem[]>>();
@@ -216,7 +390,7 @@ export async function buildIndex(filter?: string[]): Promise<VenueIndex> {
     byVenueId.set(v.slug, ids);
     ambiguousSkus.set(v.slug, collisions);
   }
-  return { venues, byVenueSku, byVenueId, ambiguousSkus, allItems };
+  return { venues, byVenueSku, byVenueId, ambiguousSkus, allItems, rejections };
 }
 
 // =====================================================================
@@ -369,6 +543,11 @@ function handleMenu(index: VenueIndex, args: Record<string, unknown>): McpToolRe
     venue_slug: v.slug,
     name: v.name,
     currency: v.currency,
+    // G7: freshness is a property of the capture, not of this reply. The field
+    // name is the one the freshness card (t_0eccac0c) defines — do not invent a
+    // second mechanism here; this only carries the capture time through.
+    captured_at: v.captured_at,
+    adapter: v.adapter,
     item_count: v.items.length,
     items: v.items.map((it) => ({
       id: it.id,
@@ -383,6 +562,8 @@ function handleMenu(index: VenueIndex, args: Record<string, unknown>): McpToolRe
   return toolOk({
     total_items: venues.reduce((n, v) => n + v.items.length, 0),
     venues: out,
+    // A refused venue is never silently absent: it is named with its reason.
+    rejected_venues: index.rejections,
   });
 }
 
@@ -493,6 +674,18 @@ function handleOrder(index: VenueIndex, args: Record<string, unknown>): McpToolR
       currency: venue.currency,
       rail: venue.rail,
       deep_link: venue.deep_link,
+    },
+    // The adapter contract, as the venue declared it: which class carries this
+    // order, what the machine did, what a human still has to do, who may spend
+    // and where the receipt comes from. A caller can therefore tell a
+    // human-handoff venue from one that submits for real, without guessing.
+    handoff: {
+      adapter_class: venue.adapter?.class ?? null,
+      capabilities: venue.adapter?.capabilities ?? null,
+      human_steps: venue.adapter?.human_steps ?? [],
+      payment_authority: venue.adapter?.payment_authority ?? null,
+      idempotency: venue.adapter?.idempotency ?? null,
+      receipt: venue.adapter?.receipt ?? null,
     },
     fulfilment,
     when,
