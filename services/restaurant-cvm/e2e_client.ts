@@ -31,7 +31,10 @@
 //
 // --venue scopes the assertions to a single announced identity: the client
 // expects ONLY that venue's menu (slug set + item count) and orders against it.
-// Omit --venue to assert the combined two-venue catalogue (the pre-filter default).
+// Omit --venue to assert every venue this checkout declares (an unscoped
+// instance serves the whole catalogue on one identity). The per-venue
+// expectations are DERIVED from the venue records, so an onboarded venue needs
+// no edit here.
 //
 // Prints the raw request and response events to stdout. Exit 0 if
 // tools/list AND tools/call both return a well-formed result; non-zero
@@ -45,41 +48,86 @@ import {
   nip44,
 } from "npm:nostr-tools";
 import { Relay } from "npm:nostr-tools/relay";
+import { loadVenues, type Venue } from "./server.ts";
 
 const CTXVM_MESSAGES_KIND = 25910;
 const GIFT_WRAP_KIND = 1059;
 const EPHEMERAL_GIFT_WRAP_KIND = 21059;
 
-// Per-venue expectations for a filtered instance. When --venue is set the client
-// asserts the instance serves ONLY that venue (menu slug set + item count) and
-// places a real order against it. Absent --venue, the client asserts the
-// combined two-venue catalogue (the pre-filter default).
-const VENUE_CFG: Record<
-  string,
-  { items: number; order: { venue_slug: string; items: Array<Record<string, unknown>>; fulfilment: string; when: string; notes: string; ship?: Record<string, unknown> } }
-> = {
-  "doppelt-kaese-berlin": {
-    items: 76,
-    order: {
-      venue_slug: "doppelt-kaese-berlin",
-      items: [{ sku: "331227", qty: 2 }, { sku: "331233", qty: 1 }],
-      fulfilment: "pickup",
-      when: "asap",
-      notes: "e2e relay round-trip (doppelt)",
-    },
-  },
-  "pizza-e-pasta-ruedesheimerplatz": {
-    items: 112,
-    order: {
-      venue_slug: "pizza-e-pasta-ruedesheimerplatz",
-      // sku 36 collides on two products, so order by the venue item id.
-      items: [{ id: "6943943", qty: 1 }],
-      fulfilment: "pickup",
-      when: "asap",
-      notes: "e2e relay round-trip (pizza)",
-    },
-  },
-};
+// Per-venue expectations are DERIVED from the venue records: onboarding a venue
+// must not require editing this client. The item count is the record's own menu
+// length, and the basket is two lines taken from the venue's own menu (see
+// basketFor). Absent --venue, the client asserts every venue this checkout
+// declares (the unscoped instance serves the whole catalogue on one identity).
+export interface VenueOrderArg {
+  venue_slug: string;
+  items: Array<Record<string, unknown>>;
+  fulfilment: string;
+  when: string;
+  notes: string;
+  ship?: Record<string, unknown>;
+}
+
+export interface VenueExpectation {
+  items: number;
+  order: VenueOrderArg;
+}
+
+/**
+ * A basket the venue can actually price: items that are available and carry no
+ * option groups (the client cannot invent option choices), identified by sku
+ * where the sku is unique in the menu and by the venue item id otherwise (pizza
+ * collides on sku 36). Two lines, qty 2 + 1, so the round-trip still exercises
+ * quantity arithmetic.
+ */
+function basketFor(venue: Venue): Array<Record<string, unknown>> {
+  const skuCount = new Map<string, number>();
+  for (const item of venue.items) {
+    skuCount.set(item.sku, (skuCount.get(item.sku) ?? 0) + 1);
+  }
+  const lines: Array<Record<string, unknown>> = [];
+  for (const item of venue.items) {
+    if (lines.length === 2) break;
+    if (!item.available || item.option_group_ids.length > 0) continue;
+    const bySku = Boolean(item.sku) && skuCount.get(item.sku) === 1;
+    lines.push({
+      ...(bySku ? { sku: item.sku } : { id: item.id }),
+      qty: lines.length === 0 ? 2 : 1,
+    });
+  }
+  return lines;
+}
+
+/**
+ * The fulfilment the venue itself declares. 'delivery' is avoided: the server
+ * rightly requires a ship.address the client has no way to know.
+ */
+function fulfilmentFor(venue: Venue): string {
+  const methods = venue.order_methods ?? [];
+  if (methods.includes("pickup")) return "pickup";
+  if (methods.includes("dine_in")) return "dine_in";
+  return "pickup";
+}
+
+/** Derive one expectation per served venue, from the venue records alone. */
+export async function deriveVenueCfg(
+  filter?: string[],
+): Promise<Record<string, VenueExpectation>> {
+  const cfg: Record<string, VenueExpectation> = {};
+  for (const venue of await loadVenues(filter)) {
+    cfg[venue.slug] = {
+      items: venue.items.length,
+      order: {
+        venue_slug: venue.slug,
+        items: basketFor(venue),
+        fulfilment: fulfilmentFor(venue),
+        when: "asap",
+        notes: `e2e relay round-trip (${venue.slug})`,
+      },
+    };
+  }
+  return cfg;
+}
 
 interface NostrEvent {
   id: string;
@@ -149,8 +197,12 @@ async function main() {
     Deno.exit(2);
   }
   const venueSlug = flags.venue ? String(flags.venue) : null;
-  if (venueSlug && !VENUE_CFG[venueSlug]) {
-    console.error(`--venue ${venueSlug} is not a known venue (${Object.keys(VENUE_CFG).join(", ")})`);
+  // Derived from the venue records themselves — never a hard-coded table, so
+  // onboarding a venue does not require editing this client.
+  const venueCfg = await deriveVenueCfg();
+  const declaredSlugs = Object.keys(venueCfg).sort();
+  if (venueSlug && !venueCfg[venueSlug]) {
+    console.error(`--venue ${venueSlug} is not a known venue (${declaredSlugs.join(", ")})`);
     Deno.exit(2);
   }
   const relays = (Array.isArray(flags.relay) ? flags.relay : flags.relay ? [flags.relay] : []);
@@ -340,9 +392,9 @@ async function main() {
       ? payload.venues.map((v: { venue_slug: string }) => v.venue_slug)
       : [];
     // Venue-scoped: exactly one venue, the requested one, with its item count.
-    // Unscoped (default): both venues, 188 items.
-    const expectSlugs = venueSlug ? [venueSlug] : ["doppelt-kaese-berlin", "pizza-e-pasta-ruedesheimerplatz"];
-    const expectTotal = venueSlug ? VENUE_CFG[venueSlug].items : 188;
+    // Unscoped (default): every venue this checkout declares, on one identity.
+    const expectSlugs = venueSlug ? [venueSlug] : declaredSlugs;
+    const expectTotal = expectSlugs.reduce((sum, slug) => sum + (venueCfg[slug]?.items ?? 0), 0);
     const slugsMatch = JSON.stringify([...venueSlugs].sort()) === JSON.stringify([...expectSlugs].sort());
     checks.push({
       name: "tools/call:menu",
@@ -353,18 +405,8 @@ async function main() {
   }
 
   // 4. tools/call order (a real basket — pickup, no address needed)
-  const orderArgs = venueSlug
-    ? VENUE_CFG[venueSlug].order
-    : {
-      venue_slug: "doppelt-kaese-berlin",
-      items: [
-        { sku: "331227", qty: 2 },
-        { sku: "331233", qty: 1 },
-      ],
-      fulfilment: "pickup",
-      when: "asap",
-      notes: "e2e relay round-trip",
-    };
+  // Unscoped, the basket still names ONE venue: the first this checkout declares.
+  const orderArgs = venueCfg[venueSlug ?? declaredSlugs[0]].order;
   const orderResp = await request("tools/call", { name: "order", arguments: orderArgs }, 3);
   if (!orderResp) {
     checks.push({ name: "tools/call:order", ok: false, detail: "no response (timeout)" });
