@@ -8,6 +8,8 @@ import {
   handleMcpMessage,
   handleToolCall,
   loadVenues,
+  loadVenueSet,
+  validateAdapter,
   type McpRequest,
   type VenueIndex,
   parseRelayList,
@@ -29,6 +31,36 @@ let index: VenueIndex;
 
 async function setup() {
   index = await buildIndex();
+}
+
+// ---------------------------------------------------------------------------
+// The catalogue is DATA, not a constant. Onboarding a venue adds
+// `venues/<slug>/venue.json` and nothing else (card t_a640b7ca), so a test that
+// hard-codes "two venues, 188 items" turns every onboarding into a test edit.
+// The expectation is therefore derived from the venue files themselves; what is
+// asserted is that the server serves *all* of them and nothing else.
+// ---------------------------------------------------------------------------
+const VENUES_DIR = new URL("../../venues/", import.meta.url);
+
+async function expectedCatalogue(): Promise<{ venues: number; items: number; slugs: string[] }> {
+  let venues = 0;
+  let items = 0;
+  const slugs: string[] = [];
+  for await (const entry of Deno.readDir(VENUES_DIR)) {
+    if (!entry.isDirectory) continue;
+    let raw: Record<string, unknown>;
+    try {
+      raw = JSON.parse(await Deno.readTextFile(new URL(`${entry.name}/venue.json`, VENUES_DIR)));
+    } catch {
+      continue; // a directory without venue.json is not a venue
+    }
+    const v = (raw.venue ?? {}) as Record<string, unknown>;
+    if (!validateAdapter(v).ok) continue; // a rejected venue is not served
+    venues += 1;
+    slugs.push(String(raw.slug ?? entry.name));
+    items += (((raw.menu ?? {}) as { items?: unknown[] }).items ?? []).length;
+  }
+  return { venues, items, slugs: slugs.sort() };
 }
 
 // ---------------------------------------------------------------------------
@@ -96,17 +128,18 @@ Deno.test("RED: tools/list exposes menu and order with real schemas", async () =
   }
 });
 
-Deno.test("RED: menu returns 188 items with sku, name, prices, available, allergens", async () => {
+Deno.test("menu returns every item of every served venue, with sku, name, prices, available, allergens", async () => {
   await setup();
+  const expected = await expectedCatalogue();
   const res = handleToolCall(index, "menu", {});
   const text = res.content[0].text;
   const payload = JSON.parse(text);
-  if (payload.total_items !== 188) {
-    throw new Error(`expected 188 items, got ${payload.total_items}`);
+  if (payload.total_items !== expected.items) {
+    throw new Error(`expected ${expected.items} items (from the venue files), got ${payload.total_items}`);
   }
   const items = payload.venues.flatMap((v: { items: Array<Record<string, unknown>> }) => v.items);
-  if (items.length !== 188) {
-    throw new Error(`flat item count ${items.length} != 188`);
+  if (items.length !== expected.items) {
+    throw new Error(`flat item count ${items.length} != ${expected.items}`);
   }
   for (const it of items) {
     if (!it.sku) throw new Error("item missing sku");
@@ -244,14 +277,96 @@ Deno.test("RED: order returns basket + rail + deep-link, not 'order placed'", as
   }
 });
 
-Deno.test("loadVenues loads two venues with 188 total items", async () => {
+Deno.test("the served set is data: every venue directory with a valid adapter is served", async () => {
+  const expected = await expectedCatalogue();
   const venues = await loadVenues();
-  if (venues.length !== 2) throw new Error(`expected 2 venues, got ${venues.length}`);
+  if (venues.length !== expected.venues) {
+    throw new Error(`expected ${expected.venues} venues (from the venue files), got ${venues.length}`);
+  }
   let count = 0;
   for (const v of venues) {
     count += v.items.length;
+    if (!expected.slugs.includes(v.slug)) throw new Error(`served a venue with no venue.json: ${v.slug}`);
   }
-  if (count !== 188) throw new Error(`expected 188 items, got ${count}`);
+  if (count !== expected.items) throw new Error(`expected ${expected.items} items, got ${count}`);
+
+  // Onboarding must be pure config: every refusal has to be reported with a
+  // reason rather than hidden (a silently dropped venue is the failure mode).
+  const set = await loadVenueSet();
+  for (const r of set.rejections) {
+    if (!r.slug || !r.reason) throw new Error("a rejection must name its venue and its reason");
+  }
+});
+
+// ---------------------------------------------------------------------------
+// The adapter contract (ADR-0007 amendment): a class that needs a capability the
+// venue cannot provide is REJECTED, never silently served as a weaker adapter.
+// ---------------------------------------------------------------------------
+
+function venueWithAdapter(adapter: Record<string, unknown>): Record<string, unknown> {
+  return {
+    name: "Synthetic Venue",
+    currency: "EUR",
+    website: "https://example.invalid/",
+    order_methods: ["dine_in"],
+    adapter,
+  };
+}
+
+const FULL_CONTRACT: Record<string, unknown> = {
+  capabilities: { menu: true, quote: true, submit: false, status: false },
+  human_steps: ["a human places the order"],
+  credentials: { owner: "none", scope: "public page" },
+  payment_authority: { authority: "human", cvm_cap_sats: 0 },
+  idempotency: { key: "k", on_duplicate: "d" },
+  receipt: { form: "f", durable: "d" },
+};
+
+Deno.test("RED: a class that needs a capability the venue lacks is REJECTED, not degraded", () => {
+  const verdict = validateAdapter(
+    venueWithAdapter({ class: "direct_api", ...FULL_CONTRACT }),
+  );
+  if (verdict.ok) throw new Error("a direct_api venue without submit/status must be rejected");
+  if (!/submit/.test(verdict.reason)) {
+    throw new Error(`the rejection must name the missing capability, got: ${verdict.reason}`);
+  }
+});
+
+Deno.test("RED: deep_link_human must declare the human steps that place the order", () => {
+  const verdict = validateAdapter(
+    venueWithAdapter({ class: "deep_link_human", ...FULL_CONTRACT, human_steps: [] }),
+  );
+  if (verdict.ok) throw new Error("class 1 without human_steps must be rejected");
+  if (!/human_steps/.test(verdict.reason)) {
+    throw new Error(`expected a human_steps rejection, got: ${verdict.reason}`);
+  }
+});
+
+Deno.test("RED: a venue with no adapter block is REJECTED (onboarding must declare its class)", () => {
+  const verdict = validateAdapter({ name: "Legacy", currency: "EUR" });
+  if (verdict.ok) throw new Error("a venue without an adapter block must be rejected");
+});
+
+Deno.test("every served venue declares the full adapter contract and its capture freshness", async () => {
+  await setup();
+  const res = handleToolCall(index, "menu", {});
+  const payload = JSON.parse(res.content[0].text);
+  if (!Array.isArray(payload.rejected_venues)) {
+    throw new Error("the menu reply must report rejected venues (fail closed, never silent)");
+  }
+  for (const v of payload.venues as Array<Record<string, unknown>>) {
+    const adapter = v.adapter as Record<string, unknown> | null;
+    if (!adapter) throw new Error(`venue ${v.venue_slug} served without an adapter contract`);
+    for (const field of ["class", "capabilities", "human_steps", "credentials", "payment_authority", "idempotency", "receipt"]) {
+      if (!(field in adapter)) throw new Error(`venue ${v.venue_slug} adapter is missing '${field}'`);
+    }
+    if (typeof v.captured_at !== "string" || v.captured_at.length === 0) {
+      throw new Error(`venue ${v.venue_slug} served without captured_at (G7: freshness is a property of the capture)`);
+    }
+    if ((adapter.capabilities as Record<string, unknown>).submit === true) {
+      throw new Error(`venue ${v.venue_slug} claims it submits orders; this server places nothing`);
+    }
+  }
 });
 
 Deno.test("tools/call returns unknown-tool error", async () => {
