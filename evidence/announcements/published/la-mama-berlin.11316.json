@@ -1,0 +1,101 @@
+{
+ "kind": 11316,
+ "id": "2c319cf32f0de5f9e8d637a28c6315dfc42765866d4d913c3f240aca788923d8",
+ "pubkey": "9ff2ba538fba8cc6c2c37c8f18c1f9b537adc9e11549649d361dae231d87e62e",
+ "created_at": 1791621411,
+ "tags": [
+  [
+   "d",
+   "la-mama-berlin"
+  ],
+  [
+   "t",
+   "cvm:service:restaurant"
+  ],
+  [
+   "t",
+   "cvm:service:meatspace"
+  ],
+  [
+   "t",
+   "berlin"
+  ],
+  [
+   "t",
+   "cvm:req:contact.phone"
+  ],
+  [
+   "t",
+   "cvm:req:order.fulfilment"
+  ],
+  [
+   "t",
+   "cvm:req:order.items"
+  ],
+  [
+   "t",
+   "cvm:req:order.when"
+  ],
+  [
+   "t",
+   "cvm:opt:contact.name"
+  ],
+  [
+   "t",
+   "cvm:opt:order.notes"
+  ],
+  [
+   "t",
+   "cvm:opt:ship.address"
+  ],
+  [
+   "t",
+   "cvm:tier:fulfilment"
+  ],
+  [
+   "g",
+   "u336"
+  ],
+  [
+   "g",
+   "u336rj"
+  ],
+  [
+   "g",
+   "u336rjpy"
+  ],
+  [
+   "cap",
+   "tool:order",
+   "0",
+   "sats"
+  ],
+  [
+   "r",
+   "https://la-mama-steglitz.de/menu/"
+  ],
+  [
+   "name",
+   "Pizzeria La Mama Steglitz"
+  ],
+  [
+   "about",
+   "Pizzeria La Mama Steglitz — restaurant in Berlin, announced over ContextVM (CEP-6). Order via the venue's own rail; the deep-link asks for a delivery address and phone."
+  ],
+  [
+   "website",
+   "https://la-mama-steglitz.de/"
+  ]
+ ],
+ "content": "{\"name\":\"Pizzeria La Mama Steglitz\",\"about\":\"Pizzeria La Mama Steglitz — restaurant in Berlin, announced over ContextVM (CEP-6). Order via the venue's own rail; the deep-link asks for a delivery address and phone.\",\"schema\":\"cvm.venue/v1\",\"currency\":\"EUR\",\"area\":{\"city\":\"Berlin\",\"country\":\"DE\"},\"location\":{\"lat\":52.4553834,\"lon\":13.3261936},\"menu\":{\"item_count\":104,\"priced_count\":104,\"currency\":\"EUR\",\"min_price\":1.5,\"max_price\":10.5,\"prices_by_method\":{\"pickup\":{\"count\":104,\"currency\":\"EUR\",\"min_price\":1.5,\"max_price\":10.5}},\"price_basis\":\"min_price/max_price are the item's own price column; prices_by_method carries what each fulfilment method actually pays\"},\"ordering\":{\"primary_url\":\"https://la-mama-steglitz.de/menu/\",\"order_methods\":[\"pickup\",\"dine_in\"]},\"fulfilment\":{\"methods\":[\"pickup\",\"dine_in\"],\"pickup\":null,\"delivery\":null,\"method_condition\":\"ship.address is required for a DELIVERY order only; a PICKUP order needs no address (the venue's own page asks for the address when delivery is chosen).\"},\"tools\":[{\"name\":\"order\",\"description\":\"Build a basket for Pizzeria La Mama Steglitz on the venue's own ordering rail. Checkout and payment happen on the venue's own page; this tool does not place or settle the order.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"venue_slug\":{\"type\":\"string\",\"description\":\"The venue to order from.\"},\"items\":{\"type\":\"array\",\"description\":\"Basket lines. Identify each item by `sku` or by the venue's `id` — exactly one. A sku matching more than one item (pizza: 36, 110, 44) is refused; pass `id` there.\",\"items\":{\"type\":\"object\",\"properties\":{\"sku\":{\"type\":\"string\",\"description\":\"Venue sku. Refused when it identifies more than one item — use `id` instead.\"},\"id\":{\"type\":\"string\",\"description\":\"The venue's own item id, unique where a sku is not.\"},\"qty\":{\"type\":\"integer\",\"minimum\":1},\"options\":{\"type\":\"object\"}},\"required\":[\"qty\"],\"additionalProperties\":false}},\"fulfilment\":{\"type\":\"string\",\"enum\":[\"pickup\",\"delivery\",\"dine_in\"],\"description\":\"How the order will be fulfilled.\"},\"when\":{\"type\":\"string\",\"description\":\"Requested fulfilment time (ISO 8601 or 'asap').\"},\"notes\":{\"type\":\"string\",\"description\":\"Free text for the kitchen/handler.\"},\"ship\":{\"type\":\"object\",\"description\":\"Required only when fulfilment == 'delivery'.\",\"properties\":{\"address\":{\"type\":\"object\",\"properties\":{\"street\":{\"type\":\"string\"},\"city\":{\"type\":\"string\"},\"postal_code\":{\"type\":\"string\"},\"country\":{\"type\":\"string\"}}},\"recipient_name\":{\"type\":\"string\"},\"notes\":{\"type\":\"string\"}}},\"contact\":{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"},\"phone\":{\"type\":\"string\"},\"email\":{\"type\":\"string\"}}}},\"required\":[\"venue_slug\",\"items\",\"fulfilment\",\"when\"],\"additionalProperties\":false}}],\"settlement\":{\"settles\":\"venue's own rail (ADR-0001 D5): this CVM takes no payment\",\"rail\":null,\"currency\":\"EUR\",\"tax\":null,\"cvm_cap_sats\":0,\"recorded\":false,\"note\":\"the adapter recorded no settlement block for this venue; the venue's own page shows what it accepts\"}}",
+ "sig": "f3dd181f677076f569a4a4efef59521ed09e209fc2899a7a62b2994c7991340a622570b5c2cf2730ab5d74eb66c49f6ce93a37f4b4e911ab4e140190f4a753f0",
+ "_readback": {
+  "relays": [
+   "wss://relay.primal.net",
+   "wss://relay2.orangesync.tech"
+  ],
+  "same_event_on_every_relay": true,
+  "read_at": 1791621564,
+  "note": "read back with `nak req -k <kind> -d <slug> -a <pubkey>`; this is the wire record, not a dry run"
+ }
+}
