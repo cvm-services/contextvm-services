@@ -1,0 +1,375 @@
+{
+  "entries": [
+    {
+      "method": "pickup",
+      "name": "Blue Cheese Burger",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 8.9
+    },
+    {
+      "method": "pickup",
+      "name": "Blue Cheeseburger Menü",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 15.4
+    },
+    {
+      "method": "pickup",
+      "name": "Broccoli Nuggets (6 Stück)",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 6.5
+    },
+    {
+      "method": "pickup",
+      "name": "Cheeseburger",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 7.5
+    },
+    {
+      "method": "pickup",
+      "name": "Cheeseburger Menü",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 14.0
+    },
+    {
+      "method": "pickup",
+      "name": "Chicken Nuggets",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 6.5
+    },
+    {
+      "method": "pickup",
+      "name": "Chicken Wings",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 6.9
+    },
+    {
+      "method": "pickup",
+      "name": "Chili Cheese Nuggets",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 6.5
+    },
+    {
+      "method": "pickup",
+      "name": "Chili Cheese Pommes",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 5.9
+    },
+    {
+      "method": "pickup",
+      "name": "Crispy Chicken Burger",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 8.5
+    },
+    {
+      "method": "pickup",
+      "name": "Curly Fries (vegan)",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 4.5
+    },
+    {
+      "method": "pickup",
+      "name": "Currywurst (Halal)",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 5.5
+    },
+    {
+      "method": "pickup",
+      "name": "Currywurst Menü",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 12.0
+    },
+    {
+      "method": "pickup",
+      "name": "Fuze Tea Grüner Tee Mango Kamille 0,4l (EINWEG)",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 2.95
+    },
+    {
+      "method": "pickup",
+      "name": "Fuze Tea Schwarzer Tee Pfirsich 0,4l (EINWEG)",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 3.2
+    },
+    {
+      "method": "pickup",
+      "name": "Hamburger",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 6.9
+    },
+    {
+      "method": "pickup",
+      "name": "Hamburger Menü",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 13.4
+    },
+    {
+      "method": "pickup",
+      "name": "Hot Dog Americana",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 4.5
+    },
+    {
+      "method": "pickup",
+      "name": "Hot Dog Americana Menü",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 14.9
+    },
+    {
+      "method": "pickup",
+      "name": "Hot Dog Classic",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 3.9
+    },
+    {
+      "method": "pickup",
+      "name": "Hot Dog Classic Menü",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 14.3
+    },
+    {
+      "method": "pickup",
+      "name": "Hot Dog Mexicali (scharf)",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 4.9
+    },
+    {
+      "method": "pickup",
+      "name": "Hot Dog Mexicali Menü (scharf)",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 15.3
+    },
+    {
+      "method": "pickup",
+      "name": "Indiana Burger",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 7.9
+    },
+    {
+      "method": "pickup",
+      "name": "Indiana Burger Menü",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 14.4
+    },
+    {
+      "method": "pickup",
+      "name": "Ketchup",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 1.5
+    },
+    {
+      "method": "pickup",
+      "name": "Manhatten Burger",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 9.5
+    },
+    {
+      "method": "pickup",
+      "name": "Manhatten Burger Menü",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 16.0
+    },
+    {
+      "method": "pickup",
+      "name": "Mayonnaise",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 1.6
+    },
+    {
+      "method": "pickup",
+      "name": "Mexicali Burger (scharf)",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 7.9
+    },
+    {
+      "method": "pickup",
+      "name": "Mexicali Burger Menü (scharf)",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 14.4
+    },
+    {
+      "method": "pickup",
+      "name": "Miami Burger",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 7.9
+    },
+    {
+      "method": "pickup",
+      "name": "Miami Burger Menü",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 14.4
+    },
+    {
+      "method": "pickup",
+      "name": "Mozzarella-Sticks",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 6.5
+    },
+    {
+      "method": "pickup",
+      "name": "New Jersey Burger",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 9.5
+    },
+    {
+      "method": "pickup",
+      "name": "New Jersey Burger Menü",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 16.0
+    },
+    {
+      "method": "pickup",
+      "name": "Onion Rings",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 4.9
+    },
+    {
+      "method": "pickup",
+      "name": "Pasta Napoli",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 9.9
+    },
+    {
+      "method": "pickup",
+      "name": "Pasta Pollo",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 11.9
+    },
+    {
+      "method": "pickup",
+      "name": "Pommes frites (vegan)",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 4.5
+    },
+    {
+      "method": "pickup",
+      "name": "Portobello Burger",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 9.5
+    },
+    {
+      "method": "pickup",
+      "name": "Portobello Burger Menü",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 16.0
+    },
+    {
+      "method": "pickup",
+      "name": "Rucola-Salat",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 8.5
+    },
+    {
+      "method": "pickup",
+      "name": "Salat Mista",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 7.9
+    },
+    {
+      "method": "pickup",
+      "name": "Sweet Potatoes (vegan)",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 5.9
+    },
+    {
+      "method": "pickup",
+      "name": "Texas Burger",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 8.3
+    },
+    {
+      "method": "pickup",
+      "name": "Texas Burger Menü",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 14.8
+    },
+    {
+      "method": "pickup",
+      "name": "Three Buddies Burger",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 10.9
+    },
+    {
+      "method": "pickup",
+      "name": "Three Buddies Burger Menü",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 17.4
+    },
+    {
+      "method": "pickup",
+      "name": "Three Buddies Veggie",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 10.9
+    },
+    {
+      "method": "pickup",
+      "name": "Veggi Beyond Meat Burger Menü",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 15.4
+    },
+    {
+      "method": "pickup",
+      "name": "Veggi Falafel Burger Menü",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 14.0
+    },
+    {
+      "method": "pickup",
+      "name": "Veggi Gemüse Burger Menü",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 14.0
+    },
+    {
+      "method": "pickup",
+      "name": "Veggi Halloumi Burger Menü",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 14.0
+    },
+    {
+      "method": "pickup",
+      "name": "Veggi Mexicali Burger Menü",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 16.0
+    },
+    {
+      "method": "pickup",
+      "name": "Veggie Beyond Meat Burger",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 8.9
+    },
+    {
+      "method": "pickup",
+      "name": "Veggie Falafel Burger",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 7.5
+    },
+    {
+      "method": "pickup",
+      "name": "Veggie Gemüse Burger",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 7.5
+    },
+    {
+      "method": "pickup",
+      "name": "Veggie Halloumi Burger",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 7.5
+    },
+    {
+      "method": "pickup",
+      "name": "Veggie Mexicali Burger",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 9.5
+    },
+    {
+      "method": "pickup",
+      "name": "Wedges (vegan)",
+      "page_source": "evidence/rendered-ordering-page.txt",
+      "price_eur": 4.5
+    }
+  ],
+  "entry_count": 61,
+  "method": "pickup",
+  "note": "Prices read from the text the venue's OWN ordering page rendered (Abholung/pickup column). Used to check venue.json against something that was NOT derived from venue.json. Regenerate: adapter.py --write-anchor",
+  "page_dump": "evidence/rendered-ordering-page.txt",
+  "schema": "cvm.venue.page-price-anchor/v1"
+}

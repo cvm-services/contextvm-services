@@ -1,0 +1,4895 @@
+{
+  "generated_by": "venues/three-buddies-berlin/adapter.py",
+  "menu": {
+    "currency": "EUR",
+    "items": [
+      {
+        "additives": [
+          "E330",
+          "E202"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "MILCH",
+          "EI"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Saftiges 150g Patty, geschmolzener Cheddarkäse, würzige Haussauce, knackige saure Gurken, Beilage und Getränk",
+        "image_url": null,
+        "ingredients": "Rindfleisch, CHEDDARKÄSE, Haussauce, SAURE GURKEN, Gewürze, Brötchen",
+        "listed_in_menu": true,
+        "name": "Cheeseburger Menü",
+        "option_group_ids": [
+          "216516",
+          "216517",
+          "216518",
+          "216519"
+        ],
+        "price": 14.0,
+        "prices_by_order_method": {
+          "delivery": 15.0,
+          "dine_in": 14.0,
+          "pickup": 14.0,
+          "room_service": 14.0
+        },
+        "section_ids": [
+          "136916",
+          "132860"
+        ],
+        "sku": "1052475",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN",
+          "MILCH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Saftiges 150g Patty, würzige Haussauce, rauchige Barbecuesauce, knuspriger Bacon, knackige saure Gurken",
+        "image_url": null,
+        "ingredients": "Rindfleisch, BAUCHE, SAUCE, GURKEN, ZWIEBELN.",
+        "listed_in_menu": true,
+        "name": "Texas Burger",
+        "option_group_ids": [
+          "216512",
+          "216513",
+          "216514",
+          "216515"
+        ],
+        "price": 8.3,
+        "prices_by_order_method": {
+          "delivery": 9.3,
+          "dine_in": 8.3,
+          "pickup": 8.3,
+          "room_service": 8.3
+        },
+        "section_ids": [
+          "136916",
+          "132859"
+        ],
+        "sku": "1052454",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E450",
+          "E451"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "SOJA"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Spiralförmige Pommes mit knuspriger Textur und leichter Würze.",
+        "image_url": "https://cdn.foodamigos.io/images/PgcddBcG3T3F3uNr141Dg4APLOjq4xLSQonM5zjC",
+        "ingredients": "Kartoffeln, Pflanzenöl, Gewürze (enthält GLUTEN, SOJA).",
+        "listed_in_menu": true,
+        "name": "Curly Fries (vegan)",
+        "option_group_ids": [],
+        "price": 4.5,
+        "prices_by_order_method": {
+          "delivery": 5.5,
+          "dine_in": 4.5,
+          "pickup": 4.5,
+          "room_service": 4.5
+        },
+        "section_ids": [
+          "136916",
+          "132865"
+        ],
+        "sku": "1052491",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN",
+          "EIER",
+          "SOJA"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Saftiges 150g Patty, herzhaftes Spiegelei, knuspriger Bacon, Schmor-Zwiebeln, knackige saure Gurken",
+        "image_url": null,
+        "ingredients": "Rindfleisch (150g), BACON, EIER, Zwiebeln, Gewürze, Brötchen (WEIZEN), Gurken, Ketchup; enthält GLUTEN, EIER, SOJA.",
+        "listed_in_menu": true,
+        "name": "New Jersey Burger",
+        "option_group_ids": [
+          "216512",
+          "216513",
+          "216514",
+          "216515"
+        ],
+        "price": 9.5,
+        "prices_by_order_method": {
+          "delivery": 10.5,
+          "dine_in": 9.5,
+          "pickup": 9.5,
+          "room_service": 9.5
+        },
+        "section_ids": [
+          "136916",
+          "132859"
+        ],
+        "sku": "1052566",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN",
+          "MILCH",
+          "EI",
+          "SOJA"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Saftige, knusprig frittierte Hähnchenflügel, lecker gewürzt.",
+        "image_url": "https://cdn.foodamigos.io/images/p6WsYff3hrpkBgX1yE4R2V6RHwDGgevMVxYl3asL",
+        "ingredients": "Hähnchenflügel, Gewürze, ÖL (kann GLUTEN, MILCH, EI, SOJA enthalten)",
+        "listed_in_menu": true,
+        "name": "Chicken Wings",
+        "option_group_ids": [
+          "216529"
+        ],
+        "price": 6.9,
+        "prices_by_order_method": {
+          "delivery": 7.9,
+          "dine_in": 6.9,
+          "pickup": 6.9,
+          "room_service": 6.9
+        },
+        "section_ids": [
+          "136916",
+          "132865"
+        ],
+        "sku": "1052545",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E250"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "MILCH",
+          "SENF"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Saftiges 150g Patty, rauchige Barbecuesauce, knuspriger Bacon, Beilage und Getränk",
+        "image_url": null,
+        "ingredients": "Rindfleisch, BRÖTCHEN, BACON, BARBECUESAUCE, Gewürze, Zwiebeln, Salat, Käse.",
+        "listed_in_menu": true,
+        "name": "Texas Burger Menü",
+        "option_group_ids": [
+          "216516",
+          "216517",
+          "216518",
+          "216519"
+        ],
+        "price": 14.8,
+        "prices_by_order_method": {
+          "delivery": 15.8,
+          "dine_in": 14.8,
+          "pickup": 14.8,
+          "room_service": 14.8
+        },
+        "section_ids": [
+          "132860",
+          "136916"
+        ],
+        "sku": "1052526",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "MILCH",
+          "GLUTEN",
+          "EI"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Würzige Käse-Nuggets mit knuspriger Hülle, perfekt für Fans von scharfem Essen.",
+        "image_url": "https://cdn.foodamigos.io/images/HAyLbgBohlqL5Sw6rVsp0Ywy8CH0TN6ml8s2Lu77",
+        "ingredients": "Käse, PANIERUNG, Gewürze",
+        "listed_in_menu": true,
+        "name": "Chili Cheese Nuggets",
+        "option_group_ids": [
+          "216527"
+        ],
+        "price": 6.5,
+        "prices_by_order_method": {
+          "delivery": 7.5,
+          "dine_in": 6.5,
+          "pickup": 6.5,
+          "room_service": 6.5
+        },
+        "section_ids": [
+          "136916",
+          "132865"
+        ],
+        "sku": "1052511",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN",
+          "MILCH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Saftiges 150g Patty, würzige Haussauce, knackige saure Gurken, frische Tomate, grüner Lollo Bionda",
+        "image_url": "https://cdn.foodamigos.io/images/rPmQs6Ml3co7cqy4GExF6ubMxRAnHUw5z4faEvvF",
+        "ingredients": "Brötchen, RINDFLEISCH, Haussauce, Gurken, Tomate, Salat.",
+        "listed_in_menu": true,
+        "name": "Hamburger",
+        "option_group_ids": [
+          "216512",
+          "216513",
+          "216514",
+          "216515"
+        ],
+        "price": 6.9,
+        "prices_by_order_method": {
+          "delivery": 7.9,
+          "dine_in": 6.9,
+          "pickup": 6.9,
+          "room_service": 6.9
+        },
+        "section_ids": [
+          "132859"
+        ],
+        "sku": "1052524",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Konservierungsstoffe"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "MILCH",
+          "EI"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Saftiges 150g Patty, geschmolzener Cheddarkäse, würzige Haussauce, knackige saure Gurken, frische Tomate",
+        "image_url": "https://cdn.foodamigos.io/images/mPw9liEKXmfcXSpe3MBz6xv8TdZvU2SHt5XCkYUO",
+        "ingredients": "Rindfleisch, CHEDDARKÄSE, Haussauce (Wasser, Öle, Zwiebel, Gewürze, Zucker, Essig), saure Gurken, Tomate, Gewürze.",
+        "listed_in_menu": true,
+        "name": "Cheeseburger",
+        "option_group_ids": [
+          "216512",
+          "216513",
+          "216514",
+          "216515"
+        ],
+        "price": 7.5,
+        "prices_by_order_method": {
+          "delivery": 8.5,
+          "dine_in": 7.5,
+          "pickup": 7.5,
+          "room_service": 7.5
+        },
+        "section_ids": [
+          "132859"
+        ],
+        "sku": "1052440",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN",
+          "MILCH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Saftiges 150g Patty, feurige Jalapenos, hausgemachte, scharfe Sauce, knackige saure Gurken, frische Tomate",
+        "image_url": null,
+        "ingredients": "Rindfleisch, JALAPENOS, Zwiebeln, TOMATEN, Gewürze, BRÖTCHEN (WEIZENMEHL, Hefe, ZUCKER, SALZ, FETT), SAUCE (ZUCKER, Essig, Gewürze)",
+        "listed_in_menu": true,
+        "name": "Mexicali Burger (scharf)",
+        "option_group_ids": [
+          "216512",
+          "216513",
+          "216514",
+          "216515"
+        ],
+        "price": 7.9,
+        "prices_by_order_method": {
+          "delivery": 8.9,
+          "dine_in": 7.9,
+          "pickup": 7.9,
+          "room_service": 7.9
+        },
+        "section_ids": [
+          "132859"
+        ],
+        "sku": "1052487",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E202",
+          "E211"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "MILCH",
+          "EI"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Saftiges 150g Patty, cremige Chili-Cheesesauce, knackige saure Gurken, frische Tomate, grüner Lollo Bionda",
+        "image_url": null,
+        "ingredients": "Rindfleisch, Chili-Cheesesauce, SAURE GURKEN, TOMATEN, Lollo Bionda",
+        "listed_in_menu": true,
+        "name": "Indiana Burger",
+        "option_group_ids": [
+          "216512",
+          "216513",
+          "216514",
+          "216515"
+        ],
+        "price": 7.9,
+        "prices_by_order_method": {
+          "delivery": 8.9,
+          "dine_in": 7.9,
+          "pickup": 7.9,
+          "room_service": 7.9
+        },
+        "section_ids": [
+          "132859"
+        ],
+        "sku": "1052550",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Konservierungsstoffe",
+          "Farbstoffe"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "MILCH",
+          "EI"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Saftiges 150g Patty, cremige Sour Cream, knusprige Röstzwiebeln, knackige saure Gurken, frische Tomate",
+        "image_url": null,
+        "ingredients": "Rindfleisch, Sour Cream, Röstzwiebeln, saure Gurken, Tomate, Gewürze, SALZ, ZUCKER",
+        "listed_in_menu": true,
+        "name": "Miami Burger",
+        "option_group_ids": [
+          "216512",
+          "216513",
+          "216514",
+          "216515"
+        ],
+        "price": 7.9,
+        "prices_by_order_method": {
+          "delivery": 8.9,
+          "dine_in": 7.9,
+          "pickup": 7.9,
+          "room_service": 7.9
+        },
+        "section_ids": [
+          "132859"
+        ],
+        "sku": "1052459",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E202"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "MILCH",
+          "EI"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Saftiges 150g Patty, intensiver Gorgonzola, fruchtige Johannisbeeren, knackige saure Gurken, frische Tomate",
+        "image_url": null,
+        "ingredients": "Rindfleisch (150g), Gorgonzola (MILCH), Johannisbeeren, saure Gurken, Tomate, Brot (WEIZEN).",
+        "listed_in_menu": true,
+        "name": "Blue Cheese Burger",
+        "option_group_ids": [
+          "216512",
+          "216513",
+          "216514",
+          "216515"
+        ],
+        "price": 8.9,
+        "prices_by_order_method": {
+          "delivery": 9.9,
+          "dine_in": 8.9,
+          "pickup": 8.9,
+          "room_service": 8.9
+        },
+        "section_ids": [
+          "132859"
+        ],
+        "sku": "1052449",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN",
+          "MILCH",
+          "EI"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Saftiges 150g Patty, cremige Chili-Cheesesauce, frische Champignons, Schmor-Zwiebeln, knackige saure Gurken",
+        "image_url": null,
+        "ingredients": "Rindfleisch, PORTOBELLO, Chili-Cheesesauce, Zwiebeln, Gewürze, Gurken.",
+        "listed_in_menu": true,
+        "name": "Portobello Burger",
+        "option_group_ids": [
+          "216512",
+          "216513",
+          "216514",
+          "216515"
+        ],
+        "price": 9.5,
+        "prices_by_order_method": {
+          "delivery": 10.5,
+          "dine_in": 9.5,
+          "pickup": 9.5,
+          "room_service": 9.5
+        },
+        "section_ids": [
+          "132859"
+        ],
+        "sku": "1052473",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN",
+          "MILCH",
+          "EI"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Saftiges 150g Patty, knusprige Mozzarella-Sticks, Zwiebelringe, cremige Chili-Cheesesauce, knackige saure Gurken",
+        "image_url": null,
+        "ingredients": "Rindfleisch, Mozzarella, Zwiebeln, Chili-Cheesesauce, saure Gurken, Gewürze; enthält GLUTEN, MILCH, EI",
+        "listed_in_menu": true,
+        "name": "Manhatten Burger",
+        "option_group_ids": [
+          "216512",
+          "216513",
+          "216514",
+          "216515"
+        ],
+        "price": 9.5,
+        "prices_by_order_method": {
+          "delivery": 10.5,
+          "dine_in": 9.5,
+          "pickup": 9.5,
+          "room_service": 9.5
+        },
+        "section_ids": [
+          "132859"
+        ],
+        "sku": "1052458",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN",
+          "MILCH",
+          "EI"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Saftiges 150g Patty, süße Butter-Trauben-Melasse, Grilltomaten, knusprige Sucuk, herzhaftes Spiegelei",
+        "image_url": null,
+        "ingredients": "Rindfleisch, Sucuk, EIER, TOMATEN, Butter-Trauben-Melasse, Gewürze, GLUTEN, MILCH",
+        "listed_in_menu": true,
+        "name": "Three Buddies Burger",
+        "option_group_ids": [
+          "216512",
+          "216513",
+          "216514",
+          "216515"
+        ],
+        "price": 10.9,
+        "prices_by_order_method": {
+          "delivery": 11.9,
+          "dine_in": 10.9,
+          "pickup": 10.9,
+          "room_service": 10.9
+        },
+        "section_ids": [
+          "132859"
+        ],
+        "sku": "1052455",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          null,
+          "E300"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "MILCH",
+          "EI"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Knuspriges 150g Homemade Crispy Chicken, würzige Haussauce, cremige Mayo, knackige saure Gurken, frische Tomate",
+        "image_url": null,
+        "ingredients": "Hähnchen, MAYO, Gewürze, Brötchen, Gurken, Tomaten",
+        "listed_in_menu": true,
+        "name": "Crispy Chicken Burger",
+        "option_group_ids": [
+          "216512",
+          "216513",
+          "216514",
+          "216515"
+        ],
+        "price": 8.5,
+        "prices_by_order_method": {
+          "delivery": 9.5,
+          "dine_in": 8.5,
+          "pickup": 8.5,
+          "room_service": 8.5
+        },
+        "section_ids": [
+          "132859"
+        ],
+        "sku": "1052509",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN",
+          "MILCH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Saftiges 150g Patty, würzige Haussauce, knackige saure Gurken, Beilage und Getränk nach Wahl",
+        "image_url": null,
+        "ingredients": "Rindfleisch, Gewürze, SAUCE, saure Gurken, Beilage",
+        "listed_in_menu": true,
+        "name": "Hamburger Menü",
+        "option_group_ids": [
+          "216516",
+          "216517",
+          "216518",
+          "216519"
+        ],
+        "price": 13.4,
+        "prices_by_order_method": {
+          "delivery": 14.4,
+          "dine_in": 13.4,
+          "pickup": 13.4,
+          "room_service": 13.4
+        },
+        "section_ids": [
+          "132860"
+        ],
+        "sku": "1052557",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN",
+          "MILCH",
+          "EI"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Saftiges 150g Patty, feurige Jalapenos, hausgemachte, scharfe Sauce, Beilage und Getränk",
+        "image_url": null,
+        "ingredients": "Rindfleisch, JALAPENOS, Zwiebeln, Gewürze, Sauce (Zutaten variieren).",
+        "listed_in_menu": true,
+        "name": "Mexicali Burger Menü (scharf)",
+        "option_group_ids": [
+          "216516",
+          "216517",
+          "216518",
+          "216519"
+        ],
+        "price": 14.4,
+        "prices_by_order_method": {
+          "delivery": 15.4,
+          "dine_in": 14.4,
+          "pickup": 14.4,
+          "room_service": 14.4
+        },
+        "section_ids": [
+          "132860"
+        ],
+        "sku": "1052472",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN",
+          "MILCH",
+          "EI"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Saftiges 150g Patty, cremige Chili-Cheesesauce, Beilage und Getränk",
+        "image_url": null,
+        "ingredients": "Rindfleisch, Chili-Cheesesauce, Brötchen, Beilage (kann GLUTEN, MILCH, EI enthalten)",
+        "listed_in_menu": true,
+        "name": "Indiana Burger Menü",
+        "option_group_ids": [
+          "216516",
+          "216517",
+          "216518",
+          "216519"
+        ],
+        "price": 14.4,
+        "prices_by_order_method": {
+          "delivery": 15.4,
+          "dine_in": 14.4,
+          "pickup": 14.4,
+          "room_service": 14.4
+        },
+        "section_ids": [
+          "132860"
+        ],
+        "sku": "1052548",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E202"
+        ],
+        "allergens": [
+          "MILCH",
+          "GLUTEN"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Saftiges 150g Patty, cremige Sour Cream, knusprige Röstzwiebeln, Beilage und Getränk",
+        "image_url": null,
+        "ingredients": "Rindfleisch (150g), Sour Cream (Sahne, MILCH), Röstzwiebeln, Beilage (Pommes Frites), Getränk (Wasser oder Limonade).",
+        "listed_in_menu": true,
+        "name": "Miami Burger Menü",
+        "option_group_ids": [
+          "216516",
+          "216517",
+          "216518",
+          "216519"
+        ],
+        "price": 14.4,
+        "prices_by_order_method": {
+          "delivery": 15.4,
+          "dine_in": 14.4,
+          "pickup": 14.4,
+          "room_service": 14.4
+        },
+        "section_ids": [
+          "132860"
+        ],
+        "sku": "1052447",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E202"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "MILCH",
+          "EI"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Saftiges 150g Patty, herzhaftes Spiegelei, knuspriger Bacon, Schmor-Zwiebeln, Beilage und Getränk",
+        "image_url": null,
+        "ingredients": "Rindfleisch (150g), Spiegelei (EI), Bacon, Zwiebeln, Beilage (Pommes Frites), Getränk (Wasser oder Limonade).",
+        "listed_in_menu": true,
+        "name": "New Jersey Burger Menü",
+        "option_group_ids": [
+          "216516",
+          "216517",
+          "216518",
+          "216519"
+        ],
+        "price": 16.0,
+        "prices_by_order_method": {
+          "delivery": 17.0,
+          "dine_in": 16.0,
+          "pickup": 16.0,
+          "room_service": 16.0
+        },
+        "section_ids": [
+          "132860"
+        ],
+        "sku": "1052448",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          null,
+          "E250"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "MILCH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Saftiges 150g Patty, intensiver Gorgonzola, fruchtige Johannisbeeren, Beilage und Getränk",
+        "image_url": null,
+        "ingredients": "Rindfleisch, GORGONZOLA, Johannisbeeren, Brötchen, Gewürze",
+        "listed_in_menu": true,
+        "name": "Blue Cheeseburger Menü",
+        "option_group_ids": [
+          "216516",
+          "216517",
+          "216518",
+          "216519"
+        ],
+        "price": 15.4,
+        "prices_by_order_method": {
+          "delivery": 16.4,
+          "dine_in": 15.4,
+          "pickup": 15.4,
+          "room_service": 15.4
+        },
+        "section_ids": [
+          "132860"
+        ],
+        "sku": "1052508",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Konservierungsstoffe"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "MILCH",
+          "EIER",
+          "SOJA"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Saftiges 150g Patty, frische Champignons, cremige Chili-Cheesesauce, Beilage und Getränk",
+        "image_url": null,
+        "ingredients": "Rindfleisch, Champignons, Käse, Chili, GLUTEN, MILCH, EIER, SOJA.",
+        "listed_in_menu": true,
+        "name": "Portobello Burger Menü",
+        "option_group_ids": [
+          "216516",
+          "216517",
+          "216518",
+          "216519"
+        ],
+        "price": 16.0,
+        "prices_by_order_method": {
+          "delivery": 17.0,
+          "dine_in": 16.0,
+          "pickup": 16.0,
+          "room_service": 16.0
+        },
+        "section_ids": [
+          "132860"
+        ],
+        "sku": "1052519",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN",
+          "MILCH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Saftiges 150g Patty, knusprige Mozzarella-Sticks, Zwiebelringe, Beilage und Getränk",
+        "image_url": null,
+        "ingredients": "Rindfleisch, Mozzarella, Zwiebeln, BRÖTCHEN (WEIZENMEHL, Hefe, ZUCKER, SALZ, FETT), Gewürze, SAUCE (ZUCKER, Essig, Gewürze)",
+        "listed_in_menu": true,
+        "name": "Manhatten Burger Menü",
+        "option_group_ids": [
+          "216516",
+          "216517",
+          "216518",
+          "216519"
+        ],
+        "price": 16.0,
+        "prices_by_order_method": {
+          "delivery": 17.0,
+          "dine_in": 16.0,
+          "pickup": 16.0,
+          "room_service": 16.0
+        },
+        "section_ids": [
+          "132860"
+        ],
+        "sku": "1052488",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "MILCH",
+          "GLUTEN"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Saftiges 150g Patty, süße Butter-Trauben-Melasse, knusprige Sucuk, Grilltomaten, Beilage und Getränk",
+        "image_url": null,
+        "ingredients": "Rindfleisch, Sucuk, Grilltomaten, Butter-Trauben-Melasse, Gewürze.",
+        "listed_in_menu": true,
+        "name": "Three Buddies Burger Menü",
+        "option_group_ids": [
+          "216516",
+          "216517",
+          "216518",
+          "216519"
+        ],
+        "price": 17.4,
+        "prices_by_order_method": {
+          "delivery": 18.4,
+          "dine_in": 17.4,
+          "pickup": 17.4,
+          "room_service": 17.4
+        },
+        "section_ids": [
+          "132860"
+        ],
+        "sku": "1052544",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "NÜSSE",
+          "GLUTEN"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Knusprige Falafel, frisches Pesto, cremige Guacamole, knackige saure Gurken, frische Tomate, grüner Lollo Bionda",
+        "image_url": null,
+        "ingredients": "Kichererbsen, Zwiebeln, Knoblauch, Petersilie, Gewürze, Pesto (Basilikum, Öl, Nüsse), GUACAMOLE, TOMATEN, SAURE GURKEN.",
+        "listed_in_menu": true,
+        "name": "Veggie Falafel Burger",
+        "option_group_ids": [
+          "216512",
+          "216513",
+          "216514",
+          "216515"
+        ],
+        "price": 7.5,
+        "prices_by_order_method": {
+          "delivery": 8.5,
+          "dine_in": 7.5,
+          "pickup": 7.5,
+          "room_service": 7.5
+        },
+        "section_ids": [
+          "132861"
+        ],
+        "sku": "1052452",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "MILCH",
+          "GLUTEN"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Gegrillter Halloumi, frisches Pesto, cremige Guacamole, knackige saure Gurken, frische Tomate",
+        "image_url": null,
+        "ingredients": "Halloumi, PESTO, GUACAMOLE, saure GURKEN, TOMATE",
+        "listed_in_menu": true,
+        "name": "Veggie Halloumi Burger",
+        "option_group_ids": [
+          "216512",
+          "216513",
+          "216514",
+          "216515"
+        ],
+        "price": 7.5,
+        "prices_by_order_method": {
+          "delivery": 8.5,
+          "dine_in": 7.5,
+          "pickup": 7.5,
+          "room_service": 7.5
+        },
+        "section_ids": [
+          "132861"
+        ],
+        "sku": "1052510",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN",
+          "NÜSSE",
+          "SOJA"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Herzhaftes Gemüse-Patty, frisches Pesto, cremige Guacamole, knackige saure Gurken, frische Tomate",
+        "image_url": null,
+        "ingredients": "Gemüse-Patty (ZUTATEN: Gemüse, MEHL, Gewürze), Pesto (ZUTATEN: Basilikum, Nüsse, Öl), Guacamole (ZUTATEN: Avocado, Zwiebel, Gewürze), saure Gurken, Tomate",
+        "listed_in_menu": true,
+        "name": "Veggie Gemüse Burger",
+        "option_group_ids": [
+          "216512",
+          "216513",
+          "216514",
+          "216515"
+        ],
+        "price": 7.5,
+        "prices_by_order_method": {
+          "delivery": 8.5,
+          "dine_in": 7.5,
+          "pickup": 7.5,
+          "room_service": 7.5
+        },
+        "section_ids": [
+          "132861"
+        ],
+        "sku": "1052442",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "ERBSENPROTEIN"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Saftiger Beyond-Meat-Burger, cremige Guacamole, knackige saure Gurken, frische Tomate",
+        "image_url": null,
+        "ingredients": "Beyond Meat Patty (WASSER, ERBSENPROTEIN, Rapsöl, REISSTÄRKE, Zwiebelpulver, AROMEN), Guacamole (AVOCADO, Zwiebel, KORIANDER, LIMETTensaft), saure Gurken, Tomate, Gewürze.",
+        "listed_in_menu": true,
+        "name": "Veggie Beyond Meat Burger",
+        "option_group_ids": [
+          "216512",
+          "216513",
+          "216514",
+          "216515"
+        ],
+        "price": 8.9,
+        "prices_by_order_method": {
+          "delivery": 9.9,
+          "dine_in": 8.9,
+          "pickup": 8.9,
+          "room_service": 8.9
+        },
+        "section_ids": [
+          "132861"
+        ],
+        "sku": "1052502",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E202",
+          "E211"
+        ],
+        "allergens": [
+          "SOJA",
+          "GLUTEN"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Saftiger Beyond-Meat-Burger, cremige Guacamole, scharfe Mexicali-Sauce, knackige saure Gurken, frische Tomate",
+        "image_url": null,
+        "ingredients": "Beyond Meat, GUACAMOLE, SAURE GURKEN, TOMATEN, Mexicali-Sauce",
+        "listed_in_menu": true,
+        "name": "Veggie Mexicali Burger",
+        "option_group_ids": [
+          "216512",
+          "216513",
+          "216514",
+          "216515"
+        ],
+        "price": 9.5,
+        "prices_by_order_method": {
+          "delivery": 10.5,
+          "dine_in": 9.5,
+          "pickup": 9.5,
+          "room_service": 9.5
+        },
+        "section_ids": [
+          "132861"
+        ],
+        "sku": "1052552",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Methylcellulose"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "SOJA"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Saftiger Beyond Meat, gegrilltes Gemüse, würziger Ketchup, cremige Guacamole, knackige saure Gurken, frische Tomate",
+        "image_url": null,
+        "ingredients": "Beyond Meat (WASSER, ERBSENPROTEIN, Rapsöl, REISSTÄRKE, Kartoffelstärke, Zwiebelpulver, Aromen, Apfelextrakt, Rote Beete, ZITRONENSAFTKONZENTRAT, Hefeextrakt, SALZ, WEIZENSTÄRKE, ZUCKER, Verdickungsmittel: Methylcellulose), gegrilltes Gemüse (Zucchini, Paprika), Ketchup (TOMATEN, ZUCKER, WEINESSIG, SALZ, Gewürze), Guacamole (AVOCADO, ZITRONENSAFT, Zwiebel, KORIANDER), saure Gurken (GURKEN, WEINESSIG, ZUCKER, Gewürze), frische Tomate",
+        "listed_in_menu": true,
+        "name": "Three Buddies Veggie",
+        "option_group_ids": [
+          "216512",
+          "216513",
+          "216514",
+          "216515"
+        ],
+        "price": 10.9,
+        "prices_by_order_method": {
+          "delivery": 11.9,
+          "dine_in": 10.9,
+          "pickup": 10.9,
+          "room_service": 10.9
+        },
+        "section_ids": [
+          "132861"
+        ],
+        "sku": "1052530",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN",
+          "SOJA",
+          "NÜSSE"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Knusprige Falafel, frisches Pesto, cremige Guacamole, Beilage und Getränk",
+        "image_url": null,
+        "ingredients": "Falafel, Pesto, Guacamole, Brötchen, Beilage (kann GLUTEN, SOJA, NÜSSE enthalten)",
+        "listed_in_menu": true,
+        "name": "Veggi Falafel Burger Menü",
+        "option_group_ids": [
+          "216516",
+          "216517",
+          "216518",
+          "216519"
+        ],
+        "price": 14.0,
+        "prices_by_order_method": {
+          "delivery": 15.0,
+          "dine_in": 14.0,
+          "pickup": 14.0,
+          "room_service": 14.0
+        },
+        "section_ids": [
+          "132862"
+        ],
+        "sku": "1052549",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "MILCH",
+          "GLUTEN"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Gegrillter Halloumi, frisches Pesto, cremige Guacamole, Beilage und Getränk",
+        "image_url": null,
+        "ingredients": "Halloumi, PESTO, GUACAMOLE, Brötchen, Salat, Gewürze.",
+        "listed_in_menu": true,
+        "name": "Veggi Halloumi Burger Menü",
+        "option_group_ids": [
+          "216516",
+          "216517",
+          "216518",
+          "216519"
+        ],
+        "price": 14.0,
+        "prices_by_order_method": {
+          "delivery": 15.0,
+          "dine_in": 14.0,
+          "pickup": 14.0,
+          "room_service": 14.0
+        },
+        "section_ids": [
+          "132862"
+        ],
+        "sku": "1052463",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN",
+          "MILCH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Herzhaftes Gemüse-Patty, frisches Pesto, cremige Guacamole, Beilage und Getränk",
+        "image_url": null,
+        "ingredients": "Gemüse-Patty, PESTO, GUACAMOLE",
+        "listed_in_menu": true,
+        "name": "Veggi Gemüse Burger Menü",
+        "option_group_ids": [
+          "216516",
+          "216517",
+          "216518",
+          "216519"
+        ],
+        "price": 14.0,
+        "prices_by_order_method": {
+          "delivery": 15.0,
+          "dine_in": 14.0,
+          "pickup": 14.0,
+          "room_service": 14.0
+        },
+        "section_ids": [
+          "132862"
+        ],
+        "sku": "1052514",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "ERBSENPROTEIN"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Saftiger Beyond-Meat-Burger, cremige Guacamole, Beilage und Getränk",
+        "image_url": null,
+        "ingredients": "Beyond Meat Patty (WASSER, ERBSENPROTEIN, Rapsöl, REISSTÄRKE, Zwiebelpulver, AROMEN), Guacamole (AVOCADO, Zwiebel, KORIANDER, LIMETTensaft), Beilage, Getränk.",
+        "listed_in_menu": true,
+        "name": "Veggi Beyond Meat Burger Menü",
+        "option_group_ids": [
+          "216516",
+          "216517",
+          "216518",
+          "216519"
+        ],
+        "price": 15.4,
+        "prices_by_order_method": {
+          "delivery": 16.4,
+          "dine_in": 15.4,
+          "pickup": 15.4,
+          "room_service": 15.4
+        },
+        "section_ids": [
+          "132862"
+        ],
+        "sku": "1052504",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E202"
+        ],
+        "allergens": [
+          "SOJA",
+          "SESAM",
+          "GLUTEN"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Saftiger Beyond-Meat-Burger, cremige Guacamole, scharfe Mexicali-Sauce, Beilage und Getränk",
+        "image_url": null,
+        "ingredients": "Pflanzliches Protein, GUACAMOLE, MEXICALI-SAUCHE, Gewürze, BRÖTCHEN, Salat.",
+        "listed_in_menu": true,
+        "name": "Veggi Mexicali Burger Menü",
+        "option_group_ids": [
+          "216516",
+          "216517",
+          "216518",
+          "216519"
+        ],
+        "price": 16.0,
+        "prices_by_order_method": {
+          "delivery": 17.0,
+          "dine_in": 16.0,
+          "pickup": 16.0,
+          "room_service": 16.0
+        },
+        "section_ids": [
+          "132862"
+        ],
+        "sku": "1052529",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Konservierungsstoffe"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "SOJA",
+          "MILCH",
+          "EIER",
+          "SESAM"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Saftiger Beyond Meat, gegrilltes Gemüse, würziger Ketchup, Beilage und Getränk",
+        "image_url": null,
+        "ingredients": "Beyond Meat, Gemüse, Ketchup, GLUTEN, SOJA, MILCH, EIER, SESAM, Gewürze.",
+        "listed_in_menu": true,
+        "name": "Three Buddies Burger Menü",
+        "option_group_ids": [
+          "216516",
+          "216517",
+          "216518",
+          "216519"
+        ],
+        "price": 17.4,
+        "prices_by_order_method": {
+          "delivery": 18.4,
+          "dine_in": 17.4,
+          "pickup": 17.4,
+          "room_service": 17.4
+        },
+        "section_ids": [
+          "132862"
+        ],
+        "sku": "1052516",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E250"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "MILCH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Knackige Geflügelwurst, würzige Sauce, Röstzwiebeln, saure Gurken, knuspriges Brot",
+        "image_url": null,
+        "ingredients": "GEFLÜGELWURST, SAUCE, RÖSTZWIEBELN, SAURE GURKEN, BRÖTCHEN",
+        "listed_in_menu": true,
+        "name": "Hot Dog Classic",
+        "option_group_ids": [
+          "216514",
+          "216515"
+        ],
+        "price": 3.9,
+        "prices_by_order_method": {
+          "delivery": 4.9,
+          "dine_in": 3.9,
+          "pickup": 3.9,
+          "room_service": 3.9
+        },
+        "section_ids": [
+          "132863"
+        ],
+        "sku": "1052478",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E330",
+          "E202"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "MILCH",
+          "EI"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Knackige Geflügelwurst, würzige Sauce, Röstzwiebeln, saure Gurken, Sauerkraut und knuspriges Brot",
+        "image_url": null,
+        "ingredients": "Geflügelwurst (Hühnchen, Putenfleisch), würzige Sauce (Wasser, ZUCKER, Gewürze, Essig), Röstzwiebeln, saure Gurken, Sauerkraut, Brot (WEIZEN).",
+        "listed_in_menu": true,
+        "name": "Hot Dog Americana",
+        "option_group_ids": [
+          "216514",
+          "216515"
+        ],
+        "price": 4.5,
+        "prices_by_order_method": {
+          "delivery": 5.5,
+          "dine_in": 4.5,
+          "pickup": 4.5,
+          "room_service": 4.5
+        },
+        "section_ids": [
+          "132863"
+        ],
+        "sku": "1052446",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E330",
+          "E202"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "MILCH",
+          "EI"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Knackige Geflügelwurst, Hausgemachte Chilisauce, Röstzwiebeln, saure Gurken, Jalapenos und knuspriges Brot",
+        "image_url": null,
+        "ingredients": "Geflügelwurst (Hühnchen, Putenfleisch), Chilisauce (Wasser, ZUCKER, CHILI, Essig, Gewürze), Röstzwiebeln, saure Gurken, Jalapenos, Brot (WEIZEN).",
+        "listed_in_menu": true,
+        "name": "Hot Dog Mexicali (scharf)",
+        "option_group_ids": [
+          "216514",
+          "216515"
+        ],
+        "price": 4.9,
+        "prices_by_order_method": {
+          "delivery": 5.9,
+          "dine_in": 4.9,
+          "pickup": 4.9,
+          "room_service": 4.9
+        },
+        "section_ids": [
+          "132863"
+        ],
+        "sku": "1052445",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E250"
+        ],
+        "allergens": [
+          "GLUTEN"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Currywurst, knusprig gebraten, würzige Currysauce und Currypulver",
+        "image_url": null,
+        "ingredients": "Schweinefleisch, CURRYSAUCE, Gewürze, ZUCKER, Salz.",
+        "listed_in_menu": true,
+        "name": "Currywurst (Halal)",
+        "option_group_ids": [
+          "216512",
+          "216513",
+          "216514",
+          "216515"
+        ],
+        "price": 5.5,
+        "prices_by_order_method": {
+          "delivery": 6.5,
+          "dine_in": 5.5,
+          "pickup": 5.5,
+          "room_service": 5.5
+        },
+        "section_ids": [
+          "132863"
+        ],
+        "sku": "1052461",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E250",
+          "E621"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "MILCH",
+          "SOJA"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Hot Dog Classic mit einer Beilage deiner Wahl und einem Getränk 0,33l nach Wahl. Belegt mit sauren Gurken und knusprigen Röstzwiebeln.",
+        "image_url": null,
+        "ingredients": "Hot Dog, SAURE GURKEN, RÖSTZWIEBELN",
+        "listed_in_menu": true,
+        "name": "Hot Dog Classic Menü",
+        "option_group_ids": [
+          "216521",
+          "216519"
+        ],
+        "price": 14.3,
+        "prices_by_order_method": {
+          "delivery": 15.3,
+          "dine_in": 14.3,
+          "pickup": 14.3,
+          "room_service": 14.3
+        },
+        "section_ids": [
+          "132864"
+        ],
+        "sku": "1052551",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Hot Dog Americana mit einer Beilage deiner Wahl und einem Getränk 0,33l nach Wahl. Enthält würziges Sauerkraut für einen herben Geschmack.",
+        "image_url": null,
+        "ingredients": "Würstchen, BRÖTCHEN, SAUERKRAUT, Gewürze.",
+        "listed_in_menu": true,
+        "name": "Hot Dog Americana Menü",
+        "option_group_ids": [
+          "216521",
+          "216519"
+        ],
+        "price": 14.9,
+        "prices_by_order_method": {
+          "delivery": 15.9,
+          "dine_in": 14.9,
+          "pickup": 14.9,
+          "room_service": 14.9
+        },
+        "section_ids": [
+          "132864"
+        ],
+        "sku": "1052464",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E250"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "MILCH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Hot Dog Mexicali mit einer Beilage deiner Wahl und einem Getränk 0,33l nach Wahl. Verfeinert mit Jalapenos für eine pikante Schärfe.",
+        "image_url": null,
+        "ingredients": "Brötchen, WÜRSTCHEN, Jalapenos, Gewürze.",
+        "listed_in_menu": true,
+        "name": "Hot Dog Mexicali Menü (scharf)",
+        "option_group_ids": [
+          "216521",
+          "216519"
+        ],
+        "price": 15.3,
+        "prices_by_order_method": {
+          "delivery": 16.3,
+          "dine_in": 15.3,
+          "pickup": 15.3,
+          "room_service": 15.3
+        },
+        "section_ids": [
+          "132864"
+        ],
+        "sku": "1052520",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E250"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "MILCH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Currywurst, knusprig gebraten, würzige Currysauce und Currypulver, Pommes und Getränk",
+        "image_url": null,
+        "ingredients": "Schweinefleisch, CURRYSAUCE, Gewürze, Pommes Frites",
+        "listed_in_menu": true,
+        "name": "Currywurst Menü",
+        "option_group_ids": [
+          "216516",
+          "216517",
+          "216518",
+          "216519"
+        ],
+        "price": 12.0,
+        "prices_by_order_method": {
+          "delivery": 13.0,
+          "dine_in": 12.0,
+          "pickup": 12.0,
+          "room_service": 12.0
+        },
+        "section_ids": [
+          "132864"
+        ],
+        "sku": "1052477",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          null
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Klassische knusprige Pommes frites, perfekt goldbraun und gewürzt.",
+        "image_url": "https://cdn.foodamigos.io/images/B6Qnydm8Zw9tYppLvrCEbkSy9yGjz6hQqnKjpdVw",
+        "ingredients": "Kartoffeln, Pflanzenöl (Sonnenblumenöl), SALZ.",
+        "listed_in_menu": true,
+        "name": "Pommes frites (vegan)",
+        "option_group_ids": [],
+        "price": 4.5,
+        "prices_by_order_method": {
+          "delivery": 5.5,
+          "dine_in": 4.5,
+          "pickup": 4.5,
+          "room_service": 4.5
+        },
+        "section_ids": [
+          "132865"
+        ],
+        "sku": "1052451",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN",
+          "SOJA"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Dicke Kartoffelspalten, außen knusprig und innen fluffig, leicht gewürzt.",
+        "image_url": "https://cdn.foodamigos.io/images/zKGrGOeEHJplMzGboLeslf28Rl1RE3pVVeBp3PLf",
+        "ingredients": "Kartoffeln, Öl, Gewürze, GLUTEN, SOJA.",
+        "listed_in_menu": true,
+        "name": "Wedges (vegan)",
+        "option_group_ids": [],
+        "price": 4.5,
+        "prices_by_order_method": {
+          "delivery": 5.5,
+          "dine_in": 4.5,
+          "pickup": 4.5,
+          "room_service": 4.5
+        },
+        "section_ids": [
+          "132865"
+        ],
+        "sku": "1052517",
+        "source": "venue-api"
+      },
+      {
+        "available": true,
+        "currency": "EUR",
+        "description": "Süßkartoffelpommes, außen knusprig, innen weich - eine süße und leckere Alternative.",
+        "image_url": "https://cdn.foodamigos.io/images/eM9JQxkowhfeRA91sm9mH0cFJpcO013An8xLpkiD",
+        "ingredients": "Süßkartoffeln, Pflanzenöl, Gewürze.",
+        "listed_in_menu": true,
+        "name": "Sweet Potatoes (vegan)",
+        "option_group_ids": [],
+        "price": 5.9,
+        "prices_by_order_method": {
+          "delivery": 6.9,
+          "dine_in": 5.9,
+          "pickup": 5.9,
+          "room_service": 5.9
+        },
+        "section_ids": [
+          "132865"
+        ],
+        "sku": "1052542",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN",
+          "MILCH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Pommes frites mit geschmolzenem Käse und würziger Chilisauce.",
+        "image_url": "https://cdn.foodamigos.io/images/CkYeu1YA9EGuxUj9MWvrcT8mgUKHviCIPFAHcTuu",
+        "ingredients": "POMMES (WEIZEN), KÄSE (MILCH), CHILISAUCE (ZUCKER, ESSIG, CHILI, SALZ)",
+        "listed_in_menu": true,
+        "name": "Chili Cheese Pommes",
+        "option_group_ids": [],
+        "price": 5.9,
+        "prices_by_order_method": {
+          "delivery": 6.9,
+          "dine_in": 5.9,
+          "pickup": 5.9,
+          "room_service": 5.9
+        },
+        "section_ids": [
+          "132865"
+        ],
+        "sku": "1052482",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN",
+          "MILCH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Knusprig frittierte Zwiebelringe, serviert mit einem frischen Sour Cream Dip.",
+        "image_url": "https://cdn.foodamigos.io/images/ZEyTMnRx8uiSzCva8rOOJT2JCsYq78ozykvxVIu7",
+        "ingredients": "Zwiebeln, MEHL, Wasser, Gewürze",
+        "listed_in_menu": true,
+        "name": "Onion Rings",
+        "option_group_ids": [
+          "216530"
+        ],
+        "price": 4.9,
+        "prices_by_order_method": {
+          "delivery": 5.9,
+          "dine_in": 4.9,
+          "pickup": 4.9,
+          "room_service": 4.9
+        },
+        "section_ids": [
+          "132865"
+        ],
+        "sku": "1052562",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          null,
+          "E250"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "WEIZEN"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Zarte Hähnchen-Nuggets, umhüllt von einer goldenen, knusprigen Panade.",
+        "image_url": "https://cdn.foodamigos.io/images/GtHdaYMRM6lzQQwPNa5dbYcwgSbghrdDRvJQG01G",
+        "ingredients": "Hähnchenfleisch, WEIZENMEHL, Pflanzenöl, Salz, Gewürze, GLUTEN",
+        "listed_in_menu": true,
+        "name": "Chicken Nuggets",
+        "option_group_ids": [
+          "216526"
+        ],
+        "price": 6.5,
+        "prices_by_order_method": {
+          "delivery": 7.5,
+          "dine_in": 6.5,
+          "pickup": 6.5,
+          "room_service": 6.5
+        },
+        "section_ids": [
+          "132865"
+        ],
+        "sku": "1052506",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN",
+          "EI"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Knusprig panierte Brokkolihappen, ideal zum Dippen.",
+        "image_url": "https://cdn.foodamigos.io/images/W28xhZfMkUFrTbheldJfl2CRqeoghm6SSOknIowF",
+        "ingredients": "BROKKOLI, PANIERMEHL (WEIZEN), EIER, SALZ, Gewürze",
+        "listed_in_menu": true,
+        "name": "Broccoli Nuggets (6 Stück)",
+        "option_group_ids": [],
+        "price": 6.5,
+        "prices_by_order_method": {
+          "delivery": 7.5,
+          "dine_in": 6.5,
+          "pickup": 6.5,
+          "room_service": 6.5
+        },
+        "section_ids": [
+          "132865"
+        ],
+        "sku": "1052497",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "MILCH",
+          "GLUTEN",
+          "EI"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Paniertes Mozzarella-Stäbchen mit goldbrauner Kruste, innen herrlich zart und geschmolzen.",
+        "image_url": "https://cdn.foodamigos.io/images/jTvOLpBpelTKy9eElz4zG0CAQryS6XKBU1BQplfr",
+        "ingredients": "MOZZARELLA (MILCH), WEIZENMEHL, EIER, PANIERMEHL, SALZ, PFEFFER, ÖL.",
+        "listed_in_menu": true,
+        "name": "Mozzarella-Sticks",
+        "option_group_ids": [
+          "216528"
+        ],
+        "price": 6.5,
+        "prices_by_order_method": {
+          "delivery": 7.5,
+          "dine_in": 6.5,
+          "pickup": 6.5,
+          "room_service": 6.5
+        },
+        "section_ids": [
+          "132865"
+        ],
+        "sku": "1052536",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN",
+          "MILCH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Zarte Pasta mit saftigem Hähnchenbrustfilet und einer Champignonsahnesoße, die für eine cremige Konsistenz sorgt.",
+        "image_url": "https://cdn.foodamigos.io/images/oWor7BiJxq990hbhGafk3f0QCQ0qnsGpuHG6Ju7B",
+        "ingredients": "Pasta, HÄHNCHEN, CHAMPIGNONS, Sahne, Gewürze.",
+        "listed_in_menu": true,
+        "name": "Pasta Pollo",
+        "option_group_ids": [
+          "216515"
+        ],
+        "price": 11.9,
+        "prices_by_order_method": {
+          "delivery": 12.9,
+          "dine_in": 11.9,
+          "pickup": 11.9,
+          "room_service": 11.9
+        },
+        "section_ids": [
+          "132867"
+        ],
+        "sku": "1052523",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Traditionelle Pasta mit einer aromatischen Tomatensauce, verfeinert mit frischem Basilikum für eine mediterrane Note.",
+        "image_url": "https://cdn.foodamigos.io/images/umtBMhT4ewUCCnBp2uhAi83XHdxlJgewyerpqfnN",
+        "ingredients": "Pasta (WEIZENMEHL, Wasser), Tomatensauce (TOMATEN, Zwiebel, OLIVENÖL, Gewürze), Basilikum",
+        "listed_in_menu": true,
+        "name": "Pasta Napoli",
+        "option_group_ids": [
+          "216515"
+        ],
+        "price": 9.9,
+        "prices_by_order_method": {
+          "delivery": 10.9,
+          "dine_in": 9.9,
+          "pickup": 9.9,
+          "room_service": 9.9
+        },
+        "section_ids": [
+          "132867"
+        ],
+        "sku": "1052534",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN",
+          "MILCH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Reichhaltige Pasta in cremiger Sahnesauce, harmonisch kombiniert mit kräftigem Gorgonzola-Käse.",
+        "image_url": "https://cdn.foodamigos.io/images/5ltggrc7RSjzLyfnavPLtxZCYSSn1CY3FuZJERGn",
+        "ingredients": "Pasta (WEIZEN), GORGONZOLA (MILCH), SAHNE, ZWIEBELN, SALZ, PFEFFER",
+        "listed_in_menu": true,
+        "name": "Pasta Gorgonzola",
+        "option_group_ids": [
+          "216515"
+        ],
+        "price": 11.9,
+        "prices_by_order_method": {
+          "delivery": 12.9,
+          "dine_in": 11.9,
+          "pickup": 11.9,
+          "room_service": 11.9
+        },
+        "section_ids": [
+          "132867"
+        ],
+        "sku": "1052481",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "WEIZEN",
+          "EIER",
+          "MILCH",
+          "SCHWEINEFLEISCH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Cremige Pasta mit einer Parmesan-Sahnesoße, verfeinert mit Ei und herzhaftem Schinken für einen klassischen Geschmack.",
+        "image_url": "https://cdn.foodamigos.io/images/O08R10Zg1BJNEnfpq2kkegmCVtO5wbbxUOjWlSdc",
+        "ingredients": "Pasta (WEIZEN), Sahne, Parmesan, EIER, Schinken (SCHWEINEFLEISCH), Gewürze.",
+        "listed_in_menu": true,
+        "name": "Pasta Carbonara",
+        "option_group_ids": [
+          "216515"
+        ],
+        "price": 10.9,
+        "prices_by_order_method": {
+          "delivery": 11.9,
+          "dine_in": 10.9,
+          "pickup": 10.9,
+          "room_service": 10.9
+        },
+        "section_ids": [
+          "132867"
+        ],
+        "sku": "1052441",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Pikante Pasta mit Knoblauch und saftigen Cherrytomaten in einer scharfen, würzigen Tomatensauce.",
+        "image_url": "https://cdn.foodamigos.io/images/GtK3WIvmnEdDqtaQpLiISCfbAiBrc6l1kgHADRDJ",
+        "ingredients": "Pasta, TOMATEN, KNOBLAUCH, OLIVENÖL, Zwiebeln, Gewürze, SALZ.",
+        "listed_in_menu": true,
+        "name": "Arrabiata - pikant",
+        "option_group_ids": [
+          "216515"
+        ],
+        "price": 10.9,
+        "prices_by_order_method": {
+          "delivery": 11.9,
+          "dine_in": 10.9,
+          "pickup": 10.9,
+          "room_service": 10.9
+        },
+        "section_ids": [
+          "132867"
+        ],
+        "sku": "1052457",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN",
+          "MILCH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Frische, gesunde Pasta mit einer Mischung aus knackigem Gemüse, Knoblauch und einer leichten Tomaten-Sahnesoße.",
+        "image_url": "https://cdn.foodamigos.io/images/0WUdTQhrTIU5GdbcTkOycSbOm2mmQsQmvsccqxuW",
+        "ingredients": "Pasta, GEMÜSE, Knoblauch, TOMATEN, Sahne, Gewürze.",
+        "listed_in_menu": true,
+        "name": "Pasta Veggie",
+        "option_group_ids": [
+          "216515"
+        ],
+        "price": 11.9,
+        "prices_by_order_method": {
+          "delivery": 12.9,
+          "dine_in": 11.9,
+          "pickup": 11.9,
+          "room_service": 11.9
+        },
+        "section_ids": [
+          "132867"
+        ],
+        "sku": "1052469",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN",
+          "MILCH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Leichte Pasta mit aromatischem Knoblauch, Olivenöl, frischen Cherrytomaten und einer pikanten Chili-Note.",
+        "image_url": "https://cdn.foodamigos.io/images/pqyTxb7EZ1alRL2LMjyPIAuCdZ5uXsyW0X1cSGII",
+        "ingredients": "Pasta, OLIVENÖL, KNOBLAUCH, CHERRYTOMATEN, Chili",
+        "listed_in_menu": true,
+        "name": "Aglio E Olio",
+        "option_group_ids": [
+          "216515"
+        ],
+        "price": 10.9,
+        "prices_by_order_method": {
+          "delivery": 11.9,
+          "dine_in": 10.9,
+          "pickup": 10.9,
+          "room_service": 10.9
+        },
+        "section_ids": [
+          "132867"
+        ],
+        "sku": "1052513",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          null
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Ein bunt gemischter Salat mit frischen Gurken, Tomaten und Zwiebeln, serviert mit einem klassischen Balsamicodressing.",
+        "image_url": "https://cdn.foodamigos.io/images/rs7chiWnOcZ19WUv3GUETSlV8VpFT5lkZoIls8j4",
+        "ingredients": "Gurken, TOMATEN, Zwiebeln, Balsamico-Essig, OLIVENÖL, Gewürze",
+        "listed_in_menu": true,
+        "name": "Salat Mista",
+        "option_group_ids": [],
+        "price": 7.9,
+        "prices_by_order_method": {
+          "delivery": 8.9,
+          "dine_in": 7.9,
+          "pickup": 7.9,
+          "room_service": 7.9
+        },
+        "section_ids": [
+          "132868"
+        ],
+        "sku": "1052498",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "MILCH",
+          "GLUTEN"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Frischer Rucola-Salat, verfeinert mit saftigen Cherrytomaten, rohen Champignons und gehobeltem Parmesankäse, abgerundet mit Balsamicodressing.",
+        "image_url": "https://cdn.foodamigos.io/images/0OyICIIoSFRv8pBW2gpdTMgp75E6TbWFH82Wdw1t",
+        "ingredients": "Rucola, CHERRYTOMATEN, CHAMPIGNONS, PARMESAN, Balsamico-Dressing.",
+        "listed_in_menu": true,
+        "name": "Rucola-Salat",
+        "option_group_ids": [],
+        "price": 8.5,
+        "prices_by_order_method": {
+          "delivery": 9.5,
+          "dine_in": 8.5,
+          "pickup": 8.5,
+          "room_service": 8.5
+        },
+        "section_ids": [
+          "132868"
+        ],
+        "sku": "1052543",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "FISCH",
+          "MILCH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Bunter Salat, kombiniert mit zartem Thunfisch, Mozzarella und Zwiebeln, abgerundet mit einem würzigen Balsamicodressing.",
+        "image_url": "https://cdn.foodamigos.io/images/kdFvChWJv9jNw1ldOAdKibGMJygYeig9lRg7LteF",
+        "ingredients": "Blattsalat, THUNFISCH, MOZZARELLA, Zwiebeln, Balsamico-Essig, OLIVENÖL, Gewürze",
+        "listed_in_menu": true,
+        "name": "Salat Tonno",
+        "option_group_ids": [],
+        "price": 10.9,
+        "prices_by_order_method": {
+          "delivery": 11.9,
+          "dine_in": 10.9,
+          "pickup": 10.9,
+          "room_service": 10.9
+        },
+        "section_ids": [
+          "132868"
+        ],
+        "sku": "1052496",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN",
+          "MILCH",
+          "EI"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Frischer, gemischter Salat mit zartem Hähnchenbrustfilet, Gurken, Mozzarella und Zwiebeln, serviert mit Balsamicodressing.",
+        "image_url": "https://cdn.foodamigos.io/images/HEhEWG3jHrf9cvUWGeNzgC7NazH5O0uG8L4j1J3D",
+        "ingredients": "Hähnchenbrustfilet, gemischter Salat, Gurken, Mozzarella, Zwiebeln, Balsamicodressing (kann GLUTEN, MILCH, EI enthalten)",
+        "listed_in_menu": true,
+        "name": "Salat Chicken",
+        "option_group_ids": [],
+        "price": 11.9,
+        "prices_by_order_method": {
+          "delivery": 12.9,
+          "dine_in": 11.9,
+          "pickup": 11.9,
+          "room_service": 11.9
+        },
+        "section_ids": [
+          "132868"
+        ],
+        "sku": "1052546",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E202"
+        ],
+        "allergens": [
+          "null"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Klassische, leicht süßliche Tomatensauce",
+        "image_url": null,
+        "ingredients": "Tomaten, ZUCKER, Essig, SALZ, Gewürze, KONSERVERUNGSMITTEL (E202)",
+        "listed_in_menu": true,
+        "name": "Ketchup",
+        "option_group_ids": [],
+        "price": 1.5,
+        "prices_by_order_method": {
+          "delivery": 1.5,
+          "dine_in": 1.5,
+          "pickup": 1.5,
+          "room_service": 1.5
+        },
+        "section_ids": [
+          "132869"
+        ],
+        "sku": "1052495",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E202"
+        ],
+        "allergens": [
+          "EIER",
+          "SENF"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Cremige Mayonnaise",
+        "image_url": null,
+        "ingredients": "ÖL, EIER, SENF, WEINESSIG, SALZ, ZUCKER, KONSERVERUNGEN (E202)",
+        "listed_in_menu": true,
+        "name": "Mayonnaise",
+        "option_group_ids": [],
+        "price": 1.6,
+        "prices_by_order_method": {
+          "delivery": 1.6,
+          "dine_in": 1.6,
+          "pickup": 1.6,
+          "room_service": 1.6
+        },
+        "section_ids": [
+          "132869"
+        ],
+        "sku": "1052480",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Natriumbenzoat"
+        ],
+        "allergens": [
+          ""
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Rauchige, würzige Sauce mit einer leichten Süße",
+        "image_url": null,
+        "ingredients": "Wasser, ZUCKER, TOMATENPÜREE, WEISSES ESSIG, SALZ, SPEISEÖL, Gewürze, AROMEN, KONSERVIERUNGSSTOFFE (Natriumbenzoat)",
+        "listed_in_menu": true,
+        "name": "Barbecuesauce",
+        "option_group_ids": [],
+        "price": 1.7,
+        "prices_by_order_method": {
+          "delivery": 1.7,
+          "dine_in": 1.7,
+          "pickup": 1.7,
+          "room_service": 1.7
+        },
+        "section_ids": [
+          "132869"
+        ],
+        "sku": "1052485",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "SOJA"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Frische, cremige Avocadosauce mit feiner Würze",
+        "image_url": null,
+        "ingredients": "AVOCADOS, Zwiebeln, TOMATEN, Koriander, LIMETTensaft, SALZ, PFEFFER.",
+        "listed_in_menu": true,
+        "name": "Guacamole",
+        "option_group_ids": [],
+        "price": 1.7,
+        "prices_by_order_method": {
+          "delivery": 1.7,
+          "dine_in": 1.7,
+          "pickup": 1.7,
+          "room_service": 1.7
+        },
+        "section_ids": [
+          "132869"
+        ],
+        "sku": "1052443",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "MILCH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Würziger Käse-Dip mit einer dezenten Schärfe durch Chili",
+        "image_url": null,
+        "ingredients": "Käse, CHILI, Gewürze",
+        "listed_in_menu": true,
+        "name": "Chili-Cheese-Dip",
+        "option_group_ids": [],
+        "price": 1.9,
+        "prices_by_order_method": {
+          "delivery": 1.9,
+          "dine_in": 1.9,
+          "pickup": 1.9,
+          "room_service": 1.9
+        },
+        "section_ids": [
+          "132869"
+        ],
+        "sku": "1052560",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "MILCH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Frische, leicht säuerliche Creme",
+        "image_url": null,
+        "ingredients": "Sahne, MILCH, Bakterienkulturen",
+        "listed_in_menu": true,
+        "name": "Sour Cream",
+        "option_group_ids": [],
+        "price": 2.1,
+        "prices_by_order_method": {
+          "delivery": 2.1,
+          "dine_in": 2.1,
+          "pickup": 2.1,
+          "room_service": 2.1
+        },
+        "section_ids": [
+          "132869"
+        ],
+        "sku": "1052564",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "EIER",
+          "MILCH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Intensiv aromatische Knoblauchcreme",
+        "image_url": null,
+        "ingredients": "Öl, EIER, KNOBLAUCH, Gewürze",
+        "listed_in_menu": true,
+        "name": "Knoblauch-Aioli",
+        "option_group_ids": [],
+        "price": 2.1,
+        "prices_by_order_method": {
+          "delivery": 2.1,
+          "dine_in": 2.1,
+          "pickup": 2.1,
+          "room_service": 2.1
+        },
+        "section_ids": [
+          "132869"
+        ],
+        "sku": "1052558",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Säuerungsmittel",
+          "Konservierungsstoff"
+        ],
+        "allergens": [
+          "null"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Eine außergewöhnliche Fusion aus dem Guten des Tees und fruchtiger Pfirsich-Note.",
+        "image_url": "https://cdn.foodamigos.io/images/tV85NqyLmod9eL7QdnsdlqckdFBPRgExqLu34lHV",
+        "ingredients": "Wasser, ZUCKER, schwarzer Tee (2,5%), Pfirsicharoma, Säuerungsmittel: Citronensäure, Konservierungsstoff: Kaliumsorbat.",
+        "listed_in_menu": true,
+        "name": "Fuze Tea Schwarzer Tee Pfirsich 0,4l (EINWEG)",
+        "option_group_ids": [],
+        "price": 3.2,
+        "prices_by_order_method": {
+          "delivery": 3.2,
+          "dine_in": 3.2,
+          "pickup": 3.2,
+          "room_service": 3.2
+        },
+        "section_ids": [
+          "132870"
+        ],
+        "sku": "1052492",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Zitronensäure",
+          "Kaliumsorbat"
+        ],
+        "allergens": [
+          ""
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Eine außergewöhnliche Fusion aus dem Guten des Tees und fruchtiger Mango-Note, abgerundet durch die einzigartige Essenz der Kamillenblüte.",
+        "image_url": "https://cdn.foodamigos.io/images/b8Gcus8cH6rPmzAN9yA4TBqwsZuiyVBZF6nUFTUN",
+        "ingredients": "Wasser, ZUCKER, Grüner Tee (2%), MANGOSIRUP, KAMILLENEXTRAKT, Säuerungsmittel: Zitronensäure, Aroma, Konservierungsstoff: Kaliumsorbat.",
+        "listed_in_menu": true,
+        "name": "Fuze Tea Grüner Tee Mango Kamille 0,4l (EINWEG)",
+        "option_group_ids": [],
+        "price": 2.95,
+        "prices_by_order_method": {
+          "delivery": 2.95,
+          "dine_in": 2.95,
+          "pickup": 2.95,
+          "room_service": 2.95
+        },
+        "section_ids": [
+          "132870"
+        ],
+        "sku": "1052540",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Säuerungsmittel",
+          "Konservierungsstoff"
+        ],
+        "allergens": [
+          "SOJA"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Eine außergewöhnliche Fusion aus dem Guten des Tees und einer einzigartigen Kombination aus Grüntee-Extrakt, Limetten- & Minzgeschmack.",
+        "image_url": null,
+        "ingredients": "Wasser, ZUCKER, Grüntee-Extrakt (0,5%), Limettenaroma (0,1%), MINZAROMA (0,1%), Säuerungsmittel: Zitronensäure, Konservierungsstoff: Kaliumsorbat, Farbstoff: Chlorophyll.",
+        "listed_in_menu": true,
+        "name": "Fuze Tea Grüner Tee Limette Minze 0,4l (EINWEG)",
+        "option_group_ids": [],
+        "price": 2.95,
+        "prices_by_order_method": {
+          "delivery": 2.95,
+          "dine_in": 2.95,
+          "pickup": 2.95,
+          "room_service": 2.95
+        },
+        "section_ids": [
+          "132870"
+        ],
+        "sku": "1052444",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Säuerungsmittel"
+        ],
+        "allergens": [
+          "null"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Eine außergewöhnliche Fusion aus dem Guten des Tees und fruchtiger Zitronen-Note.",
+        "image_url": "https://cdn.foodamigos.io/images/RwhEqgmaSDTWFnteLeSNulI8fUoPnNJFdMSFFMDQ",
+        "ingredients": "WASSER, ZUCKER, SCHWARZER TEE, CITRONENAROMA, SÄUERungsmittel: CITRONSÄURE.",
+        "listed_in_menu": true,
+        "name": "Fuze Tea Schwarzer Tee Zitrone 0,4l (EINWEG)",
+        "option_group_ids": [],
+        "price": 2.95,
+        "prices_by_order_method": {
+          "delivery": 2.95,
+          "dine_in": 2.95,
+          "pickup": 2.95,
+          "room_service": 2.95
+        },
+        "section_ids": [
+          "132870"
+        ],
+        "sku": "1052535",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Säuerungsmittel"
+        ],
+        "allergens": [
+          "null"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Eine außergewöhnliche Fusion aus dem Guten des Tees und fruchtiger Pfirsich-Note, abgerundet durch die einzigartige Essenz der Hibiskusblüte.",
+        "image_url": "https://cdn.foodamigos.io/images/5QflB5Kw8i5RpM41jt7nuVvFaf7uUzgwJhKIKU93",
+        "ingredients": "WASSER, ZUCKER, SCHWARZER TEE, PFIRSICHAROMA, HIBISKUSAROMA, SÄUERungsmittel: CITRONSÄURE.",
+        "listed_in_menu": true,
+        "name": "Fuze Tea Schwarzer Tee Pfirsich Hibiskus 0,4l (EINWEG)",
+        "option_group_ids": [],
+        "price": 2.95,
+        "prices_by_order_method": {
+          "delivery": 2.95,
+          "dine_in": 2.95,
+          "pickup": 2.95,
+          "room_service": 2.95
+        },
+        "section_ids": [
+          "132870"
+        ],
+        "sku": "1052539",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E150d"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Istanbul-Cola steht für einzigartigen Geschmack, Erfrischung und Momente voller Lebensfreude. Die 0,33l Dose - perfekt für die kleine Belohnung on the go.",
+        "image_url": null,
+        "ingredients": "Wasser, ZUCKER, Kohlensäure, AROMEN, Koffein",
+        "listed_in_menu": true,
+        "name": "Istanbul-Cola 0,50l (Einweg)",
+        "option_group_ids": [],
+        "price": 2.9,
+        "prices_by_order_method": {
+          "delivery": 2.9,
+          "dine_in": 2.9,
+          "pickup": 2.9,
+          "room_service": 2.9
+        },
+        "section_ids": [
+          "132870"
+        ],
+        "sku": "1052476",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "AROMEN",
+          "SÜßSTOFFE"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Keine Kalorien. Null Zucker. Für alle Coke Liebhaber, die beim Geschmack keinen Kompromiss eingehen wollen.",
+        "image_url": null,
+        "ingredients": "Wasser, AROMEN, SÜßSTOFFE: Sucralose, Natriumcyclamat.",
+        "listed_in_menu": true,
+        "name": "Uludağ Gazoz Zuckerfrei 0,50l (Einweg)",
+        "option_group_ids": [],
+        "price": 2.9,
+        "prices_by_order_method": {
+          "delivery": 2.9,
+          "dine_in": 2.9,
+          "pickup": 2.9,
+          "room_service": 2.9
+        },
+        "section_ids": [
+          "132870"
+        ],
+        "sku": "1052471",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Karamellfarbe",
+          "Phosphorsäure"
+        ],
+        "allergens": [
+          "null"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Leichter als das Original und in stylischem Design überzeugt Sarıyer-cola nicht nur die eigene Fangemeinschaft - und das koffeinhaltiges Erfrischungsgetränk mit Colageschmack",
+        "image_url": null,
+        "ingredients": "WASSER, ZUCKER, KARAMELLFARBE, COCA-AROMA, KOHLSÄURE, PHOSPHORSÄURE.",
+        "listed_in_menu": true,
+        "name": "Sariyer-Cola 0,50l (Einweg)",
+        "option_group_ids": [],
+        "price": 2.9,
+        "prices_by_order_method": {
+          "delivery": 2.9,
+          "dine_in": 2.9,
+          "pickup": 2.9,
+          "room_service": 2.9
+        },
+        "section_ids": [
+          "132870"
+        ],
+        "sku": "1052537",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Säuerungsmittel",
+          "Konservierungsstoff"
+        ],
+        "allergens": [
+          "ZITRUSFRÜCHTE"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Trinke Fritz Orange. Lebe bunter. Spritzig erfrischend begleitet die originale Fritz Orange jede Lebenssituation und macht jetzt noch mehr Spaß.",
+        "image_url": null,
+        "ingredients": "Wasser, ZUCKER, ORANGENSAFT aus ORANGEN, Kohlensäure, Säuerungsmittel: Zitronensäure, Aroma, Konservierungsstoff: Kaliumsorbat.",
+        "listed_in_menu": true,
+        "name": "Fritz Orange 0,33l (Einweg)",
+        "option_group_ids": [],
+        "price": 2.9,
+        "prices_by_order_method": {
+          "delivery": 2.9,
+          "dine_in": 2.9,
+          "pickup": 2.9,
+          "room_service": 2.9
+        },
+        "section_ids": [
+          "132870"
+        ],
+        "sku": "1052456",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E150d"
+        ],
+        "allergens": [
+          "null"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Mixt euch eine gute Zeit mit Misch Masch, dem erfrischend-leckeren Kuss aus Cola und Orange.",
+        "image_url": null,
+        "ingredients": "Wasser, ZUCKER, Kohlensäure, AROMEN, Farbstoff (E150d)",
+        "listed_in_menu": true,
+        "name": "Fritz Misch Masch 0,33l (Einweg)",
+        "option_group_ids": [],
+        "price": 2.9,
+        "prices_by_order_method": {
+          "delivery": 2.9,
+          "dine_in": 2.9,
+          "pickup": 2.9,
+          "room_service": 2.9
+        },
+        "section_ids": [
+          "132870"
+        ],
+        "sku": "1052499",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E150d"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Die einzigartige Formel aus Erfrischungsgeschmack mit Fruchtgehalt erfrischt dich maximal.",
+        "image_url": null,
+        "ingredients": "Wasser, Zucker, Kohlensäure, Säuerungsmittel: Zitronensäure, Aromen, Farbstoff: E150d",
+        "listed_in_menu": true,
+        "name": "Sariyer Gazoz 0,50l (Einweg)",
+        "option_group_ids": [],
+        "price": 2.9,
+        "prices_by_order_method": {
+          "delivery": 2.9,
+          "dine_in": 2.9,
+          "pickup": 2.9,
+          "room_service": 2.9
+        },
+        "section_ids": [
+          "132870"
+        ],
+        "sku": "1052532",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E150d"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Colaturca steht für einzigartigen Geschmack, Erfrischung und Momente voller Lebensfreude. Die 0,2l Dose - perfekt für die kleine Belohnung on the go.",
+        "image_url": null,
+        "ingredients": "Wasser, ZUCKER, Kohlensäure, AROMEN, Koffein",
+        "listed_in_menu": true,
+        "name": "Cola Turka 0,50l",
+        "option_group_ids": [],
+        "price": 2.2,
+        "prices_by_order_method": {
+          "delivery": 2.2,
+          "dine_in": 2.2,
+          "pickup": 2.2,
+          "room_service": 2.2
+        },
+        "section_ids": [
+          "132870"
+        ],
+        "sku": "1052479",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E150d"
+        ],
+        "allergens": [
+          "null"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "image_url": null,
+        "ingredients": "Wasser, ZUCKER, Kohlensäure, Zitronensäure, AROMEN, Farbstoff E150d.",
+        "listed_in_menu": true,
+        "name": "Uludag Gazoz 0,50l",
+        "option_group_ids": [],
+        "price": 2.9,
+        "prices_by_order_method": {
+          "delivery": 2.9,
+          "dine_in": 2.9,
+          "pickup": 2.9,
+          "room_service": 2.9
+        },
+        "section_ids": [
+          "132870"
+        ],
+        "sku": "1052465",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Koffein",
+          "Taurin",
+          "AROMEN",
+          "Säuerungsmittel",
+          "Konservierungsstoffe"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "image_url": null,
+        "ingredients": "Wasser, ZUCKER, Koffein, Taurin, AROMEN, Säuerungsmittel: Zitronensäure, Konservierungsstoffe: Natriumbenzoat.",
+        "listed_in_menu": true,
+        "name": "Red Bull 0,25l",
+        "option_group_ids": [],
+        "price": 3.25,
+        "prices_by_order_method": {
+          "delivery": 3.25,
+          "dine_in": 3.25,
+          "pickup": 3.25,
+          "room_service": 3.25
+        },
+        "section_ids": [
+          "132870"
+        ],
+        "sku": "1052474",
+        "source": "venue-api"
+      },
+      {
+        "available": true,
+        "currency": "EUR",
+        "description": "Das stille Mineralwasser in der umweltfreundlichen 0,5l Flasche aus Berliner Quelle hat einen weichen Geschmack und ist außergewöhnlich leicht zu trinken, regional, natriumarm.",
+        "image_url": null,
+        "ingredients": "Mineralwasser",
+        "listed_in_menu": true,
+        "name": "Spree Quell still 0,5l (Einweg)",
+        "option_group_ids": [],
+        "price": 2.25,
+        "prices_by_order_method": {
+          "delivery": 2.25,
+          "dine_in": 2.25,
+          "pickup": 2.25,
+          "room_service": 2.25
+        },
+        "section_ids": [
+          "132870"
+        ],
+        "sku": "1052533",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          ""
+        ],
+        "allergens": [
+          ""
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Das Sprudelwasser von Spreequell in der umweltfreundlichen 0,5l Flasche mit viel Kohlensäure stammt aus Berlin ist angenehm zu Trinken und leicht bekömmlich, natriumarm und regional.",
+        "image_url": null,
+        "ingredients": "Wasser, Kohlensäure",
+        "listed_in_menu": true,
+        "name": "Spree Quell medium 0,5l (Einweg)",
+        "option_group_ids": [],
+        "price": 2.5,
+        "prices_by_order_method": {
+          "delivery": 2.5,
+          "dine_in": 2.5,
+          "pickup": 2.5,
+          "room_service": 2.5
+        },
+        "section_ids": [
+          "132870"
+        ],
+        "sku": "1052505",
+        "source": "venue-api"
+      },
+      {
+        "available": true,
+        "currency": "EUR",
+        "description": "Spreequell Spritzig ist ein natürliches Mineralwasser in der umweltfreundlichen 0,5l Flasche mit viel Kohlensäure und stammt aus Berlin, natriumarm, regional.",
+        "image_url": null,
+        "ingredients": "Mineralwasser, Kohlensäure",
+        "listed_in_menu": true,
+        "name": "Spree Quell spritzig 0,5l (Einweg)",
+        "option_group_ids": [],
+        "price": 2.25,
+        "prices_by_order_method": {
+          "delivery": 2.25,
+          "dine_in": 2.25,
+          "pickup": 2.25,
+          "room_service": 2.25
+        },
+        "section_ids": [
+          "132870"
+        ],
+        "sku": "1052531",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E330"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "image_url": null,
+        "ingredients": "Wasser, ZUCKER, Zitronensaft, TEEXTRAKT, Säuerungsmittel: Zitronensäure.",
+        "listed_in_menu": true,
+        "name": "Durstlöscher Eistee Zitrone 0,5l",
+        "option_group_ids": [],
+        "price": 2.0,
+        "prices_by_order_method": {
+          "delivery": 2.0,
+          "dine_in": 2.0,
+          "pickup": 2.0,
+          "room_service": 2.0
+        },
+        "section_ids": [
+          "132870"
+        ],
+        "sku": "1052462",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Säuerungsmittel",
+          "Aromen"
+        ],
+        "allergens": [
+          "ZUCKER"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "image_url": null,
+        "ingredients": "Wasser, ZUCKER, Sauerkirschsaftkonzentrat, Zitronensaftkonzentrat, Säuerungsmittel: Zitronensäure, AROMEN.",
+        "listed_in_menu": true,
+        "name": "Durstlöscher Sauerkirsch Zitrone 0,5l",
+        "option_group_ids": [],
+        "price": 2.0,
+        "prices_by_order_method": {
+          "delivery": 2.0,
+          "dine_in": 2.0,
+          "pickup": 2.0,
+          "room_service": 2.0
+        },
+        "section_ids": [
+          "132870"
+        ],
+        "sku": "1052500",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Zitronensäure",
+          "Farbstoff: Beta-Carotin"
+        ],
+        "allergens": [
+          "null"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "image_url": null,
+        "ingredients": "Wasser, ZUCKER, MANGOSAFT (5%), Säuerungsmittel: Zitronensäure, Aromen, TEEBLÄTTER, Farbstoff: Beta-Carotin.",
+        "listed_in_menu": true,
+        "name": "Durstlöscher Eistee Mango 0,5l",
+        "option_group_ids": [],
+        "price": 2.0,
+        "prices_by_order_method": {
+          "delivery": 2.0,
+          "dine_in": 2.0,
+          "pickup": 2.0,
+          "room_service": 2.0
+        },
+        "section_ids": [
+          "132870"
+        ],
+        "sku": "1052450",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Zitronensäure"
+        ],
+        "allergens": [
+          ""
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "image_url": null,
+        "ingredients": "Wasser, ZUCKER, MULTIVITAMINE (Vitamin C, Niacin, Pantothensäure, Vitamin B6, Folsäure, Vitamin B12, Vitamin A, Vitamin E), Säuerungsmittel (Zitronensäure), AROMEN",
+        "listed_in_menu": true,
+        "name": "Durstlöscher Multivitamin 0,5l",
+        "option_group_ids": [],
+        "price": 2.0,
+        "prices_by_order_method": {
+          "delivery": 2.0,
+          "dine_in": 2.0,
+          "pickup": 2.0,
+          "room_service": 2.0
+        },
+        "section_ids": [
+          "132870"
+        ],
+        "sku": "1052486",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E330"
+        ],
+        "allergens": [
+          "SOJA"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "image_url": null,
+        "ingredients": "Wasser, Zucker, Eistee-Extrakt, PFIRSICHAROMA",
+        "listed_in_menu": true,
+        "name": "Durstlöscher Eistee Pfirsich 0,5l",
+        "option_group_ids": [],
+        "price": 2.0,
+        "prices_by_order_method": {
+          "delivery": 2.0,
+          "dine_in": 2.0,
+          "pickup": 2.0,
+          "room_service": 2.0
+        },
+        "section_ids": [
+          "132870"
+        ],
+        "sku": "1052553",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Aromen",
+          "Säuerungsmittel",
+          "Konservierungsstoffe"
+        ],
+        "allergens": [
+          "ZUCKER"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "image_url": null,
+        "ingredients": "Wasser, ZUCKER, AROMEN, Säuerungsmittel: Zitronensäure, Konservierungsstoffe: Kaliumsorbat, Natriumbenzoat.",
+        "listed_in_menu": true,
+        "name": "Durstlöscher Blueberry Marshmallow 0,5l",
+        "option_group_ids": [],
+        "price": 2.0,
+        "prices_by_order_method": {
+          "delivery": 2.0,
+          "dine_in": 2.0,
+          "pickup": 2.0,
+          "room_service": 2.0
+        },
+        "section_ids": [
+          "132870"
+        ],
+        "sku": "1052470",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Säuerungsmittel",
+          "Aromen"
+        ],
+        "allergens": [
+          "ZUCKER"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "image_url": null,
+        "ingredients": "Wasser, ZUCKER, Orangensaftkonzentrat, Säuerungsmittel: Zitronensäure, AROMEN.",
+        "listed_in_menu": true,
+        "name": "Capri Sun Orange 0,2l",
+        "option_group_ids": [],
+        "price": 1.5,
+        "prices_by_order_method": {
+          "delivery": 1.5,
+          "dine_in": 1.5,
+          "pickup": 1.5,
+          "room_service": 1.5
+        },
+        "section_ids": [
+          "132870"
+        ],
+        "sku": "1052503",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Zitronensäure"
+        ],
+        "allergens": [
+          ""
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "image_url": null,
+        "ingredients": "Wasser, ZUCKER, MULTIVITAMINE (Vitamin C, Niacin, Pantothensäure, Vitamin B6, Folsäure, Vitamin B12, Vitamin A, Vitamin E), Säuerungsmittel (Zitronensäure), AROMEN",
+        "listed_in_menu": true,
+        "name": "Capri Sun Multivitamin 0,2l",
+        "option_group_ids": [],
+        "price": 1.5,
+        "prices_by_order_method": {
+          "delivery": 1.5,
+          "dine_in": 1.5,
+          "pickup": 1.5,
+          "room_service": 1.5
+        },
+        "section_ids": [
+          "132870"
+        ],
+        "sku": "1052489",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E202"
+        ],
+        "allergens": [
+          "null"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "image_url": null,
+        "ingredients": "Wasser, ZUCKER, Kirschsaftkonzentrat (5%), Säuerungsmittel: Zitronensäure, AROMEN, Konservierungsstoff: Kaliumsorbat.",
+        "listed_in_menu": true,
+        "name": "Capri Sun Kirsche 0,2l",
+        "option_group_ids": [],
+        "price": 1.5,
+        "prices_by_order_method": {
+          "delivery": 1.5,
+          "dine_in": 1.5,
+          "pickup": 1.5,
+          "room_service": 1.5
+        },
+        "section_ids": [
+          "132870"
+        ],
+        "sku": "1052466",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Säuerungsmittel",
+          "Konservierungsstoff"
+        ],
+        "allergens": [
+          "ZUCKER"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "image_url": null,
+        "ingredients": "Wasser, ZUCKER, Zitronensaftkonzentrat, Säuerungsmittel: Zitronensäure, Aromen, Konservierungsstoff: Kaliumsorbat.",
+        "listed_in_menu": true,
+        "name": "Capri Sun Lemon 0,2l",
+        "option_group_ids": [],
+        "price": 1.5,
+        "prices_by_order_method": {
+          "delivery": 1.5,
+          "dine_in": 1.5,
+          "pickup": 1.5,
+          "room_service": 1.5
+        },
+        "section_ids": [
+          "132870"
+        ],
+        "sku": "1052490",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "MILCH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "image_url": "https://cdn.foodamigos.io/images/IVbAGvBfBbyBjoBaFeuN22Xf3bsoDWamazlF2gE3",
+        "ingredients": "JOGHURT, WASSER, SALZ.",
+        "listed_in_menu": true,
+        "name": "7Gün Ayran 0,2l",
+        "option_group_ids": [],
+        "price": 2.2,
+        "prices_by_order_method": {
+          "delivery": 2.2,
+          "dine_in": 2.2,
+          "pickup": 2.2,
+          "room_service": 2.2
+        },
+        "section_ids": [
+          "132870"
+        ],
+        "sku": "1052538",
+        "source": "venue-api"
+      }
+    ],
+    "menus": [
+      {
+        "active": false,
+        "category_ids": [
+          "136916",
+          "132859",
+          "132860",
+          "132861",
+          "132862",
+          "132865",
+          "132863",
+          "132864",
+          "132866",
+          "132867",
+          "132868",
+          "132869",
+          "132870"
+        ],
+        "id": "11253",
+        "name": "Tagesmenü",
+        "schedule": []
+      }
+    ],
+    "option_groups": [
+      {
+        "id": "68998",
+        "max_count": null,
+        "multi_select": true,
+        "name": "Passt gut dazu",
+        "options": [
+          {
+            "id": "1052545",
+            "type": "product_ref"
+          },
+          {
+            "id": "1052562",
+            "type": "product_ref"
+          }
+        ],
+        "required": false
+      },
+      {
+        "id": "216512",
+        "max_count": 6,
+        "multi_select": false,
+        "name": "Extras",
+        "options": [
+          {
+            "available": true,
+            "id": "1325946",
+            "name": "mit Patty, extra",
+            "price": 3.8
+          },
+          {
+            "available": true,
+            "id": "1325947",
+            "name": "extra Bacon",
+            "price": 1.5
+          },
+          {
+            "available": true,
+            "id": "1325948",
+            "name": "extra Käse",
+            "price": 1.5
+          },
+          {
+            "available": true,
+            "id": "1325949",
+            "name": "extra geschmorte Zwiebeln",
+            "price": 1.5
+          },
+          {
+            "available": true,
+            "id": "1325950",
+            "name": "extra Spiegelei",
+            "price": 1.5
+          },
+          {
+            "available": true,
+            "id": "1325951",
+            "name": "extra Jalapenos",
+            "price": 1.5
+          }
+        ],
+        "required": false
+      },
+      {
+        "id": "216513",
+        "max_count": 5,
+        "multi_select": false,
+        "name": "Ohne",
+        "options": [
+          {
+            "available": true,
+            "id": "1325952",
+            "name": "Ohne Salat",
+            "price": 0.0
+          },
+          {
+            "available": true,
+            "id": "1325953",
+            "name": "Ohne Zwiebeln",
+            "price": 0.0
+          },
+          {
+            "available": true,
+            "id": "1325954",
+            "name": "Ohne Sauce",
+            "price": 0.0
+          },
+          {
+            "available": true,
+            "id": "1325955",
+            "name": "Ohne Gurken",
+            "price": 0.0
+          },
+          {
+            "available": true,
+            "id": "1325956",
+            "name": "Ohne Tomaten",
+            "price": 0.0
+          }
+        ],
+        "required": false
+      },
+      {
+        "id": "216514",
+        "max_count": 5,
+        "multi_select": false,
+        "name": "Eine kleine Beilage vielleicht ?",
+        "options": [
+          {
+            "available": true,
+            "id": "1325957",
+            "name": "Pommes frites (vegan)",
+            "price": 5.5
+          },
+          {
+            "available": true,
+            "id": "1325958",
+            "name": "Sweet Potatoes (vegan)",
+            "price": 6.9
+          },
+          {
+            "available": true,
+            "id": "1325959",
+            "name": "Curly Fries (vegan)",
+            "price": 5.5
+          },
+          {
+            "available": true,
+            "id": "1325960",
+            "name": "Wedges (vegan)",
+            "price": 5.5
+          },
+          {
+            "available": true,
+            "id": "1325961",
+            "name": "Chili Cheese Pommes",
+            "price": 7.5
+          }
+        ],
+        "required": false
+      },
+      {
+        "id": "216515",
+        "max_count": 6,
+        "multi_select": false,
+        "name": "Hast du durst ?",
+        "options": [
+          {
+            "available": true,
+            "id": "1325962",
+            "name": "Coca-Cola 0,33l (EINWEG)",
+            "price": 2.95
+          },
+          {
+            "available": true,
+            "id": "1325963",
+            "name": "Coca-Cola Zero Sugar 0,33l (EINWEG)",
+            "price": 2.95
+          },
+          {
+            "available": true,
+            "id": "1325964",
+            "name": "Fanta Orange 0,33l (EINWEG)",
+            "price": 2.95
+          },
+          {
+            "available": true,
+            "id": "1325965",
+            "name": "Mezzo Mix 0,33l (EINWEG)",
+            "price": 2.95
+          },
+          {
+            "available": true,
+            "id": "1325966",
+            "name": "Sprite 0,33l (EINWEG)",
+            "price": 2.95
+          },
+          {
+            "available": true,
+            "id": "1325967",
+            "name": "Uludag Gazoz 0,33l",
+            "price": 2.95
+          }
+        ],
+        "required": false
+      },
+      {
+        "id": "216516",
+        "max_count": 6,
+        "multi_select": false,
+        "name": "Deine Burger Extras",
+        "options": [
+          {
+            "available": true,
+            "id": "1325968",
+            "name": "mit extra Patty",
+            "price": 3.8
+          },
+          {
+            "available": true,
+            "id": "1325947",
+            "name": "extra Bacon",
+            "price": 1.5
+          },
+          {
+            "available": true,
+            "id": "1325948",
+            "name": "extra Käse",
+            "price": 1.5
+          },
+          {
+            "available": true,
+            "id": "1325949",
+            "name": "extra geschmorte Zwiebeln",
+            "price": 1.5
+          },
+          {
+            "available": true,
+            "id": "1325950",
+            "name": "extra Spiegelei",
+            "price": 1.5
+          },
+          {
+            "available": true,
+            "id": "1325951",
+            "name": "extra Jalapenos",
+            "price": 1.5
+          }
+        ],
+        "required": false
+      },
+      {
+        "id": "216517",
+        "max_count": 5,
+        "multi_select": false,
+        "name": "Dein Sonderwunsch beim Burger",
+        "options": [
+          {
+            "available": true,
+            "id": "1325952",
+            "name": "Ohne Salat",
+            "price": 0.0
+          },
+          {
+            "available": true,
+            "id": "1325953",
+            "name": "Ohne Zwiebeln",
+            "price": 0.0
+          },
+          {
+            "available": true,
+            "id": "1325954",
+            "name": "Ohne Sauce",
+            "price": 0.0
+          },
+          {
+            "available": true,
+            "id": "1325955",
+            "name": "Ohne Gurken",
+            "price": 0.0
+          },
+          {
+            "available": true,
+            "id": "1325956",
+            "name": "Ohne Tomaten",
+            "price": 0.0
+          }
+        ],
+        "required": false
+      },
+      {
+        "id": "216518",
+        "max_count": 1,
+        "multi_select": false,
+        "name": "Deine Beilage",
+        "options": [
+          {
+            "available": true,
+            "id": "1325969",
+            "name": "Pommes frites (vegan)",
+            "price": 0.0
+          },
+          {
+            "available": true,
+            "id": "1325970",
+            "name": "Sweet Potatoes (vegan)",
+            "price": 1.5
+          },
+          {
+            "available": true,
+            "id": "1325971",
+            "name": "Curly Fries (vegan)",
+            "price": 0.0
+          },
+          {
+            "available": true,
+            "id": "1325972",
+            "name": "Wedges (vegan)",
+            "price": 0.0
+          },
+          {
+            "available": true,
+            "id": "1325973",
+            "name": "Chili Cheese Pommes",
+            "price": 1.5
+          },
+          {
+            "available": true,
+            "id": "1325974",
+            "name": "ohne Beilage",
+            "price": 0.0
+          }
+        ],
+        "required": true
+      },
+      {
+        "id": "216520",
+        "max_count": 16,
+        "multi_select": false,
+        "name": "Ihre Extras",
+        "options": [
+          {
+            "available": true,
+            "id": "1325981",
+            "name": "mit Zwiebeln, rot",
+            "price": 1.5
+          },
+          {
+            "available": true,
+            "id": "1325982",
+            "name": "mit Bacon",
+            "price": 2.5
+          },
+          {
+            "available": true,
+            "id": "1325983",
+            "name": "mit Thunfisch",
+            "price": 1.7
+          },
+          {
+            "available": true,
+            "id": "1325984",
+            "name": "mit Ei, Freiland",
+            "price": 1.7
+          },
+          {
+            "available": true,
+            "id": "1325985",
+            "name": "mit Ei, Bio",
+            "price": 2.5
+          },
+          {
+            "available": true,
+            "id": "1325986",
+            "name": "mit Rucola",
+            "price": 1.7
+          },
+          {
+            "available": true,
+            "id": "1325987",
+            "name": "mit Scampis",
+            "price": 2.5
+          },
+          {
+            "available": true,
+            "id": "1325988",
+            "name": "mit Jalapenos, grün",
+            "price": 1.5
+          },
+          {
+            "available": true,
+            "id": "1325989",
+            "name": "mit Peperoni",
+            "price": 1.5
+          },
+          {
+            "available": true,
+            "id": "1325990",
+            "name": "mit Salami",
+            "price": 1.7
+          },
+          {
+            "available": true,
+            "id": "1325991",
+            "name": "mit Cheddar",
+            "price": 1.7
+          },
+          {
+            "available": true,
+            "id": "1325992",
+            "name": "mit Tomaten, frisch",
+            "price": 1.5
+          },
+          {
+            "available": true,
+            "id": "1325993",
+            "name": "mit Zwiebeln",
+            "price": 1.5
+          },
+          {
+            "available": true,
+            "id": "1325994",
+            "name": "mit Sucuk",
+            "price": 1.7
+          },
+          {
+            "available": true,
+            "id": "1325995",
+            "name": "mit Hähnchenbrust, gebraten",
+            "price": 2.7
+          },
+          {
+            "available": true,
+            "id": "1325996",
+            "name": "mit Mozzarella",
+            "price": 1.7
+          }
+        ],
+        "required": false
+      },
+      {
+        "id": "216521",
+        "max_count": 1,
+        "multi_select": false,
+        "name": "Deine Beilage",
+        "options": [
+          {
+            "available": true,
+            "id": "1325969",
+            "name": "Pommes frites (vegan)",
+            "price": 0.0
+          },
+          {
+            "available": true,
+            "id": "1325997",
+            "name": "Sweet Potatoes (vegan)",
+            "price": 0.0
+          },
+          {
+            "available": true,
+            "id": "1325971",
+            "name": "Curly Fries (vegan)",
+            "price": 0.0
+          },
+          {
+            "available": true,
+            "id": "1325972",
+            "name": "Wedges (vegan)",
+            "price": 0.0
+          },
+          {
+            "available": true,
+            "id": "1325998",
+            "name": "Chili Cheese Pommes",
+            "price": 0.0
+          }
+        ],
+        "required": true
+      },
+      {
+        "id": "216522",
+        "max_count": 6,
+        "multi_select": false,
+        "name": "Deine Extras",
+        "options": [
+          {
+            "available": true,
+            "id": "1325946",
+            "name": "mit Patty, extra",
+            "price": 3.8
+          },
+          {
+            "available": true,
+            "id": "1325999",
+            "name": "mit Käse",
+            "price": 1.5
+          },
+          {
+            "available": true,
+            "id": "1326000",
+            "name": "mit Zwiebeln, geschmort",
+            "price": 1.5
+          },
+          {
+            "available": true,
+            "id": "1326001",
+            "name": "mit Bacon",
+            "price": 1.5
+          },
+          {
+            "available": true,
+            "id": "1326002",
+            "name": "mit Jalapenos",
+            "price": 1.5
+          },
+          {
+            "available": true,
+            "id": "1326003",
+            "name": "mit Spiegelei",
+            "price": 1.5
+          }
+        ],
+        "required": false
+      },
+      {
+        "id": "216523",
+        "max_count": 5,
+        "multi_select": false,
+        "name": "Dein Sonderwunsch",
+        "options": [
+          {
+            "available": true,
+            "id": "1326004",
+            "name": "ohne Sauce",
+            "price": 0.0
+          },
+          {
+            "available": true,
+            "id": "1326005",
+            "name": "ohne Zwiebeln",
+            "price": 0.0
+          },
+          {
+            "available": true,
+            "id": "1326006",
+            "name": "ohne Tomaten",
+            "price": 0.0
+          },
+          {
+            "available": true,
+            "id": "1326007",
+            "name": "ohne Gurken",
+            "price": 0.0
+          },
+          {
+            "available": true,
+            "id": "1326008",
+            "name": "ohne Salat",
+            "price": 0.0
+          }
+        ],
+        "required": false
+      },
+      {
+        "id": "216524",
+        "max_count": 6,
+        "multi_select": false,
+        "name": "Extras",
+        "options": [
+          {
+            "available": true,
+            "id": "1325946",
+            "name": "mit Patty, extra",
+            "price": 3.8
+          },
+          {
+            "available": true,
+            "id": "1326009",
+            "name": "extra Bacon",
+            "price": 1.5
+          },
+          {
+            "available": true,
+            "id": "1326010",
+            "name": "extra Käse",
+            "price": 1.5
+          },
+          {
+            "available": true,
+            "id": "1325949",
+            "name": "extra geschmorte Zwiebeln",
+            "price": 1.5
+          },
+          {
+            "available": true,
+            "id": "1326011",
+            "name": "extra Spiegelei",
+            "price": 1.5
+          },
+          {
+            "available": true,
+            "id": "1325951",
+            "name": "extra Jalapenos",
+            "price": 1.5
+          }
+        ],
+        "required": false
+      },
+      {
+        "id": "216525",
+        "max_count": 1,
+        "multi_select": false,
+        "name": "Dein Getränk",
+        "options": [
+          {
+            "available": true,
+            "id": "1326012",
+            "name": "Fritz Orange 0,33l (Einweg)",
+            "price": 0.0
+          },
+          {
+            "available": true,
+            "id": "1326013",
+            "name": "Fritz Misch Masch 0,33l (Einweg)",
+            "price": 0.0
+          },
+          {
+            "available": true,
+            "id": "1326014",
+            "name": "ohne Getränk",
+            "price": 0.0
+          }
+        ],
+        "required": true
+      },
+      {
+        "id": "216526",
+        "max_count": 1,
+        "multi_select": false,
+        "name": "Grösse",
+        "options": [
+          {
+            "available": true,
+            "id": "1326015",
+            "name": "7 Stück",
+            "price": 0.0
+          },
+          {
+            "available": true,
+            "id": "1326016",
+            "name": "13 Stück",
+            "price": 6.5
+          }
+        ],
+        "required": true
+      },
+      {
+        "id": "216527",
+        "max_count": 1,
+        "multi_select": false,
+        "name": "Grösse",
+        "options": [
+          {
+            "available": true,
+            "id": "1326017",
+            "name": "7 Stück",
+            "price": 0.0
+          },
+          {
+            "available": true,
+            "id": "1326018",
+            "name": "13 Stück",
+            "price": 6.5
+          }
+        ],
+        "required": true
+      },
+      {
+        "id": "216528",
+        "max_count": 1,
+        "multi_select": false,
+        "name": "Grösse",
+        "options": [
+          {
+            "available": true,
+            "id": "1326019",
+            "name": "7 Stück",
+            "price": 0.0
+          },
+          {
+            "available": true,
+            "id": "1326020",
+            "name": "13 Stück",
+            "price": 6.5
+          }
+        ],
+        "required": true
+      },
+      {
+        "id": "216529",
+        "max_count": 1,
+        "multi_select": false,
+        "name": "Grösse",
+        "options": [
+          {
+            "available": true,
+            "id": "1326021",
+            "name": "7 Stück",
+            "price": 0.0
+          },
+          {
+            "available": true,
+            "id": "1326022",
+            "name": "13 Stück",
+            "price": 5.9
+          }
+        ],
+        "required": true
+      },
+      {
+        "id": "216530",
+        "max_count": 1,
+        "multi_select": false,
+        "name": "Grösse",
+        "options": [
+          {
+            "available": true,
+            "id": "1326023",
+            "name": "7 Stück",
+            "price": 0.0
+          },
+          {
+            "available": true,
+            "id": "1326024",
+            "name": "13 Stück",
+            "price": 5.0
+          }
+        ],
+        "required": true
+      },
+      {
+        "id": "216531",
+        "max_count": 1,
+        "multi_select": false,
+        "name": "Grösse",
+        "options": [
+          {
+            "available": true,
+            "id": "1326023",
+            "name": "7 Stück",
+            "price": 0.0
+          },
+          {
+            "available": true,
+            "id": "1326024",
+            "name": "13 Stück",
+            "price": 5.0
+          }
+        ],
+        "required": true
+      }
+    ],
+    "sections": [
+      {
+        "id": "136916",
+        "item_skus": [
+          "1052475",
+          "1052454",
+          "1052491",
+          "1052566",
+          "1052545",
+          "1052526",
+          "1052511"
+        ],
+        "kind": "most_popular",
+        "menu_ids": [
+          "11253"
+        ],
+        "name": "Am Beliebtesten",
+        "sorting_order": -1
+      },
+      {
+        "id": "132859",
+        "item_skus": [
+          "1052524",
+          "1052440",
+          "1052487",
+          "1052454",
+          "1052550",
+          "1052459",
+          "1052566",
+          "1052449",
+          "1052473",
+          "1052458",
+          "1052455",
+          "1052509"
+        ],
+        "kind": "default",
+        "menu_ids": [
+          "11253"
+        ],
+        "name": "Burger",
+        "sorting_order": 1
+      },
+      {
+        "id": "132860",
+        "item_skus": [
+          "1052557",
+          "1052475",
+          "1052472",
+          "1052526",
+          "1052548",
+          "1052447",
+          "1052448",
+          "1052508",
+          "1052519",
+          "1052488",
+          "1052544"
+        ],
+        "kind": "default",
+        "menu_ids": [
+          "11253"
+        ],
+        "name": "Burger Menüs",
+        "sorting_order": 2
+      },
+      {
+        "id": "132861",
+        "item_skus": [
+          "1052452",
+          "1052510",
+          "1052442",
+          "1052502",
+          "1052552",
+          "1052530"
+        ],
+        "kind": "default",
+        "menu_ids": [
+          "11253"
+        ],
+        "name": "Veggie Burger",
+        "sorting_order": 3
+      },
+      {
+        "id": "132862",
+        "item_skus": [
+          "1052549",
+          "1052463",
+          "1052514",
+          "1052504",
+          "1052529",
+          "1052516"
+        ],
+        "kind": "default",
+        "menu_ids": [
+          "11253"
+        ],
+        "name": "Veggie Burger Menüs",
+        "sorting_order": 4
+      },
+      {
+        "id": "132863",
+        "item_skus": [
+          "1052478",
+          "1052446",
+          "1052445",
+          "1052461"
+        ],
+        "kind": "default",
+        "menu_ids": [
+          "11253"
+        ],
+        "name": "Hot Dogs",
+        "sorting_order": 5
+      },
+      {
+        "id": "132864",
+        "item_skus": [
+          "1052551",
+          "1052464",
+          "1052520",
+          "1052477"
+        ],
+        "kind": "default",
+        "menu_ids": [
+          "11253"
+        ],
+        "name": "Hot Dog Menüs",
+        "sorting_order": 6
+      },
+      {
+        "id": "132865",
+        "item_skus": [
+          "1052451",
+          "1052517",
+          "1052491",
+          "1052542",
+          "1052482",
+          "1052562",
+          "1052545",
+          "1052506",
+          "1052511",
+          "1052497",
+          "1052536"
+        ],
+        "kind": "default",
+        "menu_ids": [
+          "11253"
+        ],
+        "name": "Snacks",
+        "sorting_order": 7
+      },
+      {
+        "id": "132867",
+        "item_skus": [
+          "1052523",
+          "1052534",
+          "1052481",
+          "1052441",
+          "1052457",
+          "1052469",
+          "1052513"
+        ],
+        "kind": "default",
+        "menu_ids": [
+          "11253"
+        ],
+        "name": "Pasta",
+        "sorting_order": 9
+      },
+      {
+        "id": "132868",
+        "item_skus": [
+          "1052498",
+          "1052543",
+          "1052496",
+          "1052546"
+        ],
+        "kind": "default",
+        "menu_ids": [
+          "11253"
+        ],
+        "name": "Salate",
+        "sorting_order": 10
+      },
+      {
+        "id": "132869",
+        "item_skus": [
+          "1052495",
+          "1052480",
+          "1052485",
+          "1052443",
+          "1052560",
+          "1052564",
+          "1052558"
+        ],
+        "kind": "default",
+        "menu_ids": [
+          "11253"
+        ],
+        "name": "Dips",
+        "sorting_order": 11
+      },
+      {
+        "id": "132870",
+        "item_skus": [
+          "1052492",
+          "1052540",
+          "1052444",
+          "1052535",
+          "1052539",
+          "1052476",
+          "1052471",
+          "1052537",
+          "1052456",
+          "1052499",
+          "1052532",
+          "1052479",
+          "1052465",
+          "1052474",
+          "1052533",
+          "1052505",
+          "1052531",
+          "1052462",
+          "1052500",
+          "1052450",
+          "1052486",
+          "1052553",
+          "1052470",
+          "1052503",
+          "1052489",
+          "1052466",
+          "1052490",
+          "1052538"
+        ],
+        "kind": "default",
+        "menu_ids": [
+          "11253"
+        ],
+        "name": "Alkoholfreie Getränke",
+        "sorting_order": 12
+      }
+    ],
+    "stats": {
+      "items_listed": 100,
+      "items_priced_listed": 100,
+      "items_unlisted": 22,
+      "max_price_listed": 17.4,
+      "menus": 1,
+      "min_price_all": 1.5,
+      "min_price_listed": 1.5,
+      "sections": 12
+    },
+    "unlisted_items": [
+      {
+        "allergens": [
+          ""
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": null,
+        "image_url": "https://cdn.foodamigos.io/images/AVAlZ7j3mHQcGWlPMNX3yxkYLELoOXcAOa2hxh2W",
+        "ingredients": "WASSER, MINERALSTOFFE",
+        "listed_in_menu": false,
+        "name": "Spree Quell 0,5 l",
+        "option_group_ids": [],
+        "price": 2.5,
+        "prices_by_order_method": {
+          "delivery": 2.5,
+          "dine_in": 2.5,
+          "pickup": 2.5,
+          "room_service": 2.5
+        },
+        "section_ids": [],
+        "sku": "855224",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN",
+          "MILCH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Kombination aus Schinken und Ananas auf Tomatensauce.",
+        "image_url": null,
+        "ingredients": "Pizzateig, TOMATENSAUCE, SCHINKEN, ANANAS, KÄSE.",
+        "listed_in_menu": false,
+        "name": "Pizza Hawaii",
+        "option_group_ids": [
+          "216520",
+          "216515"
+        ],
+        "price": 10.5,
+        "prices_by_order_method": {
+          "delivery": 11.5,
+          "dine_in": 10.5,
+          "pickup": 10.5,
+          "room_service": 10.5
+        },
+        "section_ids": [
+          "132866"
+        ],
+        "sku": "1052453",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E300"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "MILCH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Belegt mit Kirschtomaten, Hähnchenbrustfilet und Rucola für eine frische Note.",
+        "image_url": null,
+        "ingredients": "Weizenmehl, HÄHNCHENBRUSTFILET, Kirschtomaten, Rucola, Olivenöl, Salz, Hefe, ZUCKER.",
+        "listed_in_menu": false,
+        "name": "Pizza Pollo",
+        "option_group_ids": [
+          "216520",
+          "216515"
+        ],
+        "price": 12.9,
+        "prices_by_order_method": {
+          "delivery": 13.9,
+          "dine_in": 12.9,
+          "pickup": 12.9,
+          "room_service": 12.9
+        },
+        "section_ids": [
+          "132866"
+        ],
+        "sku": "1052460",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN",
+          "MILCH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Pizza mit würziger Salami und Tomatensauce.",
+        "image_url": null,
+        "ingredients": "PIZZATEIG (WEIZEN), TOMATENSAUCE, SALAMI (SCHWEINEFLEISCH), KÄSE (MILCH)",
+        "listed_in_menu": false,
+        "name": "Pizza Salami",
+        "option_group_ids": [
+          "216520",
+          "216515"
+        ],
+        "price": 10.5,
+        "prices_by_order_method": {
+          "delivery": 11.5,
+          "dine_in": 10.5,
+          "pickup": 10.5,
+          "room_service": 10.5
+        },
+        "section_ids": [
+          "132866"
+        ],
+        "sku": "1052483",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN",
+          "MILCH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Mit würziger Knoblauchwurst (Sucuk), Schmelzkäse, Zwiebeln und Jalapenos für eine würzig-pikante Note.",
+        "image_url": null,
+        "ingredients": "PIZZATEIG (WEIZEN), TOMATENSAUCE, SUCUK (RIND), KÄSE (MILCH), ZWIEBELN, JALAPENOS",
+        "listed_in_menu": false,
+        "name": "Pizza Sucuk",
+        "option_group_ids": [
+          "216520",
+          "216515"
+        ],
+        "price": 12.5,
+        "prices_by_order_method": {
+          "delivery": 13.5,
+          "dine_in": 12.5,
+          "pickup": 12.5,
+          "room_service": 12.5
+        },
+        "section_ids": [
+          "132866"
+        ],
+        "sku": "1052484",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E300"
+        ],
+        "allergens": [
+          "WEIZENMEHL",
+          "MILCH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Mit frischem Basilikum, Mozzarella und Tomaten, angelehnt an den klassischen Caprese-Salat.",
+        "image_url": null,
+        "ingredients": "Pizzateig (WEIZENMEHL, Wasser, Hefe, Salz), Mozzarella (MILCH), frische TOMATEN, BASILIKUM, Olivenöl.",
+        "listed_in_menu": false,
+        "name": "Pizza Caprese",
+        "option_group_ids": [
+          "216520",
+          "216515"
+        ],
+        "price": 12.9,
+        "prices_by_order_method": {
+          "delivery": 13.9,
+          "dine_in": 12.9,
+          "pickup": 12.9,
+          "room_service": 12.9
+        },
+        "section_ids": [
+          "132866"
+        ],
+        "sku": "1052493",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN",
+          "MILCH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Vier-Käse-Pizza mit Gorgonzola, Feta, Parmesan und Tomatensauce.",
+        "image_url": null,
+        "ingredients": "Weizenmehl, Gorgonzola, Feta, Parmesan, TOMATENSAUCE, Hefe, Salz, ZUCKER, Olivenöl, Gewürze. Enthält: GLUTEN, MILCH.",
+        "listed_in_menu": false,
+        "name": "Pizza Quattro Formaggi",
+        "option_group_ids": [
+          "216520",
+          "216515"
+        ],
+        "price": 12.9,
+        "prices_by_order_method": {
+          "delivery": 13.9,
+          "dine_in": 12.9,
+          "pickup": 12.9,
+          "room_service": 12.9
+        },
+        "section_ids": [
+          "132866"
+        ],
+        "sku": "1052494",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "WEIZENMEHL"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Pikante Mischung aus Paprika, Champignons, Mais, Hähnchenbrustfilet und Chili.",
+        "image_url": null,
+        "ingredients": "Pizzateig (WEIZENMEHL, Wasser, Hefe, SALZ), TOMATENSAUCE, Hähnchenbrustfilet, Paprika, Champignons, Mais, Chili, Gewürze.",
+        "listed_in_menu": false,
+        "name": "Pizza Mexicana (scharf)",
+        "option_group_ids": [
+          "216520",
+          "216515"
+        ],
+        "price": 12.9,
+        "prices_by_order_method": {
+          "delivery": 13.9,
+          "dine_in": 12.9,
+          "pickup": 12.9,
+          "room_service": 12.9
+        },
+        "section_ids": [
+          "132866"
+        ],
+        "sku": "1052501",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "",
+          "E300"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "MILCH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Belegt mit Thunfisch und Tomatensauce.",
+        "image_url": null,
+        "ingredients": "Pizzateig, TOMATENSAUCE, THUNFISCH, KÄSE, Gewürze",
+        "listed_in_menu": false,
+        "name": "Pizza Tonno",
+        "option_group_ids": [
+          "216520",
+          "216515"
+        ],
+        "price": 11.5,
+        "prices_by_order_method": {
+          "delivery": 12.5,
+          "dine_in": 11.5,
+          "pickup": 11.5,
+          "room_service": 11.5
+        },
+        "section_ids": [
+          "132866"
+        ],
+        "sku": "1052507",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "Konservierungsstoffe"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "MILCH",
+          "EIER",
+          "SOJA"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Vielseitige Pizza mit Champignons, Peperoni, Salami und Schinken.",
+        "image_url": null,
+        "ingredients": "Teig, Tomatensauce, Käse, Champignons, Peperoni, Salami, Schinken, GLUTEN, MILCH, EIER, SOJA.",
+        "listed_in_menu": false,
+        "name": "Pizza Mista",
+        "option_group_ids": [
+          "216520",
+          "216515"
+        ],
+        "price": 12.9,
+        "prices_by_order_method": {
+          "delivery": 13.9,
+          "dine_in": 12.9,
+          "pickup": 12.9,
+          "room_service": 12.9
+        },
+        "section_ids": [
+          "132866"
+        ],
+        "sku": "1052518",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN",
+          "MILCH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Vegetarische Pizza mit gegrilltem Gemüse, Zwiebeln und Champignons.",
+        "image_url": null,
+        "ingredients": "Pizzateig, TOMATEN, Zwiebeln, CHAMPIGNONS, Paprika, Gewürze.",
+        "listed_in_menu": false,
+        "name": "Pizza Vegetaria",
+        "option_group_ids": [
+          "216520",
+          "216515"
+        ],
+        "price": 12.5,
+        "prices_by_order_method": {
+          "delivery": 13.5,
+          "dine_in": 12.5,
+          "pickup": 12.5,
+          "room_service": 12.5
+        },
+        "section_ids": [
+          "132866"
+        ],
+        "sku": "1052521",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN",
+          "MILCH",
+          "FISCH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Raffinierte Pizza mit Garnelen, Knoblauch und frischem Rucola.",
+        "image_url": null,
+        "ingredients": "Pizzateig, TOMATEN, GARNELEN, Knoblauch, Rucola, Gewürze.",
+        "listed_in_menu": false,
+        "name": "Pizza Scampi",
+        "option_group_ids": [
+          "216520",
+          "216515"
+        ],
+        "price": 14.5,
+        "prices_by_order_method": {
+          "delivery": 15.5,
+          "dine_in": 14.5,
+          "pickup": 14.5,
+          "room_service": 14.5
+        },
+        "section_ids": [
+          "132866"
+        ],
+        "sku": "1052522",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E300",
+          "E471"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "MILCH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Belegt mit frischen Champignons und Tomatensauce.",
+        "image_url": null,
+        "ingredients": "Weizenmehl, TOMATENSAUCE, CHAMPIGNONS, KÄSE, Hefe, Salz, Zucker, Pflanzenöl, Gewürze.",
+        "listed_in_menu": false,
+        "name": "Pizza Funghi",
+        "option_group_ids": [
+          "216520",
+          "216515"
+        ],
+        "price": 9.5,
+        "prices_by_order_method": {
+          "delivery": 10.5,
+          "dine_in": 9.5,
+          "pickup": 9.5,
+          "room_service": 9.5
+        },
+        "section_ids": [
+          "132866"
+        ],
+        "sku": "1052525",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E300"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "MILCH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Klassische Pizza mit Tomatensauce und Mozzarella.",
+        "image_url": null,
+        "ingredients": "Weizenmehl, TOMATENSAUCE, MOZZARELLA, Hefe, Salz, Zucker, Pflanzenöl, Gewürze.",
+        "listed_in_menu": false,
+        "name": "Pizza Margherita",
+        "option_group_ids": [
+          "216520",
+          "216515"
+        ],
+        "price": 8.5,
+        "prices_by_order_method": {
+          "delivery": 9.5,
+          "dine_in": 8.5,
+          "pickup": 8.5,
+          "room_service": 8.5
+        },
+        "section_ids": [
+          "132866"
+        ],
+        "sku": "1052527",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN",
+          "MILCH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Tomatensoße, Parmesan, Rucola, Putenschinken (Halal)",
+        "image_url": null,
+        "ingredients": "Pizzateig, TOMATEN, PUTENSCHINKEN, PARMESAN, RUCOLA, Gewürze.",
+        "listed_in_menu": false,
+        "name": "Tacchino",
+        "option_group_ids": [],
+        "price": 12.9,
+        "prices_by_order_method": {
+          "delivery": 13.9,
+          "dine_in": 12.9,
+          "pickup": 12.9,
+          "room_service": 12.9
+        },
+        "section_ids": [
+          "132866"
+        ],
+        "sku": "1052541",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN",
+          "MILCH",
+          "SOJA"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Scharfe Pizza mit Salami, Peperoni, Zwiebeln, Knoblauch und Chili.",
+        "image_url": null,
+        "ingredients": "Teig, Salami, Peperoni, Zwiebeln, Knoblauch, Chili (kann GLUTEN, MILCH, SOJA enthalten)",
+        "listed_in_menu": false,
+        "name": "Pizza Diavolo (scharf)",
+        "option_group_ids": [
+          "216520",
+          "216515"
+        ],
+        "price": 12.5,
+        "prices_by_order_method": {
+          "delivery": 13.5,
+          "dine_in": 12.5,
+          "pickup": 12.5,
+          "room_service": 12.5
+        },
+        "section_ids": [
+          "132866"
+        ],
+        "sku": "1052547",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E300"
+        ],
+        "allergens": [
+          "GLUTEN",
+          "MILCH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Mit saftigem Schinken und Tomatensauce.",
+        "image_url": null,
+        "ingredients": "Pizzateig, TOMATENSAUCE, SCHINKEN",
+        "listed_in_menu": false,
+        "name": "Pizza Prosciutto",
+        "option_group_ids": [
+          "216520",
+          "216515"
+        ],
+        "price": 10.5,
+        "prices_by_order_method": {
+          "delivery": 11.5,
+          "dine_in": 10.5,
+          "pickup": 10.5,
+          "room_service": 10.5
+        },
+        "section_ids": [
+          "132866"
+        ],
+        "sku": "1052554",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "EIER",
+          "MILCH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Intensiv aromatische Knoblauchcreme",
+        "image_url": null,
+        "ingredients": "Öl, EIER, KNOBLAUCH, Gewürze",
+        "listed_in_menu": false,
+        "name": "Knoblauch-Aioli",
+        "option_group_ids": [],
+        "price": 1.7,
+        "prices_by_order_method": {
+          "delivery": 1.7,
+          "dine_in": 1.7,
+          "pickup": 1.7,
+          "room_service": 1.7
+        },
+        "section_ids": [],
+        "sku": "1052559",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E330"
+        ],
+        "allergens": [
+          "MILCH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Würziger Käse-Dip mit einer dezenten Schärfe durch Chili",
+        "image_url": null,
+        "ingredients": "Käse, CHILI, Gewürze, SALZ",
+        "listed_in_menu": false,
+        "name": "Chili-Cheese-Dip",
+        "option_group_ids": [],
+        "price": 1.7,
+        "prices_by_order_method": {
+          "delivery": 1.7,
+          "dine_in": 1.7,
+          "pickup": 1.7,
+          "room_service": 1.7
+        },
+        "section_ids": [],
+        "sku": "1052561",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E450 (Diphosphate)",
+          "E500 (Natriumcarbonat)"
+        ],
+        "allergens": [
+          "WEIZEN",
+          "GLUTEN",
+          "MILCH"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Knusprig frittierte Zwiebelringe, serviert mit einem frischen Sour Cream Dip.",
+        "image_url": "https://cdn.foodamigos.io/images/dwIvsI029VWvefBaBs97O8muxAGqMu1jJjbwm5Su",
+        "ingredients": "Zwiebeln, WEIZENMEHL, Wasser, Pflanzenöl, Gewürze, SALZ, GLUTEN, MILCH (Sour Cream).",
+        "listed_in_menu": false,
+        "name": "Onion Rings",
+        "option_group_ids": [
+          "216531"
+        ],
+        "price": 5.9,
+        "prices_by_order_method": {
+          "delivery": 5.9,
+          "dine_in": 5.9,
+          "pickup": 5.9,
+          "room_service": 5.9
+        },
+        "section_ids": [],
+        "sku": "1052563",
+        "source": "venue-api"
+      },
+      {
+        "additives": [
+          "E415"
+        ],
+        "allergens": [
+          "MILCH",
+          "LAKTOSE"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Frische, leicht säuerliche Creme",
+        "image_url": null,
+        "ingredients": "Sahne, MILCH, stabilisator: E415; enthält LAKTOSE.",
+        "listed_in_menu": false,
+        "name": "Sour Cream",
+        "option_group_ids": [],
+        "price": 1.7,
+        "prices_by_order_method": {
+          "delivery": 1.7,
+          "dine_in": 1.7,
+          "pickup": 1.7,
+          "room_service": 1.7
+        },
+        "section_ids": [],
+        "sku": "1052565",
+        "source": "venue-api"
+      },
+      {
+        "allergens": [
+          "GLUTEN",
+          "EIER",
+          "SOJA"
+        ],
+        "available": true,
+        "currency": "EUR",
+        "description": "Saftiges 150g Patty, herzhaftes Spiegelei, knuspriger Bacon, Schmor-Zwiebeln, knackige saure Gurken",
+        "image_url": null,
+        "ingredients": "Rindfleisch (150g), BACON, EIER, Zwiebeln, Gewürze, Brötchen (WEIZEN), Gurken, Ketchup; enthält GLUTEN, EIER, SOJA.",
+        "listed_in_menu": false,
+        "name": "New Jersey Burger",
+        "option_group_ids": [
+          "216512",
+          "216513",
+          "216514",
+          "216515"
+        ],
+        "price": 9.9,
+        "prices_by_order_method": {
+          "delivery": 9.9,
+          "dine_in": 9.9,
+          "pickup": 9.9,
+          "room_service": 9.9
+        },
+        "section_ids": [],
+        "sku": "1052567",
+        "source": "venue-api"
+      }
+    ]
+  },
+  "schema": "cvm.venue/v1",
+  "slug": "three-buddies-berlin",
+  "source": {
+    "attribution": "Venue facts, menu and prices (c) Three Buddies, Albrechtstraße 131, 12167 Berlin (Steglitz) — retrieved from the venue's own public JSON API (FoodAmigos storefront). Product images are referenced by URL only and are not copied into this repository.",
+    "calls": {
+      "company": {
+        "bytes": 9251,
+        "committed_copy_redacted": true,
+        "committed_copy_sha256": "21163d63a774d68346186382468cc0928a3e20661f8b80b7bcd589d5cf2d618a",
+        "file": "evidence/raw/company.json",
+        "sha256": "468482e7235c172f33829a1b272a69929a94abdd55cb5ab9e7dc73cd6cb927d0",
+        "url": "https://app.foodamigos.io/api/companies/threebuddies/data?hostname=threebuddies.de"
+      },
+      "menus": {
+        "bytes": 209911,
+        "committed_copy_redacted": true,
+        "committed_copy_sha256": "4cdcd60330f4fd3a253b8aa7c5ff42f852e091c5996eaa0a12434a468cac9141",
+        "file": "evidence/raw/menus.json",
+        "sha256": "88d3e71db375553a4ad8bea5d6615abd0b471ac0ad471c6a4dc967c68f7c0b66",
+        "url": "https://app.foodamigos.io/api/companies/550/menus"
+      },
+      "store": {
+        "bytes": 51814,
+        "committed_copy_redacted": true,
+        "committed_copy_sha256": "0155437d5738980149145d3122c7bfdff159af51dce601244ada1f05a099678d",
+        "file": "evidence/raw/store.json",
+        "sha256": "142060d5168fc523fd2ed96155e5988972f501ab6a3a102a33e1121d09b30028",
+        "storefront_mirror_url": "https://storefront.foodamigos.io/api/stores/threebuddies.de",
+        "url": "https://www.threebuddies.de/api/store"
+      }
+    },
+    "parser": "plain HTTPS GET + JSON parse; no OCR, no scraping of HTML"
+  },
+  "venue": {
+    "about": "Three Buddies - Burger Restaurant in Berlin bietet dir köstliche, frisch zubereitete Burger in einer entspannten Atmosphäre. Genieße unsere vielfältige Auswahl an Burgern, von klassischen Beef-Burgern bis hin zu kreativen vegetarischen und veganen Optionen. Unser freundliches Team sorgt dafür, dass du dich wohlfühlst, ob zum Mittagessen, Abendessen oder für einen Snack zwischendurch. Besuche uns im Herzen Berlins und erlebe erstklassige Burger und herzliche Gastfreundschaft. Perfekt für Familien, Freunde und alle Burger-Liebhaber.",
+    "adapter": {
+      "browser_automation_used": false,
+      "capabilities": {
+        "menu": true,
+        "quote": true,
+        "status": false,
+        "submit": false
+      },
+      "class": "deep_link_human",
+      "class_per_adr": "docs/adr/0007-venue-adapter-interface.md — class 1",
+      "credential_owner": null,
+      "credential_scope": null,
+      "human_steps": [
+        "choose pickup or delivery (and, for delivery, an address)",
+        "open the venue's own ordering page at ordering.primary_url",
+        "pay the venue on the venue's own rail (card/paypal/cash; 3DS as the venue requires)",
+        "a human confirms the order with the venue"
+      ],
+      "idempotency_key": null,
+      "order_receipt": "the venue's own confirmation (not machine-readable here)",
+      "payment_authority": "the venue's own rail; this CVM takes no payment (ADR-0001 D5)",
+      "why_this_class": "The platform DOES run an online shop for this venue, but no unauthenticated or test-mode path to place an order was found or verified: the storefront's cart and checkout are authenticated, session-bound browser flows (the capture shows Stripe/Google Pay material loaded, and clicking 'Lieferung' opens an address modal). Per ADR-0007 the honest capability set is menu+quote only, with submit/status false."
+    },
+    "address": {
+      "city": "Berlin",
+      "country": "DE",
+      "lat": 52.4570504,
+      "lon": 13.3222943,
+      "postal_code": "12167",
+      "quarter": "Steglitz",
+      "state": "Berlin",
+      "street": "Albrechtstraße 131"
+    },
+    "company_binding": {
+      "agrees": false,
+      "menus_source_company_id": 550,
+      "note": "The storefront payload's companies[0].id and the company payload's id differ, and BOTH answer /menus with HTTP 200. The venue's own ordering page requests /companies/550/menus (evidence/requests.json); the rendered page's prices match that payload (adapter.py --verify-rendered). This record follows the venue's own page and uses company 550.",
+      "resolved_company_id": 550,
+      "storefront_payload_company_id": 509
+    },
+    "company_id": 550,
+    "company_slug": "threebuddies",
+    "cuisine": [
+      "burgers",
+      "pizza"
+    ],
+    "currency": "EUR",
+    "delivery": {
+      "areas_named": [],
+      "available": true,
+      "enabled": true,
+      "estimated_minutes": 30,
+      "mode": "external",
+      "schedule": [
+        {
+          "closes": "21:30",
+          "day": 0,
+          "opens": "12:00",
+          "timezone": "Europe/Berlin",
+          "weekday": "sunday"
+        },
+        {
+          "closes": "21:30",
+          "day": 2,
+          "opens": "12:00",
+          "timezone": "Europe/Berlin",
+          "weekday": "tuesday"
+        },
+        {
+          "closes": "21:30",
+          "day": 3,
+          "opens": "12:00",
+          "timezone": "Europe/Berlin",
+          "weekday": "wednesday"
+        },
+        {
+          "closes": "21:30",
+          "day": 4,
+          "opens": "12:00",
+          "timezone": "Europe/Berlin",
+          "weekday": "thursday"
+        },
+        {
+          "closes": "21:30",
+          "day": 5,
+          "opens": "12:00",
+          "timezone": "Europe/Berlin",
+          "weekday": "friday"
+        },
+        {
+          "closes": "21:30",
+          "day": 6,
+          "opens": "12:00",
+          "timezone": "Europe/Berlin",
+          "weekday": "saturday"
+        }
+      ],
+      "zones": [
+        {
+          "center": {
+            "lat": 52.4570504,
+            "lng": 13.3222943
+          },
+          "currency": "EUR",
+          "fee": 5,
+          "geometry_type": "circle",
+          "id": 766,
+          "max_order": 750,
+          "min_order": 20,
+          "name": "Uber delivery",
+          "radius_m": 5000
+        }
+      ]
+    },
+    "dietary_attributes": [],
+    "display_name": "Three Buddies",
+    "franchise_id": 539,
+    "franchise_slug": "threebuddies",
+    "locales": [
+      "de",
+      "en"
+    ],
+    "name": "Three Buddies Steglitz",
+    "opening_hours": [
+      {
+        "closes": "21:30",
+        "day": 0,
+        "opens": "12:00",
+        "timezone": "Europe/Berlin",
+        "weekday": "sunday"
+      },
+      {
+        "closes": "21:30",
+        "day": 2,
+        "opens": "12:00",
+        "timezone": "Europe/Berlin",
+        "weekday": "tuesday"
+      },
+      {
+        "closes": "21:30",
+        "day": 3,
+        "opens": "12:00",
+        "timezone": "Europe/Berlin",
+        "weekday": "wednesday"
+      },
+      {
+        "closes": "21:30",
+        "day": 4,
+        "opens": "12:00",
+        "timezone": "Europe/Berlin",
+        "weekday": "thursday"
+      },
+      {
+        "closes": "21:30",
+        "day": 5,
+        "opens": "12:00",
+        "timezone": "Europe/Berlin",
+        "weekday": "friday"
+      },
+      {
+        "closes": "21:30",
+        "day": 6,
+        "opens": "12:00",
+        "timezone": "Europe/Berlin",
+        "weekday": "saturday"
+      }
+    ],
+    "order_methods": [
+      "pickup",
+      "delivery"
+    ],
+    "ordering": {
+      "note": "The venue's own ordering page; loaded client-side, its menu request is the one recorded in evidence/requests.json.",
+      "primary_url": "https://www.threebuddies.de/speisekarte/threebuddies",
+      "urls": {
+        "external_web_shop": "https://threebuddies.online-karte.com",
+        "platform_shop": "https://threebuddies.online-karte.com/threebuddies",
+        "storefront_preview": "https://threebuddies.foodamigos-storefront.com",
+        "venue_site": "https://www.threebuddies.de/speisekarte/threebuddies"
+      }
+    },
+    "phone": "+49 30 48625381",
+    "pickup": {
+      "available": true,
+      "estimated_minutes": 10
+    },
+    "provider": "foodamigos",
+    "ratings": {
+      "google": {
+        "rating": 4.3,
+        "reviews": 163
+      }
+    },
+    "reservation_url": "https://threebuddies.tischreservieren.com",
+    "settlement": {
+      "currency": "EUR",
+      "cvm_cap": null,
+      "rail": "venue's own rail (FoodAmigos storefront: adyen, stripe; accepts apple_pay, google_pay, card, pay_by_bank, paypal, cash)",
+      "tax": "inclusive 19%"
+    },
+    "store_id": 481,
+    "store_uuid": "acc8c0b0-484b-4811-9970-2994b7c2f62b",
+    "timezone": "Europe/Berlin",
+    "type": "restaurant",
+    "website": "https://threebuddies.de"
+  }
+}

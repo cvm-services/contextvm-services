@@ -1,0 +1,529 @@
+{
+  "company": {
+    "address": "Albrechtstraße 131",
+    "average_order_delivery_time": {
+      "max": 40,
+      "min": 30
+    },
+    "average_order_preparation_time": {
+      "max": 20,
+      "min": 10
+    },
+    "business_profile": {
+      "full_invoice_address": "Albrechtstraße 131, 12167 Berlin, Germany",
+      "full_legal_address": "Albrechtstraße 131, 12167 Berlin, Germany",
+      "legal_name": "Three Buddies",
+      "owner_email": "[REDACTED]",
+      "owner_first_name": "[REDACTED]",
+      "owner_last_name": "[REDACTED]",
+      "owner_phone_number": "[REDACTED]",
+      "tax_id": null
+    },
+    "cashback_program": {
+      "app_signup_bonus_image_url": null,
+      "end_date": null,
+      "id": 143,
+      "max_spending_limit": 60,
+      "min_spending_limit": 35,
+      "mobile_app_signup_bonus": 50,
+      "percentage": 10,
+      "point_lifetime": 90,
+      "title": null,
+      "welcome_bonus": 0,
+      "welcome_bonus_image_url": null
+    },
+    "city": "Berlin",
+    "closed_from": null,
+    "closed_until": null,
+    "country": "DE",
+    "cuisine_types": [
+      "burgers",
+      "pizza"
+    ],
+    "currency": "EUR",
+    "current_delivery_schedule": null,
+    "current_work_schedule": null,
+    "default_tip_percentage": 5,
+    "delivery_enabled": true,
+    "delivery_mode": "external",
+    "delivery_schedule": [
+      {
+        "close": {
+          "day": 0,
+          "hour": 21,
+          "minute": 30,
+          "timezone": "Europe/Berlin"
+        },
+        "open": {
+          "day": 0,
+          "hour": 12,
+          "minute": 0,
+          "timezone": "Europe/Berlin"
+        },
+        "timezone": "Europe/Berlin"
+      },
+      {
+        "close": {
+          "day": 2,
+          "hour": 21,
+          "minute": 30,
+          "timezone": "Europe/Berlin"
+        },
+        "open": {
+          "day": 2,
+          "hour": 12,
+          "minute": 0,
+          "timezone": "Europe/Berlin"
+        },
+        "timezone": "Europe/Berlin"
+      },
+      {
+        "close": {
+          "day": 3,
+          "hour": 21,
+          "minute": 30,
+          "timezone": "Europe/Berlin"
+        },
+        "open": {
+          "day": 3,
+          "hour": 12,
+          "minute": 0,
+          "timezone": "Europe/Berlin"
+        },
+        "timezone": "Europe/Berlin"
+      },
+      {
+        "close": {
+          "day": 4,
+          "hour": 21,
+          "minute": 30,
+          "timezone": "Europe/Berlin"
+        },
+        "open": {
+          "day": 4,
+          "hour": 12,
+          "minute": 0,
+          "timezone": "Europe/Berlin"
+        },
+        "timezone": "Europe/Berlin"
+      },
+      {
+        "close": {
+          "day": 5,
+          "hour": 21,
+          "minute": 30,
+          "timezone": "Europe/Berlin"
+        },
+        "open": {
+          "day": 5,
+          "hour": 12,
+          "minute": 0,
+          "timezone": "Europe/Berlin"
+        },
+        "timezone": "Europe/Berlin"
+      },
+      {
+        "close": {
+          "day": 6,
+          "hour": 21,
+          "minute": 30,
+          "timezone": "Europe/Berlin"
+        },
+        "open": {
+          "day": 6,
+          "hour": 12,
+          "minute": 0,
+          "timezone": "Europe/Berlin"
+        },
+        "timezone": "Europe/Berlin"
+      }
+    ],
+    "delivery_zones": [
+      {
+        "color": "#69CE8C",
+        "fee": 5,
+        "geometry_data": {
+          "center": {
+            "lat": 52.4570504,
+            "lng": 13.3222943
+          },
+          "radius": 5000
+        },
+        "geometry_type": "circle",
+        "id": 766,
+        "max_threshold": 750,
+        "min_threshold": 20,
+        "name": "Uber delivery"
+      }
+    ],
+    "email": "[REDACTED]",
+    "gift_card_unavailable_payment_methods": [],
+    "google_places_id": "ChIJiaE9_ZdbqEcR5-QQEfz8ycc",
+    "google_rates_count": 163,
+    "google_rating": "4.3",
+    "has_asap_orders": true,
+    "has_delivery": true,
+    "has_delivery_schedule": false,
+    "has_in_store_card_payments": false,
+    "has_live_orders": true,
+    "has_multiple_locations": false,
+    "has_order_instructions": false,
+    "has_paypal_upcharge": false,
+    "has_pickup": true,
+    "has_pre_order": true,
+    "has_room_service": false,
+    "has_scheduled_orders": true,
+    "has_storefront": true,
+    "has_tips": true,
+    "has_work_schedule": true,
+    "hidden_order_methods": [
+      "room_service"
+    ],
+    "hidden_payment_methods": [],
+    "id": 550,
+    "impressum": {
+      "full_address": "Albrechtstraße 131, 12167 Berlin, Germany",
+      "legal_name": "Three Buddies",
+      "owner_email": "[REDACTED]",
+      "owner_first_name": "[REDACTED]",
+      "owner_last_name": "[REDACTED]",
+      "owner_phone_number": "[REDACTED]",
+      "tax_id": null
+    },
+    "impressum_content": null,
+    "impressum_link": null,
+    "instagram_link": null,
+    "is_live": true,
+    "lang": "de",
+    "language": "de",
+    "last_order_gap_delivery": 15,
+    "last_order_gap_pickup": 5,
+    "lat": 52.4570504,
+    "legal_address": "Albrechtstraße 131, 12167 Berlin, Germany",
+    "legal_lang": "de",
+    "live_from": "2024-08-17T17:20:43.000000Z",
+    "location_name": null,
+    "locations": [
+      {
+        "address": "Albrechtstraße 131",
+        "city": "Berlin",
+        "day": 0,
+        "hour": null,
+        "lat": 52.4570504,
+        "lon": 13.3222943,
+        "minute": null,
+        "name": null,
+        "zip_code": "12167"
+      }
+    ],
+    "logo_url": null,
+    "lon": 13.3222943,
+    "max_pre_order_days": 7,
+    "min_schedule_ahead_time_delivery": 120,
+    "min_schedule_ahead_time_pickup": 45,
+    "name": "Three Buddies Steglitz",
+    "next_delivery_schedule": {
+      "close": {
+        "day": 2,
+        "hour": 21,
+        "minute": 30,
+        "timezone": "Europe/Berlin"
+      },
+      "open": {
+        "day": 2,
+        "hour": 12,
+        "minute": 0,
+        "timezone": "Europe/Berlin"
+      },
+      "timezone": "Europe/Berlin"
+    },
+    "next_work_schedule": {
+      "close": {
+        "day": 2,
+        "hour": 21,
+        "minute": 30,
+        "timezone": "Europe/Berlin"
+      },
+      "open": {
+        "day": 2,
+        "hour": 12,
+        "minute": 0,
+        "timezone": "Europe/Berlin"
+      },
+      "timezone": "Europe/Berlin"
+    },
+    "offer_description": null,
+    "offer_title": null,
+    "offers": [
+      {
+        "days_running": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "details": {
+          "free_products": [
+            855178,
+            855176,
+            855179
+          ],
+          "min_spend_value": 25
+        },
+        "ends_at": null,
+        "id": 939,
+        "image_source": "none",
+        "image_url": null,
+        "is_happy_hour": false,
+        "kind": "free_item_by_min_spend_value",
+        "qualifying_criteria": null,
+        "starts_at": "[REDACTED-PHONE]:12:55",
+        "time_running_ends_at": null,
+        "time_running_starts_at": null,
+        "timezone": "Europe/Berlin",
+        "translations": {
+          "de": {
+            "description": "Gib €25 oder mehr aus und genieße ein kostenloses Dessert. Gönn dir was!",
+            "title": "Kostenloses Dessert ab €25"
+          },
+          "en": {
+            "description": "Spend €25 or more and enjoy a free dessert. Treat yourself today!",
+            "title": "Free Dessert on €25+"
+          }
+        },
+        "type": "free_item"
+      }
+    ],
+    "open_now": false,
+    "open_now_for_delivery": false,
+    "open_now_for_pickup": false,
+    "order_instructions_title": null,
+    "orders_pause_reason": null,
+    "orders_paused_until": null,
+    "overwrite_cash_payments_to_invoice": false,
+    "payment_gateway": "adyen",
+    "payment_gateways": [
+      "adyen",
+      "stripe"
+    ],
+    "paypal_standalone": {
+      "available": false,
+      "client_id": null
+    },
+    "phone_number": "[REDACTED-PHONE]",
+    "pictures": [
+      "https://cdn.foodamigos.io/images/2aY4WBhYmWUfvOCqZtcltfspwlFSQCZ65PL5WvkM.jpg"
+    ],
+    "primary_color": null,
+    "region": {
+      "address_format": "international",
+      "country": "DE",
+      "currency": "EUR",
+      "date_format": "dd.MM.yyyy",
+      "default_locale": "de",
+      "distance_unit": "km",
+      "hour_cycle": "h23",
+      "legal_pack": "de",
+      "limits": [],
+      "locales": [
+        "de",
+        "en"
+      ],
+      "number_locale": "de-DE",
+      "timezone": "Europe/Berlin"
+    },
+    "restaurant_source": "fa_direct",
+    "room_service_locations": [],
+    "saved_cards_enabled": true,
+    "scheduled_order_option_title": null,
+    "scheduled_orders_time_slot_interval": 10,
+    "service_provider": {
+      "adyen_key": "[REDACTED]",
+      "amplitude_api_key": "[REDACTED]",
+      "circle_logo_url": "https://cdn.foodamigos.io/service-providers/1/LogoCircle.png",
+      "country": "DE",
+      "google_analytics_id": "[REDACTED]",
+      "google_pay_merchant_id": "BCR2DN6TQ72IBQ2N",
+      "has_generated_legal_documents": false,
+      "id": 1,
+      "is_master": true,
+      "is_test": false,
+      "issues_end_customer_receipts": true,
+      "logo_url": "https://cdn.foodamigos.io/service-providers/1/logo.png",
+      "mixpanel_api_key": "[REDACTED]",
+      "name": "FoodAmigos",
+      "otp_delivery_channels": "[REDACTED]",
+      "platform_mixpanel_token": "[REDACTED]",
+      "sender_email": "[REDACTED]",
+      "spreedly_environment_key": null,
+      "stripe_key": "[REDACTED]",
+      "support_email": "[REDACTED]",
+      "uses_own_impressum": false,
+      "website": "www.foodamigos.io"
+    },
+    "show_hero_image_with_offers": false,
+    "show_master_promo_code": true,
+    "slug": "threebuddies",
+    "smart_pricing_deals": [],
+    "smart_pricing_rules": [],
+    "state": "Berlin",
+    "stripe_id": "[REDACTED]",
+    "stripe_platform_payment_methods": [
+      "paypal"
+    ],
+    "supported_languages": [
+      "de",
+      "en",
+      "fr",
+      "es",
+      "it",
+      "pt",
+      "ro",
+      "pl",
+      "nl",
+      "da"
+    ],
+    "supported_payment_methods": [
+      "apple_pay",
+      "google_pay",
+      "card",
+      "pay_by_bank",
+      "paypal",
+      "cash"
+    ],
+    "table_number_hidden": false,
+    "tax_behaviour": "inclusive",
+    "tax_percentage": 19,
+    "timezone": "Europe/Berlin",
+    "web_shop_url": "https://threebuddies.online-karte.com/threebuddies",
+    "website_link": "threebuddies.de",
+    "work_schedule": [
+      {
+        "close": {
+          "day": 0,
+          "hour": 21,
+          "minute": 30,
+          "timezone": "Europe/Berlin"
+        },
+        "open": {
+          "day": 0,
+          "hour": 12,
+          "minute": 0,
+          "timezone": "Europe/Berlin"
+        },
+        "timezone": "Europe/Berlin"
+      },
+      {
+        "close": {
+          "day": 2,
+          "hour": 21,
+          "minute": 30,
+          "timezone": "Europe/Berlin"
+        },
+        "open": {
+          "day": 2,
+          "hour": 12,
+          "minute": 0,
+          "timezone": "Europe/Berlin"
+        },
+        "timezone": "Europe/Berlin"
+      },
+      {
+        "close": {
+          "day": 3,
+          "hour": 21,
+          "minute": 30,
+          "timezone": "Europe/Berlin"
+        },
+        "open": {
+          "day": 3,
+          "hour": 12,
+          "minute": 0,
+          "timezone": "Europe/Berlin"
+        },
+        "timezone": "Europe/Berlin"
+      },
+      {
+        "close": {
+          "day": 4,
+          "hour": 21,
+          "minute": 30,
+          "timezone": "Europe/Berlin"
+        },
+        "open": {
+          "day": 4,
+          "hour": 12,
+          "minute": 0,
+          "timezone": "Europe/Berlin"
+        },
+        "timezone": "Europe/Berlin"
+      },
+      {
+        "close": {
+          "day": 5,
+          "hour": 21,
+          "minute": 30,
+          "timezone": "Europe/Berlin"
+        },
+        "open": {
+          "day": 5,
+          "hour": 12,
+          "minute": 0,
+          "timezone": "Europe/Berlin"
+        },
+        "timezone": "Europe/Berlin"
+      },
+      {
+        "close": {
+          "day": 6,
+          "hour": 21,
+          "minute": 30,
+          "timezone": "Europe/Berlin"
+        },
+        "open": {
+          "day": 6,
+          "hour": 12,
+          "minute": 0,
+          "timezone": "Europe/Berlin"
+        },
+        "timezone": "Europe/Berlin"
+      }
+    ],
+    "zip_code": "12167"
+  },
+  "franchise": {
+    "body_noscripts": null,
+    "country": "DE",
+    "facebook_pixel_id": null,
+    "gift_cards_redemption_mode": "online",
+    "google_ads_conversion_label_id": null,
+    "google_analytics_id": null,
+    "has_multiple_companies": true,
+    "head_scripts": null,
+    "id": 539,
+    "image_url": "https://cdn.foodamigos.io/images/u2VVTRS6m4tFs6tQP45xTUDFOep4NG2UQTQNYiZd.jpg",
+    "is_gift_cards_enabled": true,
+    "logo_url": "https://cdn.foodamigos.io/images/w6CHjt5G8mOGjhonQ5a4Is2r3JtN9nTW3FeTbdF8.png",
+    "logos": [
+      {
+        "height": 512,
+        "url": "https://cdn.foodamigos.io/images/03TmCEREoz84Fq9AB0XnRxrnoazkxS4SJpPtUgjE-512x512.jpg",
+        "width": 512
+      },
+      {
+        "height": 192,
+        "url": "https://cdn.foodamigos.io/images/ZaVOuoVJcBjlFRAAIElVE6rJIjWK9tzXdm0z7zCN-192x192.jpg",
+        "width": 192
+      }
+    ],
+    "mobile_app": null,
+    "name": "Three Buddies",
+    "primary_color": "#D10A10",
+    "seo_data": null,
+    "slug": "threebuddies",
+    "web_shop_url": "https://threebuddies.online-karte.com"
+  }
+}

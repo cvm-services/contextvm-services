@@ -1,0 +1,2508 @@
+{
+  "data": {
+    "about_us_section": {
+      "background_animation": null,
+      "background_color": null,
+      "background_media": [],
+      "content": {
+        "background_color": null,
+        "buttons": [],
+        "description": "Three Buddies - Burger Restaurant in Berlin bietet dir köstliche, frisch zubereitete Burger in einer entspannten Atmosphäre. Genieße unsere vielfältige Auswahl an Burgern, von klassischen Beef-Burgern bis hin zu kreativen vegetarischen und veganen Optionen. Unser freundliches Team sorgt dafür, dass du dich wohlfühlst, ob zum Mittagessen, Abendessen oder für einen Snack zwischendurch. Besuche uns im Herzen Berlins und erlebe erstklassige Burger und herzliche Gastfreundschaft. Perfekt für Familien, Freunde und alle Burger-Liebhaber.",
+        "has_parallax": false,
+        "id": 2318,
+        "lottie_props": null,
+        "media": [
+          {
+            "animation": null,
+            "desktop": null,
+            "extension": "png",
+            "id": 14151,
+            "mobile": null,
+            "name": "w6CHjt5G8mOGjhonQ5a4Is2r3JtN9nTW3FeTbdF8",
+            "type": "image",
+            "url": "https://dtwaeonhht2im.cloudfront.net/w6CHjt5G8mOGjhonQ5a4Is2r3JtN9nTW3FeTbdF8.png"
+          }
+        ],
+        "opening_hours_props": null,
+        "opening_hours_type": null,
+        "social_media_icons_hidden": true,
+        "sub_title": null,
+        "title": "Three Buddies",
+        "type": 28
+      },
+      "description": {
+        "all_capital": false,
+        "color": null,
+        "desktop": null,
+        "font": null,
+        "font_weight": null,
+        "highlighted_text": null,
+        "highlighted_text_color": null,
+        "letter_spacing": null,
+        "mobile": null,
+        "text": "Three Buddies - Burger Restaurant in Berlin bietet dir köstliche, frisch zubereitete Burger in einer entspannten Atmosphäre. Genieße unsere vielfältige Auswahl an Burgern, von klassischen Beef-Burgern bis hin zu kreativen vegetarischen und veganen Optionen. Unser freundliches Team sorgt dafür, dass du dich wohlfühlst, ob zum Mittagessen, Abendessen oder für einen Snack zwischendurch. Besuche uns im Herzen Berlins und erlebe erstklassige Burger und herzliche Gastfreundschaft. Perfekt für Familien, Freunde und alle Burger-Liebhaber.",
+        "text_decoration": null,
+        "underline_offset": null
+      },
+      "description_color": null,
+      "header_color": null,
+      "id": 5174,
+      "identifier": "about_us",
+      "is_hidden": null,
+      "is_skew": false,
+      "name": null,
+      "name_style": null,
+      "page": {
+        "company_id": null,
+        "href": "/ueber-uns",
+        "id": 1709,
+        "identifier": "about-us",
+        "settings": null,
+        "type": null
+      },
+      "parent_id": null,
+      "settings": {
+        "has_parallax": false,
+        "opening_hours_style": null,
+        "opening_hours_type": null,
+        "show_social_media": false
+      },
+      "sorting_order": 2,
+      "subtitle": null,
+      "title": {
+        "all_capital": false,
+        "color": null,
+        "desktop": null,
+        "font": null,
+        "font_weight": null,
+        "highlighted_text": null,
+        "highlighted_text_color": null,
+        "letter_spacing": null,
+        "mobile": null,
+        "text": "Three Buddies",
+        "text_decoration": null,
+        "underline_offset": null
+      },
+      "type": "customizable_section"
+    },
+    "address": "Albrechtstraße 131",
+    "best_dishes": [],
+    "body_noscripts": null,
+    "business_founding_year": null,
+    "business_owners": "[REDACTED]",
+    "buttons": [
+      {
+        "background_color": "primary_color",
+        "border_color": null,
+        "border_radius_type": "full",
+        "border_width_type": null,
+        "color": "light_text_color",
+        "has_shadow": false,
+        "has_underline": false,
+        "horizontal_padding": null,
+        "id": 2529,
+        "transition_background_color": null,
+        "transition_border_color": null,
+        "transition_color": null,
+        "variant": "primary_fill",
+        "vertical_padding": null
+      },
+      {
+        "background_color": "light_text_color",
+        "border_color": "primary_color",
+        "border_radius_type": "full",
+        "border_width_type": "small",
+        "color": "primary_color",
+        "has_shadow": false,
+        "has_underline": false,
+        "horizontal_padding": null,
+        "id": 2530,
+        "transition_background_color": null,
+        "transition_border_color": null,
+        "transition_color": null,
+        "variant": "secondary_fill",
+        "vertical_padding": null
+      },
+      {
+        "background_color": null,
+        "border_color": "light_text_color",
+        "border_radius_type": "full",
+        "border_width_type": "small",
+        "color": "light_text_color",
+        "has_shadow": false,
+        "has_underline": false,
+        "horizontal_padding": null,
+        "id": 2531,
+        "transition_background_color": "light_text_color",
+        "transition_border_color": null,
+        "transition_color": "primary_color",
+        "variant": "light_outline",
+        "vertical_padding": null
+      },
+      {
+        "background_color": null,
+        "border_color": "dark_text_color",
+        "border_radius_type": "full",
+        "border_width_type": "small",
+        "color": "dark_text_color",
+        "has_shadow": false,
+        "has_underline": false,
+        "horizontal_padding": null,
+        "id": 2532,
+        "transition_background_color": "dark_text_color",
+        "transition_border_color": null,
+        "transition_color": "light_text_color",
+        "variant": "dark_outline",
+        "vertical_padding": null
+      }
+    ],
+    "city": "Berlin",
+    "companies": [
+      {
+        "address": "Albrechtstraße 131",
+        "catering_settings": null,
+        "city": "Berlin",
+        "event_settings": null,
+        "google_places_id": "ChIJiaE9_ZdbqEcR5-QQEfz8ycc",
+        "google_rates_count": 148,
+        "google_rating": 4.3,
+        "google_reviews": "[REDACTED]",
+        "has_multiple_locations": false,
+        "id": 509,
+        "images": [],
+        "impressum_content": null,
+        "is_live": true,
+        "lat": null,
+        "locations": null,
+        "lon": null,
+        "name": "Three Buddies Steglitz",
+        "note": null,
+        "opening_hours": [
+          {
+            "close": {
+              "day": 0,
+              "hour": 21,
+              "minute": 30
+            },
+            "open": {
+              "day": 0,
+              "hour": 12,
+              "minute": 0
+            }
+          },
+          {
+            "close": {
+              "day": 2,
+              "hour": 21,
+              "minute": 30
+            },
+            "open": {
+              "day": 2,
+              "hour": 12,
+              "minute": 0
+            }
+          },
+          {
+            "close": {
+              "day": 3,
+              "hour": 21,
+              "minute": 30
+            },
+            "open": {
+              "day": 3,
+              "hour": 12,
+              "minute": 0
+            }
+          },
+          {
+            "close": {
+              "day": 4,
+              "hour": 21,
+              "minute": 30
+            },
+            "open": {
+              "day": 4,
+              "hour": 12,
+              "minute": 0
+            }
+          },
+          {
+            "close": {
+              "day": 5,
+              "hour": 21,
+              "minute": 30
+            },
+            "open": {
+              "day": 5,
+              "hour": 12,
+              "minute": 0
+            }
+          },
+          {
+            "close": {
+              "day": 6,
+              "hour": 21,
+              "minute": 30
+            },
+            "open": {
+              "day": 6,
+              "hour": 12,
+              "minute": 0
+            }
+          }
+        ],
+        "phone_number": "+49 30 48625381",
+        "quarter": null,
+        "slug": "threebuddies",
+        "sorting_order": null,
+        "store_id": 481,
+        "uses_own_impressum": false,
+        "uuid": "636c570e-6879-42d8-a8aa-9479721405c3",
+        "zip_code": "12167"
+      }
+    ],
+    "country": "DE",
+    "currency": "EUR",
+    "delivery_areas": [],
+    "dietary_attributes": [],
+    "domain": "threebuddies.de",
+    "doordash_link": null,
+    "email": null,
+    "external_web_shop_url": "https://threebuddies.online-karte.com",
+    "facebook_link": null,
+    "family_owned": false,
+    "favicon": {
+      "extension": "jpg",
+      "id": 14152,
+      "name": "2024-07-19-11-20-43aO3Bwx",
+      "type": "image",
+      "url": "https://dtwaeonhht2im.cloudfront.net/2024-07-19-11-20-43aO3Bwx.jpg"
+    },
+    "food_type": "Burger",
+    "franchise_slug": "threebuddies",
+    "gift_cards_redemption_mode": "online",
+    "google_cloud": {
+      "api_key": "[REDACTED]"
+    },
+    "google_search_results": {},
+    "google_site_verification": null,
+    "grubhub_link": null,
+    "has_ai": true,
+    "has_catering": false,
+    "has_delivery": true,
+    "has_events": false,
+    "has_online_shop": true,
+    "has_pickup": true,
+    "has_reservations": true,
+    "home_page": {
+      "company_id": null,
+      "href": "/",
+      "id": 1708,
+      "identifier": "home",
+      "name": "Home",
+      "sections": [
+        {
+          "background_animation": null,
+          "background_color": null,
+          "background_media": [
+            {
+              "animation": null,
+              "desktop": null,
+              "extension": "jpg",
+              "id": 14164,
+              "mobile": null,
+              "name": "2022-06-14",
+              "type": "image",
+              "url": "https://dtwaeonhht2im.cloudfront.net/2022-06-14.jpg"
+            }
+          ],
+          "child": null,
+          "content": {
+            "button_link": null,
+            "button_text": null,
+            "buttons": [
+              {
+                "hidden": false,
+                "href": "/reservierungen",
+                "identifier": "reservation",
+                "position": null,
+                "size": null,
+                "sub_text_hidden": false,
+                "target": null,
+                "title": "Tisch reservieren",
+                "type": "page",
+                "variant": "secondary_fill"
+              }
+            ],
+            "description": "Angeblich die besten Burger in Berlin.",
+            "has_parallax": false,
+            "id": 950,
+            "items": [],
+            "media": [],
+            "order_online_button_hidden": false,
+            "order_online_button_props": {
+              "hidden": false,
+              "href": null,
+              "identifier": null,
+              "position": null,
+              "size": null,
+              "sub_text_hidden": false,
+              "target": null,
+              "title": null,
+              "type": null,
+              "variant": null
+            },
+            "reservation_button_position": "fixed_on_side",
+            "sub_title": "Willkommen bei",
+            "title": "Three Buddies",
+            "type": 2
+          },
+          "description": {
+            "all_capital": false,
+            "color": null,
+            "desktop": null,
+            "font": null,
+            "font_weight": null,
+            "highlighted_text": null,
+            "highlighted_text_color": null,
+            "letter_spacing": null,
+            "mobile": null,
+            "text": "Angeblich die besten Burger in Berlin.",
+            "text_decoration": null,
+            "underline_offset": null
+          },
+          "description_color": null,
+          "header_color": null,
+          "id": 5164,
+          "identifier": "hero",
+          "is_hidden": null,
+          "is_skew": false,
+          "links": [],
+          "name": "Hero",
+          "name_style": null,
+          "page": {
+            "company_id": null,
+            "href": "/",
+            "id": 1708,
+            "identifier": "home",
+            "settings": null,
+            "type": null
+          },
+          "parent_id": null,
+          "settings": {
+            "has_parallax": false,
+            "opening_hours_style": null,
+            "opening_hours_type": null,
+            "show_social_media": null
+          },
+          "sorting_order": 0,
+          "subtitle": {
+            "all_capital": false,
+            "color": null,
+            "desktop": null,
+            "font": null,
+            "font_weight": null,
+            "highlighted_text": null,
+            "highlighted_text_color": null,
+            "letter_spacing": null,
+            "mobile": null,
+            "text": "Willkommen bei",
+            "text_decoration": null,
+            "underline_offset": null
+          },
+          "title": {
+            "all_capital": false,
+            "color": null,
+            "desktop": null,
+            "font": null,
+            "font_weight": null,
+            "highlighted_text": null,
+            "highlighted_text_color": null,
+            "letter_spacing": null,
+            "mobile": null,
+            "text": "Three Buddies",
+            "text_decoration": null,
+            "underline_offset": null
+          },
+          "type": "hero_section"
+        },
+        {
+          "background_animation": null,
+          "background_color": null,
+          "background_media": [],
+          "child": null,
+          "content": {
+            "buttons": [],
+            "description": null,
+            "id": 445,
+            "images": [],
+            "menu_items": [
+              {
+                "background_color": null,
+                "buttons": [],
+                "description": {
+                  "all_capital": false,
+                  "color": null,
+                  "desktop": null,
+                  "font": null,
+                  "font_weight": null,
+                  "highlighted_text": null,
+                  "highlighted_text_color": null,
+                  "letter_spacing": null,
+                  "mobile": null,
+                  "text": "Entdecke unsere köstlichen Halal-Burger bei Three Buddies in Berlin. Wir servieren dir saftige, frisch zubereitete Burger, die aus 100% Halal-zertifizierten Zutaten bestehen. Ob klassisch oder mit kreativem Belag – unsere Burger sind perfekt für alle, die Wert auf Geschmack und Halal-Konformität legen. Genieße deinen Burger mit dem guten Gefühl, dass bei uns alles Halal ist.",
+                  "text_decoration": null,
+                  "underline_offset": null
+                },
+                "description_color": null,
+                "header_color": null,
+                "id": 438,
+                "media": [
+                  {
+                    "animation": null,
+                    "desktop": null,
+                    "extension": "png",
+                    "id": 15873,
+                    "mobile": null,
+                    "name": "Untitled-design-9-3",
+                    "type": "image",
+                    "url": "https://dtwaeonhht2im.cloudfront.net/Untitled-design-9-3.png"
+                  }
+                ],
+                "sorting_order": 1,
+                "title": {
+                  "all_capital": false,
+                  "color": null,
+                  "desktop": null,
+                  "font": null,
+                  "font_weight": null,
+                  "highlighted_text": null,
+                  "highlighted_text_color": null,
+                  "letter_spacing": null,
+                  "mobile": null,
+                  "text": "Halal Burger in Berlin – Frisch und 100% Halal bei Three Buddies",
+                  "text_decoration": null,
+                  "underline_offset": null
+                }
+              },
+              {
+                "background_color": null,
+                "buttons": [],
+                "description": {
+                  "all_capital": false,
+                  "color": null,
+                  "desktop": null,
+                  "font": null,
+                  "font_weight": null,
+                  "highlighted_text": null,
+                  "highlighted_text_color": null,
+                  "letter_spacing": null,
+                  "mobile": null,
+                  "text": "Möchtest du Teil der Three Buddies Erfolgsgeschichte werden? Wir bieten dir die Chance, dein eigenes Three Buddies Restaurant zu eröffnen und von unserem bewährten Konzept zu profitieren. Als Franchise-Partner erhältst du umfassende Unterstützung, von der Standortwahl bis hin zu Marketingstrategien. Bei Interesse sende uns einfach eine E-Mail an [REDACTED-EMAIL]\n. Wir freuen uns darauf, mit dir gemeinsam zu wachsen und die Marke Three Buddies weiter zu stärken!",
+                  "text_decoration": null,
+                  "underline_offset": null
+                },
+                "description_color": null,
+                "header_color": null,
+                "id": 439,
+                "media": [
+                  {
+                    "animation": null,
+                    "desktop": null,
+                    "extension": "jpg",
+                    "id": 14162,
+                    "mobile": null,
+                    "name": "AUc7tXXrxZygp7UoBKuElrCQKXwdRgzhRuow5QhjtTS4bRkH2Flck65v5bsUlhRmoRnAaLeh3TBfTeIu3L4fJi0V7EOhf9Pa-_Qo1C4Her1AwDABt3z8MFUUSjcSgRRuZP7ozC4OCVMNTjPrmR0aATLi-tZEoqvT8Nd3kDAYJp1QU1os1ltz",
+                    "type": "image",
+                    "url": "https://dtwaeonhht2im.cloudfront.net/AUc7tXXrxZygp7UoBKuElrCQKXwdRgzhRuow5QhjtTS4bRkH2Flck65v5bsUlhRmoRnAaLeh3TBfTeIu3L4fJi0V7EOhf9Pa-_Qo1C4Her1AwDABt3z8MFUUSjcSgRRuZP7ozC4OCVMNTjPrmR0aATLi-tZEoqvT8Nd3kDAYJp1QU1os1ltz.jpg"
+                  }
+                ],
+                "sorting_order": 2,
+                "title": {
+                  "all_capital": false,
+                  "color": null,
+                  "desktop": null,
+                  "font": null,
+                  "font_weight": null,
+                  "highlighted_text": null,
+                  "highlighted_text_color": null,
+                  "letter_spacing": null,
+                  "mobile": null,
+                  "text": "Franchise-Möglichkeiten bei Three Buddies",
+                  "text_decoration": null,
+                  "underline_offset": null
+                }
+              }
+            ],
+            "title": null,
+            "type": 3
+          },
+          "description": null,
+          "description_color": null,
+          "header_color": null,
+          "id": 5165,
+          "identifier": "menu",
+          "is_hidden": null,
+          "is_skew": false,
+          "links": [],
+          "name": null,
+          "name_style": null,
+          "page": {
+            "company_id": null,
+            "href": "/",
+            "id": 1708,
+            "identifier": "home",
+            "settings": null,
+            "type": null
+          },
+          "parent_id": null,
+          "settings": {
+            "has_parallax": null,
+            "opening_hours_style": null,
+            "opening_hours_type": null,
+            "show_social_media": null
+          },
+          "sorting_order": 1,
+          "subtitle": null,
+          "title": null,
+          "type": "menu_section"
+        },
+        {
+          "background_animation": null,
+          "background_color": null,
+          "background_media": [],
+          "child": null,
+          "content": {
+            "buttons": [],
+            "description": null,
+            "id": 446,
+            "images": [],
+            "menu_items": [
+              {
+                "background_color": null,
+                "buttons": [],
+                "description": {
+                  "all_capital": false,
+                  "color": null,
+                  "desktop": null,
+                  "font": null,
+                  "font_weight": null,
+                  "highlighted_text": null,
+                  "highlighted_text_color": null,
+                  "letter_spacing": null,
+                  "mobile": null,
+                  "text": "Three Buddies Burger Restaurant in Berlin  ist ein beliebter Treffpunkt für alle, die leckere Burger genießen möchten. Unsere Köche verfügen über langjährige Erfahrung und sorgen dafür, dass jeder Burger frisch zubereitet wird. Wir bieten eine große Vielfalt an Burger. Kommen Sie vorbei oder bestellen Sie für zuhause und genießen Sie unsere leckeren Burger .",
+                  "text_decoration": null,
+                  "underline_offset": null
+                },
+                "description_color": null,
+                "header_color": null,
+                "id": 367,
+                "media": [
+                  {
+                    "animation": null,
+                    "desktop": null,
+                    "extension": "jpg",
+                    "id": 14172,
+                    "mobile": null,
+                    "name": "2022-06-08",
+                    "type": "image",
+                    "url": "https://dtwaeonhht2im.cloudfront.net/2022-06-08.jpg"
+                  }
+                ],
+                "sorting_order": 1,
+                "title": {
+                  "all_capital": false,
+                  "color": null,
+                  "desktop": null,
+                  "font": null,
+                  "font_weight": null,
+                  "highlighted_text": null,
+                  "highlighted_text_color": null,
+                  "letter_spacing": null,
+                  "mobile": null,
+                  "text": "Über Uns",
+                  "text_decoration": null,
+                  "underline_offset": null
+                }
+              },
+              {
+                "background_color": null,
+                "buttons": [],
+                "description": {
+                  "all_capital": false,
+                  "color": null,
+                  "desktop": null,
+                  "font": null,
+                  "font_weight": null,
+                  "highlighted_text": null,
+                  "highlighted_text_color": null,
+                  "letter_spacing": null,
+                  "mobile": null,
+                  "text": "Wir investieren in hochwertige Zutaten, um sicherzustellen, dass unsere Kunden den großartigen Geschmack bekommen, für den wir bekannt sind. Denn wir glauben, dass du das Beste verdienst.",
+                  "text_decoration": null,
+                  "underline_offset": null
+                },
+                "description_color": null,
+                "header_color": null,
+                "id": 368,
+                "media": [
+                  {
+                    "animation": null,
+                    "desktop": null,
+                    "extension": "jpg",
+                    "id": 14160,
+                    "mobile": null,
+                    "name": "AUc7tXXVHrM9OU7_r2yc_InIb7VvcWB3IN6s9NHzmdFmKJp8rbBzXxETI7u2wwSKvZCAjScifA0gdt-JCJO1V6vhXyv0lxcUUAwTeKzKgxuG_iQ3YlTjiWtwnxaJqF_D-yVdQsAEcoT5zgjx3k_nEbP86BsAPaRRHnQm8ESsrHkFj1bgaGBB",
+                    "type": "image",
+                    "url": "https://dtwaeonhht2im.cloudfront.net/AUc7tXXVHrM9OU7_r2yc_InIb7VvcWB3IN6s9NHzmdFmKJp8rbBzXxETI7u2wwSKvZCAjScifA0gdt-JCJO1V6vhXyv0lxcUUAwTeKzKgxuG_iQ3YlTjiWtwnxaJqF_D-yVdQsAEcoT5zgjx3k_nEbP86BsAPaRRHnQm8ESsrHkFj1bgaGBB.jpg"
+                  }
+                ],
+                "sorting_order": 1,
+                "title": {
+                  "all_capital": false,
+                  "color": null,
+                  "desktop": null,
+                  "font": null,
+                  "font_weight": null,
+                  "highlighted_text": null,
+                  "highlighted_text_color": null,
+                  "letter_spacing": null,
+                  "mobile": null,
+                  "text": "Nur frische Zutaten",
+                  "text_decoration": null,
+                  "underline_offset": null
+                }
+              }
+            ],
+            "title": null,
+            "type": 3
+          },
+          "description": null,
+          "description_color": null,
+          "header_color": null,
+          "id": 5168,
+          "identifier": "about_us_and_ingredients",
+          "is_hidden": null,
+          "is_skew": false,
+          "links": [],
+          "name": "Menu",
+          "name_style": null,
+          "page": {
+            "company_id": null,
+            "href": "/",
+            "id": 1708,
+            "identifier": "home",
+            "settings": null,
+            "type": null
+          },
+          "parent_id": null,
+          "settings": {
+            "has_parallax": null,
+            "opening_hours_style": null,
+            "opening_hours_type": null,
+            "show_social_media": null
+          },
+          "sorting_order": 2,
+          "subtitle": null,
+          "title": null,
+          "type": "menu_section"
+        },
+        {
+          "background_animation": null,
+          "background_color": null,
+          "background_media": [],
+          "child": null,
+          "content": {
+            "google_places_id": "ChIJiaE9_ZdbqEcR5-QQEfz8ycc",
+            "google_review_button_props": null,
+            "id": 469,
+            "images": [
+              {
+                "extension": "jpg",
+                "id": 14157,
+                "name": "AUc7tXWe7pR3IoS0csijGV9yYnDwXQcMpICLH7UIBGgxfQtHccdJa0JFptyPZ01aLVo0_pDf6yRQjqs5VVGDVsPf1T2OupHT0cGN1rdVxzX6U5ODVGceNpVHaiSGjDjoSojFwLHkmrpCa1RJoBylSwsg1LHoFkMuI_ops0Um6akM3iTtnkL",
+                "type": "image",
+                "url": "https://dtwaeonhht2im.cloudfront.net/AUc7tXWe7pR3IoS0csijGV9yYnDwXQcMpICLH7UIBGgxfQtHccdJa0JFptyPZ01aLVo0_pDf6yRQjqs5VVGDVsPf1T2OupHT0cGN1rdVxzX6U5ODVGceNpVHaiSGjDjoSojFwLHkmrpCa1RJoBylSwsg1LHoFkMuI_ops0Um6akM3iTtnkL.jpg"
+              }
+            ],
+            "title": "Was unsere Kunden sagen…",
+            "type": 1
+          },
+          "description": null,
+          "description_color": null,
+          "header_color": null,
+          "id": 5166,
+          "identifier": "google_reviews",
+          "is_hidden": null,
+          "is_skew": false,
+          "links": [],
+          "name": "Feedback",
+          "name_style": null,
+          "page": {
+            "company_id": null,
+            "href": "/",
+            "id": 1708,
+            "identifier": "home",
+            "settings": null,
+            "type": null
+          },
+          "parent_id": null,
+          "settings": {
+            "has_parallax": null,
+            "opening_hours_style": null,
+            "opening_hours_type": null,
+            "show_social_media": null
+          },
+          "sorting_order": 3,
+          "subtitle": null,
+          "title": {
+            "all_capital": false,
+            "color": null,
+            "desktop": null,
+            "font": null,
+            "font_weight": null,
+            "highlighted_text": null,
+            "highlighted_text_color": null,
+            "letter_spacing": null,
+            "mobile": null,
+            "text": "Was unsere Kunden sagen…",
+            "text_decoration": null,
+            "underline_offset": null
+          },
+          "type": "google_review_section"
+        },
+        {
+          "background_animation": null,
+          "background_color": null,
+          "background_media": [],
+          "child": null,
+          "content": {
+            "background_color": null,
+            "buttons": [
+              {
+                "hidden": false,
+                "href": "https://threebuddies.online-karte.com",
+                "identifier": "first",
+                "position": null,
+                "size": null,
+                "sub_text_hidden": false,
+                "target": "_blank",
+                "title": "Jetzt Bestellen",
+                "type": null,
+                "variant": null
+              }
+            ],
+            "description": "Bestelle direkt über unsere Webseite, um Gebühren zu sparen, schnelleren Service zu erhalten, kostenloses Essen durch unser Bonusprogramm zu verdienen und lokale Geschäfte zu unterstützen.",
+            "has_parallax": false,
+            "id": 2314,
+            "lottie_props": null,
+            "media": [
+              {
+                "animation": null,
+                "desktop": null,
+                "extension": "png",
+                "id": 14159,
+                "mobile": null,
+                "name": "AUc7tXXSq2RLz557DAevCjBVEly9hIAzo0A7yuFApV6viBqcbYyYjsICeeMuHqlffTSillGRitEJE-eXvl9W4JXLw5El3J7JbANrOehyhou2ObZ-SMfLUqSJinwRyeC1MbeOxbKM-kKurUgAj-dDV37nYrUv1zZ6A_0x4tjuZcDJ4hbZr-lg",
+                "type": "image",
+                "url": "https://dtwaeonhht2im.cloudfront.net/AUc7tXXSq2RLz557DAevCjBVEly9hIAzo0A7yuFApV6viBqcbYyYjsICeeMuHqlffTSillGRitEJE-eXvl9W4JXLw5El3J7JbANrOehyhou2ObZ-SMfLUqSJinwRyeC1MbeOxbKM-kKurUgAj-dDV37nYrUv1zZ6A_0x4tjuZcDJ4hbZr-lg.png"
+              }
+            ],
+            "opening_hours_props": null,
+            "opening_hours_type": null,
+            "social_media_icons_hidden": true,
+            "sub_title": null,
+            "title": "Bestelle direkt über unsere Website",
+            "type": 12
+          },
+          "description": {
+            "all_capital": false,
+            "color": null,
+            "desktop": null,
+            "font": null,
+            "font_weight": null,
+            "highlighted_text": null,
+            "highlighted_text_color": null,
+            "letter_spacing": null,
+            "mobile": null,
+            "text": "Bestelle direkt über unsere Webseite, um Gebühren zu sparen, schnelleren Service zu erhalten, kostenloses Essen durch unser Bonusprogramm zu verdienen und lokale Geschäfte zu unterstützen.",
+            "text_decoration": null,
+            "underline_offset": null
+          },
+          "description_color": null,
+          "header_color": null,
+          "id": 5167,
+          "identifier": "order_online",
+          "is_hidden": null,
+          "is_skew": false,
+          "links": [
+            {
+              "button_props": {
+                "hidden": false,
+                "href": null,
+                "identifier": null,
+                "position": null,
+                "size": null,
+                "sub_text_hidden": false,
+                "target": null,
+                "title": null,
+                "type": null,
+                "variant": null
+              },
+              "href": "https://threebuddies.online-karte.com",
+              "id": 6002,
+              "identifier": "first",
+              "target": "_blank",
+              "title": "Jetzt Bestellen",
+              "type": null
+            }
+          ],
+          "name": "Online bestellen",
+          "name_style": null,
+          "page": {
+            "company_id": null,
+            "href": "/",
+            "id": 1708,
+            "identifier": "home",
+            "settings": null,
+            "type": null
+          },
+          "parent_id": null,
+          "settings": {
+            "has_parallax": false,
+            "opening_hours_style": null,
+            "opening_hours_type": null,
+            "show_social_media": false
+          },
+          "sorting_order": 4,
+          "subtitle": null,
+          "title": {
+            "all_capital": false,
+            "color": null,
+            "desktop": null,
+            "font": null,
+            "font_weight": null,
+            "highlighted_text": null,
+            "highlighted_text_color": null,
+            "letter_spacing": null,
+            "mobile": null,
+            "text": "Bestelle direkt über unsere Website",
+            "text_decoration": null,
+            "underline_offset": null
+          },
+          "type": "customizable_section"
+        },
+        {
+          "background_animation": null,
+          "background_color": null,
+          "background_media": [],
+          "child": null,
+          "content": {
+            "description": null,
+            "id": 521,
+            "images": [
+              {
+                "extension": "jpg",
+                "id": 14150,
+                "name": "ELRB8iWPLTceWKAJjaAMTyZnTmbV5COv6MGgSTN4",
+                "type": "image",
+                "url": "https://dtwaeonhht2im.cloudfront.net/ELRB8iWPLTceWKAJjaAMTyZnTmbV5COv6MGgSTN4.jpg"
+              },
+              {
+                "extension": "jpg",
+                "id": 14149,
+                "name": "4zldeAdmtW8iirzfpZTE8Psf0MptiBOGIdMZKimm",
+                "type": "image",
+                "url": "https://dtwaeonhht2im.cloudfront.net/4zldeAdmtW8iirzfpZTE8Psf0MptiBOGIdMZKimm.jpg"
+              },
+              {
+                "extension": "jpg",
+                "id": 14168,
+                "name": "2023-02-18",
+                "type": "image",
+                "url": "https://dtwaeonhht2im.cloudfront.net/2023-02-18.jpg"
+              },
+              {
+                "extension": "jpg",
+                "id": 14170,
+                "name": "2023-11-29",
+                "type": "image",
+                "url": "https://dtwaeonhht2im.cloudfront.net/2023-11-29.jpg"
+              },
+              {
+                "extension": "jpg",
+                "id": 14156,
+                "name": "AUc7tXURBGy8ny2ywyI2oufr9l0AanJjEpYX98_kfcUoG9hQAz7ATKNio-YAudWESS0pDU_iDyZ6jmWsom8QaCIPcHIlyLV5wz6PI1EAxWq33plfdGPJId09Ey7W16nmCg8MORpFq46iEioVJlTKMPgGIGQdADjt9x9-qnHd4tzzm5lCUMCf",
+                "type": "image",
+                "url": "https://dtwaeonhht2im.cloudfront.net/AUc7tXURBGy8ny2ywyI2oufr9l0AanJjEpYX98_kfcUoG9hQAz7ATKNio-YAudWESS0pDU_iDyZ6jmWsom8QaCIPcHIlyLV5wz6PI1EAxWq33plfdGPJId09Ey7W16nmCg8MORpFq46iEioVJlTKMPgGIGQdADjt9x9-qnHd4tzzm5lCUMCf.jpg"
+              },
+              {
+                "extension": "jpg",
+                "id": 14158,
+                "name": "AUc7tXWvZjSPV9h5eLho09lFMGgCqSCS3jLIxMZD4Va7NfHyzFfhIsKQmkpAKQyrleg1Uv34tOMs6zsJZYUaJdcG4bkOiVb9qyJ78C0wA_ntH61bBmiBVID1K8QKhaWO1TRXCReflYyeVUyIu-9zHD8ICptQ583QpTFfWj5n5T6ckWV0atAH",
+                "type": "image",
+                "url": "https://dtwaeonhht2im.cloudfront.net/AUc7tXWvZjSPV9h5eLho09lFMGgCqSCS3jLIxMZD4Va7NfHyzFfhIsKQmkpAKQyrleg1Uv34tOMs6zsJZYUaJdcG4bkOiVb9qyJ78C0wA_ntH61bBmiBVID1K8QKhaWO1TRXCReflYyeVUyIu-9zHD8ICptQ583QpTFfWj5n5T6ckWV0atAH.jpg"
+              },
+              {
+                "extension": "jpg",
+                "id": 14161,
+                "name": "AUc7tXXgyyy5_O08HQAmJ5wcOTrO1qf1r_CcHzROWjbP3NS_K4F3Fy3R9LPy430O2_Rsc8k5i50Qd4RwI4MRxIyQV35GBKWOhMIlrODAzSqoiMEDHcT3979JsAVns7cLR8C6jlvqpGqaNy_OjemKaWLla_3o3Cwg9iHIDEyflSfdlXDp_Q3i",
+                "type": "image",
+                "url": "https://dtwaeonhht2im.cloudfront.net/AUc7tXXgyyy5_O08HQAmJ5wcOTrO1qf1r_CcHzROWjbP3NS_K4F3Fy3R9LPy430O2_Rsc8k5i50Qd4RwI4MRxIyQV35GBKWOhMIlrODAzSqoiMEDHcT3979JsAVns7cLR8C6jlvqpGqaNy_OjemKaWLla_3o3Cwg9iHIDEyflSfdlXDp_Q3i.jpg"
+              }
+            ],
+            "sub_title": null,
+            "type": 1
+          },
+          "description": null,
+          "description_color": null,
+          "header_color": null,
+          "id": 5169,
+          "identifier": "gallery",
+          "is_hidden": null,
+          "is_skew": false,
+          "links": [],
+          "name": "Willkommen bei Three Buddies in Berlin",
+          "name_style": null,
+          "page": {
+            "company_id": null,
+            "href": "/",
+            "id": 1708,
+            "identifier": "home",
+            "settings": null,
+            "type": null
+          },
+          "parent_id": null,
+          "settings": {
+            "has_parallax": null,
+            "opening_hours_style": null,
+            "opening_hours_type": null,
+            "show_social_media": null
+          },
+          "sorting_order": 5,
+          "subtitle": null,
+          "title": {
+            "all_capital": false,
+            "color": null,
+            "desktop": null,
+            "font": null,
+            "font_weight": null,
+            "highlighted_text": null,
+            "highlighted_text_color": null,
+            "letter_spacing": null,
+            "mobile": null,
+            "text": "Willkommen bei Three Buddies in Berlin",
+            "text_decoration": null,
+            "underline_offset": null
+          },
+          "type": "gallery_section"
+        },
+        {
+          "background_animation": null,
+          "background_color": null,
+          "background_media": [],
+          "child": null,
+          "content": {
+            "background_color": null,
+            "buttons": [],
+            "description": "Unsere geheime Zutat ist Leidenschaft. Jeder in unserem Team ist leidenschaftlich darum bemüht, deine Zeit bei uns so großartig wie möglich zu gestalten – von Anfang bis Ende.",
+            "has_parallax": false,
+            "id": 2316,
+            "lottie_props": null,
+            "media": [
+              {
+                "animation": null,
+                "desktop": null,
+                "extension": "jpg",
+                "id": 14167,
+                "mobile": null,
+                "name": "2022-08-14",
+                "type": "image",
+                "url": "https://dtwaeonhht2im.cloudfront.net/2022-08-14.jpg"
+              }
+            ],
+            "opening_hours_props": null,
+            "opening_hours_type": null,
+            "social_media_icons_hidden": true,
+            "sub_title": null,
+            "title": "Mit Liebe zubereitet",
+            "type": 28
+          },
+          "description": {
+            "all_capital": false,
+            "color": null,
+            "desktop": null,
+            "font": null,
+            "font_weight": null,
+            "highlighted_text": null,
+            "highlighted_text_color": null,
+            "letter_spacing": null,
+            "mobile": null,
+            "text": "Unsere geheime Zutat ist Leidenschaft. Jeder in unserem Team ist leidenschaftlich darum bemüht, deine Zeit bei uns so großartig wie möglich zu gestalten – von Anfang bis Ende.",
+            "text_decoration": null,
+            "underline_offset": null
+          },
+          "description_color": null,
+          "header_color": null,
+          "id": 5171,
+          "identifier": "passion",
+          "is_hidden": false,
+          "is_skew": false,
+          "links": [],
+          "name": null,
+          "name_style": null,
+          "page": {
+            "company_id": null,
+            "href": "/",
+            "id": 1708,
+            "identifier": "home",
+            "settings": null,
+            "type": null
+          },
+          "parent_id": null,
+          "settings": {
+            "has_parallax": false,
+            "opening_hours_style": null,
+            "opening_hours_type": null,
+            "show_social_media": false
+          },
+          "sorting_order": 6,
+          "subtitle": null,
+          "title": {
+            "all_capital": false,
+            "color": null,
+            "desktop": null,
+            "font": null,
+            "font_weight": null,
+            "highlighted_text": null,
+            "highlighted_text_color": null,
+            "letter_spacing": null,
+            "mobile": null,
+            "text": "Mit Liebe zubereitet",
+            "text_decoration": null,
+            "underline_offset": null
+          },
+          "type": "customizable_section"
+        },
+        {
+          "background_animation": null,
+          "background_color": null,
+          "background_media": [],
+          "child": null,
+          "content": {
+            "background_color": null,
+            "buttons": [],
+            "description": "Wir investieren in hochwertige Zutaten, um sicherzustellen, dass unsere Kunden den großartigen Geschmack bekommen, für den wir bekannt sind. Denn wir glauben, dass du das Beste verdienst.",
+            "has_parallax": false,
+            "id": 2315,
+            "lottie_props": null,
+            "media": [
+              {
+                "animation": null,
+                "desktop": null,
+                "extension": "jpg",
+                "id": 14157,
+                "mobile": null,
+                "name": "AUc7tXWe7pR3IoS0csijGV9yYnDwXQcMpICLH7UIBGgxfQtHccdJa0JFptyPZ01aLVo0_pDf6yRQjqs5VVGDVsPf1T2OupHT0cGN1rdVxzX6U5ODVGceNpVHaiSGjDjoSojFwLHkmrpCa1RJoBylSwsg1LHoFkMuI_ops0Um6akM3iTtnkL",
+                "type": "image",
+                "url": "https://dtwaeonhht2im.cloudfront.net/AUc7tXWe7pR3IoS0csijGV9yYnDwXQcMpICLH7UIBGgxfQtHccdJa0JFptyPZ01aLVo0_pDf6yRQjqs5VVGDVsPf1T2OupHT0cGN1rdVxzX6U5ODVGceNpVHaiSGjDjoSojFwLHkmrpCa1RJoBylSwsg1LHoFkMuI_ops0Um6akM3iTtnkL.jpg"
+              }
+            ],
+            "opening_hours_props": null,
+            "opening_hours_type": null,
+            "social_media_icons_hidden": true,
+            "sub_title": null,
+            "title": "Nur frische Zutaten",
+            "type": 6
+          },
+          "description": {
+            "all_capital": false,
+            "color": null,
+            "desktop": null,
+            "font": null,
+            "font_weight": null,
+            "highlighted_text": null,
+            "highlighted_text_color": null,
+            "letter_spacing": null,
+            "mobile": null,
+            "text": "Wir investieren in hochwertige Zutaten, um sicherzustellen, dass unsere Kunden den großartigen Geschmack bekommen, für den wir bekannt sind. Denn wir glauben, dass du das Beste verdienst.",
+            "text_decoration": null,
+            "underline_offset": null
+          },
+          "description_color": null,
+          "header_color": null,
+          "id": 5170,
+          "identifier": "ingredients",
+          "is_hidden": true,
+          "is_skew": false,
+          "links": [],
+          "name": null,
+          "name_style": null,
+          "page": {
+            "company_id": null,
+            "href": "/",
+            "id": 1708,
+            "identifier": "home",
+            "settings": null,
+            "type": null
+          },
+          "parent_id": null,
+          "settings": {
+            "has_parallax": false,
+            "opening_hours_style": null,
+            "opening_hours_type": null,
+            "show_social_media": false
+          },
+          "sorting_order": 7,
+          "subtitle": null,
+          "title": {
+            "all_capital": false,
+            "color": null,
+            "desktop": null,
+            "font": null,
+            "font_weight": null,
+            "highlighted_text": null,
+            "highlighted_text_color": null,
+            "letter_spacing": null,
+            "mobile": null,
+            "text": "Nur frische Zutaten",
+            "text_decoration": null,
+            "underline_offset": null
+          },
+          "type": "customizable_section"
+        },
+        {
+          "background_animation": null,
+          "background_color": null,
+          "background_media": [
+            {
+              "animation": null,
+              "desktop": null,
+              "extension": "png",
+              "id": 14159,
+              "mobile": null,
+              "name": "AUc7tXXSq2RLz557DAevCjBVEly9hIAzo0A7yuFApV6viBqcbYyYjsICeeMuHqlffTSillGRitEJE-eXvl9W4JXLw5El3J7JbANrOehyhou2ObZ-SMfLUqSJinwRyeC1MbeOxbKM-kKurUgAj-dDV37nYrUv1zZ6A_0x4tjuZcDJ4hbZr-lg",
+              "type": "image",
+              "url": "https://dtwaeonhht2im.cloudfront.net/AUc7tXXSq2RLz557DAevCjBVEly9hIAzo0A7yuFApV6viBqcbYyYjsICeeMuHqlffTSillGRitEJE-eXvl9W4JXLw5El3J7JbANrOehyhou2ObZ-SMfLUqSJinwRyeC1MbeOxbKM-kKurUgAj-dDV37nYrUv1zZ6A_0x4tjuZcDJ4hbZr-lg.png"
+            }
+          ],
+          "child": null,
+          "content": {
+            "background_color": null,
+            "buttons": [
+              {
+                "hidden": false,
+                "href": "/standort-und-oeffnungszeiten",
+                "identifier": "first",
+                "position": null,
+                "size": null,
+                "sub_text_hidden": false,
+                "target": null,
+                "title": "Siehe Standort & Öffnungszeiten",
+                "type": null,
+                "variant": null
+              }
+            ],
+            "description": null,
+            "has_parallax": false,
+            "id": 2317,
+            "lottie_props": null,
+            "media": [],
+            "opening_hours_props": null,
+            "opening_hours_type": null,
+            "social_media_icons_hidden": true,
+            "sub_title": null,
+            "title": "Unser Standort in Berlin",
+            "type": 1
+          },
+          "description": null,
+          "description_color": null,
+          "header_color": null,
+          "id": 5172,
+          "identifier": "location",
+          "is_hidden": true,
+          "is_skew": false,
+          "links": [
+            {
+              "button_props": {
+                "hidden": false,
+                "href": null,
+                "identifier": null,
+                "position": null,
+                "size": null,
+                "sub_text_hidden": false,
+                "target": null,
+                "title": null,
+                "type": null,
+                "variant": null
+              },
+              "href": "/standort-und-oeffnungszeiten",
+              "id": 5961,
+              "identifier": "first",
+              "target": null,
+              "title": "Siehe Standort & Öffnungszeiten",
+              "type": null
+            }
+          ],
+          "name": null,
+          "name_style": null,
+          "page": {
+            "company_id": null,
+            "href": "/",
+            "id": 1708,
+            "identifier": "home",
+            "settings": null,
+            "type": null
+          },
+          "parent_id": null,
+          "settings": {
+            "has_parallax": false,
+            "opening_hours_style": null,
+            "opening_hours_type": null,
+            "show_social_media": false
+          },
+          "sorting_order": 8,
+          "subtitle": null,
+          "title": {
+            "all_capital": false,
+            "color": null,
+            "desktop": null,
+            "font": null,
+            "font_weight": null,
+            "highlighted_text": null,
+            "highlighted_text_color": null,
+            "letter_spacing": null,
+            "mobile": null,
+            "text": "Unser Standort in Berlin",
+            "text_decoration": null,
+            "underline_offset": null
+          },
+          "type": "customizable_section"
+        },
+        {
+          "background_animation": null,
+          "background_color": null,
+          "background_media": [],
+          "child": null,
+          "content": {
+            "id": 212,
+            "type": 1
+          },
+          "description": null,
+          "description_color": null,
+          "header_color": null,
+          "id": 5225,
+          "identifier": null,
+          "is_hidden": false,
+          "is_skew": false,
+          "links": [],
+          "name": "Unsere Standorte",
+          "name_style": null,
+          "page": {
+            "company_id": null,
+            "href": "/",
+            "id": 1708,
+            "identifier": "home",
+            "settings": null,
+            "type": null
+          },
+          "parent_id": null,
+          "settings": {
+            "has_parallax": null,
+            "opening_hours_style": null,
+            "opening_hours_type": null,
+            "show_social_media": null
+          },
+          "sorting_order": 9,
+          "subtitle": null,
+          "title": {
+            "all_capital": false,
+            "color": null,
+            "desktop": null,
+            "font": null,
+            "font_weight": null,
+            "highlighted_text": null,
+            "highlighted_text_color": null,
+            "letter_spacing": null,
+            "mobile": null,
+            "text": "Unser Standort",
+            "text_decoration": null,
+            "underline_offset": null
+          },
+          "type": "location_tracker_section"
+        }
+      ],
+      "seo": {
+        "classification": "Restaurant",
+        "description": "Three Buddies offiziele Website. Schneller Service. Freundliches Team. Best bewertet. Burger in Berlin",
+        "id": 1720,
+        "image": {
+          "extension": "jpg",
+          "id": 14166,
+          "name": "2023-01-24",
+          "type": "image",
+          "url": "https://dtwaeonhht2im.cloudfront.net/2023-01-24.jpg"
+        },
+        "keywords": [
+          "Burger Berlin",
+          "Three Buddies Berlin",
+          "Beste Burger Berlin",
+          "Burger Restaurant Berlin",
+          "Burger Essen Berlin"
+        ],
+        "social_description": "Three Buddies offiziele Website. Schneller Service. Freundliches Team. Best bewertet. Burger in Berlin Steglitz",
+        "social_title": "Three Buddies | Best Burger in Berlin Steglitz",
+        "title": "Three Buddies | Best Burger in Berlin"
+      },
+      "settings": null,
+      "type": null
+    },
+    "id": 481,
+    "impressums": [
+      {
+        "address": "Albrechtstraße 131",
+        "business_type": null,
+        "commercial_register": null,
+        "commercial_register_number": null,
+        "custom_fields": [],
+        "email": "[REDACTED]",
+        "grantor": "Stadt Berlin",
+        "id": 473,
+        "legal_disclosure": null,
+        "legal_name": null,
+        "owner": "[REDACTED]",
+        "phone_number": "[REDACTED]",
+        "supervisory_authority": "Gewerbeaufsicht Stadt Berlin",
+        "tax_id": "[REDACTED]",
+        "web": null
+      }
+    ],
+    "instagram_link": null,
+    "is_gift_cards_enabled": true,
+    "legal_lang": "de",
+    "logo": {
+      "extension": "png",
+      "id": 14151,
+      "name": "w6CHjt5G8mOGjhonQ5a4Is2r3JtN9nTW3FeTbdF8",
+      "type": "image",
+      "url": "https://dtwaeonhht2im.cloudfront.net/w6CHjt5G8mOGjhonQ5a4Is2r3JtN9nTW3FeTbdF8.png"
+    },
+    "main_company_id": null,
+    "mobile_app": null,
+    "name": "Three Buddies",
+    "navigation_items": [
+      {
+        "children": [],
+        "id": 5988,
+        "is_hidden": false,
+        "is_visible_in_footer": true,
+        "name": "Home",
+        "page": {
+          "company_id": null,
+          "href": "/",
+          "id": 1708,
+          "identifier": "home",
+          "settings": null,
+          "type": null
+        },
+        "parent_id": null,
+        "section_id": null,
+        "sorting_order": 0
+      },
+      {
+        "children": [],
+        "id": 23076,
+        "is_hidden": false,
+        "is_visible_in_footer": true,
+        "name": "Reservieren",
+        "page": {
+          "company_id": null,
+          "href": "/reservierungen",
+          "id": 15023,
+          "identifier": "reservations",
+          "settings": null,
+          "type": null
+        },
+        "parent_id": null,
+        "section_id": null,
+        "sorting_order": 1
+      },
+      {
+        "children": [],
+        "id": 24390,
+        "is_hidden": false,
+        "is_visible_in_footer": true,
+        "name": "Gutscheine",
+        "page": {
+          "company_id": null,
+          "href": "/gutscheine",
+          "id": 16337,
+          "identifier": "gift-cards",
+          "settings": null,
+          "type": null
+        },
+        "parent_id": null,
+        "section_id": null,
+        "sorting_order": 2
+      },
+      {
+        "children": [],
+        "id": 5989,
+        "is_hidden": true,
+        "is_visible_in_footer": true,
+        "name": "Hero",
+        "page": {
+          "company_id": null,
+          "href": "/",
+          "id": 1708,
+          "identifier": "home",
+          "settings": null,
+          "type": null
+        },
+        "parent_id": null,
+        "section_id": 5164,
+        "sorting_order": 3
+      },
+      {
+        "children": [],
+        "id": 5990,
+        "is_hidden": true,
+        "is_visible_in_footer": true,
+        "name": "Menü",
+        "page": {
+          "company_id": null,
+          "href": "/",
+          "id": 1708,
+          "identifier": "home",
+          "settings": null,
+          "type": null
+        },
+        "parent_id": null,
+        "section_id": 5165,
+        "sorting_order": 4
+      },
+      {
+        "children": [],
+        "id": 5991,
+        "is_hidden": true,
+        "is_visible_in_footer": true,
+        "name": "Feedback",
+        "page": {
+          "company_id": null,
+          "href": "/",
+          "id": 1708,
+          "identifier": "home",
+          "settings": null,
+          "type": null
+        },
+        "parent_id": null,
+        "section_id": 5166,
+        "sorting_order": 5
+      },
+      {
+        "children": [],
+        "id": 5992,
+        "is_hidden": true,
+        "is_visible_in_footer": true,
+        "name": "Online bestellen",
+        "page": {
+          "company_id": null,
+          "href": "/",
+          "id": 1708,
+          "identifier": "home",
+          "settings": null,
+          "type": null
+        },
+        "parent_id": null,
+        "section_id": 5167,
+        "sorting_order": 6
+      },
+      {
+        "children": [],
+        "id": 5993,
+        "is_hidden": true,
+        "is_visible_in_footer": true,
+        "name": "Menü",
+        "page": {
+          "company_id": null,
+          "href": "/",
+          "id": 1708,
+          "identifier": "home",
+          "settings": null,
+          "type": null
+        },
+        "parent_id": null,
+        "section_id": 5168,
+        "sorting_order": 7
+      },
+      {
+        "children": [],
+        "id": 5994,
+        "is_hidden": true,
+        "is_visible_in_footer": true,
+        "name": "Galerie",
+        "page": {
+          "company_id": null,
+          "href": "/",
+          "id": 1708,
+          "identifier": "home",
+          "settings": null,
+          "type": null
+        },
+        "parent_id": null,
+        "section_id": 5169,
+        "sorting_order": 8
+      },
+      {
+        "children": [],
+        "id": 5995,
+        "is_hidden": true,
+        "is_visible_in_footer": true,
+        "name": "Zutaten",
+        "page": {
+          "company_id": null,
+          "href": "/",
+          "id": 1708,
+          "identifier": "home",
+          "settings": null,
+          "type": null
+        },
+        "parent_id": null,
+        "section_id": 5170,
+        "sorting_order": 9
+      },
+      {
+        "children": [],
+        "id": 5996,
+        "is_hidden": true,
+        "is_visible_in_footer": true,
+        "name": "Leidenschaft",
+        "page": {
+          "company_id": null,
+          "href": "/",
+          "id": 1708,
+          "identifier": "home",
+          "settings": null,
+          "type": null
+        },
+        "parent_id": null,
+        "section_id": 5171,
+        "sorting_order": 10
+      },
+      {
+        "children": [],
+        "id": 5997,
+        "is_hidden": true,
+        "is_visible_in_footer": true,
+        "name": "Standort",
+        "page": {
+          "company_id": null,
+          "href": "/",
+          "id": 1708,
+          "identifier": "home",
+          "settings": null,
+          "type": null
+        },
+        "parent_id": null,
+        "section_id": 5172,
+        "sorting_order": 11
+      },
+      {
+        "children": [],
+        "id": 5998,
+        "is_hidden": false,
+        "is_visible_in_footer": true,
+        "name": "Über Uns",
+        "page": {
+          "company_id": null,
+          "href": "/ueber-uns",
+          "id": 1709,
+          "identifier": "about-us",
+          "settings": null,
+          "type": null
+        },
+        "parent_id": null,
+        "section_id": null,
+        "sorting_order": 12
+      },
+      {
+        "children": [
+          {
+            "children": [],
+            "id": 7773,
+            "is_hidden": true,
+            "is_visible_in_footer": true,
+            "name": "Albrechtstraße 131",
+            "page": {
+              "company_id": 509,
+              "href": "/standort-und-oeffnungszeiten/509",
+              "id": 2528,
+              "identifier": "location-and-hours",
+              "settings": null,
+              "type": null
+            },
+            "parent_id": 5999,
+            "section_id": null,
+            "sorting_order": 3
+          }
+        ],
+        "id": 5999,
+        "is_hidden": false,
+        "is_visible_in_footer": true,
+        "name": "Standort",
+        "page": {
+          "company_id": null,
+          "href": "/standort-und-oeffnungszeiten",
+          "id": 1710,
+          "identifier": "location-and-hours",
+          "settings": null,
+          "type": null
+        },
+        "parent_id": null,
+        "section_id": null,
+        "sorting_order": 13
+      },
+      {
+        "children": [],
+        "id": 6053,
+        "is_hidden": true,
+        "is_visible_in_footer": true,
+        "name": "Unsere Standorte",
+        "page": {
+          "company_id": null,
+          "href": "/",
+          "id": 1708,
+          "identifier": "home",
+          "settings": null,
+          "type": null
+        },
+        "parent_id": null,
+        "section_id": 5225,
+        "sorting_order": 14
+      },
+      {
+        "children": [],
+        "id": 16447,
+        "is_hidden": true,
+        "is_visible_in_footer": true,
+        "name": "Belohnungen",
+        "page": {
+          "company_id": null,
+          "href": "/belohnungen",
+          "id": 8394,
+          "identifier": "rewards",
+          "settings": null,
+          "type": null
+        },
+        "parent_id": null,
+        "section_id": null,
+        "sorting_order": 15
+      },
+      {
+        "children": [],
+        "id": 16448,
+        "is_hidden": true,
+        "is_visible_in_footer": true,
+        "name": "Coupons",
+        "page": {
+          "company_id": null,
+          "href": "/angebote",
+          "id": 8395,
+          "identifier": "coupons",
+          "settings": null,
+          "type": null
+        },
+        "parent_id": null,
+        "section_id": null,
+        "sorting_order": 16
+      },
+      {
+        "children": [
+          {
+            "children": [],
+            "id": 19492,
+            "is_hidden": true,
+            "is_visible_in_footer": true,
+            "name": "Three Buddies Steglitz",
+            "page": {
+              "company_id": 509,
+              "href": "/speisekarte/threebuddies",
+              "id": 11439,
+              "identifier": "menu",
+              "settings": null,
+              "type": null
+            },
+            "parent_id": 19095,
+            "section_id": null,
+            "sorting_order": 2
+          }
+        ],
+        "id": 19095,
+        "is_hidden": false,
+        "is_visible_in_footer": true,
+        "name": "Speisekarte",
+        "page": {
+          "company_id": null,
+          "href": "/speisekarte",
+          "id": 11042,
+          "identifier": "menu",
+          "settings": null,
+          "type": null
+        },
+        "parent_id": null,
+        "section_id": null,
+        "sorting_order": 17
+      }
+    ],
+    "news": [
+      "Bestelle Hier & Erhalte €6.00 Rabatt mit Promo-Code: [B_U_D_D_I_E_S]"
+    ],
+    "onboarding_completed": true,
+    "online_shop_url": "https://www.foodamigos-storefront-online-shop.com",
+    "order_online_button_hidden": null,
+    "origin_story": null,
+    "pages": [
+      {
+        "company_id": null,
+        "href": "/belohnungen",
+        "id": 8394,
+        "identifier": "rewards",
+        "settings": null,
+        "type": null
+      },
+      {
+        "company_id": null,
+        "href": "/angebote",
+        "id": 8395,
+        "identifier": "coupons",
+        "settings": null,
+        "type": null
+      },
+      {
+        "company_id": null,
+        "href": "/",
+        "id": 1708,
+        "identifier": "home",
+        "settings": null,
+        "type": null
+      },
+      {
+        "company_id": null,
+        "href": "/ueber-uns",
+        "id": 1709,
+        "identifier": "about-us",
+        "settings": null,
+        "type": null
+      },
+      {
+        "company_id": null,
+        "href": "/standort-und-oeffnungszeiten",
+        "id": 1710,
+        "identifier": "location-and-hours",
+        "settings": null,
+        "type": null
+      },
+      {
+        "company_id": 509,
+        "href": "/standort-und-oeffnungszeiten/509",
+        "id": 2528,
+        "identifier": "location-and-hours",
+        "settings": null,
+        "type": null
+      },
+      {
+        "company_id": null,
+        "href": "/speisekarte",
+        "id": 11042,
+        "identifier": "menu",
+        "settings": null,
+        "type": null
+      },
+      {
+        "company_id": 509,
+        "href": "/speisekarte/threebuddies",
+        "id": 11439,
+        "identifier": "menu",
+        "settings": null,
+        "type": null
+      },
+      {
+        "company_id": null,
+        "href": "/reservierungen",
+        "id": 15023,
+        "identifier": "reservations",
+        "settings": null,
+        "type": null
+      },
+      {
+        "company_id": null,
+        "href": "/gutscheine",
+        "id": 16337,
+        "identifier": "gift-cards",
+        "settings": null,
+        "type": null
+      }
+    ],
+    "phone_number": "+49 30 48625381",
+    "popups": [
+      {
+        "description": "Bei jeder Bestellung über 25 € bekommst du eine Portion French Fries oder Curly Fries gratis dazu!",
+        "expiration_date": null,
+        "floating_button": null,
+        "id": 2425,
+        "is_hidden": false,
+        "links": [
+          {
+            "button_props": null,
+            "href": "/speisekarte",
+            "id": 22232,
+            "identifier": "first",
+            "target": null,
+            "title": "Jetz Bestellen",
+            "type": "page"
+          }
+        ],
+        "media": [
+          {
+            "animation": null,
+            "desktop": null,
+            "extension": "png",
+            "id": 62729,
+            "mobile": null,
+            "name": "548dfa009c13b6997c8f5b20ae291478",
+            "type": "image",
+            "url": "https://dtwaeonhht2im.cloudfront.net/548dfa009c13b6997c8f5b20ae291478.png"
+          }
+        ],
+        "page_id": 1708,
+        "start_date": null,
+        "title": "Jetzt online bestellen & gratis Pommes sichern!",
+        "type": null
+      },
+      {
+        "description": null,
+        "expiration_date": null,
+        "floating_button": null,
+        "id": 1840,
+        "is_hidden": false,
+        "links": [],
+        "media": [],
+        "page_id": null,
+        "start_date": null,
+        "title": null,
+        "type": "collect_emails"
+      },
+      {
+        "description": "ERHALTE €6.00 RABATT MIT CODE: [B_U_D_D_I_E_S] Der Rabattcode ist nur über unseren Online-Shop einlösbar. Diesen kannst du am Ende des Bestellvorgangs unter \"Rabattcode eingeben\" einlösen.",
+        "expiration_date": null,
+        "floating_button": null,
+        "id": 418,
+        "is_hidden": true,
+        "links": [
+          {
+            "button_props": null,
+            "href": "https://threebuddies.online-karte.com",
+            "id": 5977,
+            "identifier": "first",
+            "target": "_blank",
+            "title": "Jetzt Online Bestellen",
+            "type": null
+          }
+        ],
+        "media": [
+          {
+            "animation": null,
+            "desktop": null,
+            "extension": "jpg",
+            "id": 14163,
+            "mobile": null,
+            "name": "[REDACTED-PHONE]",
+            "type": "image",
+            "url": "https://dtwaeonhht2im.cloudfront.net/[REDACTED-PHONE].jpg"
+          }
+        ],
+        "page_id": 1708,
+        "start_date": null,
+        "title": "ONLINE BESTELLEN & €6.00 GESCHENKT ERHALTEN (CODE: [B_U_D_D_I_E_S])",
+        "type": null
+      }
+    ],
+    "preview_domain": "threebuddies.foodamigos-storefront.com",
+    "products": [
+      {
+        "description": null,
+        "id": 2685,
+        "image": {
+          "extension": "jpg",
+          "id": 14149,
+          "name": "4zldeAdmtW8iirzfpZTE8Psf0MptiBOGIdMZKimm",
+          "type": "image",
+          "url": "https://dtwaeonhht2im.cloudfront.net/4zldeAdmtW8iirzfpZTE8Psf0MptiBOGIdMZKimm.jpg"
+        },
+        "name": "01. Hamburger",
+        "price": 8.9
+      },
+      {
+        "description": "mit Mozzarellasticks, Onionrings und Chili-Käse-Soße",
+        "id": 2694,
+        "name": "10. Burger Manhattan",
+        "price": 11.9
+      },
+      {
+        "description": null,
+        "id": 2686,
+        "image": {
+          "extension": "jpg",
+          "id": 14150,
+          "name": "ELRB8iWPLTceWKAJjaAMTyZnTmbV5COv6MGgSTN4",
+          "type": "image",
+          "url": "https://dtwaeonhht2im.cloudfront.net/ELRB8iWPLTceWKAJjaAMTyZnTmbV5COv6MGgSTN4.jpg"
+        },
+        "name": "02. Cheeseburger",
+        "price": 9.5
+      },
+      {
+        "description": "scharf\nmit Jalapeños und hausgemachter scharfer Soße",
+        "id": 2687,
+        "name": "03. Burger Mexicali",
+        "price": 9.9
+      },
+      {
+        "description": "mit Barbecuesoße und Speck",
+        "id": 2688,
+        "name": "04. Burger Texas",
+        "price": 10.5
+      },
+      {
+        "description": "mit Chili-Käse-Soße",
+        "id": 2689,
+        "name": "05. Burger Indiana",
+        "price": 10.5
+      },
+      {
+        "description": "mit Chili-Käse-Soße, Champignons und Schmorzwiebeln",
+        "id": 2693,
+        "name": "09. Burger Portobello",
+        "price": 10.9
+      },
+      {
+        "description": "mit Gorgonzola und Marmelade",
+        "id": 2692,
+        "name": "08. Burger Blue Cheese",
+        "price": 10.5
+      },
+      {
+        "description": "mit Spiegel-Ei, Speck und Schmorzwiebeln",
+        "id": 2691,
+        "name": "07. Burger New Jersey",
+        "price": 10.9
+      },
+      {
+        "description": "mit Schmand und Röstzwiebeln",
+        "id": 2690,
+        "name": "06. Burger Miami",
+        "price": 9.5
+      },
+      {
+        "description": "mit geschreddertem Rindfleisch, Schmorzwiebeln, Coleslaw und Barbecuesoße",
+        "id": 2697,
+        "name": "13. Burger Pulled Beef",
+        "price": 10.9
+      },
+      {
+        "description": "mit paniertem Hähnchenbrustfilet",
+        "id": 2696,
+        "name": "12. Burger Crispy Chicken",
+        "price": 9.9
+      },
+      {
+        "description": "Burger-Patty getaucht in Butter-Traubenmelasse, mit Grilltomaten, knusprig gegrilltem Sucuk und Spiegel-Ei",
+        "id": 2695,
+        "name": "11. Burger Three Buddies",
+        "price": 11.9
+      }
+    ],
+    "quarter": "Steglitz",
+    "quick_actions": [],
+    "redirect_to_external_web_shop_url": false,
+    "region": {
+      "address_format": "international",
+      "country": "DE",
+      "currency": "EUR",
+      "date_format": "dd.MM.yyyy",
+      "default_locale": "de",
+      "distance_unit": "km",
+      "geometry_data": {
+        "paths": [
+          {
+            "lat": 53.72541076756863,
+            "lng": 14.268643700794144
+          },
+          {
+            "lat": 54.45432833264931,
+            "lng": 12.57657580216835
+          },
+          {
+            "lat": 53.882612516373655,
+            "lng": 11.469569364493736
+          },
+          {
+            "lat": 54.060717556449646,
+            "lng": 10.551413395681436
+          },
+          {
+            "lat": 54.53472544137691,
+            "lng": 10.728225057479762
+          },
+          {
+            "lat": 54.77477423537775,
+            "lng": 9.820320507681743
+          },
+          {
+            "lat": 54.883667854127964,
+            "lng": 8.739798901426923
+          },
+          {
+            "lat": 53.953325005471356,
+            "lng": 8.926731410048063
+          },
+          {
+            "lat": 53.377308692938925,
+            "lng": 8.386763404726366
+          },
+          {
+            "lat": 53.55351489189397,
+            "lng": 7.2468854697943925
+          },
+          {
+            "lat": 52.727715462263575,
+            "lng": 7.143674036501352
+          },
+          {
+            "lat": 51.99074071088833,
+            "lng": 6.841240203643622
+          },
+          {
+            "lat": 51.72755250482504,
+            "lng": 5.869511835406854
+          },
+          {
+            "lat": 50.69854725403897,
+            "lng": 5.760708901059047
+          },
+          {
+            "lat": 50.05871997860976,
+            "lng": 6.724314527963969
+          },
+          {
+            "lat": 49.6123872969259,
+            "lng": 6.300280536189234
+          },
+          {
+            "lat": 48.87693614879581,
+            "lng": 8.08379224396316
+          },
+          {
+            "lat": 47.46872100394256,
+            "lng": 7.551213587654786
+          },
+          {
+            "lat": 47.760741032134746,
+            "lng": 8.673472764141707
+          },
+          {
+            "lat": 47.44232172103182,
+            "lng": 10.084355111831371
+          },
+          {
+            "lat": 48.636105037918355,
+            "lng": 13.966258346017469
+          },
+          {
+            "lat": 50.19873771446612,
+            "lng": 12.593460621853296
+          },
+          {
+            "lat": 50.90018832116209,
+            "lng": 14.973113336901406
+          },
+          {
+            "lat": 53.72541076756863,
+            "lng": 14.268643700794144
+          }
+        ]
+      },
+      "geometry_type": "polygon",
+      "hour_cycle": "h23",
+      "legal_pack": "de",
+      "limits": [],
+      "locales": [
+        "de",
+        "en"
+      ],
+      "number_locale": "de-DE",
+      "timezone": "Europe/Berlin"
+    },
+    "reservation_link": "https://threebuddies.tischreservieren.com",
+    "restaurant_type": "Burger",
+    "scripts": [],
+    "seo_analysis": {},
+    "service_provider": {
+      "is_master": true,
+      "logo_url": "https://dtwaeonhht2im.cloudfront.net/service-providers/1/logo.png",
+      "mixpanel_api_key": "[REDACTED]",
+      "name": "FoodAmigos",
+      "notification_channels": "[REDACTED]",
+      "website": "www.foodamigos.io"
+    },
+    "setup_error": null,
+    "setup_progress": 100,
+    "setup_step": "create_menu_details_pages",
+    "theme": {
+      "border_radius_type": "full",
+      "border_width_type": "small",
+      "button_text_style": {
+        "all_capital": true,
+        "color": null,
+        "desktop": {
+          "font_size": 16,
+          "line_height": 24
+        },
+        "font": {
+          "name": "Omnes Black",
+          "url": "https://dtwaeonhht2im.cloudfront.net/custom-fonts/Omnes/Omnes-Black.ttf"
+        },
+        "font_weight": 400,
+        "letter_spacing": null,
+        "mobile": {
+          "font_size": 14,
+          "line_height": 24
+        },
+        "text_decoration": null,
+        "underline_offset": null
+      },
+      "card_style": null,
+      "color_variables": {
+        "background_color": "#F3F6DE",
+        "border_color": "#0B5C43",
+        "card_color": "#FFFFFF",
+        "dark_text_color": "#000000",
+        "description_color": "#000000",
+        "header_color": "#000000",
+        "light_text_color": "#FFFFFF",
+        "primary_color": "#D10A10",
+        "secondary_background_color": "#FFFFFF",
+        "secondary_color": "#000000"
+      },
+      "custom_fonts": [],
+      "dark_mode_color_variables": {
+        "background_color": "#1A1A1A",
+        "border_color": "#2D2D2D",
+        "card_color": "#2D2D2D",
+        "dark_text_color": "#1A1A1A",
+        "description_color": "#FFFFFF",
+        "header_color": "#FFFFFF",
+        "light_text_color": "#FFFFFF",
+        "primary_color": "#D10A10",
+        "secondary_background_color": "#272727",
+        "secondary_color": "#000000"
+      },
+      "font_links": [
+        "https://dtwaeonhht2im.cloudfront.net/custom-fonts/Omnes/Omnes-Black.ttf",
+        "https://dtwaeonhht2im.cloudfront.net/custom-fonts/Omnes/Omnes-Regular.ttf"
+      ],
+      "footer_props": {
+        "about_us_text": null,
+        "background_color": "primary_color",
+        "bottom_bar_background_color": null,
+        "bottom_bar_text_color": null,
+        "card_color": null,
+        "contact_form_props": null,
+        "copy_right_text": null,
+        "description_color": "light_text_color",
+        "has_locations_link": true,
+        "has_powered_by_service_provider": true,
+        "has_social_media_links": true,
+        "header_color": "light_text_color",
+        "learn_more_about_us_text": null,
+        "policy_color": null,
+        "scroll_back_up_button_props": null,
+        "type": null
+      },
+      "has_section_borders": null,
+      "id": 473,
+      "is_dark_mode": false,
+      "navigation_bar_props": {
+        "background_color": "light_text_color",
+        "navigation_bar_position": "absolute",
+        "navigation_bar_type": 6,
+        "order_online_button_hidden": false,
+        "order_online_button_props": null,
+        "text_color": "dark_text_color",
+        "text_size": null
+      },
+      "news_banner_props": null,
+      "page_loading_indicator_props": {
+        "background_color": null,
+        "lottie_props": null,
+        "page_loading_indicator_type": 1,
+        "text_color": null
+      },
+      "template_type": "bold",
+      "text_style": "{\"heading\":{\"all_capital\":true,\"font\":{\"name\":\"Omnes Black\",\"url\":\"https:\\/\\/dtwaeonhht2im.cloudfront.net\\/custom-fonts\\/Omnes\\/Omnes-Black.ttf\"},\"size_multiplier\":1,\"color\":\"header_color\"},\"description\":{\"all_capital\":false,\"font\":{\"name\":\"Omnes Regular\",\"url\":\"https:\\/\\/dtwaeonhht2im.cloudfront.net\\/custom-fonts\\/Omnes\\/Omnes-Regular.ttf\"},\"color\":\"description_color\"}}",
+      "typography_settings": {
+        "h1": {
+          "all_capital": true,
+          "color": "header_color",
+          "desktop": {
+            "font_size": 54,
+            "line_height": 75
+          },
+          "font": {
+            "name": "Omnes Black",
+            "url": "https://dtwaeonhht2im.cloudfront.net/custom-fonts/Omnes/Omnes-Black.ttf"
+          },
+          "font_weight": 400,
+          "letter_spacing": null,
+          "mobile": {
+            "font_size": 40,
+            "line_height": 47
+          },
+          "text_decoration": null,
+          "underline_offset": null
+        },
+        "h2": {
+          "all_capital": true,
+          "color": "header_color",
+          "desktop": {
+            "font_size": 36,
+            "line_height": 44
+          },
+          "font": {
+            "name": "Omnes Black",
+            "url": "https://dtwaeonhht2im.cloudfront.net/custom-fonts/Omnes/Omnes-Black.ttf"
+          },
+          "font_weight": 400,
+          "letter_spacing": null,
+          "mobile": {
+            "font_size": 32,
+            "line_height": 38
+          },
+          "text_decoration": null,
+          "underline_offset": null
+        },
+        "h3": {
+          "all_capital": true,
+          "color": "header_color",
+          "desktop": {
+            "font_size": 24,
+            "line_height": 24
+          },
+          "font": {
+            "name": "Omnes Black",
+            "url": "https://dtwaeonhht2im.cloudfront.net/custom-fonts/Omnes/Omnes-Black.ttf"
+          },
+          "font_weight": 400,
+          "letter_spacing": null,
+          "mobile": {
+            "font_size": 24,
+            "line_height": 33
+          },
+          "text_decoration": null,
+          "underline_offset": null
+        },
+        "h4": {
+          "all_capital": true,
+          "color": "header_color",
+          "desktop": {
+            "font_size": 22,
+            "line_height": 24
+          },
+          "font": {
+            "name": "Omnes Black",
+            "url": "https://dtwaeonhht2im.cloudfront.net/custom-fonts/Omnes/Omnes-Black.ttf"
+          },
+          "font_weight": 400,
+          "letter_spacing": null,
+          "mobile": {
+            "font_size": 18,
+            "line_height": 24
+          },
+          "text_decoration": null,
+          "underline_offset": null
+        },
+        "h5": {
+          "all_capital": true,
+          "color": "header_color",
+          "desktop": {
+            "font_size": 20,
+            "line_height": 24
+          },
+          "font": {
+            "name": "Omnes Black",
+            "url": "https://dtwaeonhht2im.cloudfront.net/custom-fonts/Omnes/Omnes-Black.ttf"
+          },
+          "font_weight": 400,
+          "letter_spacing": null,
+          "mobile": {
+            "font_size": 16,
+            "line_height": 24
+          },
+          "text_decoration": null,
+          "underline_offset": null
+        },
+        "h6": {
+          "all_capital": true,
+          "color": "header_color",
+          "desktop": {
+            "font_size": 18,
+            "line_height": 24
+          },
+          "font": {
+            "name": "Omnes Black",
+            "url": "https://dtwaeonhht2im.cloudfront.net/custom-fonts/Omnes/Omnes-Black.ttf"
+          },
+          "font_weight": 400,
+          "letter_spacing": null,
+          "mobile": {
+            "font_size": 16,
+            "line_height": 24
+          },
+          "text_decoration": null,
+          "underline_offset": null
+        },
+        "mini": {
+          "all_capital": false,
+          "color": "description_color",
+          "desktop": {
+            "font_size": 16,
+            "line_height": 19
+          },
+          "font": {
+            "name": "Omnes Regular",
+            "url": "https://dtwaeonhht2im.cloudfront.net/custom-fonts/Omnes/Omnes-Regular.ttf"
+          },
+          "font_weight": 400,
+          "letter_spacing": null,
+          "mobile": {
+            "font_size": null,
+            "line_height": null
+          },
+          "text_decoration": null,
+          "underline_offset": null
+        },
+        "nano": {
+          "all_capital": false,
+          "color": "description_color",
+          "desktop": {
+            "font_size": 14,
+            "line_height": 14
+          },
+          "font": {
+            "name": "Omnes Regular",
+            "url": "https://dtwaeonhht2im.cloudfront.net/custom-fonts/Omnes/Omnes-Regular.ttf"
+          },
+          "font_weight": 400,
+          "letter_spacing": null,
+          "mobile": {
+            "font_size": null,
+            "line_height": null
+          },
+          "text_decoration": null,
+          "underline_offset": null
+        },
+        "p": {
+          "all_capital": false,
+          "color": "description_color",
+          "desktop": {
+            "font_size": 24,
+            "line_height": 24
+          },
+          "font": {
+            "name": "Omnes Regular",
+            "url": "https://dtwaeonhht2im.cloudfront.net/custom-fonts/Omnes/Omnes-Regular.ttf"
+          },
+          "font_weight": 600,
+          "letter_spacing": null,
+          "mobile": {
+            "font_size": null,
+            "line_height": null
+          },
+          "text_decoration": null,
+          "underline_offset": null
+        },
+        "small": {
+          "all_capital": false,
+          "color": "description_color",
+          "desktop": {
+            "font_size": 20,
+            "line_height": 22
+          },
+          "font": {
+            "name": "Omnes Regular",
+            "url": "https://dtwaeonhht2im.cloudfront.net/custom-fonts/Omnes/Omnes-Regular.ttf"
+          },
+          "font_weight": 400,
+          "letter_spacing": null,
+          "mobile": {
+            "font_size": null,
+            "line_height": null
+          },
+          "text_decoration": null,
+          "underline_offset": null
+        },
+        "subtitle": {
+          "all_capital": true,
+          "color": "header_color",
+          "desktop": {
+            "font_size": 20,
+            "line_height": 24
+          },
+          "font": {
+            "name": "Omnes Black",
+            "url": "https://dtwaeonhht2im.cloudfront.net/custom-fonts/Omnes/Omnes-Black.ttf"
+          },
+          "font_weight": 500,
+          "letter_spacing": null,
+          "mobile": {
+            "font_size": null,
+            "line_height": null
+          },
+          "text_decoration": null,
+          "underline_offset": null
+        },
+        "tiny": {
+          "all_capital": false,
+          "color": "description_color",
+          "desktop": {
+            "font_size": 14,
+            "line_height": 19
+          },
+          "font": {
+            "name": "Omnes Regular",
+            "url": "https://dtwaeonhht2im.cloudfront.net/custom-fonts/Omnes/Omnes-Regular.ttf"
+          },
+          "font_weight": 400,
+          "letter_spacing": null,
+          "mobile": {
+            "font_size": null,
+            "line_height": null
+          },
+          "text_decoration": null,
+          "underline_offset": null
+        }
+      }
+    },
+    "tik_tok_link": null,
+    "timezone": "Europe/Berlin",
+    "uber_link": null,
+    "umami_share_url": "https://cloud.umami.is/share/3a992705-7755-43c7-845e-4b1cfdcfef42",
+    "umami_website_id": "3d683603-a5d2-4eaa-a482-c6365d37258e",
+    "uuid": "acc8c0b0-484b-4811-9970-2994b7c2f62b",
+    "venue_type": "restaurant",
+    "yelp_link": null,
+    "youtube_link": null,
+    "zip_code": "12167"
+  }
+}

@@ -1,0 +1,18 @@
+"quarter": null,
+        "slug": "threebuddies",
+        "sorting_order": null,
+        "store_id": 481,
+        "uses_own_impressum": false,
+        "uuid": "636c570e-6879-42d8-a8aa-9479721405c3",
+        "zip_code": "12167"
+      }
+    ],
+    "country": "DE",
+    "currency": "EUR",
+    "delivery_areas": [],
+    "dietary_attributes": [],
+    "domain": "threebuddies.de",
+    "doordash_link": null,
+    "email": null,
+    "external_web_shop_url": "https://threebuddies.online-karte.com",
+    "faceb

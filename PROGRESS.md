@@ -17,3 +17,13 @@
 - publish path: nostr-tools enableReconnect/enablePing unset -> dropped relay dead for process lifetime; now on (89d6f0d), net test proves reconnect+resubscribe, 74/75 green
 - relay2 quantified relay-side: 2635x 1006/EAGAIN + 215x ping-timeout + >128KiB frame rejects per 90min (7a3578a). primal-only 4/4 reproducible.
 - pizza identity: one instance per announced key (PR #16), all_passed 4/4 both venues. REPORT.md has the full account.
+
+## venues/three-buddies-berlin — worker-base/three-buddies-berlin (/home/c03rad0r/worktrees/three-buddies)
+
+- 2026-10-11 23:35 — worktree created off origin/main; scratch `../scratch-three` for probe dumps (never /tmp).
+- 2026-10-11 23:45 — headed-browser capture: evidence/requests.json (64 calls) + rendered-ordering-page.txt prove the venue's own route loads **company 550**, not the 509 the store payload advertises (both answer /menus 200).
+- 2026-10-11 23:50 — adapter.py builds: 1 menu, 12 sections, 100 listed items (100 priced), 1.50-17.40 EUR, 22 unlisted products under menu.unlisted_items.
+- 2026-10-11 23:52 — the leak guard caught a REAL leak on the first fetch (venue email inside about_us_section prose, not a named field) -> scrub_free_text + ALLOWED_PUBLISHED; a second invariant caught the scrubber mangling the store UUID -> token-boundary fix.
+- 2026-10-11 23:55 — placeholder leak: venue.phone had become "[REDACTED-PHONE]" (builder reads the redacted copy). Fixed via PLACEHOLDERS + a "[REDACTED" invariant + a venue.phone selftest assertion.
+- 2026-10-11 23:59 — non-vacuous anchor: evidence/anchor/page-price-anchor.json (61 page-read prices), --anchor 61/61, --verify-rendered 61/61, --negative-test FAILS as required (Blue Cheese Burger 8.90 -> 9.90).
+- 2026-10-12 00:05 — README.md + evidence/PROVENANCE.md; duplicate unredacted probe dumps deleted; rendered dump produced through the same scrub (re-captured, anchor re-verified 61/61, venue.json byte-identical sha256 3a662c23…).
