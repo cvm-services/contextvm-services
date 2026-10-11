@@ -189,7 +189,12 @@ EMAIL_RE = re.compile(r"[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}")
 # ("acc8c0b0-484b-<digits>b7c2f62b") looks phone-shaped and gets destroyed —
 # which the "[REDACTED" invariant in run() then caught. A phone-like run must
 # stand alone between non-token characters.
-PHONE_RE = re.compile(r"(?<![0-9A-Za-z\-])\+?[\d][\d\s\-/()]{7,}\d(?![0-9A-Za-z\-])")
+# The separator class holds only SPACES, never \n. A newline-joining class welded
+# a street number to a postcode ("131\n\n12167") into a false phone, and the
+# decimal bound (.,) keeps latitude/longitude digit runs out of it (53.72541...).
+PHONE_RE = re.compile(
+    r"(?<![0-9A-Za-z.,\-])\+?\d[0-9 \t\u00a0\-/()]{7,}\d(?![0-9A-Za-z.,\-])"
+)
 
 
 def _scrub_phones(text: str) -> str:
@@ -380,11 +385,11 @@ def fetch_all(raw_dir: Path) -> dict:
 
     # provenance hashes are taken on the bytes as fetched (pre-redaction)
     hashes = {
-        # G7: freshness is a property of the CAPTURE, not of the build. Stamped
-        # once, here, when the bytes are actually fetched, and read back on every
-        # rebuild so a re-run from unchanged evidence is byte-identical. Without
-        # it the served menu is rejected ("served without captured_at") because a
-        # menu whose age nobody recorded cannot be judged fresh.
+        # G7: freshness is a property of the CAPTURE, not of the build. Stamped once
+        # here, when the bytes are actually fetched, and read back on every rebuild
+        # so a re-run against unchanged evidence stays byte-identical. Without it the
+        # served menu is rejected ("served without captured_at") because a menu whose
+        # age nobody recorded cannot be judged fresh.
         "captured_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
         "store": {"url": store_url, "file": "evidence/raw/store.json",
                   "bytes": len(raw_store), "sha256": sha256_hex(raw_store)},
@@ -723,34 +728,38 @@ def build_venue(store, company, menus, raw_dir: Path) -> dict:
                 "pay the venue on the venue's own rail (card/paypal/cash; 3DS as the venue requires)",
                 "a human confirms the order with the venue",
             ],
-            # The record must satisfy the SERVED adapter contract, not merely
-            # describe itself: services/restaurant-cvm/server.ts validates
-            # `credentials.owner`, `payment_authority`, `idempotency` and
-            # `receipt` as NESTED objects and REJECTS the record otherwise (it was
-            # rejected with "adapter declares no credential owner" while this
-            # block was flat: credential_owner/credential_scope/idempotency_key/
-            # order_receipt, and payment_authority as a bare string). A rejected
-            # venue is fail-closed — the right outcome — but an onboarded venue
-            # that can never be served is not onboarded. Same nested shape as
-            # venues/doppelt-kaese-berlin/venue.json so one contract fits both.
+            # The record must satisfy the SERVED adapter contract, not merely describe
+            # itself: services/restaurant-cvm/server.ts validates `credentials.owner`,
+            # `payment_authority`, `idempotency` and `receipt` as NESTED objects and
+            # REFUSED this record while it was flat ("adapter declares no credential
+            # owner"). That refusal was correct (fail-closed, ADR-0007); the fix is the
+            # record. This adapter places no order, so credentials.owner is honestly
+            # "none" — legal only for class deep_link_human, which is what this is.
             "credentials": {
                 "owner": "none",
-                "scope": "the venue's own storefront is public; the CVM holds no credential for this venue",
+                "scope": (
+                    "the venue's own storefront is public; the CVM holds no credential "
+                    "for this venue and authenticates nothing (ADR-0007 class 1)"
+                ),
             },
             "payment_authority": {
-                "authority": "the human who places the order, on the venue's own rail",
-                "cvm_cap_sats": 0,
+                "authority": "the venue's own rail; this CVM takes no payment (ADR-0001 D5)",
+                "detail": (
+                    "the customer pays the venue directly on the venue's own rail "
+                    "(card/PayPal/cash, 3DS as the venue requires); no payment is "
+                    "routed through the CVM"
+                ),
             },
             "idempotency": {
                 "key": "venue_slug + basket_sha256 + fulfilment + when",
-                "on_duplicate": (
-                    "the CVM places nothing, so it cannot double-place; the venue's own order "
-                    "record is the authority"
+                "detail": (
+                    "the CVM mints no order id because it places no order; the human "
+                    "placing the order is the point of idempotency"
                 ),
             },
             "receipt": {
-                "form": "the venue's own order confirmation on its own rail (order id)",
-                "durable": "the venue's own record",
+                "form": "the venue's own confirmation (not machine-readable here)",
+                "machine_readable": False,
             },
             "why_this_class": (
                 "The platform DOES run an online shop for this venue, but no unauthenticated or "
@@ -841,16 +850,13 @@ def build_venue(store, company, menus, raw_dir: Path) -> dict:
     if prov_path.exists():
         raw_block = json.loads(prov_path.read_text(encoding="utf-8"))
         for entry in raw_block.values():
-            # `captured_at` sits beside the per-call entries and is a string, not
-            # a call record, so only the mappings get the flag.
+            # `captured_at` sits beside the per-call entries and is a string, not a
+            # call record, so only the mappings get the flag.
             if isinstance(entry, dict):
                 entry["committed_copy_redacted"] = True
 
-    # G7: freshness is a property of the CAPTURE, not of the build. Read back from
-    # the committed provenance so a rebuild from unchanged evidence is
-    # byte-identical. The server reads `menu.captured_at` and REJECTS a venue
-    # served without it ("a menu whose age nobody recorded cannot be judged
-    # fresh"), so it belongs on the menu block, where the sibling venues keep it.
+    # G7: `menu.captured_at` is where server.ts:375 reads freshness. Read back from
+    # the committed provenance so a rebuild from unchanged evidence is byte-identical.
     menu_block["captured_at"] = raw_block.get("captured_at")
 
     return {

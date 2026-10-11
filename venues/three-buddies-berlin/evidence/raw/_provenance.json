@@ -1,5 +1,5 @@
 {
-  "captured_at": "2026-10-11T22:24:13+00:00",
+  "captured_at": "2026-10-11T22:34:12+00:00",
   "company": {
     "bytes": 9251,
     "committed_copy_sha256": "21163d63a774d68346186382468cc0928a3e20661f8b80b7bcd589d5cf2d618a",
@@ -16,7 +16,7 @@
   },
   "store": {
     "bytes": 51814,
-    "committed_copy_sha256": "0155437d5738980149145d3122c7bfdff159af51dce601244ada1f05a099678d",
+    "committed_copy_sha256": "abe24e8d94e0aee83ff7ca91932db08efc6dc8fd0ca830c79c25c4de28db5711",
     "file": "evidence/raw/store.json",
     "sha256": "142060d5168fc523fd2ed96155e5988972f501ab6a3a102a33e1121d09b30028",
     "storefront_mirror_url": "https://storefront.foodamigos.io/api/stores/threebuddies.de",

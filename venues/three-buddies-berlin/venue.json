@@ -1,7 +1,7 @@
 {
   "generated_by": "venues/three-buddies-berlin/adapter.py",
   "menu": {
-    "captured_at": "2026-10-11T22:24:13+00:00",
+    "captured_at": "2026-10-11T22:34:12+00:00",
     "currency": "EUR",
     "items": [
       {
@@ -4657,7 +4657,7 @@
   "source": {
     "attribution": "Venue facts, menu and prices (c) Three Buddies, Albrechtstraße 131, 12167 Berlin (Steglitz) — retrieved from the venue's own public JSON API (FoodAmigos storefront). Product images are referenced by URL only and are not copied into this repository.",
     "calls": {
-      "captured_at": "2026-10-11T22:24:13+00:00",
+      "captured_at": "2026-10-11T22:34:12+00:00",
       "company": {
         "bytes": 9251,
         "committed_copy_redacted": true,
@@ -4677,7 +4677,7 @@
       "store": {
         "bytes": 51814,
         "committed_copy_redacted": true,
-        "committed_copy_sha256": "0155437d5738980149145d3122c7bfdff159af51dce601244ada1f05a099678d",
+        "committed_copy_sha256": "abe24e8d94e0aee83ff7ca91932db08efc6dc8fd0ca830c79c25c4de28db5711",
         "file": "evidence/raw/store.json",
         "sha256": "142060d5168fc523fd2ed96155e5988972f501ab6a3a102a33e1121d09b30028",
         "storefront_mirror_url": "https://storefront.foodamigos.io/api/stores/threebuddies.de",
@@ -4700,7 +4700,7 @@
       "class_per_adr": "docs/adr/0007-venue-adapter-interface.md — class 1",
       "credentials": {
         "owner": "none",
-        "scope": "the venue's own storefront is public; the CVM holds no credential for this venue"
+        "scope": "the venue's own storefront is public; the CVM holds no credential for this venue and authenticates nothing (ADR-0007 class 1)"
       },
       "human_steps": [
         "choose pickup or delivery (and, for delivery, an address)",
@@ -4709,16 +4709,16 @@
         "a human confirms the order with the venue"
       ],
       "idempotency": {
-        "key": "venue_slug + basket_sha256 + fulfilment + when",
-        "on_duplicate": "the CVM places nothing, so it cannot double-place; the venue's own order record is the authority"
+        "detail": "the CVM mints no order id because it places no order; the human placing the order is the point of idempotency",
+        "key": "venue_slug + basket_sha256 + fulfilment + when"
       },
       "payment_authority": {
-        "authority": "the human who places the order, on the venue's own rail",
-        "cvm_cap_sats": 0
+        "authority": "the venue's own rail; this CVM takes no payment (ADR-0001 D5)",
+        "detail": "the customer pays the venue directly on the venue's own rail (card/PayPal/cash, 3DS as the venue requires); no payment is routed through the CVM"
       },
       "receipt": {
-        "durable": "the venue's own record",
-        "form": "the venue's own order confirmation on its own rail (order id)"
+        "form": "the venue's own confirmation (not machine-readable here)",
+        "machine_readable": false
       },
       "why_this_class": "The platform DOES run an online shop for this venue, but no unauthenticated or test-mode path to place an order was found or verified: the storefront's cart and checkout are authenticated, session-bound browser flows (the capture shows Stripe/Google Pay material loaded, and clicking 'Lieferung' opens an address modal). Per ADR-0007 the honest capability set is menu+quote only, with submit/status false."
     },

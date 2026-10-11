@@ -69,6 +69,8 @@ export interface VenueRecord {
 const CUISINE_TAGS: Record<string, string[]> = {
   "doppelt-kaese-berlin": ["burgers"],
   "pizza-e-pasta-ruedesheimerplatz": ["pizza", "pasta", "italian"],
+  // The venue's own cuisine_types field carries exactly these two words.
+  "three-buddies-berlin": ["burgers", "pizza"],
 };
 
 /**

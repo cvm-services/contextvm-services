@@ -12,7 +12,7 @@ User-Agent: cvm-services-venue-adapter/1.0 (+https://github.com/cvm-services/con
 
 | # | URL | bytes | sha256 as fetched (unredacted) | sha256 of committed copy |
 |---|-----|-------|-------------------------------|--------------------------|
-| 1 | `https://www.threebuddies.de/api/store` | 51814 | `142060d5168fc523fd2ed96155e5988972f501ab6a3a102a33e1121d09b30028` | `0155437d5738980149145d3122c7bfdff159af51dce601244ada1f05a099678d` |
+| 1 | `https://www.threebuddies.de/api/store` | 51814 | `142060d5168fc523fd2ed96155e5988972f501ab6a3a102a33e1121d09b30028` | `abe24e8d94e0aee83ff7ca91932db08efc6dc8fd0ca830c79c25c4de28db5711` |
 | 2 | `https://app.foodamigos.io/api/companies/threebuddies/data?hostname=www.threebuddies.de` | 9251 | `468482e7235c172f33829a1b272a69929a94abdd55cb5ab9e7dc73cd6cb927d0` | `21163d63a774d68346186382468cc0928a3e20661f8b80b7bcd589d5cf2d618a` |
 | 3 | `https://app.foodamigos.io/api/companies/550/menus` | 209911 | `88d3e71db375553a4ad8bea5d6615abd0b471ac0ad471c6a4dc967c68f7c0b66` | `4cdcd60330f4fd3a253b8aa7c5ff42f852e091c5996eaa0a12434a468cac9141` |
 
@@ -22,7 +22,7 @@ anything:
 ```bash
 cd venues/three-buddies-berlin
 sha256sum -c <<'EOF'
-0155437d5738980149145d3122c7bfdff159af51dce601244ada1f05a099678d  evidence/raw/store.json
+abe24e8d94e0aee83ff7ca91932db08efc6dc8fd0ca830c79c25c4de28db5711  evidence/raw/store.json
 21163d63a774d68346186382468cc0928a3e20661f8b80b7bcd589d5cf2d618a  evidence/raw/company.json
 4cdcd60330f4fd3a253b8aa7c5ff42f852e091c5996eaa0a12434a468cac9141  evidence/raw/menus.json
 EOF

@@ -1,6 +1,6 @@
 {
   "generated_by": "venues/tools/menu_anchors.ts",
-  "menu_sha256": "30c232d0a95f921a1b1e60220746249b541940b2876571e89e7baa4d10638bb7",
+  "menu_sha256": "815a0d086d09f10948c8481c17373743a4da3f5d346e4f0cc52e3c725c043415",
   "note": "Committed expectation for the SERVED menu contract. The tests and the e2e client compare the LIVE reply against this file; `venues/` is compared against it separately as a drift guard. A change here is the visible review gate for onboarding or re-capturing a venue (data, never code).",
   "regenerate": "deno run --allow-read --allow-write venues/tools/menu_anchors.ts --write",
   "schema": "venue-menu-anchor/1",
@@ -73,11 +73,11 @@
       ]
     },
     "three-buddies-berlin": {
-      "captured_at": "2026-10-11T22:24:13+00:00",
+      "captured_at": "2026-10-11T22:34:12+00:00",
       "from_priced_count": 0,
       "item_count": 100,
       "max_price": 18.4,
-      "menu_sha256": "c54fd57553b45c5d20768bd712eb8fcb77a309871f89ea812d511398ca085b1f",
+      "menu_sha256": "04227abb772ae49a90fc3eb1750e523b60fc98fd990509796677ba099695ffc9",
       "min_price": 1.5,
       "priced_methods": [
         "delivery",

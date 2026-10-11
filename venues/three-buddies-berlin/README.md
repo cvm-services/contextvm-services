@@ -153,7 +153,7 @@ when it consumes this record:
   (`--anchor` and `--verify-rendered`).
 - The perturbed-price negative test **fails** the check, as it must.
 - A second full re-fetch produced a **byte-identical** `venue.json`
-  (`--check`, sha256 `3a662c23a7a563f6cd8f15e5151ee11389cc02658add630f9c13379d32be7f14`).
+  (`--check`, sha256 `3f28db7cb3739b388db4765535d88c056d8c7e6424e8786adfd445f00bfdef79`).
 - The redaction guard proves the **email** in the payload (it sits inside a
   franchise pitch in prose, not only in a named field) and every non-published
   phone number are gone from the committed copies, while the venue's own business
@@ -186,3 +186,17 @@ when it consumes this record:
   `base_price` is carried, e.g. an extra Patty at 3.50). The record lists the
   groups and options but does not compute a basket total (that is a CVM-time
   concern, not a catalog one). 91 items carry allergens/additives.
+
+## Announcement
+
+Announced the way the other two venues are: CEP-6 kinds `11316` + `11317`,
+emitted by `tools/emit-venue-announcement.ts`, with this venue's slug added to
+`CUISINE_TAGS` (its tags are the venue's own `cuisine_types`) and to the
+venue-wide assertion loops in `tools/venue_announcement_test.ts`.
+
+**NOT PUBLISHED.** No key for this venue exists here, and kinds 11316/11317 are
+relays replaceable by `(kind, pubkey)`, so signing with another venue's key would
+silently overwrite that venue's announcement. Publishable dry-run evidence is
+committed at `evidence/announcements/three-buddies-berlin.{11316,11317}.json`
+(both `"pubkey": null`, `warnings: []`, tier `cvm:tier:fulfilment`), and the exact
+operator command plus the read-back check is in `evidence/ANNOUNCEMENT.md`.
