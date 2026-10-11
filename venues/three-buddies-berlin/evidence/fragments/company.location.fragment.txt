@@ -1,0 +1,20 @@
+"legal_address": "Albrechtstraße 131, 12167 Berlin, Germany",
+    "legal_lang": "de",
+    "live_from": "2024-08-17T17:20:43.000000Z",
+    "location_name": null,
+    "locations": [
+      {
+        "address": "Albrechtstraße 131",
+        "city": "Berlin",
+        "day": 0,
+        "hour": null,
+        "lat": 52.4570504,
+        "lon": 13.3222943,
+        "minute": null,
+        "name": null,
+        "zip_code": "12167"
+      }
+    ],
+    "logo_url": null,
+    "lon": 13.3222943,
+    "max_pre_or

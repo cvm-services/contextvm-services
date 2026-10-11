@@ -1,0 +1,16 @@
+"base_price": 3.5,
+        "id": 1198319,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "Patty",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "GLUTEN"
+          ],
+          "brand_or_manufacturer": "Three Buddies",
+          "caffeine_mg_per_100ml": n
