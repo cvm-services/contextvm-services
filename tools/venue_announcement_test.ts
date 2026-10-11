@@ -51,6 +51,7 @@ async function loadVenue(slug: string): Promise<VenueRecord> {
 
 const DOPPELT = "doppelt-kaese-berlin";
 const PIZZA = "pizza-e-pasta-ruedesheimerplatz";
+const THREE = "three-buddies-berlin";
 
 Deno.test("RED: an unknown cvm:req:* field name is refused, not silently kept", () => {
   // The glue must NOT let an unknown field through to the wire. Feed the
@@ -64,8 +65,8 @@ Deno.test("RED: an unknown cvm:req:* field name is refused, not silently kept", 
   );
 });
 
-Deno.test("both venue records emit deterministic tags", async () => {
-  for (const slug of [DOPPELT, PIZZA]) {
+Deno.test("every venue record emits deterministic tags", async () => {
+  for (const slug of [DOPPELT, PIZZA, THREE]) {
     const v = await loadVenue(slug);
     const { input } = venueToAnnouncement(v);
     const a = emitAnnouncementTags(input, VOCAB).tags;
@@ -82,7 +83,7 @@ Deno.test("both venue records emit deterministic tags", async () => {
 });
 
 Deno.test("tier tag equals the recomputed max; never supplied by the caller", async () => {
-  for (const slug of [DOPPELT, PIZZA]) {
+  for (const slug of [DOPPELT, PIZZA, THREE]) {
     const v = await loadVenue(slug);
     const { input } = venueToAnnouncement(v);
     // AnnounceInput has no tier field — the emitter computes it.
@@ -104,7 +105,7 @@ Deno.test("tier tag equals the recomputed max; never supplied by the caller", as
 });
 
 Deno.test("two or more geohash precisions of ONE point", async () => {
-  for (const slug of [DOPPELT, PIZZA]) {
+  for (const slug of [DOPPELT, PIZZA, THREE]) {
     const v = await loadVenue(slug);
     const { input } = venueToAnnouncement(v);
     const gs = input.geohashes ?? [];
@@ -120,7 +121,7 @@ Deno.test("two or more geohash precisions of ONE point", async () => {
 });
 
 Deno.test("exactly one cap per tool, and the flow's required fields are declared", async () => {
-  for (const slug of [DOPPELT, PIZZA]) {
+  for (const slug of [DOPPELT, PIZZA, THREE]) {
     const v = await loadVenue(slug);
     const { input } = venueToAnnouncement(v);
     const caps = emitAnnouncementTags(input, VOCAB).tags.filter((t) => t[0] === "cap");
@@ -157,7 +158,7 @@ Deno.test("--dry-run output is byte-stable across runs (same sha256)", async () 
     const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s));
     return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, "0")).join("");
   }
-  for (const slug of [DOPPELT, PIZZA]) {
+  for (const slug of [DOPPELT, PIZZA, THREE]) {
     const h1 = await sha256(await dryRunJson(slug));
     const h2 = await sha256(await dryRunJson(slug));
     assertEquals(h1, h2, `${slug}: dry-run sha256 stable`);
@@ -174,7 +175,7 @@ Deno.test("--dry-run output is byte-stable across runs (same sha256)", async () 
 // reports the delivery column.
 
 Deno.test("RED: a pickup-capable venue declares no required address", async () => {
-  for (const slug of [DOPPELT, PIZZA]) {
+  for (const slug of [DOPPELT, PIZZA, THREE]) {
     const v = await loadVenue(slug);
     assert(
       (v.venue.order_methods ?? []).includes("pickup"),
@@ -225,6 +226,19 @@ Deno.test("RED: the advertised price names the fulfilment method it belongs to",
     typeof menu.price_basis === "string" && (menu.price_basis as string).length > 10,
     "the announcement says what its headline min/max means",
   );
+
+  // Same shape for the new venue: every one of its 100 items is 1.00 cheaper on
+  // pickup, so a single column taken from `price` would overstate it by a euro.
+  const t = await loadVenue(THREE);
+  const tBy = (venueToAnnouncement(t).content as { menu: Record<string, unknown> })
+    .menu.prices_by_method as Record<string, { min_price: number; max_price: number; count: number }>;
+  assert(tBy?.pickup && tBy?.delivery, "three-buddies: both methods are priced separately");
+  assert(
+    tBy.pickup.max_price < tBy.delivery.max_price,
+    `three-buddies: pickup is cheaper (every item) — got ${tBy.pickup.max_price} vs ${tBy.delivery.max_price}`,
+  );
+  assertEquals(tBy.pickup.count, 100, "three-buddies: every listed item has a pickup price");
+  assertEquals(tBy.delivery.count, 100, "three-buddies: every listed item has a delivery price");
 });
 
 Deno.test("RED: the announcement states the methods it offers and the pickup wait", async () => {
@@ -234,7 +248,7 @@ Deno.test("RED: the announcement states the methods it offers and the pickup wai
     delivery?: { available?: boolean } | null;
     method_condition: string;
   }
-  for (const slug of [DOPPELT, PIZZA]) {
+  for (const slug of [DOPPELT, PIZZA, THREE]) {
     const v = await loadVenue(slug);
     const content = venueToAnnouncement(v).content as { fulfilment: FulfilmentContent };
     const f = content.fulfilment;
@@ -252,17 +266,19 @@ Deno.test("RED: the announcement states the methods it offers and the pickup wai
 });
 
 Deno.test("RED: the rail is the venue's own, and no Lightning claim is made", async () => {
-  for (const slug of [DOPPELT, PIZZA]) {
+  for (const slug of [DOPPELT, PIZZA, THREE]) {
     const v = await loadVenue(slug);
     const c = JSON.stringify(venueToAnnouncement(v).content);
     assert(/venue's own rail/.test(c), `${slug}: says who settles`);
     assert(!/bitcoin-lightning-bolt11|bolt11/i.test(c), `${slug}: no Lightning claim`);
   }
-  const d = await loadVenue(DOPPELT);
-  assert(
-    /adyen|stripe|paypal|cash/i.test(JSON.stringify(venueToAnnouncement(d).content)),
-    "doppelt: the adapter-recorded rail is carried through",
-  );
+  for (const slug of [DOPPELT, THREE]) {
+    const v = await loadVenue(slug);
+    assert(
+      /adyen|stripe|paypal|cash/i.test(JSON.stringify(venueToAnnouncement(v).content)),
+      `${slug}: the adapter-recorded rail is carried through`,
+    );
+  }
 });
 
 Deno.test("geohash: reference point and invalid inputs", () => {
@@ -286,7 +302,7 @@ function tagValues(tags: string[][], k: string): string[] {
 }
 
 Deno.test("RED: the published announcement carries the 'name' tag the registry reads", async () => {
-  for (const slug of [DOPPELT, PIZZA]) {
+  for (const slug of [DOPPELT, PIZZA, THREE]) {
     const v = await loadVenue(slug);
     const evidenceUrl = new URL(`../evidence/announcements/${slug}.11317.json`, import.meta.url);
     const ev = JSON.parse(await Deno.readTextFile(evidenceUrl));
@@ -300,7 +316,7 @@ Deno.test("RED: the published announcement carries the 'name' tag the registry r
 });
 
 Deno.test("RED: the wire tag set appends name/about/website without disturbing the contract", async () => {
-  for (const slug of [DOPPELT, PIZZA]) {
+  for (const slug of [DOPPELT, PIZZA, THREE]) {
     const v = await loadVenue(slug);
     const a = venueToAnnouncement(v);
     const emitted = emitAnnouncement(a.input, VOCAB);
@@ -354,7 +370,7 @@ Deno.test("RED: the wire tag set appends name/about/website without disturbing t
 // would use to find a shop they can walk into.
 
 Deno.test("RED: a pickup-capable venue is classed meatspace, a delivery-only one is not", async () => {
-  for (const slug of [DOPPELT, PIZZA]) {
+  for (const slug of [DOPPELT, PIZZA, THREE]) {
     const v = await loadVenue(slug);
     const classes = tagValues(emitAnnouncement(venueToAnnouncement(v).input, VOCAB).tags, "t")
       .filter((w) => w.startsWith("cvm:service:"));
