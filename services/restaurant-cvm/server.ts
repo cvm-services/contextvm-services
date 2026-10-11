@@ -14,6 +14,19 @@
 
 import { finalizeEvent, generateSecretKey, getPublicKey, nip44 } from "npm:nostr-tools";
 import { Relay } from "npm:nostr-tools/relay";
+import {
+  groupsForItem,
+  normaliseOptionCatalogue,
+  priceForItem,
+  priceKeyOf,
+  type OptionChoice,
+  type OptionGroup,
+} from "../../tools/venue_option_groups.ts";
+
+// The option-group model lives in ONE place, shared with the announcement adapter
+// (tools/venue_option_groups.ts) so the served groups and the published ones cannot
+// drift. Re-exported here because this is where callers meet the CVM's types.
+export type { OptionChoice, OptionGroup };
 
 // =====================================================================
 // DATA TYPES
@@ -28,7 +41,15 @@ export interface MenuItem {
   prices_by_order_method: Record<string, number>;
   available: boolean;
   allergens: string[] | null;
+  /** The item's own price level (pizza: `size1`/`size2`/`default`); null when it publishes none. */
+  price_level_used: string | null;
   option_group_ids: string[];
+  /**
+   * The groups this item offers, resolved from the venue catalogue. Kept on the item
+   * for validation; the `menu` tool serves the catalogue ONCE per venue and the ids
+   * here, not a copy of every group on every item (R6 — 428 KB vs 103 KB).
+   */
+  option_groups: OptionGroup[];
 }
 
 export interface Venue {
@@ -38,6 +59,8 @@ export interface Venue {
   deep_link: string;
   rail: string | null;
   order_methods: string[];
+  /** The venue's whole option catalogue, each group once (R6). */
+  option_groups: OptionGroup[];
   items: MenuItem[];
 }
 
@@ -119,6 +142,8 @@ export async function loadVenues(filter?: string[]): Promise<Venue[]> {
 
     const methods = fulfilmentMethods(v.order_methods ?? []);
     const capturedMethod = String(menu.service_method ?? "");
+    // One catalogue per venue, each group normalised once (R6).
+    const optionGroups = normaliseOptionCatalogue(menu);
 
     const items: MenuItem[] = (menu.items ?? []).map((it: Record<string, unknown>) => {
       let prices: Record<string, number>;
@@ -143,9 +168,16 @@ export async function loadVenues(filter?: string[]): Promise<Venue[]> {
         prices_by_order_method: prices,
         available: it.available === true,
         allergens: Array.isArray(it.allergens) ? it.allergens as string[] : null,
+        price_level_used: it.price_level_used === undefined || it.price_level_used === null
+          ? null
+          : String(it.price_level_used),
         option_group_ids: Array.isArray(it.option_group_ids)
           ? (it.option_group_ids as unknown[]).map(String)
           : [],
+        option_groups: groupsForItem(
+          Array.isArray(it.option_group_ids) ? (it.option_group_ids as unknown[]).map(String) : [],
+          optionGroups,
+        ),
       };
     });
 
@@ -156,6 +188,7 @@ export async function loadVenues(filter?: string[]): Promise<Venue[]> {
       deep_link: deepLink,
       rail: v.settlement?.rail ?? null,
       order_methods: methods,
+      option_groups: optionGroups,
       items,
     });
   }
@@ -227,7 +260,7 @@ export const TOOL_DEFS: McpToolDef[] = [
   {
     name: "menu",
     description:
-      "Return the full menu for all announced venues. Each item carries sku, name, prices_by_order_method, available, and allergens.",
+      "Return the full menu for all announced venues. Each venue carries its option-group catalogue (each group once, every choice's price keyed by the venue's own price level); each item carries sku, name, prices_by_order_method, available, allergens, the option group ids it offers, and its own price_level_used — read a choice's price for that item at that key.",
     inputSchema: {
       type: "object",
       properties: {
@@ -263,7 +296,12 @@ export const TOOL_DEFS: McpToolDef[] = [
                 description: "The venue's own item id, unique where a sku is not.",
               },
               qty: { type: "integer", minimum: 1 },
-              options: { type: "object" },
+              options: {
+                type: "object",
+                description:
+                  "Chosen options, keyed by option group id, values are arrays of choice ids drawn from that group in this item's own groups (see the `menu` tool). A required group must be present; a choice not in the item's groups, over the group's limit, or unavailable is refused naming it.",
+                additionalProperties: { type: "array", items: { type: "string" } },
+              },
             },
             required: ["qty"],
             additionalProperties: false,
@@ -335,6 +373,104 @@ function toolOk(payload: unknown): McpToolResult {
   };
 }
 
+/**
+ * Validate one line's `options` against the item's OWN group list, and total the
+ * delta from the venue's own numbers for that item (PLAN-0006 Track D, AC2/AC3).
+ *
+ * Every refusal names what it refused, because each one is a basket the venue
+ * cannot make:
+ *   - an unknown group → refused naming the group and the item
+ *   - a required group absent → refused naming the group (silence is a basket the
+ *     customer did not mean: doppelt's sauce is required, pizza's size is required)
+ *   - more than one choice in a single-select group, or more than the venue's own
+ *     max_count → refused naming the group and the limit
+ *   - a choice that is not in that group → refused naming BOTH
+ *   - a choice the venue marks unavailable → refused naming it
+ *   - a choice the venue published no price for at this item's level → refused
+ *     naming it, rather than priced as 0 (a silent wrong total, R1 of
+ *     tools/venue_option_groups.ts)
+ */
+function validateOptions(
+  item: MenuItem,
+  raw: unknown,
+): { selections: Record<string, string[]>; delta: number } | { error: string } {
+  const input: Record<string, unknown> = {};
+  if (raw !== undefined) {
+    if (!raw || typeof raw !== "object" || Array.isArray(raw)) {
+      return { error: `options for '${item.name}' must be an object keyed by option group id` };
+    }
+    Object.assign(input, raw as Record<string, unknown>);
+  }
+  const allowed = new Map(item.option_groups.map((group) => [group.id, group]));
+  // The one key this item's prices are read at (R1/R2).
+  const priceKey = priceKeyOf(item.price_level_used ?? "");
+  for (const groupId of Object.keys(input)) {
+    if (!allowed.has(groupId)) {
+      return { error: `option group '${groupId}' is not offered by item '${item.name}'` };
+    }
+  }
+
+  const selections: Record<string, string[]> = {};
+  let delta = 0;
+  // Walk the ITEM's groups, not the caller's keys: a required group that the
+  // caller simply omitted (or omitted the whole `options` object) is missing.
+  for (const group of item.option_groups) {
+    const value = input[group.id];
+    let ids: string[];
+    if (value === undefined) {
+      ids = [];
+    } else if (typeof value === "string") {
+      ids = [value];
+    } else if (Array.isArray(value) && value.every((v) => typeof v === "string")) {
+      ids = value as string[];
+    } else {
+      return {
+        error: `options['${group.id}'] for '${item.name}' must be a choice id or an array of choice ids`,
+      };
+    }
+
+    // The same choice twice is ONE choice, and the limits are limits on distinct
+    // choices — otherwise a client that repeats an id is refused for a basket the
+    // venue would happily make, and the line would carry the selection twice.
+    const unique: string[] = [];
+    for (const id of ids) if (!unique.includes(id)) unique.push(id);
+
+    if (group.required && unique.length === 0) {
+      return { error: `required option group '${group.name}' is missing for '${item.name}'` };
+    }
+    if (!group.multi_select && unique.length > 1) {
+      return { error: `option group '${group.name}' allows at most one choice` };
+    }
+    if (group.max_count !== null && unique.length > group.max_count) {
+      return { error: `option group '${group.name}' allows at most ${group.max_count} choices` };
+    }
+
+    const choices = new Map(group.choices.map((choice) => [choice.id, choice]));
+    for (const choiceId of unique) {
+      const choice = choices.get(choiceId);
+      if (!choice) {
+        return { error: `choice '${choiceId}' is not in option group '${group.name}'` };
+      }
+      if (!choice.available) {
+        return { error: `choice '${choice.name}' in option group '${group.name}' is unavailable` };
+      }
+      // Read the venue's own number for THIS item's level (R1): the item's level
+      // key, then the level-independent column, then nothing — a choice whose own
+      // row carries no price at all is a no-surcharge choice, which is what the
+      // venue's own row and prose state (R1(c) in tools/venue_option_groups.ts).
+      // Nothing here is invented: every branch is a number the venue published.
+      //
+      // R7: a PriceLevelEnum group's choice IS the item's price, so it adds nothing
+      // — the venue's own page (evidence/rendered-ordering-page.txt) shows the dish
+      // at its own price with that choice taken.
+      const price = group.absolute_price ? 0 : priceForItem(choice, priceKey);
+      delta += price;
+    }
+    if (unique.length) selections[group.id] = unique;
+  }
+  return { selections, delta: Math.round(delta * 100) / 100 };
+}
+
 function priceForMethod(
   item: MenuItem,
   method: string,
@@ -358,6 +494,16 @@ function priceForMethod(
   };
 }
 
+/**
+ * The catalogue of the venues, and per item the groups it offers.
+ *
+ * R6 of tools/venue_option_groups.ts: the groups are served ONCE PER VENUE, not
+ * copied into all 188 items. Materialising them per item costs 428 277 B for this
+ * reply, which no relay here accepts; the catalogue form costs 103 385 B. An item's
+ * option prices are then one lookup: the item names its own `price_level_used`, and
+ * each choice carries the venue's own number under that key.
+ * Measured before/after: evidence/options-groups/served-menu-size.md.
+ */
 function handleMenu(index: VenueIndex, args: Record<string, unknown>): McpToolResult {
   const filterSlug = args.venue_slug ? String(args.venue_slug) : null;
   const venues = filterSlug ? index.venues.filter((v) => v.slug === filterSlug) : index.venues;
@@ -370,6 +516,17 @@ function handleMenu(index: VenueIndex, args: Record<string, unknown>): McpToolRe
     name: v.name,
     currency: v.currency,
     item_count: v.items.length,
+    option_groups: v.option_groups,
+    // Stated once, in the served data, so a client does not re-derive it and drift
+    // into a different total (one model: tools/venue_option_groups.ts R1). Every
+    // term is a number the venue published; `0` is the venue's own answer for a
+    // choice whose row carries no price field at all.
+    option_price_rule:
+      "delta = 0 for a group with absolute_price:true (its choice IS the item's price — " +
+      "the venue's own PriceLevelEnum); otherwise delta = choice.prices[item.price_level_key] " +
+      "?? choice.prices.default ?? 0. A lookup of the venue's own columns for the item's own " +
+      "level; never computed. `prices` carries only the columns the venue published " +
+      "numerically; `default` is its level-independent column.",
     items: v.items.map((it) => ({
       id: it.id,
       sku: it.sku,
@@ -378,6 +535,10 @@ function handleMenu(index: VenueIndex, args: Record<string, unknown>): McpToolRe
       available: it.available,
       allergens: it.allergens,
       option_group_ids: it.option_group_ids,
+      price_level_used: it.price_level_used,
+      // The key into `prices` this item reads. Served so the client never
+      // re-implements the level-spelling rule (`size2`/`price_level2` -> "2").
+      price_level_key: priceKeyOf(it.price_level_used ?? ""),
     })),
   }));
   return toolOk({
@@ -425,11 +586,12 @@ function handleOrder(index: VenueIndex, args: Record<string, unknown>): McpToolR
     name: string;
     qty: number;
     unit_price: number;
+    options_delta: number;
     method_used: string;
     line_total: number;
     price_note: string | null;
     available: boolean;
-    options?: Record<string, unknown>;
+    options?: Record<string, string[]>;
   }[] = [];
   let total = 0;
 
@@ -462,7 +624,10 @@ function handleOrder(index: VenueIndex, args: Record<string, unknown>): McpToolR
     if (!Number.isInteger(qty) || qty < 1) {
       return toolError(`invalid qty for sku ${item.sku}: ${qty}`);
     }
-    const { price, method_used, note } = priceForMethod(item, fulfilment);
+    const { price: basePrice, method_used, note } = priceForMethod(item, fulfilment);
+    const optionsResult = validateOptions(item, line.options);
+    if ("error" in optionsResult) return toolError(optionsResult.error);
+    const price = Math.round((basePrice + optionsResult.delta) * 100) / 100;
     const lineTotal = Math.round(price * qty * 100) / 100;
     lines.push({
       id: item.id,
@@ -470,13 +635,12 @@ function handleOrder(index: VenueIndex, args: Record<string, unknown>): McpToolR
       name: item.name,
       qty,
       unit_price: price,
+      options_delta: optionsResult.delta,
       method_used,
       line_total: lineTotal,
       price_note: note,
       available: item.available,
-      options: typeof line.options === "object" && !Array.isArray(line.options)
-        ? line.options as Record<string, unknown>
-        : undefined,
+      options: Object.keys(optionsResult.selections).length ? optionsResult.selections : undefined,
     });
     total += lineTotal;
   }

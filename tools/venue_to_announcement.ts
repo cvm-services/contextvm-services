@@ -17,6 +17,7 @@
 
 import { type AnnounceInput, type ToolCap, type Vocab } from "../vendor/cvm-service-kit/src/mod.ts";
 import { geohashesFor } from "./geohash.ts";
+import { normaliseOptionCatalogue } from "./venue_option_groups.ts";
 
 /** A `venue.json` record as produced by the S1 adapters (schema `cvm.venue/v1`). */
 export interface VenueRecord {
@@ -208,7 +209,12 @@ function buildOrderTool(
                 description: "The venue's own item id, unique where a sku is not.",
               },
               qty: { type: "integer", minimum: 1 },
-              options: { type: "object" },
+              options: {
+                type: "object",
+                description:
+                  "Chosen options, keyed by option group id, values are arrays of choice ids drawn from that group in this item's own groups (see the `menu` tool). A required group must be present; a choice not in the item's groups, over the group's limit, or unavailable is refused naming it.",
+                additionalProperties: { type: "array", items: { type: "string" } },
+              },
             },
             required: ["qty"],
             additionalProperties: false,
@@ -376,6 +382,36 @@ export function venueToAnnouncement(v: VenueRecord): VenueAnnouncement {
       : "min_price/max_price are the item's own price column (this venue publishes no per-method prices)",
   };
 
+  // Options are announced as their SHAPE, never as a second price table. The
+  // group -> choice -> price mapping is served data and only the `menu` tool has
+  // the room to carry it (R6 measurement in tools/venue_option_groups.ts: the
+  // catalogue form is 103 KB of menu JSON, and the announcement is a summary).
+  // Both this block and the served catalogue are built by the SAME normaliser, so
+  // a client reading "group 68406 takes up to 10 extras" here and the group it gets
+  // from `menu` cannot disagree about the limit.
+  const optionGroups = normaliseOptionCatalogue(v.menu ?? {});
+  const itemsWithOptions = items.filter((i) =>
+    Array.isArray(i?.option_group_ids) && i.option_group_ids.length > 0
+  ).length;
+  const optionsSummary = optionGroups.length
+    ? {
+      group_count: optionGroups.length,
+      items_with_options: itemsWithOptions,
+      price_level_dependent: optionGroups.some((g) => g.price_level_dependent),
+      groups: optionGroups.map((g) => ({
+        id: g.id,
+        name: g.name,
+        required: g.required,
+        multi_select: g.multi_select,
+        min_count: g.min_count,
+        max_count: g.max_count,
+        choice_count: g.choices.length,
+      })),
+      note: "shapes only: the choice list and each choice's price for an item's own " +
+        "price level are served by the `menu` tool, read from the venue's numbers",
+    }
+    : null;
+
   const content = {
     name,
     about: aboutLine(name),
@@ -386,7 +422,7 @@ export function venueToAnnouncement(v: VenueRecord): VenueAnnouncement {
       country: v.venue?.address?.country ?? null,
     },
     location: { lat, lon },
-    menu: menuSummary,
+    menu: { ...menuSummary, options: optionsSummary },
     ordering: {
       primary_url: deepLink,
       order_methods: v.venue?.order_methods ?? [],
