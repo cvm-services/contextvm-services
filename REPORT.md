@@ -149,3 +149,52 @@ deno task check     -> clean
    dispatching it).
 3. PR #38 is NOT merged.
 
+## Manager's INDEPENDENT reproduction of both fixes (not the worker's self-report)
+
+Run by the manager in `~/worktrees/pr-steglitz` at tip `f2460d4`, after the worker timed out at
+3600 s / 107 calls. The worker's own claims were NOT taken on trust.
+
+**A — fabricated venue.** Rebuilt the reviewer's experiment (hand-typed
+`venues/bogus-fabricated-venue/venue.json` shaped from a real record, NO `evidence/` dir, prices
+999.99/1234.56, `captured_at` 2099) and expected the suite to reject it:
+
+```
+deno task test -> FAILED | 125 passed | 9 failed | 1 ignored (13s)
+error: served total_items=776 != the committed anchor's 609 — the reply is not the anchored catalogue
+  at server_test.ts:1067
+error: no evidence/ directory at venues/bogus-fabricated-venue/evidence/:
+       a served venue must be built from committed evidence   at server_test.ts:1120
+```
+
+The worker's own account claimed 4 failures, so the anchor is stronger than the worker reported.
+Removed the bogus venue -> `ok | 134 passed | 0 failed | 1 ignored`. The reviewer measured 41 passed
+| 0 failed for the same record BEFORE the fix, so the defect is genuinely closed, not re-worded.
+
+**B — a "from" price presented as exact.** Hid ONE qualifier (`price_is_from: true -> false`,
+`price_qualifier: null`) on the first flagged la-mama item — exactly what the old
+`skip_lines: ["From"]` did to all 44 of them:
+
+```
+deno test --allow-read services/restaurant-cvm/price_semantics_test.ts
+-> FAILED | 2 passed | 4 failed
+  RED: every price the venue qualifies with 'From' is marked a starting price in the record
+  RED: the SERVED menu marks every starting price, and counts them
+  RED: ordering a starting-priced item returns a total flagged as a lower bound
+  RED: the published announcement says how many of its prices are floors
+```
+
+Restored -> `ok | 134 passed | 0 failed | 1 ignored`. The B tests are falsifiable, not decorative.
+
+**43 vs 44 RECONCILED — 44 is correct.** The reviewer counted 43; the generator flags 44:
+
+```
+grep -x -E '\s*From\s*' venues/la-mama-berlin/evidence/raw/page.txt | wc -l  ->  44
+anchors.json  la-mama from_priced_count                     -> 44
+venue.json    menu.stats.price_semantics.from_priced_items  -> 44   (60 exact + 44 from = 104)
+```
+
+The raw captured page contains exactly 44 qualifier lines, so the generator is right and the
+reviewer's count was off by one. No code change needed; nothing silently dropped.
+
+Tree left clean; `worker-base/AV-STEGLITZ-1` == origin tip.
+
