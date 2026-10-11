@@ -78,6 +78,25 @@ No e-mail, no `nsec`, no key material in the committed evidence; the venue's own
 real leak (the venue's e-mail inside `about_us` prose, not a named field) and fixed the scrubber; the
 record asserts no `[REDACTED` placeholder survives.
 
+## Addendum — the worker's later commits were salvaged (1da4687)
+
+The onboarding worker timed out at 3600s with no summary. Its last commits never reached this
+branch and were recovered from `origin/worker-base/three-buddies-berlin`:
+
+- `tests/three_buddies_venue_test.ts` — the full 364-line non-vacuous suite
+- `evidence/announcements/three-buddies-berlin.{11316,11317}.json` — publishable dry-run evidence
+- `venues/three-buddies-berlin/evidence/ANNOUNCEMENT.md` — **NOT PUBLISHED** + the exact operator
+  publish/read-back commands + the one-key-per-venue warning
+- `CUISINE_TAGS` entry + the venue joined to all 11 venue-wide loops
+- a real redaction fix this branch lacked (phone regex welded "131\n\n12167" and matched lat/lon
+  runs, leaving a false-positive `[REDACTED-PHONE]` in the committed `store.json`; 12 -> 11 placeholders)
+
+The two contract fixes made here are re-applied on top (the worker's branch predates them), and the
+two announcement files were regenerated with THIS branch's emitter so they carry
+`menu.price_semantics` — the field la-mama's floors make mandatory.
+
+`deno task verify` 146 passed | 0 failed | 1 ignored; anchors 6 venues / 709 items.
+
 ## NOT done — the honest remainder
 
 1. **Not served.** No venue CVM runs it and nothing is announced for it, so a customer cannot discover
