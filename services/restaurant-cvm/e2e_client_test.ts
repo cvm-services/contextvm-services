@@ -1,33 +1,81 @@
 /**
- * e2e_client_test.ts — the client's per-venue expectations must be DERIVED from
- * the venue records, so onboarding a venue stays pure config.
+ * e2e_client_test.ts — the client's per-venue expectations come from the
+ * COMMITTED anchor (`venues/anchors.json`), not from the records it serves.
  *
- * Card t_a640b7ca (ADR-0007 amendment 2026-10-09) measured exactly this: the
- * client used to carry a hard-coded VENUE_CFG table, so capturing a NEW venue
- * over CVM required editing this client — a code file — no matter how
- * declarative the venue record was. These tests pin the seam shut: they read the
- * venue files (server.ts's own discovery) and require the client's derived
- * expectation to match them one for one.
+ * Card t_a640b7ca measured that the client used to carry a hard-coded VENUE_CFG
+ * table, so capturing a new venue required editing a code file. Deriving the
+ * expectations from `venues/` fixed that and BROKE the verification: the
+ * expectation was computed by the same expression over the same files as the
+ * server's own reply, so any record passed — including a fabricated
+ * `venues/<slug>/venue.json` with no evidence and invented prices (41 passed, 0
+ * failed with it in the tree).
+ *
+ * These tests pin the replacement: the expectation is a committed datum. It
+ * still needs no code edit to onboard a venue (the anchor is data), but it
+ * cannot agree with a bad record.
  */
 import { assert, assertEquals } from "https://deno.land/std@0.224.0/assert/mod.ts";
 import { deriveVenueCfg } from "./e2e_client.ts";
+import { ANCHOR_URL, readAnchor } from "./anchor.ts";
 import { discoverVenueSlugs, loadVenues } from "./server.ts";
 
-Deno.test("the client derives exactly one expectation per venue record", async () => {
-  const slugs = await discoverVenueSlugs();
+Deno.test("the client covers exactly the venue set the committed anchor declares", async () => {
+  const anchor = await readAnchor();
   const cfg = await deriveVenueCfg();
   assertEquals(
     Object.keys(cfg).sort(),
-    [...slugs].sort(),
-    "every venue in venues/ needs a derived expectation, and only those — a missing one means onboarding needs a client edit",
+    [...anchor.served_venues].sort(),
+    "the client's expectations and the committed anchor must name the same venues — " +
+      "a missing one means a record changed without regenerating venues/anchors.json",
   );
 });
 
-Deno.test("the derived item count is the record's own item count", async () => {
+Deno.test("the anchor covers exactly the venue records on disk (drift guard)", async () => {
+  const slugs = await discoverVenueSlugs();
+  const anchor = await readAnchor();
+  const servedByServer = new Set((await loadVenues()).map((v) => v.slug));
+  assertEquals(
+    [...anchor.served_venues].sort(),
+    [...slugs].filter((s) => servedByServer.has(s)).sort(),
+    "venues/anchors.json is a committed expectation: adding or removing a venue record is a " +
+      "change to it (deno run --allow-read --allow-write venues/tools/menu_anchors.ts --write)",
+  );
+});
+
+Deno.test("the expectation's item count is the ANCHOR's, not a value re-derived from the record", async () => {
+  const anchor = await readAnchor();
   const cfg = await deriveVenueCfg();
-  for (const v of await loadVenues()) {
-    assertEquals(cfg[v.slug].items, v.items.length, `${v.slug}: item count must come from the record`);
+  assert(Object.keys(anchor.venues).length > 0, "the anchor declares no venues");
+  for (const [slug, entry] of Object.entries(anchor.venues)) {
+    assertEquals(
+      cfg[slug]?.items,
+      entry.item_count,
+      `${slug}: the client must expect the committed count`,
+    );
   }
+  // The anchor also carries the content hash the e2e client compares the live
+  // reply against; an expectation without one could not fail on an edited record.
+  for (const [slug, entry] of Object.entries(anchor.venues)) {
+    assertEquals(
+      /^[0-9a-f]{64}$/.test(entry.menu_sha256),
+      true,
+      `${slug}: the anchor must carry a sha256 of the venue's served projection`,
+    );
+  }
+});
+
+Deno.test("the anchor is committed, not generated at read time", async () => {
+  const text = await Deno.readTextFile(ANCHOR_URL);
+  assert(
+    text.includes('"generated_by": "venues/tools/menu_anchors.ts"'),
+    "venues/anchors.json must be the generator's committed output",
+  );
+  const anchor = JSON.parse(text);
+  assertEquals(
+    anchor.menu_sha256?.length,
+    64,
+    "the whole-catalogue hash must be committed alongside the per-venue ones",
+  );
 });
 
 Deno.test("the derived basket names two orderable lines of that venue's own menu", async () => {
@@ -61,6 +109,6 @@ Deno.test("the derived basket names two orderable lines of that venue's own menu
 Deno.test("the three Steglitz venues are covered with no client edit", async () => {
   const cfg = await deriveVenueCfg();
   for (const slug of ["chandi-berlin", "doreedos-steakhaus-berlin", "la-mama-berlin"]) {
-    assert(cfg[slug], `${slug} must have a derived expectation without touching this client`);
+    assert(cfg[slug], `${slug} must have a committed expectation without touching this client`);
   }
 });

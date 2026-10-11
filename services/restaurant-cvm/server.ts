@@ -29,6 +29,50 @@ export interface MenuItem {
   available: boolean;
   allergens: string[] | null;
   option_group_ids: string[];
+  /**
+   * True when the venue prints this price as a STARTING price ("From" / "ab"),
+   * not as the price of the item. The venue's own page qualifies such a price,
+   * so the record must carry the qualifier: a starting price understates what
+   * the facilitator actually pays at the counter, and presenting it as exact
+   * would quote a loss. See `price_qualifier` for the venue's own word.
+   */
+  price_is_from: boolean;
+  /** The venue's own qualifier word ("From"), when `price_is_from` is true. */
+  price_qualifier: string | null;
+}
+
+/**
+ * The item projection the `menu` tool serves — the exact shape a client sees,
+ * and the shape `venues/anchors.json` hashes. `price_is_from`/`price_qualifier`
+ * ride along so the served record is self-describing about starting prices.
+ */
+export interface ServedItem {
+  id: string;
+  sku: string;
+  name: string;
+  prices_by_order_method: Record<string, number>;
+  available: boolean;
+  allergens: string[] | null;
+  option_group_ids: string[];
+  price_is_from: boolean;
+  price_qualifier: string | null;
+}
+
+/** The per-venue projection the `menu` tool serves (hashed by the anchor). */
+export interface ServedVenue {
+  venue_slug: string;
+  name: string;
+  currency: string;
+  captured_at: string | null;
+  adapter: AdapterContract | null;
+  item_count: number;
+  /** How many of `items` carry a starting ("From"/"ab") price, not an exact one. */
+  from_priced_count: number;
+  /** The fulfilment methods the venue's prices are actually published for. */
+  priced_methods: string[];
+  min_price: number | null;
+  max_price: number | null;
+  items: ServedItem[];
 }
 
 export interface Venue {
@@ -308,6 +352,14 @@ export async function loadVenueSet(filter?: string[]): Promise<VenueSet> {
         option_group_ids: Array.isArray(it.option_group_ids)
           ? (it.option_group_ids as unknown[]).map(String)
           : [],
+        // A "from"/"ab" price is NOT the item's price. Carried through verbatim
+        // so the served and announced records can say so (never defaulted to
+        // false by absence: the flag is read from the record, and a record
+        // without it simply has no starting prices).
+        price_is_from: it.price_is_from === true,
+        price_qualifier: typeof it.price_qualifier === "string" && it.price_qualifier.length > 0
+          ? it.price_qualifier
+          : null,
       };
     });
 
@@ -532,6 +584,63 @@ function priceForMethod(
   };
 }
 
+/**
+ * The projection ONE venue contributes to the `menu` reply.
+ *
+ * Split out so the reply, the committed anchor (`venues/anchors.json`) and the
+ * tests all hash the SAME bytes: the anchor is only an independent expectation
+ * if what it pins is exactly what the server serves.
+ */
+export function servedVenueProjection(venue: Venue): ServedVenue {
+  const items: ServedItem[] = venue.items.map((it) => ({
+    id: it.id,
+    sku: it.sku,
+    name: it.name,
+    prices_by_order_method: it.prices_by_order_method,
+    available: it.available,
+    allergens: it.allergens,
+    option_group_ids: it.option_group_ids,
+    price_is_from: it.price_is_from,
+    price_qualifier: it.price_qualifier,
+  }));
+  return {
+    venue_slug: venue.slug,
+    name: venue.name,
+    currency: venue.currency,
+    // G7: freshness is a property of the capture, not of this reply. The field
+    // name is the one the freshness card (t_0eccac0c) defines — do not invent a
+    // second mechanism here; this only carries the capture time through.
+    captured_at: venue.captured_at,
+    adapter: venue.adapter,
+    item_count: items.length,
+    from_priced_count: items.filter((i) => i.price_is_from).length,
+    priced_methods: pricedMethods(items),
+    min_price: pricedValues(items).length ? Math.min(...pricedValues(items)) : null,
+    max_price: pricedValues(items).length ? Math.max(...pricedValues(items)) : null,
+    items,
+  };
+}
+
+/** Every price figure published by the venue's items, across methods. */
+function pricedValues(items: ServedItem[]): number[] {
+  const out: number[] = [];
+  for (const item of items) {
+    for (const p of Object.values(item.prices_by_order_method)) {
+      if (typeof p === "number" && Number.isFinite(p)) out.push(p);
+    }
+  }
+  return out;
+}
+
+/** The fulfilment methods the venue's prices are actually published for. */
+function pricedMethods(items: ServedItem[]): string[] {
+  const out = new Set<string>();
+  for (const item of items) {
+    for (const m of Object.keys(item.prices_by_order_method)) out.add(m);
+  }
+  return [...out].sort();
+}
+
 function handleMenu(index: VenueIndex, args: Record<string, unknown>): McpToolResult {
   const filterSlug = args.venue_slug ? String(args.venue_slug) : null;
   const venues = filterSlug ? index.venues.filter((v) => v.slug === filterSlug) : index.venues;
@@ -539,29 +648,19 @@ function handleMenu(index: VenueIndex, args: Record<string, unknown>): McpToolRe
     return toolError(`unknown venue_slug: ${filterSlug}`);
   }
 
-  const out = venues.map((v) => ({
-    venue_slug: v.slug,
-    name: v.name,
-    currency: v.currency,
-    // G7: freshness is a property of the capture, not of this reply. The field
-    // name is the one the freshness card (t_0eccac0c) defines — do not invent a
-    // second mechanism here; this only carries the capture time through.
-    captured_at: v.captured_at,
-    adapter: v.adapter,
-    item_count: v.items.length,
-    items: v.items.map((it) => ({
-      id: it.id,
-      sku: it.sku,
-      name: it.name,
-      prices_by_order_method: it.prices_by_order_method,
-      available: it.available,
-      allergens: it.allergens,
-      option_group_ids: it.option_group_ids,
-    })),
-  }));
+  const out = venues.map(servedVenueProjection);
+  const fromPriced = out.reduce((n, v) => n + v.from_priced_count, 0);
   return toolOk({
     total_items: venues.reduce((n, v) => n + v.items.length, 0),
     venues: out,
+    // A starting price is not a price. The reply says how many items carry the
+    // venue's own "From"/"ab" qualifier, and every such item carries
+    // `price_is_from`/`price_qualifier`, so a client can never read a floor as
+    // an exact price by looking only at the served record.
+    from_priced_items: fromPriced,
+    price_semantics_note: fromPriced > 0
+      ? `${fromPriced} of ${out.reduce((n, v) => n + v.item_count, 0)} items are priced by the venue as a starting price ("From"/"ab"): \`price_is_from\` is true and \`price_qualifier\` carries the venue's own word. Those figures are a FLOOR, not the price of the item — a total built from them can only be a lower bound.`
+      : "every item's price is the price the venue publishes for it; no item carries a starting-price qualifier",
     // A refused venue is never silently absent: it is named with its reason.
     rejected_venues: index.rejections,
   });
@@ -610,9 +709,13 @@ function handleOrder(index: VenueIndex, args: Record<string, unknown>): McpToolR
     line_total: number;
     price_note: string | null;
     available: boolean;
+    /** True when the venue's own figure is a "From"/"ab" starting price. */
+    price_is_from: boolean;
+    price_qualifier: string | null;
     options?: Record<string, unknown>;
   }[] = [];
   let total = 0;
+  let fromPricedLines = 0;
 
   for (const raw of itemsRaw) {
     const line = raw as Record<string, unknown>;
@@ -645,6 +748,16 @@ function handleOrder(index: VenueIndex, args: Record<string, unknown>): McpToolR
     }
     const { price, method_used, note } = priceForMethod(item, fulfilment);
     const lineTotal = Math.round(price * qty * 100) / 100;
+    if (item.price_is_from) fromPricedLines += 1;
+    // A starting price says nothing about what the counter will charge, so the
+    // line says so in words as well as in flags: a caller that ignores the flag
+    // still reads why the figure is a floor.
+    const priceNote = item.price_is_from
+      ? [
+        `${item.price_qualifier ?? "From"} price: a starting price (a floor), not the item's exact price`,
+        note,
+      ].filter(Boolean).join("; ")
+      : note;
     lines.push({
       id: item.id,
       sku: item.sku,
@@ -653,8 +766,10 @@ function handleOrder(index: VenueIndex, args: Record<string, unknown>): McpToolR
       unit_price: price,
       method_used,
       line_total: lineTotal,
-      price_note: note,
+      price_note: priceNote,
       available: item.available,
+      price_is_from: item.price_is_from,
+      price_qualifier: item.price_qualifier,
       options: typeof line.options === "object" && !Array.isArray(line.options)
         ? line.options as Record<string, unknown>
         : undefined,
@@ -668,6 +783,13 @@ function handleOrder(index: VenueIndex, args: Record<string, unknown>): McpToolR
     status: "basket",
     note:
       "This is a prepared basket, not a placed order. Checkout and payment happen on the venue's own page.",
+    // The basket total is a LOWER BOUND whenever a line was priced from the
+    // venue's own starting price: the counter may charge more. Never present it
+    // as the amount the facilitator will pay.
+    total_is_lower_bound: fromPricedLines > 0,
+    total_lower_bound_note: fromPricedLines > 0
+      ? `${fromPricedLines} of ${lines.length} lines are priced from the venue's own starting ("From"/"ab") price, so the total is a FLOOR: the price paid at the venue may be higher.`
+      : null,
     venue: {
       slug: venue.slug,
       name: venue.name,

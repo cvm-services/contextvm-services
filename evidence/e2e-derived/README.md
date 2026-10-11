@@ -8,9 +8,24 @@ transcripts are the proof that the derivation is right for every venue in the
 checkout — including the two that were previously hard-coded, which are re-run
 here precisely because the derivation replaced their constants.
 
-Reproduce: `bash e2e-run.sh` (the three Steglitz venues) and
-`bash e2e-run-legacy.sh` (the two pre-existing venues), each with the venue's own
-`VENUE_SERVER_KEY_FILE` instance running; see the task log for the exact commands.
+Reproduce (one filtered `restaurant-cvm` instance per venue, then the client):
+
+```bash
+# each venue's own key, never on a command line (see services/restaurant-cvm/run-venue-server.sh)
+VENUE_SERVER_VENUES=<slug> VENUE_SERVER_KEY_FILE=$HOME/.hermes/secrets/venues/<slug>.nsec \
+  services/restaurant-cvm/run-venue-server.sh          # one instance per venue
+deno run --allow-net --allow-read --allow-env services/restaurant-cvm/e2e_client.ts \
+  --server <that venue's announced pubkey hex> --relay wss://relay.primal.net \
+  --venue <slug> --json > evidence/e2e-derived/<slug>.json
+```
+
+`e2e_client.ts` carries no per-venue table: its expected item count and its
+expected menu content hash come from the COMMITTED anchor
+(`venues/anchors.json`), which the client also checks the live reply against, so
+a transcript whose record has drifted no longer reproduces. The transcripts below
+were captured on 2026-10-10, before that anchor existed; their `total_items`
+agree with it (they are the same records), but a fresh run now carries the
+`sha256=…==…` field in the `tools/call:menu` check detail.
 
 | venue | all_passed | menu | order |
 | --- | --- | --- | --- |

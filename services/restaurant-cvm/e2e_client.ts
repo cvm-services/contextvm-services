@@ -32,9 +32,16 @@
 // --venue scopes the assertions to a single announced identity: the client
 // expects ONLY that venue's menu (slug set + item count) and orders against it.
 // Omit --venue to assert every venue this checkout declares (an unscoped
-// instance serves the whole catalogue on one identity). The per-venue
-// expectations are DERIVED from the venue records, so an onboarded venue needs
-// no edit here.
+// instance serves the whole catalogue on one identity).
+//
+// The per-venue expectations are NOT derived from the venue records: they come
+// from the COMMITTED anchor `venues/anchors.json`, which also carries a sha256
+// over each venue's whole served projection and over the whole catalogue. An
+// expectation computed from the same files the server serves cannot fail on a
+// bad record — a fabricated `venues/<slug>/venue.json` was served and passed
+// every check (see services/restaurant-cvm/anchor.ts). Onboarding a venue still
+// needs no edit here: regenerate the anchor (data) with
+// `deno run --allow-read --allow-write venues/tools/menu_anchors.ts --write`.
 //
 // Prints the raw request and response events to stdout. Exit 0 if
 // tools/list AND tools/call both return a well-formed result; non-zero
@@ -48,17 +55,18 @@ import {
   nip44,
 } from "npm:nostr-tools";
 import { Relay } from "npm:nostr-tools/relay";
+import { canonicalJson, readAnchor, servedCatalogueText, sha256Hex } from "./anchor.ts";
 import { loadVenues, type Venue } from "./server.ts";
 
 const CTXVM_MESSAGES_KIND = 25910;
 const GIFT_WRAP_KIND = 1059;
 const EPHEMERAL_GIFT_WRAP_KIND = 21059;
 
-// Per-venue expectations are DERIVED from the venue records: onboarding a venue
-// must not require editing this client. The item count is the record's own menu
-// length, and the basket is two lines taken from the venue's own menu (see
-// basketFor). Absent --venue, the client asserts every venue this checkout
-// declares (the unscoped instance serves the whole catalogue on one identity).
+// Per-venue expectations come from the COMMITTED anchor (`venues/anchors.json`),
+// never from the records the server serves. The basket is still drawn from the
+// venue's own menu — you cannot order a line that does not exist — but the
+// EXPECTED item count and the EXPECTED content hash are the committed ones, so a
+// fabricated or silently edited record fails instead of agreeing with itself.
 export interface VenueOrderArg {
   venue_slug: string;
   items: Array<Record<string, unknown>>;
@@ -109,14 +117,29 @@ function fulfilmentFor(venue: Venue): string {
   return "pickup";
 }
 
-/** Derive one expectation per served venue, from the venue records alone. */
+/**
+ * One expectation per served venue. The item count is the COMMITTED anchor's,
+ * and the basket is two lines taken from the venue's own menu (see basketFor).
+ * A venue the server would serve but the anchor does not know is a hard error:
+ * it means the record changed (or was invented) without regenerating the anchor.
+ */
 export async function deriveVenueCfg(
   filter?: string[],
 ): Promise<Record<string, VenueExpectation>> {
+  const anchor = await readAnchor();
   const cfg: Record<string, VenueExpectation> = {};
   for (const venue of await loadVenues(filter)) {
+    const expected = anchor.venues[venue.slug];
+    if (!expected) {
+      throw new Error(
+        `venue '${venue.slug}' is served but has no entry in the committed anchor ` +
+          `venues/anchors.json — the record is new or edited. If that is intended, ` +
+          `regenerate the anchor on purpose and commit the diff: ` +
+          `deno run --allow-read --allow-write venues/tools/menu_anchors.ts --write`,
+      );
+    }
     cfg[venue.slug] = {
-      items: venue.items.length,
+      items: expected.item_count,
       order: {
         venue_slug: venue.slug,
         items: basketFor(venue),
@@ -128,6 +151,39 @@ export async function deriveVenueCfg(
   }
   return cfg;
 }
+
+/** The anchor entry (count + content hash) the client expects for a slug set. */
+export async function expectedCatalogue(slugs: string[]): Promise<{
+  total: number;
+  sha256: string;
+  detail: string;
+}> {
+  const anchor = await readAnchor();
+  let total = 0;
+  for (const slug of slugs) {
+    const entry = anchor.venues[slug];
+    if (!entry) {
+      throw new Error(
+        `venue '${slug}' has no entry in the committed anchor venues/anchors.json`,
+      );
+    }
+    total += entry.item_count;
+  }
+  const sha256 = slugs.length === 1
+    ? anchor.venues[slugs[0]].menu_sha256
+    : anchor.menu_sha256;
+  return { total, sha256, detail: `anchor(${slugs.join(",")})=${total}/${sha256.slice(0, 12)}` };
+}
+
+/** sha256 of what the server actually replied, in the anchor's canonical form. */
+export async function servedCatalogueHash(
+  venues: unknown[],
+  totalItems: number,
+): Promise<string> {
+  return await sha256Hex(servedCatalogueText(venues as never, totalItems));
+}
+
+export { canonicalJson };
 
 interface NostrEvent {
   id: string;
@@ -197,10 +253,21 @@ async function main() {
     Deno.exit(2);
   }
   const venueSlug = flags.venue ? String(flags.venue) : null;
-  // Derived from the venue records themselves — never a hard-coded table, so
-  // onboarding a venue does not require editing this client.
+  // Expectations come from the COMMITTED anchor (venues/anchors.json), never
+  // from a value recomputed out of the records at run time. deriveVenueCfg()
+  // additionally refuses to run if the server would serve a venue the anchor
+  // does not know — that is a record change nobody anchored.
   const venueCfg = await deriveVenueCfg();
-  const declaredSlugs = Object.keys(venueCfg).sort();
+  const anchor = await readAnchor();
+  const declaredSlugs = [...anchor.served_venues].sort();
+  const servedSlugs = Object.keys(venueCfg).sort();
+  if (JSON.stringify(servedSlugs) !== JSON.stringify(declaredSlugs)) {
+    console.error(
+      `[e2e] the served venue set ${JSON.stringify(servedSlugs)} != the committed anchor's ` +
+        `${JSON.stringify(declaredSlugs)}: regenerate venues/anchors.json on purpose`,
+    );
+    Deno.exit(1);
+  }
   if (venueSlug && !venueCfg[venueSlug]) {
     console.error(`--venue ${venueSlug} is not a known venue (${declaredSlugs.join(", ")})`);
     Deno.exit(2);
@@ -391,17 +458,32 @@ async function main() {
     const venueSlugs = Array.isArray(payload?.venues)
       ? payload.venues.map((v: { venue_slug: string }) => v.venue_slug)
       : [];
-    // Venue-scoped: exactly one venue, the requested one, with its item count.
-    // Unscoped (default): every venue this checkout declares, on one identity.
+    // Venue-scoped: exactly one venue, the requested one, with its committed
+    // expectation. Unscoped: every venue the committed anchor declares.
     const expectSlugs = venueSlug ? [venueSlug] : declaredSlugs;
-    const expectTotal = expectSlugs.reduce((sum, slug) => sum + (venueCfg[slug]?.items ?? 0), 0);
-    const slugsMatch = JSON.stringify([...venueSlugs].sort()) === JSON.stringify([...expectSlugs].sort());
+    const expected = await expectedCatalogue(expectSlugs);
+    const slugsMatch = JSON.stringify([...venueSlugs].sort()) ===
+      JSON.stringify([...expectSlugs].sort());
+    // The independent check: hash what the server ACTUALLY replied and compare
+    // it with the committed hash. A record edited without regenerating the
+    // anchor — or invented outright — cannot match it.
+    const servedHash = await servedCatalogueHash(payload?.venues ?? [], total);
+    const hashMatch = servedHash === expected.sha256;
     checks.push({
       name: "tools/call:menu",
-      ok: total === expectTotal && slugsMatch,
-      detail: `total_items=${total} venues=${JSON.stringify(venueSlugs)} expected=${JSON.stringify(expectSlugs)}/${expectTotal}`,
+      ok: total === expected.total && slugsMatch && hashMatch,
+      detail:
+        `total_items=${total} venues=${JSON.stringify(venueSlugs)} expected=${JSON.stringify(expectSlugs)}/${expected.total} ` +
+        `sha256=${servedHash.slice(0, 12)}${hashMatch ? "==" : "!="}${expected.sha256.slice(0, 12)}`,
     });
     log(`[e2e] <- tools/call menu: total_items=${total} venues=${JSON.stringify(venueSlugs)}`);
+    if (!hashMatch) {
+      log(
+        `[e2e]    served menu content hash ${servedHash} != the committed anchor's ` +
+          `${expected.sha256} — the served record is not the anchored one. ` +
+          `If the change is intended: deno run --allow-read --allow-write venues/tools/menu_anchors.ts --write`,
+      );
+    }
   }
 
   // 4. tools/call order (a real basket — pickup, no address needed)

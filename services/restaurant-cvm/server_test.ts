@@ -24,6 +24,16 @@ import {
   eventBytes,
   RELAY_EVENT_CAP_BYTES,
 } from "./server.ts";
+import {
+  anchorFileText,
+  buildAnchor,
+  canonicalJson,
+  evidenceProblem,
+  readAnchor,
+  readVenueRaw,
+  servedCatalogueText,
+  sha256Hex,
+} from "./anchor.ts";
 import { Relay } from "npm:nostr-tools";
 import { venueToAnnouncement } from "../../tools/venue_to_announcement.ts";
 
@@ -993,4 +1003,119 @@ Deno.test("RED: the announced order schema matches the schema the server answers
   if (!items.required.includes("qty")) {
     throw new Error("items must still require a qty");
   }
+});
+
+
+// ---------------------------------------------------------------------------
+// INDEPENDENT VERIFICATION ANCHOR (venues/anchors.json)
+//
+// The first version of this suite re-walked `venues/` and re-ran the server's
+// own `validateAdapter()` to decide what the server "should" serve, and the e2e
+// client derived its item counts from the same records. Both sides computed the
+// same expression over the same files, so a FABRICATED `venues/<slug>/venue.json`
+// (no evidence dir, no adapter.py, no source, invented prices 999.99/1234.56, a
+// 2099 captured_at) was served and the suite still reported
+// `ok | 41 passed | 0 failed | 1 ignored`.
+//
+// The expectation is now a COMMITTED datum (`venues/anchors.json`): per-venue
+// item count, price bounds, priced methods, the count of starting ("From"/"ab")
+// prices, and a sha256 over the venue's whole served projection. Regenerating it
+// is an explicit command, so a record change is a visible diff to that file.
+// Three checks together make a fabricated record fail:
+//   1. the anchor covers exactly the served venue set;
+//   2. the anchor matches the records on disk (drift guard);
+//   3. the LIVE served reply matches the anchor, hash included.
+// ---------------------------------------------------------------------------
+
+Deno.test("the committed anchor covers exactly the served venue set", async () => {
+  await setup();
+  const anchor = await readAnchor();
+  const served = index.venues.map((v) => v.slug).sort();
+  if (JSON.stringify(served) !== JSON.stringify([...anchor.served_venues].sort())) {
+    throw new Error(
+      `served venues ${JSON.stringify(served)} != the committed anchor's ` +
+        `${JSON.stringify(anchor.served_venues)}: a venue was served that nobody anchored. ` +
+        `If the change is intended: deno run --allow-read --allow-write venues/tools/menu_anchors.ts --write`,
+    );
+  }
+});
+
+Deno.test("GUARD: the anchor matches the venue records (a record edit needs a visible regeneration)", async () => {
+  await setup();
+  const anchor = await readAnchor();
+  const rebuilt = await buildAnchor(index.venues);
+  if (anchorFileText(rebuilt) !== anchorFileText(anchor)) {
+    throw new Error(
+      `venues/anchors.json does not match the records it is supposed to anchor:\n` +
+        `  committed: items=${anchor.total_items} sha=${anchor.menu_sha256.slice(0, 12)}\n` +
+        `  records:   items=${rebuilt.total_items} sha=${rebuilt.menu_sha256.slice(0, 12)}\n` +
+        `Regenerate on purpose and commit the diff: venues/anchors.json`,
+    );
+  }
+});
+
+Deno.test("the LIVE served menu equals the committed anchor: counts, price bounds, starting-price count and content hash", async () => {
+  await setup();
+  const anchor = await readAnchor();
+  const res = handleToolCall(index, "menu", {});
+  const payload = JSON.parse(res.content[0].text) as {
+    total_items: number;
+    venues: Array<Record<string, unknown> & { venue_slug: string; item_count: number }>;
+  };
+
+  if (payload.total_items !== anchor.total_items) {
+    throw new Error(
+      `served total_items=${payload.total_items} != the committed anchor's ${anchor.total_items} — ` +
+        `the reply is not the anchored catalogue`,
+    );
+  }
+
+  // One hash over what was ACTUALLY served. Nothing here is recomputed from the
+  // records at test time, so an edited or invented record cannot match it.
+  const servedHash = await sha256Hex(servedCatalogueText(payload.venues as never, payload.total_items));
+  if (servedHash !== anchor.menu_sha256) {
+    throw new Error(
+      `served menu content hash ${servedHash} != the committed anchor's ${anchor.menu_sha256} — ` +
+        `the served record is not the anchored one`,
+    );
+  }
+
+  for (const served of payload.venues) {
+    const expected = anchor.venues[served.venue_slug];
+    if (!expected) {
+      throw new Error(`venue '${served.venue_slug}' was served but is not in the committed anchor`);
+    }
+    const venueHash = await sha256Hex(canonicalJson(served));
+    const problems: string[] = [];
+    if (served.item_count !== expected.item_count) problems.push(`item_count ${served.item_count} != ${expected.item_count}`);
+    if (served.from_priced_count !== expected.from_priced_count) {
+      problems.push(`from_priced_count ${served.from_priced_count} != ${expected.from_priced_count}`);
+    }
+    if (served.min_price !== expected.min_price) problems.push(`min_price ${served.min_price} != ${expected.min_price}`);
+    if (served.max_price !== expected.max_price) problems.push(`max_price ${served.max_price} != ${expected.max_price}`);
+    if (JSON.stringify(served.priced_methods) !== JSON.stringify(expected.priced_methods)) {
+      problems.push(`priced_methods ${JSON.stringify(served.priced_methods)} != ${JSON.stringify(expected.priced_methods)}`);
+    }
+    if (venueHash !== expected.menu_sha256) problems.push(`menu_sha256 ${venueHash} != ${expected.menu_sha256}`);
+    if (problems.length > 0) {
+      throw new Error(`${served.venue_slug}: ${problems.join("; ")}`);
+    }
+  }
+});
+
+Deno.test("GUARD: the evidence check has teeth — a served venue with no evidence on disk is refused", async () => {
+  const problem = await evidenceProblem("no-such-venue-directory", {});
+  if (!problem || !/evidence/.test(problem)) {
+    throw new Error(`expected an evidence problem for a venue with no evidence dir, got ${problem}`);
+  }
+});
+
+Deno.test("every served venue was built from committed evidence on disk (a hand-typed record cannot pass)", async () => {
+  await setup();
+  const problems: string[] = [];
+  for (const venue of index.venues) {
+    const problem = await evidenceProblem(venue.slug, await readVenueRaw(venue.slug));
+    if (problem) problems.push(problem);
+  }
+  if (problems.length > 0) throw new Error(problems.join("\n"));
 });

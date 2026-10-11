@@ -51,9 +51,13 @@ USAGE
 -----
   python3 venues/tools/capture_menu.py --venue venues/<slug>/venue.json --fetch
   python3 venues/tools/capture_menu.py --venue venues/<slug>/venue.json --check
+  python3 venues/tools/capture_menu.py --all --check
 
 `--check` refetches nothing: it re-derives the menu from the committed evidence
-and fails when the on-disk `menu` block differs (idempotence).
+and fails when the on-disk `menu` block differs (idempotence). `--all` does that
+for every venue under `venues/` that declares a capture block, so one command
+(the CI lane's `deno task venues:check`) covers the whole class-1 catalogue —
+this is the one independent anchor that is NOT derived from the served record.
 
 Exit codes: 0 ok, 1 verification failed, 2 fetch/parse error.
 """
@@ -472,11 +476,52 @@ def run(args) -> int:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description="declarative menu capture (class-1 venues)")
-    ap.add_argument("--venue", required=True, help="path to venues/<slug>/venue.json")
+    ap.add_argument("--venue", help="path to venues/<slug>/venue.json")
+    ap.add_argument(
+        "--all",
+        action="store_true",
+        help="every venues/*/venue.json that declares a capture block (in slug order)",
+    )
     ap.add_argument("--fetch", action="store_true", help="re-fetch from the venue's page")
     ap.add_argument("--reparse", action="store_true", help="rebuild from committed evidence (no network)")
     ap.add_argument("--check", action="store_true", help="rebuild and compare with venue.json (no write)")
     args = ap.parse_args()
+
+    if not args.venue and not args.all:
+        ap.error("--venue PATH or --all is required")
+
+    if args.all:
+        root = Path.cwd() / "venues"
+        paths = sorted(root.glob("*/venue.json"))
+        if not paths:
+            print("FAIL: no venues/*/venue.json found", file=sys.stderr)
+            return 2
+        failed = 0
+        checked = 0
+        for path in paths:
+            try:
+                raw = json.loads(path.read_text(encoding="utf-8"))
+            except Exception as exc:  # a broken record must fail, not be skipped
+                print(f"FAIL: {path}: {exc}", file=sys.stderr)
+                failed += 1
+                continue
+            if not isinstance(raw.get("capture"), dict):
+                continue  # a per-venue adapter.py venue: its own --check covers it
+            checked += 1
+            args.venue = str(path)
+            try:
+                rc = run(args)
+            except (urllib.error.URLError, RuntimeError, subprocess.CalledProcessError) as exc:
+                print(f"ERROR: {path}: {exc}", file=sys.stderr)
+                rc = 2
+            if rc != 0:
+                failed += 1
+        if checked == 0:
+            print("FAIL: no venue under venues/ declares a capture block", file=sys.stderr)
+            return 2
+        print(f"capture_menu --all: {checked - failed}/{checked} venues verified")
+        return 1 if failed else 0
+
     try:
         return run(args)
     except (urllib.error.URLError, RuntimeError, subprocess.CalledProcessError) as exc:
