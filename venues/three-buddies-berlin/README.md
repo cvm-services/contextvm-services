@@ -153,7 +153,7 @@ when it consumes this record:
   (`--anchor` and `--verify-rendered`).
 - The perturbed-price negative test **fails** the check, as it must.
 - A second full re-fetch produced a **byte-identical** `venue.json`
-  (`--check`, sha256 `3a662c23a7a563f6cd8f15e5151ee11389cc02658add630f9c13379d32be7f14`).
+  (`--check`, sha256 `3f28db7cb3739b388db4765535d88c056d8c7e6424e8786adfd445f00bfdef79`).
 - The redaction guard proves the **email** in the payload (it sits inside a
   franchise pitch in prose, not only in a named field) and every non-published
   phone number are gone from the committed copies, while the venue's own business

@@ -4675,7 +4675,7 @@
       "store": {
         "bytes": 51814,
         "committed_copy_redacted": true,
-        "committed_copy_sha256": "0155437d5738980149145d3122c7bfdff159af51dce601244ada1f05a099678d",
+        "committed_copy_sha256": "abe24e8d94e0aee83ff7ca91932db08efc6dc8fd0ca830c79c25c4de28db5711",
         "file": "evidence/raw/store.json",
         "sha256": "142060d5168fc523fd2ed96155e5988972f501ab6a3a102a33e1121d09b30028",
         "storefront_mirror_url": "https://storefront.foodamigos.io/api/stores/threebuddies.de",

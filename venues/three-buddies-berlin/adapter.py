@@ -188,7 +188,12 @@ EMAIL_RE = re.compile(r"[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}")
 # ("acc8c0b0-484b-<digits>b7c2f62b") looks phone-shaped and gets destroyed —
 # which the "[REDACTED" invariant in run() then caught. A phone-like run must
 # stand alone between non-token characters.
-PHONE_RE = re.compile(r"(?<![0-9A-Za-z\-])\+?[\d][\d\s\-/()]{7,}\d(?![0-9A-Za-z\-])")
+# The separator class holds only SPACES, never \n. A newline-joining class welded
+# a street number to a postcode ("131\n\n12167") into a false phone, and the
+# decimal bound (.,) keeps latitude/longitude digit runs out of it (53.72541...).
+PHONE_RE = re.compile(
+    r"(?<![0-9A-Za-z.,\-])\+?\d[0-9 \t\u00a0\-/()]{7,}\d(?![0-9A-Za-z.,\-])"
+)
 
 
 def _scrub_phones(text: str) -> str:
