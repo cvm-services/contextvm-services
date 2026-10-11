@@ -8,6 +8,8 @@ import {
   handleMcpMessage,
   handleToolCall,
   loadVenues,
+  loadVenueSet,
+  validateAdapter,
   type McpRequest,
   type VenueIndex,
   parseRelayList,
@@ -22,6 +24,16 @@ import {
   eventBytes,
   RELAY_EVENT_CAP_BYTES,
 } from "./server.ts";
+import {
+  anchorFileText,
+  buildAnchor,
+  canonicalJson,
+  evidenceProblem,
+  readAnchor,
+  readVenueRaw,
+  servedCatalogueText,
+  sha256Hex,
+} from "./anchor.ts";
 import { Relay } from "npm:nostr-tools";
 import { venueToAnnouncement } from "../../tools/venue_to_announcement.ts";
 
@@ -29,6 +41,36 @@ let index: VenueIndex;
 
 async function setup() {
   index = await buildIndex();
+}
+
+// ---------------------------------------------------------------------------
+// The catalogue is DATA, not a constant. Onboarding a venue adds
+// `venues/<slug>/venue.json` and nothing else (card t_a640b7ca), so a test that
+// hard-codes "two venues, 188 items" turns every onboarding into a test edit.
+// The expectation is therefore derived from the venue files themselves; what is
+// asserted is that the server serves *all* of them and nothing else.
+// ---------------------------------------------------------------------------
+const VENUES_DIR = new URL("../../venues/", import.meta.url);
+
+async function expectedCatalogue(): Promise<{ venues: number; items: number; slugs: string[] }> {
+  let venues = 0;
+  let items = 0;
+  const slugs: string[] = [];
+  for await (const entry of Deno.readDir(VENUES_DIR)) {
+    if (!entry.isDirectory) continue;
+    let raw: Record<string, unknown>;
+    try {
+      raw = JSON.parse(await Deno.readTextFile(new URL(`${entry.name}/venue.json`, VENUES_DIR)));
+    } catch {
+      continue; // a directory without venue.json is not a venue
+    }
+    const v = (raw.venue ?? {}) as Record<string, unknown>;
+    if (!validateAdapter(v).ok) continue; // a rejected venue is not served
+    venues += 1;
+    slugs.push(String(raw.slug ?? entry.name));
+    items += (((raw.menu ?? {}) as { items?: unknown[] }).items ?? []).length;
+  }
+  return { venues, items, slugs: slugs.sort() };
 }
 
 // ---------------------------------------------------------------------------
@@ -96,17 +138,18 @@ Deno.test("RED: tools/list exposes menu and order with real schemas", async () =
   }
 });
 
-Deno.test("RED: menu returns 188 items with sku, name, prices, available, allergens", async () => {
+Deno.test("menu returns every item of every served venue, with sku, name, prices, available, allergens", async () => {
   await setup();
+  const expected = await expectedCatalogue();
   const res = handleToolCall(index, "menu", {});
   const text = res.content[0].text;
   const payload = JSON.parse(text);
-  if (payload.total_items !== 188) {
-    throw new Error(`expected 188 items, got ${payload.total_items}`);
+  if (payload.total_items !== expected.items) {
+    throw new Error(`expected ${expected.items} items (from the venue files), got ${payload.total_items}`);
   }
   const items = payload.venues.flatMap((v: { items: Array<Record<string, unknown>> }) => v.items);
-  if (items.length !== 188) {
-    throw new Error(`flat item count ${items.length} != 188`);
+  if (items.length !== expected.items) {
+    throw new Error(`flat item count ${items.length} != ${expected.items}`);
   }
   for (const it of items) {
     if (!it.sku) throw new Error("item missing sku");
@@ -244,14 +287,96 @@ Deno.test("RED: order returns basket + rail + deep-link, not 'order placed'", as
   }
 });
 
-Deno.test("loadVenues loads two venues with 188 total items", async () => {
+Deno.test("the served set is data: every venue directory with a valid adapter is served", async () => {
+  const expected = await expectedCatalogue();
   const venues = await loadVenues();
-  if (venues.length !== 2) throw new Error(`expected 2 venues, got ${venues.length}`);
+  if (venues.length !== expected.venues) {
+    throw new Error(`expected ${expected.venues} venues (from the venue files), got ${venues.length}`);
+  }
   let count = 0;
   for (const v of venues) {
     count += v.items.length;
+    if (!expected.slugs.includes(v.slug)) throw new Error(`served a venue with no venue.json: ${v.slug}`);
   }
-  if (count !== 188) throw new Error(`expected 188 items, got ${count}`);
+  if (count !== expected.items) throw new Error(`expected ${expected.items} items, got ${count}`);
+
+  // Onboarding must be pure config: every refusal has to be reported with a
+  // reason rather than hidden (a silently dropped venue is the failure mode).
+  const set = await loadVenueSet();
+  for (const r of set.rejections) {
+    if (!r.slug || !r.reason) throw new Error("a rejection must name its venue and its reason");
+  }
+});
+
+// ---------------------------------------------------------------------------
+// The adapter contract (ADR-0007 amendment): a class that needs a capability the
+// venue cannot provide is REJECTED, never silently served as a weaker adapter.
+// ---------------------------------------------------------------------------
+
+function venueWithAdapter(adapter: Record<string, unknown>): Record<string, unknown> {
+  return {
+    name: "Synthetic Venue",
+    currency: "EUR",
+    website: "https://example.invalid/",
+    order_methods: ["dine_in"],
+    adapter,
+  };
+}
+
+const FULL_CONTRACT: Record<string, unknown> = {
+  capabilities: { menu: true, quote: true, submit: false, status: false },
+  human_steps: ["a human places the order"],
+  credentials: { owner: "none", scope: "public page" },
+  payment_authority: { authority: "human", cvm_cap_sats: 0 },
+  idempotency: { key: "k", on_duplicate: "d" },
+  receipt: { form: "f", durable: "d" },
+};
+
+Deno.test("RED: a class that needs a capability the venue lacks is REJECTED, not degraded", () => {
+  const verdict = validateAdapter(
+    venueWithAdapter({ class: "direct_api", ...FULL_CONTRACT }),
+  );
+  if (verdict.ok) throw new Error("a direct_api venue without submit/status must be rejected");
+  if (!/submit/.test(verdict.reason)) {
+    throw new Error(`the rejection must name the missing capability, got: ${verdict.reason}`);
+  }
+});
+
+Deno.test("RED: deep_link_human must declare the human steps that place the order", () => {
+  const verdict = validateAdapter(
+    venueWithAdapter({ class: "deep_link_human", ...FULL_CONTRACT, human_steps: [] }),
+  );
+  if (verdict.ok) throw new Error("class 1 without human_steps must be rejected");
+  if (!/human_steps/.test(verdict.reason)) {
+    throw new Error(`expected a human_steps rejection, got: ${verdict.reason}`);
+  }
+});
+
+Deno.test("RED: a venue with no adapter block is REJECTED (onboarding must declare its class)", () => {
+  const verdict = validateAdapter({ name: "Legacy", currency: "EUR" });
+  if (verdict.ok) throw new Error("a venue without an adapter block must be rejected");
+});
+
+Deno.test("every served venue declares the full adapter contract and its capture freshness", async () => {
+  await setup();
+  const res = handleToolCall(index, "menu", {});
+  const payload = JSON.parse(res.content[0].text);
+  if (!Array.isArray(payload.rejected_venues)) {
+    throw new Error("the menu reply must report rejected venues (fail closed, never silent)");
+  }
+  for (const v of payload.venues as Array<Record<string, unknown>>) {
+    const adapter = v.adapter as Record<string, unknown> | null;
+    if (!adapter) throw new Error(`venue ${v.venue_slug} served without an adapter contract`);
+    for (const field of ["class", "capabilities", "human_steps", "credentials", "payment_authority", "idempotency", "receipt"]) {
+      if (!(field in adapter)) throw new Error(`venue ${v.venue_slug} adapter is missing '${field}'`);
+    }
+    if (typeof v.captured_at !== "string" || v.captured_at.length === 0) {
+      throw new Error(`venue ${v.venue_slug} served without captured_at (G7: freshness is a property of the capture)`);
+    }
+    if ((adapter.capabilities as Record<string, unknown>).submit === true) {
+      throw new Error(`venue ${v.venue_slug} claims it submits orders; this server places nothing`);
+    }
+  }
 });
 
 Deno.test("tools/call returns unknown-tool error", async () => {
@@ -878,4 +1003,119 @@ Deno.test("RED: the announced order schema matches the schema the server answers
   if (!items.required.includes("qty")) {
     throw new Error("items must still require a qty");
   }
+});
+
+
+// ---------------------------------------------------------------------------
+// INDEPENDENT VERIFICATION ANCHOR (venues/anchors.json)
+//
+// The first version of this suite re-walked `venues/` and re-ran the server's
+// own `validateAdapter()` to decide what the server "should" serve, and the e2e
+// client derived its item counts from the same records. Both sides computed the
+// same expression over the same files, so a FABRICATED `venues/<slug>/venue.json`
+// (no evidence dir, no adapter.py, no source, invented prices 999.99/1234.56, a
+// 2099 captured_at) was served and the suite still reported
+// `ok | 41 passed | 0 failed | 1 ignored`.
+//
+// The expectation is now a COMMITTED datum (`venues/anchors.json`): per-venue
+// item count, price bounds, priced methods, the count of starting ("From"/"ab")
+// prices, and a sha256 over the venue's whole served projection. Regenerating it
+// is an explicit command, so a record change is a visible diff to that file.
+// Three checks together make a fabricated record fail:
+//   1. the anchor covers exactly the served venue set;
+//   2. the anchor matches the records on disk (drift guard);
+//   3. the LIVE served reply matches the anchor, hash included.
+// ---------------------------------------------------------------------------
+
+Deno.test("the committed anchor covers exactly the served venue set", async () => {
+  await setup();
+  const anchor = await readAnchor();
+  const served = index.venues.map((v) => v.slug).sort();
+  if (JSON.stringify(served) !== JSON.stringify([...anchor.served_venues].sort())) {
+    throw new Error(
+      `served venues ${JSON.stringify(served)} != the committed anchor's ` +
+        `${JSON.stringify(anchor.served_venues)}: a venue was served that nobody anchored. ` +
+        `If the change is intended: deno run --allow-read --allow-write venues/tools/menu_anchors.ts --write`,
+    );
+  }
+});
+
+Deno.test("GUARD: the anchor matches the venue records (a record edit needs a visible regeneration)", async () => {
+  await setup();
+  const anchor = await readAnchor();
+  const rebuilt = await buildAnchor(index.venues);
+  if (anchorFileText(rebuilt) !== anchorFileText(anchor)) {
+    throw new Error(
+      `venues/anchors.json does not match the records it is supposed to anchor:\n` +
+        `  committed: items=${anchor.total_items} sha=${anchor.menu_sha256.slice(0, 12)}\n` +
+        `  records:   items=${rebuilt.total_items} sha=${rebuilt.menu_sha256.slice(0, 12)}\n` +
+        `Regenerate on purpose and commit the diff: venues/anchors.json`,
+    );
+  }
+});
+
+Deno.test("the LIVE served menu equals the committed anchor: counts, price bounds, starting-price count and content hash", async () => {
+  await setup();
+  const anchor = await readAnchor();
+  const res = handleToolCall(index, "menu", {});
+  const payload = JSON.parse(res.content[0].text) as {
+    total_items: number;
+    venues: Array<Record<string, unknown> & { venue_slug: string; item_count: number }>;
+  };
+
+  if (payload.total_items !== anchor.total_items) {
+    throw new Error(
+      `served total_items=${payload.total_items} != the committed anchor's ${anchor.total_items} — ` +
+        `the reply is not the anchored catalogue`,
+    );
+  }
+
+  // One hash over what was ACTUALLY served. Nothing here is recomputed from the
+  // records at test time, so an edited or invented record cannot match it.
+  const servedHash = await sha256Hex(servedCatalogueText(payload.venues as never, payload.total_items));
+  if (servedHash !== anchor.menu_sha256) {
+    throw new Error(
+      `served menu content hash ${servedHash} != the committed anchor's ${anchor.menu_sha256} — ` +
+        `the served record is not the anchored one`,
+    );
+  }
+
+  for (const served of payload.venues) {
+    const expected = anchor.venues[served.venue_slug];
+    if (!expected) {
+      throw new Error(`venue '${served.venue_slug}' was served but is not in the committed anchor`);
+    }
+    const venueHash = await sha256Hex(canonicalJson(served));
+    const problems: string[] = [];
+    if (served.item_count !== expected.item_count) problems.push(`item_count ${served.item_count} != ${expected.item_count}`);
+    if (served.from_priced_count !== expected.from_priced_count) {
+      problems.push(`from_priced_count ${served.from_priced_count} != ${expected.from_priced_count}`);
+    }
+    if (served.min_price !== expected.min_price) problems.push(`min_price ${served.min_price} != ${expected.min_price}`);
+    if (served.max_price !== expected.max_price) problems.push(`max_price ${served.max_price} != ${expected.max_price}`);
+    if (JSON.stringify(served.priced_methods) !== JSON.stringify(expected.priced_methods)) {
+      problems.push(`priced_methods ${JSON.stringify(served.priced_methods)} != ${JSON.stringify(expected.priced_methods)}`);
+    }
+    if (venueHash !== expected.menu_sha256) problems.push(`menu_sha256 ${venueHash} != ${expected.menu_sha256}`);
+    if (problems.length > 0) {
+      throw new Error(`${served.venue_slug}: ${problems.join("; ")}`);
+    }
+  }
+});
+
+Deno.test("GUARD: the evidence check has teeth — a served venue with no evidence on disk is refused", async () => {
+  const problem = await evidenceProblem("no-such-venue-directory", {});
+  if (!problem || !/evidence/.test(problem)) {
+    throw new Error(`expected an evidence problem for a venue with no evidence dir, got ${problem}`);
+  }
+});
+
+Deno.test("every served venue was built from committed evidence on disk (a hand-typed record cannot pass)", async () => {
+  await setup();
+  const problems: string[] = [];
+  for (const venue of index.venues) {
+    const problem = await evidenceProblem(venue.slug, await readVenueRaw(venue.slug));
+    if (problem) problems.push(problem);
+  }
+  if (problems.length > 0) throw new Error(problems.join("\n"));
 });

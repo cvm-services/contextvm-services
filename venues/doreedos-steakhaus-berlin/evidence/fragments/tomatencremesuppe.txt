@@ -1,0 +1,16 @@
+Tomatencremesuppe
+3,99
+3. Broccolisuppe
+3,99
+4. Gulaschsuppe
+5,50
+5. Knoblauchsuppe
+3,99
+8. Chili con Carne
+5,50
+Vorspeisen
+6. Focaccia Gorgonzola
+8,99
+7. Funghi Ripieni
+8,99
+gefüllte Champignons mit Spinat und Gorgonzo

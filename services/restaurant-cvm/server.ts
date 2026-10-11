@@ -29,6 +29,50 @@ export interface MenuItem {
   available: boolean;
   allergens: string[] | null;
   option_group_ids: string[];
+  /**
+   * True when the venue prints this price as a STARTING price ("From" / "ab"),
+   * not as the price of the item. The venue's own page qualifies such a price,
+   * so the record must carry the qualifier: a starting price understates what
+   * the facilitator actually pays at the counter, and presenting it as exact
+   * would quote a loss. See `price_qualifier` for the venue's own word.
+   */
+  price_is_from: boolean;
+  /** The venue's own qualifier word ("From"), when `price_is_from` is true. */
+  price_qualifier: string | null;
+}
+
+/**
+ * The item projection the `menu` tool serves — the exact shape a client sees,
+ * and the shape `venues/anchors.json` hashes. `price_is_from`/`price_qualifier`
+ * ride along so the served record is self-describing about starting prices.
+ */
+export interface ServedItem {
+  id: string;
+  sku: string;
+  name: string;
+  prices_by_order_method: Record<string, number>;
+  available: boolean;
+  allergens: string[] | null;
+  option_group_ids: string[];
+  price_is_from: boolean;
+  price_qualifier: string | null;
+}
+
+/** The per-venue projection the `menu` tool serves (hashed by the anchor). */
+export interface ServedVenue {
+  venue_slug: string;
+  name: string;
+  currency: string;
+  captured_at: string | null;
+  adapter: AdapterContract | null;
+  item_count: number;
+  /** How many of `items` carry a starting ("From"/"ab") price, not an exact one. */
+  from_priced_count: number;
+  /** The fulfilment methods the venue's prices are actually published for. */
+  priced_methods: string[];
+  min_price: number | null;
+  max_price: number | null;
+  items: ServedItem[];
 }
 
 export interface Venue {
@@ -39,6 +83,51 @@ export interface Venue {
   rail: string | null;
   order_methods: string[];
   items: MenuItem[];
+  /** The declared adapter contract (ADR-0007 amendment 2026-10-09). */
+  adapter: AdapterContract | null;
+  /** When the menu this venue serves was captured from the venue's own rail. */
+  captured_at: string | null;
+}
+
+/**
+ * The adapter contract every venue must declare.
+ *
+ * Onboarding a venue is a CONFIG change: the venue's `venue.json` declares which
+ * class of adapter it uses, which capabilities that adapter actually has, and
+ * who does the parts a machine does not do (human_steps), who owns the
+ * credential, who has payment authority, how a duplicate is detected
+ * (idempotency) and where a durable receipt comes from (receipt).
+ *
+ * A class that needs a capability the venue cannot provide is REJECTED at load
+ * time (see `validateAdapter`), never silently degraded into a weaker adapter.
+ */
+export interface AdapterContract {
+  /** deep_link_human | browser_automation | direct_api (ADR-0007). */
+  class: string;
+  /** menu / quote / submit / status — what this adapter can actually do. */
+  capabilities: Record<string, boolean>;
+  /** What a human still has to do (class 1: everything after the basket). */
+  human_steps: string[];
+  /** Who holds the credential, and what it can reach. */
+  credentials: { owner: string; scope: string };
+  /** Who is allowed to spend fiat, and the ceiling the CVM declares. */
+  payment_authority: { authority: string; cvm_cap_sats: number };
+  /** How a retry is made safe. */
+  idempotency: { key: string; on_duplicate: string };
+  /** Where the proof of a placed order lives. */
+  receipt: { form: string; durable: string };
+}
+
+/** A venue that declared an adapter the contract or the class cannot honour. */
+export interface VenueRejection {
+  slug: string;
+  reason: string;
+}
+
+/** The venue set this instance serves, plus anything it refused to serve. */
+export interface VenueSet {
+  venues: Venue[];
+  rejections: VenueRejection[];
 }
 
 interface OrderLine {
@@ -94,33 +183,150 @@ interface McpToolDef {
 // MENU LOADING
 // =====================================================================
 
-const VENUE_PATHS: [string, string][] = [
-  ["doppelt-kaese-berlin", "../../venues/doppelt-kaese-berlin/venue.json"],
-  ["pizza-e-pasta-ruedesheimerplatz", "../../venues/pizza-e-pasta-ruedesheimerplatz/venue.json"],
-];
+// Declarative venue discovery. Onboarding a venue MUST NOT touch this file:
+// the served set comes from `venues/index.json` when it exists (an explicit,
+// committed list of slugs) and otherwise from a scan of `venues/*/venue.json`.
+// Both are data. Adding `venues/<slug>/` + `venues/<slug>/venue.json` is the
+// whole onboarding procedure — that is the claim measured on card t_a640b7ca.
+const VENUES_DIR = new URL("../../venues/", import.meta.url);
+const VENUE_INDEX_FILE = new URL("../../venues/index.json", import.meta.url);
+
+/** Capabilities a class must actually have. A missing one is a REJECTION. */
+const REQUIRED_CAPABILITIES: Record<string, string[]> = {
+  // Class 1: a human places the order, so `submit` is a human step, not a machine one.
+  deep_link_human: ["menu", "quote"],
+  // Classes 2/3 drive the order themselves and must be able to say what happened.
+  browser_automation: ["menu", "quote", "submit", "status"],
+  direct_api: ["menu", "quote", "submit", "status"],
+};
+
+/**
+ * Enforce the adapter contract on a venue record.
+ *
+ * Fail closed: a class that requires a capability the venue does not have is
+ * rejected with the reason named, instead of being quietly served as a weaker
+ * adapter (ADR-0007 amendment: "rejected, not silently degraded").
+ */
+export function validateAdapter(
+  rawVenue: Record<string, unknown>,
+): { ok: true; adapter: AdapterContract } | { ok: false; reason: string } {
+  const a = rawVenue.adapter as Record<string, unknown> | undefined;
+  if (!a || typeof a !== "object") {
+    return { ok: false, reason: "no adapter block: onboarding must declare its class and capabilities" };
+  }
+  const cls = String(a.class ?? "");
+  const required = REQUIRED_CAPABILITIES[cls];
+  if (!required) {
+    const known = Object.keys(REQUIRED_CAPABILITIES).join(", ");
+    return { ok: false, reason: `unknown adapter class '${cls}' (known: ${known})` };
+  }
+  const caps = (a.capabilities ?? {}) as Record<string, unknown>;
+  const missing = required.filter((c) => caps[c] !== true);
+  if (missing.length > 0) {
+    return {
+      ok: false,
+      reason:
+        `class ${cls} requires capability ${missing.join(", ")} — declared capabilities are ` +
+        `unavailable, so the adapter is rejected rather than served as a weaker one`,
+    };
+  }
+  const humanSteps = Array.isArray(a.human_steps) ? a.human_steps.map(String) : [];
+  if (cls === "deep_link_human" && humanSteps.length === 0) {
+    return {
+      ok: false,
+      reason: "class deep_link_human must declare the human_steps that place the order",
+    };
+  }
+  const credentials = a.credentials as { owner?: unknown } | undefined;
+  if (!credentials || typeof credentials !== "object" || !credentials.owner) {
+    return { ok: false, reason: "adapter declares no credential owner" };
+  }
+  if (cls !== "deep_link_human" && String(credentials.owner) === "none") {
+    return {
+      ok: false,
+      reason: `class ${cls} drives a rail itself and therefore needs a credential owner; ` +
+        `'none' is only valid for a human-handoff adapter`,
+    };
+  }
+  for (const field of ["payment_authority", "idempotency", "receipt"]) {
+    const v = a[field];
+    if (!v || typeof v !== "object") {
+      return { ok: false, reason: `adapter is missing '${field}'` };
+    }
+  }
+  return { ok: true, adapter: a as unknown as AdapterContract };
+}
+
+/**
+ * The slugs this instance serves: `venues/index.json` if present, else the
+ * directory scan. Deterministic order, so a build is reproducible.
+ */
+export async function discoverVenueSlugs(): Promise<string[]> {
+  try {
+    const raw = JSON.parse(await Deno.readTextFile(VENUE_INDEX_FILE));
+    const list = Array.isArray(raw) ? raw : (raw as { venues?: unknown[] }).venues ?? [];
+    const slugs = list
+      .map((entry) =>
+        typeof entry === "string" ? entry : String((entry as { slug?: unknown })?.slug ?? "")
+      )
+      .filter((s) => s.length > 0);
+    if (slugs.length > 0) return slugs;
+  } catch {
+    // No index file (or an unreadable one): fall through to the directory scan.
+  }
+  const found: string[] = [];
+  for await (const entry of Deno.readDir(VENUES_DIR)) {
+    if (!entry.isDirectory || entry.name.startsWith(".") || entry.name === "tools") continue;
+    try {
+      await Deno.stat(new URL(`${entry.name}/venue.json`, VENUES_DIR));
+      found.push(entry.name);
+    } catch {
+      // a directory without venue.json is not a venue (evidence dirs, fixtures)
+    }
+  }
+  return found.sort();
+}
 
 function numeric(n: unknown): n is number {
   return typeof n === "number" && Number.isFinite(n);
 }
 
-export async function loadVenues(filter?: string[]): Promise<Venue[]> {
+/**
+ * Load the served venues, refusing any that cannot honour its declared adapter.
+ */
+export async function loadVenueSet(filter?: string[]): Promise<VenueSet> {
   const venues: Venue[] = [];
-  for (const [slug, relPath] of VENUE_PATHS) {
+  const rejections: VenueRejection[] = [];
+  for (const slug of await discoverVenueSlugs()) {
     if (filter && filter.length > 0 && !filter.includes(slug)) continue;
-    const url = new URL(relPath, import.meta.url);
-    const raw = JSON.parse(await Deno.readTextFile(url));
-    const v = raw.venue ?? {};
-    const menu = raw.menu ?? {};
-    const currency = v.currency ?? menu.currency ?? "EUR";
-    const deepLink = v.ordering?.primary_url ?? v.website ?? null;
+    const url = new URL(`${slug}/venue.json`, VENUES_DIR);
+    let raw: Record<string, unknown>;
+    try {
+      raw = JSON.parse(await Deno.readTextFile(url));
+    } catch (err) {
+      rejections.push({ slug, reason: `venue.json unreadable: ${(err as Error).message}` });
+      continue;
+    }
+    const v = (raw.venue ?? {}) as Record<string, unknown>;
+    const menu = (raw.menu ?? {}) as Record<string, unknown>;
+    const verdict = validateAdapter(v);
+    if (!verdict.ok) {
+      rejections.push({ slug, reason: verdict.reason });
+      continue;
+    }
+    const currency = String(v.currency ?? menu.currency ?? "EUR");
+    const deepLink = (v.ordering as { primary_url?: string } | undefined)?.primary_url ??
+      (v.website as string | undefined) ?? null;
     if (!deepLink) {
-      throw new Error(`venue '${slug}' has no ordering.primary_url or website`);
+      rejections.push({ slug, reason: "no ordering.primary_url or website to hand off to" });
+      continue;
     }
 
-    const methods = fulfilmentMethods(v.order_methods ?? []);
+    const methods = fulfilmentMethods((v.order_methods ?? []) as unknown[]);
     const capturedMethod = String(menu.service_method ?? "");
 
-    const items: MenuItem[] = (menu.items ?? []).map((it: Record<string, unknown>) => {
+    const items: MenuItem[] = ((menu.items ?? []) as Record<string, unknown>[]).map(
+      (it: Record<string, unknown>) => {
       let prices: Record<string, number>;
       if (
         it.prices_by_order_method && typeof it.prices_by_order_method === "object" &&
@@ -146,20 +352,38 @@ export async function loadVenues(filter?: string[]): Promise<Venue[]> {
         option_group_ids: Array.isArray(it.option_group_ids)
           ? (it.option_group_ids as unknown[]).map(String)
           : [],
+        // A "from"/"ab" price is NOT the item's price. Carried through verbatim
+        // so the served and announced records can say so (never defaulted to
+        // false by absence: the flag is read from the record, and a record
+        // without it simply has no starting prices).
+        price_is_from: it.price_is_from === true,
+        price_qualifier: typeof it.price_qualifier === "string" && it.price_qualifier.length > 0
+          ? it.price_qualifier
+          : null,
       };
     });
 
     venues.push({
       slug,
-      name: v.name ?? slug,
+      name: String(v.name ?? slug),
       currency,
       deep_link: deepLink,
-      rail: v.settlement?.rail ?? null,
+      rail: (v.settlement as { rail?: string } | undefined)?.rail ?? null,
       order_methods: methods,
       items,
+      adapter: verdict.adapter,
+      captured_at: menu.captured_at ? String(menu.captured_at) : null,
     });
   }
-  return venues;
+  return { venues, rejections };
+}
+
+/**
+ * The served venues. A thin wrapper so callers that only need the list (and not
+ * the refusal reasons) keep working; `loadVenueSet` is the full answer.
+ */
+export async function loadVenues(filter?: string[]): Promise<Venue[]> {
+  return (await loadVenueSet(filter)).venues;
 }
 
 function fulfilmentMethods(methods: unknown[]): string[] {
@@ -184,10 +408,12 @@ export type VenueIndex = {
   /** sku -> every item carrying it, for the skus that collide. */
   ambiguousSkus: Map<string, Map<string, MenuItem[]>>;
   allItems: MenuItem[];
+  /** Venues this instance refused to serve, and why (fail closed, never silent). */
+  rejections: VenueRejection[];
 };
 
 export async function buildIndex(filter?: string[]): Promise<VenueIndex> {
-  const venues = await loadVenues(filter);
+  const { venues, rejections } = await loadVenueSet(filter);
   const byVenueSku = new Map<string, Map<string, MenuItem>>();
   const byVenueId = new Map<string, Map<string, MenuItem>>();
   const ambiguousSkus = new Map<string, Map<string, MenuItem[]>>();
@@ -216,7 +442,7 @@ export async function buildIndex(filter?: string[]): Promise<VenueIndex> {
     byVenueId.set(v.slug, ids);
     ambiguousSkus.set(v.slug, collisions);
   }
-  return { venues, byVenueSku, byVenueId, ambiguousSkus, allItems };
+  return { venues, byVenueSku, byVenueId, ambiguousSkus, allItems, rejections };
 }
 
 // =====================================================================
@@ -358,6 +584,63 @@ function priceForMethod(
   };
 }
 
+/**
+ * The projection ONE venue contributes to the `menu` reply.
+ *
+ * Split out so the reply, the committed anchor (`venues/anchors.json`) and the
+ * tests all hash the SAME bytes: the anchor is only an independent expectation
+ * if what it pins is exactly what the server serves.
+ */
+export function servedVenueProjection(venue: Venue): ServedVenue {
+  const items: ServedItem[] = venue.items.map((it) => ({
+    id: it.id,
+    sku: it.sku,
+    name: it.name,
+    prices_by_order_method: it.prices_by_order_method,
+    available: it.available,
+    allergens: it.allergens,
+    option_group_ids: it.option_group_ids,
+    price_is_from: it.price_is_from,
+    price_qualifier: it.price_qualifier,
+  }));
+  return {
+    venue_slug: venue.slug,
+    name: venue.name,
+    currency: venue.currency,
+    // G7: freshness is a property of the capture, not of this reply. The field
+    // name is the one the freshness card (t_0eccac0c) defines — do not invent a
+    // second mechanism here; this only carries the capture time through.
+    captured_at: venue.captured_at,
+    adapter: venue.adapter,
+    item_count: items.length,
+    from_priced_count: items.filter((i) => i.price_is_from).length,
+    priced_methods: pricedMethods(items),
+    min_price: pricedValues(items).length ? Math.min(...pricedValues(items)) : null,
+    max_price: pricedValues(items).length ? Math.max(...pricedValues(items)) : null,
+    items,
+  };
+}
+
+/** Every price figure published by the venue's items, across methods. */
+function pricedValues(items: ServedItem[]): number[] {
+  const out: number[] = [];
+  for (const item of items) {
+    for (const p of Object.values(item.prices_by_order_method)) {
+      if (typeof p === "number" && Number.isFinite(p)) out.push(p);
+    }
+  }
+  return out;
+}
+
+/** The fulfilment methods the venue's prices are actually published for. */
+function pricedMethods(items: ServedItem[]): string[] {
+  const out = new Set<string>();
+  for (const item of items) {
+    for (const m of Object.keys(item.prices_by_order_method)) out.add(m);
+  }
+  return [...out].sort();
+}
+
 function handleMenu(index: VenueIndex, args: Record<string, unknown>): McpToolResult {
   const filterSlug = args.venue_slug ? String(args.venue_slug) : null;
   const venues = filterSlug ? index.venues.filter((v) => v.slug === filterSlug) : index.venues;
@@ -365,24 +648,21 @@ function handleMenu(index: VenueIndex, args: Record<string, unknown>): McpToolRe
     return toolError(`unknown venue_slug: ${filterSlug}`);
   }
 
-  const out = venues.map((v) => ({
-    venue_slug: v.slug,
-    name: v.name,
-    currency: v.currency,
-    item_count: v.items.length,
-    items: v.items.map((it) => ({
-      id: it.id,
-      sku: it.sku,
-      name: it.name,
-      prices_by_order_method: it.prices_by_order_method,
-      available: it.available,
-      allergens: it.allergens,
-      option_group_ids: it.option_group_ids,
-    })),
-  }));
+  const out = venues.map(servedVenueProjection);
+  const fromPriced = out.reduce((n, v) => n + v.from_priced_count, 0);
   return toolOk({
     total_items: venues.reduce((n, v) => n + v.items.length, 0),
     venues: out,
+    // A starting price is not a price. The reply says how many items carry the
+    // venue's own "From"/"ab" qualifier, and every such item carries
+    // `price_is_from`/`price_qualifier`, so a client can never read a floor as
+    // an exact price by looking only at the served record.
+    from_priced_items: fromPriced,
+    price_semantics_note: fromPriced > 0
+      ? `${fromPriced} of ${out.reduce((n, v) => n + v.item_count, 0)} items are priced by the venue as a starting price ("From"/"ab"): \`price_is_from\` is true and \`price_qualifier\` carries the venue's own word. Those figures are a FLOOR, not the price of the item — a total built from them can only be a lower bound.`
+      : "every item's price is the price the venue publishes for it; no item carries a starting-price qualifier",
+    // A refused venue is never silently absent: it is named with its reason.
+    rejected_venues: index.rejections,
   });
 }
 
@@ -429,9 +709,13 @@ function handleOrder(index: VenueIndex, args: Record<string, unknown>): McpToolR
     line_total: number;
     price_note: string | null;
     available: boolean;
+    /** True when the venue's own figure is a "From"/"ab" starting price. */
+    price_is_from: boolean;
+    price_qualifier: string | null;
     options?: Record<string, unknown>;
   }[] = [];
   let total = 0;
+  let fromPricedLines = 0;
 
   for (const raw of itemsRaw) {
     const line = raw as Record<string, unknown>;
@@ -464,6 +748,16 @@ function handleOrder(index: VenueIndex, args: Record<string, unknown>): McpToolR
     }
     const { price, method_used, note } = priceForMethod(item, fulfilment);
     const lineTotal = Math.round(price * qty * 100) / 100;
+    if (item.price_is_from) fromPricedLines += 1;
+    // A starting price says nothing about what the counter will charge, so the
+    // line says so in words as well as in flags: a caller that ignores the flag
+    // still reads why the figure is a floor.
+    const priceNote = item.price_is_from
+      ? [
+        `${item.price_qualifier ?? "From"} price: a starting price (a floor), not the item's exact price`,
+        note,
+      ].filter(Boolean).join("; ")
+      : note;
     lines.push({
       id: item.id,
       sku: item.sku,
@@ -472,8 +766,10 @@ function handleOrder(index: VenueIndex, args: Record<string, unknown>): McpToolR
       unit_price: price,
       method_used,
       line_total: lineTotal,
-      price_note: note,
+      price_note: priceNote,
       available: item.available,
+      price_is_from: item.price_is_from,
+      price_qualifier: item.price_qualifier,
       options: typeof line.options === "object" && !Array.isArray(line.options)
         ? line.options as Record<string, unknown>
         : undefined,
@@ -487,12 +783,31 @@ function handleOrder(index: VenueIndex, args: Record<string, unknown>): McpToolR
     status: "basket",
     note:
       "This is a prepared basket, not a placed order. Checkout and payment happen on the venue's own page.",
+    // The basket total is a LOWER BOUND whenever a line was priced from the
+    // venue's own starting price: the counter may charge more. Never present it
+    // as the amount the facilitator will pay.
+    total_is_lower_bound: fromPricedLines > 0,
+    total_lower_bound_note: fromPricedLines > 0
+      ? `${fromPricedLines} of ${lines.length} lines are priced from the venue's own starting ("From"/"ab") price, so the total is a FLOOR: the price paid at the venue may be higher.`
+      : null,
     venue: {
       slug: venue.slug,
       name: venue.name,
       currency: venue.currency,
       rail: venue.rail,
       deep_link: venue.deep_link,
+    },
+    // The adapter contract, as the venue declared it: which class carries this
+    // order, what the machine did, what a human still has to do, who may spend
+    // and where the receipt comes from. A caller can therefore tell a
+    // human-handoff venue from one that submits for real, without guessing.
+    handoff: {
+      adapter_class: venue.adapter?.class ?? null,
+      capabilities: venue.adapter?.capabilities ?? null,
+      human_steps: venue.adapter?.human_steps ?? [],
+      payment_authority: venue.adapter?.payment_authority ?? null,
+      idempotency: venue.adapter?.idempotency ?? null,
+      receipt: venue.adapter?.receipt ?? null,
     },
     fulfilment,
     when,

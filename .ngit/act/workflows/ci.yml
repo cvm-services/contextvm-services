@@ -3,6 +3,14 @@ name: ci
 # ngit CI (Nostr) runs .ngit/act/workflows/ ONLY; .github/workflows/ is never
 # executed by the coordinator. This file runs the checks the repo declares in
 # deno.json, so the two cannot drift apart.
+#
+# The venue catalogue has ONE independent verification anchor that is not
+# derived from the served record: `venues/tools/capture_menu.py --check` rebuilds
+# every capture-menu venue from its COMMITTED evidence and fails on any drift.
+# It was passing locally but was wired into no lane, so a record could change —
+# or a fake one could appear — with every lane green. It runs here now.
+# `venues/anchors.json` is the committed expectation the tests and the e2e
+# client compare the live reply against; `deno task test` covers it.
 
 on:
   push:
@@ -28,5 +36,12 @@ jobs:
           deno-version: v2.9.0
       # `deno task check` = deno check tools/emit-venue-announcement.ts
       - run: deno task check
-      # `deno task test`  = deno test --allow-read  (81 passed / 0 failed / 1 ignored)
+      # `deno task test`  = deno test --allow-read
+      # (includes the committed-anchor checks: coverage, drift guard, live reply
+      #  vs anchor, and evidence-on-disk for every served venue)
       - run: deno task test
+      # `deno task anchors` = the committed anchor matches the venue records
+      - run: deno task anchors
+      # `deno task venues:check` = every venues/*/venue.json rebuilt from its
+      # committed evidence (evidence/raw/page.txt) must be byte-identical
+      - run: deno task venues:check

@@ -45,3 +45,45 @@ python3 venues/<slug>/adapter.py --check              # idempotence
 ```
 
 Then commit the adapter, the evidence and the generated `venue.json` together.
+
+## The verification anchor (`venues/anchors.json`)
+
+A served catalogue must be checked against something that is **not derived from
+`venue.json` at test time**, or every record passes. The first version of the
+Steglitz onboarding did the opposite: the server test re-walked `venues/`, the
+e2e client built its expected item count from the same records the server
+served, and both compared their own arithmetic with itself. A fabricated
+`venues/bogus-venue/venue.json` — no `evidence/`, no `adapter.py`, no source,
+invented prices — was served and the suite stayed green
+(`ok | 41 passed | 0 failed`).
+
+`venues/anchors.json` is the committed expectation instead:
+
+```
+deno run --allow-read --allow-write venues/tools/menu_anchors.ts --write   # regenerate
+deno run --allow-read               venues/tools/menu_anchors.ts --check   # verify
+```
+
+It carries, per served venue, the item count, the price bounds, the priced
+fulfilment methods, the count of starting (`From`/`ab`) prices, the capture time
+and a **sha256 over the venue's whole served projection**, plus one sha256 over
+the whole catalogue. Regenerating it is an explicit command, so onboarding or
+re-capturing a venue shows up as a diff to this file — the review gate. The
+generator **refuses** to anchor a served venue with no committed evidence on
+disk, so a hand-typed record cannot be made to pass by regenerating the anchor
+either.
+
+Three checks then hold, and no one of them can be satisfied by editing a record:
+
+1. the anchor covers exactly the served venue set (tests and the e2e client);
+2. the anchor matches the records on disk (drift guard — a record edit without a
+   regeneration fails);
+3. the **live served reply matches the anchor**, content hash included.
+
+The one anchor that predates this and was already independent —
+`capture_menu.py --check`, which rebuilds a class-1 menu from its committed
+`evidence/raw/page.txt` — is now wired into the CI lane as
+`deno task venues:check` (it also covers every venue at once with `--all`).
+
+Adding a venue is still **data**: a `venue.json`, its evidence, and a
+regeneration of this one file. No code file changes (ADR-0007 amendment).

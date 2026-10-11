@@ -1,6 +1,8 @@
 {
   "generated_by": "venues/pizza-e-pasta-ruedesheimerplatz/adapter.py",
   "menu": {
+    "captured_at": "2026-10-05",
+    "captured_at_source": "the retrieval date recorded in venues/pizza-e-pasta-ruedesheimerplatz/evidence/PROVENANCE.md; the same single freshness field every venue carries (G7)",
     "currency": "EUR",
     "items": [
       {
@@ -6722,6 +6724,38 @@
     "parser": "Next.js __NEXT_DATA__ hydration cache extracted from the HTTP 200 ordering page and additionally cross-checked against the text the browser rendered; no OCR"
   },
   "venue": {
+    "adapter": {
+      "class": "deep_link_human",
+      "capabilities": {
+        "menu": true,
+        "quote": true,
+        "submit": false,
+        "status": false
+      },
+      "human_steps": [
+        "the CVM returns the basket and the venue's own deep link; it places nothing",
+        "a human places the order on the venue's own rail (its own web store or by telephone)",
+        "a human pays the venue on its own rail; the CVM never takes payment",
+        "a human records the venue's own order confirmation as the receipt"
+      ],
+      "credentials": {
+        "owner": "none",
+        "scope": "the venue's own storefront is public; the CVM holds no credential for this venue"
+      },
+      "payment_authority": {
+        "authority": "the human who places the order, on the venue's own rail",
+        "cvm_cap_sats": 0
+      },
+      "idempotency": {
+        "key": "venue_slug + basket_sha256 + fulfilment + when",
+        "on_duplicate": "the CVM places nothing, so it cannot double-place; the venue's own order record is the authority"
+      },
+      "receipt": {
+        "form": "the venue's own order confirmation on its own rail (order id)",
+        "durable": "the venue's own record"
+      },
+      "menu_source": "the venue's own storefront JSON API, fetched by venues/pizza-e-pasta-ruedesheimerplatz/adapter.py"
+    },
     "address": {
       "city": "Berlin",
       "country": "DE",
