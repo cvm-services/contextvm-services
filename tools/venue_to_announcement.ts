@@ -395,11 +395,41 @@ export function venueToAnnouncement(v: VenueRecord): VenueAnnouncement {
       methods,
       pickup: v.venue?.pickup ?? null,
       delivery: v.venue?.delivery
-        ? {
-          available: v.venue.delivery.available ?? null,
-          areas_named: (v.venue.delivery as { areas_named?: string[] }).areas_named ?? null,
-          areas_note: (v.venue.delivery as { area_note?: string }).area_note ?? null,
-        }
+        ? (() => {
+          // Where this venue will actually deliver. The district-name list used
+          // to be announced as the delivery area; it is a storefront field that
+          // the venue's own geometry does not support (doppelt: 11 of 15 names
+          // lie outside its own 5000 m circle; pizza: a postcode mode that
+          // publishes no list at all). So the announcement carries the venue's
+          // OWN geometry and, when a list was retracted, what was retracted and
+          // why — a client must not be handed a list it cannot use.
+          const dv = v.venue.delivery as {
+            available?: boolean | null;
+            area_mode?: string | null;
+            zones?: unknown[] | null;
+            areas_named?: string[] | null;
+            area_note?: string | null;
+            areas_retracted?: {
+              source_call?: string | null;
+              field?: string | null;
+              reason?: string | null;
+            } | null;
+          };
+          return {
+            available: dv.available ?? null,
+            area_mode: dv.area_mode ?? null,
+            zones: dv.zones ?? null,
+            areas_named: dv.areas_named ?? null,
+            areas_note: dv.area_note ?? null,
+            areas_retracted: dv.areas_retracted
+              ? {
+                source_call: dv.areas_retracted.source_call ?? null,
+                field: dv.areas_retracted.field ?? null,
+                reason: dv.areas_retracted.reason ?? null,
+              }
+              : null,
+          };
+        })()
         : null,
       // The register is a flat AND list and cannot say "address, but only when
       // delivery". So the condition is stated here, in words, for the reader.

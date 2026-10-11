@@ -1,0 +1,9 @@
+{
+ "url": "https://www.doppelt-kaese-berlin.de/api/store",
+ "http_status": "200",
+ "fetched_at_utc": "2026-10-09T23:37:44Z",
+ "sha256": "e2daaa2b66224e4608b748141d73af0abd6de342fcabd6e9d383321846235e85",
+ "bytes": 55124,
+ "recorded_sha256": "e2daaa2b66224e4608b748141d73af0abd6de342fcabd6e9d383321846235e85",
+ "match": true
+}

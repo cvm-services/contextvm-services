@@ -1,0 +1,9 @@
+{
+ "url": "https://pizzaepasta-ruedesheimerplatz.de/oyy-api/MyRestaurant/families/by-domain?domain=pizzaepasta-ruedesheimerplatz.de",
+ "http_status": "403",
+ "fetched_at_utc": "2026-10-09T23:37:44Z",
+ "sha256": "b4660e745bb55e5b149f2f78751f2e83defe1255b80d3c596f2faacb83a81bfc",
+ "bytes": 5512,
+ "recorded_sha256": "fc5193c14496035b6e391883c6a15674b12aab27e3e41b41cdafee5c0c9f674e",
+ "match": false
+}

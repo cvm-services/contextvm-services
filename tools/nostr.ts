@@ -101,30 +101,58 @@ export function signEvent(secretHex: string, template: Record<string, unknown>):
   return finalizeEvent(template as never, hexToBytes(secretHex));
 }
 
-/** Publish one event and report the relay's own OK verdict. */
+/**
+ * Publish one event and report the relay's own OK verdict.
+ *
+ * The socket is closed on EVERY exit path (OK, OK-timeout, connect failure).
+ * An unclosed WebSocket keeps the Deno event loop alive, so a publisher that
+ * forgets this prints its event and then hangs forever — which is exactly how
+ * the 2026-10-10 republish run (card t_7d410f66) ended up killed on the box
+ * with its evidence half written. `tools/nostr_publish_test.ts` asserts this.
+ */
 export async function publish(
   relay: string,
   event: unknown,
 ): Promise<{ accepted: boolean; msg: string }> {
   const ws = new WebSocket(relay);
+  const closeQuietly = () => {
+    try {
+      ws.close();
+    } catch {
+      // already closing/closed — nothing to release
+    }
+  };
   await new Promise<void>((resolve, reject) => {
-    const t = setTimeout(() => reject(new Error(`timeout connecting ${relay}`)), 15000);
+    const t = setTimeout(() => {
+      closeQuietly();
+      reject(new Error(`timeout connecting ${relay}`));
+    }, 15000);
     ws.onopen = () => {
       clearTimeout(t);
       resolve();
     };
     ws.onerror = () => {
       clearTimeout(t);
+      closeQuietly();
       reject(new Error(`error connecting ${relay}`));
     };
   });
   return new Promise<{ accepted: boolean; msg: string }>((resolve) => {
+    let settled = false;
+    const done = (result: { accepted: boolean; msg: string }) => {
+      if (settled) return;
+      settled = true;
+      closeQuietly();
+      resolve(result);
+    };
     ws.onmessage = (m) => {
-      const data = JSON.parse(typeof m.data === "string" ? m.data : new TextDecoder().decode(m.data));
-      if (data[0] === "OK") resolve({ accepted: data[2] === true, msg: `${data[2]} ${data[3]}` });
+      const data = JSON.parse(
+        typeof m.data === "string" ? m.data : new TextDecoder().decode(m.data),
+      );
+      if (data[0] === "OK") done({ accepted: data[2] === true, msg: `${data[2]} ${data[3]}` });
     };
     ws.send(JSON.stringify(["EVENT", event]));
-    setTimeout(() => resolve({ accepted: false, msg: "timeout awaiting OK" }), 10000);
+    setTimeout(() => done({ accepted: false, msg: "timeout awaiting OK" }), 10000);
   });
 }
 

@@ -1,0 +1,96 @@
+{
+  "kind": 11316,
+  "created_at": 1791586660,
+  "tags": [
+    [
+      "d",
+      "doppelt-kaese-berlin"
+    ],
+    [
+      "t",
+      "cvm:service:restaurant"
+    ],
+    [
+      "t",
+      "cvm:service:meatspace"
+    ],
+    [
+      "t",
+      "berlin"
+    ],
+    [
+      "t",
+      "burgers"
+    ],
+    [
+      "t",
+      "cvm:req:contact.phone"
+    ],
+    [
+      "t",
+      "cvm:req:order.fulfilment"
+    ],
+    [
+      "t",
+      "cvm:req:order.items"
+    ],
+    [
+      "t",
+      "cvm:req:order.when"
+    ],
+    [
+      "t",
+      "cvm:opt:contact.name"
+    ],
+    [
+      "t",
+      "cvm:opt:order.notes"
+    ],
+    [
+      "t",
+      "cvm:opt:ship.address"
+    ],
+    [
+      "t",
+      "cvm:tier:fulfilment"
+    ],
+    [
+      "g",
+      "u336"
+    ],
+    [
+      "g",
+      "u336x0"
+    ],
+    [
+      "g",
+      "u336x058"
+    ],
+    [
+      "cap",
+      "tool:order",
+      "0",
+      "sats"
+    ],
+    [
+      "r",
+      "https://www.doppelt-kaese-berlin.de/speisekarte/doppeltkase"
+    ],
+    [
+      "name",
+      "Doppelt Käse Laubacher Straße"
+    ],
+    [
+      "about",
+      "Doppelt Käse Laubacher Straße — restaurant in Berlin, announced over ContextVM (CEP-6). Order via the venue's own rail; the deep-link asks for a delivery address and phone."
+    ],
+    [
+      "website",
+      "https://doppelt-kaese-berlin.de"
+    ]
+  ],
+  "content": "{\"name\":\"Doppelt Käse Laubacher Straße\",\"about\":\"Doppelt Käse Laubacher Straße — restaurant in Berlin, announced over ContextVM (CEP-6). Order via the venue's own rail; the deep-link asks for a delivery address and phone.\",\"schema\":\"cvm.venue/v1\",\"currency\":\"EUR\",\"area\":{\"city\":\"Berlin\",\"country\":\"DE\"},\"location\":{\"lat\":52.4707069,\"lon\":13.3202819},\"menu\":{\"item_count\":76,\"priced_count\":76,\"currency\":\"EUR\",\"min_price\":0.5,\"max_price\":13,\"prices_by_method\":{\"delivery\":{\"count\":76,\"currency\":\"EUR\",\"min_price\":0.5,\"max_price\":13},\"dine_in\":{\"count\":76,\"currency\":\"EUR\",\"min_price\":0.5,\"max_price\":13},\"pickup\":{\"count\":76,\"currency\":\"EUR\",\"min_price\":0.5,\"max_price\":12.5},\"room_service\":{\"count\":76,\"currency\":\"EUR\",\"min_price\":0.5,\"max_price\":13}},\"price_basis\":\"min_price/max_price are the item's own price column; prices_by_method carries what each fulfilment method actually pays\"},\"ordering\":{\"primary_url\":\"https://www.doppelt-kaese-berlin.de/speisekarte/doppeltkase\",\"order_methods\":[\"pickup\",\"delivery\"]},\"fulfilment\":{\"methods\":[\"pickup\",\"delivery\"],\"pickup\":{\"available\":true,\"estimated_minutes\":10},\"delivery\":{\"available\":true,\"area_mode\":\"radius\",\"zones\":[{\"center\":{\"lat\":52.4707069,\"lng\":13.3202819},\"currency\":\"EUR\",\"fee\":5,\"geometry_type\":\"circle\",\"id\":2454,\"max_order\":750,\"min_order\":20,\"name\":\"External delivery\",\"radius_m\":5000}],\"areas_named\":null,\"areas_note\":\"Deliverable area is NOT asserted as a list of districts. The venue's own rail publishes its delivery zone as a circle: radius 5000 m centred on the venue's own coordinates, minimum order 20 EUR, delivery fee 5 EUR (company payload, delivery_zones[0]). That geometry is the declared area. The storefront's district-name list (data.delivery_areas) is retracted under delivery.areas_retracted.\",\"areas_retracted\":{\"source_call\":\"store\",\"field\":\"data.delivery_areas\",\"reason\":\"`data.delivery_areas` is a list of Berlin district NAMES on the venue's own storefront payload. It is not a delivery area this venue can honour: the same rail's company payload publishes the venue's delivery geometry as a single circle of 5000 m centred on the venue's own coordinates, and the named list names districts that circle cannot reach (Prenzlauer Berg, Friedrichshain, Pankow, Lichtenberg, Mitte, Kreuzberg, Wedding, Moabit, Neukölln, Tiergarten, Charlottenburg - 11 of the 15 names). Two fields served by the same rail disagree, so the name list is retracted and the announced area is the venue's own geometry. Retained here so the retraction is auditable; it is NOT a declared delivery area.\"}},\"method_condition\":\"ship.address is required for a DELIVERY order only; a PICKUP order needs no address (the venue's own page asks for the address when delivery is chosen).\"},\"tools\":[{\"name\":\"order\",\"description\":\"Build a basket for Doppelt Käse Laubacher Straße on the venue's own ordering rail. Checkout and payment happen on the venue's own page; this tool does not place or settle the order.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"venue_slug\":{\"type\":\"string\",\"description\":\"The venue to order from.\"},\"items\":{\"type\":\"array\",\"description\":\"Basket lines. Identify each item by `sku` or by the venue's `id` — exactly one. A sku matching more than one item (pizza: 36, 110, 44) is refused; pass `id` there.\",\"items\":{\"type\":\"object\",\"properties\":{\"sku\":{\"type\":\"string\",\"description\":\"Venue sku. Refused when it identifies more than one item — use `id` instead.\"},\"id\":{\"type\":\"string\",\"description\":\"The venue's own item id, unique where a sku is not.\"},\"qty\":{\"type\":\"integer\",\"minimum\":1},\"options\":{\"type\":\"object\"}},\"required\":[\"qty\"],\"additionalProperties\":false}},\"fulfilment\":{\"type\":\"string\",\"enum\":[\"pickup\",\"delivery\",\"dine_in\"],\"description\":\"How the order will be fulfilled.\"},\"when\":{\"type\":\"string\",\"description\":\"Requested fulfilment time (ISO 8601 or 'asap').\"},\"notes\":{\"type\":\"string\",\"description\":\"Free text for the kitchen/handler.\"},\"ship\":{\"type\":\"object\",\"description\":\"Required only when fulfilment == 'delivery'.\",\"properties\":{\"address\":{\"type\":\"object\",\"properties\":{\"street\":{\"type\":\"string\"},\"city\":{\"type\":\"string\"},\"postal_code\":{\"type\":\"string\"},\"country\":{\"type\":\"string\"}}},\"recipient_name\":{\"type\":\"string\"},\"notes\":{\"type\":\"string\"}}},\"contact\":{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"},\"phone\":{\"type\":\"string\"},\"email\":{\"type\":\"string\"}}}},\"required\":[\"venue_slug\",\"items\",\"fulfilment\",\"when\"],\"additionalProperties\":false}}],\"settlement\":{\"settles\":\"venue's own rail (ADR-0001 D5): this CVM takes no payment\",\"rail\":\"venue's own rail (FoodAmigos storefront: Adyen/Stripe/PayPal/cash)\",\"currency\":\"EUR\",\"tax\":\"inclusive 19%\",\"cvm_cap_sats\":0,\"recorded\":true,\"note\":\"rail as recorded from the venue's own storefront\"}}",
+  "pubkey": "fe700a09094950660077447bedd4e0b3abc14a82e95227b313aebf83b7798984",
+  "id": "12ee1fdbc200243c891932b6e9751d21948ae126e13088aee2ab7504532beb34",
+  "sig": "c480d7f9749ef096b5c8f120622225e06373d4afc6ef67eb5a56c42c271cd2160a4cfacc3a7ab0ffec40298439b5d18f769c70b52bd62be028bb2691c84a430a"
+}

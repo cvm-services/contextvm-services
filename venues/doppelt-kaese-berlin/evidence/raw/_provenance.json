@@ -1,9 +1,10 @@
 {
   "company": {
-    "bytes": 10428,
-    "committed_copy_sha256": "8cfe0b7d5c9868f2a7ce599c35053bf790a8f40f624f209eb0f75e4085dd6894",
+    "bytes": 10519,
+    "committed_copy_sha256": "10b75f75f121d9e32cf1137eb0fd6667aa8c6b260461bf1ee93ac67bdeac692b",
+    "fetched_at_utc": "2026-10-09T22:44:30Z",
     "file": "evidence/raw/company.json",
-    "sha256": "5cc4090d8d5d9e0d2d193a4c5b68c4c7c72f52f3fa288f0693377df16359167f",
+    "sha256": "b841e2c8e40e37060b46c83741cde35948a1b2c0fc865d1b424e3a6db5e919a5",
     "url": "https://app.foodamigos.io/api/companies/doppeltkase/data?hostname=doppelt-kaese-berlin.de"
   },
   "menus": {
@@ -14,10 +15,11 @@
     "url": "https://app.foodamigos.io/api/companies/1387/menus"
   },
   "store": {
-    "bytes": 55072,
-    "committed_copy_sha256": "bfb5f48a072477f96162f1f0018a1846aabb0e4a5ee14395c1749a6a98c4a9f5",
+    "bytes": 55124,
+    "committed_copy_sha256": "1562eba20a2bec596fb9bff34883409a188c38918e572bb3826ad792f0296810",
+    "fetched_at_utc": "2026-10-09T22:44:30Z",
     "file": "evidence/raw/store.json",
-    "sha256": "a6ca1f2bcc1ae0ddd71a08e1f30db3b3d8148af9e9f897a85107e101d41d6f0b",
+    "sha256": "e2daaa2b66224e4608b748141d73af0abd6de342fcabd6e9d383321846235e85",
     "url": "https://www.doppelt-kaese-berlin.de/api/store"
   }
 }

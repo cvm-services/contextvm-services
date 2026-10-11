@@ -6661,6 +6661,101 @@
       }
     ]
   },
+  "provenance": {
+    "capture": {
+      "captured_at_utc": "2026-10-05T01:37:25Z",
+      "fetched_at_utc": "2026-10-05T01:37:14Z",
+      "stated_in": "evidence/requests.json (committed network log of the one successful HTTP 200 page load)"
+    },
+    "derived_at_utc": "2026-10-05T01:37:14Z",
+    "fields": {
+      "address.lat_lon": {
+        "fetched_at_utc": "2026-10-05T01:37:14Z",
+        "field": "latitude, longitude",
+        "source_call": "myrestaurant-restaurant",
+        "url": "https://pizzaepasta-ruedesheimerplatz.de/oyy-api/MyRestaurant/restaurant/45842?timeSensitive=false"
+      },
+      "delivery.areas": {
+        "fetched_at_utc": "2026-10-05T01:37:14Z",
+        "field": "deliveryMode",
+        "reason": "delivery postcodes / delivery areas: deliveryMode=PostCode, so the venue resolves deliverability from the customer's address server-side. The public payload publishes no postcode list and no radius; the route that would answer it (/oyy-api/MyRestaurant/restaurant/<id>/delivery-area) is behind the origin's Cloudflare managed challenge and returns HTTP 403 to any non-browser client. NO postcode list is asserted.",
+        "source_call": "myrestaurant-family",
+        "status": "UNKNOWN",
+        "url": "https://pizzaepasta-ruedesheimerplatz.de/oyy-api/MyRestaurant/families/by-domain?domain=pizzaepasta-ruedesheimerplatz.de"
+      },
+      "delivery.available": {
+        "fetched_at_utc": "2026-10-05T01:37:14Z",
+        "field": "serviceMethods (delivery)",
+        "source_call": "myrestaurant-restaurant",
+        "url": "https://pizzaepasta-ruedesheimerplatz.de/oyy-api/MyRestaurant/restaurant/45842?timeSensitive=false"
+      },
+      "delivery.enabled": {
+        "fetched_at_utc": "2026-10-05T01:37:14Z",
+        "field": "openingHours.hasDelivery",
+        "source_call": "myrestaurant-restaurant",
+        "url": "https://pizzaepasta-ruedesheimerplatz.de/oyy-api/MyRestaurant/restaurant/45842?timeSensitive=false"
+      },
+      "delivery.estimated_minutes": {
+        "fetched_at_utc": "2026-10-05T01:37:14Z",
+        "field": "deliveryTime",
+        "source_call": "myrestaurant-restaurant",
+        "url": "https://pizzaepasta-ruedesheimerplatz.de/oyy-api/MyRestaurant/restaurant/45842?timeSensitive=false"
+      },
+      "delivery.fee": {
+        "fetched_at_utc": "2026-10-05T01:37:14Z",
+        "field": "deliveryFee",
+        "source_call": "myrestaurant-restaurant",
+        "url": "https://pizzaepasta-ruedesheimerplatz.de/oyy-api/MyRestaurant/restaurant/45842?timeSensitive=false"
+      },
+      "delivery.minimum_order": {
+        "fetched_at_utc": "2026-10-05T01:37:14Z",
+        "field": "deliveryMinimumAmount",
+        "source_call": "myrestaurant-restaurant",
+        "url": "https://pizzaepasta-ruedesheimerplatz.de/oyy-api/MyRestaurant/restaurant/45842?timeSensitive=false"
+      },
+      "delivery.mode": {
+        "fetched_at_utc": "2026-10-05T01:37:14Z",
+        "field": "deliveryMode",
+        "source_call": "myrestaurant-family",
+        "url": "https://pizzaepasta-ruedesheimerplatz.de/oyy-api/MyRestaurant/families/by-domain?domain=pizzaepasta-ruedesheimerplatz.de"
+      },
+      "delivery.schedule": {
+        "fetched_at_utc": "2026-10-05T01:37:14Z",
+        "field": "openingHours.allDaysDeliveryHours",
+        "source_call": "myrestaurant-restaurant",
+        "url": "https://pizzaepasta-ruedesheimerplatz.de/oyy-api/MyRestaurant/restaurant/45842?timeSensitive=false"
+      },
+      "pickup.available": {
+        "fetched_at_utc": "2026-10-05T01:37:14Z",
+        "field": "serviceMethods (pickup)",
+        "source_call": "myrestaurant-restaurant",
+        "url": "https://pizzaepasta-ruedesheimerplatz.de/oyy-api/MyRestaurant/restaurant/45842?timeSensitive=false"
+      },
+      "pickup.estimated_minutes": {
+        "fetched_at_utc": "2026-10-05T01:37:14Z",
+        "field": "takeAwayTime",
+        "source_call": "myrestaurant-restaurant",
+        "url": "https://pizzaepasta-ruedesheimerplatz.de/oyy-api/MyRestaurant/restaurant/45842?timeSensitive=false"
+      },
+      "venue.opening_hours": {
+        "fetched_at_utc": "2026-10-05T01:37:14Z",
+        "field": "openingHours.allDaysOpeningHours",
+        "source_call": "myrestaurant-restaurant",
+        "url": "https://pizzaepasta-ruedesheimerplatz.de/oyy-api/MyRestaurant/restaurant/45842?timeSensitive=false"
+      },
+      "venue.order_methods": {
+        "fetched_at_utc": "2026-10-05T01:37:14Z",
+        "field": "serviceMethods",
+        "source_call": "myrestaurant-restaurant",
+        "url": "https://pizzaepasta-ruedesheimerplatz.de/oyy-api/MyRestaurant/restaurant/45842?timeSensitive=false"
+      }
+    },
+    "not_verifiable_from_rail": [
+      "delivery postcodes / delivery areas: deliveryMode=PostCode, so the venue resolves deliverability from the customer's address server-side. The public payload publishes no postcode list and no radius; the route that would answer it (/oyy-api/MyRestaurant/restaurant/<id>/delivery-area) is behind the origin's Cloudflare managed challenge and returns HTTP 403 to any non-browser client. NO postcode list is asserted.",
+      "whether a specific address is inside the delivery area: only the venue's own shop can answer this, at order time, from the customer's address.",
+      "delivery fee / minimum order per delivery area: the payload carries one deliveryFee and one deliveryMinimumAmount for the whole restaurant (0.00 / 0.00 as recorded); no per-area variant is exposed, so no per-area value is asserted."
+    ]
+  },
   "schema": "cvm.venue/v1",
   "slug": "pizza-e-pasta-ruedesheimerplatz",
   "source": {
