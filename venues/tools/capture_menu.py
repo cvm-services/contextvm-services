@@ -23,6 +23,7 @@ The venue's `venue.json` declares a `capture` block:
       "section_names": ["Suppen", "Vorspeisen"],
       "section_line_pattern": "...",         // used when section_names is absent
       "sku_from": "leading-number",
+      "from_price_lines": ["From"],          // a line that qualifies the NEXT price
       "fragments": [["Tomatencremesuppe", 400]],
       "service_method_note": "...",
       "sku_policy_note": "...",
@@ -41,6 +42,14 @@ Nothing is OCR'd, inferred or typed by hand: every item and price is a line of
 the venue's own page that matched the venue's own declared pattern. Lines that
 match neither pattern are counted (`stats.unparsed_lines`) and never silently
 dropped into the record.
+
+A QUALIFIER is a line the venue prints between an item's name and its price
+("PIZZA MARGHERITA" / "From" / "6 EUR"). It is declared in `from_price_lines` and
+is NOT page furniture: the price that follows it is that item's STARTING price,
+so the item gets `price_is_from: true` and `price_qualifier: "From"`, and
+`menu.price_semantics` states the count. Declaring such a line in `skip_lines`
+instead would delete the venue's own qualifier and publish a floor as an exact
+price — and the customer's sats total is derived from this catalogue.
 
 REDACTION (venues/README.md rule 5). Committed evidence is passed through a
 documented redaction list -- owner e-mail addresses and phone numbers -- while
@@ -204,6 +213,14 @@ def parse_items(text: str, capture: dict) -> dict:
     stop_before = {s.strip() for s in capture.get("stop_before", [])}
     sku_from = capture.get("sku_from", "none")
     method = capture["price_method"]
+    # A qualifier the venue prints on its OWN line between an item's name and its
+    # price ("PIZZA MARGHERITA" / "From" / "6 EUR"). It is a QUALIFIER, not page
+    # furniture: `6 EUR` is that pizza's starting price, not its price. Deleting
+    # the line (as `skip_lines: ["From"]` did) publishes a floor as an exact
+    # price — and the customer's sats total is derived from that catalogue, so on
+    # a pickup venue the facilitator is left short. Parsed instead, and carried
+    # through so the served and announced records say so.
+    from_lines = {s.strip() for s in capture.get("from_price_lines", [])}
 
     sections: list[dict] = []
     items: list[dict] = []
@@ -211,8 +228,16 @@ def parse_items(text: str, capture: dict) -> dict:
     seen_skus: dict[str, int] = {}
     current = None
     pending: tuple[str, dict] | None = None  # pair mode: name line awaiting its price line
+    # The venue's own qualifier word, seen since the pending name line.
+    pending_qualifier: str | None = None
 
-    def emit(name: str, groups: dict, price: float, source_line: str) -> None:
+    def emit(
+        name: str,
+        groups: dict,
+        price: float,
+        source_line: str,
+        price_qualifier: str | None = None,
+    ) -> None:
         nonlocal current
         sku, name = _sku_for(name, groups, sku_from)
         name = re.sub(r"\s+", " ", name).strip(" .-\u2013\u2014")
@@ -229,6 +254,10 @@ def parse_items(text: str, capture: dict) -> dict:
             "price": price,
             "currency": "EUR",
             "prices_by_order_method": {method: price},
+            # The figure above is a FLOOR when the venue qualified it. Every item
+            # states this, so nothing downstream has to guess by absence.
+            "price_is_from": price_qualifier is not None,
+            "price_qualifier": price_qualifier,
             "available": True,
             "allergens": None,
             "option_group_ids": [],
@@ -261,6 +290,15 @@ def parse_items(text: str, capture: dict) -> dict:
             continue
         if line in stop_before:
             break  # the venue's own page says where the menu ends
+        # BEFORE skip_lines: a line the venue prints to qualify the NEXT price is
+        # data, not furniture. It binds to the pending name line and makes that
+        # item's price a floor.
+        if line in from_lines:
+            if pending is not None:
+                pending_qualifier = line
+            else:
+                unparsed.append(line)  # a qualifier with nothing to qualify
+            continue
         if line in skip_lines:
             continue  # declared page furniture that sits inside the list
         # A line that IS a price line closes a pending pair; on its own it is noise.
@@ -268,8 +306,9 @@ def parse_items(text: str, capture: dict) -> dict:
             price = float(price_re.match(line).group("price").replace(",", "."))
             if pending is not None:
                 raw_line, groups = pending
-                emit(groups.get("name") or raw_line, groups, price, raw_line)
+                emit(groups.get("name") or raw_line, groups, price, raw_line, pending_qualifier)
                 pending = None
+                pending_qualifier = None
                 continue
             unparsed.append(line)
             continue
@@ -280,6 +319,7 @@ def parse_items(text: str, capture: dict) -> dict:
             if pending is not None:
                 unparsed.append(pending[0])
                 pending = None
+                pending_qualifier = None
             open_section(line)
             continue
         m = item_re.match(line)
@@ -290,13 +330,16 @@ def parse_items(text: str, capture: dict) -> dict:
             groups = m.groupdict()
             if groups.get("price"):
                 emit(groups["name"], groups, float(groups["price"].replace(",", ".")), line)
+                pending_qualifier = None
             else:
                 pending = (line, groups)
+                pending_qualifier = None
             continue
         if sec_re and sec_re.match(line):
             if pending is not None:
                 unparsed.append(pending[0])
                 pending = None
+                pending_qualifier = None
             open_section(sec_re.match(line).group("section").strip())
             continue
         unparsed.append(line)
@@ -323,6 +366,7 @@ def parse_items(text: str, capture: dict) -> dict:
     unparsed.extend(quarantined)
 
     priced = [i["price"] for i in items]
+    from_priced = [i for i in items if i["price_is_from"]]
     order = {it["sku"]: n for n, it in enumerate(items)}
     # A section is listed where its first item is, so the record reads in the
     # venue's own order even when the page repeats a heading (a nav teaser).
@@ -340,6 +384,8 @@ def parse_items(text: str, capture: dict) -> dict:
             "items_priced_listed": len(priced),
             "min_price_listed": min(priced) if priced else None,
             "max_price_listed": max(priced) if priced else None,
+            "from_priced_items": len(from_priced),
+            "min_from_price_listed": min((i["price"] for i in from_priced), default=None),
             "quarantined_items": len(quarantined),
             "unparsed_line_count": len(unparsed),
         },
@@ -352,6 +398,8 @@ def canonical_json(obj) -> bytes:
 
 def build_menu(venue: dict, capture: dict, text: str, source: dict) -> dict:
     parsed = parse_items(text, capture)
+    from_n = parsed["stats"]["from_priced_items"]
+    listed_n = parsed["stats"]["items_listed"]
     return {
         "currency": "EUR",
         "captured_at": source["captured_at"],
@@ -359,6 +407,25 @@ def build_menu(venue: dict, capture: dict, text: str, source: dict) -> dict:
         "service_method": capture["price_method"],
         "service_method_note": capture["service_method_note"],
         "sku_policy": capture["sku_policy_note"],
+        # A customer's sats price is derived from this catalogue, so the record
+        # says in its own words whether a listed figure is the item's price or the
+        # venue's starting price. `skip_lines: ["From"]` used to delete the venue's
+        # own qualifier and publish a floor as an exact price; the qualifier is now
+        # parsed (`from_price_lines`) and carried on the item.
+        "price_semantics": {
+            "from_qualifier_lines": sorted(capture.get("from_price_lines", [])),
+            "from_priced_items": from_n,
+            "exact_priced_items": listed_n - from_n,
+            "note": (
+                f"{from_n} of {listed_n} listed items carry the venue's own starting-price "
+                f"qualifier: `price_is_from` is true and `price_qualifier` holds the venue's "
+                f"word. Those figures are a FLOOR, not the item's price — a total built from "
+                f"them can only be a lower bound."
+                if from_n
+                else "every listed price is the price the venue publishes for the item; no item "
+                     "carries a starting-price qualifier"
+            ),
+        },
         "availability_note": (
             "the venue publishes this list as its current offering; availability is declared "
             "true from that publication, not from a stock API (no stock API exists)"

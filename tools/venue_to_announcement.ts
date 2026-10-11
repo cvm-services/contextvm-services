@@ -374,6 +374,34 @@ export function venueToAnnouncement(v: VenueRecord): VenueAnnouncement {
     price_basis: Object.keys(pricedMethods).length
       ? "min_price/max_price are the item's own price column; prices_by_method carries what each fulfilment method actually pays"
       : "min_price/max_price are the item's own price column (this venue publishes no per-method prices)",
+    // A starting price is not a price. la-mama-berlin prints "From" between 44
+    // item names and their prices ("PIZZA MARGHERITA" / "From" / "6 EUR"), and the
+    // sats price a customer is quoted is derived from this catalogue — so the
+    // announcement states how many of its figures are floors. Without this the
+    // published record presents the venue's floor as the item's price, and on a
+    // pickup venue the facilitator is left short by the difference.
+    price_semantics: (() => {
+      const fromItems = items.filter(
+        (i) => (i as { price_is_from?: boolean })?.price_is_from === true,
+      );
+      const qualifiers = [
+        ...new Set(
+          fromItems
+            .map((i) => (i as { price_qualifier?: string })?.price_qualifier)
+            .filter((q): q is string => typeof q === "string" && q.length > 0),
+        ),
+      ].sort();
+      return {
+        from_priced_count: fromItems.length,
+        exact_priced_count: items.length - fromItems.length,
+        from_qualifiers: qualifiers,
+        note: fromItems.length
+          ? `${fromItems.length} of ${items.length} items are priced by the venue as a starting ` +
+            `price (its own "${qualifiers.join('"/"')}" qualifier): those figures are a FLOOR, ` +
+            `not the price of the item, so any total built from them is a lower bound.`
+          : "every listed price is the price the venue publishes for the item; no item carries a starting-price qualifier",
+      };
+    })(),
   };
 
   const content = {

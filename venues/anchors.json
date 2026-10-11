@@ -1,6 +1,6 @@
 {
   "generated_by": "venues/tools/menu_anchors.ts",
-  "menu_sha256": "c7f6b5f1d7c19a0ac245da29cd4bbe0c259237187a7c798756c1bd15fd43ad9e",
+  "menu_sha256": "73d37548184b108c23dc1d55ba8f1207384f7ea84b9ed0304d0d2d81b6534ba5",
   "note": "Committed expectation for the SERVED menu contract. The tests and the e2e client compare the LIVE reply against this file; `venues/` is compared against it separately as a drift guard. A change here is the visible review gate for onboarding or re-capturing a venue (data, never code).",
   "regenerate": "deno run --allow-read --allow-write venues/tools/menu_anchors.ts --write",
   "schema": "venue-menu-anchor/1",
@@ -51,10 +51,10 @@
     },
     "la-mama-berlin": {
       "captured_at": "2026-10-10T08:05:08+00:00",
-      "from_priced_count": 0,
+      "from_priced_count": 44,
       "item_count": 104,
       "max_price": 10.5,
-      "menu_sha256": "c383bbb454f5720abbf4081c7a570fb5419a3f98bb6711ce082eab41b9ebdc7f",
+      "menu_sha256": "96e45432f62fe27b3acd66f2e1ac04bec039e6f53a6b6fc1669f617384d05420",
       "min_price": 1.5,
       "priced_methods": [
         "pickup"

@@ -74,6 +74,8 @@
         "name": "Subzi Shorba A, G",
         "option_group_ids": [],
         "price": 6.0,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 6.0
         },
@@ -93,6 +95,8 @@
         "name": "Madras Rasam A, G",
         "option_group_ids": [],
         "price": 6.0,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 6.0
         },
@@ -112,6 +116,8 @@
         "name": "Badam Shorba A, G, H",
         "option_group_ids": [],
         "price": 7.0,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 7.0
         },
@@ -131,6 +137,8 @@
         "name": "Mulligatawney A, G",
         "option_group_ids": [],
         "price": 7.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 7.5
         },
@@ -150,6 +158,8 @@
         "name": "Sauer-Scharf-Suppe A, G nach indischer Art",
         "option_group_ids": [],
         "price": 7.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 7.5
         },
@@ -169,6 +179,8 @@
         "name": "Knoblauchsuppe A, G nach indischer Art",
         "option_group_ids": [],
         "price": 7.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 7.5
         },
@@ -188,6 +200,8 @@
         "name": "Tomatensuppe A, G nach indischer Art",
         "option_group_ids": [],
         "price": 7.0,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 7.0
         },
@@ -207,6 +221,8 @@
         "name": "Fischsuppe A, G nach indischer Art",
         "option_group_ids": [],
         "price": 9.0,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 9.0
         },
@@ -226,6 +242,8 @@
         "name": "Samosas A, G, H",
         "option_group_ids": [],
         "price": 7.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 7.5
         },
@@ -245,6 +263,8 @@
         "name": "Paneer Pakoras G",
         "option_group_ids": [],
         "price": 7.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 7.5
         },
@@ -264,6 +284,8 @@
         "name": "Champignon Pakoras",
         "option_group_ids": [],
         "price": 6.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 6.5
         },
@@ -283,6 +305,8 @@
         "name": "Chicken Pakoras",
         "option_group_ids": [],
         "price": 7.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 7.5
         },
@@ -302,6 +326,8 @@
         "name": "Onion Bhaji",
         "option_group_ids": [],
         "price": 6.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 6.5
         },
@@ -321,6 +347,8 @@
         "name": "Fisch Pakoras D",
         "option_group_ids": [],
         "price": 8.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 8.5
         },
@@ -340,6 +368,8 @@
         "name": "Gobhi Pakoras",
         "option_group_ids": [],
         "price": 6.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 6.5
         },
@@ -359,6 +389,8 @@
         "name": "Für 1 Person",
         "option_group_ids": [],
         "price": 9.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 9.5
         },
@@ -378,6 +410,8 @@
         "name": "Für 2 Personen",
         "option_group_ids": [],
         "price": 15.0,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 15.0
         },
@@ -397,6 +431,8 @@
         "name": "Grüner Salat J",
         "option_group_ids": [],
         "price": 8.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 8.9
         },
@@ -416,6 +452,8 @@
         "name": "Chandi Salat J",
         "option_group_ids": [],
         "price": 13.0,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 13.0
         },
@@ -435,6 +473,8 @@
         "name": "Chicken Salat J",
         "option_group_ids": [],
         "price": 13.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 13.5
         },
@@ -454,6 +494,8 @@
         "name": "Punjabi Salat G, J",
         "option_group_ids": [],
         "price": 13.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 13.5
         },
@@ -473,6 +515,8 @@
         "name": "Daal Tarka G (auch vegan)",
         "option_group_ids": [],
         "price": 11.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 11.9
         },
@@ -492,6 +536,8 @@
         "name": "Subzi Curry (vegan)",
         "option_group_ids": [],
         "price": 11.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 11.9
         },
@@ -511,6 +557,8 @@
         "name": "Mattar Paneer G",
         "option_group_ids": [],
         "price": 13.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 13.5
         },
@@ -530,6 +578,8 @@
         "name": "Aloo Gobhi (vegan) pikant",
         "option_group_ids": [],
         "price": 12.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 12.9
         },
@@ -549,6 +599,8 @@
         "name": "Shahi Paneer G, H indischer Rahmkäse mit",
         "option_group_ids": [],
         "price": 14.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 14.5
         },
@@ -568,6 +620,8 @@
         "name": "Shahi Bengan G, H (auch vegan)",
         "option_group_ids": [],
         "price": 14.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 14.5
         },
@@ -587,6 +641,8 @@
         "name": "Saag Paneer G",
         "option_group_ids": [],
         "price": 13.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 13.5
         },
@@ -606,6 +662,8 @@
         "name": "Malai Kofta G",
         "option_group_ids": [],
         "price": 13.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 13.9
         },
@@ -625,6 +683,8 @@
         "name": "Tinda Masala G, 1 (auch vegan) pikant",
         "option_group_ids": [],
         "price": 13.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 13.9
         },
@@ -644,6 +704,8 @@
         "name": "Channa Masala 1 (vegan) pikant",
         "option_group_ids": [],
         "price": 12.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 12.5
         },
@@ -663,6 +725,8 @@
         "name": "Paneer Jhalfrezi G, 1 scharf",
         "option_group_ids": [],
         "price": 14.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 14.9
         },
@@ -682,6 +746,8 @@
         "name": "Chicken Curry",
         "option_group_ids": [],
         "price": 12.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 12.9
         },
@@ -701,6 +767,8 @@
         "name": "Chili Chicken 1 scharf",
         "option_group_ids": [],
         "price": 14.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 14.9
         },
@@ -720,6 +788,8 @@
         "name": "Chicken Masala scharf",
         "option_group_ids": [],
         "price": 14.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 14.9
         },
@@ -739,6 +809,8 @@
         "name": "Chicken Saag",
         "option_group_ids": [],
         "price": 13.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 13.9
         },
@@ -758,6 +830,8 @@
         "name": "Chicken Sabzi",
         "option_group_ids": [],
         "price": 13.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 13.9
         },
@@ -777,6 +851,8 @@
         "name": "Chicken Mango G, H",
         "option_group_ids": [],
         "price": 14.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 14.5
         },
@@ -796,6 +872,8 @@
         "name": "Chicken Jakhni G , H",
         "option_group_ids": [],
         "price": 14.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 14.5
         },
@@ -815,6 +893,8 @@
         "name": "Chicken Korma G, H",
         "option_group_ids": [],
         "price": 15.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 15.5
         },
@@ -834,6 +914,8 @@
         "name": "Chicken Vindaloo scharf",
         "option_group_ids": [],
         "price": 15.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 15.9
         },
@@ -853,6 +935,8 @@
         "name": "Mutton Curry",
         "option_group_ids": [],
         "price": 13.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 13.9
         },
@@ -872,6 +956,8 @@
         "name": "Mutton Saag",
         "option_group_ids": [],
         "price": 14.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 14.5
         },
@@ -891,6 +977,8 @@
         "name": "Mutton Sabzi",
         "option_group_ids": [],
         "price": 14.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 14.5
         },
@@ -910,6 +998,8 @@
         "name": "Mutton Jakhni G, H",
         "option_group_ids": [],
         "price": 16.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 16.9
         },
@@ -929,6 +1019,8 @@
         "name": "Mutton Masala scharf",
         "option_group_ids": [],
         "price": 16.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 16.5
         },
@@ -948,6 +1040,8 @@
         "name": "Mutton Khumbi G",
         "option_group_ids": [],
         "price": 15.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 15.9
         },
@@ -967,6 +1061,8 @@
         "name": "Mutton Korma G, H",
         "option_group_ids": [],
         "price": 16.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 16.9
         },
@@ -986,6 +1082,8 @@
         "name": "Mutton Madras 1 scharf",
         "option_group_ids": [],
         "price": 16.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 16.9
         },
@@ -1005,6 +1103,8 @@
         "name": "Vegetable Jhalfrezi",
         "option_group_ids": [],
         "price": 15.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 15.5
         },
@@ -1024,6 +1124,8 @@
         "name": "Fisch Dughri D",
         "option_group_ids": [],
         "price": 17.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 17.5
         },
@@ -1043,6 +1145,8 @@
         "name": "Mutton Jhalfrezi",
         "option_group_ids": [],
         "price": 17.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 17.5
         },
@@ -1062,6 +1166,8 @@
         "name": "Fisch Masala D (scharf)",
         "option_group_ids": [],
         "price": 16.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 16.9
         },
@@ -1081,6 +1187,8 @@
         "name": "Fisch Madras D",
         "option_group_ids": [],
         "price": 16.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 16.9
         },
@@ -1100,6 +1208,8 @@
         "name": "Chicken Jhalfrezi 1 (scharf)",
         "option_group_ids": [],
         "price": 15.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 15.5
         },
@@ -1119,6 +1229,8 @@
         "name": "Fisch Vindaloo D, 1 (scharf)",
         "option_group_ids": [],
         "price": 16.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 16.9
         },
@@ -1138,6 +1250,8 @@
         "name": "Chicken Madras 1",
         "option_group_ids": [],
         "price": 15.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 15.5
         },
@@ -1157,6 +1271,8 @@
         "name": "Mutton Vindaloo (scharf)",
         "option_group_ids": [],
         "price": 16.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 16.9
         },
@@ -1176,6 +1292,8 @@
         "name": "Scampi Curry B",
         "option_group_ids": [],
         "price": 22.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 22.5
         },
@@ -1195,6 +1313,8 @@
         "name": "Scampi Vindaloo B (scharf)",
         "option_group_ids": [],
         "price": 23.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 23.5
         },
@@ -1214,6 +1334,8 @@
         "name": "Vegetable Biryani",
         "option_group_ids": [],
         "price": 14.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 14.9
         },
@@ -1233,6 +1355,8 @@
         "name": "Chicken Biryani H pikant",
         "option_group_ids": [],
         "price": 15.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 15.5
         },
@@ -1252,6 +1376,8 @@
         "name": "Mutton Biryani H pikant",
         "option_group_ids": [],
         "price": 17.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 17.5
         },
@@ -1271,6 +1397,8 @@
         "name": "Chandi Biryani H pikant",
         "option_group_ids": [],
         "price": 18.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 18.5
         },
@@ -1290,6 +1418,8 @@
         "name": "Scampi Biryani B, H pikant",
         "option_group_ids": [],
         "price": 21.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 21.9
         },
@@ -1309,6 +1439,8 @@
         "name": "Ente Tikka G",
         "option_group_ids": [],
         "price": 20.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 20.9
         },
@@ -1328,6 +1460,8 @@
         "name": "Chandi Mixed Grill B",
         "option_group_ids": [],
         "price": 23.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 23.5
         },
@@ -1347,6 +1481,8 @@
         "name": "Chicken Tandoori G",
         "option_group_ids": [],
         "price": 15.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 15.5
         },
@@ -1366,6 +1502,8 @@
         "name": "Butter Chicken G",
         "option_group_ids": [],
         "price": 16.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 16.5
         },
@@ -1385,6 +1523,8 @@
         "name": "Mutton Tikka G",
         "option_group_ids": [],
         "price": 18.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 18.9
         },
@@ -1404,6 +1544,8 @@
         "name": "Chicken Tikka G",
         "option_group_ids": [],
         "price": 16.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 16.5
         },
@@ -1423,6 +1565,8 @@
         "name": "Scampi Tikka Masala B scharf",
         "option_group_ids": [],
         "price": 22.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 22.9
         },
@@ -1442,6 +1586,8 @@
         "name": "Paneer Tikka G",
         "option_group_ids": [],
         "price": 18.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 18.5
         },
@@ -1461,6 +1607,8 @@
         "name": "Tinda Masala Gosht",
         "option_group_ids": [],
         "price": 17.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 17.5
         },
@@ -1480,6 +1628,8 @@
         "name": "Paneer Makhani G",
         "option_group_ids": [],
         "price": 16.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 16.9
         },
@@ -1499,6 +1649,8 @@
         "name": "Butter Scampi B, G",
         "option_group_ids": [],
         "price": 22.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 22.9
         },
@@ -1518,6 +1670,8 @@
         "name": "Ente Korma H",
         "option_group_ids": [],
         "price": 20.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 20.9
         },
@@ -1537,6 +1691,8 @@
         "name": "Chicken Kesari G, H",
         "option_group_ids": [],
         "price": 19.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 19.5
         },
@@ -1556,6 +1712,8 @@
         "name": "Ente Makhani G",
         "option_group_ids": [],
         "price": 20.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 20.9
         },
@@ -1575,6 +1733,8 @@
         "name": "Personen",
         "option_group_ids": [],
         "price": 48.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 48.5
         },
@@ -1594,6 +1754,8 @@
         "name": "Personen",
         "option_group_ids": [],
         "price": 46.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 46.9
         },
@@ -1613,6 +1775,8 @@
         "name": "Personen",
         "option_group_ids": [],
         "price": 52.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 52.5
         },
@@ -1632,6 +1796,8 @@
         "name": "Butter Chicken G",
         "option_group_ids": [],
         "price": 9.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 9.5
         },
@@ -1651,6 +1817,8 @@
         "name": "Chicken Spezial A, H",
         "option_group_ids": [],
         "price": 9.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 9.5
         },
@@ -1670,6 +1838,8 @@
         "name": "Papadam",
         "option_group_ids": [],
         "price": 0.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 0.5
         },
@@ -1689,6 +1859,8 @@
         "name": "Naan Natur A, G",
         "option_group_ids": [],
         "price": 3.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.5
         },
@@ -1708,6 +1880,8 @@
         "name": "Naan mit Käse A, G",
         "option_group_ids": [],
         "price": 4.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 4.5
         },
@@ -1727,6 +1901,8 @@
         "name": "Naan mit Knoblauch A, G",
         "option_group_ids": [],
         "price": 3.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.5
         },
@@ -1746,6 +1922,8 @@
         "name": "Bhatura A, C, G",
         "option_group_ids": [],
         "price": 3.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.5
         },
@@ -1765,6 +1943,8 @@
         "name": "Chapati A",
         "option_group_ids": [],
         "price": 3.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.5
         },
@@ -1784,6 +1964,8 @@
         "name": "Raita G",
         "option_group_ids": [],
         "price": 4.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 4.9
         },
@@ -1803,6 +1985,8 @@
         "name": "Mixed Pickles",
         "option_group_ids": [],
         "price": 3.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.5
         },
@@ -1822,6 +2006,8 @@
         "name": "Mango Chutney",
         "option_group_ids": [],
         "price": 3.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.5
         },
@@ -1841,6 +2027,8 @@
         "name": "Indisches Matka-Eis G, H, 1 Portion",
         "option_group_ids": [],
         "price": 5.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 5.9
         },
@@ -1860,6 +2048,8 @@
         "name": "Gulab Jamun G",
         "option_group_ids": [],
         "price": 5.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 5.9
         },
@@ -1879,6 +2069,8 @@
         "name": "Campari Soda 1 / Orange 1 0,2 l",
         "option_group_ids": [],
         "price": 6.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 6.5
         },
@@ -1898,6 +2090,8 @@
         "name": "Martini 12 bianco, rosso 1 oder extra dry 5 cl",
         "option_group_ids": [],
         "price": 5.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 5.5
         },
@@ -1917,6 +2111,8 @@
         "name": "Sandeman Sherry 12 medium, dry, secco 5 cl",
         "option_group_ids": [],
         "price": 3.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.9
         },
@@ -1936,6 +2132,8 @@
         "name": "Prosecco 12 Glas 0,1 l",
         "option_group_ids": [],
         "price": 5.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 5.9
         },
@@ -1955,6 +2153,8 @@
         "name": "Aperol Spritz 1, 8, 12 Glas 0,2 l",
         "option_group_ids": [],
         "price": 7.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 7.5
         },
@@ -1974,6 +2174,8 @@
         "name": "Hugo 12 Glas 0,2 l",
         "option_group_ids": [],
         "price": 7.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 7.5
         },
@@ -1993,6 +2195,8 @@
         "name": "Espresso 2 Tasse",
         "option_group_ids": [],
         "price": 2.7,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 2.7
         },
@@ -2012,6 +2216,8 @@
         "name": "Doppelter Espresso 2 Tasse",
         "option_group_ids": [],
         "price": 3.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.5
         },
@@ -2031,6 +2237,8 @@
         "name": "Italienischer Kaffee 2 Tasse",
         "option_group_ids": [],
         "price": 3.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.5
         },
@@ -2050,6 +2258,8 @@
         "name": "Latte Macchiato 2, G Tasse",
         "option_group_ids": [],
         "price": 4.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 4.9
         },
@@ -2069,6 +2279,8 @@
         "name": "Heiße Schokolade G Tasse",
         "option_group_ids": [],
         "price": 4.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 4.9
         },
@@ -2088,6 +2300,8 @@
         "name": "Grog von 4 cl Pott Rum Mischgetränk Tasse",
         "option_group_ids": [],
         "price": 5.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 5.5
         },
@@ -2107,6 +2321,8 @@
         "name": "Heiße Zitrone Tasse",
         "option_group_ids": [],
         "price": 3.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.9
         },
@@ -2126,6 +2342,8 @@
         "name": "Tee im Pyramidenbeutel Glas",
         "option_group_ids": [],
         "price": 3.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.9
         },
@@ -2145,6 +2363,8 @@
         "name": "Tee Kännchen",
         "option_group_ids": [],
         "price": 5.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 5.5
         },
@@ -2164,6 +2384,8 @@
         "name": "Frischer Ingwertee frischer Ingwer mit Honig Glas",
         "option_group_ids": [],
         "price": 5.0,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 5.0
         },
@@ -2183,6 +2405,8 @@
         "name": "Tee „Chandiwala“ Schwarztee mit frischer Minze Glas",
         "option_group_ids": [],
         "price": 5.0,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 5.0
         },
@@ -2202,6 +2426,8 @@
         "name": "Yogi Tee Indischer Tee mit Milch Glas",
         "option_group_ids": [],
         "price": 3.0,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.0
         },
@@ -2221,6 +2447,8 @@
         "name": "Beck’s A Fl. 0,33 l",
         "option_group_ids": [],
         "price": 3.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.9
         },
@@ -2240,6 +2468,8 @@
         "name": "König Ludwig Hefeweizen Dunkel A Fl. 0,50 l",
         "option_group_ids": [],
         "price": 4.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 4.9
         },
@@ -2259,6 +2489,8 @@
         "name": "König Ludwig Kristallweizen A Fl. 0,50 l",
         "option_group_ids": [],
         "price": 4.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 4.9
         },
@@ -2278,6 +2510,8 @@
         "name": "König Ludwig Hefeweizen A Fl. 0,50 l",
         "option_group_ids": [],
         "price": 4.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 4.9
         },
@@ -2297,6 +2531,8 @@
         "name": "König Ludwig Hefeweizen Alkoholfrei A Fl. 0,50 l",
         "option_group_ids": [],
         "price": 4.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 4.9
         },
@@ -2316,6 +2552,8 @@
         "name": "Warsteiner Alkoholfrei A Fl. 0,33 l",
         "option_group_ids": [],
         "price": 3.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.9
         },
@@ -2335,6 +2573,8 @@
         "name": "Berliner Weisse A rot 1 oder grün 1 Fl. 0,33 l",
         "option_group_ids": [],
         "price": 4.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 4.5
         },
@@ -2354,6 +2594,8 @@
         "name": "Kingfisher A Indisches Bier Fl. 0,33 l",
         "option_group_ids": [],
         "price": 3.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.9
         },
@@ -2373,6 +2615,8 @@
         "name": "Cobra A Indisches Bier Fl. 0,33 l",
         "option_group_ids": [],
         "price": 3.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.9
         },
@@ -2392,6 +2636,8 @@
         "name": "Fassbrause",
         "option_group_ids": [],
         "price": 3.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.5
         },
@@ -2411,6 +2657,8 @@
         "name": "Selters Mineralwasser mit oder ohne Kohlensäure Fl. 0,25 l",
         "option_group_ids": [],
         "price": 3.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.5
         },
@@ -2430,6 +2678,8 @@
         "name": "Selters Mineralwasser mit oder ohne Kohlensäure Fl. 0,75 l",
         "option_group_ids": [],
         "price": 7.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 7.5
         },
@@ -2449,6 +2699,8 @@
         "name": "San Pellegrino italienisches Mineralwasser Fl. 0,25 l",
         "option_group_ids": [],
         "price": 3.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.5
         },
@@ -2468,6 +2720,8 @@
         "name": "Bionade Holunder, Litschi oder Kräuter Fl. 0,20 l",
         "option_group_ids": [],
         "price": 3.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.9
         },
@@ -2487,6 +2741,8 @@
         "name": "Rhabarbersaft 0,2 l",
         "option_group_ids": [],
         "price": 3.7,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.7
         },
@@ -2506,6 +2762,8 @@
         "name": "Apfelsaft 0,2 l",
         "option_group_ids": [],
         "price": 3.7,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.7
         },
@@ -2525,6 +2783,8 @@
         "name": "Orangensaft 0,2 l",
         "option_group_ids": [],
         "price": 3.7,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.7
         },
@@ -2544,6 +2804,8 @@
         "name": "Ananassaft 0,2 l",
         "option_group_ids": [],
         "price": 3.7,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.7
         },
@@ -2563,6 +2825,8 @@
         "name": "Bananen-Fruchtsaftgetränk 0,2 l",
         "option_group_ids": [],
         "price": 3.7,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.7
         },
@@ -2582,6 +2846,8 @@
         "name": "Kirsch-Fruchtsaftgetränk 0,2 l",
         "option_group_ids": [],
         "price": 3.7,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.7
         },
@@ -2601,6 +2867,8 @@
         "name": "Kiba Kirsch- & Bananenfruchtsaftgetränk 0,4 l",
         "option_group_ids": [],
         "price": 5.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 5.5
         },
@@ -2620,6 +2888,8 @@
         "name": "Cranberry Juice Preiselbernektar 0,2 l",
         "option_group_ids": [],
         "price": 3.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.9
         },
@@ -2639,6 +2909,8 @@
         "name": "Marcujanektar 0,2 l",
         "option_group_ids": [],
         "price": 3.7,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.7
         },
@@ -2658,6 +2930,8 @@
         "name": "Mangonektar 0,2 l",
         "option_group_ids": [],
         "price": 3.7,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.7
         },
@@ -2677,6 +2951,8 @@
         "name": "Litschisaft 0,2 l",
         "option_group_ids": [],
         "price": 3.7,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.7
         },
@@ -2696,6 +2972,8 @@
         "name": "Guavensaft 0,2 l",
         "option_group_ids": [],
         "price": 3.7,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.7
         },
@@ -2715,6 +2993,8 @@
         "name": "Saftschorle 0,2 l",
         "option_group_ids": [],
         "price": 3.7,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.7
         },
@@ -2734,6 +3014,8 @@
         "name": "Große Saftschorle 0,4 l",
         "option_group_ids": [],
         "price": 4.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 4.9
         },
@@ -2753,6 +3035,8 @@
         "name": "Große Säfte / Nektare 0,4 l",
         "option_group_ids": [],
         "price": 5.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 5.5
         },
@@ -2772,6 +3056,8 @@
         "name": "Malteserkreuz Acquavit 2 cl",
         "option_group_ids": [],
         "price": 3.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.9
         },
@@ -2791,6 +3077,8 @@
         "name": "Aalborg Jubiläums Akvavit 2 cl",
         "option_group_ids": [],
         "price": 3.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.9
         },
@@ -2810,6 +3098,8 @@
         "name": "Russian Standard A 2 cl",
         "option_group_ids": [],
         "price": 3.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.9
         },
@@ -2829,6 +3119,8 @@
         "name": "Grappa Hausmarke 12 2 cl",
         "option_group_ids": [],
         "price": 3.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.9
         },
@@ -2848,6 +3140,8 @@
         "name": "Mangoschnaps 2 cl",
         "option_group_ids": [],
         "price": 3.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.9
         },
@@ -2867,6 +3161,8 @@
         "name": "Tequila Sierra Silver 2 cl",
         "option_group_ids": [],
         "price": 4.0,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 4.0
         },
@@ -2886,6 +3182,8 @@
         "name": "Old Monk 1 Indischer brauner Rum 2 cl",
         "option_group_ids": [],
         "price": 4.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 4.5
         },
@@ -2905,6 +3203,8 @@
         "name": "Vecchia Romagna 12 italienischer Brandy 2 cl",
         "option_group_ids": [],
         "price": 4.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 4.5
         },
@@ -2924,6 +3224,8 @@
         "name": "Remy Martin V.S.O.P 12 2 cl",
         "option_group_ids": [],
         "price": 4.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 4.5
         },
@@ -2943,6 +3245,8 @@
         "name": "Hennessy V.S. 12 2 cl",
         "option_group_ids": [],
         "price": 4.9,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 4.9
         },
@@ -2962,6 +3266,8 @@
         "name": "Jim Beam A Bourbon 2 cl",
         "option_group_ids": [],
         "price": 4.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 4.5
         },
@@ -2981,6 +3287,8 @@
         "name": "Jack Daniels A Tennesse 2 cl",
         "option_group_ids": [],
         "price": 4.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 4.5
         },
@@ -3000,6 +3308,8 @@
         "name": "Balantine’s A, 1 2 cl",
         "option_group_ids": [],
         "price": 4.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 4.5
         },
@@ -3019,6 +3329,8 @@
         "name": "Johnnie Walker Red Label A, 1 2 cl",
         "option_group_ids": [],
         "price": 4.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 4.5
         },
@@ -3038,6 +3350,8 @@
         "name": "Johnnie Walker Black Label A, 2 cl",
         "option_group_ids": [],
         "price": 5.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 5.5
         },
@@ -3057,6 +3371,8 @@
         "name": "Dimple A 12 years 2 cl",
         "option_group_ids": [],
         "price": 5.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 5.5
         },
@@ -3076,6 +3392,8 @@
         "name": "Baileys Irish Cream 1, G 2 cl",
         "option_group_ids": [],
         "price": 4.3,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 4.3
         },
@@ -3095,6 +3413,8 @@
         "name": "Amaretto Disaronno 1, H 2 cl",
         "option_group_ids": [],
         "price": 4.3,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 4.3
         },
@@ -3114,6 +3434,8 @@
         "name": "Sambuca Molinari 2 cl",
         "option_group_ids": [],
         "price": 4.3,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 4.3
         },
@@ -3133,6 +3455,8 @@
         "name": "Amaro Averna 1 2 cl",
         "option_group_ids": [],
         "price": 4.3,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 4.3
         },
@@ -3152,6 +3476,8 @@
         "name": "Ramazzotti 2 cl",
         "option_group_ids": [],
         "price": 4.3,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 4.3
         },
@@ -3171,6 +3497,8 @@
         "name": "Fernet Branca 2 cl",
         "option_group_ids": [],
         "price": 4.3,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 4.3
         },
@@ -3190,6 +3518,8 @@
         "name": "Branca Menta 1 2 cl",
         "option_group_ids": [],
         "price": 4.3,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 4.3
         },
@@ -3209,6 +3539,8 @@
         "name": "Jägermeister 2 cl",
         "option_group_ids": [],
         "price": 4.3,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 4.3
         },
@@ -3228,6 +3560,8 @@
         "name": "Moët & Chandon Rosé",
         "option_group_ids": [],
         "price": 95.0,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 95.0
         },
@@ -3238,6 +3572,12 @@
         "source": "venue-site-page"
       }
     ],
+    "price_semantics": {
+      "exact_priced_items": 167,
+      "from_priced_items": 0,
+      "from_qualifier_lines": [],
+      "note": "every listed price is the price the venue publishes for the item; no item carries a starting-price qualifier"
+    },
     "sections": [
       {
         "id": "suppen",
@@ -3594,9 +3934,11 @@
       "url": "https://chandi-restaurant.com/wp-content/uploads/2025/06/menue_2025.pdf"
     },
     "stats": {
+      "from_priced_items": 0,
       "items_listed": 167,
       "items_priced_listed": 167,
       "max_price_listed": 95.0,
+      "min_from_price_listed": null,
       "min_price_listed": 0.5,
       "quarantined_items": 22,
       "sections": 25,
@@ -3641,11 +3983,11 @@
       }
     },
     "address": {
-      "lat": 52.4478999,
-      "lon": 13.3401437,
-      "geocode": "coordinates from OpenStreetMap Nominatim (jsonv2) on 2026-10-10, card t_a640b7ca; the licence requires attribution: (c) OpenStreetMap contributors, ODbL",
       "city": "Berlin",
       "country": "DE",
+      "geocode": "coordinates from OpenStreetMap Nominatim (jsonv2) on 2026-10-10, card t_a640b7ca; the licence requires attribution: (c) OpenStreetMap contributors, ODbL",
+      "lat": 52.4478999,
+      "lon": 13.3401437,
       "postal_code": "12167",
       "quarter": "Steglitz",
       "state": "Berlin",

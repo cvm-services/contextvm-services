@@ -63,6 +63,8 @@
         "name": "Tomatencremesuppe",
         "option_group_ids": [],
         "price": 3.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.99
         },
@@ -82,6 +84,8 @@
         "name": "Broccolisuppe",
         "option_group_ids": [],
         "price": 3.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.99
         },
@@ -101,6 +105,8 @@
         "name": "Gulaschsuppe",
         "option_group_ids": [],
         "price": 5.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 5.5
         },
@@ -120,6 +126,8 @@
         "name": "Knoblauchsuppe",
         "option_group_ids": [],
         "price": 3.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.99
         },
@@ -139,6 +147,8 @@
         "name": "Chili con Carne",
         "option_group_ids": [],
         "price": 5.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 5.5
         },
@@ -158,6 +168,8 @@
         "name": "Focaccia Gorgonzola",
         "option_group_ids": [],
         "price": 8.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 8.99
         },
@@ -177,6 +189,8 @@
         "name": "Funghi Ripieni",
         "option_group_ids": [],
         "price": 8.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 8.99
         },
@@ -196,6 +210,8 @@
         "name": "Mozzarella",
         "option_group_ids": [],
         "price": 8.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 8.99
         },
@@ -215,6 +231,8 @@
         "name": "Krabbencocktail",
         "option_group_ids": [],
         "price": 6.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 6.99
         },
@@ -234,6 +252,8 @@
         "name": "Gebackener Camembert",
         "option_group_ids": [],
         "price": 7.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 7.99
         },
@@ -253,6 +273,8 @@
         "name": "Lumache al Forno",
         "option_group_ids": [],
         "price": 4.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 4.99
         },
@@ -272,6 +294,8 @@
         "name": "Broccoli al Forno",
         "option_group_ids": [],
         "price": 8.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 8.99
         },
@@ -291,6 +315,8 @@
         "name": "Maiskolben",
         "option_group_ids": [],
         "price": 4.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 4.99
         },
@@ -310,6 +336,8 @@
         "name": "Carpaccio",
         "option_group_ids": [],
         "price": 9.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 9.99
         },
@@ -329,6 +357,8 @@
         "name": "Knoblauchbrot",
         "option_group_ids": [],
         "price": 1.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 1.99
         },
@@ -348,6 +378,8 @@
         "name": "Bruschetta",
         "option_group_ids": [],
         "price": 1.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 1.99
         },
@@ -367,6 +399,8 @@
         "name": "Gemischter Salat",
         "option_group_ids": [],
         "price": 5.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 5.99
         },
@@ -386,6 +420,8 @@
         "name": "Thunfischsalat",
         "option_group_ids": [],
         "price": 9.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 9.99
         },
@@ -405,6 +441,8 @@
         "name": "Käsesalat",
         "option_group_ids": [],
         "price": 9.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 9.99
         },
@@ -424,6 +462,8 @@
         "name": "Salat Frutti di Mare",
         "option_group_ids": [],
         "price": 9.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 9.99
         },
@@ -443,6 +483,8 @@
         "name": "Salat Doreedos",
         "option_group_ids": [],
         "price": 10.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 10.99
         },
@@ -462,6 +504,8 @@
         "name": "Rucola Salat",
         "option_group_ids": [],
         "price": 9.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 9.99
         },
@@ -481,6 +525,8 @@
         "name": "Mais Salat",
         "option_group_ids": [],
         "price": 6.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 6.99
         },
@@ -500,6 +546,8 @@
         "name": "Spaghetti Bolognese",
         "option_group_ids": [],
         "price": 9.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 9.99
         },
@@ -519,6 +567,8 @@
         "name": "Spaghetti Carbonara",
         "option_group_ids": [],
         "price": 9.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 9.99
         },
@@ -538,6 +588,8 @@
         "name": "Lasagne",
         "option_group_ids": [],
         "price": 9.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 9.99
         },
@@ -557,6 +609,8 @@
         "name": "Tortellini alla Panna",
         "option_group_ids": [],
         "price": 9.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 9.99
         },
@@ -576,6 +630,8 @@
         "name": "Regatoni con Pepe",
         "option_group_ids": [],
         "price": 11.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 11.99
         },
@@ -595,6 +651,8 @@
         "name": "Spaghetti Frutti di Mare",
         "option_group_ids": [],
         "price": 11.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 11.99
         },
@@ -614,6 +672,8 @@
         "name": "Rigatoni Gorgonzola",
         "option_group_ids": [],
         "price": 10.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 10.99
         },
@@ -633,6 +693,8 @@
         "name": "Rigatoni Doreedos",
         "option_group_ids": [],
         "price": 12.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 12.99
         },
@@ -652,6 +714,8 @@
         "name": "Rigatoni Spezial",
         "option_group_ids": [],
         "price": 12.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 12.99
         },
@@ -671,6 +735,8 @@
         "name": "Rigatoni Scampi",
         "option_group_ids": [],
         "price": 13.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 13.99
         },
@@ -690,6 +756,8 @@
         "name": "Spaghetti Doreedos",
         "option_group_ids": [],
         "price": 13.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 13.99
         },
@@ -709,6 +777,8 @@
         "name": "Hüftsteak 180 g",
         "option_group_ids": [],
         "price": 12.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 12.99
         },
@@ -728,6 +798,8 @@
         "name": "Hüftsteak 250 g",
         "option_group_ids": [],
         "price": 15.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 15.99
         },
@@ -747,6 +819,8 @@
         "name": "Rumpsteak 180 g",
         "option_group_ids": [],
         "price": 13.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 13.99
         },
@@ -766,6 +840,8 @@
         "name": "Rumpsteak 250 g",
         "option_group_ids": [],
         "price": 17.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 17.99
         },
@@ -785,6 +861,8 @@
         "name": "Entrecôte 200 g",
         "option_group_ids": [],
         "price": 15.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 15.99
         },
@@ -804,6 +882,8 @@
         "name": "Entrecôte 250 g",
         "option_group_ids": [],
         "price": 15.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 15.99
         },
@@ -823,6 +903,8 @@
         "name": "Filetsteak 180 g",
         "option_group_ids": [],
         "price": 16.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 16.99
         },
@@ -842,6 +924,8 @@
         "name": "Filetsteak 250 g",
         "option_group_ids": [],
         "price": 19.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 19.99
         },
@@ -861,6 +945,8 @@
         "name": "Lammfilet 180 g",
         "option_group_ids": [],
         "price": 15.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 15.99
         },
@@ -880,6 +966,8 @@
         "name": "Lammfilet 250 g",
         "option_group_ids": [],
         "price": 19.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 19.99
         },
@@ -899,6 +987,8 @@
         "name": "Lammkotelett",
         "option_group_ids": [],
         "price": 19.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 19.99
         },
@@ -918,6 +1008,8 @@
         "name": "Schweinesteak 180 g",
         "option_group_ids": [],
         "price": 11.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 11.99
         },
@@ -937,6 +1029,8 @@
         "name": "Schweinesteak 250 g",
         "option_group_ids": [],
         "price": 13.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 13.99
         },
@@ -956,6 +1050,8 @@
         "name": "Schweinefilet 250 g",
         "option_group_ids": [],
         "price": 16.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 16.99
         },
@@ -975,6 +1071,8 @@
         "name": "Grillteller 300 g",
         "option_group_ids": [],
         "price": 15.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 15.99
         },
@@ -994,6 +1092,8 @@
         "name": "Grillplatte für 2 Personen",
         "option_group_ids": [],
         "price": 32.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 32.99
         },
@@ -1013,6 +1113,8 @@
         "name": "Medaillon von der Rinderhüfte",
         "option_group_ids": [],
         "price": 20.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 20.99
         },
@@ -1032,6 +1134,8 @@
         "name": "XXL Schnitzel „Wiener Art“",
         "option_group_ids": [],
         "price": 12.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 12.99
         },
@@ -1051,6 +1155,8 @@
         "name": "XL Hüfte 400 g",
         "option_group_ids": [],
         "price": 22.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 22.99
         },
@@ -1070,6 +1176,8 @@
         "name": "XL Rumpsteak 400 g",
         "option_group_ids": [],
         "price": 24.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 24.99
         },
@@ -1089,6 +1197,8 @@
         "name": "XXL Hüfte 600 g",
         "option_group_ids": [],
         "price": 29.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 29.99
         },
@@ -1108,6 +1218,8 @@
         "name": "XXL Rumpsteak 600 g",
         "option_group_ids": [],
         "price": 29.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 29.99
         },
@@ -1127,6 +1239,8 @@
         "name": "XXXL Hüfte 800 g",
         "option_group_ids": [],
         "price": 39.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 39.99
         },
@@ -1146,6 +1260,8 @@
         "name": "XXXL Rumpsteak 800 g",
         "option_group_ids": [],
         "price": 39.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 39.99
         },
@@ -1165,6 +1281,8 @@
         "name": "XL Entrecôte 400 g",
         "option_group_ids": [],
         "price": 26.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 26.99
         },
@@ -1184,6 +1302,8 @@
         "name": "XL Filetsteak 400 g",
         "option_group_ids": [],
         "price": 31.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 31.99
         },
@@ -1203,6 +1323,8 @@
         "name": "Kräuterbutter",
         "option_group_ids": [],
         "price": 1.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 1.99
         },
@@ -1222,6 +1344,8 @@
         "name": "Geschroteter Pfeffer",
         "option_group_ids": [],
         "price": 0.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 0.99
         },
@@ -1241,6 +1365,8 @@
         "name": "Gegrillte Tomate",
         "option_group_ids": [],
         "price": 1.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 1.5
         },
@@ -1260,6 +1386,8 @@
         "name": "Geröstete Zwiebeln",
         "option_group_ids": [],
         "price": 3.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.99
         },
@@ -1279,6 +1407,8 @@
         "name": "Pommes frites",
         "option_group_ids": [],
         "price": 3.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.99
         },
@@ -1298,6 +1428,8 @@
         "name": "Bratkartoffeln",
         "option_group_ids": [],
         "price": 3.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.99
         },
@@ -1317,6 +1449,8 @@
         "name": "Kroketten",
         "option_group_ids": [],
         "price": 3.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.99
         },
@@ -1336,6 +1470,8 @@
         "name": "Portion Spinat",
         "option_group_ids": [],
         "price": 4.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 4.5
         },
@@ -1355,6 +1491,8 @@
         "name": "Portion grüne Bohnen",
         "option_group_ids": [],
         "price": 4.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 4.5
         },
@@ -1374,6 +1512,8 @@
         "name": "Portion Broccoli",
         "option_group_ids": [],
         "price": 4.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 4.5
         },
@@ -1393,6 +1533,8 @@
         "name": "Mexican Potatoes",
         "option_group_ids": [],
         "price": 3.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.99
         },
@@ -1412,6 +1554,8 @@
         "name": "Gebackene Kartoffel",
         "option_group_ids": [],
         "price": 4.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 4.99
         },
@@ -1431,6 +1575,8 @@
         "name": "Champignons",
         "option_group_ids": [],
         "price": 4.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 4.5
         },
@@ -1450,6 +1596,8 @@
         "name": "Portion Reis",
         "option_group_ids": [],
         "price": 3.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.99
         },
@@ -1469,6 +1617,8 @@
         "name": "Bratkartoffeln mit Speck",
         "option_group_ids": [],
         "price": 4.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 4.99
         },
@@ -1488,6 +1638,8 @@
         "name": "Pfeffer-Sahnesauce",
         "option_group_ids": [],
         "price": 3.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.5
         },
@@ -1507,6 +1659,8 @@
         "name": "Champignon-Sahnesauce",
         "option_group_ids": [],
         "price": 3.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.5
         },
@@ -1526,6 +1680,8 @@
         "name": "Gorgonzola-Sahnesauce",
         "option_group_ids": [],
         "price": 3.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.99
         },
@@ -1545,6 +1701,8 @@
         "name": "Sauce Bearnaise",
         "option_group_ids": [],
         "price": 3.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.99
         },
@@ -1564,6 +1722,8 @@
         "name": "Pfifferling-Sahnesauce",
         "option_group_ids": [],
         "price": 3.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 3.5
         },
@@ -1583,6 +1743,8 @@
         "name": "Steak-Sauce",
         "option_group_ids": [],
         "price": 2.5,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 2.5
         },
@@ -1602,6 +1764,8 @@
         "name": "Paniertes Schnitzel",
         "option_group_ids": [],
         "price": 10.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 10.99
         },
@@ -1621,6 +1785,8 @@
         "name": "Medaillons al Pepe",
         "option_group_ids": [],
         "price": 12.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 12.99
         },
@@ -1640,6 +1806,8 @@
         "name": "Medaillons ai Funghi",
         "option_group_ids": [],
         "price": 12.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 12.99
         },
@@ -1659,6 +1827,8 @@
         "name": "Medaillons alla Gorgonzola",
         "option_group_ids": [],
         "price": 12.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 12.99
         },
@@ -1678,6 +1848,8 @@
         "name": "Cordon Bleu",
         "option_group_ids": [],
         "price": 12.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 12.99
         },
@@ -1697,6 +1869,8 @@
         "name": "Scaloppa Bolognese",
         "option_group_ids": [],
         "price": 13.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 13.99
         },
@@ -1716,6 +1890,8 @@
         "name": "Scampi",
         "option_group_ids": [],
         "price": 14.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 14.99
         },
@@ -1735,6 +1911,8 @@
         "name": "Scampi al Pepe",
         "option_group_ids": [],
         "price": 15.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 15.99
         },
@@ -1754,6 +1932,8 @@
         "name": "Scampi Livornese",
         "option_group_ids": [],
         "price": 15.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 15.99
         },
@@ -1773,6 +1953,8 @@
         "name": "Zanderfilet",
         "option_group_ids": [],
         "price": 15.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 15.99
         },
@@ -1792,6 +1974,8 @@
         "name": "Lachs",
         "option_group_ids": [],
         "price": 15.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 15.99
         },
@@ -1811,6 +1995,8 @@
         "name": "Fischteller",
         "option_group_ids": [],
         "price": 17.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 17.99
         },
@@ -1830,6 +2016,8 @@
         "name": "Pizza Margherita",
         "option_group_ids": [],
         "price": 9.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 9.99
         },
@@ -1849,6 +2037,8 @@
         "name": "Pizza Salami",
         "option_group_ids": [],
         "price": 10.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 10.99
         },
@@ -1868,6 +2058,8 @@
         "name": "Pizza Funghi",
         "option_group_ids": [],
         "price": 10.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 10.99
         },
@@ -1887,6 +2079,8 @@
         "name": "Pizza Prosciutto",
         "option_group_ids": [],
         "price": 10.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 10.99
         },
@@ -1906,6 +2100,8 @@
         "name": "Pizza Primavera",
         "option_group_ids": [],
         "price": 10.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 10.99
         },
@@ -1925,6 +2121,8 @@
         "name": "Pizza Mista",
         "option_group_ids": [],
         "price": 10.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 10.99
         },
@@ -1944,6 +2142,8 @@
         "name": "Pizza Hawaii",
         "option_group_ids": [],
         "price": 10.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 10.99
         },
@@ -1963,6 +2163,8 @@
         "name": "Pizza Amore",
         "option_group_ids": [],
         "price": 10.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 10.99
         },
@@ -1982,6 +2184,8 @@
         "name": "Pizza Tonno",
         "option_group_ids": [],
         "price": 10.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 10.99
         },
@@ -2001,6 +2205,8 @@
         "name": "Pizza Frutti di Mare",
         "option_group_ids": [],
         "price": 12.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 12.99
         },
@@ -2020,6 +2226,8 @@
         "name": "Pizza Gorgonzola",
         "option_group_ids": [],
         "price": 12.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 12.99
         },
@@ -2039,6 +2247,8 @@
         "name": "Pizza Mozzarella",
         "option_group_ids": [],
         "price": 11.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 11.99
         },
@@ -2058,6 +2268,8 @@
         "name": "Pizza Doreedos",
         "option_group_ids": [],
         "price": 12.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 12.99
         },
@@ -2077,6 +2289,8 @@
         "name": "Pizza Scampi",
         "option_group_ids": [],
         "price": 14.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 14.99
         },
@@ -2096,6 +2310,8 @@
         "name": "Pizza Pollo",
         "option_group_ids": [],
         "price": 12.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 12.99
         },
@@ -2115,6 +2331,8 @@
         "name": "Pizza Diavolo",
         "option_group_ids": [],
         "price": 12.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 12.99
         },
@@ -2134,6 +2352,8 @@
         "name": "Hähnchenbrustfilet",
         "option_group_ids": [],
         "price": 13.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 13.99
         },
@@ -2153,6 +2373,8 @@
         "name": "Geschnetzeltes vom Rind",
         "option_group_ids": [],
         "price": 13.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 13.99
         },
@@ -2172,6 +2394,8 @@
         "name": "Doreedos Teller",
         "option_group_ids": [],
         "price": 13.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 13.99
         },
@@ -2191,6 +2415,8 @@
         "name": "Hähnchenbrustfilet gegrillt",
         "option_group_ids": [],
         "price": 13.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 13.99
         },
@@ -2210,6 +2436,8 @@
         "name": "Spare Ribs",
         "option_group_ids": [],
         "price": 15.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 15.99
         },
@@ -2229,6 +2457,8 @@
         "name": "Doreedos – Rostbraten 180g",
         "option_group_ids": [],
         "price": 15.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 15.99
         },
@@ -2248,6 +2478,8 @@
         "name": "Pollo con Piña",
         "option_group_ids": [],
         "price": 13.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 13.99
         },
@@ -2267,6 +2499,8 @@
         "name": "Mole Verde á la Pepitas",
         "option_group_ids": [],
         "price": 13.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 13.99
         },
@@ -2286,6 +2520,8 @@
         "name": "Steak nach Art des Hauses 250g",
         "option_group_ids": [],
         "price": 17.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 17.99
         },
@@ -2305,6 +2541,8 @@
         "name": "Hähnchen Curry",
         "option_group_ids": [],
         "price": 16.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 16.99
         },
@@ -2324,6 +2562,8 @@
         "name": "Lamm Curry",
         "option_group_ids": [],
         "price": 17.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 17.99
         },
@@ -2343,6 +2583,8 @@
         "name": "Scampi Curry",
         "option_group_ids": [],
         "price": 17.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 17.99
         },
@@ -2362,6 +2604,8 @@
         "name": "Hähnchenbrustfilet",
         "option_group_ids": [],
         "price": 13.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 13.99
         },
@@ -2381,6 +2625,8 @@
         "name": "Pechugas Poblano",
         "option_group_ids": [],
         "price": 13.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 13.99
         },
@@ -2400,6 +2646,8 @@
         "name": "Doreedos Spieß vom Rind",
         "option_group_ids": [],
         "price": 19.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 19.99
         },
@@ -2419,6 +2667,8 @@
         "name": "Frango Indianer",
         "option_group_ids": [],
         "price": 16.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 16.99
         },
@@ -2438,6 +2688,8 @@
         "name": "Kalbsleber gebraten",
         "option_group_ids": [],
         "price": 16.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 16.99
         },
@@ -2457,6 +2709,8 @@
         "name": "1 x Tortilla",
         "option_group_ids": [],
         "price": 0.8,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 0.8
         },
@@ -2476,6 +2730,8 @@
         "name": "Fajita de Pollo",
         "option_group_ids": [],
         "price": 14.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 14.99
         },
@@ -2495,6 +2751,8 @@
         "name": "Fajita de Carne",
         "option_group_ids": [],
         "price": 14.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 14.99
         },
@@ -2514,6 +2772,8 @@
         "name": "Fajita de Cerdo",
         "option_group_ids": [],
         "price": 14.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 14.99
         },
@@ -2533,6 +2793,8 @@
         "name": "Fajita Combinadas",
         "option_group_ids": [],
         "price": 14.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 14.99
         },
@@ -2552,6 +2814,8 @@
         "name": "Fajita Scampi",
         "option_group_ids": [],
         "price": 15.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 15.99
         },
@@ -2571,6 +2835,8 @@
         "name": "Fajita Vegetarisch",
         "option_group_ids": [],
         "price": 12.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 12.99
         },
@@ -2590,6 +2856,8 @@
         "name": "Fischstäbchen",
         "option_group_ids": [],
         "price": 7.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 7.99
         },
@@ -2609,6 +2877,8 @@
         "name": "Kinder Hüftsteak",
         "option_group_ids": [],
         "price": 8.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 8.99
         },
@@ -2628,6 +2898,8 @@
         "name": "Crazy Chicken",
         "option_group_ids": [],
         "price": 7.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 7.99
         },
@@ -2647,6 +2919,8 @@
         "name": "Gemischtes Eis",
         "option_group_ids": [],
         "price": 2.4,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 2.4
         },
@@ -2666,6 +2940,8 @@
         "name": "Gemischtes Eis",
         "option_group_ids": [],
         "price": 4.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 4.99
         },
@@ -2685,6 +2961,8 @@
         "name": "Eiskaffee",
         "option_group_ids": [],
         "price": 4.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 4.99
         },
@@ -2704,6 +2982,8 @@
         "name": "Eisbecher",
         "option_group_ids": [],
         "price": 5.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 5.99
         },
@@ -2723,6 +3003,8 @@
         "name": "Bananensplit",
         "option_group_ids": [],
         "price": 5.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 5.99
         },
@@ -2742,6 +3024,8 @@
         "name": "Tiramisu",
         "option_group_ids": [],
         "price": 5.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 5.99
         },
@@ -2761,6 +3045,8 @@
         "name": "Shakes",
         "option_group_ids": [],
         "price": 5.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 5.99
         },
@@ -2780,6 +3066,8 @@
         "name": "Crépes",
         "option_group_ids": [],
         "price": 5.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 5.99
         },
@@ -2799,6 +3087,8 @@
         "name": "Vanilleeis",
         "option_group_ids": [],
         "price": 5.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 5.99
         },
@@ -2818,6 +3108,8 @@
         "name": "Vanilleeis",
         "option_group_ids": [],
         "price": 5.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 5.99
         },
@@ -2837,6 +3129,8 @@
         "name": "Apfelstrudel",
         "option_group_ids": [],
         "price": 5.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 5.99
         },
@@ -2856,6 +3150,8 @@
         "name": "Creme Caramel",
         "option_group_ids": [],
         "price": 5.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 5.99
         },
@@ -2875,6 +3171,8 @@
         "name": "Panna Cotta",
         "option_group_ids": [],
         "price": 5.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 5.99
         },
@@ -2894,6 +3192,8 @@
         "name": "Tartufo",
         "option_group_ids": [],
         "price": 5.99,
+        "price_is_from": false,
+        "price_qualifier": null,
         "prices_by_order_method": {
           "dine_in": 5.99
         },
@@ -2904,6 +3204,12 @@
         "source": "venue-site-page"
       }
     ],
+    "price_semantics": {
+      "exact_priced_items": 150,
+      "from_priced_items": 0,
+      "from_qualifier_lines": [],
+      "note": "every listed price is the price the venue publishes for the item; no item carries a starting-price qualifier"
+    },
     "sections": [
       {
         "id": "suppen",
@@ -3173,9 +3479,11 @@
       "url": "https://doreedos-steakhaus.de/speisekarte"
     },
     "stats": {
+      "from_priced_items": 0,
       "items_listed": 150,
       "items_priced_listed": 150,
       "max_price_listed": 39.99,
+      "min_from_price_listed": null,
       "min_price_listed": 0.8,
       "quarantined_items": 0,
       "sections": 15,
@@ -3220,11 +3528,11 @@
       }
     },
     "address": {
-      "lat": 52.461938,
-      "lon": 13.318672,
-      "geocode": "coordinates from OpenStreetMap Nominatim (jsonv2) on 2026-10-10, card t_a640b7ca; the licence requires attribution: (c) OpenStreetMap contributors, ODbL",
       "city": "Berlin",
       "country": "DE",
+      "geocode": "coordinates from OpenStreetMap Nominatim (jsonv2) on 2026-10-10, card t_a640b7ca; the licence requires attribution: (c) OpenStreetMap contributors, ODbL",
+      "lat": 52.461938,
+      "lon": 13.318672,
       "postal_code": "12163",
       "quarter": "Steglitz",
       "state": "Berlin",
