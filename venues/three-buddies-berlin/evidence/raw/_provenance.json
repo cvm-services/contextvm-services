@@ -1,0 +1,25 @@
+{
+  "captured_at": "2026-10-11T22:34:12+00:00",
+  "company": {
+    "bytes": 9251,
+    "committed_copy_sha256": "21163d63a774d68346186382468cc0928a3e20661f8b80b7bcd589d5cf2d618a",
+    "file": "evidence/raw/company.json",
+    "sha256": "468482e7235c172f33829a1b272a69929a94abdd55cb5ab9e7dc73cd6cb927d0",
+    "url": "https://app.foodamigos.io/api/companies/threebuddies/data?hostname=threebuddies.de"
+  },
+  "menus": {
+    "bytes": 209911,
+    "committed_copy_sha256": "4cdcd60330f4fd3a253b8aa7c5ff42f852e091c5996eaa0a12434a468cac9141",
+    "file": "evidence/raw/menus.json",
+    "sha256": "88d3e71db375553a4ad8bea5d6615abd0b471ac0ad471c6a4dc967c68f7c0b66",
+    "url": "https://app.foodamigos.io/api/companies/550/menus"
+  },
+  "store": {
+    "bytes": 51814,
+    "committed_copy_sha256": "abe24e8d94e0aee83ff7ca91932db08efc6dc8fd0ca830c79c25c4de28db5711",
+    "file": "evidence/raw/store.json",
+    "sha256": "142060d5168fc523fd2ed96155e5988972f501ab6a3a102a33e1121d09b30028",
+    "storefront_mirror_url": "https://storefront.foodamigos.io/api/stores/threebuddies.de",
+    "url": "https://www.threebuddies.de/api/store"
+  }
+}

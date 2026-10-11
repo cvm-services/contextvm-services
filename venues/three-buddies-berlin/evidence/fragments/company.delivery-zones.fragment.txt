@@ -1,0 +1,19 @@
+"delivery_zones": [
+      {
+        "color": "#69CE8C",
+        "fee": 5,
+        "geometry_data": {
+          "center": {
+            "lat": 52.4570504,
+            "lng": 13.3222943
+          },
+          "radius": 5000
+        },
+        "geometry_type": "circle",
+        "id": 766,
+        "max_threshold": 750,
+        "min_threshold": 20,
+        "name": "Uber delivery"
+      }
+    ],
+    "em

@@ -1,0 +1,100 @@
+{
+  "kind": 11316,
+  "pubkey": null,
+  "tags": [
+    [
+      "d",
+      "three-buddies-berlin"
+    ],
+    [
+      "t",
+      "cvm:service:restaurant"
+    ],
+    [
+      "t",
+      "cvm:service:meatspace"
+    ],
+    [
+      "t",
+      "berlin"
+    ],
+    [
+      "t",
+      "burgers"
+    ],
+    [
+      "t",
+      "pizza"
+    ],
+    [
+      "t",
+      "cvm:req:contact.phone"
+    ],
+    [
+      "t",
+      "cvm:req:order.fulfilment"
+    ],
+    [
+      "t",
+      "cvm:req:order.items"
+    ],
+    [
+      "t",
+      "cvm:req:order.when"
+    ],
+    [
+      "t",
+      "cvm:opt:contact.name"
+    ],
+    [
+      "t",
+      "cvm:opt:order.notes"
+    ],
+    [
+      "t",
+      "cvm:opt:ship.address"
+    ],
+    [
+      "t",
+      "cvm:tier:fulfilment"
+    ],
+    [
+      "g",
+      "u336"
+    ],
+    [
+      "g",
+      "u336rj"
+    ],
+    [
+      "g",
+      "u336rjsb"
+    ],
+    [
+      "cap",
+      "tool:order",
+      "0",
+      "sats"
+    ],
+    [
+      "r",
+      "https://www.threebuddies.de/speisekarte/threebuddies"
+    ],
+    [
+      "name",
+      "Three Buddies Steglitz"
+    ],
+    [
+      "about",
+      "Three Buddies Steglitz — restaurant in Berlin, announced over ContextVM (CEP-6). Order via the venue's own rail; the deep-link asks for a delivery address and phone."
+    ],
+    [
+      "website",
+      "https://threebuddies.de"
+    ]
+  ],
+  "content": "{\"name\":\"Three Buddies Steglitz\",\"about\":\"Three Buddies Steglitz — restaurant in Berlin, announced over ContextVM (CEP-6). Order via the venue's own rail; the deep-link asks for a delivery address and phone.\",\"schema\":\"cvm.venue/v1\",\"currency\":\"EUR\",\"area\":{\"city\":\"Berlin\",\"country\":\"DE\"},\"location\":{\"lat\":52.4570504,\"lon\":13.3222943},\"menu\":{\"item_count\":100,\"priced_count\":100,\"currency\":\"EUR\",\"min_price\":1.5,\"max_price\":17.4,\"prices_by_method\":{\"delivery\":{\"count\":100,\"currency\":\"EUR\",\"min_price\":1.5,\"max_price\":18.4},\"dine_in\":{\"count\":100,\"currency\":\"EUR\",\"min_price\":1.5,\"max_price\":17.4},\"pickup\":{\"count\":100,\"currency\":\"EUR\",\"min_price\":1.5,\"max_price\":17.4},\"room_service\":{\"count\":100,\"currency\":\"EUR\",\"min_price\":1.5,\"max_price\":17.4}},\"price_basis\":\"min_price/max_price are the item's own price column; prices_by_method carries what each fulfilment method actually pays\",\"price_semantics\":{\"from_priced_count\":0,\"exact_priced_count\":100,\"from_qualifiers\":[],\"note\":\"every listed price is the price the venue publishes for the item; no item carries a starting-price qualifier\"}},\"ordering\":{\"primary_url\":\"https://www.threebuddies.de/speisekarte/threebuddies\",\"order_methods\":[\"pickup\",\"delivery\"]},\"fulfilment\":{\"methods\":[\"pickup\",\"delivery\"],\"pickup\":{\"available\":true,\"estimated_minutes\":10},\"delivery\":{\"available\":true,\"areas_named\":[],\"areas_note\":null},\"method_condition\":\"ship.address is required for a DELIVERY order only; a PICKUP order needs no address (the venue's own page asks for the address when delivery is chosen).\"},\"tools\":[{\"name\":\"order\",\"description\":\"Build a basket for Three Buddies Steglitz on the venue's own ordering rail. Checkout and payment happen on the venue's own page; this tool does not place or settle the order.\",\"inputSchema\":{\"type\":\"object\",\"properties\":{\"venue_slug\":{\"type\":\"string\",\"description\":\"The venue to order from.\"},\"items\":{\"type\":\"array\",\"description\":\"Basket lines. Identify each item by `sku` or by the venue's `id` — exactly one. A sku matching more than one item (pizza: 36, 110, 44) is refused; pass `id` there.\",\"items\":{\"type\":\"object\",\"properties\":{\"sku\":{\"type\":\"string\",\"description\":\"Venue sku. Refused when it identifies more than one item — use `id` instead.\"},\"id\":{\"type\":\"string\",\"description\":\"The venue's own item id, unique where a sku is not.\"},\"qty\":{\"type\":\"integer\",\"minimum\":1},\"options\":{\"type\":\"object\"}},\"required\":[\"qty\"],\"additionalProperties\":false}},\"fulfilment\":{\"type\":\"string\",\"enum\":[\"pickup\",\"delivery\",\"dine_in\"],\"description\":\"How the order will be fulfilled.\"},\"when\":{\"type\":\"string\",\"description\":\"Requested fulfilment time (ISO 8601 or 'asap').\"},\"notes\":{\"type\":\"string\",\"description\":\"Free text for the kitchen/handler.\"},\"ship\":{\"type\":\"object\",\"description\":\"Required only when fulfilment == 'delivery'.\",\"properties\":{\"address\":{\"type\":\"object\",\"properties\":{\"street\":{\"type\":\"string\"},\"city\":{\"type\":\"string\"},\"postal_code\":{\"type\":\"string\"},\"country\":{\"type\":\"string\"}}},\"recipient_name\":{\"type\":\"string\"},\"notes\":{\"type\":\"string\"}}},\"contact\":{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"},\"phone\":{\"type\":\"string\"},\"email\":{\"type\":\"string\"}}}},\"required\":[\"venue_slug\",\"items\",\"fulfilment\",\"when\"],\"additionalProperties\":false}}],\"settlement\":{\"settles\":\"venue's own rail (ADR-0001 D5): this CVM takes no payment\",\"rail\":\"venue's own rail (FoodAmigos storefront: adyen, stripe; accepts apple_pay, google_pay, card, pay_by_bank, paypal, cash)\",\"currency\":\"EUR\",\"tax\":\"inclusive 19%\",\"cvm_cap_sats\":0,\"recorded\":true,\"note\":\"rail as recorded from the venue's own storefront\"}}",
+  "tier": "fulfilment",
+  "recomputed_tier": "fulfilment",
+  "warnings": []
+}

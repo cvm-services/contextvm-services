@@ -1,0 +1,13 @@
+"payment_gateways": [
+      "adyen",
+      "stripe"
+    ],
+    "paypal_standalone": {
+      "available": false,
+      "client_id": null
+    },
+    "phone_number": "[REDACTED-PHONE]",
+    "pictures": [
+      "https://cdn.foodamigos.io/images/2aY4WBhYmWUfvOCqZtcltfspwlFSQCZ65PL5WvkM.jpg"
+    ],
+    "p
