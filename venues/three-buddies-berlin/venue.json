@@ -1,6 +1,7 @@
 {
   "generated_by": "venues/three-buddies-berlin/adapter.py",
   "menu": {
+    "captured_at": "2026-10-11T22:24:13+00:00",
     "currency": "EUR",
     "items": [
       {
@@ -4656,6 +4657,7 @@
   "source": {
     "attribution": "Venue facts, menu and prices (c) Three Buddies, Albrechtstraße 131, 12167 Berlin (Steglitz) — retrieved from the venue's own public JSON API (FoodAmigos storefront). Product images are referenced by URL only and are not copied into this repository.",
     "calls": {
+      "captured_at": "2026-10-11T22:24:13+00:00",
       "company": {
         "bytes": 9251,
         "committed_copy_redacted": true,
@@ -4696,17 +4698,28 @@
       },
       "class": "deep_link_human",
       "class_per_adr": "docs/adr/0007-venue-adapter-interface.md — class 1",
-      "credential_owner": null,
-      "credential_scope": null,
+      "credentials": {
+        "owner": "none",
+        "scope": "the venue's own storefront is public; the CVM holds no credential for this venue"
+      },
       "human_steps": [
         "choose pickup or delivery (and, for delivery, an address)",
         "open the venue's own ordering page at ordering.primary_url",
         "pay the venue on the venue's own rail (card/paypal/cash; 3DS as the venue requires)",
         "a human confirms the order with the venue"
       ],
-      "idempotency_key": null,
-      "order_receipt": "the venue's own confirmation (not machine-readable here)",
-      "payment_authority": "the venue's own rail; this CVM takes no payment (ADR-0001 D5)",
+      "idempotency": {
+        "key": "venue_slug + basket_sha256 + fulfilment + when",
+        "on_duplicate": "the CVM places nothing, so it cannot double-place; the venue's own order record is the authority"
+      },
+      "payment_authority": {
+        "authority": "the human who places the order, on the venue's own rail",
+        "cvm_cap_sats": 0
+      },
+      "receipt": {
+        "durable": "the venue's own record",
+        "form": "the venue's own order confirmation on its own rail (order id)"
+      },
       "why_this_class": "The platform DOES run an online shop for this venue, but no unauthenticated or test-mode path to place an order was found or verified: the storefront's cart and checkout are authenticated, session-bound browser flows (the capture shows Stripe/Google Pay material loaded, and clicking 'Lieferung' opens an address modal). Per ADR-0007 the honest capability set is menu+quote only, with submit/status false."
     },
     "address": {
