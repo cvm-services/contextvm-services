@@ -9,3 +9,4 @@ __pycache__/
 
 # ring test key material is generated locally by tests/gen_keys.py; never committed
 keys.local.json
+.worktrees/
