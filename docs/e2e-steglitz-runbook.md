@@ -20,10 +20,24 @@ main @ `674d1d9`) — anchored records, merged code, one shared venue hasher.
 
 ```bash
 cd ~/repos/contextvm-services
-HEX=$(nak key public < .scratch/three-buddies.nsec)   # server pubkey hex
+# Derive the server pubkey from the venue's ANNOUNCED identity (the NPUB field of
+# its key file). Do NOT scrape the `HEX=` field: in the venue key files `HEX=`
+# holds the SECRET key hex, not the pubkey, and passing it as --server yields
+# `bad point: is not on curve` (a whole session was lost to this on 2026-10-13).
+# The same derivation lives in cvm-registry/tools/capture_menu.py:pubkey_of().
+KEY=~/.hermes/secrets/venues/three-buddies-berlin.nsec
+HEX=$(nak decode "$(sed -n 's/^NPUB=//p' "$KEY" | tr -d '[:space:]')")
+case "$HEX" in *[!0-9a-f]*|"") echo "refusing: could not derive a valid pubkey from $KEY"; exit 1;; esac
+[ "${#HEX}" -eq 64 ] || { echo "refusing: derived pubkey is not 64 hex chars"; exit 1; }
 deno run --allow-net --allow-read --allow-env services/restaurant-cvm/e2e_client.ts \
-  --server $HEX --relay wss://relay2.orangesync.tech --venue three-buddies-berlin --json
+  --server "$HEX" --relay wss://relay.primal.net --venue three-buddies-berlin --json
 ```
+
+Relay note: the **menu** reply is ~146 KB for a 100+ item venue, which is over
+strfry's 64 KiB `maxEventSize` default — use `wss://relay.primal.net` (it accepts
+it) or a relay whose limit has been raised. Small replies (initialize,
+`tools/list`, `order`) are unaffected. See
+`evidence/steglitz-live/FINDING-menu-reply-exceeds-relay-maxEventSize.md`.
 Expected: `all_passed: true`, four checks green, order returns a `basket` with
 `deep_link`. Transcripts already committed:
 `evidence/three-buddies-live-e2e.json`, `evidence/la-mama-live-e2e-post41.json`.
