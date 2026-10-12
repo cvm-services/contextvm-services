@@ -64,3 +64,39 @@ green; 44 of its prices are starting prices and the menu says so).
   so **menu fetches must go via relay2**; order replies fit everywhere.
 - Two instances of one npub on the same relay set = reply races, wrong hashes.
   One unit per identity, nothing manual left running.
+## PWA demo rails (the /order/ + /console/ surfaces) — 2026-10-12
+
+Backend: `cvm-orders` (systemd on testserver2.fips, 127.0.0.1:8788, caddy
+`cvm-pwa.orangesync.tech/api/*`). It prices every order SERVER-SIDE from
+`config/venues.json` — the committed copy of the shipped PWA's `menu.json`.
+
+**Why the pay button answered "order service unavailable":** the backend
+refused `three-buddies-berlin` with `unknown_venue` — the catalog carried only
+the two demo venues. The PWA masks EVERY backend error as that one string, so
+a 400 was undiagnosable from the browser.
+
+Fix (both deployed 2026-10-12):
+1. `cvm-registry` `site/menu.json` re-captured live over relay2 → 3 venues
+   (three-buddies 100, doppelt 76, pizza 112); deployed via `deploy-pwa.sh`.
+2. `cvm-orders` `config/venues.json` regenerated from that menu.json per its
+   own provenance rule → 3 venues; deployed + `systemctl restart cvm-orders`.
+
+Probe (no browser needed — the exact endpoint the pay button posts to):
+```bash
+curl -sS -X POST https://cvm-pwa.orangesync.tech/api/orders -H 'content-type: application/json' \
+  -d '{"venue_slug":"three-buddies-berlin","items":[{"sku":"1052491","qty":1}],"fulfilment":"pickup",
+       "inputs":{"contact.name":"p","contact.phone":"+49","order.notes":"probe"}}'
+# 201 {"id":..., "subtotal":4500, "fee":360, "total":4860}
+```
+
+**Item SKUs:** use the real per-venue SKUs (Three Buddies: 1052491 Curly Fries
+etc.), NOT the demo venue's 33xxxx numbers — the wrong SKU answers
+`unknown_item`.
+
+**Item flow gotcha (bit the Playwright run):** items with required options
+(Three Buddies: sauce + size) open an option screen; the add control is
+`button[data-add]`, not `button[data-basket]`. Select `button[data-sauce]` /
+`button[data-size]` first, then `[data-add]`, then the basket bar appears.
+
+**Store:** in-memory + sqlite on the host; restarting `cvm-orders` empties the
+queue by design.
