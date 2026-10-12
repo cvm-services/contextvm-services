@@ -19,7 +19,7 @@
       "from_priced_count": 0,
       "item_count": 167,
       "max_price": 95,
-      "menu_sha256": "4f7369f1e1c68b0d5de6c00a853cb310f571939b99f491c4f258f07e0945dcaa",
+      "menu_sha256": "920e3aafb826678f2c9c7c752bb31376e26cb58f33ffbbb719e0a220a0594559",
       "min_price": 0.5,
       "priced_methods": [
         "dine_in"
@@ -30,7 +30,7 @@
       "from_priced_count": 0,
       "item_count": 76,
       "max_price": 13,
-      "menu_sha256": "3c2e555327804695637eaf394b9271907ccab7b7d84f9d18f09075023ad13f6f",
+      "menu_sha256": "1cd53a212147c5cd24accfc30aa93e6f709b81a787a66e723d262d067c510c6c",
       "min_price": 0.5,
       "priced_methods": [
         "delivery",
@@ -44,7 +44,7 @@
       "from_priced_count": 0,
       "item_count": 150,
       "max_price": 39.99,
-      "menu_sha256": "e6b65c56926124ebab214f778f3f5d0ad8d1d1760045e7719c97cb9a33f62e93",
+      "menu_sha256": "79ad524e2f37d741a326e2a8a5257c63ba17c1b3ede06bc8c64cf18fe638a584",
       "min_price": 0.8,
       "priced_methods": [
         "dine_in"
@@ -55,7 +55,7 @@
       "from_priced_count": 44,
       "item_count": 104,
       "max_price": 10.5,
-      "menu_sha256": "96e45432f62fe27b3acd66f2e1ac04bec039e6f53a6b6fc1669f617384d05420",
+      "menu_sha256": "a22d5f6ddae715e75a64ee675b4da3310660eb55f54d3d03a107b0961a5e9386",
       "min_price": 1.5,
       "priced_methods": [
         "pickup"
@@ -66,7 +66,7 @@
       "from_priced_count": 0,
       "item_count": 112,
       "max_price": 16.65,
-      "menu_sha256": "df61ba96a6f559cd6143584e54075018459ac3c7b5d95b8f5c21643e1ef5b27f",
+      "menu_sha256": "4107fe9577efb3d64bb31f17d400953a8d7b79a5c491fc35b7bc302e09a89ac2",
       "min_price": 2.7,
       "priced_methods": [
         "pickup"
@@ -77,7 +77,7 @@
       "from_priced_count": 0,
       "item_count": 100,
       "max_price": 18.4,
-      "menu_sha256": "04227abb772ae49a90fc3eb1750e523b60fc98fd990509796677ba099695ffc9",
+      "menu_sha256": "38f4466251fc0fbe53053fea379191191ce128f7da870c3858f859968af58085",
       "min_price": 1.5,
       "priced_methods": [
         "delivery",
