@@ -1,8 +1,28 @@
 # Announcement status — three-buddies-berlin
 
-**STATUS: NOT PUBLISHED.** No live Nostr event exists for this venue. The two
-files that would be published are committed as dry-run evidence only, and both
-carry `"pubkey": null` (nothing is signed without a key).
+**STATUS: PUBLISHED 2026-10-12 (operator-approved).** Live under the venue's
+own key `npub1cdykhpm74g886v5dqjm53e6v3536yy8jc5a4gx7rutreaqnm43uqmmecfn`
+(hex `c3496b877eaa0e7d328d04b748e74c8d23a210f2c53b541bc3e2c79e827bac78`):
+
+- kind 11316 event id `cd628810a2ce1146…` (relays: relay2.orangesync.tech)
+- kind 11317 event id `92745cef42cf7877…` (relays: relay2.orangesync.tech)
+
+Read-back verified via live REQ against `wss://relay2.orangesync.tech`
+(both kinds returned under `authors=[c3496b87…]`). The serving unit is
+`deploy/venue-cvm-server-three-buddies.service`; the key file is
+`~/.hermes/secrets/venues/three-buddies-berlin.nsec` (0600, operator-held).
+Live e2e transcript: `evidence/three-buddies-live-e2e.json` —
+`all_passed: true`, menu sha256 `38f4466251fc==38f4466251fc`, order basket
+total 13.50 EUR over the announced relay set.
+
+**Relay prerequisite found the hard way:** the menu reply is a ~110 KB signed
+event; strfry's defaults (`events.maxEventSize` 65536, `relay.maxWebsocketPayloadSize`
+131072) reject it. `relay2.orangesync.tech` (tollgate-strfry on vps2) was raised
+to `maxEventSize = 262144` and `maxWebsocketPayloadSize = 262144`
+(`/opt/tollgate/strfry/strfry.conf`, backup `strfry.conf.bak-20261012`) —
+note the correct block is top-level `events{}`, NOT inside `relay{}`.
+
+The dry-run evidence files below remain as the pre-publication record.
 
 The venue records are announced the same way the other two venues are: one
 `11316` (server announcement) and one `11317` (tool list) per venue, built by

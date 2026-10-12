@@ -1,0 +1,29 @@
+[Unit]
+Description=ContextVM venue CVM server — three-buddies-berlin (Stage 1: menu + order deep-link handoff)
+Documentation=https://github.com/cvm-services/contextvm-services/blob/main/venues/three-buddies-berlin/README.md
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+# Serves from the production checkout, which now carries the merged main
+# (dab791f: shared venue hasher + anchored three-buddies-berlin record).
+WorkingDirectory=/home/c03rad0r/repos/contextvm-services
+# The ANNOUNCED relay set for three-buddies-berlin (kind-11316 cd628810, npub
+# c3496b877eaa…ac78) is relay2.orangesync.tech; primal is the second announced
+# relay in the 11316 payload's relay list.
+Environment=VENUE_SERVER_RELAYS=wss://relay2.orangesync.tech,wss://relay.primal.net
+# One server instance per announced identity. This unit serves ONLY
+# three-buddies-berlin, signed by its key (c3496b87…).
+Environment=VENUE_SERVER_VENUES=three-buddies-berlin
+# The wrapper reads the venue secret from the 0600 key file into this process
+# only. No key material is stored in this unit.
+Environment=VENUE_SERVER_KEY_FILE=%h/.hermes/secrets/venues/three-buddies-berlin.nsec
+# ExecStart is the production checkout's wrapper: it does `cd "$(dirname "$0")/../.."`,
+# so the served venue records come from the production checkout.
+ExecStart=/home/c03rad0r/repos/contextvm-services/services/restaurant-cvm/run-venue-server.sh
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=default.target

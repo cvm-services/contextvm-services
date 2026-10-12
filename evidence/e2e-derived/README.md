@@ -34,6 +34,7 @@ agree with it (they are the same records), but a fresh run now carries the
 | `la-mama-berlin` | True | total_items=104 venues=["la-mama-berlin"] expected=["la-mama-berlin"]/104 | status=basket lines=2 total=18.5 venue=la-mama-berlin deep_link=https://la-mama-steglitz.de/menu/ |
 | `doppelt-kaese-berlin` | True | total_items=76 venues=["doppelt-kaese-berlin"] expected=["doppelt-kaese-berlin"]/76 | status=basket lines=2 total=15.8 venue=doppelt-kaese-berlin deep_link=https://www.doppelt-kaese-berlin.de/speisekarte/doppeltkase |
 | `pizza-e-pasta-ruedesheimerplatz` | True | total_items=112 venues=["pizza-e-pasta-ruedesheimerplatz"] expected=["pizza-e-pasta-ruedesheimerplatz"]/112 | status=basket lines=2 total=17.1 venue=pizza-e-pasta-ruedesheimerplatz deep_link=https://pizzaepasta-ruedesheimerplatz.de/pizza-e-pasta/takeaway |
+| `three-buddies-berlin` | True | total_items=total_items=100 | status=basket total=13.5 venue=three-buddies-berlin deep_link=https://www.threebuddies.de/speisekarte/threebuddies |
 
 Each transcript also carries the full raw request/response event pair
 (`transcript`), including the gift-wrap envelopes and the signed inner 25910
