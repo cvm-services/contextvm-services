@@ -1,7 +1,7 @@
 # Announcement status — three-buddies-berlin
 
 **STATUS: PUBLISHED 2026-10-12 (operator-approved).** Live under the venue's
-own key `npub1cdykhpm74g886v5dqjm53e6v3536yy8jc5a4gx7rutreaqnm43uqmmecfn`
+own key `npub1cdykhpm74g886v5dqjm53e6v3536yy8jc5a4gx7rutreaqnm43uqxvzvg2`
 (hex `c3496b877eaa0e7d328d04b748e74c8d23a210f2c53b541bc3e2c79e827bac78`):
 
 - kind 11316 event id `cd628810a2ce1146…` (relays: relay2.orangesync.tech)
