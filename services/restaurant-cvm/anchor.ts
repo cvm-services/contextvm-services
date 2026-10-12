@@ -106,6 +106,28 @@ export function servedCatalogueText(projections: ServedVenue[], totalItems: numb
   return canonicalJson({ total_items: totalItems, venues: projections });
 }
 
+/**
+ * The text that is hashed for ONE venue: the venue's WHOLE served projection,
+ * wrapped exactly like a one-venue catalogue.
+ *
+ * This wrapper is the point. The per-venue hash used to be
+ * `sha256(canonicalJson(projection))` — the BARE projection — while the e2e
+ * client compared it against `sha256(servedCatalogueText([reply], total))` — the
+ * WRAPPED form. The two objects are structurally different, so the client's
+ * per-venue comparison could never pass, no matter how correct the record was;
+ * and because the catalogue-level check wraps the same way on both sides, the
+ * suite stayed green and hid it. Both the generator and the client now call THIS
+ * function, so a venue hash cannot be built two ways again.
+ */
+export function servedVenueText(projection: ServedVenue): string {
+  return servedCatalogueText([projection], projection.item_count);
+}
+
+/** sha256 over `servedVenueText` — the one way a venue's hash is computed. */
+export async function servedVenueHash(projection: ServedVenue): Promise<string> {
+  return await sha256Hex(servedVenueText(projection));
+}
+
 /** Build the anchor for a served venue set (pure over the loaded venues). */
 export async function buildAnchor(venues: Venue[]): Promise<Anchor> {
   const sorted = [...venues].sort((a, b) => a.slug.localeCompare(b.slug));
@@ -124,7 +146,7 @@ export async function buildAnchor(venues: Venue[]): Promise<Anchor> {
       min_price: projection.min_price,
       max_price: projection.max_price,
       captured_at: projection.captured_at,
-      menu_sha256: await sha256Hex(canonicalJson(projection)),
+      menu_sha256: await servedVenueHash(projection),
     };
   }
 

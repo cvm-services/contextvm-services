@@ -32,6 +32,7 @@ import {
   readAnchor,
   readVenueRaw,
   servedCatalogueText,
+  servedVenueHash,
   sha256Hex,
 } from "./anchor.ts";
 import { Relay } from "npm:nostr-tools";
@@ -1085,7 +1086,7 @@ Deno.test("the LIVE served menu equals the committed anchor: counts, price bound
     if (!expected) {
       throw new Error(`venue '${served.venue_slug}' was served but is not in the committed anchor`);
     }
-    const venueHash = await sha256Hex(canonicalJson(served));
+    const venueHash = await servedVenueHash(served as never);
     const problems: string[] = [];
     if (served.item_count !== expected.item_count) problems.push(`item_count ${served.item_count} != ${expected.item_count}`);
     if (served.from_priced_count !== expected.from_priced_count) {

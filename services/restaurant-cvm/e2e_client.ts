@@ -55,7 +55,7 @@ import {
   nip44,
 } from "npm:nostr-tools";
 import { Relay } from "npm:nostr-tools/relay";
-import { canonicalJson, readAnchor, servedCatalogueText, sha256Hex } from "./anchor.ts";
+import { canonicalJson, readAnchor, servedCatalogueText, servedVenueText, sha256Hex } from "./anchor.ts";
 import { loadVenues, type Venue } from "./server.ts";
 
 const CTXVM_MESSAGES_KIND = 25910;
@@ -173,6 +173,16 @@ export async function expectedCatalogue(slugs: string[]): Promise<{
     ? anchor.venues[slugs[0]].menu_sha256
     : anchor.menu_sha256;
   return { total, sha256, detail: `anchor(${slugs.join(",")})=${total}/${sha256.slice(0, 12)}` };
+}
+
+/**
+ * The client's check: the LIVE reply's venues, hashed the ONE way a venue hash
+ * is computed (`servedVenueText` in anchor.ts, also used by the anchor
+ * generator). For a single-venue scope this must equal that venue's committed
+ * `menu_sha256` — asserted by the round-trip test in e2e_client_test.ts.
+ */
+export async function servedVenueReplyHash(venue: unknown): Promise<string> {
+  return await sha256Hex(servedVenueText(venue as never));
 }
 
 /** sha256 of what the server actually replied, in the anchor's canonical form. */
