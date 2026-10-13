@@ -147,22 +147,25 @@ def build_record() -> dict:
         })
         for pid in prod_ids:
             p = products[str(pid)]
+            # canonical item shape: `price` (primary EUR column) plus
+            # `prices_by_order_method` when the venue publishes per-method
+            # columns. FoodAmigos `base_price` is the dine-in/base column and
+            # `order_method_prices` (when set) carries per-method overrides —
+            # same convention the three-buddies adapter publishes.
             price = p.get("base_price")
             omp = p.get("order_method_prices") or {}
-            pickup_price = None
-            # order_method_prices may be a dict keyed by method with price fields
-            if isinstance(omp, dict):
-                for k, v in omp.items():
-                    if "pickup" in str(k).lower() and isinstance(v, (int, float)):
-                        pickup_price = v
+            prices_by_method = None
+            if isinstance(omp, dict) and omp:
+                prices_by_method = {str(k): v for k, v in omp.items() if isinstance(v, (int, float))}
             items.append({
-                "id": int(pid),
+                "id": str(pid),
+                "sku": str(pid),
                 "section_id": int(cid),
                 "name": p.get("name"),
                 "description": p.get("description"),
                 "currency": "EUR",
-                "base_price": price,
-                "pickup_price": pickup_price,
+                "price": price,
+                **({"prices_by_order_method": prices_by_method} if prices_by_method else {}),
                 "available": p.get("available") if p.get("available") is not None else True,
                 "option_group_ids": [g.get("id") for g in (p.get("modifier_groups") or [])] if isinstance(p.get("modifier_groups"), list) else [],
             })
@@ -211,6 +214,41 @@ def build_record() -> dict:
                 "menus_company_id": CONFIG["company_id"],
                 "match": comp.get("id") == CONFIG["company_id"],
             },
+            "order_methods": [
+                m for m, on in (
+                    ("pickup", comp.get("has_pickup")),
+                    ("delivery", comp.get("has_delivery")),
+                ) if on
+            ],
+            "adapter": {
+                "browser_automation_used": False,
+                "capabilities": {"menu": True, "quote": True, "status": False, "submit": False},
+                "class": "deep_link_human",
+                "class_per_adr": "docs/adr/0007-venue-adapter-interface.md — class 1",
+                "credentials": {
+                    "owner": "none",
+                    "scope": "the venue's own storefront is public; the CVM holds no credential for this venue and authenticates nothing (ADR-0007 class 1)",
+                },
+                "human_steps": [
+                    "choose pickup or delivery (and, for delivery, an address)",
+                    "open the venue's own ordering page at ordering.primary_url",
+                    "pay the venue on the venue's own rail (card/paypal/cash; 3DS as the venue requires)",
+                    "a human confirms the order with the venue",
+                ],
+                "idempotency": {
+                    "detail": "the CVM mints no order id because it places no order; the human placing the order is the point of idempotency",
+                    "key": "venue_slug + basket_sha256 + fulfilment + when",
+                },
+                "payment_authority": {
+                    "authority": "the venue's own rail; this CVM takes no payment (ADR-0001 D5)",
+                    "detail": "the customer pays the venue directly on the venue's own rail; no payment is routed through the CVM",
+                },
+                "receipt": {
+                    "form": "the venue's own confirmation (not machine-readable here)",
+                    "machine_readable": False,
+                },
+                "why_this_class": "Same FoodAmigos platform as three-buddies-berlin: the storefront runs an online shop but the cart and checkout are authenticated, session-bound browser flows with no unauthenticated or test-mode order path. Per ADR-0007 the honest capability set is menu+quote only, with submit/status false.",
+            },
             "pickup": {"supported": bool(comp.get("has_pickup"))},
             "delivery": {"supported": bool(comp.get("has_delivery"))},
             "ratings": {
@@ -247,7 +285,7 @@ def build_record() -> dict:
             "calls": {name: {"url": url} for name, url in EVIDENCE_FILES.items()},
         },
     }
-    prices = [i["base_price"] for i in items if isinstance(i.get("base_price"), (int, float))]
+    prices = [i["price"] for i in items if isinstance(i.get("price"), (int, float))]
     record["menu"]["stats"] = {
         "item_count": len(items),
         "section_count": len(sections),

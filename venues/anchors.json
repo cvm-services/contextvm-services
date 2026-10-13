@@ -1,6 +1,6 @@
 {
   "generated_by": "venues/tools/menu_anchors.ts",
-  "menu_sha256": "815a0d086d09f10948c8481c17373743a4da3f5d346e4f0cc52e3c725c043415",
+  "menu_sha256": "f3cf98ad9c7982688ee3399ac69bb3db441e01b695133c564e0b6dbb25615636",
   "note": "Committed expectation for the SERVED menu contract. The tests and the e2e client compare the LIVE reply against this file; `venues/` is compared against it separately as a drift guard. A change here is the visible review gate for onboarding or re-capturing a venue (data, never code).",
   "regenerate": "deno run --allow-read --allow-write venues/tools/menu_anchors.ts --write",
   "schema": "venue-menu-anchor/1",
@@ -10,9 +10,10 @@
     "doreedos-steakhaus-berlin",
     "la-mama-berlin",
     "pizza-e-pasta-ruedesheimerplatz",
+    "ristorante-matera-berlin",
     "three-buddies-berlin"
   ],
-  "total_items": 709,
+  "total_items": 805,
   "venues": {
     "chandi-berlin": {
       "captured_at": "2026-10-10T08:05:05+00:00",
@@ -70,6 +71,20 @@
       "min_price": 2.7,
       "priced_methods": [
         "pickup"
+      ]
+    },
+    "ristorante-matera-berlin": {
+      "captured_at": "2026-10-13T13:11:14Z",
+      "from_priced_count": 0,
+      "item_count": 96,
+      "max_price": 31.5,
+      "menu_sha256": "ba1324a34e4198ee1b6344968cf9f916cdc7ad9363a97b807a32de42951e8392",
+      "min_price": 6.5,
+      "priced_methods": [
+        "delivery",
+        "dine_in",
+        "pickup",
+        "room_service"
       ]
     },
     "three-buddies-berlin": {
