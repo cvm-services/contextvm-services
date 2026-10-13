@@ -10,3 +10,6 @@ __pycache__/
 # ring test key material is generated locally by tests/gen_keys.py; never committed
 keys.local.json
 .worktrees/
+# Recon artifacts may contain live invoice/payment links — never commit them.
+/tmp/2fiat-*.json
+/services/fiat-cvm/tools/*-recon.json
