@@ -47,12 +47,17 @@ async function openBaoToken(opts: LoadOptions): Promise<string | null> {
     const home = env("HOME") ?? "";
     const f = opts.baoEnvFile ?? `${home}/.hermes/openbao/env`;
     const text = await read(f);
-    for (const line of text.split("\n")) {
-      const m = /^([A-Z_]+)=(.*)$/.exec(line.trim());
+    for (const raw of text.split("\n")) {
+      // The fleet's file is valid SHELL: lines read `export NAME=value`. Accept
+      // the optional `export ` prefix — without it the whole file parses to
+      // nothing and the loader reports "no token" against a perfectly good vault.
+      const line = raw.trim().replace(/^export\s+/, "");
+      const m = /^([A-Z_][A-Z0-9_]*)=(.*)$/.exec(line);
       if (!m) continue;
-      if (m[1] === "OPENBAO_ADDR" && !addr) addr = m[2];
-      if (m[1] === "OPENBAO_ROLE_ID_FILE") roleId ||= (await read(m[2]));
-      if (m[1] === "OPENBAO_SECRET_ID_FILE") secretId ||= (await read(m[2]));
+      const value = m[2].replace(/^["']|["']$/g, "");
+      if (m[1] === "OPENBAO_ADDR" && !addr) addr = value;
+      if (m[1] === "OPENBAO_ROLE_ID_FILE") roleId ||= (await read(value));
+      if (m[1] === "OPENBAO_SECRET_ID_FILE") secretId ||= (await read(value));
     }
   }
   if (!addr || !roleId || !secretId) return null;

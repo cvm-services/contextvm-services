@@ -21,6 +21,31 @@ function fakeBao(token: string | null, opts: { loginFails?: boolean; readFails?:
   return { fn, calls };
 }
 
+Deno.test("the real ~/.hermes/openbao/env shape parses (it uses `export NAME=value`)", async () => {
+  // Regression: a parser that required the line to START with the name parsed
+  // the fleet's file to nothing, so a perfectly reachable vault reported
+  // "no token". The file is valid shell with an `export ` prefix.
+  const dir = await Deno.makeTempDir();
+  const roleFile = `${dir}/role-id`;
+  const secretFile = `${dir}/secret-id`;
+  await Deno.writeTextFile(roleFile, "role-abc\n");
+  await Deno.writeTextFile(secretFile, "secret-xyz\n");
+  const envFile = `${dir}/env`;
+  await Deno.writeTextFile(
+    envFile,
+    `export OPENBAO_ADDR=http://bao.test:8200\nexport OPENBAO_ROLE_ID_FILE=${roleFile}\nexport OPENBAO_SECRET_ID_FILE=${secretFile}\n`,
+  );
+
+  const { fn } = fakeBao(TOKEN);
+  const s = await loadFiatSecret({
+    env: () => undefined,
+    baoEnvFile: envFile,
+    fetchImpl: fn,
+  });
+  assertEquals(s.source, "openbao");
+  assertEquals(s.token, TOKEN);
+});
+
 Deno.test("the environment wins — that is the systemd EnvironmentFile path", async () => {
   const s = await loadFiatSecret({
     env: (n) => (n === "TWO_FIAT_TOKEN" ? TOKEN : undefined),

@@ -14,6 +14,12 @@ set -euo pipefail
 
 cd "$(dirname "$0")/../.."
 
+# A systemd SYSTEM unit does not set $HOME, and the AppRole fallback needs it to
+# locate ~/.hermes/openbao/env (secret.ts reads $HOME). Derive it from the
+# account database rather than trusting the environment.
+export HOME="${HOME:-$(getent passwd "$(id -u)" | cut -d: -f6)}"
+[ -n "$HOME" ] || { echo "[run-fiat-server] cannot determine HOME" >&2; exit 1; }
+
 KEY_FILE="${FIAT_SERVER_KEY_FILE:-$HOME/.hermes/secrets/venues/fiat-cvm.nsec}"
 RELAYS="${FIAT_SERVER_RELAYS:-wss://relay2.orangesync.tech,wss://relay.primal.net}"
 ALLOWLIST="${FIAT_PAY_ALLOWLIST:-}"
