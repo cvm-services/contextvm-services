@@ -135,11 +135,22 @@ def build_record() -> dict:
     sections = []
     items = []
     option_groups = {}
+    seen_product_ids: set[str] = set()
     # keep insertion order stable: sort categories by sorting_order then id
     for cid, cat in sorted(cats.items(), key=lambda kv: (kv[1].get("sorting_order") or 0, int(kv[0]))):
+        # `most_popular` is a CROSS-LISTING, not a real menu section: its
+        # product_ids also appear in the categories they belong to. Emitting it
+        # duplicated those products and the fleet suite caught it (a sku must
+        # identify exactly one item). Skip the section, keep the products where
+        # they really live.
+        if str(cat.get("type") or "").lower() in ("most_popular", "popular"):
+            continue
         prod_ids = [pid for pid in cat.get("product_ids", []) if str(pid) in products]
+        # dedupe across sections: first listing wins
+        prod_ids = [pid for pid in prod_ids if str(pid) not in seen_product_ids]
         if not prod_ids:
             continue
+        seen_product_ids.update(str(pid) for pid in prod_ids)
         sections.append({
             "id": int(cid),
             "name": cat.get("name"),

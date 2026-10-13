@@ -1,247 +1,9 @@
 {
   "generated_by": "contextvm-services venue adapter (ristorante-matera-berlin)",
   "menu": {
-    "captured_at": "2026-10-13T13:11:14Z",
+    "captured_at": "2026-10-13T15:10:58Z",
     "currency": "EUR",
     "items": [
-      {
-        "available": true,
-        "currency": "EUR",
-        "description": null,
-        "id": "422081",
-        "name": "Pizza Margherita",
-        "option_group_ids": [],
-        "price": 9,
-        "prices_by_order_method": {
-          "delivery": 9,
-          "dine_in": 9,
-          "pickup": 9,
-          "room_service": 9
-        },
-        "section_id": 63932,
-        "sku": "422081"
-      },
-      {
-        "available": true,
-        "currency": "EUR",
-        "description": "mit Salami",
-        "id": "422082",
-        "name": "Pizza Salame",
-        "option_group_ids": [],
-        "price": 11,
-        "prices_by_order_method": {
-          "delivery": 11,
-          "dine_in": 11,
-          "pickup": 11,
-          "room_service": 11
-        },
-        "section_id": 63932,
-        "sku": "422082"
-      },
-      {
-        "available": true,
-        "currency": "EUR",
-        "description": "mit Parmaschinken, Rucola und Parmesan",
-        "id": "422086",
-        "name": "Pizza Matera",
-        "option_group_ids": [],
-        "price": 14.5,
-        "prices_by_order_method": {
-          "delivery": 14.5,
-          "dine_in": 14.5,
-          "pickup": 14.5,
-          "room_service": 14.5
-        },
-        "section_id": 63932,
-        "sku": "422086"
-      },
-      {
-        "available": true,
-        "currency": "EUR",
-        "description": "mit pikanter italienischer Salami",
-        "id": "422084",
-        "name": "Pizza Calabrese (pikant)",
-        "option_group_ids": [],
-        "price": 13,
-        "prices_by_order_method": {
-          "delivery": 13,
-          "dine_in": 13,
-          "pickup": 13,
-          "room_service": 13
-        },
-        "section_id": 63932,
-        "sku": "422084"
-      },
-      {
-        "available": true,
-        "currency": "EUR",
-        "description": "mit Thunfisch und Zwiebeln",
-        "id": "422085",
-        "name": "Pizza Tonno e Cipolla",
-        "option_group_ids": [],
-        "price": 12.5,
-        "prices_by_order_method": {
-          "delivery": 12.5,
-          "dine_in": 12.5,
-          "pickup": 12.5,
-          "room_service": 12.5
-        },
-        "section_id": 63932,
-        "sku": "422085"
-      },
-      {
-        "available": true,
-        "currency": "EUR",
-        "description": "2x Tomaten, 2 x Thunfisch",
-        "id": "422124",
-        "name": "Bruschetta 4 Stk.",
-        "option_group_ids": [],
-        "price": 6.5,
-        "prices_by_order_method": {
-          "delivery": 6.5,
-          "dine_in": 6.5,
-          "pickup": 6.5,
-          "room_service": 6.5
-        },
-        "section_id": 63932,
-        "sku": "422124"
-      },
-      {
-        "available": true,
-        "currency": "EUR",
-        "description": "mit Großgarnelen",
-        "id": "422087",
-        "name": "Pizza Scampi",
-        "option_group_ids": [],
-        "price": 15.5,
-        "prices_by_order_method": {
-          "delivery": 15.5,
-          "dine_in": 15.5,
-          "pickup": 15.5,
-          "room_service": 15.5
-        },
-        "section_id": 63932,
-        "sku": "422087"
-      },
-      {
-        "available": true,
-        "currency": "EUR",
-        "description": "mit Großgarnelen",
-        "id": "431346",
-        "name": "Pizza Scampi",
-        "option_group_ids": [],
-        "price": 12,
-        "prices_by_order_method": {
-          "delivery": 12,
-          "dine_in": 12,
-          "pickup": 12,
-          "room_service": 12
-        },
-        "section_id": 63936,
-        "sku": "431346"
-      },
-      {
-        "available": true,
-        "currency": "EUR",
-        "description": "mit Speck, Ei, Sahnesauce und Parmesan",
-        "id": "431350",
-        "name": "Spaghetti Carbonara",
-        "option_group_ids": [],
-        "price": 12,
-        "prices_by_order_method": {
-          "delivery": 12,
-          "dine_in": 12,
-          "pickup": 12,
-          "room_service": 12
-        },
-        "section_id": 63936,
-        "sku": "431350"
-      },
-      {
-        "available": true,
-        "currency": "EUR",
-        "description": "mit Filetspitzen, Zucchini, frischen Tomaten und Basilikum",
-        "id": "431359",
-        "name": "Tagliatelle dello Chef",
-        "option_group_ids": [],
-        "price": 12,
-        "prices_by_order_method": {
-          "delivery": 12,
-          "dine_in": 12,
-          "pickup": 12,
-          "room_service": 12
-        },
-        "section_id": 63936,
-        "sku": "431359"
-      },
-      {
-        "available": true,
-        "currency": "EUR",
-        "description": "mit Lachswürfeln und Hummer-Sahnesauce",
-        "id": "431353",
-        "name": "Tagliatelle al Salmone",
-        "option_group_ids": [],
-        "price": 12,
-        "prices_by_order_method": {
-          "delivery": 12,
-          "dine_in": 12,
-          "pickup": 12,
-          "room_service": 12
-        },
-        "section_id": 63936,
-        "sku": "431353"
-      },
-      {
-        "available": true,
-        "currency": "EUR",
-        "description": "mit Gorgonzola, Spinat und Walnüssen",
-        "id": "431347",
-        "name": "Pizza Spinaci",
-        "option_group_ids": [],
-        "price": 12,
-        "prices_by_order_method": {
-          "delivery": 12,
-          "dine_in": 12,
-          "pickup": 12,
-          "room_service": 12
-        },
-        "section_id": 63936,
-        "sku": "431347"
-      },
-      {
-        "available": true,
-        "currency": "EUR",
-        "description": "mit Thunfisch und Zwiebeln",
-        "id": "431344",
-        "name": "Pizza Tonno e Cipolla",
-        "option_group_ids": [],
-        "price": 12,
-        "prices_by_order_method": {
-          "delivery": 12,
-          "dine_in": 12,
-          "pickup": 12,
-          "room_service": 12
-        },
-        "section_id": 63936,
-        "sku": "431344"
-      },
-      {
-        "available": true,
-        "currency": "EUR",
-        "description": "mit Knoblauch und Olivenöl",
-        "id": "431348",
-        "name": "Spaghetti Aglio e Olio",
-        "option_group_ids": [],
-        "price": 12,
-        "prices_by_order_method": {
-          "delivery": 12,
-          "dine_in": 12,
-          "pickup": 12,
-          "room_service": 12
-        },
-        "section_id": 63936,
-        "sku": "431348"
-      },
       {
         "available": true,
         "currency": "EUR",
@@ -3201,16 +2963,6 @@
     ],
     "sections": [
       {
-        "id": 63932,
-        "name": "Am Beliebtesten",
-        "sorting_order": -1
-      },
-      {
-        "id": 63936,
-        "name": "Am Beliebtesten",
-        "sorting_order": -1
-      },
-      {
         "id": 54265,
         "name": "Vorspeisen",
         "sorting_order": 0
@@ -3267,10 +3019,10 @@
       }
     ],
     "stats": {
-      "item_count": 96,
+      "item_count": 82,
       "price_max_eur": 38.5,
       "price_min_eur": 6,
-      "section_count": 13
+      "section_count": 11
     }
   },
   "schema": "cvm.venue/v1",
