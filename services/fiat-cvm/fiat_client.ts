@@ -91,6 +91,8 @@ export class FiatClient {
   readonly #token: string;
   readonly #base: string;
   readonly #fetch: typeof fetch;
+  /** Session cookie captured from auth/exchange; fetch has no cookie jar. */
+  #cookie: string | null = null;
 
   constructor(opts: FiatClientOptions) {
     if (!opts.token || !opts.token.trim()) {
@@ -101,14 +103,20 @@ export class FiatClient {
     this.#fetch = opts.fetchImpl ?? fetch;
   }
 
+  get sessionEstablished(): boolean {
+    return this.#cookie !== null;
+  }
+
   #headers(): HeadersInit {
-    return {
+    const h: Record<string, string> = {
       "content-type": "application/json",
       "accept": "application/json",
       // Both are required by the edge; without them the connection is dropped.
       "user-agent": BROWSER_UA,
       "ngrok-skip-browser-warning": "5000",
     };
+    if (this.#cookie) h["cookie"] = this.#cookie;
+    return h;
   }
 
   /** Exchange the wallet login token for a session (the app's first call). */
@@ -119,11 +127,23 @@ export class FiatClient {
       body: JSON.stringify({ token: this.#token, nextPath }),
     });
     if (!res.ok) throw new FiatError("2fiat auth/exchange refused", res.status);
+    // Deno's fetch does not persist cookies; the session IS the auth, so the
+    // cookie must be carried explicitly or every later call 401s.
+    const setCookie = res.headers.get("set-cookie");
+    if (setCookie) {
+      this.#cookie = setCookie.split(";")[0];
+    }
+  }
+
+  /** Log in on first use, then reuse the session. */
+  async ensureSession(): Promise<void> {
+    if (!this.#cookie) await this.login();
   }
 
   async cards(): Promise<Card[]> {
+    await this.ensureSession();
     const res = await this.#fetch(`${this.#base}/api/v1/cards`, { headers: this.#headers() });
-    if (!res.ok) throw new FiatError("2fiat cards unavailable", res.status);
+    if (!res.ok) throw new FiatError(`2fiat cards unavailable (HTTP ${res.status})`, res.status);
     const body = await res.json() as RawCard[] | { data?: RawCard[] };
     const rows = Array.isArray(body) ? body : (body.data ?? []);
     return rows.map(normaliseCard);

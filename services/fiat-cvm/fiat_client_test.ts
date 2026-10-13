@@ -11,9 +11,12 @@ function stubFetch(routes: Record<string, { status?: number; body?: unknown }>) 
     seen.push({ url, init });
     for (const [needle, reply] of Object.entries(routes)) {
       if (url.includes(needle)) {
+        const headers: Record<string, string> = { "content-type": "application/json" };
+        // auth/exchange establishes the session cookie (fetch has no cookie jar)
+        if (url.includes("auth/exchange")) headers["set-cookie"] = "SESSION=abc123; Path=/; HttpOnly";
         return Promise.resolve(new Response(JSON.stringify(reply.body ?? {}), {
           status: reply.status ?? 200,
-          headers: { "content-type": "application/json" },
+          headers,
         }));
       }
     }
@@ -21,6 +24,33 @@ function stubFetch(routes: Record<string, { status?: number; body?: unknown }>) 
   };
   return { fn: fn as unknown as typeof fetch, seen };
 }
+
+Deno.test("cards() logs in first and carries the session cookie (no cookie jar in fetch)", async () => {
+  const { fn, seen } = stubFetch({ "auth/exchange": { body: {} }, "/api/v1/cards": { body: [] } });
+  const c = new FiatClient({ token: TOKEN, fetchImpl: fn });
+  assertEquals(c.sessionEstablished, false);
+  await c.cards();
+  assertEquals(c.sessionEstablished, true, "cards() must establish the session");
+  assertEquals(seen.length, 2, "exchange then cards");
+  const cardsCall = seen[seen.length - 1];
+  const h = cardsCall.init?.headers as Record<string, string>;
+  assertEquals(h["cookie"], "SESSION=abc123", "the session cookie must be sent or cards 401s");
+});
+
+Deno.test("a second call reuses the session instead of re-exchanging", async () => {
+  const { fn, seen } = stubFetch({ "auth/exchange": { body: {} }, "/api/v1/cards": { body: [] } });
+  const c = new FiatClient({ token: TOKEN, fetchImpl: fn });
+  await c.cards();
+  await c.cards();
+  const exchanges = seen.filter((s) => s.url.includes("auth/exchange")).length;
+  assertEquals(exchanges, 1, "one exchange per client, not one per call");
+});
+
+Deno.test("a failed cards call reports the HTTP status", async () => {
+  const { fn } = stubFetch({ "auth/exchange": { body: {} }, "/api/v1/cards": { status: 401, body: {} } });
+  const c = new FiatClient({ token: TOKEN, fetchImpl: fn });
+  await assertRejects(() => c.cards(), FiatError, "HTTP 401");
+});
 
 Deno.test("every request carries a browser UA and the ngrok header (the edge drops non-browsers)", async () => {
   const { fn, seen } = stubFetch({ "/api/v1/auth/exchange": { body: { ok: true } }, "/api/v1/cards": { body: [] } });
