@@ -1,14 +1,18 @@
-import { assertEquals, assertRejects, assertThrows } from "https://deno.land/std@0.224.0/assert/mod.ts";
+import { assert, assertEquals, assertRejects, assertThrows } from "https://deno.land/std@0.224.0/assert/mod.ts";
 import { BROWSER_UA, FiatClient, FiatError, normaliseCard } from "./fiat_client.ts";
 
 const TOKEN = "token1testonlynotarealtoken";
 
 /** Records what the client sent, so we can assert the transport contract. */
-function stubFetch(routes: Record<string, { status?: number; body?: unknown }>) {
+function stubFetch(
+  routes: Record<string, { status?: number; body?: unknown }>,
+  opts: { cookie?: string; onRequest?: (url: string, init?: RequestInit) => void } = {},
+) {
   const seen: { url: string; init?: RequestInit }[] = [];
   const fn = (input: string | URL | Request, init?: RequestInit) => {
     const url = String(input);
     seen.push({ url, init });
+    opts.onRequest?.(url, init);
     for (const [needle, reply] of Object.entries(routes)) {
       if (url.includes(needle)) {
         const headers: Record<string, string> = { "content-type": "application/json" };
@@ -24,6 +28,39 @@ function stubFetch(routes: Record<string, { status?: number; body?: unknown }>) 
   };
   return { fn: fn as unknown as typeof fetch, seen };
 }
+
+Deno.test("every request is bounded by a timeout — a blocked 2fiat must not hang the CVM", async () => {
+  // Observed in production: 2fiat's edge timed out at the TCP level and the CVM
+  // hung indefinitely instead of reporting an error, because fetch was called
+  // with no signal. A hung tool call is worse than a failed one: the console
+  // shows nothing and the operator cannot tell whether money moved.
+  let sawSignal = false;
+  const { fn } = stubFetch({ "auth/exchange": { body: {} }, "/api/v1/cards": { body: [] } }, {
+    onRequest: (_url, init) => {
+      if (init?.signal) sawSignal = true;
+    },
+  });
+  const client = new FiatClient({ token: "token1abc", fetchImpl: fn, timeoutMs: 50 });
+  await client.cards();
+  assertEquals(sawSignal, true, "fetch must be called with an AbortSignal");
+});
+
+Deno.test("a request that never resolves fails loudly at the timeout, not silently", async () => {
+  // A relay/server that accepts the connection and then says nothing.
+  const hanging: typeof fetch = (_input, init) =>
+    new Promise((_resolve, reject) => {
+      init?.signal?.addEventListener("abort", () => reject(new DOMException("aborted", "AbortError")));
+    });
+  const client = new FiatClient({ token: "token1abc", fetchImpl: hanging, timeoutMs: 40 });
+  let err: unknown = null;
+  try {
+    await client.login();
+  } catch (e) {
+    err = e;
+  }
+  assert(err instanceof FiatError, "must surface a FiatError, not hang");
+  assert(String((err as Error).message).toLowerCase().includes("tim"), "the message must name the timeout");
+});
 
 Deno.test("cards() logs in first and carries the session cookie (no cookie jar in fetch)", async () => {
   const { fn, seen } = stubFetch({ "auth/exchange": { body: {} }, "/api/v1/cards": { body: [] } });

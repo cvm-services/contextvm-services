@@ -22,6 +22,9 @@
 
 export const DEFAULT_BASE_URL = "https://2fiat.com";
 
+/** Bounded so a silent 2fiat edge cannot hang the CVM (observed 2026-10-13). */
+export const DEFAULT_TIMEOUT_MS = 20_000;
+
 /** A browser-like UA is REQUIRED by the edge; the default curl UA is dropped. */
 export const BROWSER_UA =
   "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0 Safari/537.36";
@@ -54,6 +57,13 @@ export class FiatError extends Error {
 }
 
 export interface FiatClientOptions {
+  /**
+   * Milliseconds before a request is aborted. Observed in production: when
+   * 2fiat's edge stopped answering (TCP-level block), the CVM hung forever
+   * instead of failing, because fetch was called with no signal — the operator
+   * saw an empty tool reply and could not tell whether money had moved.
+   */
+  timeoutMs?: number;
   token: string;
   baseUrl?: string;
   /** injectable for tests */
@@ -91,6 +101,7 @@ export class FiatClient {
   readonly #token: string;
   readonly #base: string;
   readonly #fetch: typeof fetch;
+  readonly #timeoutMs: number;
   /** Session cookie captured from auth/exchange; fetch has no cookie jar. */
   #cookie: string | null = null;
 
@@ -101,6 +112,34 @@ export class FiatClient {
     this.#token = opts.token.trim();
     this.#base = (opts.baseUrl ?? DEFAULT_BASE_URL).replace(/\/+$/, "");
     this.#fetch = opts.fetchImpl ?? fetch;
+    this.#timeoutMs = opts.timeoutMs ?? DEFAULT_TIMEOUT_MS;
+  }
+
+  /**
+   * Every request goes through here, so no call can hang forever.
+   *
+   * A hung tool call is the worst failure mode for a money tool: the console
+   * shows nothing and the operator cannot tell whether the payment went through.
+   * A timeout surfaces as a FiatError naming the timeout, which the UI can show.
+   */
+  async #request(path: string, init: RequestInit = {}): Promise<Response> {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), this.#timeoutMs);
+    try {
+      return await this.#fetch(`${this.#base}/api/v1/${path}`, {
+        ...init,
+        signal: controller.signal,
+      });
+    } catch (e) {
+      if (controller.signal.aborted || (e as Error)?.name === "AbortError") {
+        throw new FiatError(
+          `2fiat timed out after ${this.#timeoutMs}ms (${path}) — the request was aborted, so it did NOT complete`,
+        );
+      }
+      throw e;
+    } finally {
+      clearTimeout(timer);
+    }
   }
 
   get sessionEstablished(): boolean {
@@ -121,7 +160,7 @@ export class FiatClient {
 
   /** Exchange the wallet login token for a session (the app's first call). */
   async login(nextPath = "/wallet/my-cards"): Promise<void> {
-    const res = await this.#fetch(`${this.#base}/api/v1/auth/exchange`, {
+    const res = await this.#request("auth/exchange", {
       method: "POST",
       headers: this.#headers(),
       body: JSON.stringify({ token: this.#token, nextPath }),
@@ -142,7 +181,7 @@ export class FiatClient {
 
   async cards(): Promise<Card[]> {
     await this.ensureSession();
-    const res = await this.#fetch(`${this.#base}/api/v1/cards`, { headers: this.#headers() });
+    const res = await this.#request("cards", { headers: this.#headers() });
     if (!res.ok) throw new FiatError(`2fiat cards unavailable (HTTP ${res.status})`, res.status);
     const body = await res.json() as RawCard[] | { data?: RawCard[] };
     const rows = Array.isArray(body) ? body : (body.data ?? []);
