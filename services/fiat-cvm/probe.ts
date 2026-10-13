@@ -77,7 +77,11 @@ await new Promise((res) => setTimeout(res, 2500));
 await send(r, { jsonrpc: "2.0", id: "2", method: "tools/list" }, "tools/list");
 await new Promise((res) => setTimeout(res, 2500));
 await send(r, { jsonrpc: "2.0", id: "3", method: "tools/call", params: { name: tool, arguments: tool === "quote" ? { amount: 10 } : (tool === "status" ? { card_id: "" } : {}) } }, "call");
-await new Promise((res) => setTimeout(res, 4000));
+// Must exceed the client's 20s request bound, or a timeout is indistinguishable
+// from a hang — the exact confusion this probe exists to remove.
+const waitMs = Number(Deno.env.get("PROBE_WAIT_MS") ?? 25000);
+console.log(`\n(waiting up to ${waitMs}ms for the tool reply — the client bound is 20s)`);
+await new Promise((res) => setTimeout(res, waitMs));
 
 console.log("\n=== replies ===");
 for (const [id, v] of Object.entries(results)) console.log(id, JSON.stringify(v).slice(0, 600));
