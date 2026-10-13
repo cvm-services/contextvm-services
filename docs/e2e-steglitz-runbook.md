@@ -10,6 +10,8 @@ HUMAN part of the human-handoff test: pick a venue, order by hand, collect.
 |---|---|---|---|---|
 | **Three Buddies** (Albrechtstr. 131, 12167) | `npub1cdykhpm74g886v5dqjm53e6v3536yy8jc5a4gx7rutreaqnm43uqxvzvg2` | relay2.orangesync.tech, relay.primal.net | `venue-cvm-server-three-buddies.service` | **all_passed: True** (menu 100 items, hash 38f4466251fc, basket 13.50 EUR) |
 | **La Mama Steglitz** | `npub1nlet55u0h2xvdskr0j833s0ek5m6mj0pz4ykf8fkrkhzx8v8uchqxnw0zd` | relay2.orangesync.tech, relay.primal.net | `venue-cvm-server-la-mama.service` | **all_passed: True** (menu 104 items, hash a22d5f6ddae7, basket 18.50 EUR) |
+> **Hosting (2026-10-13):** all venue CVM units now run on **x280** (`venue-cvm-server-<slug>.service`, installed by `deploy/install-venue-cvm-units.sh`, keys at `~/.hermes/secrets/venues/`). They died silently in the cobrador→x280 migration and were restored + re-probed 5/5 `all_passed: True`.
+
 | Chandi | `npub1…` (see `~/.hermes/secrets/venues/chandi-berlin.nsec`) | relay2 + primal | `venue-cvm-server-chandi.service` | served, not re-run this round |
 | Doreedos | (key exists, no unit yet) | — | — | served record verified by suite |
 
