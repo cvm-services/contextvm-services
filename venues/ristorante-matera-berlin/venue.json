@@ -1,7 +1,7 @@
 {
   "generated_by": "contextvm-services venue adapter (ristorante-matera-berlin)",
   "menu": {
-    "captured_at": "2026-10-13T15:10:58Z",
+    "captured_at": "2026-10-13T16:22:15Z",
     "currency": "EUR",
     "items": [
       {
@@ -199,6 +199,10 @@
         "name": "Insalata Matera",
         "option_group_ids": [],
         "price": 13.5,
+        "prices_by_order_method": {
+          "delivery": 13.5,
+          "pickup": 13.5
+        },
         "section_id": 54266,
         "sku": "1555759"
       },
@@ -363,6 +367,10 @@
         "name": "Pizza Mista",
         "option_group_ids": [],
         "price": 14,
+        "prices_by_order_method": {
+          "delivery": 14,
+          "pickup": 14
+        },
         "section_id": 54267,
         "sku": "1555834"
       },
@@ -986,6 +994,10 @@
         "name": "Tartufo Amaretto",
         "option_group_ids": [],
         "price": 7.5,
+        "prices_by_order_method": {
+          "delivery": 7.5,
+          "pickup": 7.5
+        },
         "section_id": 54269,
         "sku": "1555835"
       },
@@ -997,6 +1009,10 @@
         "name": "Gelato Misto",
         "option_group_ids": [],
         "price": 6,
+        "prices_by_order_method": {
+          "delivery": 6,
+          "pickup": 6
+        },
         "section_id": 54269,
         "sku": "1555836"
       },
@@ -1008,6 +1024,10 @@
         "name": "Dessert Misto Matera",
         "option_group_ids": [],
         "price": 11.5,
+        "prices_by_order_method": {
+          "delivery": 11.5,
+          "pickup": 11.5
+        },
         "section_id": 54269,
         "sku": "1555837"
       },
@@ -1019,6 +1039,10 @@
         "name": "Crème Caramel",
         "option_group_ids": [],
         "price": 8,
+        "prices_by_order_method": {
+          "delivery": 8,
+          "pickup": 8
+        },
         "section_id": 54269,
         "sku": "1555838"
       },
@@ -1234,6 +1258,10 @@
         "name": "Hausgemachte Ravioli gefüllt mit Ricotta und Spinat in Tomatensauce",
         "option_group_ids": [],
         "price": 16.5,
+        "prices_by_order_method": {
+          "delivery": 16.5,
+          "pickup": 16.5
+        },
         "section_id": 202000,
         "sku": "1555848"
       },
@@ -1245,6 +1273,10 @@
         "name": "Hausgemachte grüne Ravioli gefüllt Rindergehacktes und Lauch",
         "option_group_ids": [],
         "price": 17.5,
+        "prices_by_order_method": {
+          "delivery": 17.5,
+          "pickup": 17.5
+        },
         "section_id": 202000,
         "sku": "1555849"
       },
@@ -1256,6 +1288,10 @@
         "name": "Hausgemachte Ravioli gefüllt mit Kastanien in Butter - Salbei",
         "option_group_ids": [],
         "price": 17.5,
+        "prices_by_order_method": {
+          "delivery": 17.5,
+          "pickup": 17.5
+        },
         "section_id": 202000,
         "sku": "1555850"
       },
@@ -1267,6 +1303,10 @@
         "name": "Hausgemachte Ravioli gefüllt mit Steinpilzen in Steinpilzsauce",
         "option_group_ids": [],
         "price": 17.5,
+        "prices_by_order_method": {
+          "delivery": 17.5,
+          "pickup": 17.5
+        },
         "section_id": 202000,
         "sku": "1555851"
       },
@@ -1278,6 +1318,10 @@
         "name": "Hausgemachte schwarze Ravioli gefüllt mit Fisch in Hummersauce",
         "option_group_ids": [],
         "price": 18.5,
+        "prices_by_order_method": {
+          "delivery": 18.5,
+          "pickup": 18.5
+        },
         "section_id": 202000,
         "sku": "1555852"
       },
@@ -1289,6 +1333,10 @@
         "name": "Hausgemachte schwarze Linguine mit Krabben und Zucchini in Tomatensauce",
         "option_group_ids": [],
         "price": 17.5,
+        "prices_by_order_method": {
+          "delivery": 17.5,
+          "pickup": 17.5
+        },
         "section_id": 202000,
         "sku": "1555853"
       },
@@ -1300,6 +1348,10 @@
         "name": "Hausgemachte Cannelloni mit Ricotta und Spinat in Offen überbacken",
         "option_group_ids": [],
         "price": 16.5,
+        "prices_by_order_method": {
+          "delivery": 16.5,
+          "pickup": 16.5
+        },
         "section_id": 202000,
         "sku": "1555854"
       },
@@ -1311,6 +1363,10 @@
         "name": "Ravioli Misto für 2 Personen",
         "option_group_ids": [],
         "price": 38.5,
+        "prices_by_order_method": {
+          "delivery": 38.5,
+          "pickup": 38.5
+        },
         "section_id": 202000,
         "sku": "1555855"
       }

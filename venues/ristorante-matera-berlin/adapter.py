@@ -136,6 +136,11 @@ def build_record() -> dict:
     items = []
     option_groups = {}
     seen_product_ids: set[str] = set()
+    # The fulfilment methods this venue declares, used as the fallback column set
+    # when an item publishes no per-method prices of its own.
+    declared_methods = [
+        m for m, on in (("pickup", comp.get("has_pickup")), ("delivery", comp.get("has_delivery"))) if on
+    ]
     # keep insertion order stable: sort categories by sorting_order then id
     for cid, cat in sorted(cats.items(), key=lambda kv: (kv[1].get("sorting_order") or 0, int(kv[0]))):
         # `most_popular` is a CROSS-LISTING, not a real menu section: its
@@ -168,6 +173,15 @@ def build_record() -> dict:
             prices_by_method = None
             if isinstance(omp, dict) and omp:
                 prices_by_method = {str(k): v for k, v in omp.items() if isinstance(v, (int, float))}
+            elif isinstance(price, (int, float)):
+                # The venue publishes no per-method column for this item, so its
+                # own storefront charges the base price for every method it
+                # offers. Publishing that fallback matches the venue server's
+                # behaviour ("price not published; using fallback price") and
+                # keeps the render spec from dropping the item as unpriced —
+                # measured: without this, 14 of Matera's 82 items produce no
+                # PriceRow and the view shows them with no price at all.
+                prices_by_method = {m: price for m in declared_methods}
             items.append({
                 "id": str(pid),
                 "sku": str(pid),

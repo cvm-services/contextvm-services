@@ -1,6 +1,6 @@
 {
   "generated_by": "venues/tools/menu_anchors.ts",
-  "menu_sha256": "88d100546da6522ee67a34e7d0756cd7d5fc2756bb2ead9745cf2dfe031652c6",
+  "menu_sha256": "204fa8bb78f64852ad28190404b3f59afe6578f081eae48e7eff294fff28f4be",
   "note": "Committed expectation for the SERVED menu contract. The tests and the e2e client compare the LIVE reply against this file; `venues/` is compared against it separately as a drift guard. A change here is the visible review gate for onboarding or re-capturing a venue (data, never code).",
   "regenerate": "deno run --allow-read --allow-write venues/tools/menu_anchors.ts --write",
   "schema": "venue-menu-anchor/1",
@@ -74,12 +74,12 @@
       ]
     },
     "ristorante-matera-berlin": {
-      "captured_at": "2026-10-13T15:10:58Z",
+      "captured_at": "2026-10-13T16:22:15Z",
       "from_priced_count": 0,
       "item_count": 82,
-      "max_price": 31.5,
-      "menu_sha256": "bf91f82f1541046e470d0f3eef0a30efbe351db1f042edaca27f6928410c1f40",
-      "min_price": 6.5,
+      "max_price": 38.5,
+      "menu_sha256": "9af932bcfc81adf8457c904b32fef4affe794fa038d6b8400b3e46f25d72e37d",
+      "min_price": 6,
       "priced_methods": [
         "delivery",
         "dine_in",
