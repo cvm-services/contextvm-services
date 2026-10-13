@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>2fiat CVM — dashboard (MOCKUP)</title>
+<style>
+:root{--bg:#101214;--pane:#171a1d;--card:#1e2226;--ink:#eceae4;--dim:#8b9096;--line:#2a2f34;
+--accent:#f59e0b;--ok:#34d399;--warn:#fbbf24;--bad:#f87171;--blue:#60a5fa}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:22px}
+.top{display:flex;align-items:center;gap:14px;margin-bottom:6px}
+.logo{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--accent),#b45309);
+display:grid;place-items:center;font-weight:800;color:#1a1200;font-size:15px}
+h1{font-size:19px;margin:0;letter-spacing:.2px}
+.sub{color:var(--dim);font-size:12.5px;margin-top:2px}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;font-size:11.5px;
+border:1px solid var(--line);background:var(--card);color:var(--dim)}
+.pill.ok{color:var(--ok);border-color:#1d4d3a;background:#0f2a20}
+.pill.warn{color:var(--warn);border-color:#4d3f1d;background:#2a230f}
+.pill.blue{color:var(--blue);border-color:#1d3552;background:#0f1c2a}
+.dot{width:7px;height:7px;border-radius:50%;background:currentColor}
+.spacer{flex:1}
+.grid{display:grid;grid-template-columns:300px 1fr 340px;gap:14px;margin-top:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+.card h2{font-size:12px;text-transform:uppercase;letter-spacing:.09em;color:var(--dim);margin:0 0 11px;font-weight:600}
+.kv{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px dashed #23282d;font-size:12.5px}
+.kv:last-child{border-bottom:0}
+.kv span:first-child{color:var(--dim)}
+.kv b{font-weight:600}
+.ok{color:var(--ok)}.warnc{color:var(--warn)}.badc{color:var(--bad)}.bluec{color:var(--blue)}
+.cardsel{border:1.5px solid var(--line);border-radius:12px;padding:11px;margin-bottom:9px;display:flex;gap:11px;align-items:center;cursor:pointer}
+.cardsel.on{border-color:var(--accent);background:#1f1a10}
+.chip{width:44px;height:30px;border-radius:6px;background:linear-gradient(135deg,#2f3a46,#1b222a);
+border:1px solid var(--line);display:grid;place-items:center;font-size:9px;color:var(--dim);letter-spacing:.5px}
+.cardsel .nm{flex:1}
+.cardsel .nm b{display:block;font-size:13px}
+.cardsel .nm small{color:var(--dim);font-size:11.5px}
+.amt{font-size:30px;font-weight:700;letter-spacing:-.5px;margin:2px 0 2px}
+.amt small{font-size:14px;color:var(--dim);font-weight:500}
+.btn{display:block;width:100%;padding:12px;border-radius:11px;border:0;font-size:14px;font-weight:700;
+background:var(--accent);color:#1a1200;cursor:pointer;margin-top:12px}
+.btn.ghost{background:transparent;color:var(--dim);border:1px solid var(--line);font-weight:600;margin-top:8px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{text-align:left;color:var(--dim);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.07em;padding:0 0 8px}
+td{padding:9px 0;border-top:1px solid var(--line)}
+.tag{font-size:10.5px;padding:2.5px 8px;border-radius:999px;border:1px solid var(--line);color:var(--dim)}
+.tag.ok{color:var(--ok);border-color:#1d4d3a;background:#0f2a20}
+.tag.warn{color:var(--warn);border-color:#4d3f1d;background:#2a230f}
+.note{color:var(--dim);font-size:11.5px;margin-top:10px;line-height:1.5}
+.bar{height:6px;border-radius:4px;background:#23282d;overflow:hidden;margin-top:8px}
+.bar>i{display:block;height:100%;background:var(--accent)}
+.banner{margin-top:16px;font-size:11.5px;color:var(--dim);border:1px dashed var(--line);border-radius:10px;padding:9px 12px}
+</style></head><body><div class="wrap">
+
+<div class="top">
+  <div class="logo">2F</div>
+  <div>
+    <h1>2fiat CVM <span class="mono" style="font-size:11.5px;color:var(--dim)">· contextvm-service</span></h1>
+    <div class="sub">Fiat card payments for the facilitator — announced over ContextVM (CEP-6), paid per call (CEP-8)</div>
+  </div>
+  <div class="spacer"></div>
+  <span class="pill ok"><i class="dot"></i>announced · 2/2 relays</span>
+  <span class="pill blue">tier: financial</span>
+</div>
+
+<div class="grid">
+  <!-- LEFT: identity + secret custody -->
+  <div>
+    <div class="card">
+      <h2>Identity</h2>
+      <div class="kv"><span>service npub</span><b class="mono">npub1q7…v0mg</b></div>
+      <div class="kv"><span>kind</span><b class="mono">11316 / 11317</b></div>
+      <div class="kv"><span>relays</span><b class="ok">relay2 · primal</b></div>
+      <div class="kv"><span>tools</span><b>cards · pay · status</b></div>
+      <div class="kv"><span>cap (pay)</span><b class="mono">12 sats</b></div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h2>Credential custody (ADR-020)</h2>
+      <div class="kv"><span>store</span><b>OpenBao</b></div>
+      <div class="kv"><span>path</span><b class="mono" style="font-size:11.5px">secret/data/fleet/2fiat</b></div>
+      <div class="kv"><span>auth</span><b>AppRole <span class="mono">fleet-node-x280</span></b></div>
+      <div class="kv"><span>node caps</span><b class="warnc">read-only</b></div>
+      <div class="kv"><span>in source?</span><b class="ok">never</b></div>
+      <div class="note">The wallet token is materialised into a systemd <span class="mono">EnvironmentFile</span>
+      at runtime. It is read from the vault on start and on rotation — it is not in the repo, not in the
+      unit, and not on any command line.</div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h2>Upstream</h2>
+      <div class="kv"><span>host</span><b class="mono">2fiat.com</b></div>
+      <div class="kv"><span>api</span><b class="mono">/api/v1/</b></div>
+      <div class="kv"><span>cards</span><b class="mono">GET /cards</b></div>
+      <div class="kv"><span>pay</span><b class="mono">POST /orders</b></div>
+      <div class="kv"><span>session</span><b class="ok">exchanged 12m ago</b></div>
+    </div>
+  </div>
+
+  <!-- MIDDLE: wallet + cards -->
+  <div>
+    <div class="card">
+      <h2>Wallet · balance</h2>
+      <div class="amt">€ 248.50 <small>available across 3 cards</small></div>
+      <div class="bar"><i style="width:49%"></i></div>
+      <div class="note">Top-up threshold € 50.00 · last top-up € 200.00 (manual, operator)</div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h2>My Cards <span style="float:right;font-weight:500;text-transform:none;letter-spacing:0">GET /api/v1/cards</span></h2>
+      <div class="cardsel on">
+        <div class="chip">VISA</div>
+        <div class="nm"><b>Virtual Visa · spending</b><small>•••• 4242 · exp 09/28</small></div>
+        <div class="bluec mono" style="font-size:12px">€ 180.00</div>
+      </div>
+      <div class="cardsel">
+        <div class="chip">MC</div>
+        <div class="nm"><b>Virtual Mastercard · backup</b><small>•••• 8821 · exp 03/29</small></div>
+        <div class="dim mono" style="font-size:12px;color:var(--dim)">€ 68.50</div>
+      </div>
+      <div class="cardsel">
+        <div class="chip">VISA</div>
+        <div class="nm"><b>Single-use · generated</b><small>scoped to one venue, burns on capture</small></div>
+        <div class="dim mono" style="font-size:12px;color:var(--dim)">€ 0.00</div>
+      </div>
+      <div class="note">Card material never enters the CVM's logs or the order record: only the last four and a
+      PSP reference are returned (ADR-0013 — same guard as the orders service).</div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h2>Recent fiat payments</h2>
+      <table>
+        <tr><th>when</th><th>venue</th><th>order</th><th>amount</th><th>state</th></tr>
+        <tr><td class="mono">18:24</td><td>Ristorante Matera</td><td class="mono">#4471</td><td>€ 29.00</td><td><span class="tag ok">captured</span></td></tr>
+        <tr><td class="mono">17:58</td><td>Three Buddies</td><td class="mono">#1102</td><td>€ 13.50</td><td><span class="tag ok">captured</span></td></tr>
+        <tr><td class="mono">17:31</td><td>La Mama</td><td class="mono">#0873</td><td>€ 18.50</td><td><span class="tag warn">declined · retry</span></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- RIGHT: pay action -->
+  <div>
+    <div class="card">
+      <h2>Pay an order</h2>
+      <div class="kv"><span>venue</span><b>Ristorante Matera</b></div>
+      <div class="kv"><span>order</span><b class="mono">#4471</b></div>
+      <div class="kv"><span>basket</span><b>2 items · pickup</b></div>
+      <div class="kv"><span>venue total</span><b>€ 29.00</b></div>
+      <div class="amt">€ 29.00 <small>on card •••• 4242</small></div>
+      <button class="btn">Pay € 29.00 now</button>
+      <button class="btn ghost">Pay on pickup (hold)</button>
+      <div class="note">Called by the facilitator console as a CEP-8 tool call. Unpaid calls are refused
+      visibly — silence is never the failure mode.</div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h2>Last call trace</h2>
+      <div class="kv"><span>method</span><b class="mono">tools/call pay</b></div>
+      <div class="kv"><span>client</span><b class="mono">console · npub1c03…rnw</b></div>
+      <div class="kv"><span>gate</span><b class="ok">cap 12 sats paid</b></div>
+      <div class="kv"><span>upstream</span><b class="mono">POST /orders · 201</b></div>
+      <div class="kv"><span>receipt</span><b class="mono">pi_3Qk9Zx…</b></div>
+      <div class="kv"><span>returned to</span><b>order #4471</b></div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h2>Safety rails</h2>
+      <div class="kv"><span>daily cap</span><b>€ 300.00</b></div>
+      <div class="kv"><span>per-order cap</span><b>€ 150.00</b></div>
+      <div class="kv"><span>requires sats paid</span><b class="ok">yes (ADR-0008)</b></div>
+      <div class="kv"><span>3DS</span><b>operator prompt</b></div>
+    </div>
+  </div>
+</div>
+
+<div class="banner"><b>MOCKUP</b> — layout preview only. Values are illustrative. Built from the live console palette
+(<span class="mono">--accent #f59e0b</span>, <span class="mono">--card #1e2226</span>) so the integration in the facilitator console is visually seamless.</div>
+</div></body></html>

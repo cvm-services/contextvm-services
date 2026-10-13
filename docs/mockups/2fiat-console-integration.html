@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Facilitator console + 2fiat CVM — integration (MOCKUP)</title>
+<style>
+:root{--bg:#101214;--pane:#171a1d;--card:#1e2226;--ink:#eceae4;--dim:#8b9096;--line:#2a2f34;
+--accent:#f59e0b;--ok:#34d399;--warn:#fbbf24;--bad:#f87171;--blue:#60a5fa}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding:22px}
+.head{display:flex;align-items:center;gap:12px;margin-bottom:4px}
+.head h1{font-size:18px;margin:0}
+.spacer{flex:1}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;font-size:11.5px;
+border:1px solid var(--line);background:var(--card);color:var(--dim)}
+.pill.ok{color:var(--ok);border-color:#1d4d3a;background:#0f2a20}
+.pill.warn{color:var(--warn);border-color:#4d3f1d;background:#2a230f}
+.pill.blue{color:var(--blue);border-color:#1d3552;background:#0f1c2a}
+.dot{width:7px;height:7px;border-radius:50%;background:currentColor}
+.sub{color:var(--dim);font-size:12.5px}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.tabs{display:flex;gap:6px;margin:16px 0 12px;border-bottom:1px solid var(--line);padding-bottom:0}
+.tab{padding:8px 13px;font-size:13px;color:var(--dim);border-bottom:2px solid transparent;cursor:pointer}
+.tab.on{color:var(--ink);border-bottom-color:var(--accent);font-weight:600}
+.tab .n{font-size:10.5px;padding:1px 6px;border-radius:999px;background:var(--card);border:1px solid var(--line);margin-left:6px}
+.layout{display:grid;grid-template-columns:330px 1fr;gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+.col{background:var(--pane);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:12px}
+.order{border:1.5px solid var(--line);border-radius:12px;padding:11px;margin-bottom:9px}
+.order.on{border-color:var(--accent);background:#1f1a10}
+.order .r1{display:flex;justify-content:space-between;align-items:baseline}
+.order b{font-size:13.5px}
+.order .meta{color:var(--dim);font-size:11.5px;margin-top:3px}
+h2{font-size:11.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--dim);margin:0 0 10px;font-weight:600}
+.kv{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px dashed #23282d;font-size:12.5px}
+.kv:last-child{border-bottom:0}
+.kv span:first-child{color:var(--dim)}
+.okc{color:var(--ok)}.warnc{color:var(--warn)}.badc{color:var(--bad)}.bluec{color:var(--blue)}
+/* the new block this mockup introduces */
+.fiat{margin-top:14px;border:1px solid #4d3f1d;background:linear-gradient(180deg,#221c0d,#1b1810);border-radius:12px;padding:12px}
+.fiat .hd{display:flex;align-items:center;gap:8px;margin-bottom:9px}
+.fiat .logo{width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,var(--accent),#b45309);
+display:grid;place-items:center;font-weight:800;color:#1a1200;font-size:11px}
+.fiat .hd b{font-size:12.5px;letter-spacing:.02em}
+.steps{display:flex;flex-direction:column;gap:7px;margin:10px 0 4px}
+.step{display:flex;gap:9px;align-items:flex-start;font-size:12.5px}
+.step .n{width:18px;height:18px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;
+font-size:10.5px;color:var(--dim);flex:none;background:var(--card)}
+.step.done .n{border-color:#1d4d3a;background:#0f2a20;color:var(--ok)}
+.step.now .n{border-color:var(--accent);color:var(--accent)}
+.step .t{flex:1}
+.step small{display:block;color:var(--dim);font-size:11px}
+.btn{width:100%;padding:12px;border-radius:11px;border:0;font-size:14px;font-weight:700;background:var(--accent);
+color:#1a1200;cursor:pointer;margin-top:10px}
+.btn.ghost{background:transparent;color:var(--dim);border:1px solid var(--line);font-weight:600;margin-top:8px}
+select,input{width:100%;padding:9px 10px;border-radius:9px;background:#14181b;border:1px solid var(--line);
+color:var(--ink);font-size:13px;margin-top:6px}
+label{font-size:11.5px;color:var(--dim);display:block;margin-top:9px}
+.note{color:var(--dim);font-size:11.5px;margin-top:9px;line-height:1.5}
+.banner{margin-top:16px;font-size:11.5px;color:var(--dim);border:1px dashed var(--line);border-radius:10px;padding:9px 12px}
+.arrow{color:var(--accent);font-weight:700}
+</style></head><body><div class="wrap">
+
+<div class="head">
+  <h1>Facilitator console</h1>
+  <span class="pill blue">signed in · npub1c03…rnw</span>
+  <div class="spacer"></div>
+  <span class="pill ok"><i class="dot"></i>venue CVMs 6/6</span>
+  <span class="pill ok"><i class="dot"></i>2fiat CVM up</span>
+</div>
+<div class="sub">Orders in the queue · transitions are NIP-98 signed · <span class="mono">paid → placing → placed</span></div>
+
+<div class="tabs">
+  <div class="tab on">Queue<span class="n">3</span></div>
+  <div class="tab">Placing<span class="n">1</span></div>
+  <div class="tab">Settlements</div>
+  <div class="tab">2fiat wallet</div>
+</div>
+
+<div class="layout">
+  <!-- LEFT: the queue (existing console) with a fiat badge added -->
+  <div>
+    <div class="col">
+      <h2>Payable queue · GET /orders/queue</h2>
+
+      <div class="order on">
+        <div class="r1"><b>Ristorante Matera</b><span class="bluec mono" style="font-size:12px">9 720 sats</span></div>
+        <div class="meta">2 items · pickup · € 29.00 · <span class="okc">paid</span></div>
+        <div class="meta"><span class="arrow">▸</span> fiat due at venue · <b class="warnc">not yet paid</b></div>
+      </div>
+
+      <div class="order">
+        <div class="r1"><b>Three Buddies</b><span class="bluec mono" style="font-size:12px">4 860 sats</span></div>
+        <div class="meta">1 item · pickup · € 13.50 · <span class="okc">paid</span></div>
+        <div class="meta"><span class="okc">▸ fiat captured € 13.50</span></div>
+      </div>
+
+      <div class="order">
+        <div class="r1"><b>La Mama</b><span class="dim mono" style="font-size:12px">—</span></div>
+        <div class="meta">3 items · pickup · € 18.50 · <span class="warnc">awaiting_payment</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Margins</h2>
+      <div class="kv"><span>fee rate</span><b>8% (floor)</b></div>
+      <div class="kv"><span>collected</span><b class="okc">2 016 sats</b></div>
+      <div class="kv"><span>fiat out</span><b>€ 42.50</b></div>
+      <div class="kv"><span>net spread</span><b class="okc">+ 1 480 sats</b></div>
+      <div class="note">Sats land in the mint (ADR-0008). Fiat leaves via the 2fiat CVM — the two legs are
+      now separate: the sats leg is proven, the fiat leg is what this CVM adds.</div>
+    </div>
+  </div>
+
+  <!-- RIGHT: selected order + THE NEW 2FIAT BLOCK -->
+  <div>
+    <div class="card">
+      <h2>Order #4471 · Ristorante Matera</h2>
+      <div class="kv"><span>subtotal</span><b>27.00 €</b></div>
+      <div class="kv"><span>facilitator fee</span><b>+ 2.00 €</b></div>
+      <div class="kv"><span>venue total</span><b>29.00 €</b></div>
+      <div class="kv"><span>sats paid</span><b class="okc">9 720 sats · settled</b></div>
+      <div class="kv"><span>venue reference</span><b class="mono">#4471</b></div>
+
+      <!-- ===== NEW: 2fiat CVM integration ===== -->
+      <div class="fiat">
+        <div class="hd">
+          <div class="logo">2F</div>
+          <b>Pay the venue — 2fiat CVM</b>
+          <div class="spacer"></div>
+          <span class="pill ok" style="font-size:10.5px"><i class="dot"></i>ready</span>
+        </div>
+
+        <label>Card</label>
+        <select><option>Virtual Visa •••• 4242 — € 180.00</option><option>Virtual MC •••• 8821 — € 68.50</option></select>
+
+        <label>Amount (from the order — never typed freehand)</label>
+        <input value="29.00 €" readonly>
+
+        <div class="steps">
+          <div class="step done"><div class="n">✓</div><div class="t">Sats settled<small>ADR-0008 gate passed · 9 720 sats</small></div></div>
+          <div class="step now"><div class="n">2</div><div class="t">Pay the venue<small>calls <span class="mono">tools/call pay</span> on the 2fiat CVM · cap 12 sats</small></div></div>
+          <div class="step"><div class="n">3</div><div class="t">Record receipt<small>venue ref + PSP reference flow back into the order</small></div></div>
+        </div>
+
+        <button class="btn">Pay € 29.00 at Ristorante Matera</button>
+        <button class="btn ghost">Hold until pickup</button>
+        <div class="note">The CVM performs the card payment automatically; the console only asks and shows
+        the result. On success the order moves to <span class="mono">placed</span> carrying the venue's own
+        order number, and the customer screen then shows “Venue order #4471”.</div>
+      </div>
+      <!-- ===== /NEW ===== -->
+
+      <div class="note" style="border-top:1px solid var(--line);padding-top:10px">
+        Everything else in this panel is the console you already have. The only addition is the amber
+        <b>2fiat</b> block: one card selector, one confirmed amount, one button — plus a badge in the queue
+        row so you can see at a glance which orders still owe fiat.
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:12px">
+      <h2>What changes in the flow</h2>
+      <div class="kv"><span>before</span><b>you pay the venue yourself (card/cash)</b></div>
+      <div class="kv"><span>after</span><b class="okc">console pays via 2fiat CVM</b></div>
+      <div class="kv"><span>receipt source</span><b>PSP reference + venue ref</b></div>
+      <div class="kv"><span>manual step left</span><b>collect the food</b></div>
+    </div>
+  </div>
+</div>
+
+<div class="banner"><b>MOCKUP</b> — preview only. The 2fiat block is the proposed addition; the queue, tabs and
+palette are the live console's. Amber = the new fiat layer, so it reads as a bolt-on rather than a redesign.</div>
+</div></body></html>
