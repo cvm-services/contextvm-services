@@ -63,6 +63,15 @@ export interface ServedVenue {
   venue_slug: string;
   name: string;
   currency: string;
+  /**
+   * The venue's OWN ordering page — where a facilitator completes the basket
+   * and enters card data, on their device (ADR-0013). Carried here so the
+   * capture can publish it and the facilitator console can offer the hand-off
+   * instead of showing "no venue checkout URL declared". null = none declared.
+   */
+  deep_link: string | null;
+  /** The venue's own settlement rail, as declared. Display only. */
+  rail: string | null;
   captured_at: string | null;
   adapter: AdapterContract | null;
   item_count: number;
@@ -607,6 +616,10 @@ export function servedVenueProjection(venue: Venue): ServedVenue {
     venue_slug: venue.slug,
     name: venue.name,
     currency: venue.currency,
+    // The hand-off target for the facilitator console. An empty declared value
+    // becomes null (honest absence) — never a synthesised URL.
+    deep_link: venue.deep_link ? venue.deep_link : null,
+    rail: venue.rail ? venue.rail : null,
     // G7: freshness is a property of the capture, not of this reply. The field
     // name is the one the freshness card (t_0eccac0c) defines — do not invent a
     // second mechanism here; this only carries the capture time through.
