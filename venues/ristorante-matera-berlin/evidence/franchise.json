@@ -1,0 +1,430 @@
+{
+  "data": {
+    "companies": [
+      {
+        "address": "Birkbuschstraße 7",
+        "average_order_delivery_time": {
+          "max": null,
+          "min": 45
+        },
+        "average_order_preparation_time": {
+          "max": null,
+          "min": 10
+        },
+        "city": "Berlin",
+        "closed_from": null,
+        "closed_until": null,
+        "country": "DE",
+        "cuisine_types": [
+          "pizza",
+          "italian"
+        ],
+        "currency": "EUR",
+        "current_delivery_schedule": {
+          "close": {
+            "day": 2,
+            "hour": 21,
+            "minute": 0,
+            "timezone": "Europe/Berlin"
+          },
+          "open": {
+            "day": 2,
+            "hour": 12,
+            "minute": 0,
+            "timezone": "Europe/Berlin"
+          },
+          "timezone": "Europe/Berlin"
+        },
+        "current_work_schedule": {
+          "close": {
+            "day": 2,
+            "hour": 21,
+            "minute": 0,
+            "timezone": "Europe/Berlin"
+          },
+          "open": {
+            "day": 2,
+            "hour": 12,
+            "minute": 0,
+            "timezone": "Europe/Berlin"
+          },
+          "timezone": "Europe/Berlin"
+        },
+        "default_tip_percentage": 5,
+        "delivery_enabled": true,
+        "delivery_mode": "internal",
+        "delivery_schedule": [
+          {
+            "close": {
+              "day": 0,
+              "hour": 21,
+              "minute": 0,
+              "timezone": "Europe/Berlin"
+            },
+            "open": {
+              "day": 0,
+              "hour": 12,
+              "minute": 0,
+              "timezone": "Europe/Berlin"
+            },
+            "timezone": "Europe/Berlin"
+          },
+          {
+            "close": {
+              "day": 2,
+              "hour": 21,
+              "minute": 0,
+              "timezone": "Europe/Berlin"
+            },
+            "open": {
+              "day": 2,
+              "hour": 12,
+              "minute": 0,
+              "timezone": "Europe/Berlin"
+            },
+            "timezone": "Europe/Berlin"
+          },
+          {
+            "close": {
+              "day": 3,
+              "hour": 21,
+              "minute": 0,
+              "timezone": "Europe/Berlin"
+            },
+            "open": {
+              "day": 3,
+              "hour": 12,
+              "minute": 0,
+              "timezone": "Europe/Berlin"
+            },
+            "timezone": "Europe/Berlin"
+          },
+          {
+            "close": {
+              "day": 4,
+              "hour": 21,
+              "minute": 0,
+              "timezone": "Europe/Berlin"
+            },
+            "open": {
+              "day": 4,
+              "hour": 12,
+              "minute": 0,
+              "timezone": "Europe/Berlin"
+            },
+            "timezone": "Europe/Berlin"
+          },
+          {
+            "close": {
+              "day": 5,
+              "hour": 21,
+              "minute": 0,
+              "timezone": "Europe/Berlin"
+            },
+            "open": {
+              "day": 5,
+              "hour": 12,
+              "minute": 0,
+              "timezone": "Europe/Berlin"
+            },
+            "timezone": "Europe/Berlin"
+          },
+          {
+            "close": {
+              "day": 6,
+              "hour": 21,
+              "minute": 0,
+              "timezone": "Europe/Berlin"
+            },
+            "open": {
+              "day": 6,
+              "hour": 12,
+              "minute": 0,
+              "timezone": "Europe/Berlin"
+            },
+            "timezone": "Europe/Berlin"
+          }
+        ],
+        "delivery_zones": [
+          {
+            "color": "#69CE8C",
+            "fee": 0,
+            "geometry_data": {
+              "center": {
+                "lat": 52.4352456405621,
+                "lng": 13.35791347011073
+              },
+              "radius": 3005.8479951444538
+            },
+            "geometry_type": "circle",
+            "id": 3476,
+            "max_threshold": 0,
+            "min_threshold": 25,
+            "name": "Delivery zone 1"
+          }
+        ],
+        "email": null,
+        "gift_card_unavailable_payment_methods": [],
+        "google_places_id": "ChIJnxnCgkBbqEcR_TXfsWTiml8",
+        "google_rates_count": 255,
+        "google_rating": "4.6",
+        "has_asap_orders": true,
+        "has_delivery": true,
+        "has_delivery_schedule": false,
+        "has_in_store_card_payments": false,
+        "has_live_orders": true,
+        "has_multiple_locations": false,
+        "has_order_instructions": false,
+        "has_paypal_upcharge": false,
+        "has_pickup": true,
+        "has_pre_order": true,
+        "has_room_service": false,
+        "has_scheduled_orders": true,
+        "has_storefront": true,
+        "has_tips": true,
+        "has_work_schedule": true,
+        "hidden_order_methods": [
+          "room_service"
+        ],
+        "hidden_payment_methods": [],
+        "id": 1742,
+        "impressum_link": null,
+        "instagram_link": null,
+        "is_live": true,
+        "is_test_restaurant": false,
+        "lang": "de",
+        "last_order_gap_delivery": 15,
+        "last_order_gap_pickup": 5,
+        "lat": 52.4523434,
+        "legal_lang": "de",
+        "live_from": "2025-09-05T17:35:04.000000Z",
+        "location_name": null,
+        "locations": [
+          {
+            "address": "Birkbuschstraße 7",
+            "city": "Berlin",
+            "day": 0,
+            "hour": null,
+            "lat": 52.4523434,
+            "lon": 13.3200172,
+            "minute": null,
+            "name": null,
+            "zip_code": "12165"
+          }
+        ],
+        "logo_url": null,
+        "lon": 13.3200172,
+        "max_pre_order_days": 7,
+        "min_schedule_ahead_time_delivery": 60,
+        "min_schedule_ahead_time_pickup": 45,
+        "name": "Ristorante Matera",
+        "next_delivery_schedule": {
+          "close": {
+            "day": 3,
+            "hour": 21,
+            "minute": 0,
+            "timezone": "Europe/Berlin"
+          },
+          "open": {
+            "day": 3,
+            "hour": 12,
+            "minute": 0,
+            "timezone": "Europe/Berlin"
+          },
+          "timezone": "Europe/Berlin"
+        },
+        "next_work_schedule": {
+          "close": {
+            "day": 3,
+            "hour": 21,
+            "minute": 0,
+            "timezone": "Europe/Berlin"
+          },
+          "open": {
+            "day": 3,
+            "hour": 12,
+            "minute": 0,
+            "timezone": "Europe/Berlin"
+          },
+          "timezone": "Europe/Berlin"
+        },
+        "offer_description": null,
+        "offer_title": null,
+        "open_now": true,
+        "open_now_for_delivery": true,
+        "open_now_for_pickup": true,
+        "order_instructions_title": null,
+        "orders_pause_reason": null,
+        "orders_paused_until": null,
+        "overwrite_cash_payments_to_invoice": false,
+        "payment_gateway": "adyen",
+        "phone_number": "+49 30 60927677",
+        "pictures": [
+          "https://cdn.foodamigos.io/images/Q3L9aLnWen2WerTYQMSESCKGnVrRzhy2bSucuSle.png"
+        ],
+        "primary_color": null,
+        "region": {
+          "address_format": "international",
+          "country": "DE",
+          "currency": "EUR",
+          "date_format": "dd.MM.yyyy",
+          "default_locale": "de",
+          "distance_unit": "km",
+          "hour_cycle": "h23",
+          "legal_pack": "de",
+          "limits": [],
+          "locales": [
+            "de",
+            "en"
+          ],
+          "number_locale": "de-DE",
+          "timezone": "Europe/Berlin"
+        },
+        "restaurant_source": "fa_direct",
+        "room_service_locations": [],
+        "saved_cards_enabled": true,
+        "scheduled_order_option_title": null,
+        "scheduled_orders_time_slot_interval": 10,
+        "show_hero_image_with_offers": false,
+        "show_master_promo_code": true,
+        "slug": "ristorantematera",
+        "state": "Berlin",
+        "supported_payment_methods": [
+          "apple_pay",
+          "google_pay",
+          "card",
+          "pay_by_bank",
+          "paypal",
+          "cash"
+        ],
+        "table_number_hidden": false,
+        "tax_behaviour": "inclusive",
+        "tax_percentage": 19,
+        "timezone": "Europe/Berlin",
+        "web_shop_url": "https://ristorantematera.online-karte.com/ristorantematera",
+        "website_link": "restaurant-matera.de",
+        "work_schedule": [
+          {
+            "close": {
+              "day": 0,
+              "hour": 21,
+              "minute": 0,
+              "timezone": "Europe/Berlin"
+            },
+            "open": {
+              "day": 0,
+              "hour": 12,
+              "minute": 0,
+              "timezone": "Europe/Berlin"
+            },
+            "timezone": "Europe/Berlin"
+          },
+          {
+            "close": {
+              "day": 2,
+              "hour": 21,
+              "minute": 0,
+              "timezone": "Europe/Berlin"
+            },
+            "open": {
+              "day": 2,
+              "hour": 12,
+              "minute": 0,
+              "timezone": "Europe/Berlin"
+            },
+            "timezone": "Europe/Berlin"
+          },
+          {
+            "close": {
+              "day": 3,
+              "hour": 21,
+              "minute": 0,
+              "timezone": "Europe/Berlin"
+            },
+            "open": {
+              "day": 3,
+              "hour": 12,
+              "minute": 0,
+              "timezone": "Europe/Berlin"
+            },
+            "timezone": "Europe/Berlin"
+          },
+          {
+            "close": {
+              "day": 4,
+              "hour": 21,
+              "minute": 0,
+              "timezone": "Europe/Berlin"
+            },
+            "open": {
+              "day": 4,
+              "hour": 12,
+              "minute": 0,
+              "timezone": "Europe/Berlin"
+            },
+            "timezone": "Europe/Berlin"
+          },
+          {
+            "close": {
+              "day": 5,
+              "hour": 21,
+              "minute": 0,
+              "timezone": "Europe/Berlin"
+            },
+            "open": {
+              "day": 5,
+              "hour": 12,
+              "minute": 0,
+              "timezone": "Europe/Berlin"
+            },
+            "timezone": "Europe/Berlin"
+          },
+          {
+            "close": {
+              "day": 6,
+              "hour": 21,
+              "minute": 0,
+              "timezone": "Europe/Berlin"
+            },
+            "open": {
+              "day": 6,
+              "hour": 12,
+              "minute": 0,
+              "timezone": "Europe/Berlin"
+            },
+            "timezone": "Europe/Berlin"
+          }
+        ],
+        "zip_code": "12165"
+      }
+    ],
+    "country": "DE",
+    "facebook_pixel_id": null,
+    "gift_cards_redemption_mode": "online",
+    "google_ads_conversion_label_id": null,
+    "google_analytics_id": null,
+    "has_multiple_companies": false,
+    "id": 1684,
+    "image_url": "https://cdn.foodamigos.io/images/a42136b2-d85c-41dd-844f-a9d4653ce549",
+    "is_gift_cards_enabled": true,
+    "logo_url": "https://cdn.foodamigos.io/images/XZVN55R4lJqrz6AUTDv3iRoFMswcRUq9fffWh8Kw.png",
+    "logos": [
+      {
+        "height": 512,
+        "url": "https://cdn.foodamigos.io/images/4cjqby63xELY3ZTBDIDaP2KzapxrAEwAsm2WsE8b-512x512.jpg",
+        "width": 512
+      },
+      {
+        "height": 192,
+        "url": "https://cdn.foodamigos.io/images/c0de4zlhNapJM88mImeMIfuhw9AL3W2kMN8t5mPI-192x192.jpg",
+        "width": 192
+      }
+    ],
+    "mobile_app": null,
+    "name": "Ristorante Matera",
+    "primary_color": "#ec2830",
+    "seo_data": null,
+    "slug": "ristorantematera",
+    "web_shop_url": "https://ristorantematera.online-karte.com"
+  }
+}

@@ -1,0 +1,2941 @@
+{
+  "generated_by": "contextvm-services venue adapter (ristorante-matera-berlin)",
+  "menu": {
+    "captured_at": "2026-10-13T12:08:16Z",
+    "currency": "EUR",
+    "items": [
+      {
+        "available": true,
+        "base_price": 9,
+        "currency": "EUR",
+        "description": null,
+        "id": 422081,
+        "name": "Pizza Margherita",
+        "option_group_ids": [],
+        "pickup_price": 9,
+        "section_id": 63932
+      },
+      {
+        "available": true,
+        "base_price": 11,
+        "currency": "EUR",
+        "description": "mit Salami",
+        "id": 422082,
+        "name": "Pizza Salame",
+        "option_group_ids": [],
+        "pickup_price": 11,
+        "section_id": 63932
+      },
+      {
+        "available": true,
+        "base_price": 14.5,
+        "currency": "EUR",
+        "description": "mit Parmaschinken, Rucola und Parmesan",
+        "id": 422086,
+        "name": "Pizza Matera",
+        "option_group_ids": [],
+        "pickup_price": 14.5,
+        "section_id": 63932
+      },
+      {
+        "available": true,
+        "base_price": 13,
+        "currency": "EUR",
+        "description": "mit pikanter italienischer Salami",
+        "id": 422084,
+        "name": "Pizza Calabrese (pikant)",
+        "option_group_ids": [],
+        "pickup_price": 13,
+        "section_id": 63932
+      },
+      {
+        "available": true,
+        "base_price": 12.5,
+        "currency": "EUR",
+        "description": "mit Thunfisch und Zwiebeln",
+        "id": 422085,
+        "name": "Pizza Tonno e Cipolla",
+        "option_group_ids": [],
+        "pickup_price": 12.5,
+        "section_id": 63932
+      },
+      {
+        "available": true,
+        "base_price": 6.5,
+        "currency": "EUR",
+        "description": "2x Tomaten, 2 x Thunfisch",
+        "id": 422124,
+        "name": "Bruschetta 4 Stk.",
+        "option_group_ids": [],
+        "pickup_price": 6.5,
+        "section_id": 63932
+      },
+      {
+        "available": true,
+        "base_price": 15.5,
+        "currency": "EUR",
+        "description": "mit Großgarnelen",
+        "id": 422087,
+        "name": "Pizza Scampi",
+        "option_group_ids": [],
+        "pickup_price": 15.5,
+        "section_id": 63932
+      },
+      {
+        "available": true,
+        "base_price": 12,
+        "currency": "EUR",
+        "description": "mit Großgarnelen",
+        "id": 431346,
+        "name": "Pizza Scampi",
+        "option_group_ids": [],
+        "pickup_price": 12,
+        "section_id": 63936
+      },
+      {
+        "available": true,
+        "base_price": 12,
+        "currency": "EUR",
+        "description": "mit Speck, Ei, Sahnesauce und Parmesan",
+        "id": 431350,
+        "name": "Spaghetti Carbonara",
+        "option_group_ids": [],
+        "pickup_price": 12,
+        "section_id": 63936
+      },
+      {
+        "available": true,
+        "base_price": 12,
+        "currency": "EUR",
+        "description": "mit Filetspitzen, Zucchini, frischen Tomaten und Basilikum",
+        "id": 431359,
+        "name": "Tagliatelle dello Chef",
+        "option_group_ids": [],
+        "pickup_price": 12,
+        "section_id": 63936
+      },
+      {
+        "available": true,
+        "base_price": 12,
+        "currency": "EUR",
+        "description": "mit Lachswürfeln und Hummer-Sahnesauce",
+        "id": 431353,
+        "name": "Tagliatelle al Salmone",
+        "option_group_ids": [],
+        "pickup_price": 12,
+        "section_id": 63936
+      },
+      {
+        "available": true,
+        "base_price": 12,
+        "currency": "EUR",
+        "description": "mit Gorgonzola, Spinat und Walnüssen",
+        "id": 431347,
+        "name": "Pizza Spinaci",
+        "option_group_ids": [],
+        "pickup_price": 12,
+        "section_id": 63936
+      },
+      {
+        "available": true,
+        "base_price": 12,
+        "currency": "EUR",
+        "description": "mit Thunfisch und Zwiebeln",
+        "id": 431344,
+        "name": "Pizza Tonno e Cipolla",
+        "option_group_ids": [],
+        "pickup_price": 12,
+        "section_id": 63936
+      },
+      {
+        "available": true,
+        "base_price": 12,
+        "currency": "EUR",
+        "description": "mit Knoblauch und Olivenöl",
+        "id": 431348,
+        "name": "Spaghetti Aglio e Olio",
+        "option_group_ids": [],
+        "pickup_price": 12,
+        "section_id": 63936
+      },
+      {
+        "available": true,
+        "base_price": 12.5,
+        "currency": "EUR",
+        "description": "gemischte Vorspeisen nach Art des Hauses",
+        "id": 422073,
+        "name": "Antipasto Misto",
+        "option_group_ids": [],
+        "pickup_price": 12.5,
+        "section_id": 54265
+      },
+      {
+        "available": true,
+        "base_price": 12.5,
+        "currency": "EUR",
+        "description": "Mozzarella mit Tomatenscheiben und Basilikum",
+        "id": 422074,
+        "name": "Caprese con Mozzarella",
+        "option_group_ids": [],
+        "pickup_price": 12.5,
+        "section_id": 54265
+      },
+      {
+        "available": true,
+        "base_price": 13.5,
+        "currency": "EUR",
+        "description": "dünn geschnittenes Kalbfleisch mit Thunfischsauce und Kapern",
+        "id": 422125,
+        "name": "Vitello Tonnato",
+        "option_group_ids": [],
+        "pickup_price": 13.5,
+        "section_id": 54265
+      },
+      {
+        "available": true,
+        "base_price": 14,
+        "currency": "EUR",
+        "description": "Rinderfilet mit Zitronen-Vinaigrette, frischen Champignons, Rucola und gehobeltem Parmesan",
+        "id": 422075,
+        "name": "Carpaccio di Manzo",
+        "option_group_ids": [],
+        "pickup_price": 14,
+        "section_id": 54265
+      },
+      {
+        "available": true,
+        "base_price": 12,
+        "currency": "EUR",
+        "description": "Parmaschinken mit Melone",
+        "id": 422123,
+        "name": "Prosciutto e Melone",
+        "option_group_ids": [],
+        "pickup_price": 12,
+        "section_id": 54265
+      },
+      {
+        "available": true,
+        "base_price": 6.5,
+        "currency": "EUR",
+        "description": "2x Tomaten, 2 x Thunfisch",
+        "id": 422124,
+        "name": "Bruschetta 4 Stk.",
+        "option_group_ids": [],
+        "pickup_price": 6.5,
+        "section_id": 54265
+      },
+      {
+        "available": true,
+        "base_price": 6.5,
+        "currency": "EUR",
+        "description": "gemischter Salat",
+        "id": 422076,
+        "name": "Insalata Mista",
+        "option_group_ids": [],
+        "pickup_price": 6.5,
+        "section_id": 54266
+      },
+      {
+        "available": true,
+        "base_price": 11.5,
+        "currency": "EUR",
+        "description": "Rucolasalat mit Cherrytomaten und gehobeltem Parmesan",
+        "id": 422077,
+        "name": "Insalata di Rucola",
+        "option_group_ids": [],
+        "pickup_price": 11.5,
+        "section_id": 54266
+      },
+      {
+        "available": true,
+        "base_price": 11.5,
+        "currency": "EUR",
+        "description": "gemischter Salat mit Thunfisch",
+        "id": 422078,
+        "name": "Insalata di Tonno",
+        "option_group_ids": [],
+        "pickup_price": 11.5,
+        "section_id": 54266
+      },
+      {
+        "available": true,
+        "base_price": 12.5,
+        "currency": "EUR",
+        "description": "gemischter Salat mit Hähnchenbruststreifen",
+        "id": 422080,
+        "name": "Insalata di Pollo",
+        "option_group_ids": [],
+        "pickup_price": 12.5,
+        "section_id": 54266
+      },
+      {
+        "available": true,
+        "base_price": 11.5,
+        "currency": "EUR",
+        "description": "gemischter Salat mit Feta",
+        "id": 422079,
+        "name": "Insalata di Feta",
+        "option_group_ids": [],
+        "pickup_price": 11.5,
+        "section_id": 54266
+      },
+      {
+        "available": true,
+        "base_price": 13.5,
+        "currency": "EUR",
+        "description": "gemischter Salat mit Parmaschinken Ei",
+        "id": 1555759,
+        "name": "Insalata Matera",
+        "option_group_ids": [],
+        "pickup_price": null,
+        "section_id": 54266
+      },
+      {
+        "available": true,
+        "base_price": 6.5,
+        "currency": "EUR",
+        "description": "mit Rosmarin & Olivenöl",
+        "id": 422128,
+        "name": "Focaccio",
+        "option_group_ids": [],
+        "pickup_price": 6.5,
+        "section_id": 54267
+      },
+      {
+        "available": true,
+        "base_price": 9,
+        "currency": "EUR",
+        "description": null,
+        "id": 422081,
+        "name": "Pizza Margherita",
+        "option_group_ids": [],
+        "pickup_price": 9,
+        "section_id": 54267
+      },
+      {
+        "available": true,
+        "base_price": 11,
+        "currency": "EUR",
+        "description": "mit Salami",
+        "id": 422082,
+        "name": "Pizza Salame",
+        "option_group_ids": [],
+        "pickup_price": 11,
+        "section_id": 54267
+      },
+      {
+        "available": true,
+        "base_price": 12.5,
+        "currency": "EUR",
+        "description": "mit Gemüse der Saison",
+        "id": 422083,
+        "name": "Pizza Vegetale",
+        "option_group_ids": [],
+        "pickup_price": 12.5,
+        "section_id": 54267
+      },
+      {
+        "available": true,
+        "base_price": 13,
+        "currency": "EUR",
+        "description": "mit pikanter italienischer Salami",
+        "id": 422084,
+        "name": "Pizza Calabrese (pikant)",
+        "option_group_ids": [],
+        "pickup_price": 13,
+        "section_id": 54267
+      },
+      {
+        "available": true,
+        "base_price": 12.5,
+        "currency": "EUR",
+        "description": "mit Thunfisch und Zwiebeln",
+        "id": 422085,
+        "name": "Pizza Tonno e Cipolla",
+        "option_group_ids": [],
+        "pickup_price": 12.5,
+        "section_id": 54267
+      },
+      {
+        "available": true,
+        "base_price": 14.5,
+        "currency": "EUR",
+        "description": "mit Parmaschinken, Rucola und Parmesan",
+        "id": 422086,
+        "name": "Pizza Matera",
+        "option_group_ids": [],
+        "pickup_price": 14.5,
+        "section_id": 54267
+      },
+      {
+        "available": true,
+        "base_price": 15.5,
+        "currency": "EUR",
+        "description": "mit Großgarnelen",
+        "id": 422087,
+        "name": "Pizza Scampi",
+        "option_group_ids": [],
+        "pickup_price": 15.5,
+        "section_id": 54267
+      },
+      {
+        "available": true,
+        "base_price": 13.5,
+        "currency": "EUR",
+        "description": "mit Gorgonzola, Spinat und Walnüssen",
+        "id": 422088,
+        "name": "Pizza Spinaci",
+        "option_group_ids": [],
+        "pickup_price": 13.5,
+        "section_id": 54267
+      },
+      {
+        "available": true,
+        "base_price": 14,
+        "currency": "EUR",
+        "description": "Mit Salami, Schinken, Champignons und Peperoni",
+        "id": 1555834,
+        "name": "Pizza Mista",
+        "option_group_ids": [],
+        "pickup_price": null,
+        "section_id": 54267
+      },
+      {
+        "available": true,
+        "base_price": 12,
+        "currency": "EUR",
+        "description": "mit Tomatensauce und Mozzarella",
+        "id": 431339,
+        "name": "Focaccio",
+        "option_group_ids": [],
+        "pickup_price": 12,
+        "section_id": 55489
+      },
+      {
+        "available": true,
+        "base_price": 12,
+        "currency": "EUR",
+        "description": null,
+        "id": 431340,
+        "name": "Pizza Margherita",
+        "option_group_ids": [],
+        "pickup_price": 12,
+        "section_id": 55489
+      },
+      {
+        "available": true,
+        "base_price": 12,
+        "currency": "EUR",
+        "description": "mit Salami",
+        "id": 431341,
+        "name": "Pizza Salame",
+        "option_group_ids": [],
+        "pickup_price": 12,
+        "section_id": 55489
+      },
+      {
+        "available": true,
+        "base_price": 12,
+        "currency": "EUR",
+        "description": "mit Gemüse der Saison",
+        "id": 431342,
+        "name": "Pizza Vegetale",
+        "option_group_ids": [],
+        "pickup_price": 12,
+        "section_id": 55489
+      },
+      {
+        "available": true,
+        "base_price": 12,
+        "currency": "EUR",
+        "description": "mit pikanter italienischer Salami",
+        "id": 431343,
+        "name": "Pizza Calabrese (pikant)",
+        "option_group_ids": [],
+        "pickup_price": 12,
+        "section_id": 55489
+      },
+      {
+        "available": true,
+        "base_price": 12,
+        "currency": "EUR",
+        "description": "mit Thunfisch und Zwiebeln",
+        "id": 431344,
+        "name": "Pizza Tonno e Cipolla",
+        "option_group_ids": [],
+        "pickup_price": 12,
+        "section_id": 55489
+      },
+      {
+        "available": true,
+        "base_price": 12,
+        "currency": "EUR",
+        "description": "mit Parmaschinken, Rucola und Parmesan",
+        "id": 431345,
+        "name": "Pizza Matera",
+        "option_group_ids": [],
+        "pickup_price": 12,
+        "section_id": 55489
+      },
+      {
+        "available": true,
+        "base_price": 12,
+        "currency": "EUR",
+        "description": "mit Großgarnelen",
+        "id": 431346,
+        "name": "Pizza Scampi",
+        "option_group_ids": [],
+        "pickup_price": 12,
+        "section_id": 55489
+      },
+      {
+        "available": true,
+        "base_price": 12,
+        "currency": "EUR",
+        "description": "mit Gorgonzola, Spinat und Walnüssen",
+        "id": 431347,
+        "name": "Pizza Spinaci",
+        "option_group_ids": [],
+        "pickup_price": 12,
+        "section_id": 55489
+      },
+      {
+        "available": true,
+        "base_price": 11.5,
+        "currency": "EUR",
+        "description": "mit Knoblauch und Olivenöl",
+        "id": 422089,
+        "name": "Spaghetti Aglio e Olio",
+        "option_group_ids": [],
+        "pickup_price": 11.5,
+        "section_id": 54268
+      },
+      {
+        "available": true,
+        "base_price": 12.5,
+        "currency": "EUR",
+        "description": "mit Oliven und scharfer Tomatensauce",
+        "id": 422090,
+        "name": "Penne al Arrabbiata (scharf)",
+        "option_group_ids": [],
+        "pickup_price": 12.5,
+        "section_id": 54268
+      },
+      {
+        "available": true,
+        "base_price": 13,
+        "currency": "EUR",
+        "description": "mit Speck, Ei, Sahnesauce und Parmesan",
+        "id": 422091,
+        "name": "Spaghetti Carbonara",
+        "option_group_ids": [],
+        "pickup_price": 13,
+        "section_id": 54268
+      },
+      {
+        "available": true,
+        "base_price": 11,
+        "currency": "EUR",
+        "description": "mit Tomatenfilets, Knoblauch und Basilikum",
+        "id": 468938,
+        "name": "Spagheti Napoli",
+        "option_group_ids": [],
+        "pickup_price": 11,
+        "section_id": 54268
+      },
+      {
+        "available": true,
+        "base_price": 13.5,
+        "currency": "EUR",
+        "description": "mit Rinderhackfleisch und Tomatensauce",
+        "id": 422092,
+        "name": "Spaghetti Bolognese",
+        "option_group_ids": [],
+        "pickup_price": 13.5,
+        "section_id": 54268
+      },
+      {
+        "available": true,
+        "base_price": 12,
+        "currency": "EUR",
+        "description": "Kartoffelnudeln mit Salbeibutter",
+        "id": 422129,
+        "name": "Gnocchi e Burro alla Salvia",
+        "option_group_ids": [],
+        "pickup_price": 12,
+        "section_id": 54268
+      },
+      {
+        "available": true,
+        "base_price": 14,
+        "currency": "EUR",
+        "description": "mit Bolognese",
+        "id": 422093,
+        "name": "Lasagne al Forno",
+        "option_group_ids": [],
+        "pickup_price": 14,
+        "section_id": 54268
+      },
+      {
+        "available": true,
+        "base_price": 12.5,
+        "currency": "EUR",
+        "description": "Bandnudeln mit Pestosauce",
+        "id": 422130,
+        "name": "Tagliatelle Pesto",
+        "option_group_ids": [],
+        "pickup_price": 12.5,
+        "section_id": 54268
+      },
+      {
+        "available": true,
+        "base_price": 14.5,
+        "currency": "EUR",
+        "description": "mit Lachswürfeln und Hummer-Sahnesauce",
+        "id": 422094,
+        "name": "Tagliatelle al Salmone",
+        "option_group_ids": [],
+        "pickup_price": 14.5,
+        "section_id": 54268
+      },
+      {
+        "available": true,
+        "base_price": 13,
+        "currency": "EUR",
+        "description": "Federnudeln mit Gorgonzola und Spinat",
+        "id": 422131,
+        "name": "Penne Gorgonzola und Spinaci",
+        "option_group_ids": [],
+        "pickup_price": 13,
+        "section_id": 54268
+      },
+      {
+        "available": true,
+        "base_price": 13,
+        "currency": "EUR",
+        "description": "Federnnudeln mit frischem Gemüße der Saison",
+        "id": 422132,
+        "name": "Penne Vegetale",
+        "option_group_ids": [],
+        "pickup_price": 13,
+        "section_id": 54268
+      },
+      {
+        "available": true,
+        "base_price": 13.5,
+        "currency": "EUR",
+        "description": "mit Hähnchenbruststreifen, Champignons und Sahnesauce",
+        "id": 422095,
+        "name": "Penne con Pollo",
+        "option_group_ids": [],
+        "pickup_price": 13.5,
+        "section_id": 54268
+      },
+      {
+        "available": true,
+        "base_price": 15,
+        "currency": "EUR",
+        "description": "mit Filetspitzen, Zucchini, frischen Tomaten und Basilikum",
+        "id": 422133,
+        "name": "Tagliatelle dello Chef",
+        "option_group_ids": [],
+        "pickup_price": 15,
+        "section_id": 54268
+      },
+      {
+        "available": true,
+        "base_price": 12,
+        "currency": "EUR",
+        "description": "mit Knoblauch und Olivenöl",
+        "id": 431348,
+        "name": "Spaghetti Aglio e Olio",
+        "option_group_ids": [],
+        "pickup_price": 12,
+        "section_id": 55490
+      },
+      {
+        "available": true,
+        "base_price": 12,
+        "currency": "EUR",
+        "description": "mit Oliven und scharfer Tomatensauce",
+        "id": 431349,
+        "name": "Penne al Arrabbiata (scharf)",
+        "option_group_ids": [],
+        "pickup_price": 12,
+        "section_id": 55490
+      },
+      {
+        "available": true,
+        "base_price": 12,
+        "currency": "EUR",
+        "description": "mit Speck, Ei, Sahnesauce und Parmesan",
+        "id": 431350,
+        "name": "Spaghetti Carbonara",
+        "option_group_ids": [],
+        "pickup_price": 12,
+        "section_id": 55490
+      },
+      {
+        "available": true,
+        "base_price": 12,
+        "currency": "EUR",
+        "description": "mit Rinderhackfleisch und Tomatensauce",
+        "id": 431351,
+        "name": "Spaghetti Bolognese",
+        "option_group_ids": [],
+        "pickup_price": 12,
+        "section_id": 55490
+      },
+      {
+        "available": true,
+        "base_price": 13,
+        "currency": "EUR",
+        "description": "mit Bolognese",
+        "id": 431352,
+        "name": "Lasagne al Forno",
+        "option_group_ids": [],
+        "pickup_price": 13,
+        "section_id": 55490
+      },
+      {
+        "available": true,
+        "base_price": 12,
+        "currency": "EUR",
+        "description": "mit Lachswürfeln und Hummer-Sahnesauce",
+        "id": 431353,
+        "name": "Tagliatelle al Salmone",
+        "option_group_ids": [],
+        "pickup_price": 12,
+        "section_id": 55490
+      },
+      {
+        "available": true,
+        "base_price": 12,
+        "currency": "EUR",
+        "description": "mit Hähnchenbruststreifen, Champignons und Sahnesauce",
+        "id": 431354,
+        "name": "Penne con Pollo",
+        "option_group_ids": [],
+        "pickup_price": 12,
+        "section_id": 55490
+      },
+      {
+        "available": true,
+        "base_price": 12,
+        "currency": "EUR",
+        "description": "Kartoffelnudeln mit Salbeibutter",
+        "id": 431355,
+        "name": "Gnocchi e Burro alla Salvia",
+        "option_group_ids": [],
+        "pickup_price": 12,
+        "section_id": 55490
+      },
+      {
+        "available": true,
+        "base_price": 12,
+        "currency": "EUR",
+        "description": "Bandnudeln mit Pestosauce",
+        "id": 431356,
+        "name": "Tagliatelle Pesto",
+        "option_group_ids": [],
+        "pickup_price": 12,
+        "section_id": 55490
+      },
+      {
+        "available": true,
+        "base_price": 12,
+        "currency": "EUR",
+        "description": "Federnudeln mit Gorgonzola und Spinat",
+        "id": 431357,
+        "name": "Penne Gorgonzola und Spinaci",
+        "option_group_ids": [],
+        "pickup_price": 12,
+        "section_id": 55490
+      },
+      {
+        "available": true,
+        "base_price": 12,
+        "currency": "EUR",
+        "description": "Federnnudeln mit frischem Gemüße der Saison",
+        "id": 431358,
+        "name": "Penne Vegetale",
+        "option_group_ids": [],
+        "pickup_price": 12,
+        "section_id": 55490
+      },
+      {
+        "available": true,
+        "base_price": 12,
+        "currency": "EUR",
+        "description": "mit Filetspitzen, Zucchini, frischen Tomaten und Basilikum",
+        "id": 431359,
+        "name": "Tagliatelle dello Chef",
+        "option_group_ids": [],
+        "pickup_price": 12,
+        "section_id": 55490
+      },
+      {
+        "available": true,
+        "base_price": 7,
+        "currency": "EUR",
+        "description": "hausgemacht, ohne Alkohol und ohne Ei. Nur Mascarpone und Kaffee",
+        "id": 422096,
+        "name": "Tiramisu",
+        "option_group_ids": [],
+        "pickup_price": 7,
+        "section_id": 54269
+      },
+      {
+        "available": true,
+        "base_price": 7,
+        "currency": "EUR",
+        "description": "hausgemacht, mit Himbeersauce",
+        "id": 422097,
+        "name": "Panna Cotta",
+        "option_group_ids": [],
+        "pickup_price": 7,
+        "section_id": 54269
+      },
+      {
+        "available": true,
+        "base_price": 7.5,
+        "currency": "EUR",
+        "description": null,
+        "id": 1555835,
+        "name": "Tartufo Amaretto",
+        "option_group_ids": [],
+        "pickup_price": null,
+        "section_id": 54269
+      },
+      {
+        "available": true,
+        "base_price": 6,
+        "currency": "EUR",
+        "description": "Gemisches Eis",
+        "id": 1555836,
+        "name": "Gelato Misto",
+        "option_group_ids": [],
+        "pickup_price": null,
+        "section_id": 54269
+      },
+      {
+        "available": true,
+        "base_price": 11.5,
+        "currency": "EUR",
+        "description": null,
+        "id": 1555837,
+        "name": "Dessert Misto Matera",
+        "option_group_ids": [],
+        "pickup_price": null,
+        "section_id": 54269
+      },
+      {
+        "available": true,
+        "base_price": 8,
+        "currency": "EUR",
+        "description": null,
+        "id": 1555838,
+        "name": "Crème Caramel",
+        "option_group_ids": [],
+        "pickup_price": null,
+        "section_id": 54269
+      },
+      {
+        "available": true,
+        "base_price": 6.5,
+        "currency": "EUR",
+        "description": "Tomatencremesuppe",
+        "id": 422126,
+        "name": "Zuppa di Pomodoro",
+        "option_group_ids": [],
+        "pickup_price": 6.5,
+        "section_id": 54275
+      },
+      {
+        "available": true,
+        "base_price": 6.5,
+        "currency": "EUR",
+        "description": "frische Gemüsesuppe",
+        "id": 422127,
+        "name": "Minestrone",
+        "option_group_ids": [],
+        "pickup_price": 6.5,
+        "section_id": 54275
+      },
+      {
+        "available": true,
+        "base_price": 22.5,
+        "currency": "EUR",
+        "description": "Schweinefiletmedaillons mit gedünsteten Pilzen der Saison",
+        "id": 422134,
+        "name": "Medaglioni alla Boscaiola",
+        "option_group_ids": [],
+        "pickup_price": 22.5,
+        "section_id": 54276
+      },
+      {
+        "available": true,
+        "base_price": 22.5,
+        "currency": "EUR",
+        "description": "Schweinefiletmedaillons mit Parmaschinken und Salbei in Weißweinsauce",
+        "id": 422135,
+        "name": "Saltimbocca alla Romana",
+        "option_group_ids": [],
+        "pickup_price": 22.5,
+        "section_id": 54276
+      },
+      {
+        "available": true,
+        "base_price": 29.5,
+        "currency": "EUR",
+        "description": "Gegrilltes Rinderfilet",
+        "id": 422136,
+        "name": "Filetto di Manzo",
+        "option_group_ids": [],
+        "pickup_price": 29.5,
+        "section_id": 54276
+      },
+      {
+        "available": true,
+        "base_price": 31.5,
+        "currency": "EUR",
+        "description": "Rinderfilet in gruner Pfeffersauce",
+        "id": 422137,
+        "name": "Filetto di Manzo al pepe verde",
+        "option_group_ids": [],
+        "pickup_price": 31.5,
+        "section_id": 54276
+      },
+      {
+        "available": true,
+        "base_price": 25,
+        "currency": "EUR",
+        "description": "Rumpsteak mit Gorgonzolasauce",
+        "id": 422138,
+        "name": "Bistecca alla Gorgonzola",
+        "option_group_ids": [],
+        "pickup_price": 25,
+        "section_id": 54276
+      },
+      {
+        "available": true,
+        "base_price": 26,
+        "currency": "EUR",
+        "description": "Rumpsteak mit grünem Pfeffer in Rahmsauce",
+        "id": 422139,
+        "name": "Bistecca alla Pepe Verde",
+        "option_group_ids": [],
+        "pickup_price": 26,
+        "section_id": 54276
+      },
+      {
+        "available": true,
+        "base_price": 25.5,
+        "currency": "EUR",
+        "description": "Garnelen auf dem Lavastein gegrillt",
+        "id": 422140,
+        "name": "Scampi alla Griglia (5 Stück)",
+        "option_group_ids": [],
+        "pickup_price": 25.5,
+        "section_id": 54277
+      },
+      {
+        "available": true,
+        "base_price": 27.5,
+        "currency": "EUR",
+        "description": "Garnelen mit Hummer-Sahnesauce",
+        "id": 422141,
+        "name": "Scampi del Matera (5 Stück)",
+        "option_group_ids": [],
+        "pickup_price": 27.5,
+        "section_id": 54277
+      },
+      {
+        "available": true,
+        "base_price": 23.5,
+        "currency": "EUR",
+        "description": "Zanderfilet mit Pommery-Senfsauce",
+        "id": 422142,
+        "name": "Zanderfilet",
+        "option_group_ids": [],
+        "pickup_price": 23.5,
+        "section_id": 54277
+      },
+      {
+        "available": true,
+        "base_price": 24.5,
+        "currency": "EUR",
+        "description": "Lachsfilet in Weißweinsauce",
+        "id": 422143,
+        "name": "Salmone al Vino bianco",
+        "option_group_ids": [],
+        "pickup_price": 24.5,
+        "section_id": 54277
+      },
+      {
+        "available": true,
+        "base_price": 16.5,
+        "currency": "EUR",
+        "description": null,
+        "id": 1555848,
+        "name": "Hausgemachte Ravioli gefüllt mit Ricotta und Spinat in Tomatensauce",
+        "option_group_ids": [],
+        "pickup_price": null,
+        "section_id": 202000
+      },
+      {
+        "available": true,
+        "base_price": 17.5,
+        "currency": "EUR",
+        "description": null,
+        "id": 1555849,
+        "name": "Hausgemachte grüne Ravioli gefüllt Rindergehacktes und Lauch",
+        "option_group_ids": [],
+        "pickup_price": null,
+        "section_id": 202000
+      },
+      {
+        "available": true,
+        "base_price": 17.5,
+        "currency": "EUR",
+        "description": null,
+        "id": 1555850,
+        "name": "Hausgemachte Ravioli gefüllt mit Kastanien in Butter - Salbei",
+        "option_group_ids": [],
+        "pickup_price": null,
+        "section_id": 202000
+      },
+      {
+        "available": true,
+        "base_price": 17.5,
+        "currency": "EUR",
+        "description": null,
+        "id": 1555851,
+        "name": "Hausgemachte Ravioli gefüllt mit Steinpilzen in Steinpilzsauce",
+        "option_group_ids": [],
+        "pickup_price": null,
+        "section_id": 202000
+      },
+      {
+        "available": true,
+        "base_price": 18.5,
+        "currency": "EUR",
+        "description": null,
+        "id": 1555852,
+        "name": "Hausgemachte schwarze Ravioli gefüllt mit Fisch in Hummersauce",
+        "option_group_ids": [],
+        "pickup_price": null,
+        "section_id": 202000
+      },
+      {
+        "available": true,
+        "base_price": 17.5,
+        "currency": "EUR",
+        "description": null,
+        "id": 1555853,
+        "name": "Hausgemachte schwarze Linguine mit Krabben und Zucchini in Tomatensauce",
+        "option_group_ids": [],
+        "pickup_price": null,
+        "section_id": 202000
+      },
+      {
+        "available": true,
+        "base_price": 16.5,
+        "currency": "EUR",
+        "description": null,
+        "id": 1555854,
+        "name": "Hausgemachte Cannelloni mit Ricotta und Spinat in Offen überbacken",
+        "option_group_ids": [],
+        "pickup_price": null,
+        "section_id": 202000
+      },
+      {
+        "available": true,
+        "base_price": 38.5,
+        "currency": "EUR",
+        "description": null,
+        "id": 1555855,
+        "name": "Ravioli Misto für 2 Personen",
+        "option_group_ids": [],
+        "pickup_price": null,
+        "section_id": 202000
+      }
+    ],
+    "modifiers": {
+      "503010": {
+        "base_price": 0.5,
+        "id": 503010,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "mit Knoblauch",
+        "nutrition_info": {
+          "additives_list": [
+            "keine"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "keine"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Knoblauch; ALLERGENE: keine",
+          "nutrition_per_100": {
+            "carbohydrate_g": "0",
+            "energy_kcal": "0",
+            "energy_kj": "0",
+            "fat_g": "0",
+            "protein_g": "0",
+            "salt_g": "0",
+            "saturates_g": "0",
+            "sugars_g": "0"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 0.5,
+          "dine_in": 0.5,
+          "pickup": 0.5,
+          "room_service": 0.5
+        },
+        "type": "modifier"
+      },
+      "503011": {
+        "base_price": 0.5,
+        "id": 503011,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "mit Zwiebeln",
+        "nutrition_info": {
+          "additives_list": [
+            "keine"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "keine"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Zwiebeln; ALLERGENE: keine",
+          "nutrition_per_100": {
+            "carbohydrate_g": "0",
+            "energy_kcal": "0",
+            "energy_kj": "0",
+            "fat_g": "0",
+            "protein_g": "0",
+            "salt_g": "0",
+            "saturates_g": "0",
+            "sugars_g": "0"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 0.5,
+          "dine_in": 0.5,
+          "pickup": 0.5,
+          "room_service": 0.5
+        },
+        "type": "modifier"
+      },
+      "503012": {
+        "base_price": 3,
+        "id": 503012,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "mit Hähnchenfilet",
+        "nutrition_info": {
+          "additives_list": [
+            "keine"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "keine"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Hähnchenfilet; ALLERGENE: keine",
+          "nutrition_per_100": {
+            "carbohydrate_g": "0",
+            "energy_kcal": "165",
+            "energy_kj": "100",
+            "fat_g": "3.6",
+            "protein_g": "31",
+            "salt_g": "0.1",
+            "saturates_g": "1",
+            "sugars_g": "0"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 3,
+          "dine_in": 3,
+          "pickup": 3,
+          "room_service": 3
+        },
+        "type": "modifier"
+      },
+      "503013": {
+        "base_price": 1,
+        "id": 503013,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "mit Peperoni",
+        "nutrition_info": {
+          "additives_list": [
+            "keine"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "keine"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Peperoni; ALLERGENE: keine",
+          "nutrition_per_100": {
+            "carbohydrate_g": "0",
+            "energy_kcal": "0",
+            "energy_kj": "0",
+            "fat_g": "0",
+            "protein_g": "0",
+            "salt_g": "0",
+            "saturates_g": "0",
+            "sugars_g": "0"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 1,
+          "dine_in": 1,
+          "pickup": 1,
+          "room_service": 1
+        },
+        "type": "modifier"
+      },
+      "503014": {
+        "base_price": 1,
+        "id": 503014,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "mit Paprika",
+        "nutrition_info": {
+          "additives_list": [
+            "keine"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "keine"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Paprika; ALLERGENE: keine",
+          "nutrition_per_100": {
+            "carbohydrate_g": "0",
+            "energy_kcal": "0",
+            "energy_kj": "0",
+            "fat_g": "0",
+            "protein_g": "0",
+            "salt_g": "0",
+            "saturates_g": "0",
+            "sugars_g": "0"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 1,
+          "dine_in": 1,
+          "pickup": 1,
+          "room_service": 1
+        },
+        "type": "modifier"
+      },
+      "503015": {
+        "base_price": 1.5,
+        "id": 503015,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "mit Thunfisch",
+        "nutrition_info": {
+          "additives_list": [
+            "keine"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "FISCH"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Thunfisch; ALLERGENE: FISCH",
+          "nutrition_per_100": {
+            "carbohydrate_g": "0",
+            "energy_kcal": "120",
+            "energy_kj": "500",
+            "fat_g": "1",
+            "protein_g": "26",
+            "salt_g": "0.1",
+            "saturates_g": "0.2",
+            "sugars_g": "0"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 1.5,
+          "dine_in": 1.5,
+          "pickup": 1.5,
+          "room_service": 1.5
+        },
+        "type": "modifier"
+      },
+      "503016": {
+        "base_price": 1.5,
+        "id": 503016,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "mit Mozzarella, frisch",
+        "nutrition_info": {
+          "additives_list": [
+            "keine"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "MILCH"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Mozzarella; ALLERGENE: MILCH",
+          "nutrition_per_100": {
+            "carbohydrate_g": "1",
+            "energy_kcal": "70",
+            "energy_kj": "300",
+            "fat_g": "4.5",
+            "protein_g": "7",
+            "salt_g": "0.1",
+            "saturates_g": "3",
+            "sugars_g": "0.5"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 1.5,
+          "dine_in": 1.5,
+          "pickup": 1.5,
+          "room_service": 1.5
+        },
+        "type": "modifier"
+      },
+      "503017": {
+        "base_price": 1,
+        "id": 503017,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "mit Rucola",
+        "nutrition_info": {
+          "additives_list": [
+            "keine"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "keine"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Rucola; ALLERGENE: keine",
+          "nutrition_per_100": {
+            "carbohydrate_g": "0",
+            "energy_kcal": "0",
+            "energy_kj": "0",
+            "fat_g": "0",
+            "protein_g": "0",
+            "salt_g": "0",
+            "saturates_g": "0",
+            "sugars_g": "0"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 1,
+          "dine_in": 1,
+          "pickup": 1,
+          "room_service": 1
+        },
+        "type": "modifier"
+      },
+      "503018": {
+        "base_price": 1,
+        "id": 503018,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "mit Schinken",
+        "nutrition_info": {
+          "additives_list": [
+            "keine"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "keine"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Schinken; ALLERGENE: keine",
+          "nutrition_per_100": {
+            "carbohydrate_g": "0",
+            "energy_kcal": "145",
+            "energy_kj": "100",
+            "fat_g": "5",
+            "protein_g": "25",
+            "salt_g": "1.5",
+            "saturates_g": "2",
+            "sugars_g": "0"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 1,
+          "dine_in": 1,
+          "pickup": 1,
+          "room_service": 1
+        },
+        "type": "modifier"
+      },
+      "503019": {
+        "base_price": 1,
+        "id": 503019,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "mit Ananas",
+        "nutrition_info": {
+          "additives_list": [
+            "keine"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "keine"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Ananas; ALLERGENE: keine",
+          "nutrition_per_100": {
+            "carbohydrate_g": "0",
+            "energy_kcal": "0",
+            "energy_kj": "0",
+            "fat_g": "0",
+            "protein_g": "0",
+            "salt_g": "0",
+            "saturates_g": "0",
+            "sugars_g": "0"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 1,
+          "dine_in": 1,
+          "pickup": 1,
+          "room_service": 1
+        },
+        "type": "modifier"
+      },
+      "503020": {
+        "base_price": 1,
+        "id": 503020,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "mit Tomaten, frisch",
+        "nutrition_info": {
+          "additives_list": [
+            "keine"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "keine"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Tomaten; ALLERGENE: keine",
+          "nutrition_per_100": {
+            "carbohydrate_g": "0",
+            "energy_kcal": "0",
+            "energy_kj": "0",
+            "fat_g": "0",
+            "protein_g": "0",
+            "salt_g": "0",
+            "saturates_g": "0",
+            "sugars_g": "0"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 1,
+          "dine_in": 1,
+          "pickup": 1,
+          "room_service": 1
+        },
+        "type": "modifier"
+      },
+      "503021": {
+        "base_price": 1,
+        "id": 503021,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "mit Oliven",
+        "nutrition_info": {
+          "additives_list": [
+            "keine"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "keine"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Oliven; ALLERGENE: keine",
+          "nutrition_per_100": {
+            "carbohydrate_g": "0",
+            "energy_kcal": "0",
+            "energy_kj": "0",
+            "fat_g": "0",
+            "protein_g": "0",
+            "salt_g": "0",
+            "saturates_g": "0",
+            "sugars_g": "0"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 1,
+          "dine_in": 1,
+          "pickup": 1,
+          "room_service": 1
+        },
+        "type": "modifier"
+      },
+      "503022": {
+        "base_price": 1.5,
+        "id": 503022,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "mit Gorgonzola",
+        "nutrition_info": {
+          "additives_list": [
+            "keine"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "MILCH"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Gorgonzola; ALLERGENE: MILCH",
+          "nutrition_per_100": {
+            "carbohydrate_g": "1",
+            "energy_kcal": "100",
+            "energy_kj": "350",
+            "fat_g": "8",
+            "protein_g": "6",
+            "salt_g": "0.5",
+            "saturates_g": "5",
+            "sugars_g": "0.5"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 1.5,
+          "dine_in": 1.5,
+          "pickup": 1.5,
+          "room_service": 1.5
+        },
+        "type": "modifier"
+      },
+      "503023": {
+        "base_price": 1.5,
+        "id": 503023,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "mit Sardellen",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "FISCH",
+            "SALZ"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Sardellen, SALZ, Gewürze",
+          "nutrition_per_100": {
+            "carbohydrate_g": "0",
+            "energy_kcal": "192",
+            "energy_kj": "800",
+            "fat_g": "10",
+            "protein_g": "24",
+            "salt_g": "3",
+            "saturates_g": "2",
+            "sugars_g": "0"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 1.5,
+          "dine_in": 1.5,
+          "pickup": 1.5,
+          "room_service": 1.5
+        },
+        "type": "modifier"
+      },
+      "503024": {
+        "base_price": 1,
+        "id": 503024,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "mit Artischocken",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "OLIVEN"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Artischocken, OLIVENÖL, Gewürze",
+          "nutrition_per_100": {
+            "carbohydrate_g": "8",
+            "energy_kcal": "60",
+            "energy_kj": "250",
+            "fat_g": "4",
+            "protein_g": "3",
+            "salt_g": "0.1",
+            "saturates_g": "0.5",
+            "sugars_g": "1"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 1,
+          "dine_in": 1,
+          "pickup": 1,
+          "room_service": 1
+        },
+        "type": "modifier"
+      },
+      "503025": {
+        "base_price": 0.5,
+        "id": 503025,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "mit Basilikum",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Basilikum, OLIVENÖL, Gewürze",
+          "nutrition_per_100": {
+            "carbohydrate_g": "6",
+            "energy_kcal": "48",
+            "energy_kj": "200",
+            "fat_g": "2",
+            "protein_g": "3",
+            "salt_g": "0.1",
+            "saturates_g": "0.3",
+            "sugars_g": "1"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 0.5,
+          "dine_in": 0.5,
+          "pickup": 0.5,
+          "room_service": 0.5
+        },
+        "type": "modifier"
+      },
+      "503026": {
+        "base_price": 3,
+        "id": 503026,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "mit Scampi",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "FISCH",
+            "SCHALENFRÜCHTE"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Scampi, SALZ, Gewürze",
+          "nutrition_per_100": {
+            "carbohydrate_g": "0",
+            "energy_kcal": "203",
+            "energy_kj": "850",
+            "fat_g": "5",
+            "protein_g": "40",
+            "salt_g": "2",
+            "saturates_g": "1",
+            "sugars_g": "0"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 3,
+          "dine_in": 3,
+          "pickup": 3,
+          "room_service": 3
+        },
+        "type": "modifier"
+      },
+      "503027": {
+        "base_price": 1.5,
+        "id": 503027,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "mit Funghi",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Funghi, OLIVENÖL, Gewürze",
+          "nutrition_per_100": {
+            "carbohydrate_g": "8",
+            "energy_kcal": "52",
+            "energy_kj": "220",
+            "fat_g": "1",
+            "protein_g": "3",
+            "salt_g": "0.1",
+            "saturates_g": "0.2",
+            "sugars_g": "1"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 1.5,
+          "dine_in": 1.5,
+          "pickup": 1.5,
+          "room_service": 1.5
+        },
+        "type": "modifier"
+      },
+      "503028": {
+        "base_price": 1,
+        "id": 503028,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "mit Spinat",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Spinat, OLIVENÖL, Gewürze",
+          "nutrition_per_100": {
+            "carbohydrate_g": "7",
+            "energy_kcal": "43",
+            "energy_kj": "180",
+            "fat_g": "1",
+            "protein_g": "5",
+            "salt_g": "0.1",
+            "saturates_g": "0.1",
+            "sugars_g": "1"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 1,
+          "dine_in": 1,
+          "pickup": 1,
+          "room_service": 1
+        },
+        "type": "modifier"
+      },
+      "503029": {
+        "base_price": 1.5,
+        "id": 503029,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "mit Feta",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "MILCH"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Feta, OLIVENÖL, Gewürze",
+          "nutrition_per_100": {
+            "carbohydrate_g": "1",
+            "energy_kcal": "215",
+            "energy_kj": "900",
+            "fat_g": "16",
+            "protein_g": "18",
+            "salt_g": "1.5",
+            "saturates_g": "10",
+            "sugars_g": "0"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 1.5,
+          "dine_in": 1.5,
+          "pickup": 1.5,
+          "room_service": 1.5
+        },
+        "type": "modifier"
+      },
+      "503030": {
+        "base_price": 1.5,
+        "id": 503030,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "mit Parmesan",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "MILCH"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Parmesan, OLIVENÖL, Gewürze",
+          "nutrition_per_100": {
+            "carbohydrate_g": "3",
+            "energy_kcal": "290",
+            "energy_kj": "1200",
+            "fat_g": "20",
+            "protein_g": "26",
+            "salt_g": "1.5",
+            "saturates_g": "12",
+            "sugars_g": "0"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 1.5,
+          "dine_in": 1.5,
+          "pickup": 1.5,
+          "room_service": 1.5
+        },
+        "type": "modifier"
+      },
+      "503031": {
+        "base_price": 1,
+        "id": 503031,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "mit Salami",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "SCHWEINEFLEISCH"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Salami, SALZ, Gewürze",
+          "nutrition_per_100": {
+            "carbohydrate_g": "0",
+            "energy_kcal": "290",
+            "energy_kj": "1200",
+            "fat_g": "25",
+            "protein_g": "20",
+            "salt_g": "3",
+            "saturates_g": "10",
+            "sugars_g": "0"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 1,
+          "dine_in": 1,
+          "pickup": 1,
+          "room_service": 1
+        },
+        "type": "modifier"
+      },
+      "503032": {
+        "base_price": 1.5,
+        "id": 503032,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "mit Salami, pikant",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "SCHWEINEFLEISCH"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Salami, pikant, SALZ, Gewürze",
+          "nutrition_per_100": {
+            "carbohydrate_g": "0",
+            "energy_kcal": "310",
+            "energy_kj": "1300",
+            "fat_g": "28",
+            "protein_g": "22",
+            "salt_g": "3.5",
+            "saturates_g": "12",
+            "sugars_g": "0"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 1.5,
+          "dine_in": 1.5,
+          "pickup": 1.5,
+          "room_service": 1.5
+        },
+        "type": "modifier"
+      },
+      "503033": {
+        "base_price": 0.5,
+        "id": 503033,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "pikant",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Gewürze, SALZ",
+          "nutrition_per_100": {
+            "carbohydrate_g": "5",
+            "energy_kcal": "24",
+            "energy_kj": "100",
+            "fat_g": "0",
+            "protein_g": "1",
+            "salt_g": "2",
+            "saturates_g": "0",
+            "sugars_g": "0"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 0.5,
+          "dine_in": 0.5,
+          "pickup": 0.5,
+          "room_service": 0.5
+        },
+        "type": "modifier"
+      },
+      "503034": {
+        "base_price": 0,
+        "id": 503034,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "glutenfrei",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "GLUTEN"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Zutaten sind glutenfrei",
+          "nutrition_per_100": {
+            "carbohydrate_g": "0",
+            "energy_kcal": "0",
+            "energy_kj": "0",
+            "fat_g": "0",
+            "protein_g": "0",
+            "salt_g": "0",
+            "saturates_g": "0",
+            "sugars_g": "0"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 0,
+          "dine_in": 0,
+          "pickup": 0,
+          "room_service": 0
+        },
+        "type": "modifier"
+      },
+      "503035": {
+        "base_price": 0,
+        "id": 503035,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "Klein 26cm",
+        "nutrition_info": {
+          "additives_list": [
+            "keine"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "GLUTEN"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Pizza Teig; ALLERGENE: GLUTEN",
+          "nutrition_per_100": {
+            "carbohydrate_g": "100",
+            "energy_kcal": "590",
+            "energy_kj": "250",
+            "fat_g": "10",
+            "protein_g": "20",
+            "salt_g": "1",
+            "saturates_g": "2",
+            "sugars_g": "2"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 0,
+          "dine_in": 0,
+          "pickup": 0,
+          "room_service": 0
+        },
+        "type": "modifier"
+      },
+      "503036": {
+        "base_price": 1.5,
+        "id": 503036,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "Normal 33cm",
+        "nutrition_info": {
+          "additives_list": [
+            "keine"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "GLUTEN"
+          ],
+          "brand_or_manufacturer": "",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Pizza Teig; ALLERGENE: GLUTEN",
+          "nutrition_per_100": {
+            "carbohydrate_g": "100",
+            "energy_kcal": "590",
+            "energy_kj": "250",
+            "fat_g": "10",
+            "protein_g": "20",
+            "salt_g": "1",
+            "saturates_g": "2",
+            "sugars_g": "2"
+          },
+          "packaging_material": "",
+          "packaging_type": "non-prepacked"
+        },
+        "order_method_prices": {
+          "delivery": 1.5,
+          "dine_in": 1.5,
+          "pickup": 1.5,
+          "room_service": 1.5
+        },
+        "type": "modifier"
+      },
+      "518295": {
+        "base_price": 0,
+        "id": 518295,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "Coca-Cola",
+        "nutrition_info": {
+          "additives_list": [
+            "Säuerungsmittel",
+            "Farbstoff"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [],
+          "base_price": {
+            "required": true,
+            "unit": "l",
+            "value_per_unit": 0.5
+          },
+          "brand_or_manufacturer": "Coca-Cola",
+          "caffeine_mg_per_100ml": 10,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Wasser, ZUCKER, CO2, Säuerungsmittel, Aromen, Farbstoff",
+          "net_quantity": {
+            "unit": "ml",
+            "value": 500
+          },
+          "nutrition_per_100": {
+            "carbohydrate_g": "10",
+            "energy_kcal": "42",
+            "energy_kj": "180",
+            "fat_g": "0",
+            "protein_g": "0",
+            "salt_g": "0",
+            "saturates_g": "0",
+            "sugars_g": "10"
+          },
+          "packaging_material": "PET Einweg",
+          "packaging_type": "prepacked"
+        },
+        "order_method_prices": null,
+        "type": "modifier"
+      },
+      "518296": {
+        "base_price": 0,
+        "id": 518296,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "Coca-Cola",
+        "nutrition_info": {
+          "additives_list": [
+            "Säuerungsmittel",
+            "Farbstoff"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [],
+          "base_price": {
+            "required": true,
+            "unit": "l",
+            "value_per_unit": 0.5
+          },
+          "brand_or_manufacturer": "Coca-Cola",
+          "caffeine_mg_per_100ml": 10,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Wasser, ZUCKER, CO2, Säuerungsmittel, Aromen, Farbstoff",
+          "net_quantity": {
+            "unit": "ml",
+            "value": 500
+          },
+          "nutrition_per_100": {
+            "carbohydrate_g": "10",
+            "energy_kcal": "42",
+            "energy_kj": "180",
+            "fat_g": "0",
+            "protein_g": "0",
+            "salt_g": "0",
+            "saturates_g": "0",
+            "sugars_g": "10"
+          },
+          "packaging_material": "PET Einweg",
+          "packaging_type": "prepacked"
+        },
+        "order_method_prices": null,
+        "type": "modifier"
+      },
+      "518297": {
+        "base_price": 0,
+        "id": 518297,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "Fanta",
+        "nutrition_info": {
+          "additives_list": [
+            "Säuerungsmittel",
+            "Farbstoff"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [],
+          "base_price": {
+            "required": true,
+            "unit": "l",
+            "value_per_unit": 0.5
+          },
+          "brand_or_manufacturer": "Coca-Cola",
+          "caffeine_mg_per_100ml": 10,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Wasser, ZUCKER, CO2, Säuerungsmittel, Aromen, Farbstoff",
+          "net_quantity": {
+            "unit": "ml",
+            "value": 500
+          },
+          "nutrition_per_100": {
+            "carbohydrate_g": "10",
+            "energy_kcal": "42",
+            "energy_kj": "180",
+            "fat_g": "0",
+            "protein_g": "0",
+            "salt_g": "0",
+            "saturates_g": "0",
+            "sugars_g": "10"
+          },
+          "packaging_material": "PET Einweg",
+          "packaging_type": "prepacked"
+        },
+        "order_method_prices": null,
+        "type": "modifier"
+      },
+      "518298": {
+        "base_price": 0,
+        "id": 518298,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "Sprite",
+        "nutrition_info": {
+          "additives_list": [
+            "Zitronensäure",
+            "Natriumbenzoat"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "null"
+          ],
+          "base_price": {
+            "required": true,
+            "unit": "l",
+            "value_per_unit": 0
+          },
+          "brand_or_manufacturer": "Coca-Cola",
+          "caffeine_mg_per_100ml": 10,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Wasser, ZUCKER, Kohlensäure, Säuerungsmittel: Zitronensäure, Aromen, Pflanzenextrakte, Konservierungsstoff: Natriumbenzoat.",
+          "net_quantity": {
+            "unit": "ml",
+            "value": 500
+          },
+          "nutrition_per_100": {
+            "carbohydrate_g": "10.6",
+            "energy_kcal": "42",
+            "energy_kj": "176",
+            "fat_g": "0",
+            "protein_g": "0",
+            "salt_g": "0",
+            "saturates_g": "0",
+            "sugars_g": "10.6"
+          },
+          "packaging_material": "PET Einweg",
+          "packaging_type": "prepacked"
+        },
+        "order_method_prices": null,
+        "type": "modifier"
+      },
+      "518299": {
+        "base_price": 0,
+        "id": 518299,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "Spezi",
+        "nutrition_info": {
+          "additives_list": [
+            "E150d",
+            "Zitronensäure"
+          ],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "null"
+          ],
+          "base_price": {
+            "required": true,
+            "unit": "l",
+            "value_per_unit": 0
+          },
+          "brand_or_manufacturer": "Coca-Cola",
+          "caffeine_mg_per_100ml": 10,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Wasser, ZUCKER, Kohlensäure, Aromen, Farbstoff: E150d, Säuerungsmittel: Zitronensäure.",
+          "net_quantity": {
+            "unit": "ml",
+            "value": 500
+          },
+          "nutrition_per_100": {
+            "carbohydrate_g": "10.7",
+            "energy_kcal": "43",
+            "energy_kj": "180",
+            "fat_g": "0",
+            "protein_g": "0",
+            "salt_g": "0",
+            "saturates_g": "0",
+            "sugars_g": "10.7"
+          },
+          "packaging_material": "PET Einweg",
+          "packaging_type": "prepacked"
+        },
+        "order_method_prices": null,
+        "type": "modifier"
+      },
+      "518300": {
+        "base_price": 0,
+        "id": 518300,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "Apfleschorle",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "null"
+          ],
+          "base_price": {
+            "required": true,
+            "unit": "l",
+            "value_per_unit": 0
+          },
+          "brand_or_manufacturer": "Local Brand",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "Wasser, APFELSAFT, Kohlensäure.",
+          "net_quantity": {
+            "unit": "ml",
+            "value": 500
+          },
+          "nutrition_per_100": {
+            "carbohydrate_g": "10.5",
+            "energy_kcal": "43",
+            "energy_kj": "180",
+            "fat_g": "0",
+            "protein_g": "0",
+            "salt_g": "0",
+            "saturates_g": "0",
+            "sugars_g": "10.5"
+          },
+          "packaging_material": "PET Einweg",
+          "packaging_type": "prepacked"
+        },
+        "order_method_prices": null,
+        "type": "modifier"
+      },
+      "518301": {
+        "base_price": 0,
+        "id": 518301,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "Orangensaft",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "null"
+          ],
+          "base_price": {
+            "required": true,
+            "unit": "l",
+            "value_per_unit": 0
+          },
+          "brand_or_manufacturer": "Local Brand",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "ORANGENSAFT.",
+          "net_quantity": {
+            "unit": "ml",
+            "value": 500
+          },
+          "nutrition_per_100": {
+            "carbohydrate_g": "9.0",
+            "energy_kcal": "43",
+            "energy_kj": "180",
+            "fat_g": "0",
+            "protein_g": "0",
+            "salt_g": "0",
+            "saturates_g": "0",
+            "sugars_g": "9.0"
+          },
+          "packaging_material": "PET Einweg",
+          "packaging_type": "prepacked"
+        },
+        "order_method_prices": null,
+        "type": "modifier"
+      },
+      "518302": {
+        "base_price": 0,
+        "id": 518302,
+        "is_available": true,
+        "is_available_for_delivery": true,
+        "is_available_for_pickup": true,
+        "is_visible": true,
+        "modifier_group_ids": [],
+        "name": "Apfelsaft",
+        "nutrition_info": {
+          "additives_list": [],
+          "alcohol_by_volume_percent": null,
+          "allergens_list": [
+            "null"
+          ],
+          "base_price": {
+            "required": true,
+            "unit": "l",
+            "value_per_unit": 0
+          },
+          "brand_or_manufacturer": "Local Brand",
+          "caffeine_mg_per_100ml": null,
+          "gtin": "",
+          "high_caffeine_warning_required": false,
+          "ingredients_text": "APFELSAFT.",
+          "net_quantity": {
+            "unit": "ml",
+            "value": 500
+          },
+          "nutrition_per_100": {
+            "carbohydrate_g": "10.0",
+            "energy_kcal": "43",
+            "energy_kj": "180",
+            "fat_g": "0",
+            "protein_g": "0",
+            "salt_g": "0",
+            "saturates_g": "0",
+            "sugars_g": "10.0"
+          },
+          "packaging_material": "PET Einweg",
+          "packaging_type": "prepacked"
+        },
+        "order_method_prices": null,
+        "type": "modifier"
+      }
+    },
+    "option_group_map": {
+      "91947": {
+        "id": 91947,
+        "is_required": false,
+        "is_variant": false,
+        "max_count": 24,
+        "name": "Ihre Extras",
+        "option_ids": [
+          503010,
+          503011,
+          503012,
+          503013,
+          503014,
+          503015,
+          503016,
+          503017,
+          503018,
+          503019,
+          503020,
+          503021,
+          503022,
+          503023,
+          503024,
+          503025,
+          503026,
+          503027,
+          503028,
+          503029,
+          503030,
+          503031,
+          503032,
+          503033
+        ]
+      },
+      "91948": {
+        "id": 91948,
+        "is_required": false,
+        "is_variant": false,
+        "max_count": 1,
+        "name": "Ihr Sonderwunsch",
+        "option_ids": [
+          503034
+        ]
+      },
+      "91949": {
+        "id": 91949,
+        "is_required": true,
+        "is_variant": false,
+        "max_count": 1,
+        "name": "Grösse",
+        "option_ids": [
+          503035,
+          503036
+        ]
+      },
+      "91980": {
+        "id": 91980,
+        "is_required": false,
+        "is_variant": false,
+        "max_count": null,
+        "name": "Passt gut dazu",
+        "option_ids": [
+          422076,
+          422124,
+          422073,
+          422150,
+          422097,
+          422082,
+          422096
+        ]
+      }
+    },
+    "option_groups": [
+      {
+        "id": 91947,
+        "is_required": false,
+        "is_variant": false,
+        "max_count": 24,
+        "name": "Ihre Extras",
+        "option_ids": [
+          503010,
+          503011,
+          503012,
+          503013,
+          503014,
+          503015,
+          503016,
+          503017,
+          503018,
+          503019,
+          503020,
+          503021,
+          503022,
+          503023,
+          503024,
+          503025,
+          503026,
+          503027,
+          503028,
+          503029,
+          503030,
+          503031,
+          503032,
+          503033
+        ]
+      },
+      {
+        "id": 91948,
+        "is_required": false,
+        "is_variant": false,
+        "max_count": 1,
+        "name": "Ihr Sonderwunsch",
+        "option_ids": [
+          503034
+        ]
+      },
+      {
+        "id": 91949,
+        "is_required": true,
+        "is_variant": false,
+        "max_count": 1,
+        "name": "Grösse",
+        "option_ids": [
+          503035,
+          503036
+        ]
+      },
+      {
+        "id": 91980,
+        "is_required": false,
+        "is_variant": false,
+        "max_count": null,
+        "name": "Passt gut dazu",
+        "option_ids": [
+          422076,
+          422124,
+          422073,
+          422150,
+          422097,
+          422082,
+          422096
+        ]
+      }
+    ],
+    "sections": [
+      {
+        "id": 63932,
+        "name": "Am Beliebtesten",
+        "sorting_order": -1
+      },
+      {
+        "id": 63936,
+        "name": "Am Beliebtesten",
+        "sorting_order": -1
+      },
+      {
+        "id": 54265,
+        "name": "Vorspeisen",
+        "sorting_order": 0
+      },
+      {
+        "id": 54266,
+        "name": "Salate",
+        "sorting_order": 1
+      },
+      {
+        "id": 54267,
+        "name": "Pizza",
+        "sorting_order": 2
+      },
+      {
+        "id": 55489,
+        "name": "Pizza",
+        "sorting_order": 2
+      },
+      {
+        "id": 54268,
+        "name": "Nudelgerichte",
+        "sorting_order": 3
+      },
+      {
+        "id": 55490,
+        "name": "Nudelgerichte",
+        "sorting_order": 3
+      },
+      {
+        "id": 54269,
+        "name": "Dessert",
+        "sorting_order": 4
+      },
+      {
+        "id": 54275,
+        "name": "Suppen",
+        "sorting_order": 5
+      },
+      {
+        "id": 54276,
+        "name": "Fleischgerichte",
+        "sorting_order": 6
+      },
+      {
+        "id": 54277,
+        "name": "Fischgerichte",
+        "sorting_order": 7
+      },
+      {
+        "id": 202000,
+        "name": "Hausgemachte Pasta",
+        "sorting_order": 10
+      }
+    ],
+    "stats": {
+      "item_count": 96,
+      "price_max_eur": 38.5,
+      "price_min_eur": 6,
+      "section_count": 13
+    }
+  },
+  "schema": "cvm.venue/v1",
+  "slug": "ristorante-matera-berlin",
+  "source": {
+    "attribution": "Venue facts, menu and prices (c) Ristorante Matera, Birkbuschstraße 7, 12165 Berlin (Steglitz) — retrieved from the venue's own public JSON API (FoodAmigos storefront). Product images referenced by URL only, not copied.",
+    "calls": {
+      "franchise.json": {
+        "url": "https://app.foodamigos.io/api/franchises?hostname=restaurant-matera.de"
+      },
+      "menus.json": {
+        "url": "https://app.foodamigos.io/api/companies/1742/menus"
+      }
+    }
+  },
+  "venue": {
+    "address": {
+      "city": "Berlin",
+      "country": "DE",
+      "lat": 52.4523434,
+      "lon": 13.3200172,
+      "street": "Birkbuschstraße 7",
+      "zip": "12165"
+    },
+    "company_binding": {
+      "franchise_company_id": 1742,
+      "match": true,
+      "menus_company_id": 1742,
+      "note": "No company-id trap for this venue: franchise companies[0].id == 1742 == the id whose /menus returns the Italian menu this restaurant serves."
+    },
+    "cuisine": [
+      "pizza",
+      "italian"
+    ],
+    "currency": "EUR",
+    "delivery": {
+      "supported": true
+    },
+    "display_name": "Ristorante Matera",
+    "name": "Ristorante Matera",
+    "opening_hours": [
+      {
+        "close": {
+          "day": 0,
+          "hour": 21,
+          "minute": 0,
+          "timezone": "Europe/Berlin"
+        },
+        "open": {
+          "day": 0,
+          "hour": 12,
+          "minute": 0,
+          "timezone": "Europe/Berlin"
+        },
+        "timezone": "Europe/Berlin"
+      },
+      {
+        "close": {
+          "day": 2,
+          "hour": 21,
+          "minute": 0,
+          "timezone": "Europe/Berlin"
+        },
+        "open": {
+          "day": 2,
+          "hour": 12,
+          "minute": 0,
+          "timezone": "Europe/Berlin"
+        },
+        "timezone": "Europe/Berlin"
+      },
+      {
+        "close": {
+          "day": 3,
+          "hour": 21,
+          "minute": 0,
+          "timezone": "Europe/Berlin"
+        },
+        "open": {
+          "day": 3,
+          "hour": 12,
+          "minute": 0,
+          "timezone": "Europe/Berlin"
+        },
+        "timezone": "Europe/Berlin"
+      },
+      {
+        "close": {
+          "day": 4,
+          "hour": 21,
+          "minute": 0,
+          "timezone": "Europe/Berlin"
+        },
+        "open": {
+          "day": 4,
+          "hour": 12,
+          "minute": 0,
+          "timezone": "Europe/Berlin"
+        },
+        "timezone": "Europe/Berlin"
+      },
+      {
+        "close": {
+          "day": 5,
+          "hour": 21,
+          "minute": 0,
+          "timezone": "Europe/Berlin"
+        },
+        "open": {
+          "day": 5,
+          "hour": 12,
+          "minute": 0,
+          "timezone": "Europe/Berlin"
+        },
+        "timezone": "Europe/Berlin"
+      },
+      {
+        "close": {
+          "day": 6,
+          "hour": 21,
+          "minute": 0,
+          "timezone": "Europe/Berlin"
+        },
+        "open": {
+          "day": 6,
+          "hour": 12,
+          "minute": 0,
+          "timezone": "Europe/Berlin"
+        },
+        "timezone": "Europe/Berlin"
+      }
+    ],
+    "ordering": {
+      "primary_url": "https://ristorantematera.online-karte.com/ristorantematera",
+      "urls": {
+        "own_site": "https://restaurant-matera.de",
+        "platform_shop": "https://ristorantematera.online-karte.com/ristorantematera"
+      }
+    },
+    "phone": "+49 30 60927677",
+    "pickup": {
+      "supported": true
+    },
+    "provider": "foodamigos",
+    "provider_ids": {
+      "company_id": 1742,
+      "franchise_id": 1684,
+      "franchise_slug": "ristorantematera",
+      "store_id": 1394,
+      "store_uuid": "294d1d41-6c72-41fe-9816-949b2321f5d2"
+    },
+    "ratings": {
+      "google_rates_count": 255,
+      "google_rating": "4.6"
+    },
+    "timezone": "Europe/Berlin",
+    "type": "restaurant",
+    "website": "https://restaurant-matera.de"
+  }
+}
