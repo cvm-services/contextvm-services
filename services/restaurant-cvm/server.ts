@@ -88,7 +88,9 @@ export interface Venue {
   slug: string;
   name: string;
   currency: string;
-  deep_link: string;
+  /** The venue's ONLINE SHOP (platform_shop/external_web_shop) — null when the
+   *  venue has no online checkout and is therefore not supportable (2026-10-14). */
+  deep_link: string | null;
   rail: string | null;
   order_methods: string[];
   items: MenuItem[];
@@ -324,10 +326,27 @@ export async function loadVenueSet(filter?: string[]): Promise<VenueSet> {
       continue;
     }
     const currency = String(v.currency ?? menu.currency ?? "EUR");
-    const deepLink = (v.ordering as { primary_url?: string } | undefined)?.primary_url ??
+    // The hand-off target must be the venue's ONLINE SHOP, not its menu page.
+    // primary_url/website were the old fallback and made a menu-only page look
+    // like a checkout — chandi's /menue/ page was served as a "hand-off" that
+    // can never settle an order (operator rule 2026-10-14: online checkout or
+    // the venue is not supportable). deep_link is now null when there is no
+    // real shop, and downstream (capture -> menu.json -> catalog) announces
+    // only venues with one.
+    const shopUrls = ((v.ordering as { urls?: Record<string, unknown> } | undefined)?.urls ?? {}) as {
+      platform_shop?: string;
+      external_web_shop?: string;
+    };
+    const deepLink = shopUrls.platform_shop ?? shopUrls.external_web_shop ?? null;
+    // ONLY SUPPORTED VENUES ARE ANNOUNCED (operator rule 2026-10-14). A venue
+    // with no online checkout cannot be settled in sats, so serving it would
+    // advertise a CVM whose orders can never be completed — and the customer
+    // could pay sats into a dead end. Reject it here, at the source, rather than
+    // down-flagging it later: what is served is what is supportable.
+    const anyUrl = (v.ordering as { primary_url?: string } | undefined)?.primary_url ??
       (v.website as string | undefined) ?? null;
-    if (!deepLink) {
-      rejections.push({ slug, reason: "no ordering.primary_url or website to hand off to" });
+    if (!anyUrl) {
+      rejections.push({ slug, reason: "no ordering.primary_url or website at all — nothing to serve" });
       continue;
     }
 
@@ -616,8 +635,8 @@ export function servedVenueProjection(venue: Venue): ServedVenue {
     venue_slug: venue.slug,
     name: venue.name,
     currency: venue.currency,
-    // The hand-off target for the facilitator console. An empty declared value
-    // becomes null (honest absence) — never a synthesised URL.
+    // The venue's ONLINE SHOP (hand-off target), never its menu page. null =
+    // no online checkout = not supportable in sats (operator rule 2026-10-14).
     deep_link: venue.deep_link ? venue.deep_link : null,
     rail: venue.rail ? venue.rail : null,
     // G7: freshness is a property of the capture, not of this reply. The field

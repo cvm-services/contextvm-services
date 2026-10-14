@@ -1,6 +1,6 @@
 {
   "generated_by": "venues/tools/menu_anchors.ts",
-  "menu_sha256": "cc3a875171858652f7df9332ed349f51e7056f7494e938fdf5f3dc93fd8cb177",
+  "menu_sha256": "ad797133fb31f3daa6f90e4897ab04937439b004b1cb22d0b9cbe7da34ab830a",
   "note": "Committed expectation for the SERVED menu contract. The tests and the e2e client compare the LIVE reply against this file; `venues/` is compared against it separately as a drift guard. A change here is the visible review gate for onboarding or re-capturing a venue (data, never code).",
   "regenerate": "deno run --allow-read --allow-write venues/tools/menu_anchors.ts --write",
   "schema": "venue-menu-anchor/1",
@@ -20,7 +20,7 @@
       "from_priced_count": 0,
       "item_count": 167,
       "max_price": 95,
-      "menu_sha256": "4be83b3155939be989a2262cb35e6f0c0e3196cf1ca01e8bf3169c7b1a0a7d5e",
+      "menu_sha256": "fb6894cbcb7ff7b682310e590a660f524a410c17765544d3488a39a17a78a790",
       "min_price": 0.5,
       "priced_methods": [
         "dine_in"
@@ -31,7 +31,7 @@
       "from_priced_count": 0,
       "item_count": 76,
       "max_price": 13,
-      "menu_sha256": "0cca951940e48ae7ef64bff5e8ab4c92d09cae600d64d76e08b2aea83338c806",
+      "menu_sha256": "f8d13458aabf002cb5c699fa2185ef63382b0807d547c39e64006c005d7d46ec",
       "min_price": 0.5,
       "priced_methods": [
         "delivery",
@@ -45,7 +45,7 @@
       "from_priced_count": 0,
       "item_count": 150,
       "max_price": 39.99,
-      "menu_sha256": "2c42c0bbc8af9af6cb6a572d32097737680e78e7edc8fcd1a830a86eb103beee",
+      "menu_sha256": "495f446869f985db57c1f12f0e9f1a7c5f51f27f42584887483856592071ef36",
       "min_price": 0.8,
       "priced_methods": [
         "dine_in"
@@ -56,7 +56,7 @@
       "from_priced_count": 44,
       "item_count": 104,
       "max_price": 10.5,
-      "menu_sha256": "00fc40fd3bdcf2552ea724432e05b535d0060e8d906f87f1fb6e134ef888d43e",
+      "menu_sha256": "b1cb5059d648d6e89cfe723828446da39367387e9443e98ad62daa7c199cef1c",
       "min_price": 1.5,
       "priced_methods": [
         "pickup"
@@ -67,7 +67,7 @@
       "from_priced_count": 0,
       "item_count": 112,
       "max_price": 16.65,
-      "menu_sha256": "b4dfd59bfe52efc791781ea7248f4783c97319607f0ca426efa3ed4d9cbcccc3",
+      "menu_sha256": "eddf13759f2f12c95c964900e3944d16f34451677f1764f8a0a5504c33ee3fa6",
       "min_price": 2.7,
       "priced_methods": [
         "pickup"
@@ -92,7 +92,7 @@
       "from_priced_count": 0,
       "item_count": 100,
       "max_price": 18.4,
-      "menu_sha256": "724cf91c3fde841c147b0b5be94f7b5a691f7df715d422b2788e22cb57da8286",
+      "menu_sha256": "475e6bd2d4aa12757e8dd5e5257b571f8b72f00615e61ea2f7932fa586318d7f",
       "min_price": 1.5,
       "priced_methods": [
         "delivery",
