@@ -1,57 +1,77 @@
-# INDEX — what lives where in the cvm-services org
+# INDEX — what lives where in `cvm-services`
 
-> Single map of the ContextVM (CVM) ecosystem maintained by this operator: which
-> repository holds the kit, the registry, the specs, the private services, and
-> where each service is deployed and under which systemd unit.
->
-> Last verified 2026-10-08. Host labels only (workstation, kit host, registry
-> host); no addresses, no machine paths, no keys in this file — this document is
-> world-readable.
+One page answering "where does X live?" for the sats-paid services platform.
+Generated 2026-10-15 by the manager during the org consolidation.
 
-## The org (github.com/cvm-services)
+## The customer-facing flow, end to end
 
-| Repo | Visibility | What it is | Where its source lives |
-|---|---|---|---|
-| `cvm-service-kit` | public | The service **kit**: shared library + `services/_shared`, the reference services `cvm-lambda`, `cvm-nanogpt`, `cvm-ppq`, `cvm-sms4sats`, and the Ansible deploy role `deploy/ansible/roles/cvm_service`. | repo root (`lib/`, `services/`) |
-| `cvm-registry` | public | The **registry**: collector + cache + the public discovery dashboard that renders allow-listed CVM announcements. | repo root (`collector/`, `site/`, `policy.json`, `curators.json`) |
-| `contextvm-services` | public | **Specs + venue CVM services**: ADRs, CEPs and plans (`docs/adr`, `docs/spec`, `docs/plans`) and the venue servers (`services/restaurant-cvm`). | `docs/` + `services/` |
-| `cvm-kalman-server` | public | **Data server + its own dashboard**: LLM usage analytics and Kalman burn-rate convergence exposed as MCP tools over Nostr, plus an HTML dashboard and JSON API. Moved into the org 2026-10-08. | repo root (`server.ts`, `dashboard-*.mjs`, `dashboard.html`) |
-| `hermes-insights-cvm` | private | CVM server exposing LLM usage analytics as MCP tools. Private by design (embeds operator-local database paths); key material is env-only. | repo root (`src/`) |
-| `jlcpcb-service` | private | JLCPCB fabrication/assembly integration as a CVM service — **plan/docs stage**. Phase-1 quoting client complete and reproduced; assembly-quote flow under exploration (`scripts/asm_step*.py` diagnostic run). Not a service yet. | `scripts/`, docs in repo root |
-| `nadanada-service` | private | Inbound-SMS inbox as a CVM service (`cvm:service:phone-inbox`; `phone.numbers.list` free, `phone.messages.list` paid via Cashu, message bodies as NIP-44 payloads). Two reader backends: playwright (Cloudflare-blocked) and REST API (needs an API-purchased number). **Not deployed.** | repo root |
-| `openai-codex-auth` | private | Reusable OpenAI Codex OAuth **device-code login** client (python module `codex_device_auth`). A credential-lane utility, not a CVM service. | repo root |
+```
+customer                    facilitator                 venue
+--------                    -----------                 -----
+cvm-registry  (PWA: order/)  cvm-orders (console)  ──▶   FoodAmigos checkout
+     │                            │                            │
+     └── Lightning invoice ───────┤                       (online card payment)
+         (cvm-orders /invoice)    │
+                                  └── settlement sweep (paid → placing → placed)
+```
 
-## Related repositories outside the org (cross-references)
+## Repositories
 
-| Repo | Visibility | Relationship |
+### The platform — this project
+
+| repo | visibility | what it is |
 |---|---|---|
-| `felixfelix-bot/nosms` | public | The SMS service with its own Python CVM (`app/cvm*.py`, `docs/cvm/llms.txt`). Active product repo, deliberately left under its personal account; its CVM surface stays in-repo. |
-| `felixfelix-bot/contextvm-services` | private | Archived **duplicate** of this org repo: zero unique commits (its `main` is an ancestor of every org branch). Kept archived with a README pointer; nothing lives there. |
-| `felixfelix-bot/cvm-kalman-server` | public | **Former home** of `cvm-kalman-server`, archived 2026-10-08 with a MOVED notice; the live repo is `cvm-services/cvm-kalman-server`. |
+| `cvm-orders` | public | Order lifecycle service: server-side pricing (`priceOrder`), Lightning invoice + settlement sweep, queue, melt-plan, refund leg (**not yet wired**), `venue_not_supportable` gate. Deployed to `testserver2` as `/opt/tollgate/cvm-orders`. |
+| `cvm-registry` | public | The PWA (customer `/order/`, facilitator `/console/`) + the menu collector that crawls ContextVM services. Hosts `site/menu.json`, `config/venues.json`. |
+| `contextvm-services` | public | ADRs (0001–0020) + the **restaurant/CVM specs** + `venues/<slug>/venue.json` records + the restaurant-cvm server. The SoT for *what a venue declares*. |
+| `cvm-service-kit` | public | Library for building CVMs (MCP server base, shared gate). Contains `services/cvm-2fiat/` (**the rail, not the card** — see below), `cvm-sms4sats`, `cvm-ppq`, `cvm-nanogpt`, `cvm-lambda`. |
+| `cvm-kalman-server` | public | Data server + live dashboard for LLM usage/cost (Kalman price routing). |
+| `nosms` | public | Permissionless Cashu-paid SMS/OTP rail. |
+| `mcp-cashu-exchange` | public | Modular MCP service exchange: registry, gateway, payment rails for payable services (charging, food). |
+| `merchant-routing-engine` | public | Merchant/venue routing. |
+| `napplet-trust-checkout` | **private** | NIP-5D napplet trust-checkout. |
 
-## Deployment map (systemd units)
+### Card material — handle with care
 
-Workstation rows re-verified live 2026-10-08; kit-host and registry-host rows
-verified 2026-10-07 during the consolidation audit.
+| repo | visibility | what it is |
+|---|---|---|
+| `2fiat-local-adapter` | **private** (must stay so — enforced by `tests/test_repo_visibility.py`) | The ONLY component that ever reads a PAN/CVV. Local-only: no listener, no Nostr identity, no announcements. Reads one card's details for one checkout, fills the merchant page, **stops at the human 3DS prompt**. Scoped, **not built** — see `docs/SCOPE.md`. |
 
-| Service | Host | Unit | State |
-|---|---|---|---|
-| cvm-kalman-server | workstation | `cvm-kalman-server.service` (user unit) | active |
-| venue CVM — doppelt-kaese-berlin | workstation | `venue-cvm-server.service` (user unit) | active |
-| venue CVM — pizza-e-pasta | workstation | `venue-cvm-server-pizza.service` (user unit) | active |
-| cvm-lambda (+ executor) | kit host | `cvm-lambda.service`, `loom-adapter-firecracker.service`, `loom-egress-deny.service` | active |
-| cvm-nanogpt | kit host | `cvm-nanogpt.service` | active |
-| cvm-ppq | kit host | `cvm-ppq.service` | active |
-| cvm-sms4sats | kit host | `cvm-sms4sats.service` | active |
-| cvm-registry collector + dashboard | registry host | `cvm-collector.service` + `.timer`; dashboard behind `cvm.orangesync.tech` | active |
-| nadanada-service | — | — | not deployed |
-| hermes-insights-cvm | — | — | not deployed |
-| jlcpcb-service | — | — | plan/docs only |
-| openai-codex-auth | — | — | library, used interactively by design |
-| nosms | — | — | in development, no dedicated CVM unit |
+### Private services (not part of the customer flow)
 
-## Maintenance
+| repo | visibility | what it is |
+|---|---|---|
+| `openai-codex-auth` | private | Device-code OAuth for an existing OpenAI account. Refuses account creation by design. |
+| `jlcpcb-service` | private | JLCPCB fabrication/assembly CVM. |
+| `nadanada-service` | private | Nadanada service CVM. |
+| `hermes-insights-cvm` | private | CVM exposing LLM usage analytics. |
+| `tollgate-dashboard` | private | TollGate maintainer nsite dashboard. |
+| `cashu-me` | public | Fork/mirror of the cashu.me wallet PWA (upstream: `cashubtc/cashu.me`). |
 
-When a repo moves, a service is deployed, or a unit is renamed, update the
-matching row here in the same change. Keep this file free of addresses, machine
-paths, and key material: the org's public repos are world-readable.
+## The three-component card story (do not conflate these)
+
+1. **`cvm-service-kit/services/cvm-2fiat/`** — a *rail*. Quotes a payment, validates
+   an https merchant checkout URL, reads the owner's balance. **No authorize
+   endpoint exists upstream**, and the contract hard-refuses `card.details` and
+   `payment.authorize`. It never sees card material.
+2. **`2fiat-local-adapter`** (private) — the only thing that reads card values, on
+   the operator's own machine, for one payment at a time.
+3. **The 3DS stop** — on spend, a human completes SCA. This is by design, not a
+   missing feature. See `hermes-orchestration/docs/plans/GAP-openai-account-automation-2fiat-payments-2026-10-09.md`.
+
+## Deployment map
+
+| what | where |
+|---|---|
+| `cvm-orders` service | `testserver2:/opt/tollgate/cvm-orders` (systemd `cvm-orders`) |
+| venue CVM servers (6) | x280 `venue-cvm-server-<slug>.service` |
+| `fiat-cvm` | x280 `fiat-cvm.service` (2fiat rail, ADR-0016) |
+| PWA (customer + console) | `https://cvm-pwa.orangesync.tech/order/`, `/console/` |
+| menu + catalog | `https://cvm-pwa.orangesync.tech/menu.json` |
+| 2fiat wallet token | OpenBao `secret/data/fleet/2fiat`, field `token` (never in source) |
+
+## Related repos outside this org
+
+- `felixfelix-bot/hermes-orchestration` — fleet governance, kanban state, AdRs, deploy roles.
+- `felixfelix-bot/contextvm-services` — **private duplicate** of the org repo name; slated for archival with a pointer here (card `t_4549a32f`, item P2).
+- `2fiat-local-adapter` — moved INTO this org 2026-10-15 (was `felixfelix-bot/…`).
