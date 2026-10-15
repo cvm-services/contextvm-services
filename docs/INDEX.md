@@ -29,7 +29,10 @@ cvm-registry  (PWA: order/)  cvm-orders (console)  ──▶   FoodAmigos checko
 | `nosms` | public | Permissionless Cashu-paid SMS/OTP rail. |
 | `mcp-cashu-exchange` | public | Modular MCP service exchange: registry, gateway, payment rails for payable services (charging, food). |
 | `merchant-routing-engine` | public | Merchant/venue routing. |
+| `merchant-routing` | **private** | Fleet lane repo (D-128) for the `merchant-routing` board — operational work, not platform code. |
 | `napplet-trust-checkout` | **private** | NIP-5D napplet trust-checkout. |
+| `sms-gateway` | public | Provider-agnostic SMS gateway (Telnyx, MSG91, Fast2SMS). |
+| `electrum-napplets` | public | **Stale fork** of `DhananjayPurohit/electrum-napplets` — 0 unique commits (ahead 0 / behind 12 as of 2026-10-15). Kept for reference; no work of ours. |
 
 ### Card material — handle with care
 
@@ -69,6 +72,15 @@ cvm-registry  (PWA: order/)  cvm-orders (console)  ──▶   FoodAmigos checko
 | PWA (customer + console) | `https://cvm-pwa.orangesync.tech/order/`, `/console/` |
 | menu + catalog | `https://cvm-pwa.orangesync.tech/menu.json` |
 | 2fiat wallet token | OpenBao `secret/data/fleet/2fiat`, field `token` (never in source) |
+
+## Not moved here on purpose (2026-10-15)
+
+- **`felixfelix-bot/cashu.me`** — a fork of `cashubtc/cashu.me` whose commits are
+  **already all present in `cvm-services/cashu-me`** (verified by SHA). A transfer
+  would also collide: GitHub normalises `.` to `-`, so `cashu.me` and the existing
+  `cashu-me` are the same name. Redundant — left alone.
+- **`cvm-services/cashu-me`** — the real cashu.me work: Nostr-key wallet + a
+  Cashu-paid CVM services marketplace (SMS/WhatsApp).
 
 ## Related repos outside this org
 
