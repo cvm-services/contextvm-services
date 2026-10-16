@@ -1,226 +1,181 @@
 # RALPH LOOP — sats-paid food ordering: finish the project
 
 You are running a **Ralph loop**: one task, then re-read this file, pick the next
-task, repeat, until every task is `done` or `blocked` with a written reason.
+task, repeat, until every task is `done` or `blocked` with a measured reason.
+Re-read this file after EVERY task — it is the only durable state.
 
-Paste this whole file as your prompt. Do not summarize it back to me. Start working.
-
----
-
-## 0. What this project is
-
-A customer in Berlin-Steglitz pays a restaurant order in **Lightning sats**. The
-sats settle into ecash at the Minibits mint. A **facilitator** then places the
-real order at the venue's own online checkout and keeps a **21% margin**.
-
-Three surfaces: customer PWA (`/order/`), facilitator console (`/console/`), and
-the venue's own storefront (not ours).
-
-## 1. Where everything lives
-
-All repos are in the **`cvm-services`** GitHub org:
-
-| repo | role |
-|---|---|
-| `cvm-orders` | order lifecycle: pricing, invoice, settlement sweep, queue, refund leg |
-| `cvm-registry` | the PWA (customer + console) and the menu collector |
-| `contextvm-services` | ADRs, venue records (`venues/<slug>/venue.json`), restaurant-cvm |
-| `cvm-service-kit` | CVM library; contains `services/cvm-2fiat/` (the rail) |
-| `2fiat-local-adapter` | **private** — the only code that reads a PAN/CVV. Local-only. |
-| `mcp-cashu-exchange`, `merchant-routing-engine`, `napplet-trust-checkout`, `nosms` | supporting services |
-
-Read `contextvm-services/docs/INDEX.md` first — it maps the whole thing.
-
-Local clones: `~/repos/<repo>` and `/data/repos/<repo>`. Deploy target:
-`testserver2` (`/opt/tollgate/cvm-orders`). Fleet governance lives in
-`~/repos/hermes-orchestration` (AGENTS.md is binding).
-
-## 2. Rules that override your instincts
-
-- **TDD or it did not happen.** A failing test first, then the change, then green.
-- **Never trust a worker's self-report.** Verify git state, deployed bytes, and
-  live HTTP responses yourself. A probe that passes is not proof the code shipped
-  — read the file **on the target host**.
-- **Fail closed.** If you cannot prove a thing, refuse. Never invent a payment
-  reference, a settlement, a URL, or a "done".
-- **Card values never touch an agent context, a log, argv, env, disk, or the
-  clipboard** (ADR-0013). Only `2fiat-local-adapter` may hold them, in memory.
-- **Do not claim a vendor limit you have not measured.** See task R0 — the
-  entire 2fiat plan hinges on a measurement nobody has actually taken.
-- **Consolidate to the default branch.** A push is not done; a merge is. Public
-  repos push to GitHub **and** ngit; private repos push to GitHub only.
-- **A missing field is not a verdict.** Never report "unsupported" from an absent
-  value — say "we did not record it".
-
-## 3. Task order (do them in this order; later tasks depend on earlier ones)
+**Nothing in this file is an assumption any more. R0 was measured. Read §0 first:
+one of our documented "walls" turned out not to exist.** Treat the corrected
+picture below as the starting point, and treat any *unmeasured* claim — mine or
+yours — as a task to measure, not a fact to build on.
 
 ---
 
-### R0 — MEASURE: does 2fiat actually need a human 3DS step? **(do this first)**
+## 0. MEASURED STATE (do not re-derive, do not contradict)
 
-**This is a measurement, not a build. Its outcome changes the plan.**
+### R0 — the 2fiat human-step question: MEASURED, previous claim was WRONG
 
-A prior gap analysis concluded "unattended card capture is impossible: 3DS +
-Stripe Elements + hCaptcha". The operator disputes this for 2fiat specifically.
-The dispute is legitimate: the fiat CVM's `payFiat` returns
-`state: "requires_3ds"` **without ever attempting a capture**, so the claim was
-never tested — it was assumed. Do not inherit the assumption in either direction.
+We documented "unattended card capture is impossible at 2fiat because of 3DS".
+That was **never measured** — the `pay` tool returned `state: "requires_3ds"`
+WITHOUT ever attempting a capture, so the wall was asserted. It was then measured
+across 4 live runs (`2fiat-local-adapter/docs/R0-3DS-MEASUREMENT.md`):
 
-**Do:**
-1. Read `hermes-orchestration/docs/plans/GAP-openai-account-automation-2fiat-payments-2026-10-09.md`
-   and `2fiat-local-adapter/docs/SCOPE.md` §7.
-2. With Playwright (venv `~/.cache/pw-venv`), drive the real 2fiat wallet —
-   session is a **token in the URL**: `https://2fiat.com/wallet/<TOKEN>/my-cards`
-   (token from OpenBao `secret/data/fleet/2fiat`, field `token`; **never echo it**).
-3. Answer, with recorded raw request/response shapes and **no card values**:
-   - Does `POST …/prepaid-cards/topup/{cardId}` still return `checkoutLink`, and
-     is the bolt11 retrievable behind it (BTCPay-style API) or only in the UI?
-   - Is the card-details OTP surfaced by the API (`GET …/otp`, `POST …/details/{id}`)
-     or is it email-only?
-   - **On a real merchant charge, does 2fiat's card actually trigger a 3DS
-     challenge, or does it authorize without one?** This is the crux.
-4. For any UI/screenshot judgement (layout, "which control is the confirm
-   button", whether a modal blocked the flow), use the vision model
-   (`glm-4.6v` → serves `gpt-6-astra`) for spatial reasoning, and
-   **record which model answered**.
+```
+3DS_STOP: not_required    # card-DETAILS stage
+spend-path: UNPROVEN      # separate question, NOT answered
+```
 
-**Rate limit: the 2fiat edge limiter is SHARED, not per-IP.** One request at a
-time. Never burst. A burst previously blocked two separate hosts.
+- Auth is `POST /api/v1/auth/exchange` — token-in-URL, no password, no 2FA.
+- Card list and card **details** (`GET /api/v1/prepaid-cards/details/<cardId>`)
+  return with **no OTP, no 3DS, no challenge, no SMS, no email**.
+- **But** `cardNo` comes back **MASKED** (`5257 **** **** 9166`), so the details
+  call alone cannot complete a merchant checkout. Full PAN + CVV never appeared.
+- `capabilities()` reports `can_authorize: False` — authorisation may be 2fiat-side.
+- The transaction log shows repeated authorisations **FAILED** on a **0.38 USD**
+  card — consistent with **insufficient funds, not a 3DS stop**.
 
-**Done looks like:** a written verdict — `3DS_STOP: human_required |
-not_required | unmeasurable` — with the raw evidence, at
-`contextvm-services/docs/2fiat-unattended-measurement.md`. If it is
-`not_required`, say so plainly and revise the plan; if `human_required`, say that
-plainly too and stop pretending otherwise.
+**Therefore: do NOT build around a 3DS stop. Do NOT claim automation is solved
+either.** The honest state is "the human gate we believed in is absent; the spend
+path is unproven". Task R3 below is where that gets settled.
 
-**Blocked if:** the 2fiat session token is unavailable, or the account is
-rate-limited. Then write the exact command and the missing input, and mark
-blocked — do not proceed to R2's automation.
+### R1 — the refund leg: SHIPPED
 
----
+`cvm-orders` `2f0f495` on `main` (GitHub + ngit verified identical). 212 passed /
+0 failed; `src/refund.ts` 87% line / 100% branch. The refund melts NUT-05 to the
+customer's own bolt11 and marks `refunded` **only on the mint's PAID verdict**;
+`paid -> refunded` was removed; `claimSettlement` refuses sats with no refund
+target (`no_refund_target`). **Its remaining gap:** no live-mint proof — the tests
+use a fake rail that implements the real NUT-05 protocol.
 
-### R1 — REFUND: make losing money impossible **(the money-safety task)**
+### Repo consolidation: DONE
 
-Today "refund" only flips a state label and sends a Nostr DM
-(`site/console/app.js` `refund()` — its own notice admits "melt to origin is the
-paid leg's job"). `src/rail.ts` has `meltQuote()` and `checkMelt()` (NUT-05), but
-**no HTTP route calls them**. So a customer whose order is never placed keeps
-nothing.
-
-**Do (TDD):**
-1. RED test first: an order whose sats settled, then placed-failed, must end with
-   the sats **back at the customer's own invoice**.
-2. Collect a **customer refund bolt11/lightning-address at order creation** and
-   persist it. Without it a refund is impossible — you can only hold ecash.
-3. `POST /orders/:id/refund` → `meltQuote({request: refund_bolt11})` →
-   `checkMelt()` polling. Set state `refunding` → `refunded` **only when the mint
-   says PAID**. Never on our own say-so.
-4. Idempotency: exactly one melt per order. Two facilitators must not double-refund.
-5. Define and record who eats the Lightning routing fee.
-6. Auto-refund when placement fails or the placing SLA expires.
-
-**Done looks like:** a test that proves no sequence of failures leaves sats
-neither with the customer nor with food, plus a live refund executed on a small
-real amount with the mint's PAID observed.
+16+ repos in the `cvm-services` org, indexed in `contextvm-services/docs/INDEX.md`.
 
 ---
 
-### R2 — AUTOMATIC STORE INTEGRATION (no store navigation for the facilitator)
+## 1. What we are building
 
-The venue checkout (FoodAmigos) exposes `POST /order-drafts` — **the basket,
-before payment** — then `/order-validations`, `/orders`, `/stripe/payment-intents`.
-Extracted 2026-10-14; see `contextvm-services/docs/threebuddies-checkout-flow.md`.
-Only **3** venues accept online payment today: `three-buddies-berlin`,
-`doppelt-kaese-berlin`, `ristorante-matera-berlin`.
+Customers pay **Lightning sats** for Berlin (Steglitz) restaurant orders; sats
+settle as ecash at the Minibits mint; a **facilitator** places the real order at
+the venue's own online checkout and keeps a **21% margin**.
 
-**Do (TDD):**
-1. Build the basket server-side via `POST /order-drafts` from the customer's
-   priced basket — this is the real "no navigation" win and needs no card.
-2. Hand off with the basket already populated. Measure honestly where it stops.
-3. If placing the order requires a Stripe token minted in the customer's browser
-   (Elements cross-origin iframe) or an hCaptcha solve, **record that as the
-   measured ceiling** — "we prefill, a human confirms payment" — and do not
-   pretend otherwise. Do NOT attempt to defeat hCaptcha or Stripe.
-4. The facilitator console must show exactly what it can and cannot do: build
-   basket → open hand-off → record confirmation. No dead buttons, no lying UI.
+Operator's three deliverables:
+1. automatic settlement via 2fiat.com
+2. automatic store integration via ContextVM (facilitator need not navigate the store)
+3. **a working refund path** ← shipped (R1); needs live proof
 
-**Blocked if:** the venue API rejects a server-side basket without a browser
-session. Then record the exact call and status and mark blocked.
+Done = tested **end-to-end**: a human walks into a restaurant and buys food with sats.
 
 ---
 
-### R3 — AUTOMATIC SETTLEMENT VIA 2FIAT (gated on R0)
+## 2. Fleet definition of done (ALL of it, every task)
 
-**Do not start this until R0 has produced a verdict.** If R0 says
-`human_required`, build only up to the hand-off and say so. If R0 says
-`not_required`, build the full chain.
+1. **TDD** — the test exists and was observed FAILING before the implementation.
+2. **Tests pass** — the full suite, output verified, not asserted.
+3. **Coverage ≥ 80%** on changed files.
+4. **Cross-family review PUBLISHED** — a same-family pass is not a review. Post
+   the review to the PR.
+5. **Atomic commits** — one concern each, conventional messages.
+6. **Consolidated to the DEFAULT branch** — "pushed a branch" is not done. Confirm
+   the default branch has it; verify the remote (`git ls-remote origin <default>`).
+7. **Dual-push** — GitHub **and** ngit, both verified via `git ls-remote`.
+8. **Honesty contract** — never claim a commit/push/test/PR you did not observe in
+   tool output. If you run out of budget, state the step you stopped at and list
+   the REMAINING steps. **A blocked task with a measured reason is a SUCCESS.**
+9. **PROGRESS.md** at the worktree root, appended after each cluster
+   (`finding -> status -> files touched`); **REPORT.md** before the final reply.
 
-**Do (TDD):**
-1. A `topup` tool on the 2fiat CVM implementing the **measured** contract:
-   `POST /api/v1/prepaid-cards/topup/{cardId}/check-availability` `{topupValue}`
-   then `POST /api/v1/prepaid-cards/topup/{cardId}` `{topupValue, selectedMethod:"BTC-LN"}`.
-   Fee is 6.5% — verify arithmetically, do not hardcode a belief.
-2. Retrieve the bolt11 behind `checkoutLink` and pay it with the **NUT-05 melt**
-   using the customer's settled ecash. This is the leg that burns the sats.
-3. Orchestrate: gate (sats settled) → melt → topup → card pays venue. Extend
-   `GET /orders/:id/melt-plan` from *reporting* readiness to *executing*.
-4. Card stays unfunded until this works; a top-up with no melt behind it wastes
-   the customer's money. Order the steps so sats move **last**, never first.
-5. 3DS: if R0 found it applies, the honest resting state is `human_required` —
-   surface it to the facilitator with a one-tap continue, never fake a success.
+### Hard constraints
 
----
-
-### R4 — MAKE THE GATES REAL
-
-1. **NIP-98 server-side verification** on `cvm-orders` (the console already signs
-   and attaches a challenge; the server does not verify it). Currently a known,
-   documented gap in the console.
-2. Every open card on the `contextvm-services` board that is a completion
-   leftover: `t_4549a32f`, `t_c9a94df7` (deploy cvm-orders main to production),
-   `t_a63cf51a` (serve Three Buddies live), `t_cc2809fb`, `t_d790103d`,
-   `t_8b3e65c3`, `t_f2a6f901`, plus the venue-adapter triage cards
-   (`t_32d4763c`, `t_4fd9c215`, `t_46c41e69`, `t_3295d44e`, `t_3e791731`).
-   Work the ones reachable from this project; leave the rest with a note.
-
----
-
-### R5 — FRESH-CLONE VERIFICATION
-
-`cvm-registry` e2e must run from a clean clone in CI (`t_e2a7400c`). A suite that
-only passes on the author's machine is not a suite.
+- **ADR-0013 (card custody):** card VALUES (PAN/CVV) never in an agent context,
+  log, argv, env, disk, or clipboard. Only `2fiat-local-adapter` may hold card
+  material, in memory. The **session token** is a different asset — resolvable
+  via the fleet vault AppRole — but still never on argv or in a log.
+- **`2fiat-local-adapter` stays PRIVATE** (`tests/test_repo_visibility.py`) and no
+  token/PAN may be committed (`tests/test_no_token_material.py`).
+- **2fiat's rate limiter is SHARED across hosts.** One request at a time. A burst
+  previously blocked two machines. Never retry-storm.
+- **Only venues with an ONLINE checkout are supportable.** Orders for others are
+  refused at `priceOrder` (`venue_not_supportable`).
+- **`order_url` comes from committed venue RECORDS**, never the flaky relay capture.
+- Layout: repos in `~/repos/<repo>` (+ `/data/repos` symlinks); **worktrees in
+  `~/worktrees/`, never `/tmp`**. Deno 2.9.7; `export PATH="$HOME/.local/bin:$PATH"`.
+- **Quota gate first** on any LLM-driven dispatch; never bypass it.
 
 ---
 
-## 4. Every task's definition of done
+## 3. THE TASKS
 
-Code/risky tier — all of these, or it is not done:
+### R1b — prove the refund against a REAL mint (do this first; it is cheap)
 
-1. A failing test was observed before the change (say so with the output).
-2. The full suite passes; coverage ≥ the repo's `.coverage-threshold` (default 80%).
-3. Docs updated in the same commit as the code.
-4. A cold cross-family review returns APPROVED and is **published** to the PR
-   (a `github.com/.../pull/<N>` URL), citing `reviewer_model:`.
-5. **Merged to the default branch** — a bare push does not count. Public repos
-   also pushed to ngit; verify with `git ls-remote` on both.
-6. IA/deploy changes additionally: executed against the real node, post-condition
-   read back **from the node**, and state plainly which targets you did NOT run.
+The refund leg is shipped but only ever exercised against a fake rail. A fake that
+implements the real protocol is a good test double, but it is **not** proof that
+money moves.
 
-Docs/light tier: tests if present, pushed; review advisory.
+- `src/rail.ts` already speaks real NUT-05 (`meltQuote`, `checkMelt`), so no new
+  rail code is needed. `railFromEnv` reads `CASHU_MINT_URL`.
+- Do a genuine melt to a bolt11 you control, against the Minibits mint, and record
+  the mint's PAID verdict plus the preimage/payment evidence.
+- Watch the rules: `meltQuote` sends NO amount (the mint reads the bolt11);
+  `checkMelt` — **only the mint may say PAID**; unknown states THROW, they do not
+  default to success.
+- **Exit:** a real refund recorded, with the mint's own evidence, committed.
+- **If it cannot be done** (no funded sats available), say so with the measured
+  reason and leave the task blocked — do NOT simulate a success.
 
-## 5. Working agreement
+### R2 — automatic store integration via `POST /order-drafts`
 
-- Keep `PROGRESS.md` at the worktree root: one line per cluster —
-  `finding → status → files touched`.
-- Write `REPORT.md` before your final reply; point at it.
-- Commit and push after every verified milestone. Never hold a push for the end.
-- If you hit a cap or a wall, write exactly where you stopped and list the
-  **remaining steps as a numbered list**. Never claim a commit, push, test, PR or
-  upload you did not observe.
-- If a task cannot be done honestly (a vendor forbids it, a gate is upstream), the
-  correct output is `blocked` with the measured reason — that is a success, not a
-  failure.
+Build the basket-prefill so the facilitator need not navigate the store.
 
-## 6. Start
+- The FoodAmigos checkout API is mapped: `POST /order-drafts`,
+  `POST /order-validations`, `POST /orders`, `POST /stripe/payment-intents`.
+  Evidence: `contextvm-services/docs/threebuddies-checkout-flow.md`.
+- **Measure the ceiling honestly.** The card fields live in Stripe cross-origin
+  iframes and checkout is hCaptcha-gated — so record exactly how far a
+  pre-filled basket gets before a human must act. Do not overstate.
+- **Exit:** a CVM tool that prepares a basket for a supportable venue, plus a
+  written statement of the measured hand-off point. `submit: false`; the human
+  holds payment authority.
 
-Begin with **R0**. It is a measurement. Report its verdict before starting R1.
+### R3 — settle via 2fiat (re-scoped by R0 — do NOT assume a 3DS stop)
+
+R0 removed the assumed blocker without proving the path works. Settle it:
+
+- **First, measure the SPEND path** on a **funded** card. The details stage is
+  ungated; whether a spend can complete unattended is open. Use
+  `tools/r0_measure_3ds_stop.py` as the model for observation-only harnesses
+  (never click a spend control unless the task explicitly says to spend, and only
+  on a card the operator has funded for the purpose).
+- The top-up contract is measured: `POST /api/v1/prepaid-cards/topup/<cardId>`
+  with `{"topupValue":"N","selectedMethod":"BTC-LN"}` returning a `checkoutLink`
+  whose bolt11 must be paid; fee 6.5%.
+- Build `topup` + card capture **only as far as measurement justifies**, and wire
+  the orchestration: claim -> melt -> topup -> card. Record the verdict as
+  `SPEND: unattended | human_required | unmeasurable`.
+- **Exit:** the spend verdict recorded with evidence, and the automation built to
+  exactly that verdict — no further, no less.
+
+### R4 — make the gates real
+
+- **NIP-98 server-side verification.** The console currently asserts identity; the
+  server must verify the signed event itself.
+- Board leftovers: the org-consolidation carry-over card, and the two
+  org-owner-rights items (the `merchant-routing` transfer-out and the stale
+  `2fiat-local-adapter` description) — these need the operator's admin rights;
+  record them as blocked-on-operator rather than silently dropping them.
+
+### R5 — fresh-clone CI verification
+
+Clone each repo clean and run the suite **off the author's machine**. A suite that
+only passes in one working copy is not green. Reproduce the 212-test result for
+`cvm-orders` (and the refund tests specifically) from a fresh clone.
+
+---
+
+## 4. Progress log (append; never delete)
+
+- R0 — DONE. Measured; the prior 3DS claim was wrong for details. `not_required`
+  for details, spend path unproven. Committed `2fiat-local-adapter 5bdc6d0`.
+- R1 — SHIPPED `cvm-orders 2f0f495`. Live-mint proof still outstanding (R1b).
+- R1b — not started.
+- R2 / R3 / R4 / R5 — not started.
