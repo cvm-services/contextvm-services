@@ -92,17 +92,60 @@ So the mapping is still missing, and the failure has narrowed usefully:
 - our menu `sku` (`1052491`) → 500
 - the storefront's own `products[].id` (`2685`) → 500
 
-Both wrong, both 500. The remaining likely sources for the right value are the
-**app-side** article ids (the `1052xxx` family our venue records already carry may
-be POS ids needing a different field), or a field the draft requires that we are
-still not sending alongside `product_id`. Distinguishing them needs the storefront's
-actual draft body — option (1) — because further blind probing against a
-rate-limit-shared host is guesswork, not measurement.
-
 **An attempted walk (`tools/threebuddies_draft_recon.py`) found no add-to-cart
-controls** on the initial DOM (the menu renders client-side after hydration), so
-option (1) needs a selector-aware walk rather than a keyword sweep. The tool is
-committed as-is with that finding, as the starting point for whoever does it.
+controls** on the initial DOM. Root causes now measured:
+
+1. A **cookie-consent banner blocks the page** (`AKZEPTIEREN` / `ABLEHNEN`) and must
+   be dismissed before anything interactive is reachable.
+2. **The landing page is not the ordering surface.** The real one is
+   **`/speisekarte/threebuddies`** (linked as "JETZT BESTELLEN"); `/menu` also
+   renders products.
+3. `products[].id` from `storefront.foodamigos.io/api/store` (e.g. `2685`) is the
+   **marketing site's** catalogue, unrelated to ordering.
+
+### The real menu endpoint — and the id question, resolved
+
+`GET https://app.foodamigos.io/api/companies/**550**/menus` → **200, 208 KB** of
+genuine ordering data: 12 categories, **122 products**, modifier groups, and
+`modifier_groups`/`modifiers`.
+
+**A NOTE ON 509 vs 550 — both are real, and neither alone is the answer.** The
+storefront's *marketing* payload says `company.id = 509`; the *ordering* API is
+addressed with **`550`** (`/companies/550/menus`, `/companies/550/promo-codes`,
+`/companies/550/disabled-pre-order-dates`, and the reservation API too). The
+original note's `550` was **not** wrong — it was wrong *only* for the endpoint I
+first tried it on (`/api/companies/550` → 404, which led me to "correct" it to 509).
+Two identifiers, two surfaces. Recorded because I over-corrected on partial evidence.
+
+**And the product ids ARE our `sku` values.** `/companies/550/menus` returns
+products keyed by exactly the id family our venue records carry:
+
+| id | name | price |
+|---|---|---|
+| `1052491` | Curly Fries (vegan) | 4.50 (pickup/dine_in) / 5.50 (delivery) |
+| `1052496` | Salat Tonno | — |
+| `1052545` | Chicken Wings | — |
+| `1052455` | Three Buddies Burger | — |
+
+Each product carries the **full ordering shape**: `is_available_for_pickup`,
+`is_available_for_delivery`, `base_price`, `order_method_prices{pickup,dine_in,
+delivery,room_service}`, `category_ids`, `modifier_group_ids`, `type`, `identifiers`.
+
+### So what is still missing
+
+`POST /order-drafts` with `company_id: 550` **and** the genuine `product_id: 1052491`
+still returns **`500 Server Error`** — the id family is settled, so the remaining gap
+is a **field the draft requires that we are not sending**, not a wrong id.
+
+The authoritative way to close it is the storefront's own draft body, and that walk
+now has a precise recipe (dismiss consent → open `/speisekarte/threebuddies` →
+add an item). It was not completed here because the add control is rendered by the
+app's own component tree and needs a selector-aware pass, and because further blind
+probing against a rate-limit-shared host would be guesswork rather than measurement.
+
+**Ceiling, honestly: the contract is known to within one missing field, and the
+catalogue is fully available. Do not send a made-up `product_id`; do not treat the
+500 as success.**
 
 ## What R2 must NOT do
 
