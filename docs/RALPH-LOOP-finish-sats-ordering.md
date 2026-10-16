@@ -234,5 +234,18 @@ R1b proved the shape; only real funds can prove the money moves.
   `/speisekarte/threebuddies` → add an item (the landing page is NOT the ordering
   surface; `storefront.foodamigos.io/api/store` products are the marketing catalogue,
   unrelated). Do NOT invent a `product_id`; do NOT read the 500 as success.
-- R3 / R4 — not started.
+- R4 — **the NIP-98 half is ALREADY DONE** (verified, `cvm-orders`). The plan
+  carried a stale premise: "the console asserts identity; the server must verify the
+  signed event". The server already does, and more thoroughly than the plan assumed.
+  `src/nip98.ts` verifies kind-27235 events with **real schnorr verification**
+  (`@noble/curves`), not a pubkey string comparison, and enforces: signed by
+  `FACILITATOR_NPUB`, `payload` = sha256 of a live single-use challenge nonce,
+  fresh `created_at`, `u`/`method` request-binding, and **replay refusal**.
+  `NIP98_STRICT=1` refuses the challenge-bound form outright. Wired into the
+  facilitator routes (`main.ts:165/203/385`) and covered by **10 passing tests** in
+  `tests/nip98_test.ts` — including replay, TTL expiry, malformed credentials,
+  unconfigured-key closure, and strict mode. **Do not re-implement this.**
+  Remaining for R4: only the board leftovers + recording the org-owner items as
+  blocked-on-operator.
+- R3 — not started.
 - Infra — vault policy + two org-owner items: blocked on operator.
