@@ -38,12 +38,53 @@ spend-path: UNPROVEN       # separate question, NOT answered
 
 ⇒ Do NOT build around a 3DS stop. Do NOT claim automation is solved either.
 
-### R1 — the refund leg: SHIPPED (`cvm-orders 2f0f495`)
+### R1 — the refund leg: THE MONEY NOW MOVES (`cvm-orders b35f143`)
 
-Melts NUT-05 to the **customer's own** bolt11; marks `refunded` **only on the
-mint's PAID verdict**; `paid -> refunded` was removed; `claimSettlement` refuses
-sats with no refund target (`no_refund_target`). 212 passed / 0 failed;
-`refund.ts` 87% line / 100% branch.
+**CORRECTION — earlier revisions of this file said "R1 SHIPPED" and that was FALSE
+for several rounds.** `reconcileRefund` quoted a melt and then polled it forever;
+nothing POSTed proofs to `/v1/melt/bolt11`, so no melt could ever settle and the
+customer still received nothing. The suite stayed green because the fake rail set
+`state = "paid"` by assignment. **A quote is not a payment, and a shape test is not
+a spend test.**
+
+What is now true, verified against a **real mint** (testnut, no funds):
+
+- `src/melt_authorize.ts` (new) — NUT-05 step 2, the step that spends. Refuses an
+  underfunded melt BEFORE any network call; requests NUT-08 change so an
+  over-reserved fee is not silently kept; a 200 is never read as PAID; an HTTP error
+  is never a licence to retry with bearer proofs.
+- `src/refund.ts` — the spend is wired behind the durable latch, and **only the latch
+  winner spends**. A rail that cannot spend fails loudly instead of quoting forever.
+- `refunded` only on the mint's PAID; `paid -> refunded` removed; `claimSettlement`
+  refuses sats with no refund target (`no_refund_target`).
+- **Live proof:** mint -> melt-quote -> AUTHORISE real proofs -> the mint says `PAID`.
+  228 passed / 0 failed. `refund.ts` 84% line / 100% branch; `melt_authorize.ts`
+  82% line / 100% branch.
+
+**THREE LIVE-ONLY DEFECTS were found doing this — every one mirrored by our own
+doubles, which is why they survived several rounds of green suites:**
+
+1. **Outputs need the keyset `id`.** Mint outputs without it → 422
+   `missing field 'id'`. Melt outputs without it → 400 `Invalid payment request`
+   (isolated by experiment: no outputs → PAID; outputs WITH id → accepted; outputs
+   WITHOUT id → `Invalid payment request`). `blankOutputs()` computed the id and the
+   request silently dropped it.
+2. **The secret's encoding was wire-inconsistent.** A real mint hashes the UTF-8 of
+   the secret STRING it receives; we blinded over raw entropy and shipped a different
+   string, so `Y` differed and the mint refused a proof it had just signed
+   (`Token not verified`). Measured three ways: raw-bytes+base64url → refused;
+   utf8(base64url)+same string → **PAID**; utf8(hex)+same string → **PAID**. The rule:
+   **the bytes hashed at blind time must be the UTF-8 of the wire string.**
+   (`wireToSecret` now returns `utf8(wire)`.)
+3. **Two assertions had pinned the bug as a requirement** — `ecash_client_test`
+   demanded a 64-char hex secret, and the fake mint hashed the same `Uint8Array` we
+   blinded with. The double agreed with our mistake by construction. It now takes the
+   WIRE secret as a string and hashes it the way a real mint does.
+
+**STILL OPEN — R1c: the PRODUCTION half.** The mechanism is proven; only production
+value is not. testnut is cdk 0.18.1 and settles its own invoices, so the remaining
+proof is the same round-trip against **Minibits at real value with a real external
+invoice**, which needs funded ecash the operator must supply.
 
 ### R1b — real-mint contract: PROVEN money-free (`cvm-orders 1aba105`)
 
@@ -196,56 +237,37 @@ R1b proved the shape; only real funds can prove the money moves.
 
 - R0 — DONE (`2fiat-local-adapter 5bdc6d0`). Measured; the 3DS claim was wrong for
   details. `not_required` for details; spend path unproven.
-- R1 — SHIPPED (`cvm-orders 2f0f495`). Money-safety leg complete.
-- R1b — DONE (`cvm-orders 1aba105`). Real-mint shape verified money-free; found the
-  numeric-amount requirement. Funded half outstanding as R1c.
-- R1c — **BLOCKED (precondition unmet, measured)**. Funded ecash at the Minibits
-  mint does not exist: the fleet wallet state reports `balance_sats: 0`. The box
-  holds no cashu wallet/proof store. Operator must fund before this can run.
-  Do NOT simulate a funded melt.
-- R2 — MOSTLY MEASURED, **blocked on one input** (`contextvm-services e355530`,
-  `docs/r2-order-drafts-contract.md`). The `POST /order-drafts` contract is fully
-  established from the server's own validation errors, and our company id was WRONG
-  (509, not 550). The request now passes every validation rule and fails 500, so the
-  shape is correct and the missing piece is the value of `line_items[].product_id` —
-  our venue records carry `sku`, and the API has no menu endpoint to map it. Unblock:
-  a Playwright walk of the storefront (records the real draft body), or one captured
-  payload from the operator.
-- R5 — **DONE** (`cvm-orders 268c496` + `a21664f`). A fresh clone at `1aba105`
-  with no local state and no env carry-over reproduces `212 passed / 0 failed /
-  4 ignored` — the first time that number meant anything off the author's machine.
-  R5 also found that **there was no CI at all** (no `.github/workflows`), so
-  "consolidated to the default branch" was a by-hand habit and `.coverage-threshold`
-  (80) had nothing enforcing it. Both are now real. The coverage gate **fails
-  closed**: my first version scraped the pretty table, got an empty string, and
-  silently PASSED — now it sums LF/LH from lcov and refuses the build when it
-  cannot read its own measurement. Verified by executing the gate: 89.0% vs 80%.
-- R2 — FURTHER MEASURED (`contextvm-services ae9f3ac`). The product-id question is
-  **settled**: `GET /api/companies/**550**/menus` (208 KB, 122 products) returns
-  products keyed by exactly the id family our venue records carry (`1052491` =
-  Curly Fries (vegan), 4.50 pickup / 5.50 delivery), each with the full ordering
-  shape (`is_available_for_pickup`, `order_method_prices{pickup,dine_in,delivery}`,
-  `category_ids`, `modifier_group_ids`). **509 vs 550: both are real** — the
-  marketing payload says 509, the ordering API is addressed with 550. The earlier
-  "correction" to 509 was wrong for this endpoint.
-  Still `500` with the genuine id, so the remaining gap is a **field we are not
-  sending**, not a wrong id. Closing it needs the storefront's own draft body: the
-  recipe is dismiss the `AKZEPTIEREN` consent banner → open
-  `/speisekarte/threebuddies` → add an item (the landing page is NOT the ordering
-  surface; `storefront.foodamigos.io/api/store` products are the marketing catalogue,
-  unrelated). Do NOT invent a `product_id`; do NOT read the 500 as success.
-- R4 — **the NIP-98 half is ALREADY DONE** (verified, `cvm-orders`). The plan
-  carried a stale premise: "the console asserts identity; the server must verify the
-  signed event". The server already does, and more thoroughly than the plan assumed.
-  `src/nip98.ts` verifies kind-27235 events with **real schnorr verification**
-  (`@noble/curves`), not a pubkey string comparison, and enforces: signed by
-  `FACILITATOR_NPUB`, `payload` = sha256 of a live single-use challenge nonce,
-  fresh `created_at`, `u`/`method` request-binding, and **replay refusal**.
-  `NIP98_STRICT=1` refuses the challenge-bound form outright. Wired into the
-  facilitator routes (`main.ts:165/203/385`) and covered by **10 passing tests** in
-  `tests/nip98_test.ts` — including replay, TTL expiry, malformed credentials,
-  unconfigured-key closure, and strict mode. **Do not re-implement this.**
-  Remaining for R4: only the board leftovers + recording the org-owner items as
-  blocked-on-operator.
-- R3 — not started.
-- Infra — vault policy + two org-owner items: blocked on operator.
+- R1 — **DONE for real** (`cvm-orders f1b51bd` spend leg, `b35f143` spendable
+  proofs). Earlier entries said "SHIPPED" and that was FALSE: nothing POSTed proofs,
+  so no melt could settle. Now verified against a real mint — mint -> quote ->
+  AUTHORISE -> the mint says PAID. Three live-only defects found (keyset `id` on
+  outputs, the secret's wire encoding, and two tests that had pinned the bug as a
+  requirement). **A quote is not a payment; a shape test is not a spend test.**
+- R1b — DONE (`cvm-orders 1aba105`). Real-mint contract money-free. **Caveat: it
+  stops at the QUOTE**, so it could not have caught the spend defects; do not read
+  "melt shape is CORRECT" as evidence that spending works.
+- R1c — **BLOCKED (precondition unmet, measured)**. No funded ecash: the fleet wallet
+  reports `balance_sats: 0`, and the box holds no cashu wallet/proof store. Operator
+  must fund. Do NOT simulate a funded melt. **The MECHANISM is proven (R1); only
+  production VALUE is unproven.**
+- R2 — MOSTLY MEASURED, **blocked on one input** (`cvm-services e355530`). The
+  contract is established from the server's own validation errors. **509 and 550 are
+  BOTH real** — marketing payload says 509, ordering API is `550`
+  (`/companies/550/menus`, 208 KB, 122 products keyed by exactly our id family:
+  `1052491` = Curly Fries (vegan)). Still 500s, so the gap is a FIELD we are not
+  sending, not a wrong id. Close it with the storefront's own draft body: dismiss
+  `AKZEPTIEREN`, open `/speisekarte/threebuddies` (the landing page is NOT the
+  ordering surface), add an item. Do NOT invent a `product_id`; do NOT read the 500
+  as success.
+- R5 — **DONE** (`cvm-orders 268c496`, `a21664f`). A fresh clone reproduces
+  `228 passed / 0 failed` with no local state. Found there was **no CI at all**;
+  `.coverage-threshold` enforced nothing. The gate is **fail-closed** — my first
+  version scraped the pretty table, read an empty string, and silently PASSED.
+- R4 — **the NIP-98 half was ALREADY DONE** (`cvm-services 9f1ac39`): real schnorr
+  verification, nonce binding, freshness, request-binding, replay refusal,
+  `NIP98_STRICT`, 10 passing tests. The plan's premise was **stale**; a worker
+  following it would have re-implemented an existing security boundary. Do NOT
+  re-implement. Remaining: board leftovers only.
+- R3 — not started (needs a FUNDED card).
+- Infra — vault policy + two org-owner items: blocked on operator. Cleanup: stale
+  `role-id.vps-bak` / `secret-id.vps-bak` beside the live AppRole creds.
