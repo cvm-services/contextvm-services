@@ -211,5 +211,14 @@ R1b proved the shape; only real funds can prove the money moves.
   our venue records carry `sku`, and the API has no menu endpoint to map it. Unblock:
   a Playwright walk of the storefront (records the real draft body), or one captured
   payload from the operator.
-- R3 / R4 / R5 — not started.
+- R5 — **DONE** (`cvm-orders 268c496` + `a21664f`). A fresh clone at `1aba105`
+  with no local state and no env carry-over reproduces `212 passed / 0 failed /
+  4 ignored` — the first time that number meant anything off the author's machine.
+  R5 also found that **there was no CI at all** (no `.github/workflows`), so
+  "consolidated to the default branch" was a by-hand habit and `.coverage-threshold`
+  (80) had nothing enforcing it. Both are now real. The coverage gate **fails
+  closed**: my first version scraped the pretty table, got an empty string, and
+  silently PASSED — now it sums LF/LH from lcov and refuses the build when it
+  cannot read its own measurement. Verified by executing the gate: 89.0% vs 80%.
+- R3 / R4 — not started.
 - Infra — vault policy + two org-owner items: blocked on operator.
