@@ -199,5 +199,17 @@ R1b proved the shape; only real funds can prove the money moves.
 - R1 — SHIPPED (`cvm-orders 2f0f495`). Money-safety leg complete.
 - R1b — DONE (`cvm-orders 1aba105`). Real-mint shape verified money-free; found the
   numeric-amount requirement. Funded half outstanding as R1c.
-- R1c / R2 / R3 / R4 / R5 — not started.
+- R1c — **BLOCKED (precondition unmet, measured)**. Funded ecash at the Minibits
+  mint does not exist: the fleet wallet state reports `balance_sats: 0`. The box
+  holds no cashu wallet/proof store. Operator must fund before this can run.
+  Do NOT simulate a funded melt.
+- R2 — MOSTLY MEASURED, **blocked on one input** (`contextvm-services e355530`,
+  `docs/r2-order-drafts-contract.md`). The `POST /order-drafts` contract is fully
+  established from the server's own validation errors, and our company id was WRONG
+  (509, not 550). The request now passes every validation rule and fails 500, so the
+  shape is correct and the missing piece is the value of `line_items[].product_id` —
+  our venue records carry `sku`, and the API has no menu endpoint to map it. Unblock:
+  a Playwright walk of the storefront (records the real draft body), or one captured
+  payload from the operator.
+- R3 / R4 / R5 — not started.
 - Infra — vault policy + two org-owner items: blocked on operator.
