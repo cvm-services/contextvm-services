@@ -63,14 +63,46 @@ missing piece is the mapping from our menu `sku` → FoodAmigos `product_id`.
 ## What unblocks it (in preference order)
 
 1. **Read the real `product_id` from the storefront's own request.** The storefront
-   builds the draft client-side; one Playwright walk of
+   builds the draft client-side; a Playwright walk of
    `threebuddies.foodamigos-storefront.com` adding an item to the cart records the
    exact `order-drafts` body — ids included. This is the same "the UI's calls ARE
-   the contract" method that mapped the rest of this API, and it is the cheapest
-   reliable route. Not done here only because it is a browse (and the host is
-   rate-limit sensitive).
+   the contract" method that mapped the rest of this API.
 2. Ask the operator for one captured draft payload.
 3. Find an unauthenticated catalog/network endpoint we have not guessed.
+
+### Progress on (1) and (3) — measured 2026-10-16
+
+**A SECOND API HOST exists that we had not found: `storefront.foodamigos.io`.**
+The storefront does not read its menu from `app.foodamigos.io`; it calls
+`GET https://storefront.foodamigos.io/api/templates/481` and
+`GET https://threebuddies.foodamigos-storefront.com/api/store`, and it resolves the
+company by **hostname**, not by numeric id:
+`GET https://app.foodamigos.io/api/companies/threebuddies/data?hostname=...`.
+
+That call independently confirms **`company.id = 509`** — the same value established
+from the validation errors, now corroborated by the platform's own data.
+
+`GET /api/store` (51 KB) yields a `products` array with real ids, e.g.
+`2685` = "01. Hamburger" (8.90), `2694` = "10. Burger Manhattan" (11.90). These are
+**storefront product ids and they are NOT the ids `order-drafts` wants**: submitting
+`product_id: 2685` with `company_id: 509` still returns **`500 Server Error`**.
+
+So the mapping is still missing, and the failure has narrowed usefully:
+
+- our menu `sku` (`1052491`) → 500
+- the storefront's own `products[].id` (`2685`) → 500
+
+Both wrong, both 500. The remaining likely sources for the right value are the
+**app-side** article ids (the `1052xxx` family our venue records already carry may
+be POS ids needing a different field), or a field the draft requires that we are
+still not sending alongside `product_id`. Distinguishing them needs the storefront's
+actual draft body — option (1) — because further blind probing against a
+rate-limit-shared host is guesswork, not measurement.
+
+**An attempted walk (`tools/threebuddies_draft_recon.py`) found no add-to-cart
+controls** on the initial DOM (the menu renders client-side after hydration), so
+option (1) needs a selector-aware walk rather than a keyword sweep. The tool is
+committed as-is with that finding, as the starting point for whoever does it.
 
 ## What R2 must NOT do
 
