@@ -220,5 +220,19 @@ R1b proved the shape; only real funds can prove the money moves.
   closed**: my first version scraped the pretty table, got an empty string, and
   silently PASSED — now it sums LF/LH from lcov and refuses the build when it
   cannot read its own measurement. Verified by executing the gate: 89.0% vs 80%.
+- R2 — FURTHER MEASURED (`contextvm-services ae9f3ac`). The product-id question is
+  **settled**: `GET /api/companies/**550**/menus` (208 KB, 122 products) returns
+  products keyed by exactly the id family our venue records carry (`1052491` =
+  Curly Fries (vegan), 4.50 pickup / 5.50 delivery), each with the full ordering
+  shape (`is_available_for_pickup`, `order_method_prices{pickup,dine_in,delivery}`,
+  `category_ids`, `modifier_group_ids`). **509 vs 550: both are real** — the
+  marketing payload says 509, the ordering API is addressed with 550. The earlier
+  "correction" to 509 was wrong for this endpoint.
+  Still `500` with the genuine id, so the remaining gap is a **field we are not
+  sending**, not a wrong id. Closing it needs the storefront's own draft body: the
+  recipe is dismiss the `AKZEPTIEREN` consent banner → open
+  `/speisekarte/threebuddies` → add an item (the landing page is NOT the ordering
+  surface; `storefront.foodamigos.io/api/store` products are the marketing catalogue,
+  unrelated). Do NOT invent a `product_id`; do NOT read the 500 as success.
 - R3 / R4 — not started.
 - Infra — vault policy + two org-owner items: blocked on operator.
