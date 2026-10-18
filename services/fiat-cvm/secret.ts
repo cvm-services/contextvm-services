@@ -75,7 +75,8 @@ async function openBaoToken(opts: LoadOptions): Promise<string | null> {
     const res = await doFetch(`${addr}${BAO_PATH}`, { headers: { "X-Vault-Token": tok } });
     if (!res.ok) return null;
     const body = await res.json();
-    return body?.data?.data?.token ?? null;
+    // The stored field is `2fiat`; accept `token` too for forward compat.
+    return body?.data?.data?.token ?? body?.data?.data?.["2fiat"] ?? null;
   } catch {
     return null;
   }
