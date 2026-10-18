@@ -50,6 +50,33 @@ Deno.test("pay NEVER reports captured while the capture call is unwired", async 
   if (!r.detail) throw new Error("a non-captured result must explain itself");
 });
 
+Deno.test("pay explains the MEASURED reason, and does not blame 3DS", async () => {
+  // Measured 2026-10-18 with NO charge attempted:
+  //   POST prepaid-cards/pay                -> 404 product_not_found
+  //     (it resolves a card PRODUCT to buy, not a charge on an existing card)
+  //   POST prepaid-cards/details/{id}       -> 200 {cardNumber, cvv, expirationDate}
+  //   GET  prepaid-cards/details/{id}/otp   -> 200   <- the OTP is API-retrievable
+  //
+  // So "3D-Secure-gated upstream" is FALSE: 3DS is not what blocks us. What blocks us
+  // is that the provider exposes card VALUES and no charge-by-reference endpoint.
+  // A user-facing reason that names the wrong cause sends the next engineer to the
+  // wrong place — exactly the mistake that cost this project several rounds.
+  const { client } = withCards([RICH]);
+  const r = await payFiat(client, { amount: 10, venue_slug: "ristorante-matera-berlin" });
+  const detail = (r.detail ?? "").toLowerCase();
+
+  if (detail.includes("3d-secure") || detail.includes("3ds")) {
+    throw new Error(
+      `pay blames 3DS, but the OTP is API-retrievable (measured GET .../details/{id}/otp -> 200). ` +
+        `The real cause is: no charge-by-reference endpoint; card values required. Got: ${r.detail}`,
+    );
+  }
+  // It must name the actual mechanism.
+  if (!detail.includes("reference") && !detail.includes("card values")) {
+    throw new Error(`pay must state the measured reason (no reference / card values). Got: ${r.detail}`);
+  }
+});
+
 Deno.test("a real-wallet balance level declines an ordinary venue charge", async () => {
   // The live wallet's cards hold 0.38 and 0.30 USD. An honest pay must decline
   // a normal meal rather than pretend it went through.

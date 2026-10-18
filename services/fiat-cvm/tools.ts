@@ -67,6 +67,18 @@ export async function payFiat(client: FiatClient, input: PayInput): Promise<PayR
   // Not wired to a live capture yet. Returning a truthful "cannot complete
   // unattended" beats inventing a reference — the console shows the manual
   // fallback (pay at the venue) exactly as before ADR-0016.
+  //
+  // THE REASON IS MEASURED, NOT ASSUMED (2026-10-18, no charge attempted):
+  //   POST prepaid-cards/pay              -> 404 product_not_found
+  //        (resolves a card PRODUCT to buy, NOT a charge on an existing card)
+  //   POST prepaid-cards/details/{id}     -> 200 {cardNumber, cvv, expirationDate}
+  //   GET  prepaid-cards/details/{id}/otp -> 200   (the OTP is API-retrievable)
+  //
+  // So 3-D Secure is NOT the blocker — naming it sends the next engineer to the
+  // wrong place, which has already cost this project several rounds. The blockers
+  // are: there is no charge-by-reference endpoint, and the provider exposes card
+  // VALUES, which ADR-0013 (as amended 2026-10-18) permits only via just-in-time
+  // fetch into memory, never persisted.
   return {
     state: "requires_3ds",
     reference: null,
@@ -74,8 +86,11 @@ export async function payFiat(client: FiatClient, input: PayInput): Promise<PayR
     amount: q.total,
     currency: card.currency,
     detail:
-      "card capture is 3D-Secure-gated upstream and the capture call is not " +
-      "yet wired; pay the venue directly or approve in the wallet UI",
+      "no charge-by-reference endpoint exists at 2fiat (POST prepaid-cards/pay " +
+      "returns product_not_found); a charge needs the card VALUES, which " +
+      "prepaid-cards/details/{id} supplies. ADR-0013 (2026-10-18 amendment) " +
+      "permits a just-in-time fetch into memory only — the capture call is not " +
+      "yet wired, so pay the venue directly for now",
   };
 }
 
