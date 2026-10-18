@@ -8,10 +8,24 @@ Re-read this file after EVERY task — it is the only durable state.
 not contradict it. Anything NOT in §0 — especially any claim that something is
 "impossible" — is an unmeasured assumption and must be MEASURED, not built around.**
 
-**This project has been wrong SIX times in the same direction: a confident claim
+**This project has been wrong NINE times in the same direction: a confident claim
 falsified by measurement.** Every single one was found only by going to a real
 mint, a real API, or a screenshot. The doubles agreed with our mistakes every time.
 Treat that as the governing lesson, not an anecdote.
+
+The nine, so a fresh window recognises the shape:
+1. "3DS blocks unattended capture at 2fiat" — never measured; the OTP is API-gettable.
+2. "R1 shipped, money-safety leg complete" — nothing POSTed proofs; no melt settled.
+3. "R1c blocked on funded ecash" — it was blocked on code that did not exist.
+4. "The secret is hex" — hex was fine; the bytes hashed must be utf8(wire string).
+5. "4 sats is below a dust limit" — the mint's min is 1; the floor is elsewhere.
+6. "The melt needs amount − 1" — the mint enforces inputs == outputs + fee_reserve.
+7. "T14's mesh is unreachable" — only TCP/22 was tested; OpenBao :8200 answers.
+8. "2fiat is down / rate-limited" — it was NAT64 hanging; IPv4 works in 0.7s.
+9. "secret_test.ts has a pre-existing failure" — it needed --allow-write, my flag.
+
+Every one of these was asserted with confidence and died on contact with a real
+measurement. Assume the tenth is in this file too.
 
 ---
 
@@ -82,9 +96,22 @@ Now genuinely working, verified against a **real mint** (testnut, no funds):
    we blinded with. The double agreed with our mistake by construction. It now
    takes the WIRE secret as a string and hashes it as a real mint does.
 
-**STILL OPEN — R1c: the PRODUCTION half.** testnut is cdk 0.18.1 and settles its
-own invoices. The same round-trip against **Minibits at real value with a real
-external invoice** is the remaining proof, and it needs funded ecash.
+**R1c — DONE (`cvm-orders c7d0074`). THE PRODUCTION HALF IS PROVEN.**
+Ran against the live Minibits mint with REAL sats from the treasury:
+
+```
+destination invoice: 6 sats | fee_reserve: 2 | inputs 8 = outputs 6 + fee 2
+AUTHORISED. state=PAID change outputs=1
+MINT VERDICT: PAID
+```
+
+Real sats → treasury NWC payment → real Minibits ecash → melted back out as a real
+Lightning payment, with NUT-08 change returned. Four more live-only defects were
+found reaching this: the melt quote's `fee_reserve` was being **discarded** by
+`rail.ts` (so every melt guessed the fee and was rejected `11005`), plus the
+mint's payment threshold (1 and 4 sats never settle, cost nothing when they fail;
+**8 sats works** — the mint's own `min_amount` is 1, so the floor is in the broker
+or the route, not the mint).
 
 ### R1b — real-mint contract: done, with a caveat (`cvm-orders 1aba105`)
 
@@ -126,6 +153,22 @@ Modal stayed open, button stayed class-disabled, **zero draft requests captured*
 There is **no X button in the modal's DOM** (vision saw a ×, but no such element
 exists in the queried set).
 
+**SOLVED 2026-10-18 — the modal is no longer the blocker.** Acting on COORDINATES
+measured by the vision consultant (`glm-4.6v`) worked first try where five selector
+strategies failed:
+
+```
+before | modal: True  | btn class-disabled: True
+click 1: selection circle (967, 328)
+  after c1 | modal: True  | btn class-disabled: False   <- the radio TOOK
+click 2: Menü Anzeigen (683, 1092)
+  after c2 | modal: False | btn class-disabled: None    <- modal CLEARED
+```
+
+The lesson is reusable: **act on vision-measured screen coordinates, not selectors**,
+for custom SPA controls. What remains for R2 is the draft body itself — one measured
+click on a real `+` add control, then read the POST /order-drafts payload.
+
 **NEXT APPROACH (untried):** act on **coordinates**, not selectors — screenshot →
 `vision_analyze` (astra, `glm-4.6v` → `gpt-6-astra`) for the exact click target →
 `mouse.click(x, y)`. If that also fails, the modal is not automatable and R2 must
@@ -133,17 +176,49 @@ be closed as **out of scope**: it is a convenience gap only. The human still typ
 card details into Stripe's cross-origin iframe (hCaptcha-gated), so R2 never
 touches the money path.
 
-### R3 — 2fiat settlement: BLOCKED on a funded card
+### R3 — 2fiat settlement: THE SPEND QUESTION IS ANSWERED (`contextvm-services 431b9aa`, `4d68ebe`)
 
-Top-up contract (measured): `POST /api/v1/prepaid-cards/topup/<cardId>` with
-`{"topupValue":"N","selectedMethod":"BTC-LN"}` → `checkoutLink` whose **bolt11 must
-be paid**; fee 6.5%.
+**Verdict: `SPEND: automatable in principle — capture call not yet written`.**
+Reached for $0, with no charge attempted. The old blocker ("3DS") was wrong twice.
 
-Exit condition: record `SPEND: unattended | human_required | unmeasurable` with
-evidence, then build exactly to that verdict — no more, no less. Model any harness
-on `2fiat-local-adapter/tools/r0_measure_3ds_stop.py` (observation-only; never
-click a spend control unless the task says to spend, and only on an
-operator-funded card).
+**MEASURED 2026-10-18 (Phase 1, $0):**
+
+| Probe | Result |
+|---|---|
+| `POST /api/v1/prepaid-cards/pay` | **404 `product_not_found`** — resolves a card PRODUCT to buy, NOT a charge on an existing card |
+| `POST /api/v1/prepaid-cards/details/{id}` | **200** → `cardNumber`, `cvv`, `expirationDate` |
+| `GET  /api/v1/prepaid-cards/details/{id}/otp` | **200**, `{}` when none pending — the 3DS code is API-retrievable |
+| `payments` / `transfers` / `payouts` / `withdrawals` | 404 |
+
+**There is no charge-by-reference endpoint.** 2fiat exposes card VALUES or nothing.
+So the original ADR-0013 constraints ("device-initiated only", "operator's mail is
+in the loop") described a world that does not exist and are marked superseded in the
+ADR itself.
+
+**ADR-0013 AMENDED 2026-10-18** (operator decision): card values MAY be held — but
+the preferred implementation stores nothing: the existing 2fiat token fetches
+`details/{id}` **just-in-time**, so values exist only for the seconds of a charge.
+Terms: at rest OpenBao only; in use memory-only then discarded; CVV single-use and
+never persisted (PCI DSS 3.2); never on the bus/logs/argv/env/disk.
+
+**BUILT:** `services/fiat-cvm/card_capture.ts` — `cardValues()` returns a
+`CardHandle` whose `toString()` and `toJSON()` **redact**, whose `use()` destroys
+values in a `finally`, and which refuses a second charge (single-use CVV).
+`requestCardDetails()` / `requestOtp()` on the client. 7/7 tests, synthetic PANs only.
+`tools/fake_merchant.py` — local checkout logging SHAPE only (`pan_len`,
+`pan_luhn_valid`, `cvv_len`), never values; verified captured/declined.
+
+**STILL OPEN (R3b):**
+1. Drive the fake merchant with Playwright: fetch → fill → submit → OTP loop. $0.
+2. **The real merchant is Stripe Elements in cross-origin iframes** (FoodAmigos) —
+   materially harder than the fake page, and NOT proven by it. This is the real risk.
+3. The step-up direction is inverted vs the fake: the MERCHANT triggers 3DS and
+   2fiat surfaces the OTP via `GET .../otp`. Only a real charge settles that.
+4. Cards currently hold **$0.38 / $0.18** — a real test needs funding (~€2 is plenty)
+   via the now-built `topup` tool + the proven treasury NWC rail.
+5. `pay` in `tools.ts` still returns `requires_3ds`; its message now names the
+   MEASURED cause instead of blaming 3DS. The state name is retained for the
+   console contract.
 
 ### R4 — NIP-98: ALREADY DONE, do not re-implement
 
@@ -257,41 +332,59 @@ pushed.
 
 ## §3 THE TASKS
 
-### T1 — NWC rail: verify the treasury from x280 (needs operator item 1)
+### T1 — NWC rail: DONE (verified live)
 
-Precondition: the operator has run `make treasury-restart` on T14.
+`balance_sats: 20002` measured from x280 through `relay.primal.net` against the T14
+broker, using `cvm-service-kit`'s `NwcLnWallet`. Two real-money facts learned the hard
+way, both now encoded in code + tests:
 
-- Add a `NwcRail` implementing `cvm-orders`' `PaymentRail` over the kit's
-  `NwcLnWallet`, **alongside** the existing mint rail (both paths, per the
-  operator's decision). The URL comes from **OpenBao**, not a literal.
-- TDD: a test that a `restricted` (over-cap) response surfaces as "pending operator
-  approval" and is **not** retried blindly; that an idempotent re-pay returns the
-  cached receipt.
-- **Live check:** `balanceSats()` must return a number. Do not claim the rail works
-  until it does.
-- **Exit:** NWC rail verified live + merged, or blocked naming the exact operator
-  action still outstanding.
+- **A `pay_invoice` timeout is NOT a failure.** The broker executes the payment and
+  publishes no reply (measured: `get_balance` replies in 438 ms, `pay_invoice` never).
+  Measured balance moved 20002 → 19874 during a "timeout". **Retrying would
+  double-pay.** `NwcTimeout.outcomeUnknown` classifies spending methods; recovery is
+  `resumeClaim()`, which asks the MINT, never the wallet.
+- **Persist the quote BEFORE paying.** The first live attempt lost 128 sats of ecash
+  because the mint quote id was not journalled before the payment left.
+  `src/treasury_fund.ts` journals atomically (tmp+rename) first, and the test asserts
+  the CALL ORDER, not just the end state. Also fixed: **the mint is the authority** —
+  after a silent wallet, `fundAndClaim` polls the MINT's settlement state.
+  `src/envfile.ts` quotes values, because an unquoted `&` in `NWC_URL=...` silently
+  truncates it to empty.
 
-### T2 — R1c: the FUNDED refund proof (the money question)
+Shipped: `cvm-orders 8f4efa5`, `500e3dc`; `cvm-service-kit 9701f2b`; 249 tests.
 
-Precondition: the treasury is funded (operator item 2) **and** the NWC rail works
-(T1). Until then this is **BLOCKED, measured** — do not simulate it.
+**Infra fix landed too:** OpenBao AppRole `fleet-node-x280` now logs in (200) and
+`secret/data/fleet/2fiat` is readable — the 2fiat service is no longer one restart
+from death. Note the vault field holds a **wallet URL**, not a bare token: the
+credential is the `token1…` PATH SEGMENT. Anything treating the field as a token
+sends `Bearer https://...` and fails silently.
 
-- Real melt against **Minibits** at real value, to a **real external invoice**.
-  Record the mint's own evidence (quote id, payment preimage) and the
-  customer-side arrival.
-- Rules that must not bend: `meltQuote` sends **no amount** (the mint reads the
-  invoice); **only the mint may say PAID**; unknown/expired states **THROW**.
-- **Exit:** a real refund observed end-to-end with mint evidence, committed.
+### T2 — R1c: DONE (the funded refund proof, production mint)
 
-### T3 — R3: 2fiat spend path on a FUNDED card
+Superseded by fact. See "R1c — DONE" above: real sats, real mint, `MINT VERDICT: PAID`.
 
-- Fund the card through the NWC rail (T1): top-up `checkoutLink` bolt11 → pay via
-  treasury → card funded.
-- Then measure the SPEND path and record
-  `SPEND: unattended | human_required | unmeasurable`.
-- Wire claim → melt → topup → card **only as far as the verdict justifies**.
-- **Exit:** the verdict recorded with evidence, and automation built to exactly it.
+### T3 — R3b: prove the capture MECHANISM, then one real charge
+
+**The spend question is answered** (see the R3 section): no charge-by-reference
+endpoint; card VALUES required; ADR-0013 amended; `card_capture.ts` +
+`fake_merchant.py` built and tested.
+
+Remaining, in this order — do not skip ahead:
+1. **$0:** drive `tools/fake_merchant.py` with Playwright using SYNTHETIC values
+   (4111…): fetch handle → fill PAN/expiry/CVV → submit → assert `captured`. Then the
+   `--step-up` path: read the OTP via `pendingOtp()` and submit it.
+2. **Then, and only then, a real charge.** Fund a card (~€2 is plenty) with the
+   `topup` tool, paying its BOLT11 from the treasury NWC rail.
+3. **The known-hard part, do not under-estimate it:** the real venue checkout is
+   **Stripe Elements in cross-origin iframes**, which the fake merchant does NOT
+   model. Iframe filling is the actual remaining risk for full automation. Measure
+   it; if it resists, the honest verdict is `SPEND: human_required` for the card
+   field, and that is a legitimate outcome — not a failure.
+4. The real step-up direction is inverted from the fake: the MERCHANT triggers 3DS
+   and 2fiat surfaces the OTP. Only a real charge settles whether the OTP loop works.
+
+Exit: `SPEND: unattended | human_required | unmeasurable` with evidence from a REAL
+attempt (the $0 work only proves the mechanism, not the verdict).
 
 ### T4 — R2: coordinate-based astra attempt, then close it
 
@@ -330,10 +423,26 @@ Precondition: the treasury is funded (operator item 2) **and** the NWC rail work
   proofs). Live melt → mint says PAID. Four live-only defects found.
 - R1b — DONE (`cvm-orders 1aba105`), quote-level only; could not catch the spend
   defects.
-- R1c — BLOCKED (no funded ecash). Mechanism proven; production VALUE unproven.
-- R2 — BLOCKED on a z-index-4000 location modal; 5 click strategies failed.
-  Contract known; one field missing. Next: coordinate-based astra attempt.
-- R3 — BLOCKED (needs a funded card; funding goes through the NWC rail).
+- R1c — **DONE** (`cvm-orders c7d0074`). Production Minibits, real sats,
+  `MINT VERDICT: PAID`, NUT-08 change returned. Found that `rail.ts` DISCARDED the
+  melt quote's `fee_reserve`, so every melt guessed the fee and was rejected 11005.
+  Paid threshold measured: 1 and 4 sats never settle (cost 0), **8 sats works**.
+- R2 — modal **SOLVED** by vision-measured COORDINATE clicks ((967,328) then
+  (683,1092)) where five selector strategies failed. Remaining: one add-control
+  click to capture the `/order-drafts` body.
+- R3 — **spend question ANSWERED for $0** (`contextvm-services 431b9aa`, `4d68ebe`):
+  no charge-by-reference endpoint (`prepaid-cards/pay` -> 404 product_not_found);
+  `details/{id}` returns PAN/CVV; `.../otp` returns the 3DS code as JSON. ADR-0013
+  amended (operator decision); `card_capture.ts` + `fake_merchant.py` built, 7/7 tests.
+  Verdict: automatable in principle; the Stripe cross-origin iframe is the real risk.
+- Treasury — **LIVE**: `balance_sats: 20002` measured from x280. Then, on real money:
+  pay_invoice timeouts are UNKNOWN outcomes (never retry); persist the quote BEFORE
+  paying (cost 128 sats to learn); the MINT is the authority, not the wallet.
+- OpenBao — **FIXED**: AppRole `fleet-node-x280` logs in (200), `secret/data/fleet/
+  2fiat` readable. Field holds a wallet URL; the token is its `token1…` path segment.
+- x280 networking — 2fiat.com resolves via NAT64 (`64:ff9b::`) and that path HANGS;
+  plain IPv4 answers in 0.7s. Every "2fiat is down" conclusion was this.
+- Loop record corrected: `cvm-services c5c1341` (and this revision).
 - R4 — NIP-98 half already existed; board leftovers only.
 - R5 — DONE (`cvm-orders 268c496`, `a21664f`). No CI existed before this.
 - Treasury — MEASURED CONTACT: relay OK, broker answered
