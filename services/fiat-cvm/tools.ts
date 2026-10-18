@@ -95,6 +95,9 @@ export async function statusFiat(
 }
 
 /** MCP tool descriptors, shaped like the venue server's tool list. */
+import { topupFiat, TOPUP_TOOL, type TopupInput } from "./topup.ts";
+export { topupFiat, TOPUP_TOOL } from "./topup.ts";
+
 export const FIAT_TOOLS = [
   {
     name: "cards",
@@ -102,6 +105,7 @@ export const FIAT_TOOLS = [
       "List this wallet's cards and their balances. Read-only; returns masked numbers only.",
     inputSchema: { type: "object", properties: {}, additionalProperties: false },
   },
+  TOPUP_TOOL as unknown as { name: string; description: string; inputSchema: Record<string, unknown> },
   {
     name: "quote",
     description:

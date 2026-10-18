@@ -29,12 +29,12 @@ const RICH = {
 const POOR = { ...RICH, id: "poor", balance: 0.38, cardNumber: "5257 **** **** 4886" };
 
 Deno.test("every tool declares a name, a description and an input schema", () => {
-  assertEquals(FIAT_TOOLS.length, 4);
+  assertEquals(FIAT_TOOLS.length, 5, "cards/quote/topup/pay/status — topup is the funding link");
   for (const t of FIAT_TOOLS) {
     if (!t.name || !t.description) throw new Error(`tool ${JSON.stringify(t)} is incomplete`);
     assertEquals(t.inputSchema.type, "object");
   }
-  assertEquals(FIAT_TOOLS.map((t) => t.name), ["cards", "quote", "pay", "status"]);
+  assertEquals(FIAT_TOOLS.map((t) => t.name), ["cards", "topup", "quote", "pay", "status"]);
 });
 
 Deno.test("pay NEVER reports captured while the capture call is unwired", async () => {

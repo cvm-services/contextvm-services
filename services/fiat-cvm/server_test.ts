@@ -31,10 +31,10 @@ Deno.test("initialize names the fiat server", async () => {
   assertEquals(info.name, "contextvm-2fiat-server");
 });
 
-Deno.test("tools/list exposes exactly the four fiat tools", async () => {
+Deno.test("tools/list exposes exactly the five fiat tools (cards/quote/topup/pay/status)", async () => {
   const r = await handleMcpMessage(deps(), { method: "tools/list", id: 2 });
   const names = (r?.result as { tools: { name: string }[] }).tools.map((t) => t.name);
-  assertEquals(names, ["cards", "quote", "pay", "status"]);
+  assertEquals(names, ["cards", "topup", "quote", "pay", "status"]);
 });
 
 Deno.test("read tools need no allowlist", async () => {

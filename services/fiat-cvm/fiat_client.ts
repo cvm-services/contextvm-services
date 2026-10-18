@@ -199,6 +199,27 @@ export class FiatClient {
     return [...cards].sort((a, b) => b.balance - a.balance)[0];
   }
 
+  /**
+   * POST /api/v1/prepaid-cards/topup/{cardId} — returns an INVOICE to pay.
+   * Measured contract: {"topupValue":"N","selectedMethod":"BTC-LN"} ->
+   *   { amount, checkoutLink, checkout: { defaultPaymentMethod: "BTC-LN" } }
+   * `checkoutLink` is a BOLT11 to pay; paying it funds the card. The provider's
+   * `amount` is the fee-inclusive figure actually charged.
+   */
+  async requestTopup(
+    cardId: string,
+    body: { topupValue: string; selectedMethod: "BTC-LN" },
+  ): Promise<{ amount?: string; checkoutLink?: string; checkout?: unknown }> {
+    const res = await this.#request(
+      `prepaid-cards/topup/${encodeURIComponent(cardId)}`,
+      { method: "POST", headers: this.#headers(), body: JSON.stringify(body) },
+    );
+    if (!res.ok) {
+      throw new FiatError(`topup ${cardId}: http ${res.status} ${(await res.text()).slice(0, 200)}`);
+    }
+    return await res.json();
+  }
+
   /** Fee-inclusive fiat total for an amount, using the card product's fee. */
   quoteTotal(card: Card, amount: number): { subtotal: number; fee: number; total: number } {
     if (!Number.isFinite(amount) || amount <= 0) throw new FiatError("amount must be positive");
