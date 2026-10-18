@@ -220,6 +220,45 @@ export class FiatClient {
     return await res.json();
   }
 
+  /**
+   * POST /api/v1/prepaid-cards/details/{cardId} — returns the card's FULL VALUES
+   * (`cardNumber`, `cvv`, `expirationDate`), measured 2026-10-18 (HTTP 200).
+   *
+   * This is the only way to obtain what a merchant checkout needs: 2fiat exposes
+   * no charge-by-reference endpoint (`POST prepaid-cards/pay` -> 404
+   * `product_not_found`). Handle the result per ADR-0013's 2026-10-18 amendment:
+   * just-in-time, in memory, never logged or persisted — use card_capture.ts,
+   * which returns a self-redacting, single-use handle.
+   */
+  async requestCardDetails(
+    cardId: string,
+  ): Promise<{ cardNumber?: string; cvv?: string; expirationDate?: string }> {
+    const res = await this.#request(
+      `prepaid-cards/details/${encodeURIComponent(cardId)}`,
+      { method: "POST", headers: this.#headers(), body: JSON.stringify({}) },
+    );
+    if (!res.ok) {
+      throw new FiatError(`card details ${cardId}: http ${res.status}`);
+    }
+    return await res.json();
+  }
+
+  /**
+   * GET /api/v1/prepaid-cards/details/{cardId}/otp — the 3-D Secure challenge.
+   * Measured 2026-10-18: 200, `{}` when nothing is pending, else
+   * `{otp:{code, expiresAt, merchantName, amount, currency}}`.
+   *
+   * This is why "3DS blocks automation" was wrong: the code is machine-readable.
+   */
+  async requestOtp(cardId: string): Promise<Record<string, unknown>> {
+    const res = await this.#request(
+      `prepaid-cards/details/${encodeURIComponent(cardId)}/otp`,
+      { headers: this.#headers() },
+    );
+    if (!res.ok) throw new FiatError(`card otp ${cardId}: http ${res.status}`);
+    return await res.json();
+  }
+
   /** Fee-inclusive fiat total for an amount, using the card product's fee. */
   quoteTotal(card: Card, amount: number): { subtotal: number; fee: number; total: number } {
     if (!Number.isFinite(amount) || amount <= 0) throw new FiatError("amount must be positive");
