@@ -1,4 +1,21 @@
-# RALPH LOOP — sats-paid food ordering: drive to completion
+
+**2026-10-20 (early) — venue phone-gate test built; gate fires PRE-CHARGE (proven);
+JMP number LIVE; three corrections.** The reproducible harness is
+`services/restaurant-cvm/tools/venue_phone_test.py` (committed). Measured with a
+SYNTHETIC card (4111...) — which proves the gate fires before any charge can
+move money: buy click -> phone modal, balance untouched. JMP (810) 258-3253 is
+LIVE (funded 26,898 sats, activated; cold-send accepted 2026-10-05; inbox
+jmp_inbox.db on cobrador, listener active). Corrections this run: (1) the modal
+captcha is **hCaptcha "Ich bin ein Mensch"**, NOT Cloudflare Turnstile (frame
+URL is challenges.cloudflare.com but the visible widget is hCaptcha-branded —
+needs one more look); (2) my checkbox click at (379,669) hit the widget padding,
+not the box (measured box center ~(400,702)); (3) the phone field FORCE-FORMATS
+our US number as +49 8102 583253 — the country selector click did not open a
+menu (dropdown may render in a portal; needs a post-click inventory of new
+frames). "Code senden" stays disabled until the captcha passes AND a valid
+number is set. Next run: (a) click the flag selector and inventory any
+portal-rendered dropdown for "Vereinigte Staaten"; (b) click the checkbox at its
+measured centre; (c) only then does the SMS-arrival poll matter.# RALPH LOOP — sats-paid food ordering: drive to completion
 
 You are running a **Ralph loop**: take one task, then re-read this file, pick the
 next, repeat, until every task is `done` or `blocked` with a **measured** reason.
