@@ -123,7 +123,7 @@ phantom PAID).
 **Caveat, record it:** this stops at the QUOTE. It could not have caught defects
 1–4 above. Do not read "melt shape is CORRECT" as evidence that spending works.
 
-### R2 — store integration: BLOCKED on a modal, five strategies failed
+### R2 — store integration: modal SOLVED (schedule pre-order); ONE cart-open from the draft body
 
 The `POST /order-drafts` contract is established from the server's own validation
 errors (`docs/r2-order-drafts-contract.md`):
@@ -169,12 +169,43 @@ The lesson is reusable: **act on vision-measured screen coordinates, not selecto
 for custom SPA controls. What remains for R2 is the draft body itself — one measured
 click on a real `+` add control, then read the POST /order-drafts payload.
 
-**NEXT APPROACH (untried):** act on **coordinates**, not selectors — screenshot →
-`vision_analyze` (astra, `glm-4.6v` → `gpt-6-astra`) for the exact click target →
-`mouse.click(x, y)`. If that also fails, the modal is not automatable and R2 must
-be closed as **out of scope**: it is a convenience gap only. The human still types
-card details into Stripe's cross-origin iframe (hCaptcha-gated), so R2 never
-touches the money path.
+**ROOT CAUSE FOUND 2026-10-19 (the 10th falsified assumption): the venue was
+CLOSED.** Every post-Sunday failure was correct behaviour: 'Menü Anzeigen' is
+disabled by OPENING HOURS ('Öffnet Dienstag 12:00'; today is Monday). The one
+successful dismissal ran on a SUNDAY, during opening hours. Not React, not MUI,
+not pixels — the radio clicks WORKED all along (`radio checked: True` measured
+five different ways); the button gate was venue hours.
+
+**THE WORKING PATH (measured 2026-10-19, twice):**
+1. venue radio (click works; ring at input-box centre +10px)
+2. 'Ändern' beside 'Planen für später' → scheduler opens
+3. date 'Morgen (Okt. 20)' + time slot (first = 12:45; slots found by scanning
+   for leaf elements whose text is exactly `HH:MM` — they are NOT <button>s,
+   which is why the global button scan missed them)
+4. 'Weiter' → back in the location modal with 'Di. 12:45, Okt. 20' confirmed
+5. 'Menü Anzeigen' now ENABLED → click → menu live
+6. add item: the carousel SHIFTS between loads, so hardcoded (271,750) works
+   only sometimes — derive the `+` from `.absolute.bottom-2.right-2` instead;
+   a detail panel with 'Hinzufügen' confirms the add
+7. cart icon at header (1236,36) — vision-verified correct
+
+**MEASURED ON THE WIRE:** `GET app.foodamigos.io/api/companies/550/
+disabled-pre-order-dates?order_method=pickup&start_date=2026-10&end_date=2026-10`
+— the storefront's own request confirms **company 550** live, and that
+pre-order dates are a first-class API concept (schedule-ahead is a real path).
+
+**CURRENT BLOCKER (2026-10-19, temporary — NOT a wall): Vercel edge cooldown.**
+After a day of automated loads the edge REFUSES connections to
+`threebuddies.foodamigos-storefront.com` specifically (`ERR_CONNECTION_REFUSED`,
+000 in 0.005s) while DNS (Vercel, via NAT64) and general egress (example.com 200)
+both work. Retry after a cooldown (~1-2h) or from another egress. The capture
+script is ready: `/tmp/r2_assert.py` (DOM-derived `+`, loud-abort if the cart
+badge is 0 — an empty cart can no longer masquerade as 'no draft fired').
+
+**WHAT REMAINS:** open the cart → 'Zur Kasse' → capture `POST /order-drafts`
+(wide net on all POSTs to app.foodamigos.io so it cannot slip by). $0, one run.
+Note: the venue opens Tue 12:00 Berlin — after that, no scheduling is needed at
+all, and that is also the natural window for the real end-to-end order.
 
 ### R3 — 2fiat settlement: THE SPEND QUESTION IS ANSWERED (`contextvm-services 431b9aa`, `4d68ebe`)
 
@@ -417,6 +448,17 @@ attempt (the $0 work only proves the mechanism, not the verdict).
 
 ## §4 Progress log (append; never delete)
 
+**2026-10-19 (evening) — R2 unblocked, one click from the wire.** Modal mystery
+SOLVED: the venue was CLOSED (Monday; 'Öffnet Dienstag 12:00'). Working path
+proven twice: radio → 'Ändern' → 'Morgen' + 12:45 → 'Weiter' → 'Menü Anzeigen'
+(enabled) → item added ('Hinzufügen') → cart icon (1236,36) vision-verified.
+Wire: `companies/550/disabled-pre-order-dates` captured live. Cart was empty in
+the last run (carousel shift; hardcoded (271,750) unreliable — now DOM-derived
+`.absolute.bottom-2.right-2` + loud-abort on badge=0, script `/tmp/r2_assert.py`).
+Temporary edge cooldown (Vercel refuses our IP after a day of automated loads;
+DNS+egress fine) — retry in ~1-2h or from T14. Remaining: cart open → Zur Kasse →
+`POST /order-drafts` body. $0. Venue opens Tue 12:00 Berlin — natural window for
+the real end-to-end order.
 - R0 — DONE (`2fiat-local-adapter 5bdc6d0`). 3DS claim wrong for details;
   `not_required` for details, spend unproven.
 - R1 — **DONE for real** (`cvm-orders f1b51bd` spend leg, `b35f143` spendable
