@@ -76,17 +76,57 @@ async function openBaoToken(opts: LoadOptions): Promise<string | null> {
     if (!res.ok) return null;
     const body = await res.json();
     // The stored field is `2fiat`; accept `token` too for forward compat.
-    return body?.data?.data?.token ?? body?.data?.data?.["2fiat"] ?? null;
+    // Normalise: the field may hold a wallet URL rather than a bare token.
+    const stored = body?.data?.data?.token ?? body?.data?.data?.["2fiat"] ?? null;
+    return stored ? normaliseWalletToken(String(stored)) : null;
   } catch {
     return null;
   }
+}
+
+/**
+ * Normalise whatever the vault holds into the bare wallet token.
+ *
+ * MEASURED 2026-10-19: the `2fiat` field holds a WALLET URL, not a token —
+ *   https://2fiat.com/wallet/token1anz2skuq8pzf8x0w7302axmu4gjfdjmc/my-cards
+ * The credential is the `token1...` path segment. Returning the URL verbatim made
+ * every consumer send `Bearer https://...`, and 2fiat answered 401 Unauthorized —
+ * which read as "auth refused" and sent us hunting the wrong problem.
+ *
+ * Accepts a bare token, a wallet URL (any host), or a token with stray slashes.
+ * Never logs or echoes the value.
+ */
+export function normaliseWalletToken(raw: string): string {
+  let v = raw.trim().replace(/^["']|["']$/g, "");
+  if (!v) return v;
+  // A URL: take the path segment that looks like the token.
+  if (v.includes("://")) {
+    try {
+      const parts = new URL(v).pathname.split("/").filter(Boolean);
+      // Prefer a segment that looks like a wallet token; else the longest one
+      // after `wallet`, else the first.
+      const tokenish = parts.find((p) => /^token[0-9a-z]{8,}$/i.test(p));
+      if (tokenish) return tokenish;
+      const i = parts.indexOf("wallet");
+      if (i >= 0 && parts[i + 1]) return parts[i + 1];
+      if (parts.length) return parts[parts.length - 1];
+    } catch {
+      // fall through to the slash-stripping path below
+    }
+  }
+  // Defensive: a bare token should never contain a slash.
+  const slash = v.split("/").filter(Boolean);
+  if (slash.length > 1) return slash[slash.length - 1];
+  return v;
 }
 
 /** Resolve the wallet token, or throw an error that names the two sources tried. */
 export async function loadFiatSecret(opts: LoadOptions = {}): Promise<FiatSecretSource> {
   const env = opts.env ?? ((n: string) => Deno.env.get(n));
   const fromEnv = env(ENV_NAME);
-  if (fromEnv && fromEnv.trim()) return { source: "env", token: fromEnv.trim() };
+  if (fromEnv && fromEnv.trim()) {
+    return { source: "env", token: normaliseWalletToken(fromEnv) };
+  }
 
   const fromBao = await openBaoToken(opts);
   if (fromBao) return { source: "openbao", token: fromBao };

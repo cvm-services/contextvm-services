@@ -230,6 +230,52 @@ export class FiatClient {
    * just-in-time, in memory, never logged or persisted — use card_capture.ts,
    * which returns a self-redacting, single-use handle.
    */
+  /**
+   * Resolve the payable BOLT11 from a provider checkout link.
+   *
+   * MEASURED 2026-10-19: `topup` returns `checkoutLink: https://2fiat.com/pay/i/<id>`
+   * with an EMPTY `paymentMethods` array — there is no invoice in the JSON. The
+   * invoice is rendered into the PUBLIC checkout page: fetching it returns 200 and
+   * a ~354-char `lnbc…` string. This page needs no auth and no card data.
+   */
+  async resolveInvoiceFromCheckout(checkoutLink: string): Promise<string> {
+    const link = String(checkoutLink ?? "").trim();
+    if (!/^https?:\/\//i.test(link)) {
+      throw new FiatError(`checkout link is not a URL: ${link.slice(0, 40)}`);
+    }
+    // The checkout page is NOT under /api/v1/, so go direct with the same
+    // abort-on-timeout discipline as #request (a silent hang reads as "money may
+    // have moved" — that bug is already fixed once in this file).
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), this.#timeoutMs);
+    let res: Response;
+    try {
+      res = await this.#fetch(link, {
+        method: "GET",
+        headers: { "user-agent": BROWSER_UA, "ngrok-skip-browser-warning": "5000" },
+        signal: controller.signal,
+      });
+    } catch (e) {
+      if (controller.signal.aborted || (e as Error)?.name === "AbortError") {
+        throw new FiatError(
+          `checkout page timed out after ${this.#timeoutMs}ms — invoice NOT retrieved`,
+        );
+      }
+      throw e;
+    } finally {
+      clearTimeout(timer);
+    }
+    if (!res.ok) {
+      throw new FiatError(`checkout page: http ${res.status}`);
+    }
+    const html = await res.text();
+    const m = html.match(/ln(bc|tb|bcrt)[0-9a-z]{50,}/i);
+    if (!m) {
+      throw new FiatError(`no BOLT11 found on the provider's checkout page (${html.length} bytes read)`);
+    }
+    return m[0];
+  }
+
   async requestCardDetails(
     cardId: string,
   ): Promise<{ cardNumber?: string; cvv?: string; expirationDate?: string }> {

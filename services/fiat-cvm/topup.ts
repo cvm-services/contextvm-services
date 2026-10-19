@@ -97,12 +97,27 @@ export async function topupFiat(client: FiatClient, input: TopupInput): Promise<
 
   const link = String(res.checkoutLink ?? "").trim();
   if (!link) throw new FiatError("topup: provider returned no checkoutLink — nothing to pay");
-  if (!BOLT11.test(link)) {
-    // A checkout URL means a HUMAN has to open a page. That is not an automation
-    // path, and calling it a payment would be a lie.
+
+  // MEASURED 2026-10-19: checkoutLink is NEVER a BOLT11. `topup` returns a
+  // BTCPay-style checkout reference:
+  //   { amount: "2.13", checkoutLink: "https://2fiat.com/pay/i/<id>",
+  //     paymentMethods: [] (EMPTY), checkout.paymentMethods: ["BTC-LN", ...] }
+  // The payable invoice lives on the PUBLIC checkout page, which must be fetched:
+  //   GET https://2fiat.com/pay/i/<id>  -> 200, a ~354-char lnbc… in the HTML.
+  // The previous implementation threw here unconditionally — so `topup` could
+  // never succeed, which is why the live service advertised a tool that always
+  // failed. Fetching the page is what makes the leg automatable at all.
+  let bolt11: string;
+  if (BOLT11.test(link)) {
+    // Some future provider response may inline the invoice; accept it.
+    bolt11 = link;
+  } else {
+    bolt11 = await client.resolveInvoiceFromCheckout(link);
+  }
+  if (!BOLT11.test(bolt11)) {
     throw new FiatError(
-      `topup: checkoutLink is not a BOLT11 invoice (got "${link.slice(0, 40)}…"). ` +
-        `This top-up needs a human in a browser; it cannot be paid from the NWC rail.`,
+      `topup: the provider's checkout page has no BOLT11 (from ${link.slice(0, 60)}). ` +
+        `Refusing to report a payment that cannot be made.`,
     );
   }
 
@@ -123,7 +138,7 @@ export async function topupFiat(client: FiatClient, input: TopupInput): Promise<
     chargedAmount: charged,
     subtotal: amount,
     fee,
-    bolt11: link,
+    bolt11,
     note:
       `NOT FUNDED YET. Pay this invoice to add ${amount} ${card.currency} to ${card.masked_number}. ` +
       `The card is only funded once its balance moves — confirm with the status tool.`,

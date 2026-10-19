@@ -114,3 +114,53 @@ Deno.test("the token is never logged: the loader's error text carries no secret"
     if (msg.includes(TOKEN)) throw new Error("the wallet token leaked into an error message");
   }
 });
+
+
+// ---- RED: the vault stores a WALLET URL, not a bare token -------------------
+//
+// Measured 2026-10-19: the `2fiat` field in OpenBao holds
+//   https://2fiat.com/wallet/token1anz2skuq8pzf8x0w7302axmu4gjfdjmc/my-cards
+// (72 chars). The CREDENTIAL is the `token1...` path segment (38 chars -- which is
+// exactly the length the running service logged). Returning the raw field makes
+// every consumer send `Bearer https://...` and 2fiat answers 401 Unauthorized.
+//
+// These tests pin the normalisation so a wallet URL can never again be mistaken
+// for a token.
+const WALLET_URL =
+  "https://2fiat.com/wallet/token1anz2skuq8pzf8x0w7302axmu4gjfdjmc/my-cards";
+const BARE_TOKEN = "token1anz2skuq8pzf8x0w7302axmu4gjfdjmc";
+
+Deno.test("a wallet URL from the vault is normalised to the bare token", async () => {
+  const { fn } = fakeBao(WALLET_URL);
+  const s = await loadFiatSecret({
+    env: () => undefined, baoAddr: "http://x:8200", roleId: "r", secretId: "s",
+    fetchImpl: fn,
+  });
+  assertEquals(s.token, BARE_TOKEN);
+  assertEquals(s.token.length, 38);
+});
+
+Deno.test("a bare token is passed through unchanged", async () => {
+  const { fn } = fakeBao(BARE_TOKEN);
+  const s = await loadFiatSecret({
+    env: () => undefined, baoAddr: "http://x:8200", roleId: "r", secretId: "s",
+    fetchImpl: fn,
+  });
+  assertEquals(s.token, BARE_TOKEN);
+});
+
+Deno.test("normalisation never leaks the URL into the token", async () => {
+  const { fn } = fakeBao(WALLET_URL);
+  const s = await loadFiatSecret({
+    env: () => undefined, baoAddr: "http://x:8200", roleId: "r", secretId: "s",
+    fetchImpl: fn,
+  });
+  if (s.token.includes("://") || s.token.includes("/")) {
+    throw new Error(`token still looks like a URL: ${s.token.slice(0, 12)}...`);
+  }
+});
+
+Deno.test("an env token that is a wallet URL is normalised too", async () => {
+  const s = await loadFiatSecret({ env: () => WALLET_URL, baoEnvFile: "/nonexistent" });
+  assertEquals(s.token, BARE_TOKEN);
+});
