@@ -225,6 +225,49 @@ badge is 0 — an empty cart can no longer masquerade as 'no draft fired').
 Note: the venue opens Tue 12:00 Berlin — after that, no scheduling is needed at
 all, and that is also the natural window for the real end-to-end order.
 
+### R3b — the charge attempt: MEASURED to the venue's own phone gate (2026-10-19)
+
+**What is PROVEN now (real site, real cart, real card, 1.94 EUR):**
+
+- The payment processor behind "Kartenzahlung" is **ADYEN secured fields**, not
+  Stripe Elements (Stripe serves only the wallet buttons + telemetry + invisible
+  hCaptcha). Three separate field-iframes: `encryptedCardNumber`, `cc-exp` /
+  `encryptedExpiryDate`, `encryptedSecurityCode`; plus main-frame holderName,
+  country, street, houseNumberOrName, postalCode, city.
+- All card fields fill successfully via Playwright (fill proven twice). Card
+  number/expiry/CVC accepted — checkmarks; Adyen raised no format complaint.
+- The billing-address fields are required (first submit failed validation with
+  "Geben Sie straße ein" etc); venue's own address works.
+- "Kaufen für 1,94 EUR" click -> spinner (submission genuinely attempted).
+- Card balance unchanged -> **no charge occurred**.
+
+**The actual wall — NOT the card, NOT 3DS, NOT hCaptcha at the card step:**
+
+After submit, the venue demands **phone verification**: a modal
+"Wir müssen deine Telefonnummer verifizieren" offering WhatsApp/SMS delivery of a
+code, gated by a **Cloudflare Turnstile** "Bestätigen Sie, dass Sie ein Mensch
+sind" checkbox. The phone field is pre-populated with the contact form's number
+(our synthetic one). Without a REAL receivable number + a Turnstile pass, the order
+never reaches authorization.
+
+Note the correction cascade this run produced: the "OTP detected" marker was a
+FALSE POSITIVE ("Sicherheitscode" contains "Code"); the real 3DS/OTP never fired
+because the venue gate fires FIRST. The hCaptcha frames observed earlier belong to
+Stripe's wallet buttons, not the card path.
+
+**Remaining unknowns:**
+- Does an ACCOUNT with a verified phone skip this modal per-order? (Guest checkout
+  may be what triggers it.)
+- Does Turnstile pass on a headed real-mouse click? (Unmeasured; it scores behavior.)
+- Does the issuer then demand 3DS (the 2fiat OTP loop we measured)? Never reached.
+
+**Options:** (A) register an account once with a real receivable number (fleet SMS
+rail?) — phone may then be a one-time verification; (B) declare `SPEND:
+human_required` with THIS wall as the reason — the human-in-the-loop step would be
+"verify phone + click Turnstile", 60 seconds of human work per venue; (C) attempt
+Turnstile click automation with the synthetic number to at least measure the
+Turnstile behaviour (code would go nowhere; pure measurement).
+
 ### R3 — 2fiat settlement: THE SPEND QUESTION IS ANSWERED (`contextvm-services 431b9aa`, `4d68ebe`)
 
 **Verdict: `SPEND: automatable in principle — capture call not yet written`.**
@@ -466,6 +509,13 @@ attempt (the $0 work only proves the mechanism, not the verdict).
 
 ## §4 Progress log (append; never delete)
 
+**2026-10-19 (night) — R3b charged to the venue's own gate.** Card values JIT ->
+Adyen secured fields (THREE separate iframes; processor is ADYEN not Stripe) ->
+all filled, address required and filled -> "Kaufen für 1,94 EUR" clicked ->
+spinner -> NO CHARGE (balance 2.38 unchanged). Blocker: venue phone-verification
+modal (WhatsApp/SMS code) behind a Cloudflare Turnstile human checkbox. The card
+itself was never the wall. Two false diagnoses corrected en route: "OTP detected"
+was 'Sicherheitscode' string-matching; hCaptcha frames belong to Stripe wallets.
 **2026-10-19 (late) — R2 CLOSED. The draft body is measured.** `/order-drafts` and
 `/order-validations` bodies captured from a live cart (Capri Sun 1052466, EUR 1.50,
 `scheduled_for` 2026-10-20T10:45Z). The 500 was never a missing field — it was

@@ -161,3 +161,53 @@ Deno.test("quoteTotal applies the product's top-up fee and rounds to cents", () 
   assertThrows(() => c.quoteTotal(card, 0), FiatError);
   assertThrows(() => c.quoteTotal(card, -1), FiatError);
 });
+
+
+// ---- RED: card-detail calls must warm the session first --------------------
+//
+// MEASURED 2026-10-19: on a COLD process, `requestCardDetails` returned
+// 401 Unauthorized while `cards()` succeeded seconds later with the SAME token.
+// Repeating details 3x after cards() gave 3x 200. So the token and the scope are
+// fine -- the method simply issued its first request before the auth session
+// existed. A 401 here reads as "no permission to see card values", which is a
+// dangerously wrong diagnosis for an automation that is about to spend money.
+//
+// Rule: every authenticated endpoint must call ensureSession() before its first
+// request, not rely on the caller having called cards() first.
+Deno.test("requestCardDetails authenticates before its first request", async () => {
+  const calls: string[] = [];
+  const fetchImpl = (input: string | URL | Request, init?: RequestInit) => {
+    const url = String(input);
+    calls.push(url);
+    if (url.includes("auth/exchange")) {
+      return Promise.resolve(new Response(JSON.stringify({ ok: true }), {
+        status: 200,
+        headers: { "set-cookie": "sid=abc; Path=/", "content-type": "application/json" },
+      }));
+    }
+    if (url.includes("prepaid-cards/details/")) {
+      // Succeed ONLY if the session cookie was already established -- exactly how
+      // the real edge behaves.
+      const hdrs = new Headers(init?.headers as HeadersInit);
+      const ok = hdrs.get("cookie") === "sid=abc";
+      return Promise.resolve(new Response(
+        ok ? JSON.stringify({ cardNumber: "4111111111111111", cvv: "123", expirationDate: "12/27" })
+           : JSON.stringify({ error: "Unauthorized" }),
+        { status: ok ? 200 : 401, headers: { "content-type": "application/json" } },
+      ));
+    }
+    return Promise.resolve(new Response("{}", { status: 404 }));
+  };
+  const c = new FiatClient({
+    token: "t", fetchImpl: fetchImpl as unknown as typeof fetch, timeoutMs: 5000,
+  });
+  // COLD call: no cards() first.
+  const d = await c.requestCardDetails("card1");
+  assertEquals(d.cardNumber, "4111111111111111");
+  // the auth exchange must precede the details request
+  const iAuth = calls.findIndex((u) => u.includes("auth/exchange"));
+  const iDetails = calls.findIndex((u) => u.includes("prepaid-cards/details/"));
+  if (iAuth < 0 || iAuth > iDetails) {
+    throw new Error(`auth did not precede details: ${JSON.stringify(calls.map(u => u.split("/api/v1/")[1] ?? u))}`);
+  }
+});

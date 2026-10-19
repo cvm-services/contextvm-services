@@ -279,6 +279,10 @@ export class FiatClient {
   async requestCardDetails(
     cardId: string,
   ): Promise<{ cardNumber?: string; cvv?: string; expirationDate?: string }> {
+    // MEASURED 2026-10-19: without this, a COLD process gets 401 Unauthorized
+    // here while `cards()` works fine with the same token -- the request simply
+    // went out before the session existed. Never rely on the caller warming it.
+    await this.ensureSession();
     const res = await this.#request(
       `prepaid-cards/details/${encodeURIComponent(cardId)}`,
       { method: "POST", headers: this.#headers(), body: JSON.stringify({}) },
