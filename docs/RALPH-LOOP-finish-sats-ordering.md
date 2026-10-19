@@ -535,6 +535,21 @@ Temporary edge cooldown (Vercel refuses our IP after a day of automated loads;
 DNS+egress fine) — retry in ~1-2h or from T14. Remaining: cart open → Zur Kasse →
 `POST /order-drafts` body. $0. Venue opens Tue 12:00 Berlin — natural window for
 the real end-to-end order.
+**2026-10-19 (cron) — edge cooldown LIFTED, cart still gated by the venue clock.**
+Measured: `threebuddies.foodamigos-storefront.com` 200 (IP cooldown lifted) and
+`github.com` 200 (443 reachable again). GitHub `main` was ALREADY at `17b3f5a`
+(>= be9be9c) and ngit `main` at the same sha — no catch-up push needed. Re-ran the
+committed capture tool (`services/restaurant-cvm/tools/threebuddies_draft_capture.py`;
+`/tmp/r2_assert.py` was lost — /tmp is tmpfs) once: consent banner dismissed, then
+the **"Standort auswählen" location modal stayed OPEN and intercepted every click** —
+`ABORT: location modal could not be dismissed`. Screenshot read by vision confirms
+the cause: three-buddies-berlin **"Öffnet Dienstag 12:00"** (closed; it is Monday
+evening Berlin). Cart unreachable → **0 wire requests captured** this run. No retry,
+no hammering. The `/order-drafts` body itself is ALREADY the measured artifact of
+record (`docs/r2-order-drafts-MEASURED.md`, commit `d65ed96`) — nothing new to
+capture until the venue opens. **Next run: after Tue 12:00 Berlin** (natural window),
+using the proven path (radio → Ändern → Morgen + HH:MM slot → Weiter → Menü Anzeigen
+→ row click → Hinzufügen → cart → Zur Kasse), not the stale keyword/class tool.
 - R0 — DONE (`2fiat-local-adapter 5bdc6d0`). 3DS claim wrong for details;
   `not_required` for details, spend unproven.
 - R1 — **DONE for real** (`cvm-orders f1b51bd` spend leg, `b35f143` spendable
