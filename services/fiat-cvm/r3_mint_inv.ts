@@ -1,0 +1,11 @@
+import { loadFiatSecret } from './secret.ts';
+import { FiatClient } from './fiat_client.ts';
+import { topupFiat } from './topup.ts';
+const s = await loadFiatSecret();
+const c = new FiatClient({ token: s.token, timeoutMs: 30000 });
+const r = await topupFiat(c, { amount: 2, card_id: '1ca031655b5d4c74a35e090b7979f7df' });
+const m = r.bolt11.match(/^lnbc([0-9]+)([munp]?)/i);
+const num = Number(m[1]); const mult = m[2]||'';
+const sats = mult==='n' ? Math.round(num*100/1000) : Math.round(num*1e8/1000);
+await Deno.writeTextFile('/tmp/r3_bolt11.txt', r.bolt11);
+console.log(JSON.stringify({ charged_usd: r.chargedAmount, sats, len: r.bolt11.length }));
