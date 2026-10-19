@@ -123,7 +123,25 @@ phantom PAID).
 **Caveat, record it:** this stops at the QUOTE. It could not have caught defects
 1–4 above. Do not read "melt shape is CORRECT" as evidence that spending works.
 
-### R2 — store integration: modal SOLVED (schedule pre-order); ONE cart-open from the draft body
+### R2 — store integration: **DONE** — the real `/order-drafts` body is captured
+
+**RESOLVED 2026-10-19 — R2 is CLOSED. The contract is measured, not inferred.**
+See `docs/r2-order-drafts-MEASURED.md` for the full body. Headlines:
+
+- `company_id: 550` confirmed on the wire.
+- The 500 was **never a missing field**. The client sends the same object to a
+  SECOND endpoint, `POST /api/order-validations`, carrying
+  `ignored_error_codes: ["pickup_closed","delivery_closed",
+  "order_time_not_available","items_menu_time_unavailable"]`. Without those codes a
+  closed venue fails validation and reads like a malformed payload.
+- The cart path: role-based radio -> (if closed) scheduler -> `Menü Anzeigen` ->
+  site search -> **click the product ROW, not a `+`** -> `Hinzufügen` -> cart.
+- CORRECTION: "the cheapest addable item is EUR 4.50" was WRONG. It came from
+  looking for a `+` on a searched result. Drinks have no `+` at all; the row click
+  opens the detail panel. A EUR 1.50 drink is orderable, which fits the 2.38 USD card.
+- Payment surface measured at checkout: js.stripe.com x3, pay.google.com x1,
+  m.stripe.network x1, main frame 2 inputs.
+
 
 The `POST /order-drafts` contract is established from the server's own validation
 errors (`docs/r2-order-drafts-contract.md`):
@@ -448,6 +466,14 @@ attempt (the $0 work only proves the mechanism, not the verdict).
 
 ## §4 Progress log (append; never delete)
 
+**2026-10-19 (late) — R2 CLOSED. The draft body is measured.** `/order-drafts` and
+`/order-validations` bodies captured from a live cart (Capri Sun 1052466, EUR 1.50,
+`scheduled_for` 2026-10-20T10:45Z). The 500 was never a missing field — it was
+`ignored_error_codes` on the validations call (`pickup_closed`). Path that works:
+role radio -> schedule if closed -> search -> **click the product ROW** -> Hinzufügen.
+The operator was right that the EUR 1.50 drink fits the 2.38 USD card; the earlier
+EUR 4.50 floor was an artefact of hunting a `+` that drinks do not have. Checkout
+reached; Stripe surface inventoried. Next: the charge attempt (R3b step 2).
 **2026-10-19 (evening) — R2 unblocked, one click from the wire.** Modal mystery
 SOLVED: the venue was CLOSED (Monday; 'Öffnet Dienstag 12:00'). Working path
 proven twice: radio → 'Ändern' → 'Morgen' + 12:45 → 'Weiter' → 'Menü Anzeigen'
