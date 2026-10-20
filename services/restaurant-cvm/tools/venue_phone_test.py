@@ -262,36 +262,48 @@ def main():
         step("synth_fill", **filled)
 
         # billing address (venue's own, measured accepted)
-        inv_main = pg.evaluate(
-            """() => [...document.querySelectorAll('input,select')]
-                 .map(e => ({name: e.name||'', ac: e.getAttribute('autocomplete')||'',
-                             id: e.id||'',
-                             label: (document.querySelector(`label[for="${e.id}"]`)?.textContent
-                                     || e.closest('label')?.textContent || '').trim(),
-                             idx: 0}))""")
-        for i, inp in enumerate(inv_main):
-            inp["idx"] = i
-        def find_addr(kws):
-            for inp in inv_main:
-                blob = (str(inp["name"]) + str(inp["ac"]) + str(inp["id"]) +
-                        str(inp["label"])).lower()
-                if any(k in blob for k in kws):
-                    return inp["idx"]
-            return None
-        addr = {"str": "Albrechtstraße", "nr": "131", "zip": "12167", "city": "Berlin"}
-        for label, kws, val in (
-            ("str", ["stra", "street"], addr["str"]),
-            ("nr", ["hausnummer", "housenumber"], addr["nr"]),
-            ("zip", ["postleitzahl", "postal", "zip"], addr["zip"]),
-            ("city", ["stadt", "city"], addr["city"]),
+        # Adyen names these EXACTLY (measured): holderName, street,
+        # houseNumberOrName, postalCode, city. Target by name, verify each fill.
+        addr_result = {}
+        for inp_name, val in (
+            ("street", "Albrechtstraße"),
+            ("houseNumberOrName", "131"),
+            ("postalCode", "12167"),
+            ("city", "Berlin"),
+            ("holderName", "Test Validierung"),
         ):
-            idx = find_addr(kws)
-            if idx is not None:
+            # try the main frame AND any frame that carries this input
+            done = False
+            for holder, tag in [(pg, "main")] + [(f, "frame") for f in pg.frames]:
                 try:
-                    pg.locator("input,select").nth(idx).fill(val, timeout=5000)
+                    loc = holder.locator(
+                        f"input[name='{inp_name}'], input[id*='{inp_name}']").first
+                    if loc.count() == 0:
+                        continue
+                    loc.fill(val, timeout=5000)
+                    addr_result[inp_name] = tag
+                    done = True
+                    break
                 except Exception:
-                    pass
-        step("address_filled")
+                    continue
+            if not done:
+                addr_result[inp_name] = "NOT-FOUND"
+        step("address_filled", **addr_result)
+        # VERIFY: read back the values so an unfilled field can never pass silently
+        readback = pg.evaluate(
+            """() => { const o={};
+              for (const n of ['street','houseNumberOrName','postalCode','city','holderName']) {
+                const i=document.querySelector(`input[name="${n}"]`);
+                o[n]= i ? String(i.value||'').slice(0,20) : null;
+              }
+              return o; }""")
+        step("address_readback", **readback)
+        missing = [k for k, v in readback.items() if not v]
+        if missing:
+            step("ABORT", code="address-incomplete", missing=missing)
+            pg.screenshot(path="/tmp/vt-addr-missing.png")
+            b.close()
+            sys.exit(10)
 
         # holder name (main frame, measured: holderName / cc-name)
         try:
@@ -344,128 +356,145 @@ def main():
         step("modal_dom", els=modal_dom)
         pg.screenshot(path="/tmp/vt-modal.png")
 
-        # ---- country + number, using the MEASURED coordinates (vision, this run)
-        # flag/chevron selector at (410,537); SMS option at ~(837,626);
-        # Cloudflare checkbox at ~(400,702); Code senden at ~(683,778).
-        pg.mouse.click(410, 537)
-        pg.wait_for_timeout(2500)
-        pg.screenshot(path="/tmp/vt-country-open.png")
-        # the dropdown should now be open: find the United States entry in the DOM
-        us_found = pg.evaluate(
-            """() => { const els=[...document.querySelectorAll('*').values()];
-              for (const e of els) { const t=(e.textContent||'').trim();
-                if (/Vereinigte Staaten|United States/i.test(t)
-                    && t.length < 40 && e.getBoundingClientRect().width>0) {
-                  const r=e.getBoundingClientRect();
-                  return {x:Math.round(r.x+r.width/2), y:Math.round(r.y+r.height/2), txt:t.slice(0,30)};
-                } }
-              return null; }""")
-        step("us_entry", found=us_found)
-        if us_found:
-            pg.mouse.click(us_found["x"], us_found["y"])
-            pg.wait_for_timeout(1500)
-            step("country_switched", to=us_found["txt"])
-        else:
-            step("country_dropdown_absent",
-                 note="selector click may not have opened a menu")
+        # ================= CAPTCHA FIRST ==========================================
+        # MEASURED: the phone control carries PhoneInput--disabled and both the
+        # select and the input are disabled=true. The unlock condition is the
+        # captcha. The widget is Cloudflare Turnstile (frame URL
+        # challenges.cloudflare.com/...); its checkbox is NOT an input element,
+        # which is why earlier probes found "no checkbox in frame".
+        turnstile_frames = [f for f in pg.frames
+                             if "challenges.cloudflare.com" in f.url]
+        step("turnstile_frames", n=len(turnstile_frames))
+        for f in turnstile_frames:
+            try:
+                cands = f.evaluate(
+                    """() => { const out=[];
+                      for (const e of document.querySelectorAll('*')) {
+                        const r=e.getBoundingClientRect();
+                        if (r.width>8 && r.width<60 && r.height>8 && r.height<60) {
+                          out.push({tag:e.tagName, id:(e.id||'').slice(0,20),
+                                    cls:String(e.className||'').slice(0,36),
+                                    x:Math.round(r.x), y:Math.round(r.y),
+                                    w:Math.round(r.width), h:Math.round(r.height)});
+                        }
+                      }
+                      return out.slice(0,16); }""")
+                step("frame_candidates", url=f.url[-30:], cands=cands[:10])
+            except Exception as e:
+                step("frame_cand_err", err=str(e)[:60])
 
-        # re-read the phone field state after the switch
-        fld = pg.evaluate(
-            """() => { const dlg=document.querySelector('[class*=modal]');
-              const scope=dlg||document;
-              const i=[...scope.querySelectorAll('input')].find(x=>x.getBoundingClientRect().y>480
-                                                       && x.getBoundingClientRect().y<600);
-              if(!i) return null;
-              const r=i.getBoundingClientRect();
-              return {val:String(i.value||'').slice(0,24), ph:i.placeholder||'',
-                      box:[Math.round(r.x),Math.round(r.y)]}; }""")
-        step("phone_field_after_switch", field=fld)
+        # click the checkbox: class/id/role hints first, else leftmost small square
+        cb_desc = None
+        for f in turnstile_frames:
+            for sel in ("[class*=checkbox]", "[id*=checkbox]",
+                        "[role=checkbox]", ".ctp-checkbox-label"):
+                try:
+                    loc = f.locator(sel).first
+                    if loc.count() > 0:
+                        bb = loc.bounding_box()
+                        if bb and bb["width"] < 80:
+                            loc.click(timeout=6000)
+                            cb_desc = sel + " in frame"
+                            break
+                except Exception:
+                    continue
+            if cb_desc:
+                break
+        if not cb_desc:
+            # Human-like approach: hCaptcha ignores synthetic clicks that arrive
+            # with no mouse travel (measured: a bare click inside the box bounds
+            # left it unchecked). Move the cursor across the page first, decelerate
+            # onto the box, pause, then press/release like a hand.
+            pg.mouse.move(300, 400, steps=12)
+            pg.wait_for_timeout(240)
+            pg.mouse.move(360, 620, steps=10)
+            pg.wait_for_timeout(180)
+            pg.mouse.move(400, 702, steps=14)
+            pg.wait_for_timeout(320)
+            pg.mouse.down()
+            pg.wait_for_timeout(90)
+            pg.mouse.up()
+            cb_desc = "human-move(400,702)"
+        step("captcha_clicked", via=cb_desc)
+        pg.wait_for_timeout(9000)
+        # second attempt if still unchecked (sometimes one pass is swallowed)
+        tok0 = pg.evaluate(
+            """() => document.querySelector(
+                 'input[name="cf-turnstile-response"], [name*="turnstile-response"], [name*="h-captcha-response"], [name*="hcaptcha-response"]')?.value || null""")
+        dis0 = pg.evaluate(
+            "() => { const w=document.querySelector('.PhoneInput');"
+            " return w ? /disabled/.test(String(w.className)) : null; }")
+        if (not tok0) and dis0:
+            step("captcha_retry", why="no token, still disabled")
+            pg.mouse.move(430, 640, steps=10)
+            pg.wait_for_timeout(400)
+            pg.mouse.move(402, 694, steps=14)
+            pg.wait_for_timeout(260)
+            pg.mouse.down()
+            pg.wait_for_timeout(110)
+            pg.mouse.up()
+            pg.wait_for_timeout(9000)
+        pg.screenshot(path="/tmp/vt-captcha.png")
 
-        # select SMS (WhatsApp selected by default; JMP is SMS-only)
+        # decisive: Turnstile writes cf-turnstile-response into the parent page,
+        # and the phone control's disabled class must be gone.
+        tok = pg.evaluate(
+            """() => { const i=document.querySelector(
+                 'input[name="cf-turnstile-response"], [name*="turnstile-response"]');
+              return i ? String(i.value||'').slice(0,10) : null; }""")
+        dis = pg.evaluate(
+            """() => { const w=document.querySelector('.PhoneInput');
+              return w ? {disabled: /disabled/.test(String(w.className))} : null; }""")
+        step("captcha_result", token_present=bool(tok), phone_still_disabled=dis)
+        captcha_ok = bool(tok) or (dis is not None and not dis["disabled"])
+        if not captcha_ok:
+            step("ABORT", code="captcha-not-passed",
+                 note="Turnstile yielded no token and the phone control is still "
+                      "disabled. If a visual challenge appeared, the captcha step "
+                      "is human_required by design.")
+            b.close()
+            sys.exit(10)
+
+        # ================= PHONE: country + number (now enabled) ==================
+        country_set = None
+        try:
+            pg.select_option("select.PhoneInputCountrySelect", "US", timeout=6000)
+            country_set = "US"
+        except Exception as e:
+            step("country_select_err", err=str(e)[:60])
+        step("country_set", via=country_set)
+
+        typed_ok = False
+        try:
+            ph = pg.locator("input.PhoneInputInput").first
+            ph.click(timeout=6000)
+            ph.fill("")
+            ph.type("8102583253", delay=60)
+            typed_ok = True
+        except Exception as e:
+            step("phone_type_err", err=str(e)[:60])
+        pg.wait_for_timeout(1500)
+        fld_val = pg.evaluate(
+            """() => { const i=document.querySelector('input.PhoneInputInput');
+              const sel=document.querySelector('select.PhoneInputCountrySelect');
+              return {value: i ? String(i.value||'').slice(0,26) : null,
+                      country: sel ? sel.value : null,
+                      country_label: sel && sel.selectedOptions[0]
+                        ? sel.selectedOptions[0].textContent.trim().slice(0,24) : null}; }""")
+        step("phone_after_set", **fld_val)
+        pg.screenshot(path="/tmp/vt-modal-filled.png")
+        if not typed_ok:
+            step("ABORT", code="phone-type-failed")
+            b.close()
+            sys.exit(10)
+
+        # SMS (JMP is SMS-only; WhatsApp is the default selection)
         try:
             pg.mouse.click(837, 626)
-            pg.wait_for_timeout(1200)
+            pg.wait_for_timeout(1000)
             step("sms_selected")
         except Exception as e:
             step("sms_select_err", err=str(e)[:50])
-
-        # fill the number (clear + type)
-        typed = False
-        for sel in ("input[type=tel]", "input[inputmode=tel]", "input[type=text]"):
-            try:
-                inp = pg.locator(sel).first
-                if inp.is_visible():
-                    bb = inp.bounding_box()
-                    if bb and 480 < bb["y"] < 600:
-                        inp.click()
-                        inp.fill(JMP_NUMBER, timeout=5000)
-                        typed = True
-                        step("number_typed", via=sel)
-                        break
-            except Exception:
-                continue
-        if not typed:
-            # measured fallback: the input spans (379,519)-(987,555)
-            pg.mouse.click(600, 537)
-            pg.keyboard.press("Control+A")
-            pg.keyboard.type(JMP_NUMBER, delay=30)
-            typed = True
-            step("number_typed", via="measured-coords")
-        pg.screenshot(path="/tmp/vt-modal-filled.png")
-
-        # ---- the Cloudflare Turnstile checkbox (measured at ~(400,702)) ------
-        turnstile_frame = None
-        for f in pg.frames:
-            if "challenges.cloudflare.com" in f.url:
-                turnstile_frame = f
-                break
-        step("turnstile_frame", url=(turnstile_frame.url[:80]
-                                    if turnstile_frame else None))
-        if turnstile_frame:
-            try:
-                cb = turnstile_frame.locator("input[type=checkbox], label, body").first
-                bb = cb.bounding_box()
-                if bb:
-                    pg.mouse.click(bb["x"] + bb["width"] / 2, bb["y"] + bb["height"] / 2)
-                    pg.wait_for_timeout(5000)
-                    step("turnstile_clicked", at=[round(bb["x"]), round(bb["y"])])
-                else:
-                    step("turnstile_no_box")
-            except Exception as e:
-                step("turnstile_click_err", err=str(e)[:80])
-        else:
-            # no iframe: maybe the widget is inline; click the measured point
-            pg.mouse.click(400, 702)
-            pg.wait_for_timeout(5000)
-            step("turnstile_clicked", via="measured(400,702)")
-        pg.screenshot(path="/tmp/vt-turnstile.png")
-
-        # ---------- the Cloudflare Turnstile checkbox ---------------------------
-        # MEASURED position class: it is a checkbox inside a Turnstile iframe.
-        turnstile_frame = None
-        for f in pg.frames:
-            if "challenges.cloudflare.com" in f.url:
-                turnstile_frame = f
-                break
-        step("turnstile_frame", url=(turnstile_frame.url[:80]
-                                    if turnstile_frame else None))
-
-        t_before = time.time()
-        if turnstile_frame:
-            try:
-                cb = turnstile_frame.locator("input[type=checkbox], label").first
-                bb = cb.bounding_box()
-                if bb:
-                    # click via the TOP-level page at the frame's screen position
-                    pg.mouse.click(bb["x"] + bb["width"] / 2,
-                                   bb["y"] + bb["height"] / 2)
-                    pg.wait_for_timeout(4000)
-                    step("turnstile_clicked", at=[round(bb["x"]), round(bb["y"])])
-                else:
-                    step("turnstile_no_box")
-            except Exception as e:
-                step("turnstile_click_err", err=str(e)[:80])
-        pg.screenshot(path="/tmp/vt-turnstile.png")
 
         # ---------- click 'Code senden' and watch the JMP inbox -----------------
         since = time.time() - 5

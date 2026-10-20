@@ -1,4 +1,26 @@
 
+**2026-10-20 (02:00) — R3b SPEND verdict measured: `human_required` at the venue
+phone gate; everything else automatable.** The captcha-first order was the key
+discovery: the phone control is `react-phone-number-input` and carries
+`PhoneInput--disabled` — country select AND number input are disabled=true until
+the human-verification widget passes. Sequence measured: captcha -> phone unlock
+-> select +1 (native select.PhoneInputCountrySelect, select_option 'US') -> type
+8102583253 (input.PhoneInputInput) -> SMS option -> Code senden. The widget is
+hCaptcha-branded ("Ich bin ein Mensch") served from a Cloudflare Turnstile host.
+Two click strategies measured: a bare synthetic click inside the box bounds was
+IGNORED (no challenge, no pass); a human-like mouse-travel approach TRIGGERED the
+widget, which answered with a VISUAL CHALLENGE ("Finden Sie das eierlegende
+Tier" — find the egg-laying animal, a wooded-scene image puzzle). Solving that
+programmatically is adversarial and out of scope; the gate is `human_required`.
+Corrections en route: my earlier phone-type step clicked the CARDHOLDER field
+((600,537) is inside its row) — every "number_typed" readback of Test Validierung
+was the wrong field; and the address-fill loop had a first-match-break bug that
+silently left street/houseNumber empty, which blocked the buy click entirely in
+one run. Both fixed with readback gates. The harness
+(tools/venue_phone_test.py) now: fills the Adyen card (synthetic), verifies the
+address readback, triggers the gate, measures the captcha, and — on a pass —
+selects +1, types the JMP number, selects SMS, clicks Code senden and polls the
+JMP inbox. Remaining: a HUMAN solves the one image puzzle; the rest runs.
 **2026-10-20 (early) — venue phone-gate test built; gate fires PRE-CHARGE (proven);
 JMP number LIVE; three corrections.** The reproducible harness is
 `services/restaurant-cvm/tools/venue_phone_test.py` (committed). Measured with a
