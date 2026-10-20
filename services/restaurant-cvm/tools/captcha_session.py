@@ -61,13 +61,23 @@ class CaptchaSession:
         return __import__("json").dumps(d, indent=2)
 
 
-def _free_port() -> int:
+def _free_port(range_: tuple = None) -> int:
     """Ask the kernel for a free localhost port and release it again.
 
     Race-window note: between closing the probe socket and the real bind there
     is a small window. Acceptable here because ports are 127.0.0.1-only,
     per-order, and short-lived; a collision fails loudly in spawn().
     """
+    port = None
+    if range_:
+        for _ in range(20):
+            cand = random.randint(*range_)
+            with socket.socket(family=socket.AF_INET6 if ":" in "x" else socket.AF_INET) as s:
+                if s.connect_ex(("127.0.0.1", cand)) != 0:
+                    port = cand
+                    break
+        if port:
+            return port
     with socket.socket() as s:
         s.bind(("127.0.0.1", 0))
         return s.getsockname()[1]
@@ -81,12 +91,20 @@ class SessionManager:
         max_age_s: int = 15 * 60,
         display_range: tuple = (90, 99),
         idle_timeout_s: int = 60,
+        ws_listen: str = "127.0.0.1",
+        ws_port_range: tuple = (49000, 49999),
     ):
         self.runtime_dir = runtime_dir
         self.bins = bins or {}
         self.max_age_s = max_age_s
         self.display_range = display_range
         self.idle_timeout_s = idle_timeout_s
+        # websockify listen address. Default: loopback (tests, local-only).
+        # Production passes the FIPS mesh address so the PWA's Caddy (on the
+        # mesh) can reach the session; the fd36 ULA is NOT routable from the
+        # internet — the public surface stays the token-checked reverse proxy.
+        self.ws_listen = ws_listen
+        self.ws_port_range = ws_port_range
         self.sessions: dict[str, CaptchaSession] = {}
         self._pops: dict[str, dict] = {}
         self.tokens: set[str] = set()
@@ -122,7 +140,7 @@ class SessionManager:
         os.makedirs(self.runtime_dir, exist_ok=True)
         display = f":{random.randint(*self.display_range)}"
         vnc_port = _free_port()
-        ws_port = _free_port()
+        ws_port = _free_port(self.ws_port_range)
         token = secrets.token_urlsafe(32)
         vnc_password = secrets.token_urlsafe(16)
         pw_file = os.path.join(self.runtime_dir, f"vncpw-{order_id}")
@@ -154,11 +172,14 @@ class SessionManager:
             pops["x11vnc"] = vnc_p
             pids["x11vnc"] = vnc_p.pid
 
-            # real websockify syntax: websockify <listen_port> <target_host>:<target_port>
-            # (binds 0.0.0.0 by default; --web/--listen variants exist. We bind
-            # localhost explicitly with the documented 'localhost:<port>' listen form.)
+            # real websockify syntax: websockify [addr:]<listen_port> <target_host>:<target_port>
+            # IPv6 literals need brackets in the listen spec. x11vnc stays on
+            # 127.0.0.1 — websockify bridges to it locally.
+            listen_spec = (f"[{self.ws_listen}]:{ws_port}"
+                           if ":" in self.ws_listen
+                           else f"{self.ws_listen}:{ws_port}")
             ws_p = subprocess.Popen(
-                [ws, str(ws_port), f"127.0.0.1:{vnc_port}"],
+                [ws, listen_spec, f"127.0.0.1:{vnc_port}"],
                 stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
                 start_new_session=True,
             )
@@ -171,9 +192,11 @@ class SessionManager:
                 if ws_p.poll() is not None:
                     raise CaptchaSessionError(
                         f"websockify exited rc={ws_p.returncode} before binding")
-                with socket.socket() as probe:
+                probe_family = (socket.AF_INET6
+                                if ":" in self.ws_listen else socket.AF_INET)
+                with socket.socket(family=probe_family) as probe:
                     probe.settimeout(0.5)
-                    if probe.connect_ex(("127.0.0.1", ws_port)) == 0:
+                    if probe.connect_ex((self.ws_listen, ws_port)) == 0:
                         break
                 time.sleep(0.2)
             else:

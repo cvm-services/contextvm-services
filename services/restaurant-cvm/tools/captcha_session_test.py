@@ -35,9 +35,12 @@ def _fake_bins(tmp):
                 f.write(
                     "#!/usr/bin/env python3\n"
                     "import socket, sys, time\n"
+                    "spec = sys.argv[1]\n"
+                    "# accept both '<addr>:<port>' and '[<v6>]:<port>'\n"
+                    "port = int(spec.rsplit(':', 1)[1])\n"
                     "srv = socket.socket()\n"
                     "srv.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)\n"
-                    "srv.bind(('127.0.0.1', int(sys.argv[1])))\n"
+                    "srv.bind(('127.0.0.1', port))\n"
                     "srv.listen(1)\n"
                     "while True:\n"
                     "    time.sleep(5)\n"
