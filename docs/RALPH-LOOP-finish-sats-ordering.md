@@ -362,7 +362,27 @@ The plan's original premise ("the server must verify the signed event") was
 **stale** — a worker following it would have re-implemented an existing security
 boundary. Remaining: board leftovers only.
 
-### R5 — clean-clone CI: DONE (`cvm-orders 268c496`, `a21664f`)
+### R5 — clean-clone CI: DONE (`cvm-orders 268c496`, `a21664f`) — **re-verified 2026-10-20, with corrections**
+
+Re-verified on a fresh clone (`git clone` → `d490631`, then `fe68591`):
+
+- `deno test -A` → **252 passed | 0 failed | 6 ignored**. The plan's older
+  "212 passed" figure is STALE — the suite grew (reconciler, route-surface,
+  treasury, venue-reference). Current truth: **252**.
+- The 6 ignored are the live-mint tests (`CVM_LIVE_MINT_TESTS=1` opt-in) —
+  hermetic by default, confirmed on the wire.
+- Coverage via `deno task coverage`: **88.0% lines (85.3% branch)** — ≥80% holds.
+
+**Correction found by the re-run (fixed in `fe68591`):** the two R1c harnesses
+(`r1c_funded.ts`, `r1c_threshold_probe.ts`) did NOT type-check on a fresh clone
+— they imported a sibling checkout (`../cvm-service-kit/src/lnwallet.ts`,
+TS2307) and passed `CashuRail` where `FundRail` no longer type-matches
+(`SettlementStatus` grew `"pending"`, TS2322). CI never caught it because
+`deno task test` scopes to `tests/`. Both fixed: call-site rail adapter
+(pending→unpaid for the funding loop), idempotency keys + memo defaults,
+runtime-wired wallet shim. `deno check` on every module/harness/test: RC 0.
+
+**R5 verdict: DONE.** Exit criteria all hold on a fresh clone.
 
 A fresh clone with no local state reproduces the suite (212 at the time; 228 with
 the spend tests). Found there was **no CI at all**; `.coverage-threshold` enforced
