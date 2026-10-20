@@ -111,8 +111,8 @@ class HandoffHandler(BaseHTTPRequestHandler):
         if not info:
             return self._not_found()
 
-        # WebSocket upgrade -> live session bridge (before any file route)
-        if rest == "websockify" and self._ws_upgrade():
+        # websockify path -> raw TCP bridge (websockify speaks WS itself)
+        if rest == "websockify":
             return self._bridge(info)
 
         if rest == "" or rest == "index.html":
@@ -138,43 +138,38 @@ class HandoffHandler(BaseHTTPRequestHandler):
         # WebSocket upgrade arrives as GET; POST = tunnel fallback (not used)
         return self._send(405, b"method not allowed", "text/plain")
 
-    # ---- the websocket bridge ----------------------------------------------
+    # ---- the raw TCP proxy ----------------------------------------------
+    # The gateway does NOT implement websocket. websockify IS a websocket
+    # server; the browser does its WS handshake WITH websockify through this
+    # pipe. Our job: token check, then raw byte relay (both directions).
 
     def _bridge(self, info):
-        """Upgrade this connection to WebSocket and pipe it to websockify.
-
-        The stdlib has no WS server, so the gateway implements the minimal
-        server handshake (RFC 6455) + frame relay, or — simpler and more
-        honest — hands the raw socket to a tiny threaded pump after the
-        handshake. The handshake is what the browser needs to speak noVNC.
-        """
-        import base64
-        import hashlib
-
-        key = self.headers.get("Sec-WebSocket-Key", "")
-        if not key:
-            return self._not_found()
-        accept = base64.b64encode(
-            hashlib.sha1((key + "258EAFA5-E914-47DA-95CA-C5AB0DC85B11").encode()
-                         ).digest()).decode()
-        # 101 with NO content-length: hijack the socket
-        self.send_response(101, "Switching Protocols")
-        self.send_header("Upgrade", "websocket")
-        self.send_header("Connection", "Upgrade")
-        self.send_header("Sec-WebSocket-Accept", accept)
-        self.end_headers()
-        self.close_connection = True
-
-        # pipe: browser socket <-> websockify on the mesh
+        """Relay this connection's raw bytes to websockify (and back)."""
         try:
-            up = socket.socket(socket.AF_INET6
-                               if ":" in info.get("ws_host", "127.0.0.1")
-                               else socket.AF_INET)
+            family = (socket.AF_INET6
+                      if ":" in info.get("ws_host", "127.0.0.1")
+                      else socket.AF_INET)
+            up = socket.socket(family)
             up.settimeout(10)
             up.connect((info.get("ws_host", "127.0.0.1"), info["ws_port"]))
         except OSError:
+            try:
+                self._send(502, b"session unavailable", "text/plain")
+            except OSError:
+                pass
             return
+        up.settimeout(None)
         self.connection.settimeout(None)
+
+        # Forward any request bytes the handler already buffered (the
+        # browser's websocket handshake starts immediately after headers).
+        try:
+            buffered = self.rfile.peek(4096)
+            if buffered:
+                self.rfile.read(len(buffered))
+                up.sendall(buffered)
+        except (OSError, AttributeError):
+            pass
 
         def pump(a, b):
             try:
@@ -197,15 +192,14 @@ class HandoffHandler(BaseHTTPRequestHandler):
         t2.start()
         t1.join()
         t2.join()
+        up.close()
+        self.close_connection = True
 
     def do_HEAD(self):
         return self.do_GET()
 
     # NOTE: BaseHTTPRequestHandler dispatches WebSocket upgrades as GET with
     # 'Upgrade: websocket'. Route them in do_GET.
-    def _ws_upgrade(self):
-        return (self.headers.get("Upgrade", "").lower() == "websocket")
-
     def novnc_page(self, token: str) -> str:
         """Minimal noVNC host page bound to this token."""
         return f"""<!doctype html>
@@ -244,9 +238,12 @@ def main():
                     default=int(os.environ.get("HANDOFF_PORT", "49100")))
     args = ap.parse_args()
 
-    family = socket.AF_INET6 if ":" in args.listen else socket.AF_INET
-    srv = ThreadingHTTPServer((args.listen, args.port), HandoffHandler)
-    srv.address_family = family
+    class GatewayServer(ThreadingHTTPServer):
+        address_family = (socket.AF_INET6 if ":" in args.listen
+                          else socket.AF_INET)
+        daemon_threads = True
+
+    srv = GatewayServer((args.listen, args.port), HandoffHandler)
     print(f"handoff gateway on [{args.listen}]:{args.port}", flush=True)
     srv.serve_forever()
 

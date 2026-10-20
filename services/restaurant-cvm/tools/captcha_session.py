@@ -306,9 +306,9 @@ class SessionManager:
         import json as _json
 
         state = {
-            tok: {"ws_port": sess.ws_port, "order_id": sess.order_id,
-                  "ws_host": self.ws_listen}
-            for tok, sess in self.sessions.items()
+            sess.token: {"ws_port": sess.ws_port, "order_id": sess.order_id,
+                         "ws_host": self.ws_listen}
+            for sess in self.sessions.values()
         }
         path = os.path.join(self.runtime_dir, "handoff.json")
         os.makedirs(self.runtime_dir, exist_ok=True)
