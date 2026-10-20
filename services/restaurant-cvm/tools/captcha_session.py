@@ -212,6 +212,7 @@ class SessionManager:
             self._pops[s.order_id] = pops
             self.sessions[order_id] = s
             self.tokens.add(token)
+            self._write_handoff()
             return s
         except Exception:
             # clean partial spawn — never leave orphans
@@ -293,6 +294,28 @@ class SessionManager:
         self.sessions.pop(s.order_id, None)
         self._pops.pop(s.order_id, None)
         s.torn_down = True
+        self._write_handoff()
+
+    def _write_handoff(self) -> None:
+        """Persist token->ws_port for the handoff gateway (ADR-0017).
+
+        The gateway (handoff_gateway.py) runs in its own process and needs the
+        live token->port mapping; this file is the IPC. ws_host defaults to the
+        manager's ws_listen so the gateway can reach websockify on the mesh.
+        """
+        import json as _json
+
+        state = {
+            tok: {"ws_port": sess.ws_port, "order_id": sess.order_id,
+                  "ws_host": self.ws_listen}
+            for tok, sess in self.sessions.items()
+        }
+        path = os.path.join(self.runtime_dir, "handoff.json")
+        os.makedirs(self.runtime_dir, exist_ok=True)
+        tmp = path + ".tmp"
+        with open(tmp, "w") as f:
+            _json.dump(state, f)
+        os.replace(tmp, path)
 
     def reap_stale(self) -> int:
         """Tear down sessions older than max_age_s. Returns count reaped."""
