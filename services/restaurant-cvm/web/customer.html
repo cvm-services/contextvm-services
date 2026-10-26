@@ -160,9 +160,17 @@ function setState(kind, text, warnHtml) {
 function applyState(s) {
   // Single source of truth: the server's state string.
   if (s.state === "paid") {
-    setState("ok", "Paid — your order is with the restaurant.");
-    $("footHint").textContent = s.venue_ref ? `Venue reference ${s.venue_ref}` : "";
-    stopPoll();
+    // PAID IS NOT CONFIRMED. If the venue has not acknowledged yet, keep polling:
+    // stopping here was a real bug - the screen said "paid" forever and never
+    // learned that the restaurant accepted (or rejected) the order.
+    if (s.venue_ref) {
+      setState("ok", "Paid — the restaurant confirmed your order.");
+      $("footHint").textContent = `Venue reference ${s.venue_ref}`;
+      stopPoll();
+    } else {
+      setState("idle", "Paid — confirming with the restaurant…");
+      $("footHint").textContent = "Waiting for the venue to accept the order.";
+    }
   } else if (s.state === "outcome_unknown" || s.state === "paying") {
     setState("idle", "We are checking your payment…",
       "<b>Do not pay again.</b> Your payment may have gone through. " +

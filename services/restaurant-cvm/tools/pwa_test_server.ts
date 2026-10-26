@@ -38,24 +38,21 @@ const store = new SessionStore(spawn);
 const tokens = new Map([["tok-demo", "fac-alice"]]);
 const ctx = { tokens, grant_ttl_ms: 600_000 };
 
+/** Create a session through the real API, exactly as the spawner path would. */
+const seed = async (order_id: string) =>
+  await handle(
+    new Request("http://x/sessions", {
+      method: "POST",
+      headers: { authorization: "Bearer tok-demo", "content-type": "application/json" },
+      body: JSON.stringify({ order_id }),
+    }),
+    store, ctx,
+  ).then((r) => r.json());
+
 // Seed: one normal human step, one unconfirmed outcome (the case that must never
 // be refunded blind).
-const a = await handle(
-  new Request("http://x/sessions", {
-    method: "POST",
-    headers: { authorization: "Bearer tok-demo", "content-type": "application/json" },
-    body: JSON.stringify({ order_id: "TG-1001" }),
-  }),
-  store, ctx,
-).then((r) => r.json());
-const b = await handle(
-  new Request("http://x/sessions", {
-    method: "POST",
-    headers: { authorization: "Bearer tok-demo", "content-type": "application/json" },
-    body: JSON.stringify({ order_id: "TG-1002" }),
-  }),
-  store, ctx,
-).then((r) => r.json());
+const a = await seed("TG-1001");
+const b = await seed("TG-1002");
 
 states.set(`/tmp/pwa-test-state-${b.session_id}.json`, "outcome_unknown");
 
@@ -129,6 +126,25 @@ Deno.serve({ port: PORT, hostname: "127.0.0.1" }, async (req) => {
     );
   }
 
+  // Test-only: the venue accepted the order. In production this arrives from the
+  // harness after the facilitator solves the captcha; here it is explicit so the
+  // customer's screen can be shown reacting to a real state transition.
+  if (url.pathname === "/__test__/venue/confirm" && req.method === "POST") {
+    const body = await req.json().catch(() => ({}));
+    const id = String(body.order_id ?? "");
+    const ref = String(body.ref ?? "TB-TEST-0001");
+    try {
+      settlement.confirm(id, ref);
+      return new Response(JSON.stringify({ ok: true, order: settlement.get(id) }), {
+        headers: { "content-type": "application/json" },
+      });
+    } catch (e) {
+      return new Response(JSON.stringify({ ok: false, error: String((e as Error)?.message ?? e) }), {
+        status: 409, headers: { "content-type": "application/json" },
+      });
+    }
+  }
+
   // Test-only rail control; never mounted in serve.ts.
   if (url.pathname === "/__test__/rail" && req.method === "POST") {
     const body = await req.json().catch(() => ({}));
@@ -142,6 +158,9 @@ Deno.serve({ port: PORT, hostname: "127.0.0.1" }, async (req) => {
     if (req.method === "POST" && /\/orders\/[^/]+\/pay$/.test(url.pathname)) {
       const body = await res.clone().json().catch(() => ({}));
       if (body?.state === "outcome_unknown" && body?.order_id) pending.add(body.order_id);
+      // A paid order is what a facilitator is asked to act on: create the session
+      // the second phone will take control of.
+      if (body?.state === "paid" && body?.order_id) await seed(String(body.order_id));
     }
     return res;
   }
