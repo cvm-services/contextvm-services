@@ -47,9 +47,50 @@ JMP_DISPLAY = "(810) 258-3253"
 R = []
 
 
+STATE_FILE = os.environ.get("CVM_SESSION_STATE", "")
+
+# Authoritative business states. A dashboard cannot poll log lines, and "is it
+# still working?" must not be inferred by a human reading a tail. `outcome_unknown`
+# is deliberately distinct from `failed`: after a payment submission a lost reply
+# is NOT a failed order, and retrying it would duplicate a real purchase.
+STATES = (
+    "preparing", "at_captcha", "awaiting_human", "solved", "continuing",
+    "awaiting_sms", "submitting", "completed",
+    "failed", "expired", "outcome_unknown",
+)
+
+
+def set_state(state, **detail):
+    """Write the current business state atomically for the dashboard to poll."""
+    if state not in STATES:
+        raise ValueError(f"undeclared state: {state}")
+    if not STATE_FILE:
+        return
+    payload = {
+        "state": state,
+        "updated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "detail": detail,
+    }
+    tmp = STATE_FILE + ".tmp"
+    try:
+        os.makedirs(os.path.dirname(STATE_FILE) or ".", exist_ok=True)
+        with open(tmp, "w") as f:
+            json.dump(payload, f)
+        os.replace(tmp, STATE_FILE)   # atomic: a reader never sees a half file
+    except Exception as e:            # never let telemetry kill the checkout
+        print(json.dumps({"step": "state_write_err", "err": str(e)[:80]}), flush=True)
+
+
 def step(name, **kw):
     R.append({"step": name, **kw})
     print(json.dumps({"step": name, **kw}), flush=True)
+    # Every ABORT becomes a terminal state automatically, so a dashboard never has
+    # to parse log lines to learn that a session died - and a hold that simply ran
+    # out of time is `expired`, not `failed`: the operator did nothing wrong.
+    if name == "ABORT":
+        code = str(kw.get("code", "unknown"))
+        terminal = "expired" if code in ("captcha-not-passed", "hold-elapsed") else "failed"
+        set_state(terminal, reason=code, **{k: v for k, v in kw.items() if k != "code"})
 
 
 def poll_inbox(since_ts, tries=18, delay=10):
@@ -99,6 +140,7 @@ def main():
             "Object.defineProperty(navigator,'webdriver',{get:()=>undefined})")
         pg = ctx.new_page()
 
+        set_state("preparing")
         # ---------- reach the phone modal (proven path, no card) -------------
         pg.goto(MENU, wait_until="domcontentloaded", timeout=60000)
         pg.wait_for_timeout(6000)
@@ -340,6 +382,7 @@ def main():
                 "Kaufen für", __import__("re").I)).first.click(timeout=8000)
             clicked_buy = True
             step("kaufen_clicked")
+            set_state("at_captcha")
         except Exception as e:
             step("kaufen_click_err", err=str(e)[:70])
         pg.wait_for_timeout(8000)
@@ -470,6 +513,8 @@ def main():
             # THIS process keeps the page alive. We then continue in the same
             # browser — the captcha token is bound to it, so re-driving from a
             # fresh context would discard the human's work.
+            set_state("awaiting_human", hold_seconds=args.hold,
+                      note="a human must solve the captcha over VNC")
             step("holding_for_human", seconds=args.hold,
                  note="solve the captcha in the VNC session; this process continues automatically")
             deadline = time.time() + args.hold
@@ -500,6 +545,8 @@ def main():
                     captcha_ok = True
                     step("captcha_clear_signal", **(_live or {}))
                     break
+            if captcha_ok:
+                set_state("solved")
             step("human_result", passed=captcha_ok,
                  token_len=len(tok) if tok else 0)
             if captcha_ok:
@@ -512,6 +559,7 @@ def main():
             b.close()
             sys.exit(10)
 
+        set_state("continuing", phase="phone")
         # ================= PHONE: country + number (now enabled) ==================
         def set_country(code: str = "US") -> str | None:
             """Flip the country select AND fire the events React listens for."""
@@ -599,6 +647,7 @@ def main():
             pg.get_by_role("button", name="Code senden").first.click(timeout=6000)
             clicked = True
             step("code_senden_clicked")
+            set_state("awaiting_sms")
         except Exception as e:
             # it may be disabled until Turnstile passes — report that honestly
             cls = None
@@ -617,6 +666,7 @@ def main():
                             "body_len": len(r[2]) if len(r) > 2 and r[2] else 0}
                            for r in rows]
                 step("SMS_ARRIVED", msgs=arrived)
+                set_state("submitting", phase="code_received")
             else:
                 step("SMS_NOT_RECEIVED_180s")
         b.close()

@@ -49,6 +49,10 @@ while [ $# -gt 0 ]; do
 done
 
 mkdir -p "$(dirname "$OUT")" "${HOME}/reports/captcha-handoff"
+# The dashboard polls this instead of reading logs. Reset per session so a stale
+# terminal state from the previous session can never be read as this one's.
+STATE="${HOME}/reports/captcha-handoff/state.json"
+rm -f "$STATE"
 chmod 700 "$(dirname "$OUT")"
 
 cleanup() {
@@ -96,7 +100,7 @@ sleep 2
 kill -0 "$WS_PID" 2>/dev/null || { echo "FATAL: websockify failed" >&2; exit 1; }
 
 # --- the harness, holding at the captcha in the SAME browser -----------------
-DISPLAY="$DISP" "${HOME}/.cache/pw-venv/bin/python" \
+CVM_SESSION_STATE="$STATE" DISPLAY="$DISP" "${HOME}/.cache/pw-venv/bin/python" \
   "${HERE}/venue_phone_test.py" --country US --hold "$HOLD" --viewport "$GEOM" \
   >"${HOME}/reports/captcha-handoff/harness.log" 2>&1 &
 HARNESS_PID=$!
@@ -130,6 +134,7 @@ cat > "$OUT" <<JSON
             "width": "100%", "height": "100%",
             "note": "src = novnc_url verbatim; do not rebuild it in the UI, or the credential is lost"},
   "expires_at": "${EXPIRES}",
+  "state_file": "${STATE}",
   "started_at": "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 }
 JSON
