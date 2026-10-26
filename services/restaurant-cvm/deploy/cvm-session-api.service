@@ -14,7 +14,9 @@ WorkingDirectory=/opt/cvm/services/restaurant-cvm
 EnvironmentFile=/etc/cvm/session-api.env
 # Loopback only: the service must never be reachable except through Caddy.
 Environment=CVM_SESSION_API_PORT=8791
-ExecStart=/usr/bin/deno run --allow-net=127.0.0.1 --allow-env --allow-read=/etc/cvm,/tmp --allow-run=node \
+Environment=CVM_SESSION_STORE=/var/lib/cvm/sessions.json
+ExecStartPre=/usr/bin/install -d -o cvm -g cvm -m 0750 /var/lib/cvm
+ExecStart=/usr/bin/deno run --allow-net=127.0.0.1 --allow-env --allow-read=/etc/cvm --allow-write=/var/lib/cvm --allow-run=node \
   src/serve.ts
 Restart=on-failure
 RestartSec=3
@@ -24,7 +26,7 @@ NoNewPrivileges=true
 PrivateTmp=true
 ProtectSystem=strict
 ProtectHome=true
-ReadWritePaths=/tmp
+ReadWritePaths=/var/lib/cvm
 CapabilityBoundingSet=
 LockPersonality=true
 MemoryDenyWriteExecute=true
