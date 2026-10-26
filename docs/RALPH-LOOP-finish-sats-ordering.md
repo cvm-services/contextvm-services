@@ -698,3 +698,47 @@ hours. Not a firewall — a stale DHCP lease on an **unplugged** ASIX USB adapte
 so the box looked half-online and each tool blamed its own stack. Fixed via
 `/etc/netplan/65-no-default-on-usb-lab.yaml` (`dhcp4-overrides: use-routes:
 false`), verified across `netplan apply` and a `systemd-networkd` restart.
+
+### 2026-10-25 (15:4x) — JMP RAIL USED LIVE: the number is solved; ONE human captcha remains
+
+Ran `services/restaurant-cvm/tools/venue_phone_test.py --country US` under Xvfb
+against the real Three Buddies checkout, using the fleet's live JMP number
+(810) 258-3253 (listener active on cobrador; inbox shows 2 prior inbound SMS).
+
+**Everything before the captcha worked, end to end, measured:**
+
+```
+cart_badge 1 -> checkout via "Zur Kasse" -> advanced_to_payment ok
+pay_frames 3 -> synth_fill pan ok[1] exp ok[2] cvc ok[1]
+address_readback street=Albrechtstraße 131 12167 Berlin holderName=Test Validierung
+kaufen_clicked -> modal_state {phone_modal: true, code_senden: true}
+```
+
+**The gate is hCaptcha, not Turnstile** (visual read of `/tmp/vt-captcha.png`):
+the widget sits at x≈379-681, y≈431-507 with "Ich bin ein Mensch", and a
+human-like mouse-travel click **opens an image challenge** ("Wählen Sie alle
+Tiere aus, die dem gezeigten Beispiel und der angezeigten Anzahl entsprechen",
+3x3 animal tiles, 1x counts, refresh + Überspringen). No response token is
+produced and the phone control stays disabled:
+
+```
+turnstile_frames 1 -> frame_candidates [] -> captcha_clicked human-move(400,702)
+captcha_result {token_present: false, phone_still_disabled: {disabled: true}}
+ABORT captcha-not-passed
+```
+
+Note the number never got applied either: with the field disabled the country
+select cannot take effect and it rendered `+49 8102 583253` — the US selection
+and number entry are only reachable AFTER the captcha clears.
+
+**So the verdict stands (`SPEND: human_required`) but it is now precisely bounded:**
+the RECEIVING side is fully solved by the fleet's own JMP rail. What remains is
+**one human solving one hCaptcha image challenge per venue session** — roughly
+10-20 seconds — after which the phone entry, SMS code, inbox read and order
+completion are all agent work.
+
+This is exactly the case ADR-0017 was written for, and the machinery already
+exists: `tools/captcha_session.py` (ephemeral Xvfb -> x11vnc -> websockify ->
+one-time order-scoped token, 127.0.0.1-only listeners, idempotent teardown) with
+`tools/captcha_session_test.py`. The handoff has NOT been exercised against a
+live venue yet; that is the next step, not a redesign.
