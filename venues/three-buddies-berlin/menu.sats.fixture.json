@@ -1,0 +1,610 @@
+{
+  "venue": "Three Buddies Steglitz",
+  "currency_generated_from": "EUR",
+  "rate_sats_per_eur": 1250,
+  "rate_source": "fixture",
+  "generated_at": "2026-10-26T18:32:36.641Z",
+  "note": "The invoice's own amount is authoritative at settlement; this rate only prices the display.",
+  "items": [
+    {
+      "id": "1052475",
+      "name": "Cheeseburger Menü",
+      "sats": 17500,
+      "eur": 14
+    },
+    {
+      "id": "1052454",
+      "name": "Texas Burger",
+      "sats": 10375,
+      "eur": 8.3
+    },
+    {
+      "id": "1052491",
+      "name": "Curly Fries (vegan)",
+      "sats": 5625,
+      "eur": 4.5
+    },
+    {
+      "id": "1052566",
+      "name": "New Jersey Burger",
+      "sats": 11875,
+      "eur": 9.5
+    },
+    {
+      "id": "1052545",
+      "name": "Chicken Wings",
+      "sats": 8625,
+      "eur": 6.9
+    },
+    {
+      "id": "1052526",
+      "name": "Texas Burger Menü",
+      "sats": 18500,
+      "eur": 14.8
+    },
+    {
+      "id": "1052511",
+      "name": "Chili Cheese Nuggets",
+      "sats": 8125,
+      "eur": 6.5
+    },
+    {
+      "id": "1052524",
+      "name": "Hamburger",
+      "sats": 8625,
+      "eur": 6.9
+    },
+    {
+      "id": "1052440",
+      "name": "Cheeseburger",
+      "sats": 9375,
+      "eur": 7.5
+    },
+    {
+      "id": "1052487",
+      "name": "Mexicali Burger (scharf)",
+      "sats": 9875,
+      "eur": 7.9
+    },
+    {
+      "id": "1052550",
+      "name": "Indiana Burger",
+      "sats": 9875,
+      "eur": 7.9
+    },
+    {
+      "id": "1052459",
+      "name": "Miami Burger",
+      "sats": 9875,
+      "eur": 7.9
+    },
+    {
+      "id": "1052449",
+      "name": "Blue Cheese Burger",
+      "sats": 11125,
+      "eur": 8.9
+    },
+    {
+      "id": "1052473",
+      "name": "Portobello Burger",
+      "sats": 11875,
+      "eur": 9.5
+    },
+    {
+      "id": "1052458",
+      "name": "Manhatten Burger",
+      "sats": 11875,
+      "eur": 9.5
+    },
+    {
+      "id": "1052455",
+      "name": "Three Buddies Burger",
+      "sats": 13625,
+      "eur": 10.9
+    },
+    {
+      "id": "1052509",
+      "name": "Crispy Chicken Burger",
+      "sats": 10625,
+      "eur": 8.5
+    },
+    {
+      "id": "1052557",
+      "name": "Hamburger Menü",
+      "sats": 16750,
+      "eur": 13.4
+    },
+    {
+      "id": "1052472",
+      "name": "Mexicali Burger Menü (scharf)",
+      "sats": 18000,
+      "eur": 14.4
+    },
+    {
+      "id": "1052548",
+      "name": "Indiana Burger Menü",
+      "sats": 18000,
+      "eur": 14.4
+    },
+    {
+      "id": "1052447",
+      "name": "Miami Burger Menü",
+      "sats": 18000,
+      "eur": 14.4
+    },
+    {
+      "id": "1052448",
+      "name": "New Jersey Burger Menü",
+      "sats": 20000,
+      "eur": 16
+    },
+    {
+      "id": "1052508",
+      "name": "Blue Cheeseburger Menü",
+      "sats": 19250,
+      "eur": 15.4
+    },
+    {
+      "id": "1052519",
+      "name": "Portobello Burger Menü",
+      "sats": 20000,
+      "eur": 16
+    },
+    {
+      "id": "1052488",
+      "name": "Manhatten Burger Menü",
+      "sats": 20000,
+      "eur": 16
+    },
+    {
+      "id": "1052544",
+      "name": "Three Buddies Burger Menü",
+      "sats": 21750,
+      "eur": 17.4
+    },
+    {
+      "id": "1052452",
+      "name": "Veggie Falafel Burger",
+      "sats": 9375,
+      "eur": 7.5
+    },
+    {
+      "id": "1052510",
+      "name": "Veggie Halloumi Burger",
+      "sats": 9375,
+      "eur": 7.5
+    },
+    {
+      "id": "1052442",
+      "name": "Veggie Gemüse Burger",
+      "sats": 9375,
+      "eur": 7.5
+    },
+    {
+      "id": "1052502",
+      "name": "Veggie Beyond Meat Burger",
+      "sats": 11125,
+      "eur": 8.9
+    },
+    {
+      "id": "1052552",
+      "name": "Veggie Mexicali Burger",
+      "sats": 11875,
+      "eur": 9.5
+    },
+    {
+      "id": "1052530",
+      "name": "Three Buddies Veggie",
+      "sats": 13625,
+      "eur": 10.9
+    },
+    {
+      "id": "1052549",
+      "name": "Veggi Falafel Burger Menü",
+      "sats": 17500,
+      "eur": 14
+    },
+    {
+      "id": "1052463",
+      "name": "Veggi Halloumi Burger Menü",
+      "sats": 17500,
+      "eur": 14
+    },
+    {
+      "id": "1052514",
+      "name": "Veggi Gemüse Burger Menü",
+      "sats": 17500,
+      "eur": 14
+    },
+    {
+      "id": "1052504",
+      "name": "Veggi Beyond Meat Burger Menü",
+      "sats": 19250,
+      "eur": 15.4
+    },
+    {
+      "id": "1052529",
+      "name": "Veggi Mexicali Burger Menü",
+      "sats": 20000,
+      "eur": 16
+    },
+    {
+      "id": "1052516",
+      "name": "Three Buddies Burger Menü",
+      "sats": 21750,
+      "eur": 17.4
+    },
+    {
+      "id": "1052478",
+      "name": "Hot Dog Classic",
+      "sats": 4875,
+      "eur": 3.9
+    },
+    {
+      "id": "1052446",
+      "name": "Hot Dog Americana",
+      "sats": 5625,
+      "eur": 4.5
+    },
+    {
+      "id": "1052445",
+      "name": "Hot Dog Mexicali (scharf)",
+      "sats": 6125,
+      "eur": 4.9
+    },
+    {
+      "id": "1052461",
+      "name": "Currywurst (Halal)",
+      "sats": 6875,
+      "eur": 5.5
+    },
+    {
+      "id": "1052551",
+      "name": "Hot Dog Classic Menü",
+      "sats": 17875,
+      "eur": 14.3
+    },
+    {
+      "id": "1052464",
+      "name": "Hot Dog Americana Menü",
+      "sats": 18625,
+      "eur": 14.9
+    },
+    {
+      "id": "1052520",
+      "name": "Hot Dog Mexicali Menü (scharf)",
+      "sats": 19125,
+      "eur": 15.3
+    },
+    {
+      "id": "1052477",
+      "name": "Currywurst Menü",
+      "sats": 15000,
+      "eur": 12
+    },
+    {
+      "id": "1052451",
+      "name": "Pommes frites (vegan)",
+      "sats": 5625,
+      "eur": 4.5
+    },
+    {
+      "id": "1052517",
+      "name": "Wedges (vegan)",
+      "sats": 5625,
+      "eur": 4.5
+    },
+    {
+      "id": "1052542",
+      "name": "Sweet Potatoes (vegan)",
+      "sats": 7375,
+      "eur": 5.9
+    },
+    {
+      "id": "1052482",
+      "name": "Chili Cheese Pommes",
+      "sats": 7375,
+      "eur": 5.9
+    },
+    {
+      "id": "1052562",
+      "name": "Onion Rings",
+      "sats": 6125,
+      "eur": 4.9
+    },
+    {
+      "id": "1052506",
+      "name": "Chicken Nuggets",
+      "sats": 8125,
+      "eur": 6.5
+    },
+    {
+      "id": "1052497",
+      "name": "Broccoli Nuggets (6 Stück)",
+      "sats": 8125,
+      "eur": 6.5
+    },
+    {
+      "id": "1052536",
+      "name": "Mozzarella-Sticks",
+      "sats": 8125,
+      "eur": 6.5
+    },
+    {
+      "id": "1052523",
+      "name": "Pasta Pollo",
+      "sats": 14875,
+      "eur": 11.9
+    },
+    {
+      "id": "1052534",
+      "name": "Pasta Napoli",
+      "sats": 12375,
+      "eur": 9.9
+    },
+    {
+      "id": "1052481",
+      "name": "Pasta Gorgonzola",
+      "sats": 14875,
+      "eur": 11.9
+    },
+    {
+      "id": "1052441",
+      "name": "Pasta Carbonara",
+      "sats": 13625,
+      "eur": 10.9
+    },
+    {
+      "id": "1052457",
+      "name": "Arrabiata - pikant",
+      "sats": 13625,
+      "eur": 10.9
+    },
+    {
+      "id": "1052469",
+      "name": "Pasta Veggie",
+      "sats": 14875,
+      "eur": 11.9
+    },
+    {
+      "id": "1052513",
+      "name": "Aglio E Olio",
+      "sats": 13625,
+      "eur": 10.9
+    },
+    {
+      "id": "1052498",
+      "name": "Salat Mista",
+      "sats": 9875,
+      "eur": 7.9
+    },
+    {
+      "id": "1052543",
+      "name": "Rucola-Salat",
+      "sats": 10625,
+      "eur": 8.5
+    },
+    {
+      "id": "1052496",
+      "name": "Salat Tonno",
+      "sats": 13625,
+      "eur": 10.9
+    },
+    {
+      "id": "1052546",
+      "name": "Salat Chicken",
+      "sats": 14875,
+      "eur": 11.9
+    },
+    {
+      "id": "1052495",
+      "name": "Ketchup",
+      "sats": 1875,
+      "eur": 1.5
+    },
+    {
+      "id": "1052480",
+      "name": "Mayonnaise",
+      "sats": 2000,
+      "eur": 1.6
+    },
+    {
+      "id": "1052485",
+      "name": "Barbecuesauce",
+      "sats": 2125,
+      "eur": 1.7
+    },
+    {
+      "id": "1052443",
+      "name": "Guacamole",
+      "sats": 2125,
+      "eur": 1.7
+    },
+    {
+      "id": "1052560",
+      "name": "Chili-Cheese-Dip",
+      "sats": 2375,
+      "eur": 1.9
+    },
+    {
+      "id": "1052564",
+      "name": "Sour Cream",
+      "sats": 2625,
+      "eur": 2.1
+    },
+    {
+      "id": "1052558",
+      "name": "Knoblauch-Aioli",
+      "sats": 2625,
+      "eur": 2.1
+    },
+    {
+      "id": "1052492",
+      "name": "Fuze Tea Schwarzer Tee Pfirsich 0,4l (EINWEG)",
+      "sats": 4000,
+      "eur": 3.2
+    },
+    {
+      "id": "1052540",
+      "name": "Fuze Tea Grüner Tee Mango Kamille 0,4l (EINWEG)",
+      "sats": 3688,
+      "eur": 2.95
+    },
+    {
+      "id": "1052444",
+      "name": "Fuze Tea Grüner Tee Limette Minze 0,4l (EINWEG)",
+      "sats": 3688,
+      "eur": 2.95
+    },
+    {
+      "id": "1052535",
+      "name": "Fuze Tea Schwarzer Tee Zitrone 0,4l (EINWEG)",
+      "sats": 3688,
+      "eur": 2.95
+    },
+    {
+      "id": "1052539",
+      "name": "Fuze Tea Schwarzer Tee Pfirsich Hibiskus 0,4l (EINWEG)",
+      "sats": 3688,
+      "eur": 2.95
+    },
+    {
+      "id": "1052476",
+      "name": "Istanbul-Cola 0,50l (Einweg)",
+      "sats": 3625,
+      "eur": 2.9
+    },
+    {
+      "id": "1052471",
+      "name": "Uludağ Gazoz Zuckerfrei 0,50l (Einweg)",
+      "sats": 3625,
+      "eur": 2.9
+    },
+    {
+      "id": "1052537",
+      "name": "Sariyer-Cola 0,50l (Einweg)",
+      "sats": 3625,
+      "eur": 2.9
+    },
+    {
+      "id": "1052456",
+      "name": "Fritz Orange 0,33l (Einweg)",
+      "sats": 3625,
+      "eur": 2.9
+    },
+    {
+      "id": "1052499",
+      "name": "Fritz Misch Masch 0,33l (Einweg)",
+      "sats": 3625,
+      "eur": 2.9
+    },
+    {
+      "id": "1052532",
+      "name": "Sariyer Gazoz 0,50l (Einweg)",
+      "sats": 3625,
+      "eur": 2.9
+    },
+    {
+      "id": "1052479",
+      "name": "Cola Turka 0,50l",
+      "sats": 2750,
+      "eur": 2.2
+    },
+    {
+      "id": "1052465",
+      "name": "Uludag Gazoz 0,50l",
+      "sats": 3625,
+      "eur": 2.9
+    },
+    {
+      "id": "1052474",
+      "name": "Red Bull 0,25l",
+      "sats": 4063,
+      "eur": 3.25
+    },
+    {
+      "id": "1052533",
+      "name": "Spree Quell still 0,5l (Einweg)",
+      "sats": 2813,
+      "eur": 2.25
+    },
+    {
+      "id": "1052505",
+      "name": "Spree Quell medium 0,5l (Einweg)",
+      "sats": 3125,
+      "eur": 2.5
+    },
+    {
+      "id": "1052531",
+      "name": "Spree Quell spritzig 0,5l (Einweg)",
+      "sats": 2813,
+      "eur": 2.25
+    },
+    {
+      "id": "1052462",
+      "name": "Durstlöscher Eistee Zitrone 0,5l",
+      "sats": 2500,
+      "eur": 2
+    },
+    {
+      "id": "1052500",
+      "name": "Durstlöscher Sauerkirsch Zitrone 0,5l",
+      "sats": 2500,
+      "eur": 2
+    },
+    {
+      "id": "1052450",
+      "name": "Durstlöscher Eistee Mango 0,5l",
+      "sats": 2500,
+      "eur": 2
+    },
+    {
+      "id": "1052486",
+      "name": "Durstlöscher Multivitamin 0,5l",
+      "sats": 2500,
+      "eur": 2
+    },
+    {
+      "id": "1052553",
+      "name": "Durstlöscher Eistee Pfirsich 0,5l",
+      "sats": 2500,
+      "eur": 2
+    },
+    {
+      "id": "1052470",
+      "name": "Durstlöscher Blueberry Marshmallow 0,5l",
+      "sats": 2500,
+      "eur": 2
+    },
+    {
+      "id": "1052503",
+      "name": "Capri Sun Orange 0,2l",
+      "sats": 1875,
+      "eur": 1.5
+    },
+    {
+      "id": "1052489",
+      "name": "Capri Sun Multivitamin 0,2l",
+      "sats": 1875,
+      "eur": 1.5
+    },
+    {
+      "id": "1052466",
+      "name": "Capri Sun Kirsche 0,2l",
+      "sats": 1875,
+      "eur": 1.5
+    },
+    {
+      "id": "1052490",
+      "name": "Capri Sun Lemon 0,2l",
+      "sats": 1875,
+      "eur": 1.5
+    },
+    {
+      "id": "1052538",
+      "name": "7Gün Ayran 0,2l",
+      "sats": 2750,
+      "eur": 2.2
+    }
+  ]
+}
