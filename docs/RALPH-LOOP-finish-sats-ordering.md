@@ -641,3 +641,60 @@ using the proven path (radio → Ändern → Morgen + HH:MM slot → Weiter → 
   `unknown service pubkey` ⇒ needs `make treasury-restart` on T14; treasury at
   4 sats ⇒ needs funding. Both operator-owed.
 - Loop record corrected: `cvm-services c5c1341`.
+
+### 2026-10-25 (15:2x) — CARD FUNDED; the phone leg is blocked on an approval only the operator can give
+
+**Gate 2 (card funding): DONE, and this is the first time real sats bought real
+card balance.** Card `1ca03165` (5257 **** 9166) went `1.38 -> 3.38 USD` via two
+$1 top-ups; treasury `17,256 -> 14,589` sats. Both visible in the provider's own
+ledger as `COMPLETED`. The mechanism works end to end.
+
+**Two defects found in the funding harness (both fixed, PR #42):**
+
+1. `r3_fund_card.ts` derived sats from a hardcoded `0.00025820 USD/sat`
+   (BTC ≈ $25,820). The provider quotes SATS: a $1.07 invoice is `lnbc13340n`
+   = **1,334 sats** (BTC ≈ $80,210). Following that constant would have paid
+   **4,145 sats for a 1,334-sat invoice** — a 3.1x overpay on every top-up.
+   `fund_card_exact.ts` now decodes the amount out of the BOLT11 prefix; an
+   invoice is the authority and no price feed is needed to pay one.
+
+2. The script could pay twice: each run mints a fresh invoice, and it consulted
+   nothing before spending. It now reads the ledger and refuses when a COMPLETED
+   top-up exists in the last 30 minutes (`ALLOW_REPEAT=1` to override). This was
+   measured, not theorised — the two $1 top-ups above ARE the double spend, and a
+   re-run afterwards correctly refused with the treasury unchanged.
+
+**Reconciliation method (new):** `FiatClient.transactions()` reads
+`/api/v1/vccTransactions` through the class's own `#request` so the auth cookie
+carries (a bare `fetch` 401s). A non-2xx THROWS rather than returning `[]` — an
+empty ledger would read as "nothing charged", the wrong answer when the question
+is whether money moved.
+
+**Gate 3 (phone number): BLOCKED — operator action required, stated precisely.**
+
+- `sms4sats` `/v2/l402/order` requires a `refundInvoice` **at schema level**, and
+  validates that it is a **no-amount invoice** (`INVALID_REFUND_INVOICE:
+  refundInvoice must be a no-amount invoice`). This applies even to
+  `rent-number`, which its own docs mark **non-refundable** — so the parameter is
+  required but cannot ever be used for that product.
+- The treasury broker holds **amountless `make_invoice` for 2-of-2 operator
+  approval** (§0b). Measured: the request took **no reply for 151s**, while a
+  with-amount `make_invoice` returned immediately (277 chars). So an agent
+  cannot produce the refund address; the approval sockets are T14-local.
+- **Unblock:** operator approves one amountless invoice, or supplies an
+  amountless BOLT11 from a wallet they control.
+
+**Mint decision: testnut is disqualified, minibits is the target.** testnut's own
+`/v1/info` says *"It uses a FakeWallet, all your Lightning invoices will always
+be marked paid"* — ecash there is free. With `TREASURY_FLOOR_SATS=1000`, a
+fake-mint customer could drain 1,000 real sats per order. Unexploited only
+because `orders`/`gate_orders` are still **0 rows**. minibits advertises
+NUT-04/05/07, which is everything `src/cashu.ts` needs.
+
+**Infrastructure defect found on x280 (fixed, durable):** all IPv4 was dead for
+hours. Not a firewall — a stale DHCP lease on an **unplugged** ASIX USB adapter
+(`enx9c69d3ca3cfe`, `no-carrier`, unmanaged) installed
+`default ... metric 5 linkdown`, outranking every live route. IPv6 kept working,
+so the box looked half-online and each tool blamed its own stack. Fixed via
+`/etc/netplan/65-no-default-on-usb-lab.yaml` (`dhcp4-overrides: use-routes:
+false`), verified across `netplan apply` and a `systemd-networkd` restart.
