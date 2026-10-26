@@ -20,13 +20,62 @@ if (tokens.size === 0) {
   Deno.exit(2);
 }
 
-const spawn: Spawner = async (order_id) => {
-  // Deliberately unimplemented here: the launcher is a separate process and its
-  // wiring is the next step. Failing loudly beats returning a URL that leads
-  // nowhere - a session the dashboard believes in but no browser backs.
-  throw new Error(
-    `no spawner wired for order ${order_id}: run tools/captcha_handoff.sh and register the session`,
-  );
+/**
+ * Spawns the launcher, which drives a real browser and can therefore spend money.
+ *
+ * Deliberately explicit about three things:
+ *   - it REFUSES unless CVM_LAUNCHER and CVM_PUBLIC_BASE are set, because a
+ *     session without a public base yields a URL that leads nowhere;
+ *   - it never returns until the launcher has written a session record, so a
+ *     returned session always has a browser behind it;
+ *   - on any failure it kills the child. A half-started session holding a live
+ *     browser with no owner is the worst outcome available here.
+ */
+const LAUNCHER = Deno.env.get("CVM_LAUNCHER") ?? "";
+const PUBLIC_BASE = Deno.env.get("CVM_PUBLIC_BASE") ?? "";
+const HOLD = Deno.env.get("CVM_HOLD_SECONDS") ?? "600";
+
+const spawn: Spawner = async (order_id, _facilitator, session_id) => {
+  if (!LAUNCHER || !PUBLIC_BASE) {
+    throw new Error(
+      "spawner not configured: set CVM_LAUNCHER and CVM_PUBLIC_BASE (never hardcode them)",
+    );
+  }
+  const out = `/tmp/cvm-session-${session_id}.json`;
+  await Deno.remove(out).catch(() => {});
+  const child = new Deno.Command("bash", {
+    args: [LAUNCHER, "--hold", HOLD, "--no-password", "--public-base", PUBLIC_BASE,
+           "--session-id", session_id, "--out", out],
+    stdout: "null",
+    stderr: "piped",
+    env: { CVM_SESSION_STATE: `/tmp/cvm-state-${session_id}.json` },
+  }).spawn();
+
+  const deadline = Date.now() + 180_000;
+  try {
+    while (Date.now() < deadline) {
+      try {
+        const raw = await Deno.readTextFile(out);
+        const rec = JSON.parse(raw);
+        if (rec.novnc_url) {
+          return {
+            novnc_url: rec.novnc_url,
+            expires_at: Date.parse(rec.expires_at),
+            state: "preparing",
+            // Hand over the harness's state file so this API can stay in sync
+            // instead of reporting `preparing` forever.
+            state_file: rec.state_file,
+          };
+        }
+      } catch { /* not written yet */ }
+      await new Promise((r) => setTimeout(r, 1000));
+    }
+    throw new Error(`launcher wrote no session record within 180s (order ${order_id})`);
+  } catch (e) {
+    // Never leave a browser running that nothing is tracking.
+    try { child.kill("SIGKILL"); } catch { /* already gone */ }
+    throw e;
+  }
 };
 
 const store = new SessionStore(spawn);

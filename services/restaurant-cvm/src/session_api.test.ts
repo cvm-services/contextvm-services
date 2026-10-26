@@ -6,7 +6,7 @@
  *   2. one controller at a time (two phones clicking one form corrupts an order).
  */
 import { beforeEach, describe, expect, test } from "bun:test";
-import { handle, SessionStore, type Spawner } from "./session_api.ts";
+import { handle, setStateReader, SessionStore, type Spawner } from "./session_api.ts";
 
 const TOK_A = "tok-facilitator-a";
 const TOK_B = "tok-facilitator-b";
@@ -17,7 +17,8 @@ let spawnCalls: string[];
 
 const spawn: Spawner = async (order_id) => {
   spawnCalls.push(order_id);
-  return { novnc_url: `https://s.example/vnc.html?x=${order_id}`, expires_at: now + 60_000 };
+  return { novnc_url: `https://s.example/vnc.html?x=${order_id}`, expires_at: now + 60_000,
+      state_file: "/tmp/fake-state.json" };
 };
 
 const ctx = () => ({ tokens: new Map([[TOK_A, "fac-a"], [TOK_B, "fac-b"]]), now: () => now });
@@ -289,5 +290,34 @@ describe("edge authorization", () => {
       controller: "phone-2",
     });
     expect(r.status).toBe(409); // phone-2 neither holds the lease nor can mint one
+  });
+});
+
+// --- state sync: the API must not lie about the one thing it exists to show --
+describe("harness state sync", () => {
+  test("the API reflects the harness instead of staying 'preparing'", async () => {
+    const s = await (await call("POST", "/sessions", TOK_A, { order_id: "sync1" })).json();
+    expect(s.state).toBe("preparing");
+    // The harness owns the truth; the API only translates it.
+    setStateReader(() => JSON.stringify({ state: "awaiting_human" }));
+    const got = await (await call("GET", `/sessions/${s.session_id}`, TOK_A)).json();
+    expect(got.state).toBe("awaiting_human");
+    expect(got.controllable).toBe(true);
+  });
+
+  test("a terminal state is never resurrected by a late harness write", async () => {
+    const s = await (await call("POST", "/sessions", TOK_A, { order_id: "sync2" })).json();
+    await call("DELETE", `/sessions/${s.session_id}`, TOK_A); // expired
+    setStateReader(() => JSON.stringify({ state: "awaiting_human" }));
+    const r = await call("GET", `/sessions/${s.session_id}`, TOK_A);
+    expect(r.status).toBe(404); // torn down stays torn down
+  });
+
+  test("a missing or half-written state file is not an error", async () => {
+    const s = await (await call("POST", "/sessions", TOK_A, { order_id: "sync3" })).json();
+    setStateReader(() => null);
+    expect((await call("GET", `/sessions/${s.session_id}`, TOK_A)).status).toBe(200);
+    setStateReader(() => '{"state":');
+    expect((await call("GET", `/sessions/${s.session_id}`, TOK_A)).status).toBe(200);
   });
 });

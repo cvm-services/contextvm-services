@@ -30,6 +30,7 @@ NOPW=0    # 1 = no VNC password; the unguessable hostname is then the only gate
 # Public base for the embed URL, e.g. https://abc123.orangesync.tech . Provided by
 # the deploy step (the hostname is a per-session credential and is never committed).
 PUBLIC_BASE=""
+SESSION_ID=""   # supplied by the API: the edge vhost is keyed on it
 OUT="${HOME}/reports/captcha-handoff/session.json"
 DISP=":77"
 VNCPORT=5977
@@ -43,6 +44,7 @@ while [ $# -gt 0 ]; do
     --clip)     CLIP="$2"; shift 2 ;;
     --no-password) NOPW=1; shift ;;
     --public-base) PUBLIC_BASE="$2"; shift 2 ;;
+    --session-id) SESSION_ID="$2"; shift 2 ;;
     --out)  OUT="$2";  shift 2 ;;
     *) echo "unknown arg: $1" >&2; exit 2 ;;
   esac
@@ -51,7 +53,7 @@ done
 mkdir -p "$(dirname "$OUT")" "${HOME}/reports/captcha-handoff"
 # The dashboard polls this instead of reading logs. Reset per session so a stale
 # terminal state from the previous session can never be read as this one's.
-STATE="${HOME}/reports/captcha-handoff/state.json"
+STATE="${CVM_SESSION_STATE:-${HOME}/reports/captcha-handoff/state-${SESSION_ID:-main}.json}"
 rm -f "$STATE"
 chmod 700 "$(dirname "$OUT")"
 
@@ -135,6 +137,7 @@ cat > "$OUT" <<JSON
             "note": "src = novnc_url verbatim; do not rebuild it in the UI, or the credential is lost"},
   "expires_at": "${EXPIRES}",
   "state_file": "${STATE}",
+  "session_id": "${SESSION_ID}",
   "started_at": "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 }
 JSON
