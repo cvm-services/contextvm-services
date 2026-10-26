@@ -20,17 +20,9 @@ import { NwcLnWallet } from "/data/repos/cvm-service-kit/src/lnwallet.ts";
 import { loadFiatSecret } from "./secret.ts";
 import { FiatClient } from "./fiat_client.ts";
 import { topupFiat } from "./topup.ts";
+import { bolt11Sats } from "./bolt11.ts";
 
 const TOPUP_USD = 1;
-
-/** Decode the payable amount from the BOLT11 prefix: lnbc<digits><mult>1... */
-function bolt11Sats(bolt11: string): number {
-  const m = /^lnbc(\d+)([munp]?)1/i.exec(bolt11.trim());
-  if (!m) throw new Error("not a mainnet BOLT11 (expected lnbc…)");
-  const digits = Number(m[1]);
-  const mult = { m: 1e-3, u: 1e-6, n: 1e-9, p: 1e-12, "": 1 }[m[2]] as number;
-  return Math.round(digits * mult * 1e8);
-}
 
 const nwcUrl = Deno.env.get("NWC_URL") ?? "";
 if (!nwcUrl) {

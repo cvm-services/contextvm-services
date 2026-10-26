@@ -20,6 +20,7 @@ import { NwcLnWallet } from "/data/repos/cvm-service-kit/src/lnwallet.ts";
 import { loadFiatSecret } from "./secret.ts";
 import { FiatClient } from "./fiat_client.ts";
 import { topupFiat } from "./topup.ts";
+import { bolt11Sats } from "./bolt11.ts";
 
 const TOPUP_USD = 2;
 const CARD_ID = "1ca031655b5d4c74a35e090b7979f7df"; // ailaptop-not-doxed, 0.38
@@ -50,7 +51,12 @@ const card0 = cards0.find((c) => c.id === CARD_ID) ?? cards0[0];
 out.card_before = { id: card0.id, masked: card0.masked_number, balance: card0.balance };
 
 const inv = await topupFiat(client, { amount: TOPUP_USD, card_id: card0.id });
-const sats = Math.ceil(inv.chargedAmount / 0.00025820);
+// NEVER derive sats from a price. This line used to read
+//   const sats = Math.ceil(inv.chargedAmount / 0.00025820);
+// i.e. it assumed BTC ~= $25,820 and would have paid 4,145 sats for a 1,334-sat
+// invoice (BTC ~= $80,210) - a 3.1x overpay, every time. The invoice states its
+// own amount; decode it.
+const sats = bolt11Sats(inv.bolt11);
 out.invoice = {
   charged_usd: inv.chargedAmount,
   subtotal_usd: inv.subtotal,
