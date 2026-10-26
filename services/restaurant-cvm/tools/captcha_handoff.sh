@@ -25,6 +25,8 @@ HOLD=900
 # SCALED view of a desktop session instead (noVNC resize=scale + pinch zoom).
 # Override only for a venue whose flow is known to work at that size.
 GEOM="1366x1200"
+CLIP=""   # e.g. 560x640+340+400: stream ONLY this region (captcha column)
+NOPW=0    # 1 = no VNC password; the unguessable hostname is then the only gate
 OUT="${HOME}/reports/captcha-handoff/session.json"
 DISP=":77"
 VNCPORT=5977
@@ -35,6 +37,8 @@ while [ $# -gt 0 ]; do
   case "$1" in
     --hold) HOLD="$2"; shift 2 ;;
     --geometry) GEOM="$2"; shift 2 ;;
+    --clip)     CLIP="$2"; shift 2 ;;
+    --no-password) NOPW=1; shift ;;
     --out)  OUT="$2";  shift 2 ;;
     *) echo "unknown arg: $1" >&2; exit 2 ;;
   esac
@@ -61,9 +65,21 @@ sleep 2
 kill -0 "$XVFB_PID" 2>/dev/null || { echo "FATAL: Xvfb failed to start on ${DISP}" >&2; exit 1; }
 
 # --- VNC: random password per session ----------------------------------------
-PASS="$(head -c 9 /dev/urandom | base64 | tr -dc 'A-Za-z0-9' | head -c 10)"
-x11vnc -display "$DISP" -rfbport "$VNCPORT" -localhost -passwd "$PASS" \
-       -forever -shared -noxdamage -repeat -xrandr resize >/dev/null 2>&1 &
+# VNC classic auth is 8 characters; x11vnc truncates anything longer without
+# warning, so a 10-char password leaves the operator unable to log in.
+CLIP_ARGS=()
+[ -n "$CLIP" ] && CLIP_ARGS=(-clip "$CLIP")
+
+PASS="$(head -c 8 /dev/urandom | base64 | tr -dc 'A-Za-z0-9' | head -c 8)"
+# VNC auth is a real source of friction on a phone: classic auth takes exactly 8
+# characters (longer is truncated silently) and noVNC's ?password= handling is
+# unreliable on mobile browsers. With --no-password the session is still gated by
+# an unguessable hostname, a loopback-only listener and a short lifetime - so the
+# hostname becomes the credential and must be treated as one (never committed).
+AUTH_ARGS=(-passwd "$PASS")
+[ "$NOPW" = "1" ] && AUTH_ARGS=(-nopw)
+x11vnc -display "$DISP" -rfbport "$VNCPORT" -localhost "${AUTH_ARGS[@]}" \
+       -forever -shared -noxdamage -repeat "${CLIP_ARGS[@]}" >/dev/null 2>&1 &
 VNC_PID=$!
 sleep 2
 kill -0 "$VNC_PID" 2>/dev/null || { echo "FATAL: x11vnc failed" >&2; exit 1; }
@@ -86,7 +102,8 @@ cat > "$OUT" <<JSON
   "display": "${DISP}",
   "vnc_port": ${VNCPORT},
   "web_port": ${WEBPORT},
-  "vnc_password": "${PASS}",
+  "vnc_password": "$([ "$NOPW" = "1" ] && echo "" || echo "$PASS")",
+  "password_required": $([ "$NOPW" = "1" ] && echo false || echo true),
   "harness_pid": ${HARNESS_PID},
   "xvfb_pid": ${XVFB_PID},
   "vnc_pid": ${VNC_PID},
