@@ -1,0 +1,30 @@
+# Captcha handoff surface (ADR-0017) — noVNC for the facilitator.
+#
+# Source of truth for this file. Edit HERE, not on the box; deploy with
+# infra/orangesync/deploy-captcha-handoff.sh.
+#
+# WHY an unguessable hostname instead of a path:
+#   noVNC serves its own assets and opens a websocket. A path prefix would have
+#   to be rewritten across html/js/ws URLs and would break on every noVNC bump.
+#   A dedicated vhost proxies cleanly and keeps the surface disposable: the
+#   hostname dies with the session.
+#
+# The VNC server itself still requires the per-session password (printed to the
+# operator once, never logged), and x11vnc/websockify listen on loopback only —
+# this vhost is a tunnel to a loopback port, not a directly-exposed display.
+#
+# THE HOSTNAME IS A SECRET. It is the only thing standing between the internet
+# and a live browser session, so the concrete value is NEVER committed: this file
+# is a TEMPLATE and deploy-captcha-handoff.sh substitutes CAPTCHA_HOST, which the
+# session generator prints once. Committing a live host would publish the door.
+#
+# Retire by deleting this file and reloading Caddy. There is no persistent state.
+
+${CAPTCHA_HOST} {
+	encode gzip
+	reverse_proxy 127.0.0.1:6077 {
+		# noVNC's websocket upgrade must survive the proxy hop.
+		header_up Host {host}
+		header_up X-Real-IP {remote_host}
+	}
+}
