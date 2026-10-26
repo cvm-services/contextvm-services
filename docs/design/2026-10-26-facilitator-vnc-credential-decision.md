@@ -173,3 +173,58 @@ confirming it.
 
 Option 3 remains the recommendation. It is the right lifecycle foundation and the cheapest step
 toward the real control — which is **authorization bound to the facilitator**, not a name.
+
+---
+
+## P0 #1c — wildcard certificate: BLOCKED, with evidence, and the alternative
+
+The consultants' fix for hostnames appearing in Certificate Transparency is a wildcard certificate
+issued independently of sessions. Measured on the gateway (`vps2fips`) on 2026-10-26:
+
+```
+$ caddy list-modules | grep -c 'dns.providers'
+0
+```
+
+**Stock Caddy has no DNS provider modules**, so DNS-01 (the only way to obtain `*.orangesync.tech`)
+is unavailable. Adding it requires:
+
+1. rebuilding Caddy with `xcaddy` + `caddy-dns/cloudflare`, on the host that fronts every other
+   service — a production risk disproportionate to the benefit; and
+2. a DNS provider API token, which is operator-held and not present on this host.
+
+So this item cannot be closed by an agent today. Recorded rather than attempted.
+
+### The alternative that needs neither
+
+**Stop minting per-session hostnames.** Serve the session under a path on an already-certified host:
+
+```
+handle_path /captcha/* {
+    reverse_proxy 127.0.0.1:6077
+}
+```
+
+No new certificate, therefore nothing new in CT. `handle_path` strips the prefix, so noVNC still sees
+`/vnc.html` and `/websockify` and needs no changes.
+
+**This does not fully solve the leak, and it must not be sold as if it does.** A path token lands in
+access logs and `Referer` headers just as a hostname lands in CT. The reason it is still the better
+posture is different: it removes the *class* of "a fresh public identifier is generated for every
+session, forever, in a global append-only log".
+
+Either way, the real control is the one now built into `src/session_api.ts`: authorization bound to a
+facilitator, checked at the edge. **Until the WebSocket upgrade is authorized there, neither hostname
+nor path is access control** — that remains the top open item.
+
+### Status of P0
+
+| Item | State |
+|---|---|
+| #1 session API | implemented, 15 tests (`session_api.ts`) — handler only, no listener bound yet |
+| #1b facilitator binding | implemented (404-not-403 to avoid an id oracle) |
+| #1c wildcard cert | **blocked**: no DNS module, no token. Path routing is the available substitute |
+| #2 state machine | implemented, 4 tests |
+| #3 controller lease | implemented, audited takeover |
+| **edge authorization of the WebSocket** | **NOT DONE** — the highest remaining risk |
+| facilitator UI | does not exist |
