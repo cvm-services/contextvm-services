@@ -1,3 +1,6 @@
+# BEGIN CAPTCHA SESSION ${CAPTCHA_SESSION}
+# Marker above and below are what makes the deploy append idempotent: a second
+# run must not stack a duplicate vhost for the same session.
 # Captcha handoff surface (ADR-0017) — noVNC for the facilitator.
 #
 # Source of truth for this file. Edit HERE, not on the box; deploy with
@@ -9,14 +12,20 @@
 #   A dedicated vhost proxies cleanly and keeps the surface disposable: the
 #   hostname dies with the session.
 #
-# The VNC server itself still requires the per-session password (printed to the
-# operator once, never logged), and x11vnc/websockify listen on loopback only —
-# this vhost is a tunnel to a loopback port, not a directly-exposed display.
+# x11vnc/websockify listen on loopback only, and the vhost enforces forward_auth
+# on EVERY request including the WebSocket upgrade (see the block below). The
+# display is not directly reachable and the transport is not the credential.
 #
-# THE HOSTNAME IS A SECRET. It is the only thing standing between the internet
-# and a live browser session, so the concrete value is NEVER committed: this file
-# is a TEMPLATE and deploy-captcha-handoff.sh substitutes CAPTCHA_HOST, which the
-# session generator prints once. Committing a live host would publish the door.
+# THE HOSTNAME IS AN IDENTIFIER, NOT A SECRET — corrected 2026-10-26. Let's Encrypt
+# publishes every issued certificate to Certificate Transparency, so a per-session
+# single-SAN certificate BROADCASTS the name before the session starts. It was
+# never a secret; calling it one was wrong. Access control is the grant check
+# below, and rotation buys lifecycle (an ending) rather than secrecy.
+#
+# The concrete host is still never committed: this file is a TEMPLATE and
+# deploy-captcha-handoff.sh substitutes CAPTCHA_HOST. That is hygiene, not
+# security — a committed hostname is not a leaked credential, it is a leaked
+# identifier.
 #
 # Retire by deleting this file and reloading Caddy. There is no persistent state.
 
@@ -42,3 +51,4 @@ ${CAPTCHA_HOST} {
 		header_up X-Real-IP {remote_host}
 	}
 }
+# END CAPTCHA SESSION ${CAPTCHA_SESSION}

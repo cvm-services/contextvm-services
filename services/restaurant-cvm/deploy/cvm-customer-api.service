@@ -9,8 +9,10 @@ Type=simple
 User=cvm
 Group=cvm
 WorkingDirectory=/opt/cvm/services/restaurant-cvm
+# deno on the target is /usr/local/bin/deno, not /usr/bin. systemd cannot expand
+# EnvironmentFile vars in ExecStart, so this path is literal and must be right.
 EnvironmentFile=/etc/cvm/customer-api.env
-ExecStart=/usr/bin/deno run --allow-net=127.0.0.1 --allow-env --allow-read=/etc/cvm,/tmp \
+ExecStart=/usr/local/bin/deno run --allow-net=127.0.0.1 --allow-env --allow-read=/etc/cvm,/tmp \
   src/serve_customer.ts
 Restart=on-failure
 RestartSec=3
