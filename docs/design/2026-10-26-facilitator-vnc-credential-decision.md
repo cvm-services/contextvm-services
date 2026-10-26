@@ -22,9 +22,20 @@ What is behind that URL is not a document. It is **a live browser holding a fill
 in the failing case a session that can spend the operator's money. A credential whose lifetime is
 unbounded relative to the thing it protects is the wrong default.
 
-Option 3 wins because it is the only one where the secret **expires with the session**, and because
+Option 3 wins because it is the only one whose **access grant expires with the session**, and because
 rotation is enforced by the code that already spawns sessions — not by operator discipline, which
 is not a control.
+
+> **CORRECTION (after consultant review, verified on the live host): the hostname is NOT a secret.**
+> Our gateway issues a **per-hostname certificate**: the session host serves
+> `CN = hsnxpcyykhgo.orangesync.tech`, a single SAN, out of 105 per-host certs on disk, with no
+> wildcard. Let's Encrypt submits every issued certificate to **Certificate Transparency**, which is
+> public. So the "unguessable" hostname is published *before the session starts* — it is an
+> identifier, not a credential.
+>
+> This does not change the recommended option, but it destroys the reason I originally gave for it.
+> Rotation buys **lifecycle and revocation**, not secrecy. Until the certificate posture changes,
+> option 3 is not an access control and must not be described as one.
 
 Keep the password as well (Option 2) once it is free: it is one query parameter on a URL the
 dashboard already receives. It raises the cost of a screenshot or a shoulder-surf. It is *not* a
@@ -113,3 +124,52 @@ harness was still holding at the captcha). One unsolicited message to a stranger
 Consequence: the destination gate (`country == US`, 11 digits ending `8102583253`, else abort) is
 P0-adjacent, and it is the reason "the harness must know the state and the dashboard must see it"
 is ranked above convenience items. A silent hold loop produced an outward-facing harm.
+
+---
+
+## Consultant review (3 independent, cold, no prior context)
+
+All three recommended **option 3**, and all three independently rejected the premise I had built it
+on: that an unguessable hostname is a secret. Their verdicts converged past my analysis rather than
+confirming it.
+
+| Reviewer | Verdict on option 3 | The correction each made |
+|---|---|---|
+| Security / systems architecture | "Best lifecycle foundation, but still a bearer capability unless backed by authorization." | **Certificate Transparency publishes per-session hostnames.** A wildcard cert, provisioned independently of sessions, is required or the name is public. |
+| Product / security architecture | "Rotation limits exposure; it does not identify the facilitator." | **Cropping is not a security boundary.** VNC exposes keyboard shortcuts, clipboard, navigation and browser state — not just the captcha widget. |
+| Site reliability | "Lifecycle management, not identity authentication." | **One controller per session**; payment uncertainty is not failure; a route removal does not drop live sockets. |
+
+### What they said that I had wrong or missing
+
+1. **CT logs make per-session hostnames public.** Verified above. Fix: wildcard `*.orangesync.tech`
+   issued once, not `on_demand_tls` per host. Hostname secrecy becomes defence-in-depth at best.
+2. **Revoking a route does not disconnect live WebSockets.** Teardown must actively close sockets,
+   not just remove routing. An `expires_at` in a JSON file enforces nothing.
+3. **Authorize the WebSocket upgrade, not just the page.** Both HTTP and WS must be checked,
+   or the transport is open even when the HTML is gated.
+4. **One controller per session.** Two devices injecting clicks is a real, unhandled case; needs a
+   server-enforced lease with an audited takeover, and human control revoked the moment automation
+   resumes.
+5. **Payment uncertainty ≠ failure.** A disconnect after submission is `PAYMENT_STATUS_UNKNOWN` and
+   must be reconciled against the venue before any retry. Blind retry duplicates restaurant orders
+   and double settlement. (Same class as the NWC double-pay guard, on the fiat side.)
+6. **Never consume "the latest inbox message."** Correlate an SMS code to recipient, sender and
+   request time, and reject stale ones — one JMP number serves every session.
+7. **Respect a venue lockout; do not rotate identity to evade it.** A fresh browser does not clear an
+   account-level restriction, and we already caused one lock plus one wrong-number SMS.
+8. **`vnc.html` returning 200 proves almost nothing.** A readiness gate must check DNS/TLS, proxy
+   route, WebSocket upgrade, VNC handshake and browser liveness before the URL is shown.
+
+### Revised P0 (supersedes the P0 list above)
+
+1. **Authenticated session broker** — facilitator identity + authorization bound to
+   `(order, session)`, enforced on HTTP **and** the WebSocket upgrade, with live-socket revocation.
+2. **Wildcard certificate** for session hostnames, issued independently — so hostnames are not
+   broadcast via CT. (Verifiable: `openssl s_client … | openssl x509 -ext subjectAltName` must show
+   `*.orangesync.tech`, not a single host.)
+3. **State machine with `outcome_unknown`** and a **controller lease**.
+4. **Destination + amount validation before submission**, for the same reason the phone gate exists:
+   a wrong destination already sent a real SMS to a stranger.
+
+Option 3 remains the recommendation. It is the right lifecycle foundation and the cheapest step
+toward the real control — which is **authorization bound to the facilitator**, not a name.
