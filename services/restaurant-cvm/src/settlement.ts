@@ -29,7 +29,8 @@ export type AttemptOutcome = "in_flight" | "settled" | "failed" | "unknown";
 
 export interface Invoice {
   bolt11: string;
-  payment_hash: string;
+  /** Optional: the invoice string is the identity. Kept for rails that have it. */
+  payment_hash?: string;
   /** The amount encoded IN THE INVOICE. Never recomputed from a rate. */
   amount_sats: number;
 }
@@ -45,7 +46,10 @@ export interface PayAttempt {
 
 export interface Order {
   id: string;
-  /** Server-computed price. The client never supplies this. */
+  /**
+   * Server-computed price, locked when the first invoice is issued. The client
+   * never supplies this, and it is never recomputed after the fact.
+   */
   sats: number;
   state: PayState;
   invoice?: Invoice;
@@ -92,12 +96,19 @@ export class Settlement {
     this.#now = now;
   }
 
-  create(id: string, sats: number): Order {
-    if (!Number.isInteger(sats) || sats <= 0) {
+  /**
+   * Create an order. Price may be unknown at creation when the rail quotes sats
+   * itself (2fiat encodes sats against a live rate, so the price only exists once
+   * an invoice is issued). In that case the FIRST invoice sets the price and the
+   * order is locked to it — the customer is charged what the invoice says, and
+   * never a number we recomputed afterwards.
+   */
+  create(id: string, sats?: number): Order {
+    if (sats !== undefined && (!Number.isInteger(sats) || sats <= 0)) {
       throw new SettlementError("bad_amount", `refusing non-positive/non-integer amount: ${sats}`);
     }
     if (this.#orders.has(id)) throw new SettlementError("duplicate_order", `order ${id} exists`);
-    const o: Order = { id, sats, state: "created", attempts: [] };
+    const o: Order = { id, sats: sats ?? 0, state: "created", attempts: [] };
     this.#orders.set(id, o);
     return o;
   }
@@ -118,15 +129,21 @@ export class Settlement {
     if (o.invoice) return o.invoice;
     if (o.state !== "created") throw new SettlementError("bad_state", `cannot invoice in ${o.state}`);
     const inv = await this.issuer.issue(o.sats, id);
-    // The single most important assertion in this file: the invoice must encode
-    // exactly the price we intend to charge. A mismatch means one of the two
-    // sides computed an amount from something other than the order.
-    if (inv.amount_sats !== o.sats) {
+    // Price discovery: an unpriced order adopts the invoice's own amount, once.
+    if (o.sats === 0) {
+      if (!Number.isInteger(inv.amount_sats) || inv.amount_sats <= 0) {
+        throw new SettlementError("bad_amount", `rail issued a non-positive invoice: ${inv.amount_sats}`);
+      }
+      o.sats = inv.amount_sats;
+    } else if (inv.amount_sats !== o.sats) {
+      // The single most important assertion in this file: a priced order must be
+      // charged exactly, so an invoice encoding anything else is refused.
       throw new SettlementError(
         "amount_mismatch",
         `invoice encodes ${inv.amount_sats} sats but order is ${o.sats}: refusing to hand out a mispriced invoice`,
       );
     }
+    if (o.sats <= 0) throw new SettlementError("bad_amount", "cannot invoice an order with no price");
     o.invoice = inv;
     o.state = "invoiced";
     return inv;
