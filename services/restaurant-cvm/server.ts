@@ -12,7 +12,8 @@
 //   - loud failures for unknown skus and missing delivery addresses
 //   - no settlement, no Lightning, no Cashu, no invoice generation.
 
-import { finalizeEvent, generateSecretKey, getPublicKey, nip44 } from "npm:nostr-tools";
+import { finalizeEvent, generateSecretKey, getEventHash, getPublicKey, nip44, verifyEvent } from "npm:nostr-tools";
+import { resolveClientPubkey } from "./src/cvm_identity.ts";
 import { Relay } from "npm:nostr-tools/relay";
 
 // =====================================================================
@@ -1132,7 +1133,20 @@ export async function serve(options: ServeOptions): Promise<() => void> {
               const decrypted = nip44.v2.decrypt(event.content, convKey);
               const innerEvent = JSON.parse(decrypted);
               const mcpMessage = JSON.parse(innerEvent.content);
-              const clientPubkey = innerEvent.pubkey || event.pubkey;
+              // Identity is VERIFIED, not claimed. The inner event is plain JSON
+              // inside the ciphertext: its pubkey is attacker-controlled until it
+              // is checked against the signed outer envelope. Today this only
+              // routes replies; it becomes authorization the moment facilitator
+              // identity is derived from it, so it is closed before that.
+              // nostr-tools' verifyEvent is a type predicate over its own
+              // NostrEvent; adapt it rather than loosening the resolver's type.
+              const verifyAny = (e: unknown) => verifyEvent(e as Parameters<typeof verifyEvent>[0]);
+              const identity = resolveClientPubkey(event, innerEvent, verifyAny, (e) => getEventHash(e as never));
+              if (!identity.ok) {
+                log(`[venue-cvm] rejected message: ${identity.reason}`);
+                return;
+              }
+              const clientPubkey = identity.pubkey;
 
               const response = await handleMcpMessage(index, mcpMessage);
               if (response) {
