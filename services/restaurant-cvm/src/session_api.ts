@@ -60,10 +60,33 @@ export interface Session {
   reason?: string;
 }
 
+/**
+ * A short-lived grant is what turns the controller lease into ACCESS CONTROL.
+ *
+ * The lease alone only coordinates: it says who *should* be driving. The edge
+ * (Caddy) cannot read our in-memory lease, so without a grant any request that
+ * reaches the proxy is served — i.e. whoever learns a session URL drives a
+ * browser containing a payment form. A grant is the lease, expressed as
+ * something the edge can verify on every request including the WebSocket
+ * upgrade.
+ *
+ * Deliberately NOT single-use: a noVNC connection reconnects after a network
+ * blip, and burning the grant on first connect would drop the operator mid-
+ * captcha. It is TTL-bound and revoked explicitly instead.
+ */
+export interface Grant {
+  token: string;
+  session_id: string;
+  controller: string;
+  expires_at: number;
+}
+
 export interface ApiContext {
   /** Token -> facilitator id. Supplied by config; never literal in code. */
   tokens: Map<string, string>;
   now?: () => number;
+  /** How long an edge grant lives. Short by design: it is re-issued on demand. */
+  grant_ttl_ms?: number;
 }
 
 export type SpawnResult = {
@@ -77,6 +100,7 @@ export type Spawner = (order_id: string, facilitator: string) => Promise<SpawnRe
 
 export class SessionStore {
   #sessions = new Map<string, Session>();
+  #grants = new Map<string, Grant>();
   #spawn: Spawner;
   #now: () => number;
   #seq = 0;
@@ -166,6 +190,7 @@ export class SessionStore {
       });
     }
     const isTakeover = Boolean(s.controller && s.controller.id !== controller);
+    if (isTakeover) this.revokeGrants(id);   // the old controller's access dies now
     s.controller = { id: controller, since: this.#now() };
     s.control_log.push({ controller, at: this.#now(), takeover: isTakeover });
     return s;
@@ -174,8 +199,65 @@ export class SessionStore {
   release(id: string, facilitator: string, controller: string): Session {
     const s = this.get(id, facilitator);
     if (!s) throw new ApiError(404, "no such session");
-    if (s.controller?.id === controller) s.controller = null;
+    if (s.controller?.id === controller) {
+      s.controller = null;
+      this.revokeGrants(id);
+    }
     return s;
+  }
+
+  /** Issue an edge grant for the current controller. Only the holder may. */
+  issueGrant(id: string, facilitator: string, controller: string, ttlMs = 120_000): Grant {
+    const s = this.get(id, facilitator);
+    if (!s) throw new ApiError(404, "no such session");
+    if (!s.controller || s.controller.id !== controller) {
+      // You cannot mint access you do not hold.
+      throw new ApiError(403, "not the current controller");
+    }
+    // One grant per (session, controller): re-issuing invalidates the old one, so
+    // a stale tab cannot keep a parallel grant alive.
+    for (const [tok, g] of this.#grants) {
+      if (g.session_id === id && g.controller === controller) this.#grants.delete(tok);
+    }
+    const token = randomToken();
+    const grant: Grant = {
+      token,
+      session_id: id,
+      controller,
+      expires_at: this.#now() + ttlMs,
+    };
+    this.#grants.set(token, grant);
+    return grant;
+  }
+
+  /** The edge's only question: may this request reach THIS session's browser? */
+  authorize(token: string | null, sessionId: string): Grant | null {
+    if (!token) return null;
+    const g = this.#grants.get(token);
+    if (!g) return null;
+    if (g.session_id !== sessionId) return null;   // a grant is one session only
+    if (g.expires_at <= this.#now()) {
+      this.#grants.delete(token);
+      return null;
+    }
+    // A grant dies with its session: an expired or torn-down session must not
+    // leave a verifiable grant behind.
+    const s = this.#live(this.#sessions.get(sessionId) as Session) ?? null;
+    if (!s) return null;
+    if (["expired", "failed", "completed"].includes(s.state)) return null;
+    return g;
+  }
+
+  /** Drop every grant for a session (release, takeover, teardown, expiry). */
+  revokeGrants(sessionId: string): number {
+    let n = 0;
+    for (const [tok, g] of this.#grants) {
+      if (g.session_id === sessionId) {
+        this.#grants.delete(tok);
+        n++;
+      }
+    }
+    return n;
   }
 
   remove(id: string, facilitator: string): void {
@@ -186,6 +268,7 @@ export class SessionStore {
     s.controller = null;
     s.state = "expired";
     s.reason = "torn down";
+    this.revokeGrants(id);
     this.#sessions.delete(id);
   }
 }
@@ -198,6 +281,12 @@ export class ApiError extends Error {
     this.status = status;
     this.detail = detail;
   }
+}
+
+function randomToken(): string {
+  const b = new Uint8Array(24);
+  crypto.getRandomValues(b);
+  return [...b].map((x) => x.toString(16).padStart(2, "0")).join("");
 }
 
 function hash(s: string): number {
@@ -230,6 +319,32 @@ export async function handle(
   store: SessionStore,
   ctx: ApiContext,
 ): Promise<Response> {
+  const url0 = new URL(req.url);
+  const path0 = url0.pathname.replace(/^\/+|\/+$/g, "");
+
+  // ---- THE EDGE CHECK -----------------------------------------------------
+  // Caddy `forward_auth` calls this on EVERY request, including the WebSocket
+  // upgrade, so the browser only reaches noVNC with a live grant. No facilitator
+  // bearer token here on purpose: the edge has the grant, not the human's login.
+  if (path0 === "edge/authorize") {
+    const sid = url0.searchParams.get("session") ?? "";
+    const bearer = (req.headers.get("x-cvm-grant") ?? "").trim();
+    const cookie = req.headers.get("cookie") ?? "";
+    const fromCookie = /(?:^|;\s*)cvm_grant=([0-9a-f]{8,})/.exec(cookie)?.[1] ?? "";
+    const g = store.authorize(bearer || fromCookie, sid);
+    if (!g) {
+      return new Response("denied", {
+        status: 401,
+        headers: { "cache-control": "no-store" },
+      });
+    }
+    // 200 with no body is what forward_auth expects to allow the request through.
+    return new Response(null, {
+      status: 200,
+      headers: { "cache-control": "no-store", "x-cvm-controller": "granted" },
+    });
+  }
+
   const auth = req.headers.get("authorization") ?? "";
   const token = auth.startsWith("Bearer ") ? auth.slice(7).trim() : "";
   const facilitator = token ? ctx.tokens.get(token) : undefined;
@@ -274,7 +389,15 @@ export async function handle(
         };
         if (!body.controller) return json(400, { error: "controller required" });
         const s = store.control(id, facilitator, body.controller, body.takeover === true);
-        return json(200, publicView(s, true));
+        const grant = store.issueGrant(id, facilitator, body.controller, ctx.grant_ttl_ms);
+        return json(200, {
+          ...publicView(s, true),
+          // Short-lived: the viewer must refresh it. It is not the session URL and
+          // it is useless against any other session.
+          grant: grant.token,
+          grant_expires_at: new Date(grant.expires_at).toISOString(),
+          grant_how: "send as Cookie: cvm_grant=<token> (preferred) or X-CVM-Grant",
+        });
       }
 
       if (parts.length === 3 && parts[2] === "control" && m === "DELETE") {
