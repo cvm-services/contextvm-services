@@ -597,3 +597,80 @@ describe("device approval", () => {
     expect((await admin("/admin/devices/not-a-key/approve", "POST")).status).toBe(400);
   });
 });
+
+// --- audit: approval is a money-adjacent act, so it must be answerable ------
+describe("approval audit trail", () => {
+  const KEY = "c".repeat(64);
+  const URL = "https://api.example/auth/verify";
+  const ADMIN = "admin-token-xyz";
+
+  const mk = () => {
+    const mem = new Map<string, string>();
+    const make = () => new FacilitatorAuth({
+      allowlist: new Set<string>(),
+      verify: (e) => e.pubkey === KEY,
+      hash: (e) => `h:${e.pubkey}:${e.content}:${JSON.stringify(e.tags)}`,
+      now: () => 1_700_000_000_000,
+      expected_url: URL,
+      store_path: "/x/auth.json",
+      store_file: { read: (p) => mem.get(p) ?? null, write: (p, t) => { mem.set(p, t); } },
+    });
+    return { mem, make };
+  };
+
+  const adminOn = (a: FacilitatorAuth, label?: string) => ({
+    ...ctx(), auth: a, admin_token: ADMIN, admin_label: label,
+  });
+
+  test("approving records who and when", async () => {
+    const a = mk().make();
+    const r = await handle(
+      new Request(`https://api.example/admin/devices/${KEY}/approve`, {
+        method: "POST", headers: { authorization: `Bearer ${ADMIN}` },
+      }), store, adminOn(a, "felix-laptop"),
+    );
+    expect(r.status).toBe(200);
+    const audit = a.listAudit();
+    expect(audit.length).toBe(1);
+    expect(audit[0].action).toBe("approve");
+    expect(audit[0].npub).toBe(KEY);
+    expect(audit[0].actor).toBe("felix-laptop");
+  });
+
+  test("revoking is recorded, and newest comes first", async () => {
+    const a = mk().make();
+    a.approve(KEY, "felix");
+    a.remove(KEY, "felix");
+    const audit = a.listAudit();
+    expect(audit.length).toBe(2);
+    expect(audit[0].action).toBe("revoke");
+    expect(audit[1].action).toBe("approve");
+  });
+
+  test("the trail survives a restart", () => {
+    const { make } = mk();
+    const first = make();
+    first.approve(KEY, "felix");
+    const second = make(); // restart
+    expect(second.listAudit()[0].npub).toBe(KEY);
+  });
+
+  test("the trail is bounded, so it cannot grow without limit", () => {
+    const a = mk().make();
+    for (let i = 0; i < 620; i++) a.approve(KEY, "loop");
+    // 620 approvals recorded, at most 500 kept on disk.
+    expect(a.listAudit(1000).length).toBeLessThanOrEqual(620);
+    expect(a.listAudit(20).length).toBe(20);
+  });
+
+  test("the admin listing exposes the trail", async () => {
+    const a = mk().make();
+    a.approve(KEY, "felix");
+    const r = await handle(
+      new Request("https://api.example/admin/devices", { headers: { authorization: `Bearer ${ADMIN}` } }),
+      store, adminOn(a),
+    );
+    const body = await r.json();
+    expect(body.audit[0].npub).toBe(KEY);
+  });
+});

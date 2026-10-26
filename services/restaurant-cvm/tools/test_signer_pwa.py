@@ -91,6 +91,11 @@ def main() -> int:
         op.get_by_role("button", name="Approve").first.click()
         op.wait_for_selector("#approved .card", timeout=15000)
         check("approval moves the device to approved", npub in op.inner_text("#approved"))
+        # The trail matters as much as the state: approval lets a device drive a
+        # browser that spends money, so it has to be answerable later.
+        activity = op.inner_text("#audit")
+        check("the approval is recorded in the activity trail",
+              "approved" in activity and npub in activity)
         op.screenshot(path=f"{OUT}/signer-4-operator-approved.png")
         op_ctx.close()
 

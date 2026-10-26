@@ -41,6 +41,10 @@
 <div id="pending"></div>
 <div id="nopending" class="dim" hidden>Nothing waiting.</div>
 
+<h2>Recent activity</h2>
+<div id="audit"></div>
+<div id="noaudit" class="dim" hidden>Nothing yet.</div>
+
 <h2>Approved devices</h2>
 <div id="approved"></div>
 <div id="noapproved" class="dim" hidden>No devices approved yet.</div>
@@ -94,6 +98,22 @@ async function refresh() {
       row.appendChild(b);
       c.appendChild(row);
       $("pending").appendChild(c);
+    }
+
+    const log = data.audit || [];
+    $("audit").innerHTML = "";
+    $("noaudit").hidden = log.length > 0;
+    for (const e of log) {
+      const row = el("div", "row");
+      row.style.padding = "6px 0";
+      row.style.borderBottom = "1px solid var(--line)";
+      const left = el("div");
+      // Full npub in the log: this is the audit record, not a display surface for
+      // a stranger's screen. Truncation here would make it useless later.
+      left.appendChild(el("div", "mono", `${e.action === "approve" ? "approved" : "revoked"} ${e.npub}`));
+      left.appendChild(el("div", "dim", `${e.actor} · ${when(e.at)}`));
+      row.appendChild(left);
+      $("audit").appendChild(row);
     }
 
     const appr = data.approved || [];
