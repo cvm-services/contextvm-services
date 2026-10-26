@@ -1,4 +1,4 @@
-import { assert, assertEquals, assertRejects, assertThrows } from "https://deno.land/std@0.224.0/assert/mod.ts";
+import { assert, assertEquals, assertRejects, assertThrows } from "./deno_assert_compat.ts";
 import { BROWSER_UA, FiatClient, FiatError, normaliseCard } from "./fiat_client.ts";
 
 const TOKEN = "token1testonlynotarealtoken";
