@@ -321,3 +321,82 @@ describe("harness state sync", () => {
     expect((await call("GET", `/sessions/${s.session_id}`, TOK_A)).status).toBe(200);
   });
 });
+
+// --- persistence: a restart must not orphan a live browser session ----------
+describe("session persistence", () => {
+  const mem = () => {
+    const m = new Map<string, string>();
+    return { m, read: (p: string) => m.get(p) ?? null, write: (p: string, t: string) => { m.set(p, t); } };
+  };
+  const stubSpawn: Spawner = async (order_id, _f, session_id) => ({
+    novnc_url: `https://s.example/vnc.html?${session_id}`,
+    expires_at: 9_999_999_999_999,
+    state: "awaiting_human",
+    state_file: `/tmp/fake-${order_id}.json`,
+  });
+  const ctxNoAuth = { tokens: new Map([[TOK_A, "fac-a"]]), now: () => 1000 };
+
+  test("a session survives a restart", async () => {
+    const file = mem();
+    const a = new SessionStore(stubSpawn, () => 1000, { path: "/x/sessions.json", file });
+    await a.create("o1", "fac-a");
+    const id = [...a.list("fac-a")][0].id;
+
+    // process restarts: brand-new store, same file
+    const b = new SessionStore(stubSpawn, () => 1000, { path: "/x/sessions.json", file });
+    expect(b.get(id, "fac-a").id).toBe(id);
+  });
+
+  test("a restart does NOT restore grants: access must be re-taken", async () => {
+    const file = mem();
+    // A grant requires a controllable session AND the lease: you cannot mint
+    // access you do not hold.
+    setStateReader((p) => (p.includes("/tmp/fake-") ? JSON.stringify({ state: "awaiting_human" }) : null));
+    const a = new SessionStore(stubSpawn, () => 1000, { path: "/x/sessions.json", file });
+    await a.create("o1", "fac-a");
+    const id = [...a.list("fac-a")][0].id;
+    a.control(id, "fac-a", "phone-1");
+    const grant = a.issueGrant(id, "fac-a", "phone-1");
+    expect(a.authorize(grant.token, id)).not.toBeNull();
+
+    const b = new SessionStore(stubSpawn, () => 1000, { path: "/x/sessions.json", file });
+    // Same token, same session id: refused after restart. Failing closed is the
+    // right direction for something that drives a payment form.
+    expect(b.authorize(grant.token, id)).toBeNull();
+  });
+
+  test("a corrupt table starts empty instead of crashing the service", () => {
+    const file = mem();
+    file.m.set("/x/sessions.json", "{not json");
+    const s = new SessionStore(stubSpawn, () => 1000, { path: "/x/sessions.json", file });
+    expect([...s.list("fac-a")].length).toBe(0);
+  });
+
+  test("ids are not reused after a restart", async () => {
+    const file = mem();
+    const a = new SessionStore(stubSpawn, () => 1000, { path: "/x/sessions.json", file });
+    await a.create("o1", "fac-a");
+    const first = [...a.list("fac-a")][0].id;
+
+    const b = new SessionStore(stubSpawn, () => 1000, { path: "/x/sessions.json", file });
+    const s2 = await b.create("o2", "fac-a");
+    expect(s2.id).not.toBe(first);
+  });
+
+  test("a failing disk write does not break session creation", async () => {
+    const file = { read: () => null, write: () => { throw new Error("disk full"); } };
+    const s = new SessionStore(stubSpawn, () => 1000, { path: "/x/sessions.json", file });
+    expect((await s.create("o1", "fac-a")).order_id).toBe("o1");
+  });
+
+  test("teardown is persisted (a removed session stays removed)", async () => {
+    const file = mem();
+    const a = new SessionStore(stubSpawn, () => 1000, { path: "/x/sessions.json", file });
+    await a.create("o1", "fac-a");
+    const id = [...a.list("fac-a")][0].id;
+    a.remove(id, "fac-a");
+
+    const b = new SessionStore(stubSpawn, () => 1000, { path: "/x/sessions.json", file });
+    expect([...b.list("fac-a")].length).toBe(0);
+  });
+});

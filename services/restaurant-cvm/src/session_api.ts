@@ -121,16 +121,94 @@ export type Spawner = (
   session_id: string,
 ) => Promise<SpawnResult>;
 
+/**
+ * Where sessions are kept between process lifetimes. Injected so tests need no
+ * filesystem and no runtime-specific API.
+ */
+export interface StoreFile {
+  read(path: string): string | null;
+  write(path: string, text: string): void;
+}
+
+const defaultStoreFile: StoreFile = {
+  read(path) {
+    try {
+      // deno-lint-ignore no-explicit-any
+      const d = (globalThis as any).Deno;
+      return d ? d.readTextFileSync(path) : null;
+    } catch {
+      return null;
+    }
+  },
+  write(path, text) {
+    // deno-lint-ignore no-explicit-any
+    const d = (globalThis as any).Deno;
+    if (!d) return;
+    // Atomic: a crash mid-write must not leave a truncated session table.
+    const tmp = `${path}.tmp`;
+    d.writeTextFileSync(tmp, text);
+    d.renameSync(tmp, path);
+  },
+};
+
 export class SessionStore {
   #sessions = new Map<string, Session>();
   #grants = new Map<string, Grant>();
   #spawn: Spawner;
   #now: () => number;
   #seq = 0;
+  #path?: string;
+  #file: StoreFile;
 
-  constructor(spawn: Spawner, now: () => number = () => Date.now()) {
+  constructor(
+    spawn: Spawner,
+    now: () => number = () => Date.now(),
+    opts: { path?: string; file?: StoreFile } = {},
+  ) {
     this.#spawn = spawn;
     this.#now = now;
+    this.#path = opts.path;
+    this.#file = opts.file ?? defaultStoreFile;
+    if (this.#path) this.#load();
+  }
+
+  /**
+   * Restore sessions after a restart.
+   *
+   * WHY: the in-memory store forgot every session while the harness kept running
+   * - observed live, when restarting the API orphaned a browser session that was
+   * still holding a venue checkout. A dashboard that has lost the session cannot
+   * hand it to anyone.
+   *
+   * Grants are deliberately NOT restored: a restart should invalidate access, so
+   * the operator re-takes control and gets a fresh grant. Failing closed on
+   * restart is the safer direction for something that drives a payment form.
+   */
+  #load(): void {
+    const raw = this.#file.read(this.#path!);
+    if (!raw) return;
+    try {
+      const rows = JSON.parse(raw) as Session[];
+      if (!Array.isArray(rows)) return;
+      for (const s of rows) if (s?.id) this.#sessions.set(s.id, s);
+      // Continue the id sequence past anything restored, so a restart cannot
+      // mint an id that already exists.
+      for (const id of this.#sessions.keys()) {
+        const n = Number(/^s_(\d+)_/.exec(id)?.[1] ?? 0);
+        if (Number.isFinite(n) && n > this.#seq) this.#seq = n;
+      }
+    } catch {
+      // A corrupt table must not stop the service from starting; it starts empty.
+    }
+  }
+
+  #persist(): void {
+    if (!this.#path) return;
+    try {
+      this.#file.write(this.#path!, JSON.stringify([...this.#sessions.values()]));
+    } catch {
+      // Persistence is not allowed to break a checkout (same rule as telemetry).
+    }
   }
 
   /**
@@ -218,6 +296,7 @@ export class SessionStore {
       control_log: [],
     };
     this.#sessions.set(id, session);
+    this.#persist();
     return session;
   }
 
@@ -244,6 +323,7 @@ export class SessionStore {
     if (isTakeover) this.revokeGrants(id);   // the old controller's access dies now
     s.controller = { id: controller, since: this.#now() };
     s.control_log.push({ controller, at: this.#now(), takeover: isTakeover });
+    this.#persist();
     return s;
   }
 
@@ -254,6 +334,7 @@ export class SessionStore {
       s.controller = null;
       this.revokeGrants(id);
     }
+    this.#persist();
     return s;
   }
 
@@ -321,6 +402,7 @@ export class SessionStore {
     s.reason = "torn down";
     this.revokeGrants(id);
     this.#sessions.delete(id);
+    this.#persist();
   }
 }
 

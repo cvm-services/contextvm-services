@@ -78,7 +78,12 @@ const spawn: Spawner = async (order_id, _facilitator, session_id) => {
   }
 };
 
-const store = new SessionStore(spawn);
+// Sessions persist across restarts. Without this the API forgot every session
+// while the harness kept running - observed live: a restarted API orphaned a
+// browser session that was still holding a venue checkout.
+// Grants are NOT persisted: a restart invalidates access (fail closed).
+const storePath = Deno.env.get("CVM_SESSION_STORE") ?? "/var/lib/cvm/sessions.json";
+const store = new SessionStore(spawn, () => Date.now(), { path: storePath });
 const port = Number(Deno.env.get("CVM_SESSION_API_PORT") ?? "8791");
 const grantTtl = Number(Deno.env.get("CVM_GRANT_TTL_MS") ?? "120000");
 
