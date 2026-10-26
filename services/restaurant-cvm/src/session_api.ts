@@ -39,6 +39,21 @@ export type SessionState =
   | "expired"
   | "outcome_unknown";
 
+/** The canonical business states. Mirrors the harness; one list, one truth. */
+export const STATES: readonly SessionState[] = [
+  "preparing", "at_captcha", "awaiting_human", "solved", "continuing",
+  "awaiting_sms", "submitting", "completed",
+  "failed", "expired", "outcome_unknown",
+];
+
+/** Injectable so tests never touch the filesystem. */
+let readStateFile: (p: string) => string | null = (p) => {
+  try { return Deno.readTextFileSync(p); } catch { return null; }
+};
+export function setStateReader(fn: (p: string) => string | null): void {
+  readStateFile = fn;
+}
+
 /** States in which a human may hold control of the browser. */
 const CONTROLLABLE: ReadonlySet<SessionState> = new Set<SessionState>([
   "at_captcha",
@@ -53,6 +68,8 @@ export interface Session {
   created_at: number;
   expires_at: number;
   novnc_url?: string;
+  /** Harness state file, read on every access so the API cannot go stale. */
+  state_file?: string;
   /** Current controller, if any. Single-holder. */
   controller: { id: string; since: number } | null;
   /** Audit trail: every control acquisition, including takeovers. */
@@ -93,10 +110,16 @@ export type SpawnResult = {
   novnc_url: string;
   expires_at: number;
   state?: SessionState;
+  /** Where the harness publishes its authoritative state. */
+  state_file?: string;
 };
 
 /** Injected so tests never touch a real browser, and production can swap it. */
-export type Spawner = (order_id: string, facilitator: string) => Promise<SpawnResult>;
+export type Spawner = (
+  order_id: string,
+  facilitator: string,
+  session_id: string,
+) => Promise<SpawnResult>;
 
 export class SessionStore {
   #sessions = new Map<string, Session>();
@@ -110,8 +133,33 @@ export class SessionStore {
     this.#now = now;
   }
 
+  /**
+   * Sync from the harness, then re-evaluate expiry.
+   *
+   * The harness owns the truth (it is the thing watching the browser); this API
+   * only translates it for the dashboard. Without this read the API reported
+   * `preparing` forever while the browser sat at the captcha - a dashboard that
+   * lies about the one thing it exists to show.
+   */
+  #sync(s: Session): void {
+    if (!s.state_file) return;
+    try {
+      const raw = readStateFile(s.state_file);
+      if (!raw) return;
+      const parsed = JSON.parse(raw) as { state?: string };
+      if (parsed.state && STATES.includes(parsed.state as SessionState)) {
+        // Never resurrect a terminal state, and never let the harness overwrite
+        // a terminal state we already recorded (teardown beats a late write).
+        if (!["expired", "failed", "completed", "outcome_unknown"].includes(s.state)) {
+          s.state = parsed.state as SessionState;
+        }
+      }
+    } catch { /* a missing or half-written file is not an error */ }
+  }
+
   /** Re-evaluate expiry on every read. A stored "expired" flag can go stale. */
   #live(s: Session): Session {
+    this.#sync(s);
     if (
       s.expires_at <= this.#now() &&
       !["completed", "failed", "expired", "outcome_unknown"].includes(s.state)
@@ -153,8 +201,10 @@ export class SessionStore {
         });
       }
     }
-    const spawned = await this.#spawn(order_id, facilitator);
+    // Id first: the edge vhost is keyed on it, and the launcher needs it while
+    // the browser is still starting.
     const id = `s_${(++this.#seq).toString(36)}_${Math.abs(hash(order_id + facilitator)) % 100000}`;
+    const spawned = await this.#spawn(order_id, facilitator, id);
     const session: Session = {
       id,
       order_id,
@@ -163,6 +213,7 @@ export class SessionStore {
       created_at: this.#now(),
       expires_at: spawned.expires_at,
       novnc_url: spawned.novnc_url,
+      state_file: spawned.state_file,
       controller: null,
       control_log: [],
     };
