@@ -484,3 +484,116 @@ describe("facilitator sign-in", () => {
     expect(r.status).toBe(200);
   });
 });
+
+// --- operator approval: a human decides which devices may act ---------------
+describe("device approval", () => {
+  const ALICE = "a".repeat(64);
+  const URL = "https://api.example/auth/verify";
+  const ADMIN = "admin-token-xyz";
+
+  const authFor = (storePath?: string) => {
+    const mem = new Map<string, string>();
+    return new FacilitatorAuth({
+      allowlist: new Set<string>(),
+      verify: (e) => e.pubkey === ALICE,
+      hash: (e) => `h:${e.pubkey}:${e.content}:${JSON.stringify(e.tags)}`,
+      now: () => 1_700_000_000_000,
+      expected_url: URL,
+      store_path: storePath,
+      store_file: { read: (p) => mem.get(p) ?? null, write: (p, t) => { mem.set(p, t); } },
+    });
+  };
+
+  const signed = (nonce: string, pubkey = ALICE) => {
+    const e: Record<string, unknown> = {
+      pubkey, kind: 27235, created_at: 1_700_000_000, content: "",
+      tags: [["u", URL], ["method", "POST"], ["challenge", nonce]], sig: "sig",
+    };
+    e.id = `h:${pubkey}::${JSON.stringify(e.tags)}`;
+    return e;
+  };
+
+  async function trySignIn(a: FacilitatorAuth, pubkey = ALICE) {
+    const ctxA = { ...ctx(), auth: a, admin_token: ADMIN };
+    const ch = await (await handle(new Request("https://api.example/auth/challenge"), store, ctxA)).json();
+    return await handle(
+      new Request("https://api.example/auth/verify", {
+        method: "POST", headers: { "content-type": "application/json" },
+        body: JSON.stringify(signed(ch.nonce, pubkey)),
+      }),
+      store, ctxA,
+    );
+  }
+  const admin = (path: string, method = "GET", token = ADMIN) =>
+    handle(new Request(`https://api.example${path}`, {
+      method, headers: { authorization: `Bearer ${token}` },
+    }), store, { ...ctx(), auth: a0, admin_token: ADMIN });
+
+  let a0: FacilitatorAuth;
+  beforeEach(() => { a0 = authFor(); });
+
+  test("a refused device appears in the pending list, not in a void", async () => {
+    const r = await trySignIn(a0);
+    expect(r.status).toBe(401);
+    const pending = a0.listPending();
+    expect(pending.length).toBe(1);
+    expect(pending[0].npub).toBe(ALICE);
+    expect(pending[0].attempts).toBe(1);
+  });
+
+  test("repeat attempts increment rather than duplicate", async () => {
+    await trySignIn(a0);
+    await trySignIn(a0);
+    expect(a0.listPending().length).toBe(1);
+    expect(a0.listPending()[0].attempts).toBe(2);
+  });
+
+  test("the operator approves, and the same device can now sign in", async () => {
+    await trySignIn(a0);
+    const ok = await admin(`/admin/devices/${ALICE}/approve`, "POST");
+    expect(ok.status).toBe(200);
+    expect((await trySignIn(a0)).status).toBe(200);
+    expect(a0.listPending().length).toBe(0);
+  });
+
+  test("admin endpoints reject a wrong token and refuse to exist without one", async () => {
+    expect((await admin("/admin/devices", "GET", "wrong")).status).toBe(401);
+    const noAdmin = await handle(
+      new Request("https://api.example/admin/devices", { headers: { authorization: "Bearer x" } }),
+      store, { ...ctx(), auth: a0 },
+    );
+    expect(noAdmin.status).toBe(404); // absent, not merely forbidden
+  });
+
+  test("removing an approved device revokes its live tokens", async () => {
+    a0.approve(ALICE);
+    const r = await trySignIn(a0);
+    expect(r.status).toBe(200);
+    const { token } = await r.json();
+
+    expect(a0.remove(ALICE)).toBe(true);
+    expect(a0.verifyToken(token)).toBeNull();
+  });
+
+  test("approvals survive a restart; a forgotten allowlist is a silent outage", async () => {
+    const mem = new Map<string, string>();
+    const mk = () => new FacilitatorAuth({
+      allowlist: new Set<string>(),
+      verify: (e) => e.pubkey === ALICE,
+      hash: (e) => `h:${e.pubkey}:${e.content}:${JSON.stringify(e.tags)}`,
+      now: () => 1_700_000_000_000,
+      expected_url: URL,
+      store_path: "/x/auth.json",
+      store_file: { read: (p) => mem.get(p) ?? null, write: (p, t) => { mem.set(p, t); } },
+    });
+    const first = mk();
+    first.approve(ALICE);
+
+    const second = mk(); // restart
+    expect(second.listApproved()).toContain(ALICE);
+  });
+
+  test("a malformed npub is refused by the admin route", async () => {
+    expect((await admin("/admin/devices/not-a-key/approve", "POST")).status).toBe(400);
+  });
+});

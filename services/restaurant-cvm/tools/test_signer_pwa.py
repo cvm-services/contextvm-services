@@ -23,13 +23,7 @@ OUT = os.environ.get("VIDEO_OUT", "/tmp/pwa-videos/signer")
 CHROME = "/usr/bin/google-chrome-stable"
 
 
-def allow(npub):
-    req = urllib.request.Request(
-        f"{BASE}/__test__/allow",
-        data=json.dumps({"npub": npub}).encode(),
-        headers={"content-type": "application/json"}, method="POST",
-    )
-    return json.loads(urllib.request.urlopen(req, timeout=10).read())
+ADMIN = "admin-token-xyz"  # matches the test server's CVM_ADMIN_TOKEN
 
 
 def main() -> int:
@@ -81,8 +75,25 @@ def main() -> int:
         check("an unapproved device is refused", "not approved" in page.inner_text("#devState"))
         page.screenshot(path=f"{OUT}/signer-2-unapproved.png")
 
-        # 3. the operator approves that identifier
-        allow(npub)
+        # 3. the operator approves it IN THE UI - a second browser context, the
+        #    real admin page, the real endpoint. No test-only shortcut.
+        op_ctx = browser.new_context(viewport={"width": 900, "height": 900})
+        op = op_ctx.new_page()
+        op.on("pageerror", lambda e: errors.append(f"operator: {e}"))
+        op.goto(f"{BASE}/web/operator.html", wait_until="load")
+        op.wait_for_selector("#auth", state="visible", timeout=10000)
+        op.fill("#token", ADMIN)
+        op.click("#save")
+        op.wait_for_selector("#pending .card", timeout=15000)
+        check("the operator sees the waiting device", npub in op.inner_text("#pending"))
+        op.screenshot(path=f"{OUT}/signer-3-operator-pending.png")
+
+        op.get_by_role("button", name="Approve").first.click()
+        op.wait_for_selector("#approved .card", timeout=15000)
+        check("approval moves the device to approved", npub in op.inner_text("#approved"))
+        op.screenshot(path=f"{OUT}/signer-4-operator-approved.png")
+        op_ctx.close()
+
         page.click("#signIn")
         # Sign-in is the assertion - NOT "cards appeared". The session list is per
         # facilitator, and this device is a NEW identity with nothing assigned yet,
