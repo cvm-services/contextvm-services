@@ -15,8 +15,22 @@ import { handle, SessionStore, setStateReader, type Spawner } from "../src/sessi
 import { Settlement, type InvoiceIssuer, type Provider, type ProviderResult } from "../src/settlement.ts";
 import { createCustomerApi, type MenuItem } from "../src/customer_api.ts";
 import { OrderFlow, type VenueOutcome } from "../src/order_flow.ts";
+import { FacilitatorAuth } from "../src/facilitator_auth.ts";
+import { getEventHash, verifyEvent } from "npm:nostr-tools";
+
 
 const PORT = Number(Deno.env.get("PWA_TEST_PORT") ?? "8795");
+
+// Real signature verification, real event ids - the same pair the server uses.
+const allowlist = new Set<string>();
+const auth = new FacilitatorAuth({
+  allowlist,
+  verify: (e) => verifyEvent(e as never),
+  hash: (e) => getEventHash(e as never),
+  expected_url: `http://127.0.0.1:${PORT}/auth/verify`,
+  challenge_ttl_ms: 120_000,
+  token_ttl_ms: 3_600_000,
+});
 const states = new Map<string, string>();
 
 const spawn: Spawner = async (order_id, _fac, session_id) => {
@@ -37,7 +51,7 @@ setStateReader((path) => {
 
 const store = new SessionStore(spawn);
 const tokens = new Map([["tok-demo", "fac-alice"]]);
-const ctx = { tokens, grant_ttl_ms: 600_000 };
+const ctx = { tokens, grant_ttl_ms: 600_000, auth };
 
 /** Create a session through the real API, exactly as the spawner path would. */
 const seed = async (order_id: string) =>
@@ -130,6 +144,12 @@ Deno.serve({ port: PORT, hostname: "127.0.0.1" }, async (req) => {
   if (url.pathname === "/web/facilitator.html" || url.pathname === "/") {
     return html(await Deno.readTextFile(new URL("facilitator.html", WEB)));
   }
+  if (url.pathname === "/signer.js" || url.pathname === "/vendor/noble.js") {
+    const name = url.pathname === "/signer.js" ? "signer.js" : "vendor/noble.js";
+    return new Response(await Deno.readTextFile(new URL(name, WEB)), {
+      headers: { "content-type": "text/javascript; charset=utf-8" },
+    });
+  }
   if (url.pathname === "/web/customer.html") {
     return html(await Deno.readTextFile(new URL("customer.html", WEB)));
   }
@@ -188,6 +208,18 @@ Deno.serve({ port: PORT, hostname: "127.0.0.1" }, async (req) => {
         status: 409, headers: { "content-type": "application/json" },
       });
     }
+  }
+
+  // Test-only: approve the npub the browser just generated. In production this is
+  // the operator editing the allowlist; here it has to be a route so the test can
+  // walk the whole flow without a human.
+  if (url.pathname === "/__test__/allow" && req.method === "POST") {
+    const body = await req.json().catch(() => ({}));
+    const npub = String(body.npub ?? "");
+    if (npub) allowlist.add(npub);
+    return new Response(JSON.stringify({ allowlist: [...allowlist] }), {
+      headers: { "content-type": "application/json" },
+    });
   }
 
   // Test-only rail control; never mounted in serve.ts.
