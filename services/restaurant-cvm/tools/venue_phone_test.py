@@ -115,6 +115,8 @@ def main():
     ap.add_argument("--viewport", default="1366x1200",
                     help="browser viewport WxH; set it to the operator's screen so "
                          "the captcha is readable over VNC")
+    ap.add_argument("--session-id", default=os.environ.get("CVM_SESSION_ID", ""),
+                    help="session id from the session API; published in holding_for_human")
     ap.add_argument("--hold", type=int, default=0,
                     help="seconds to wait for a HUMAN to solve the captcha over VNC "
                          "(ADR-0017 handoff); 0 aborts immediately")
@@ -515,7 +517,7 @@ def main():
             # fresh context would discard the human's work.
             set_state("awaiting_human", hold_seconds=args.hold,
                       note="a human must solve the captcha over VNC")
-            step("holding_for_human", seconds=args.hold,
+            step("holding_for_human", seconds=args.hold, session_id=args.session_id,
                  note="solve the captcha in the VNC session; this process continues automatically")
             deadline = time.time() + args.hold
             while time.time() < deadline:
@@ -667,6 +669,45 @@ def main():
                            for r in rows]
                 step("SMS_ARRIVED", msgs=arrived)
                 set_state("submitting", phase="code_received")
+                # ---- enter the code and confirm the order -------------------
+                # Without this the flow stops at "SMS arrived" and the venue never
+                # takes the order: payment settled, no food, and nothing in the
+                # stream that says so.
+                code = _extract_code(rows)
+                if not code:
+                    step("venue_confirm_unknown", reason="no code found in the inbox rows")
+                else:
+                    try:
+                        boxes = pg.query_selector_all(
+                            "input[maxlength='1'], input[inputmode='numeric']"
+                        )
+                        entered = 0
+                        for i, ch in enumerate(code):
+                            if i >= len(boxes):
+                                break
+                            boxes[i].click(timeout=3000)
+                            boxes[i].type(ch, delay=40)
+                            entered += 1
+                        step("code_entered", digits=entered)
+                        pg.get_by_role("button", name="Bestätigen").first.click(timeout=8000)
+                        step("confirm_clicked")
+                        set_state("submitting", phase="confirm_clicked")
+                        pg.wait_for_timeout(6000)
+                        ref = _find_venue_ref(pg)
+                        pg.screenshot(path="/tmp/vt-confirmed.png")
+                        if ref:
+                            step("venue_confirmed", ref=ref)
+                            set_state("completed", venue_ref=ref)
+                        else:
+                            # The click landed but no reference is visible. Claiming
+                            # confirmed here would be inventing evidence; the caller
+                            # treats this as unknown and a human checks.
+                            step("venue_confirm_unverified",
+                                 note="confirm clicked, no order reference found")
+                            set_state("outcome_unknown", phase="confirm_unverified")
+                    except Exception as e:
+                        step("venue_confirm_err", err=str(e)[:80])
+                        set_state("outcome_unknown", phase="confirm_error")
             else:
                 step("SMS_NOT_RECEIVED_180s")
         b.close()
@@ -675,6 +716,45 @@ def main():
     for s in R:
         print(json.dumps(s)[:260])
 
+
+
+def _extract_code(rows):
+    """Pull the verification code out of the newest inbox row.
+
+    Deliberately narrow: 4-6 consecutive digits that are not part of a longer
+    number. A wrong guess costs a failed attempt at a venue that rate-limits, so
+    we would rather find nothing and say so.
+    """
+    import re as _re
+    for r in reversed(rows or []):
+        body = r[2] if len(r) > 2 else ""
+        m = _re.search(r"(?<!\d)(\d{4,6})(?!\d)", body or "")
+        if m:
+            return m.group(1)
+    return None
+
+
+def _find_venue_ref(pg):
+    """Find the venue's order reference on the confirmation screen.
+
+    Patterns are the ones a food-ordering confirmation actually shows. If none
+    match we return None rather than fabricate a reference - an invented ref is
+    indistinguishable from a real one downstream.
+    """
+    import re as _re
+    candidates = []
+    try:
+        txt = pg.inner_text("body") or ""
+        candidates.append(txt)
+    except Exception:
+        pass
+    for pat in (r"(?:Bestellnummer|Order(?:\s*(?:number|no\.?|#))?)[:\s#]*([A-Z0-9][A-Z0-9-]{3,})",
+                r"\b(TG[- ]?\d{3,})\b"):
+        for blob in candidates:
+            m = _re.search(pat, blob, _re.I)
+            if m:
+                return m.group(1).strip()
+    return None
 
 if __name__ == "__main__":
     main()
