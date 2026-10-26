@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Facilitator</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #171a21; --line: #262b36; --fg: #e8ecf3; --dim: #97a1b3;
+    --ok: #35c48a; --warn: #e8b33a; --bad: #e5544b; --accent: #6aa8ff;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--fg);
+    font: 15px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  header { display: flex; align-items: center; gap: 10px; padding: 14px 16px;
+    border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--bg); z-index: 5; }
+  header h1 { font-size: 16px; margin: 0; font-weight: 600; letter-spacing: .2px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--dim); }
+  .dot.on { background: var(--ok); }
+  main { padding: 16px; max-width: 900px; margin: 0 auto; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 14px; margin-bottom: 12px; }
+  .row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12.5px; }
+  .dim { color: var(--dim); }
+  .badge { font-size: 11.5px; padding: 3px 8px; border-radius: 999px; border: 1px solid var(--line);
+    text-transform: uppercase; letter-spacing: .04em; }
+  .badge.awaiting_human { color: var(--warn); border-color: #4a3c17; background: #221d10; }
+  .badge.outcome_unknown { color: var(--bad); border-color: #4c2523; background: #241413; }
+  .badge.preparing { color: var(--dim); }
+  button { font: inherit; padding: 9px 14px; border-radius: 9px; border: 1px solid var(--line);
+    background: #1e2430; color: var(--fg); cursor: pointer; }
+  button.primary { background: var(--accent); border-color: var(--accent); color: #08101f; font-weight: 600; }
+  button.ghost { background: transparent; }
+  button:disabled { opacity: .45; cursor: default; }
+  input { font: inherit; padding: 10px 12px; border-radius: 9px; border: 1px solid var(--line);
+    background: #10141b; color: var(--fg); width: 100%; }
+  .hint { font-size: 12.5px; color: var(--dim); margin-top: 6px; }
+  #viewer { display: none; position: fixed; inset: 0; background: #000; z-index: 20;
+    flex-direction: column; }
+  #viewer.open { display: flex; }
+  #viewer .bar { display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 14px; background: #0b0e13; border-bottom: 1px solid var(--line); }
+  #viewer iframe { border: 0; flex: 1; width: 100%; background: #000; }
+  .warnbox { border: 1px solid #4c2523; background: #241413; color: #ffb4ae;
+    border-radius: 10px; padding: 10px 12px; font-size: 13px; margin-bottom: 12px; }
+</style>
+</head>
+<body>
+<header>
+  <span class="dot" id="dot"></span>
+  <h1>Facilitator</h1>
+  <span class="dim mono" id="who" style="margin-left:auto"></span>
+</header>
+
+<main>
+  <div id="auth" class="card" hidden>
+    <div style="font-weight:600;margin-bottom:8px">Facilitator token</div>
+    <input id="token" type="password" placeholder="paste your token" autocomplete="off">
+    <div class="hint">Stored on this device only. It identifies you; it is not shared with the browser session.</div>
+    <div style="margin-top:10px"><button class="primary" id="save">Connect</button></div>
+    <div class="hint" id="autherr" style="color:var(--bad)"></div>
+  </div>
+
+  <div id="list"></div>
+  <div id="empty" class="dim" hidden>No sessions assigned to you.</div>
+</main>
+
+<div id="viewer">
+  <div class="bar">
+    <span class="mono" id="vlabel">viewer</span>
+    <span>
+      <button class="ghost" id="release">Release control</button>
+      <button class="ghost" id="close">Close</button>
+    </span>
+  </div>
+  <iframe id="frame" allow="clipboard-read; clipboard-write" referrerpolicy="no-referrer"></iframe>
+</div>
+
+<script>
+// ---------------------------------------------------------------------------
+// The grant is the access control, not the URL. It is short-lived, bound to one
+// session and one controller, and revoked on release/takeover/teardown/expiry.
+// It goes in a cookie because noVNC cannot set request headers.
+//
+// It must be set with Domain=<registrable domain> so it reaches the per-session
+// subdomain, and with SameSite=None; Secure so the iframe carries it. Same site
+// (same registrable domain) is what keeps Safari from dropping it as third-party.
+// ---------------------------------------------------------------------------
+const API = window.__API__ || "";           // same origin in production
+let token = localStorage.getItem("cvm_fac_token") || "";
+let current = null;
+let pollTimer = null;
+
+const $ = (id) => document.getElementById(id);
+const el = (t, cls, txt) => { const n = document.createElement(t); if (cls) n.className = cls; if (txt != null) n.textContent = txt; return n; };
+
+function registrableDomain(host) {
+  const parts = String(host).split(".");
+  return parts.length <= 2 ? host : parts.slice(-2).join(".");
+}
+
+function setGrantCookie(grant) {
+  const host = location.hostname;
+  const dom = registrableDomain(host);
+  // Domain= so the per-session subdomain sees it; SameSite=None so the iframe sends it.
+  // SameSite=None REQUIRES Secure - browsers drop the cookie otherwise, and the
+  // failure is silent: the viewer opens and every request is 401. Over plain http
+  // (local tests) fall back to Lax, which is same-origin-safe but will not travel
+  // into a cross-subdomain iframe. Production is https, so production gets None.
+  const attrs = location.protocol === "https:"
+    ? `Domain=${dom}; Path=/; Secure; SameSite=None`
+    : `Path=/; SameSite=Lax`;
+  document.cookie = `cvm_grant=${grant}; ${attrs}`;
+}
+
+function clearGrantCookie() {
+  const dom = registrableDomain(location.hostname);
+  const attrs = location.protocol === "https:"
+    ? `Domain=${dom}; Path=/; Secure; SameSite=None`
+    : `Path=/; SameSite=Lax`;
+  document.cookie = `cvm_grant=; ${attrs}; Max-Age=0`;
+}
+
+async function api(path, opts = {}) {
+  const r = await fetch(API + path, {
+    ...opts,
+    headers: { "content-type": "application/json", authorization: `Bearer ${token}`, ...(opts.headers || {}) },
+  });
+  if (r.status === 401) { showAuth(); throw new Error("unauthorised"); }
+  if (!r.ok) throw new Error(`${r.status} ${await r.text()}`);
+  return r.status === 204 ? null : r.json();
+}
+
+function showAuth() {
+  $("auth").hidden = false;
+  $("list").innerHTML = "";
+  $("dot").className = "dot";
+}
+
+function badge(state) {
+  const b = el("span", "badge " + state, state.replace(/_/g, " "));
+  return b;
+}
+
+function card(s) {
+  const c = el("div", "card");
+  const top = el("div", "row");
+  const left = el("div");
+  left.appendChild(el("div", "mono", s.session_id));
+  left.appendChild(el("div", "dim", `${s.order_id} · ${s.sats ? s.sats + " sats" : "unpriced"}`));
+  top.appendChild(left);
+  top.appendChild(badge(s.state));
+  c.appendChild(top);
+
+  if (s.state === "outcome_unknown") {
+    const w = el("div", "warnbox", "Unconfirmed. Do not refund until you have checked the venue — the order may exist.");
+    w.style.marginTop = "10px";
+    c.appendChild(w);
+  }
+
+  const actions = el("div", "row");
+  actions.style.marginTop = "12px";
+
+  const mine = s.controller && s.controller.id;
+  if (s.controllable && !s.controller) {
+    const b = el("button", "primary", "Take control");
+    b.onclick = () => takeControl(s.session_id);
+    actions.appendChild(b);
+  } else if (s.controller) {
+    const b = el("button", "", mine ? "Open viewer" : "In use");
+    b.disabled = !mine;
+    if (mine) b.onclick = () => openViewer(s);
+    actions.appendChild(b);
+    const rel = el("button", "ghost", "Release");
+    rel.disabled = !mine;
+    if (mine) rel.onclick = () => release(s.session_id);
+    actions.appendChild(rel);
+  } else {
+    const b = el("button", "", "Waiting");
+    b.disabled = true;
+    actions.appendChild(b);
+  }
+  c.appendChild(actions);
+  c.appendChild(el("div", "hint", s.controllable ? "" : "Not yet at the human step."));
+  return c;
+}
+
+async function refresh() {
+  if (!token) return showAuth();
+  try {
+    const data = await api("/sessions");
+    $("dot").className = "dot on";
+    $("auth").hidden = true;
+    const list = $("list");
+    list.innerHTML = "";
+    const sessions = data.sessions || [];
+    $("empty").hidden = sessions.length > 0;
+    sessions.forEach((s) => list.appendChild(card(s)));
+  } catch {
+    $("dot").className = "dot";
+  }
+}
+
+async function takeControl(id) {
+  // Device identity: stable per phone, so a lease is attributable to a device.
+  const controller = localStorage.getItem("cvm_ctrl") ||
+    (() => { const v = crypto.randomUUID().slice(0, 8); localStorage.setItem("cvm_ctrl", v); return v; })();
+  const res = await api(`/sessions/${id}/control`, {
+    method: "POST", body: JSON.stringify({ controller }),
+  });
+  setGrantCookie(res.grant);
+  current = { ...res, controller_id: controller };
+  await refresh();
+  openViewer(res);
+}
+
+async function release(id) {
+  const controller = localStorage.getItem("cvm_ctrl");
+  try {
+    await api(`/sessions/${id}/control`, { method: "DELETE", body: JSON.stringify({ controller }) });
+  } finally {
+    clearGrantCookie();
+    closeViewer();
+    refresh();
+  }
+}
+
+function openViewer(s) {
+  $("frame").src = s.novnc_url;
+  $("vlabel").textContent = s.session_id;
+  $("viewer").classList.add("open");
+}
+
+function closeViewer() {
+  $("viewer").classList.remove("open");
+  $("frame").src = "about:blank";
+}
+
+$("save").onclick = async () => {
+  token = $("token").value.trim();
+  localStorage.setItem("cvm_fac_token", token);
+  $("autherr").textContent = "";
+  try { await refresh(); } catch { $("autherr").textContent = "That token was not accepted."; }
+};
+$("close").onclick = closeViewer;
+$("release").onclick = () => current && release(current.session_id);
+
+if (token) { $("who").textContent = "connected"; refresh(); } else { showAuth(); }
+pollTimer = setInterval(refresh, 3000);
+</script>
+</body>
+</html>
