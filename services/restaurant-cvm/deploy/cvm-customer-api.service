@@ -1,0 +1,29 @@
+# Customer API — menu, baskets, invoices, payment state.
+[Unit]
+Description=CVM customer API (sats food order)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=cvm
+Group=cvm
+WorkingDirectory=/opt/cvm/services/restaurant-cvm
+EnvironmentFile=/etc/cvm/customer-api.env
+ExecStart=/usr/bin/deno run --allow-net=127.0.0.1 --allow-env --allow-read=/etc/cvm,/tmp \
+  src/serve_customer.ts
+Restart=on-failure
+RestartSec=3
+
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/tmp
+CapabilityBoundingSet=
+LockPersonality=true
+MemoryDenyWriteExecute=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+
+[Install]
+WantedBy=multi-user.target
