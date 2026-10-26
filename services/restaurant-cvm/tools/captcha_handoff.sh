@@ -27,6 +27,9 @@ HOLD=900
 GEOM="1366x1200"
 CLIP=""   # e.g. 560x640+340+400: stream ONLY this region (captcha column)
 NOPW=0    # 1 = no VNC password; the unguessable hostname is then the only gate
+# Public base for the embed URL, e.g. https://abc123.orangesync.tech . Provided by
+# the deploy step (the hostname is a per-session credential and is never committed).
+PUBLIC_BASE=""
 OUT="${HOME}/reports/captcha-handoff/session.json"
 DISP=":77"
 VNCPORT=5977
@@ -39,6 +42,7 @@ while [ $# -gt 0 ]; do
     --geometry) GEOM="$2"; shift 2 ;;
     --clip)     CLIP="$2"; shift 2 ;;
     --no-password) NOPW=1; shift ;;
+    --public-base) PUBLIC_BASE="$2"; shift 2 ;;
     --out)  OUT="$2";  shift 2 ;;
     *) echo "unknown arg: $1" >&2; exit 2 ;;
   esac
@@ -97,6 +101,16 @@ DISPLAY="$DISP" "${HOME}/.cache/pw-venv/bin/python" \
   >"${HOME}/reports/captcha-handoff/harness.log" 2>&1 &
 HARNESS_PID=$!
 
+# The facilitator UI must never make a human type a VNC credential. It receives a
+# complete URL and drops it into an iframe. The password (when enabled) rides in
+# the query string of THAT url, which is why the URL is treated as a secret and
+# written only into the 0600 session record.
+QS="autoconnect=1&resize=scale"
+if [ "$NOPW" != "1" ]; then QS="${QS}&password=${PASS}"; fi
+NOVNC_URL=""
+if [ -n "$PUBLIC_BASE" ]; then NOVNC_URL="${PUBLIC_BASE%/}/vnc.html?${QS}"; else NOVNC_URL="vnc.html?${QS}"; fi
+EXPIRES="$(date -u -d "+${HOLD} seconds" +%Y-%m-%dT%H:%M:%SZ 2>/dev/null || echo unknown)"
+
 cat > "$OUT" <<JSON
 {
   "display": "${DISP}",
@@ -110,7 +124,12 @@ cat > "$OUT" <<JSON
   "ws_pid": ${WS_PID},
   "hold_seconds": ${HOLD},
   "geometry": "${GEOM}",
-  "novnc_path": "vnc.html?autoconnect=1&resize=remote&reconnect=1",
+  "novnc_path": "${QS}",
+  "novnc_url": "${NOVNC_URL}",
+  "embed": {"kind": "iframe", "autoconnect": true, "resize": "scale",
+            "width": "100%", "height": "100%",
+            "note": "src = novnc_url verbatim; do not rebuild it in the UI, or the credential is lost"},
+  "expires_at": "${EXPIRES}",
   "started_at": "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 }
 JSON
