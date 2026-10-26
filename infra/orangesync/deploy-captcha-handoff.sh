@@ -23,9 +23,14 @@ case "${1:-}" in
   deploy)
     [ -f "$SRC" ] || { echo "missing $SRC" >&2; exit 2; }
     : "${CAPTCHA_HOST:?set CAPTCHA_HOST (e.g. abc123.orangesync.tech) - never commit it}"
+    # Without the session id the forward_auth uri is a template literal and the
+    # edge check silently authorizes nothing - or worse, matches nothing and
+    # denies everything. Fail here instead of debugging that later.
+    : "${CAPTCHA_SESSION:?set CAPTCHA_SESSION (the session id from POST /sessions)}"
     case "$CAPTCHA_HOST" in *'${'*) echo "CAPTCHA_HOST was not substituted" >&2; exit 2;; esac
     TMP="$(mktemp)"; trap 'rm -f "$TMP"' EXIT
-    sed "s|\${CAPTCHA_HOST}|${CAPTCHA_HOST}|" "$SRC" > "$TMP"
+    sed -e "s|\${CAPTCHA_HOST}|${CAPTCHA_HOST}|" \
+        -e "s|\${CAPTCHA_SESSION}|${CAPTCHA_SESSION}|" "$SRC" > "$TMP"
     scp -q "$TMP" "${HOST}:/tmp/captcha-handoff.caddy"
     ssh "$HOST" "sudo install -m 644 /tmp/captcha-handoff.caddy ${DEST} && rm -f /tmp/captcha-handoff.caddy"
     # A copied file is dead config until the main Caddyfile imports it — the

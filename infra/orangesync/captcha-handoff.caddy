@@ -22,6 +22,20 @@
 
 ${CAPTCHA_HOST} {
 	encode gzip
+
+	# THE EDGE CHECK. Without this the URL alone grants control of a live browser
+	# containing a payment form: noVNC's WebSocket is just a TCP path to the
+	# display. forward_auth asks the session API on EVERY request, including the
+	# WS upgrade, and only a live grant for THIS session gets through.
+	#   - the grant is issued by POST /sessions/:id/control (controller only)
+	#   - it is short-lived and revoked on release, takeover, teardown and expiry
+	#   - the viewer sends it as Cookie: cvm_grant=... (noVNC cannot set headers)
+	# 401 here is a hard stop, so a leaked URL is no longer sufficient.
+	forward_auth 127.0.0.1:8791 {
+		uri /edge/authorize?session=${CAPTCHA_SESSION}
+		copy_headers X-CVM-Grant Cookie
+	}
+
 	reverse_proxy 127.0.0.1:6077 {
 		# noVNC's websocket upgrade must survive the proxy hop.
 		header_up Host {host}

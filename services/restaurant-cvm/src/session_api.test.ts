@@ -197,3 +197,97 @@ describe("teardown", () => {
     expect((await call("DELETE", `/sessions/${s.session_id}`, TOK_B)).status).toBe(404);
   });
 });
+
+// --- grants: the edge check that turns the lease into access control --------
+// Without these, the lease is bookkeeping: Caddy cannot read our memory, so any
+// request reaching the proxy is served and whoever learns a session URL drives a
+// browser containing a payment form.
+describe("edge authorization", () => {
+  const edge = (session: string, grant?: string, cookie?: string) => {
+    const headers: Record<string, string> = {};
+    if (grant) headers["x-cvm-grant"] = grant;
+    if (cookie) headers["cookie"] = cookie;
+    return handle(
+      new Request(`https://api.example/edge/authorize?session=${session}`, { headers }),
+      store,
+      ctx(),
+    );
+  };
+
+  async function ownedSession(order = "o1") {
+    // Distinct orders: a second session for the SAME order is correctly refused,
+    // which would make this helper return nothing and mask the real assertion.
+    const s = await (await call("POST", "/sessions", TOK_A, { order_id: order })).json();
+    atCaptcha(s.session_id);
+    const c = await (await call("POST", `/sessions/${s.session_id}/control`, TOK_A, {
+      controller: "phone-1",
+    })).json();
+    return { id: s.session_id as string, grant: c.grant as string };
+  }
+
+  test("control issues a grant and the edge accepts it", async () => {
+    const { id, grant } = await ownedSession();
+    expect(grant).toMatch(/^[0-9a-f]{32,}$/);
+    expect((await edge(id, grant)).status).toBe(200);
+  });
+
+  test("no grant is denied", async () => {
+    const { id } = await ownedSession();
+    expect((await edge(id)).status).toBe(401);
+  });
+
+  test("a grant is bound to ONE session and cannot be replayed elsewhere", async () => {
+    const a = await ownedSession("order-a");
+    const b = await ownedSession("order-b");
+    expect((await edge(b.id, a.grant)).status).toBe(401);
+  });
+
+  test("the grant works from a cookie (the viewer's real transport)", async () => {
+    const { id, grant } = await ownedSession();
+    expect((await edge(id, undefined, `other=1; cvm_grant=${grant}`)).status).toBe(200);
+  });
+
+  test("an expired grant is denied and dropped", async () => {
+    const { id, grant } = await ownedSession();
+    now += 121_000; // past the 120s default TTL
+    expect((await edge(id, grant)).status).toBe(401);
+  });
+
+  test("a grant dies with teardown", async () => {
+    const { id, grant } = await ownedSession();
+    await call("DELETE", `/sessions/${id}`, TOK_A);
+    expect((await edge(id, grant)).status).toBe(401);
+  });
+
+  test("a grant dies with release, so logout is real", async () => {
+    const { id, grant } = await ownedSession();
+    await call("DELETE", `/sessions/${id}/control`, TOK_A, { controller: "phone-1" });
+    expect((await edge(id, grant)).status).toBe(401);
+  });
+
+  test("takeover revokes the previous controller's grant immediately", async () => {
+    const { id, grant } = await ownedSession();
+    await call("POST", `/sessions/${id}/control`, TOK_A, {
+      controller: "phone-2",
+      takeover: true,
+    });
+    // The displaced device must lose access at once, not at TTL.
+    expect((await edge(id, grant)).status).toBe(401);
+  });
+
+  test("a grant dies when the session expires", async () => {
+    const { id, grant } = await ownedSession();
+    now += 61_000; // session expires_at
+    expect((await edge(id, grant)).status).toBe(401);
+  });
+
+  test("only the current controller may mint a grant", async () => {
+    const s = await (await call("POST", "/sessions", TOK_A, { order_id: "o9" })).json();
+    atCaptcha(s.session_id);
+    await call("POST", `/sessions/${s.session_id}/control`, TOK_A, { controller: "phone-1" });
+    const r = await call("POST", `/sessions/${s.session_id}/control`, TOK_A, {
+      controller: "phone-2",
+    });
+    expect(r.status).toBe(409); // phone-2 neither holds the lease nor can mint one
+  });
+});
