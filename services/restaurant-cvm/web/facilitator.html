@@ -55,11 +55,23 @@
 
 <main>
   <div id="auth" class="card" hidden>
-    <div style="font-weight:600;margin-bottom:8px">Facilitator token</div>
-    <input id="token" type="password" placeholder="paste your token" autocomplete="off">
-    <div class="hint">Stored on this device only. It identifies you; it is not shared with the browser session.</div>
-    <div style="margin-top:10px"><button class="primary" id="save">Connect</button></div>
+    <div style="font-weight:600;margin-bottom:8px">This device</div>
+    <div class="hint" id="devState">Checking…</div>
+    <div class="mono" id="devNpub" style="word-break:break-all;margin:8px 0;font-size:11.5px"></div>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+      <button class="primary" id="createKey" hidden>Create this device's key</button>
+      <button class="primary" id="signIn" hidden>Sign in</button>
+    </div>
     <div class="hint" id="autherr" style="color:var(--bad)"></div>
+    <div class="hint" style="margin-top:10px">
+      Nothing secret is typed or pasted. The key is made here, stays here, and is
+      approved once by the operator using the identifier above.
+    </div>
+    <details style="margin-top:12px">
+      <summary class="hint">Use a token instead</summary>
+      <input id="token" type="password" placeholder="paste your token" autocomplete="off" style="margin-top:8px">
+      <div style="margin-top:8px"><button class="ghost" id="save">Connect with token</button></div>
+    </details>
   </div>
 
   <div id="list"></div>
@@ -77,7 +89,9 @@
   <iframe id="frame" allow="clipboard-read; clipboard-write" referrerpolicy="no-referrer"></iframe>
 </div>
 
-<script>
+<script type="module">
+import * as signer from "/signer.js";
+
 // ---------------------------------------------------------------------------
 // The grant is the access control, not the URL. It is short-lived, bound to one
 // session and one controller, and revoked on release/takeover/teardown/expiry.
@@ -246,7 +260,50 @@ $("save").onclick = async () => {
 $("close").onclick = closeViewer;
 $("release").onclick = () => current && release(current.session_id);
 
-if (token) { $("who").textContent = "connected"; refresh(); } else { showAuth(); }
+async function boot() {
+  // A token already in localStorage wins: an operator who pasted one keeps working
+  // even if their key has not been approved yet.
+  if (token) { $("who").textContent = "connected"; return refresh(); }
+
+  showAuth();
+  if (!(await signer.hasKey())) {
+    $("devState").textContent = "No key on this device yet.";
+    $("createKey").hidden = false;
+    return;
+  }
+  const npub = await signer.getPubkey();
+  $("devNpub").textContent = npub;
+  $("devState").textContent = "Signing in with this device's key…";
+  $("signIn").hidden = false;
+  await attemptSignIn();
+}
+
+async function attemptSignIn() {
+  try {
+    const npub = await signer.getPubkey();
+    $("devNpub").textContent = npub;
+    const res = await signer.signIn(API, `${location.origin}/auth/verify`, "POST");
+    token = res.token;
+    $("devState").textContent = "Signed in.";
+    $("signIn").hidden = true;
+    $("autherr").textContent = "";
+    $("who").textContent = "signed in";
+    await refresh();
+  } catch (e) {
+    $("devState").textContent = "This device is not approved yet.";
+    $("autherr").textContent = "Ask the operator to approve the identifier above, then press Sign in.";
+    $("signIn").hidden = false;
+  }
+}
+
+$("createKey").onclick = async () => {
+  await signer.createKey();
+  $("createKey").hidden = true;
+  await attemptSignIn();
+};
+$("signIn").onclick = attemptSignIn;
+
+boot();
 pollTimer = setInterval(refresh, 3000);
 </script>
 </body>
