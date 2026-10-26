@@ -40,6 +40,22 @@ export interface Card {
   topup_fee: number | null;
 }
 
+/**
+ * One row of the provider's own card ledger. Field names are normalised from
+ * whatever the API returns; `raw` keeps the original so a reconciliation can
+ * never be limited by our guesses about the shape.
+ */
+export interface FiatTransaction {
+  id: string;
+  type: string;
+  amount: number;
+  currency: string;
+  status: string;
+  description: string;
+  createdAt: string;
+  raw: Record<string, unknown>;
+}
+
 export interface FiatOrder {
   reference: string;
   amount: number;
@@ -197,6 +213,44 @@ export class FiatClient {
     }
     if (cards.length === 0) throw new FiatError("this wallet has no cards");
     return [...cards].sort((a, b) => b.balance - a.balance)[0];
+  }
+
+  /**
+   * GET /api/v1/vccTransactions — the provider's own ledger for the card.
+   *
+   * This is the authoritative record of what was CHARGED. The card balance shows
+   * the net result, and a NWC payment only proves sats left our wallet — neither
+   * tells us whether the provider booked one top-up or two. Only this does, so a
+   * spend is not reconciled until this has been read.
+   *
+   * The route/shape is measured, not assumed: callers must tolerate both a bare
+   * array and a `{data: []}` envelope, and must not trust field names beyond the
+   * few normalised here.
+   */
+  async transactions(limit = 25): Promise<FiatTransaction[]> {
+    await this.ensureSession();
+    const res = await this.#request(`vccTransactions?limit=${limit}`, {
+      headers: this.#headers(),
+    });
+    if (!res.ok) {
+      throw new FiatError(`2fiat transactions unavailable (HTTP ${res.status})`, res.status);
+    }
+    const body = await res.json() as unknown;
+    const rows = Array.isArray(body)
+      ? body
+      : ((body as { data?: unknown[]; transactions?: unknown[] }).data
+        ?? (body as { transactions?: unknown[] }).transactions
+        ?? []);
+    return (rows as Record<string, unknown>[]).map((r) => ({
+      id: String(r.id ?? r.transactionId ?? r.txId ?? ""),
+      type: String(r.type ?? r.transactionType ?? ""),
+      amount: Number(r.amount ?? r.value ?? r.chargedAmount ?? 0),
+      currency: String(r.currency ?? r.currencyCode ?? ""),
+      status: String(r.status ?? r.state ?? ""),
+      description: String(r.description ?? r.memo ?? r.merchant ?? ""),
+      createdAt: String(r.createdAt ?? r.created_at ?? r.date ?? ""),
+      raw: r,
+    }));
   }
 
   /**
