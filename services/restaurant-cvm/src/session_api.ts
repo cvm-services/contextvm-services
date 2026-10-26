@@ -39,6 +39,8 @@ export type SessionState =
   | "expired"
   | "outcome_unknown";
 
+import type { FacilitatorAuth } from "./facilitator_auth.ts";
+
 /** The canonical business states. Mirrors the harness; one list, one truth. */
 export const STATES: readonly SessionState[] = [
   "preparing", "at_captcha", "awaiting_human", "solved", "continuing",
@@ -101,6 +103,13 @@ export interface Grant {
 export interface ApiContext {
   /** Token -> facilitator id. Supplied by config; never literal in code. */
   tokens: Map<string, string>;
+  /**
+   * NIP-98 sign-in. When present, a token issued here is accepted as a
+   * facilitator identity (the npub). The static map stays for migration and for
+   * operators who have not moved a device yet - both are checked, neither is
+   * implied by the other.
+   */
+  auth?: FacilitatorAuth;
   now?: () => number;
   /** How long an edge grant lives. Short by design: it is re-issued on demand. */
   grant_ttl_ms?: number;
@@ -478,9 +487,37 @@ export async function handle(
     });
   }
 
+  // ---- sign-in endpoints (unauthenticated by definition) -------------------
+  if (req.method === "GET" && path0 === "auth/challenge") {
+    if (!ctx.auth) return json(404, { error: "sign-in not configured" });
+    return json(200, ctx.auth.challenge(), { "cache-control": "no-store" });
+  }
+  if (req.method === "POST" && path0 === "auth/verify") {
+    if (!ctx.auth) return json(404, { error: "sign-in not configured" });
+    let ev: unknown;
+    try {
+      ev = await req.json();
+    } catch {
+      return json(400, { error: "invalid_json" });
+    }
+    const r = ctx.auth.redeem(ev as never);
+    if (!r.ok) {
+      // 401 for every reason: an attacker learns nothing about which check failed.
+      return json(401, { error: "not_authenticated" });
+    }
+    return json(200, {
+      token: r.token,
+      npub: r.npub,
+      expires_at: new Date(r.expires_at).toISOString(),
+    }, { "cache-control": "no-store" });
+  }
+
   const auth = req.headers.get("authorization") ?? "";
   const token = auth.startsWith("Bearer ") ? auth.slice(7).trim() : "";
-  const facilitator = token ? ctx.tokens.get(token) : undefined;
+  // Two credential shapes, one decision: who is this?
+  const facilitator = token
+    ? (ctx.tokens.get(token) ?? ctx.auth?.verifyToken(token)?.npub)
+    : undefined;
   if (!facilitator) {
     return json(401, { error: "unauthorized", hint: "Bearer token required" });
   }
@@ -554,9 +591,10 @@ export async function handle(
   }
 }
 
-function json(status: number, body: unknown): Response {
+function json(status: number, body: unknown, extra: Record<string, string> = {}): Response {
   return new Response(body === null ? null : JSON.stringify(body), {
     status,
-    headers: { "content-type": "application/json", "cache-control": "no-store" },
+    // Auth material must never be cached; extra headers refine, never replace that.
+    headers: { "content-type": "application/json", "cache-control": "no-store", ...extra },
   });
 }
