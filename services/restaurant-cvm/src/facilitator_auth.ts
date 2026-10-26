@@ -30,6 +30,19 @@ export interface NostrEventLike {
 export type VerifyEvent = (event: NostrEventLike) => unknown;
 export type EventHash = (event: NostrEventLike) => string;
 
+/** Where approvals live between restarts. Injected so tests need no filesystem. */
+export interface AuthStore {
+  read(path: string): string | null;
+  write(path: string, text: string): void;
+}
+
+export interface PendingDevice {
+  npub: string;
+  first_seen: number;
+  last_attempt: number;
+  attempts: number;
+}
+
 export interface AuthOptions {
   /** npubs allowed to act as facilitators. Empty = nobody, which is the safe default. */
   allowlist: Set<string>;
@@ -44,6 +57,9 @@ export interface AuthOptions {
   skew_ms?: number;
   /** The URL the signed event must name. */
   expected_url: string;
+  /** Persist approvals here. Without it, a restart forgets every approved device. */
+  store_path?: string;
+  store_file?: AuthStore;
 }
 
 export interface Challenge {
@@ -66,8 +82,28 @@ function randomHex(bytes: number): string {
   return [...b].map((x) => x.toString(16).padStart(2, "0")).join("");
 }
 
+const defaultAuthStore: AuthStore = {
+  read(path) {
+    try {
+      const d = (globalThis as any).Deno;
+      return d ? d.readTextFileSync(path) : null;
+    } catch {
+      return null;
+    }
+  },
+  write(path, text) {
+    const d = (globalThis as any).Deno;
+    if (!d) return;
+    const tmp = `${path}.tmp`;
+    d.writeTextFileSync(tmp, text); // atomic: a crash must not corrupt approvals
+    d.renameSync(tmp, path);
+  },
+};
+
 export class FacilitatorAuth {
   #challenges = new Map<string, number>(); // nonce -> expiry
+  #pending = new Map<string, PendingDevice>();
+  #store?: AuthStore;
   #tokens = new Map<string, { npub: string; expires_at: number }>();
   #now: () => number;
   #opts: AuthOptions;
@@ -75,6 +111,40 @@ export class FacilitatorAuth {
   constructor(opts: AuthOptions) {
     this.#opts = opts;
     this.#now = opts.now ?? (() => Date.now());
+    this.#store = opts.store_file ?? defaultAuthStore;
+    if (opts.store_path) this.#load();
+  }
+
+  /**
+   * Restore approvals and the pending queue.
+   *
+   * Losing the allowlist on restart is a silent outage: every facilitator device
+   * is refused and nobody knows why. Losing the pending queue loses the request a
+   * person was about to approve.
+   */
+  #load(): void {
+    const raw = this.#store?.read(this.#opts.store_path!);
+    if (!raw) return;
+    try {
+      const doc = JSON.parse(raw) as { approved?: string[]; pending?: PendingDevice[] };
+      for (const n of doc.approved ?? []) if (typeof n === "string") this.#opts.allowlist.add(n);
+      for (const p of doc.pending ?? []) if (p?.npub) this.#pending.set(p.npub, p);
+    } catch {
+      // A corrupt file must not stop sign-in from working for already-approved
+      // devices held in config; it starts from the config allowlist.
+    }
+  }
+
+  #persist(): void {
+    if (!this.#opts.store_path) return;
+    try {
+      this.#store?.write(
+        this.#opts.store_path,
+        JSON.stringify({ approved: [...this.#opts.allowlist], pending: [...this.#pending.values()] }),
+      );
+    } catch {
+      // Never let a disk problem break a sign-in.
+    }
   }
 
   /** Step 1: a nonce the device must sign. Single use. */
@@ -135,6 +205,17 @@ export class FacilitatorAuth {
     if (methodTag && methodTag.toUpperCase() !== "POST") return { ok: false, reason: "event is for a different method" };
 
     if (!this.#opts.allowlist.has(event.pubkey)) {
+      // A refused device is not discarded: the person holding it has already told
+      // us who they are. Surfacing the request is what lets an operator approve it
+      // without a config edit - while the device itself still learns nothing.
+      const prev = this.#pending.get(event.pubkey);
+      this.#pending.set(event.pubkey, {
+        npub: event.pubkey,
+        first_seen: prev?.first_seen ?? this.#now(),
+        last_attempt: this.#now(),
+        attempts: (prev?.attempts ?? 0) + 1,
+      });
+      this.#persist();
       // Same reason whether the npub is unknown or not yet approved: do not turn
       // this endpoint into a membership oracle.
       return { ok: false, reason: "this identity is not approved as a facilitator" };
@@ -144,6 +225,36 @@ export class FacilitatorAuth {
     const expires_at = this.#now() + (this.#opts.token_ttl_ms ?? 12 * 3600_000);
     this.#tokens.set(token, { npub: event.pubkey, expires_at });
     return { ok: true, token, npub: event.pubkey, expires_at };
+  }
+
+  /** Approved identities. Sorted so a UI does not reshuffle on every render. */
+  listApproved(): string[] {
+    return [...this.#opts.allowlist].sort();
+  }
+
+  /** Devices that tried to sign in and are not approved yet, oldest first. */
+  listPending(): PendingDevice[] {
+    return [...this.#pending.values()].sort((a, b) => a.first_seen - b.first_seen);
+  }
+
+  /** Approve a device. The operator's action, and the only way a key becomes valid. */
+  approve(npub: string): boolean {
+    if (!/^[0-9a-f]{64}$/i.test(npub)) return false;
+    this.#opts.allowlist.add(npub);
+    this.#pending.delete(npub);
+    this.#persist();
+    return true;
+  }
+
+  /** Remove an approved device and everything it could still do. */
+  remove(npub: string): boolean {
+    const had = this.#opts.allowlist.delete(npub);
+    this.#pending.delete(npub);
+    if (had) {
+      this.revokeNpub(npub);
+      this.#persist();
+    }
+    return had;
   }
 
   /** Who does this token belong to, if anyone? Expired tokens are dropped. */

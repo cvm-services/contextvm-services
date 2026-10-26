@@ -110,6 +110,11 @@ export interface ApiContext {
    * implied by the other.
    */
   auth?: FacilitatorAuth;
+  /**
+   * Operator credential for device approval. Absent = the admin endpoints do not
+   * exist at all, which is safer than existing and trusting nobody.
+   */
+  admin_token?: string;
   now?: () => number;
   /** How long an edge grant lives. Short by design: it is re-issued on demand. */
   grant_ttl_ms?: number;
@@ -425,6 +430,17 @@ export class ApiError extends Error {
   }
 }
 
+function timingSafeEqual(a: string, b: string): boolean {
+  // Length difference is not secret (token lengths are fixed); content compare is.
+  const x = new TextEncoder().encode(a);
+  const y = new TextEncoder().encode(b);
+  let diff = x.length ^ y.length;
+  for (let i = 0; i < Math.max(x.length, y.length); i++) {
+    diff |= (x[i] ?? 0) ^ (y[i] ?? 0);
+  }
+  return diff === 0;
+}
+
 function randomToken(): string {
   const b = new Uint8Array(24);
   crypto.getRandomValues(b);
@@ -510,6 +526,38 @@ export async function handle(
       npub: r.npub,
       expires_at: new Date(r.expires_at).toISOString(),
     }, { "cache-control": "no-store" });
+  }
+
+  // ---- operator: approving a device is a human decision ---------------------
+  if (path0 === "admin/devices" || path0.startsWith("admin/devices/")) {
+    if (!ctx.admin_token || !ctx.auth) return json(404, { error: "not_found" });
+
+    const rawAuth = req.headers.get("authorization") ?? "";
+    const given = rawAuth.startsWith("Bearer ") ? rawAuth.slice(7).trim() : "";
+    // Constant-time: an operator token compared with `===` leaks its prefix.
+    if (!timingSafeEqual(given, ctx.admin_token)) {
+      return json(401, { error: "unauthorized" });
+    }
+
+    if (req.method === "GET" && path0 === "admin/devices") {
+      return json(200, {
+        approved: [...(ctx.auth as FacilitatorAuth).listApproved()],
+        pending: ctx.auth.listPending(),
+      });
+    }
+
+    const m = /^admin\/devices\/([0-9a-fA-F]{64})(?:\/(approve|remove))?$/.exec(path0);
+    if (!m) return json(400, { error: "bad_npub" });
+    const npub = m[1].toLowerCase();
+
+    if (req.method === "POST" && m[2] === "approve") {
+      if (!ctx.auth.approve(npub)) return json(400, { error: "bad_npub" });
+      return json(200, { approved: npub });
+    }
+    if (req.method === "DELETE" || (req.method === "POST" && m[2] === "remove")) {
+      return json(200, { removed: ctx.auth.remove(npub) });
+    }
+    return json(405, { error: "method_not_allowed" });
   }
 
   const auth = req.headers.get("authorization") ?? "";

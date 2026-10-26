@@ -51,7 +51,7 @@ setStateReader((path) => {
 
 const store = new SessionStore(spawn);
 const tokens = new Map([["tok-demo", "fac-alice"]]);
-const ctx = { tokens, grant_ttl_ms: 600_000, auth };
+const ctx = { tokens, grant_ttl_ms: 600_000, auth, admin_token: "admin-token-xyz" };
 
 /** Create a session through the real API, exactly as the spawner path would. */
 const seed = async (order_id: string) =>
@@ -150,6 +150,9 @@ Deno.serve({ port: PORT, hostname: "127.0.0.1" }, async (req) => {
       headers: { "content-type": "text/javascript; charset=utf-8" },
     });
   }
+  if (url.pathname === "/web/operator.html") {
+    return html(await Deno.readTextFile(new URL("operator.html", WEB)));
+  }
   if (url.pathname === "/web/customer.html") {
     return html(await Deno.readTextFile(new URL("customer.html", WEB)));
   }
@@ -208,18 +211,6 @@ Deno.serve({ port: PORT, hostname: "127.0.0.1" }, async (req) => {
         status: 409, headers: { "content-type": "application/json" },
       });
     }
-  }
-
-  // Test-only: approve the npub the browser just generated. In production this is
-  // the operator editing the allowlist; here it has to be a route so the test can
-  // walk the whole flow without a human.
-  if (url.pathname === "/__test__/allow" && req.method === "POST") {
-    const body = await req.json().catch(() => ({}));
-    const npub = String(body.npub ?? "");
-    if (npub) allowlist.add(npub);
-    return new Response(JSON.stringify({ allowlist: [...allowlist] }), {
-      headers: { "content-type": "application/json" },
-    });
   }
 
   // Test-only rail control; never mounted in serve.ts.
