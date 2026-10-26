@@ -110,3 +110,56 @@ describe("payment state is the rail's, not the client's", () => {
     expect((await get("/orders/o_does_not_exist")).status).toBe(404);
   });
 });
+
+// --- when the rail sets the price, the menu is an estimate --------------------
+describe("rail-priced orders", () => {
+  test("the order is created unpriced and takes the invoice's amount", async () => {
+    // The rail quotes sats itself; a menu-derived price would either throw
+    // amount_mismatch or overcharge, so the order must start unpriced.
+    const railIssuer = {
+      async issue(_sats: number, orderId: string) {
+        return { bolt11: `lnbc9990n1${orderId}`.padEnd(140, "0"), amount_sats: 999 };
+      },
+    };
+    const railSettlement = new Settlement(provider, railIssuer);
+    const withEur = MENU.map((m) => ({ ...m, eur: m.id === "m1" ? 14 : 5 }));
+    let seen: { id: string; eur: number | null } | null = null;
+    const api2 = createCustomerApi({
+      menu: withEur, settlement: railSettlement, price_from_rail: true,
+      on_order_created: (id, eur) => { seen = { id, eur }; },
+    });
+
+    const res = await api2(new Request("http://x/orders", {
+      method: "POST", headers: { "content-type": "application/json" },
+      body: JSON.stringify({ items: [{ id: "m1", qty: 1 }] }),
+    }));
+    const body = await res.json();
+
+    expect(body.sats).toBe(999);              // the invoice, not the 890 menu price
+    expect(body.price_source).toBe("invoice");
+    expect(body.estimate_sats).toBe(890);     // shown as an estimate, clearly labelled
+    expect(seen!.eur).toBe(14);               // the EUR bill the card must cover
+  });
+
+  test("a menu-priced order still reports its price as final", async () => {
+    const res = await post("/orders", { items: [{ id: "m1", qty: 1 }] });
+    const body = await res.json();
+    expect(body.price_source).toBe("menu");
+    expect(body.estimate_sats).toBeNull();
+  });
+});
+
+describe("rail pricing without EUR is refused", () => {
+  test("an item with no EUR price cannot be rail-priced", async () => {
+    // Guessing the EUR amount would either decline the order or park money on the
+    // card, so this is a refusal rather than a fallback.
+    const railSettlement = new Settlement(provider, issuer);
+    const api2 = createCustomerApi({ menu: MENU, settlement: railSettlement, price_from_rail: true });
+    const res = await api2(new Request("http://x/orders", {
+      method: "POST", headers: { "content-type": "application/json" },
+      body: JSON.stringify({ items: [{ id: "m1", qty: 1 }] }),
+    }));
+    expect(res.status).toBe(422);
+    expect((await res.json()).error).toBe("no_eur_price");
+  });
+});
