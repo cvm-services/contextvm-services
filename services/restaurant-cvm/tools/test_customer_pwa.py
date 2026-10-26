@@ -86,8 +86,14 @@ def main() -> int:
 
         # Rail settles; the screen must become paid by itself.
         set_rail("settled")
-        page.wait_for_selector("#stateText.ok", timeout=15000)
+        # Paid-but-unconfirmed is deliberately not the "ok" style: the venue has not
+        # acknowledged, so the screen must not look finished.
+        page.wait_for_function(
+            "() => /paid/i.test(document.getElementById('stateText').textContent)", timeout=15000
+        )
         check("paid state appears without customer action", "paid" in page.inner_text("#stateText").lower())
+        check("paid is not shown as done before the venue confirms",
+              "confirming" in page.inner_text("#stateText").lower())
         page.screenshot(path=f"{OUT}/13-paid.png")
 
         check("no uncaught page errors", len(errors) == 0)

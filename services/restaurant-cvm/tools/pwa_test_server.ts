@@ -144,8 +144,8 @@ Deno.serve({ port: PORT, hostname: "127.0.0.1" }, async (req) => {
   if (url.pathname === "/web/facilitator.html" || url.pathname === "/") {
     return html(await Deno.readTextFile(new URL("facilitator.html", WEB)));
   }
-  if (url.pathname === "/signer.js" || url.pathname === "/vendor/noble.js") {
-    const name = url.pathname === "/signer.js" ? "signer.js" : "vendor/noble.js";
+  if (url.pathname === "/signer.js" || url.pathname === "/vendor/noble.js" || url.pathname === "/vendor/qr.js") {
+    const name = url.pathname === "/signer.js" ? "signer.js" : url.pathname.replace(/^\//, "");
     return new Response(await Deno.readTextFile(new URL(name, WEB)), {
       headers: { "content-type": "text/javascript; charset=utf-8" },
     });

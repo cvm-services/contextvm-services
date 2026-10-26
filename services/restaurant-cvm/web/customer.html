@@ -77,8 +77,15 @@
 
     <div id="warnBox" class="warn" hidden></div>
 
+    <div style="display:flex;justify-content:center;margin:12px 0">
+      <canvas id="qr" width="220" height="220" style="background:#fff;border-radius:10px;padding:8px"></canvas>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="copy" id="webln" hidden>Pay with browser wallet</button>
+      <button class="copy" id="openwallet">Open in wallet</button>
+      <button class="copy" id="copy">Copy invoice</button>
+    </div>
     <div class="inv" id="invoice">—</div>
-    <button class="copy" id="copy">Copy invoice</button>
 
     <div style="margin-top:16px;display:flex;gap:10px;justify-content:flex-end">
       <button class="copy" id="closeSheet">Close</button>
@@ -87,7 +94,9 @@
   </div>
 </div>
 
-<script>
+<script type="module">
+import { qrMatrix } from "/vendor/qr.js";
+
 // The payment screen may only ever state what the server states. There is no
 // optimistic "paid" here: a spinner while paying, and an explicit, loud
 // "do not pay again" whenever the outcome is unknown - because a second payment
@@ -203,8 +212,15 @@ async function startOrder() {
   if (!r.ok) { setState("bad", "Could not create the order."); return; }
   order = await r.json();
   $("invoice").textContent = order.bolt11;
+  drawQr(order.bolt11);
   setState("idle", "Waiting for payment…");
-  $("footHint").textContent = `Total ${fmt(order.sats)}`;
+  // When the rail prices the order, the menu figure was only an estimate. Say so
+  // rather than letting a customer believe a number we never promised.
+  const est = order.estimate_sats;
+  $("footHint").textContent =
+    order.price_source === "invoice" && est && est !== order.sats
+      ? `Final price ${fmt(order.sats)} — the menu estimated ${fmt(est)}`
+      : `Total ${fmt(order.sats)}`;
 
   // One idempotency key for this attempt: pressing Pay twice cannot pay twice.
   const key = "k_" + crypto.randomUUID();
@@ -234,6 +250,47 @@ async function refresh() {
     if (r.ok) applyState(await r.json());
   } catch { /* keep the last honest state */ }
 }
+
+/** Draw the BOLT11 as a QR. A customer with a wallet app cannot type 200+ chars. */
+function drawQr(text) {
+  try {
+    const { size, rows } = qrMatrix(text.toUpperCase(), "M");
+    const c = $("qr");
+    const ctx = c.getContext("2d");
+    const px = Math.floor(c.width / (size + 2));
+    const off = Math.floor((c.width - px * size) / 2);
+    ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, c.width, c.height);
+    ctx.fillStyle = "#000";
+    for (let r = 0; r < size; r++) {
+      for (let col = 0; col < size; col++) {
+        if (rows[r][col]) ctx.fillRect(off + col * px, off + r * px, px, px);
+      }
+    }
+  } catch (e) {
+    // A QR failure must not stop the invoice from being payable by copy/paste.
+    console.error("qr render failed", e);
+  }
+}
+
+// WebLN (Alby, browser extensions): one tap, and the wallet reports its own result.
+// We still poll the server afterwards - the wallet saying "sent" is not the rail
+// saying "settled", and only the rail decides what the customer is told.
+$("webln").onclick = async () => {
+  try {
+    await window.webln.enable();
+    await window.webln.sendPayment(order.bolt11);
+    $("footHint").textContent = "Wallet reports sent — confirming with the network…";
+  } catch (e) {
+    $("footHint").textContent = "The wallet did not send it. The invoice is still valid.";
+  }
+};
+
+if (window.webln) $("webln").hidden = false;
+
+$("openwallet").onclick = () => {
+  // lightning: links are handled by the OS wallet chooser on mobile.
+  location.href = `lightning:${order?.bolt11 ?? ""}`;
+};
 
 $("pay").onclick = startOrder;
 $("closeSheet").onclick = () => { $("sheet").classList.remove("open"); stopPoll(); };

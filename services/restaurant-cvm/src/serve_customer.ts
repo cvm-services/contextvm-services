@@ -17,6 +17,8 @@ import { Settlement, type InvoiceIssuer, type Provider } from "./settlement.ts";
 import { createCustomerApi, type MenuItem } from "./customer_api.ts";
 import { assertRailAllowed, isEvidenceBearing, type RailPurpose } from "./rail_guard.ts";
 import { loadSecret } from "./secret.ts";
+import { buildRail, readRailConfig } from "./rail_wiring.ts";
+import { FiatClient } from "../../fiat-cvm/fiat_client.ts";
 
 const PORT = Number(Deno.env.get("CVM_CUSTOMER_PORT") ?? "8793");
 const RAIL_URL = Deno.env.get("CVM_RAIL_URL") ?? "";
@@ -63,32 +65,91 @@ try {
   Deno.exit(3);
 }
 
-const provider: Provider = {
-  async pay() {
-    // Deliberately not implemented in this file: the rail adapter owns payment.
-    // Failing loudly beats returning a status we did not observe.
-    throw new Error("rail adapter not wired: refusing to claim an outcome we did not observe");
-  },
-  async lookup() {
-    throw new Error("rail adapter not wired: refusing to answer without the rail");
-  },
-};
+// USD per order, recorded at creation. The rail needs it to size the card top-up,
+// and the price the CUSTOMER pays comes back from 2fiat's invoice, not from here.
+const usdByOrder = new Map<string, number>();
 
-const issuer: InvoiceIssuer = {
-  async issue(sats) {
-    throw new Error(`invoice issuance not wired (would issue ${sats} sats)`);
-  },
-};
+let railCfg;
+try {
+  railCfg = readRailConfig((n) => Deno.env.get(n));
+} catch (e) {
+  // An unexplained FX factor is an unauditable price; refuse to start rather than
+  // price an order with a number nobody can trace.
+  console.error(JSON.stringify({
+    fatal: "rail_config",
+    detail: String((e as Error)?.message ?? e),
+    need: ["CVM_USD_PER_EUR", "CVM_USD_PER_EUR_SOURCE", "CVM_RAIL_CARD_ID"],
+  }));
+  Deno.exit(4);
+}
+let twoFiatToken = "";
+try {
+  twoFiatToken = (await loadSecret({ name: "two_fiat_token", allowFileFallback: purpose !== "payment" })).value;
+} catch (e) {
+  console.error(JSON.stringify({
+    fatal: "missing_secret",
+    detail: String((e as Error)?.message ?? e),
+    hint: "set CVM_ORDER_TWO_FIAT_TOKEN, grant fleet-node-x280 on the vault path, or provide the 0600 fallback",
+  }));
+  Deno.exit(3);
+}
 
-const settlement = new Settlement(provider, issuer);
-const handler = createCustomerApi({ menu, settlement });
+const fiatClient = new FiatClient({ token: twoFiatToken, timeoutMs: 30_000 });
+
+// The NWC wallet lives in the service kit, which is a SEPARATE repo with its own
+// dependency tree. Hard-importing it here would bake this host's layout into the
+// service; the path is configuration, and a missing wallet fails loudly.
+const kitPath = Deno.env.get("CVM_KIT_WALLET") ?? "../../cvm-service-kit/src/lnwallet.ts";
+let wallet: unknown;
+try {
+  const mod = await import(new URL(kitPath, import.meta.url).href) as {
+    NwcLnWallet: new (url: string, opts?: { timeoutMs?: number }) => unknown;
+  };
+  wallet = new mod.NwcLnWallet(nwcUrl, { timeoutMs: 90_000 });
+} catch (e) {
+  console.error(JSON.stringify({
+    fatal: "wallet_unavailable",
+    tried: kitPath,
+    detail: String((e as Error)?.message ?? e).slice(0, 160),
+    hint: "set CVM_KIT_WALLET to the NWC wallet module, or install the kit next to this service",
+  }));
+  Deno.exit(5);
+}
+
+const rail = buildRail({
+  client: fiatClient as never,
+  wallet: wallet as never, // structurally a LnWalletLike; shape checked by the adapter
+  config: railCfg,
+  usdPerOrder: (orderId) => {
+    const usd = usdByOrder.get(orderId);
+    if (usd === undefined) throw new Error(`no USD amount recorded for order ${orderId}`);
+    return usd;
+  },
+});
+
+const settlement = new Settlement(rail.provider, rail.provider);
+const handler = createCustomerApi({
+  menu,
+  settlement,
+  // The invoice is authoritative: 2fiat quotes sats against a live rate, so a
+  // menu price can only ever be an estimate.
+  price_from_rail: true,
+  eur_of: (id) => menu.find((m) => m.id === id)?.eur,
+  on_order_created: (orderId, eur) => {
+    if (eur === null) return; // the API refuses before this point
+    usdByOrder.set(orderId, rail.usdFor(eur));
+  },
+});
 
 console.log(JSON.stringify({
   listening: PORT,
   menu_items: menu.length,
   rail_evidence_bearing: isEvidenceBearing(RAIL_URL),
   nwc_configured: Boolean(nwcUrl),
-  note: "rails are wired but their adapter is not; invoice and pay will fail loudly until it is",
+  price_source: "invoice (2fiat quotes sats; menu totals are estimates)",
+  usd_per_eur: railCfg.usd_per_eur,
+  usd_per_eur_source: railCfg.usd_per_eur_source,
+  card: railCfg.card_id.slice(0, 8),
 }));
 
 Deno.serve({ port: PORT, hostname: "127.0.0.1" }, handler);
