@@ -211,3 +211,56 @@ Deno.test("requestCardDetails authenticates before its first request", async () 
     throw new Error(`auth did not precede details: ${JSON.stringify(calls.map(u => u.split("/api/v1/")[1] ?? u))}`);
   }
 });
+
+// --- the provider's ledger is the only spend authority ---------------------
+// Written because a spend COULD NOT BE RECONCILED: one $1 top-up left the
+// treasury 2,667 sats lighter against a 1,334-sat invoice, and nothing in the
+// API said whether the provider had booked one charge or two. The card balance
+// shows only the net; an NWC payment only proves sats left. This endpoint is the
+// authority, so its parsing must not be left to guesswork.
+Deno.test("transactions() reads the provider ledger and normalises each row", async () => {
+  const { fn } = stubFetch({
+    "auth/exchange": { body: {} },
+    "/api/v1/vccTransactions": {
+      body: [{
+        id: "54777529-8e0f",
+        type: "INTERNAL",
+        amount: 1,
+        currency: "USD",
+        status: "COMPLETED",
+        description: "Top up card",
+        createdAt: "2026-10-25T14:10:07.000Z",
+      }],
+    },
+  });
+  const c = new FiatClient({ token: TOKEN, fetchImpl: fn });
+  const txs = await c.transactions(10);
+  assertEquals(txs.length, 1);
+  assertEquals(txs[0].amount, 1);
+  assertEquals(txs[0].status, "COMPLETED");
+  assertEquals(txs[0].description, "Top up card");
+  assertEquals(txs[0].createdAt, "2026-10-25T14:10:07.000Z");
+  assertEquals(txs[0].raw["id"], "54777529-8e0f", "raw row must survive for reconciliation");
+});
+
+Deno.test("transactions() tolerates a {data: []} envelope as well as a bare array", async () => {
+  const { fn } = stubFetch({
+    "auth/exchange": { body: {} },
+    "/api/v1/vccTransactions": { body: { data: [{ id: "x", amount: 2, status: "COMPLETED" }] } },
+  });
+  const c = new FiatClient({ token: TOKEN, fetchImpl: fn });
+  const txs = await c.transactions();
+  assertEquals(txs.length, 1);
+  assertEquals(txs[0].amount, 2);
+});
+
+Deno.test("transactions() reports the HTTP status instead of returning an empty ledger", async () => {
+  // An empty array on failure would read as "nothing was charged" — the exact
+  // wrong conclusion when the question is whether money moved.
+  const { fn } = stubFetch({
+    "auth/exchange": { body: {} },
+    "/api/v1/vccTransactions": { status: 401, body: {} },
+  });
+  const c = new FiatClient({ token: TOKEN, fetchImpl: fn });
+  await assertRejects(() => c.transactions(), FiatError, "HTTP 401");
+});
