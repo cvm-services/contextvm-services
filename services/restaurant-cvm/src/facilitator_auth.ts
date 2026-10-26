@@ -36,6 +36,14 @@ export interface AuthStore {
   write(path: string, text: string): void;
 }
 
+export interface AuditEntry {
+  at: number;
+  action: "approve" | "revoke";
+  npub: string;
+  /** Who did it. With a single shared operator token this is a label, not a person. */
+  actor: string;
+}
+
 export interface PendingDevice {
   npub: string;
   first_seen: number;
@@ -103,6 +111,7 @@ const defaultAuthStore: AuthStore = {
 export class FacilitatorAuth {
   #challenges = new Map<string, number>(); // nonce -> expiry
   #pending = new Map<string, PendingDevice>();
+  #audit: AuditEntry[] = [];
   #store?: AuthStore;
   #tokens = new Map<string, { npub: string; expires_at: number }>();
   #now: () => number;
@@ -126,9 +135,14 @@ export class FacilitatorAuth {
     const raw = this.#store?.read(this.#opts.store_path!);
     if (!raw) return;
     try {
-      const doc = JSON.parse(raw) as { approved?: string[]; pending?: PendingDevice[] };
+      const doc = JSON.parse(raw) as {
+        approved?: string[];
+        pending?: PendingDevice[];
+        audit?: AuditEntry[];
+      };
       for (const n of doc.approved ?? []) if (typeof n === "string") this.#opts.allowlist.add(n);
       for (const p of doc.pending ?? []) if (p?.npub) this.#pending.set(p.npub, p);
+      if (Array.isArray(doc.audit)) this.#audit = doc.audit.filter((e) => e && e.npub);
     } catch {
       // A corrupt file must not stop sign-in from working for already-approved
       // devices held in config; it starts from the config allowlist.
@@ -140,7 +154,11 @@ export class FacilitatorAuth {
     try {
       this.#store?.write(
         this.#opts.store_path,
-        JSON.stringify({ approved: [...this.#opts.allowlist], pending: [...this.#pending.values()] }),
+        JSON.stringify({
+          approved: [...this.#opts.allowlist],
+          pending: [...this.#pending.values()],
+          audit: this.#audit.slice(-500), // bounded: a log nobody prunes becomes a liability
+        }),
       );
     } catch {
       // Never let a disk problem break a sign-in.
@@ -238,23 +256,32 @@ export class FacilitatorAuth {
   }
 
   /** Approve a device. The operator's action, and the only way a key becomes valid. */
-  approve(npub: string): boolean {
+  approve(npub: string, actor = "operator"): boolean {
     if (!/^[0-9a-f]{64}$/i.test(npub)) return false;
     this.#opts.allowlist.add(npub);
     this.#pending.delete(npub);
+    this.#audit.push({ at: this.#now(), action: "approve", npub, actor });
     this.#persist();
     return true;
   }
 
   /** Remove an approved device and everything it could still do. */
-  remove(npub: string): boolean {
+  remove(npub: string, actor = "operator"): boolean {
     const had = this.#opts.allowlist.delete(npub);
     this.#pending.delete(npub);
     if (had) {
+      // Recorded BEFORE the revocation so a failure to revoke still leaves a trace
+      // of the intent - the log must not depend on the outcome it describes.
+      this.#audit.push({ at: this.#now(), action: "revoke", npub, actor });
       this.revokeNpub(npub);
       this.#persist();
     }
     return had;
+  }
+
+  /** Newest first. Approval is a money-adjacent act; it should be answerable later. */
+  listAudit(limit = 50): AuditEntry[] {
+    return this.#audit.slice(-limit).reverse();
   }
 
   /** Who does this token belong to, if anyone? Expired tokens are dropped. */

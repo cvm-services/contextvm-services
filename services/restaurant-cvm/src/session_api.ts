@@ -115,6 +115,8 @@ export interface ApiContext {
    * exist at all, which is safer than existing and trusting nobody.
    */
   admin_token?: string;
+  /** Recorded in the audit trail. A label, since one token serves the operator. */
+  admin_label?: string;
   now?: () => number;
   /** How long an edge grant lives. Short by design: it is re-issued on demand. */
   grant_ttl_ms?: number;
@@ -543,6 +545,7 @@ export async function handle(
       return json(200, {
         approved: [...(ctx.auth as FacilitatorAuth).listApproved()],
         pending: ctx.auth.listPending(),
+        audit: ctx.auth.listAudit(20),
       });
     }
 
@@ -551,11 +554,11 @@ export async function handle(
     const npub = m[1].toLowerCase();
 
     if (req.method === "POST" && m[2] === "approve") {
-      if (!ctx.auth.approve(npub)) return json(400, { error: "bad_npub" });
+      if (!ctx.auth.approve(npub, ctx.admin_label ?? "operator")) return json(400, { error: "bad_npub" });
       return json(200, { approved: npub });
     }
     if (req.method === "DELETE" || (req.method === "POST" && m[2] === "remove")) {
-      return json(200, { removed: ctx.auth.remove(npub) });
+      return json(200, { removed: ctx.auth.remove(npub, ctx.admin_label ?? "operator") });
     }
     return json(405, { error: "method_not_allowed" });
   }
