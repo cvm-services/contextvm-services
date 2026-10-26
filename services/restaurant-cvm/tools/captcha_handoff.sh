@@ -18,6 +18,13 @@
 set -uo pipefail
 
 HOLD=900
+# Desktop geometry by default: the venue's checkout is NOT usable at phone width.
+# Measured 2026-10-25: at 430x932 the storefront renders a different layout and
+# the proven controls ("Menue Anzeigen", the Adyen frames, "Kaufen fuer") are not
+# visible, so the harness cannot reach the captcha at all. The phone gets a
+# SCALED view of a desktop session instead (noVNC resize=scale + pinch zoom).
+# Override only for a venue whose flow is known to work at that size.
+GEOM="1366x1200"
 OUT="${HOME}/reports/captcha-handoff/session.json"
 DISP=":77"
 VNCPORT=5977
@@ -27,6 +34,7 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 while [ $# -gt 0 ]; do
   case "$1" in
     --hold) HOLD="$2"; shift 2 ;;
+    --geometry) GEOM="$2"; shift 2 ;;
     --out)  OUT="$2";  shift 2 ;;
     *) echo "unknown arg: $1" >&2; exit 2 ;;
   esac
@@ -45,7 +53,9 @@ trap cleanup EXIT INT TERM
 # --- display ------------------------------------------------------------------
 pkill -f "Xvfb ${DISP} " 2>/dev/null
 sleep 1
-Xvfb "$DISP" -screen 0 1366x1200x24 -nolisten tcp >/dev/null 2>&1 &
+# +extension RANDR lets x11vnc resize the framebuffer to whatever the client
+# asks for, so a phone that is not exactly GEOM still gets a fitting view.
+Xvfb "$DISP" -screen 0 "${GEOM}x24" +extension RANDR -nolisten tcp >/dev/null 2>&1 &
 XVFB_PID=$!
 sleep 2
 kill -0 "$XVFB_PID" 2>/dev/null || { echo "FATAL: Xvfb failed to start on ${DISP}" >&2; exit 1; }
@@ -53,7 +63,7 @@ kill -0 "$XVFB_PID" 2>/dev/null || { echo "FATAL: Xvfb failed to start on ${DISP
 # --- VNC: random password per session ----------------------------------------
 PASS="$(head -c 9 /dev/urandom | base64 | tr -dc 'A-Za-z0-9' | head -c 10)"
 x11vnc -display "$DISP" -rfbport "$VNCPORT" -localhost -passwd "$PASS" \
-       -forever -shared -noxdamage -repeat >/dev/null 2>&1 &
+       -forever -shared -noxdamage -repeat -xrandr resize >/dev/null 2>&1 &
 VNC_PID=$!
 sleep 2
 kill -0 "$VNC_PID" 2>/dev/null || { echo "FATAL: x11vnc failed" >&2; exit 1; }
@@ -67,7 +77,7 @@ kill -0 "$WS_PID" 2>/dev/null || { echo "FATAL: websockify failed" >&2; exit 1; 
 
 # --- the harness, holding at the captcha in the SAME browser -----------------
 DISPLAY="$DISP" "${HOME}/.cache/pw-venv/bin/python" \
-  "${HERE}/venue_phone_test.py" --country US --hold "$HOLD" \
+  "${HERE}/venue_phone_test.py" --country US --hold "$HOLD" --viewport "$GEOM" \
   >"${HOME}/reports/captcha-handoff/harness.log" 2>&1 &
 HARNESS_PID=$!
 
@@ -82,7 +92,8 @@ cat > "$OUT" <<JSON
   "vnc_pid": ${VNC_PID},
   "ws_pid": ${WS_PID},
   "hold_seconds": ${HOLD},
-  "novnc_path": "vnc.html?autoconnect=1&resize=scale&reconnect=1",
+  "geometry": "${GEOM}",
+  "novnc_path": "vnc.html?autoconnect=1&resize=remote&reconnect=1",
   "started_at": "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 }
 JSON

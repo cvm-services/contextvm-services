@@ -71,6 +71,9 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--country", default="US",
                     help="phone country in the venue dropdown (default US)")
+    ap.add_argument("--viewport", default="1366x1200",
+                    help="browser viewport WxH; set it to the operator's screen so "
+                         "the captcha is readable over VNC")
     ap.add_argument("--hold", type=int, default=0,
                     help="seconds to wait for a HUMAN to solve the captcha over VNC "
                          "(ADR-0017 handoff); 0 aborts immediately")
@@ -87,8 +90,10 @@ def main():
         if os.path.exists(_chrome):
             _launch["executable_path"] = _chrome
         b = p.chromium.launch(**_launch)
+        _vw, _vh = (int(x) for x in args.viewport.lower().split("x"))
         ctx = b.new_context(locale="de-DE", timezone_id="Europe/Berlin",
-                            viewport={"width": 1366, "height": 1200},
+                            viewport={"width": _vw, "height": _vh},
+                            is_mobile=_vw < 600, has_touch=_vw < 600,
                             user_agent=UA)
         ctx.add_init_script(
             "Object.defineProperty(navigator,'webdriver',{get:()=>undefined})")
@@ -527,9 +532,16 @@ def main():
 
         # SMS (JMP is SMS-only; WhatsApp is the default selection)
         try:
-            pg.mouse.click(837, 626)
-            pg.wait_for_timeout(1000)
-            step("sms_selected")
+            # Was a hardcoded coordinate (837,626) measured at 1366x1200. Any other
+            # viewport moves it, so select by TEXT and fall back to the label.
+            _sms = None
+            for _sel in ("text=/Klassische Textnachricht/i", "text=/^SMS$/i"):
+                _loc = pg.query_selector(_sel)
+                if _loc and _loc.is_visible():
+                    _loc.click(timeout=5000)
+                    _sms = _sel
+                    break
+            step("sms_selected", via=_sms)
         except Exception as e:
             step("sms_select_err", err=str(e)[:50])
 
