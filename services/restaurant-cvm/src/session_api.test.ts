@@ -7,6 +7,7 @@
  */
 import { beforeEach, describe, expect, test } from "bun:test";
 import { handle, setStateReader, SessionStore, type Spawner } from "./session_api.ts";
+import { FacilitatorAuth } from "./facilitator_auth.ts";
 
 const TOK_A = "tok-facilitator-a";
 const TOK_B = "tok-facilitator-b";
@@ -398,5 +399,88 @@ describe("session persistence", () => {
 
     const b = new SessionStore(stubSpawn, () => 1000, { path: "/x/sessions.json", file });
     expect([...b.list("fac-a")].length).toBe(0);
+  });
+});
+
+// --- sign-in: an npub replaces the pasted static token -----------------------
+describe("facilitator sign-in", () => {
+  const ALICE = "a".repeat(64);
+  const URL = "https://api.example/auth/verify";
+
+  function makeAuth() {
+    return new FacilitatorAuth({
+      allowlist: new Set([ALICE]),
+      verify: (e) => e.pubkey === ALICE,
+      hash: (e) => `h:${e.pubkey}:${e.content}:${JSON.stringify(e.tags)}`,
+      now: () => 1_700_000_000_000,
+      expected_url: URL,
+    });
+  }
+
+  const signed = (nonce: string) => {
+    const e: Record<string, unknown> = {
+      pubkey: ALICE, kind: 27235, created_at: 1_700_000_000, content: "",
+      tags: [["u", URL], ["method", "POST"], ["challenge", nonce]], sig: "sig",
+    };
+    e.id = `h:${ALICE}::${JSON.stringify(e.tags)}`;
+    return e;
+  };
+
+  test("challenge -> verify -> the token opens the session list", async () => {
+    const auth = makeAuth();
+    const ctxAuth = { ...ctx(), auth };
+
+    const ch = await handle(new Request("https://api.example/auth/challenge"), store, ctxAuth);
+    expect(ch.status).toBe(200);
+    const { nonce } = await ch.json();
+    expect(typeof nonce).toBe("string");
+
+    const vr = await handle(
+      new Request("https://api.example/auth/verify", {
+        method: "POST", headers: { "content-type": "application/json" },
+        body: JSON.stringify(signed(nonce)),
+      }),
+      store, ctxAuth,
+    );
+    expect(vr.status).toBe(200);
+    const { token } = await vr.json();
+
+    const list = await handle(
+      new Request("https://api.example/sessions", { headers: { authorization: `Bearer ${token}` } }),
+      store, ctxAuth,
+    );
+    expect(list.status).toBe(200);
+  });
+
+  test("a bad signature is a 401 with no detail", async () => {
+    const auth = makeAuth();
+    const ctxAuth = { ...ctx(), auth };
+    const ch = await handle(new Request("https://api.example/auth/challenge"), store, ctxAuth);
+    const { nonce } = await ch.json();
+
+    const bad = { ...signed(nonce), pubkey: "b".repeat(64) };
+    const r = await handle(
+      new Request("https://api.example/auth/verify", {
+        method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(bad),
+      }),
+      store, ctxAuth,
+    );
+    expect(r.status).toBe(401);
+    const body = await r.json();
+    expect(body.error).toBe("not_authenticated"); // no reason leaked
+  });
+
+  test("sign-in endpoints are absent when auth is not configured", async () => {
+    const r = await handle(new Request("https://api.example/auth/challenge"), store, ctx());
+    expect(r.status).toBe(404);
+  });
+
+  test("the old static token still works during migration", async () => {
+    const ctxAuth = { ...ctx(), auth: makeAuth() };
+    const r = await handle(
+      new Request("https://api.example/sessions", { headers: { authorization: `Bearer ${TOK_A}` } }),
+      store, ctxAuth,
+    );
+    expect(r.status).toBe(200);
   });
 });
