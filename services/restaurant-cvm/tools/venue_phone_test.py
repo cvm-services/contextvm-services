@@ -482,8 +482,23 @@ def main():
                 dis = pg.evaluate(
                     """() => { const w=document.querySelector('.PhoneInput');
                       return w ? {disabled: /disabled/.test(String(w.className))} : null; }""")
-                if (tok and len(tok) > 5) or (dis is not None and not dis["disabled"]):
+                # Broaden: the real signal is that the number INPUT accepts focus
+                # and "Code senden" is no longer disabled. The wrapper's CSS class
+                # can stay stale after the captcha clears, which made an earlier
+                # session sit here while a human pressed the button by hand.
+                _live = pg.evaluate("""() => {
+                    const i = document.querySelector('input.PhoneInputInput');
+                    const b = [...document.querySelectorAll('button')]
+                        .find(e => /Code senden/i.test(e.textContent||''));
+                    return {
+                      input_disabled: i ? !!i.disabled : null,
+                      btn_disabled: b ? (!!b.disabled || /disabled/.test(String(b.className||''))) : null,
+                    };
+                }""")
+                if (tok and len(tok) > 5) or (_live.get("input_disabled") is False) \
+                   or (_live.get("btn_disabled") is False):
                     captcha_ok = True
+                    step("captcha_clear_signal", **(_live or {}))
                     break
             step("human_result", passed=captcha_ok,
                  token_len=len(tok) if tok else 0)
@@ -498,12 +513,31 @@ def main():
             sys.exit(10)
 
         # ================= PHONE: country + number (now enabled) ==================
+        def set_country(code: str = "US") -> str | None:
+            """Flip the country select AND fire the events React listens for."""
+            return pg.evaluate("""(code) => {
+                const sel = document.querySelector('select.PhoneInputCountrySelect');
+                if (!sel) return null;
+                const setter = Object.getOwnPropertyDescriptor(
+                    window.HTMLSelectElement.prototype, 'value').set;
+                setter.call(sel, code);
+                sel.dispatchEvent(new Event('input', {bubbles: true}));
+                sel.dispatchEvent(new Event('change', {bubbles: true}));
+                return sel.value;
+            }""", code)
+
         country_set = None
-        try:
-            pg.select_option("select.PhoneInputCountrySelect", "US", timeout=6000)
-            country_set = "US"
-        except Exception as e:
-            step("country_select_err", err=str(e)[:60])
+        for _attempt in range(3):
+            try:
+                pg.select_option("select.PhoneInputCountrySelect", "US", timeout=4000)
+                country_set = "US"
+                break
+            except Exception:
+                got = set_country("US")
+                if got == "US":
+                    country_set = got
+                    break
+            pg.wait_for_timeout(800)
         step("country_set", via=country_set)
 
         typed_ok = False
@@ -524,6 +558,19 @@ def main():
                       country_label: sel && sel.selectedOptions[0]
                         ? sel.selectedOptions[0].textContent.trim().slice(0,24) : null}; }""")
         step("phone_after_set", **fld_val)
+        # The guard: the destination must be OUR number, in E.164. A DM default of
+        # +49 plus these digits is a real German subscriber.
+        _digits = "".join(ch for ch in (fld_val.get("value") or "") if ch.isdigit())
+        if fld_val.get("country") != "US" or not _digits.endswith("8102583253") \
+           or len(_digits) != 11:
+            step("ABORT", code="wrong-destination",
+                 country=fld_val.get("country"), digits=_digits,
+                 note="refusing to request a code: the number is not the US JMP line. "
+                      "Sending here texts a real third party and can never receive our code.")
+            pg.screenshot(path="/tmp/vt-wrong-number.png")
+            b.close()
+            sys.exit(11)
+        step("destination_verified", e164="+1" + _digits[-10:])
         pg.screenshot(path="/tmp/vt-modal-filled.png")
         if not typed_ok:
             step("ABORT", code="phone-type-failed")
