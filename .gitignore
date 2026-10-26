@@ -13,3 +13,4 @@ keys.local.json
 # Recon artifacts may contain live invoice/payment links — never commit them.
 /tmp/2fiat-*.json
 /services/fiat-cvm/tools/*-recon.json
+node_modules

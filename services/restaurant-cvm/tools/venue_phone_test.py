@@ -27,6 +27,7 @@ Usage (x280, headed under xvfb):
 """
 import argparse
 import json
+import os
 import subprocess
 import sys
 import time
@@ -70,10 +71,22 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--country", default="US",
                     help="phone country in the venue dropdown (default US)")
+    ap.add_argument("--hold", type=int, default=0,
+                    help="seconds to wait for a HUMAN to solve the captcha over VNC "
+                         "(ADR-0017 handoff); 0 aborts immediately")
     args = ap.parse_args()
 
     with sync_playwright() as p:
-        b = p.chromium.launch(headless=False, args=["--no-sandbox"])
+        # Playwright's bundled chromium drifts from the installed cache on this
+        # host (expects 1243, has 1228) and `playwright install` refuses on
+        # Ubuntu 26.04. The system Chrome is the supported executable here, so
+        # prefer it and fall back to the bundle only if it is absent.
+        _chrome = "/usr/bin/google-chrome-stable"
+        _launch = {"headless": False, "args": ["--no-sandbox",
+                   "--disable-dev-shm-usage", "--disable-gpu"]}
+        if os.path.exists(_chrome):
+            _launch["executable_path"] = _chrome
+        b = p.chromium.launch(**_launch)
         ctx = b.new_context(locale="de-DE", timezone_id="Europe/Berlin",
                             viewport={"width": 1366, "height": 1200},
                             user_agent=UA)
@@ -447,11 +460,35 @@ def main():
               return w ? {disabled: /disabled/.test(String(w.className))} : null; }""")
         step("captcha_result", token_present=bool(tok), phone_still_disabled=dis)
         captcha_ok = bool(tok) or (dis is not None and not dis["disabled"])
+        if not captcha_ok and args.hold > 0:
+            # ADR-0017 handoff: a human solves the visual challenge over VNC while
+            # THIS process keeps the page alive. We then continue in the same
+            # browser — the captcha token is bound to it, so re-driving from a
+            # fresh context would discard the human's work.
+            step("holding_for_human", seconds=args.hold,
+                 note="solve the captcha in the VNC session; this process continues automatically")
+            deadline = time.time() + args.hold
+            while time.time() < deadline:
+                pg.wait_for_timeout(3000)
+                tok = pg.evaluate(
+                    """() => { const i=document.querySelector(
+                         'input[name="cf-turnstile-response"], [name*="turnstile-response"], [name*="h-captcha-response"], [name*="hcaptcha-response"]');
+                      return i ? String(i.value||'') : null; }""")
+                dis = pg.evaluate(
+                    """() => { const w=document.querySelector('.PhoneInput');
+                      return w ? {disabled: /disabled/.test(String(w.className))} : null; }""")
+                if (tok and len(tok) > 5) or (dis is not None and not dis["disabled"]):
+                    captcha_ok = True
+                    break
+            step("human_result", passed=captcha_ok,
+                 token_len=len(tok) if tok else 0)
+            if captcha_ok:
+                pg.screenshot(path="/tmp/vt-human-passed.png")
         if not captcha_ok:
             step("ABORT", code="captcha-not-passed",
-                 note="Turnstile yielded no token and the phone control is still "
-                      "disabled. If a visual challenge appeared, the captcha step "
-                      "is human_required by design.")
+                 note="Turnstile/hCaptcha yielded no token and the phone control is still "
+                      "disabled. If a visual challenge appeared, the captcha step is "
+                      "human_required by design.")
             b.close()
             sys.exit(10)
 
