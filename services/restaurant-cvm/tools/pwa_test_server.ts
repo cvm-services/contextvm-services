@@ -14,6 +14,7 @@
 import { handle, SessionStore, setStateReader, type Spawner } from "../src/session_api.ts";
 import { Settlement, type InvoiceIssuer, type Provider, type ProviderResult } from "../src/settlement.ts";
 import { createCustomerApi, type MenuItem } from "../src/customer_api.ts";
+import { OrderFlow, type VenueOutcome } from "../src/order_flow.ts";
 
 const PORT = Number(Deno.env.get("PWA_TEST_PORT") ?? "8795");
 const states = new Map<string, string>();
@@ -89,6 +90,26 @@ const issuer: InvoiceIssuer = {
 const settlement = new Settlement(provider, issuer);
 const customer = createCustomerApi({ menu: MENU, settlement });
 
+// ---- venue leg, switchable by the test -------------------------------------
+let venueMode: "requires_human" | "failed" | "confirmed" = "requires_human";
+const refunds: Array<{ order_id: string; reason: string; ref: string }> = [];
+
+const venue = {
+  async checkout({ order_id }: { order_id: string; sats: number }): Promise<VenueOutcome> {
+    if (venueMode === "failed") return { status: "failed", reason: "item sold out" };
+    if (venueMode === "confirmed") return { status: "confirmed", ref: "TB-AUTO-1" };
+    return { status: "requires_human", session_id: `sess_${order_id}` };
+  },
+};
+const refundRail = {
+  async refund(order_id: string, reason: string) {
+    const ref = `rf_${refunds.length + 1}`;
+    refunds.push({ order_id, reason, ref });
+    return { ref };
+  },
+};
+const flow = new OrderFlow(settlement, venue, refundRail);
+
 // The harness reconciles unknown payments, which is what a real operator/service
 // would do. Without this the "unknown" state would never resolve and the test
 // could not prove the transition to paid.
@@ -124,6 +145,30 @@ Deno.serve({ port: PORT, hostname: "127.0.0.1" }, async (req) => {
            </div>
          </div></body>`,
     );
+  }
+
+  // Test-only: the venue REJECTED the order after payment. Runs through
+  // OrderFlow so the real refund rule is exercised (refund only on a KNOWN
+  // failure), not a shortcut that just flips a state.
+  if (url.pathname === "/__test__/venue/fail" && req.method === "POST") {
+    const body = await req.json().catch(() => ({}));
+    venueMode = "failed";
+    try {
+      const r = await flow.placeOrder(String(body.order_id ?? ""));
+      venueMode = "requires_human";
+      return new Response(JSON.stringify({ ok: true, result: r }), {
+        headers: { "content-type": "application/json" },
+      });
+    } catch (e) {
+      venueMode = "requires_human";
+      return new Response(JSON.stringify({ ok: false, error: String((e as Error)?.message ?? e) }), {
+        status: 409, headers: { "content-type": "application/json" },
+      });
+    }
+  }
+
+  if (url.pathname === "/__test__/refunds") {
+    return new Response(JSON.stringify({ refunds }), { headers: { "content-type": "application/json" } });
   }
 
   // Test-only: the venue accepted the order. In production this arrives from the
