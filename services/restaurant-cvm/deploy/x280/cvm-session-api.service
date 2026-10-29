@@ -1,0 +1,19 @@
+[Unit]
+Description=Venue checkout session API (browser + captcha handoff)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/repos/contextvm-services/services/restaurant-cvm
+EnvironmentFile=%h/.hermes/cvm/session-api.env
+ExecStart=%h/.local/bin/deno run --allow-net --allow-env --allow-run --allow-read=/tmp,/var/lib/cvm --allow-write=/tmp,/var/lib/cvm src/serve.ts
+Restart=on-failure
+RestartSec=3
+
+NoNewPrivileges=true
+MemoryMax=512M
+TasksMax=256
+
+[Install]
+WantedBy=default.target

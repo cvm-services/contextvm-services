@@ -108,19 +108,9 @@ def poll_inbox(since_ts, tries=18, delay=10):
     return []
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--country", default="US",
-                    help="phone country in the venue dropdown (default US)")
-    ap.add_argument("--viewport", default="1366x1200",
-                    help="browser viewport WxH; set it to the operator's screen so "
-                         "the captcha is readable over VNC")
-    ap.add_argument("--session-id", default=os.environ.get("CVM_SESSION_ID", ""),
-                    help="session id from the session API; published in holding_for_human")
-    ap.add_argument("--hold", type=int, default=0,
-                    help="seconds to wait for a HUMAN to solve the captcha over VNC "
-                         "(ADR-0017 handoff); 0 aborts immediately")
-    args = ap.parse_args()
+def _run(args):
+    profile = _load_profile(args)
+    card = _load_card(args)
 
     with sync_playwright() as p:
         # Playwright's bundled chromium drifts from the installed cache on this
@@ -141,6 +131,7 @@ def main():
         ctx.add_init_script(
             "Object.defineProperty(navigator,'webdriver',{get:()=>undefined})")
         pg = ctx.new_page()
+        pg.set_default_timeout(15000)
 
         set_state("preparing")
         # ---------- reach the phone modal (proven path, no card) -------------
@@ -240,18 +231,18 @@ def main():
                 break
 
         # contact info (synthetic; this phone gets REPLACED in the modal later)
-        for i, val in enumerate(["Test", "Validierung"]):
+        for i, val in enumerate([profile["first_name"], profile["last_name"]]):
             try:
                 pg.get_by_role("textbox").nth(i).fill(val, timeout=5000)
             except Exception as e:
                 step("contact_fill_err", i=i, err=str(e)[:50])
         try:
             pg.get_by_placeholder("Email Adresse").fill(
-                "felix@orangesync.tech", timeout=5000)
+                profile["email"], timeout=5000)
         except Exception:
             try:
                 pg.locator("input[type=email]").first.fill(
-                    "felix@orangesync.tech", timeout=5000)
+                    profile["email"], timeout=5000)
             except Exception as e:
                 step("email_fill_err", err=str(e)[:50])
         # contact phone: the JMP number itself, so the modal prefills correctly
@@ -290,11 +281,10 @@ def main():
                 except Exception:
                     continue
         step("pay_frames", n=len(pay_frames))
-        SYNTH = {"pan": "4111111111111111", "exp": "12/30", "cvc": "123"}
         want = {
-            "pan": (SYNTH["pan"], ["cardnumber", "cc-number"]),
-            "exp": (SYNTH["exp"], ["exp", "cc-exp"]),
-            "cvc": (SYNTH["cvc"], ["cvc", "securitycode", "cc-csc"]),
+            "pan": (card["pan"], ["cardnumber", "cc-number"]),
+            "exp": (card["exp"], ["exp", "cc-exp"]),
+            "cvc": (card["cvc"], ["cvc", "securitycode", "cc-csc"]),
         }
         filled = {}
         for key, (val, hints) in want.items():
@@ -328,11 +318,11 @@ def main():
         # houseNumberOrName, postalCode, city. Target by name, verify each fill.
         addr_result = {}
         for inp_name, val in (
-            ("street", "Albrechtstraße"),
-            ("houseNumberOrName", "131"),
-            ("postalCode", "12167"),
-            ("city", "Berlin"),
-            ("holderName", "Test Validierung"),
+            ("street", profile["street"]),
+            ("houseNumberOrName", profile["house"]),
+            ("postalCode", profile["postal"]),
+            ("city", profile["city"]),
+            ("holderName", profile["holder"]),
         ):
             # try the main frame AND any frame that carries this input
             done = False
@@ -363,7 +353,7 @@ def main():
         missing = [k for k, v in readback.items() if not v]
         if missing:
             step("ABORT", code="address-incomplete", missing=missing)
-            pg.screenshot(path="/tmp/vt-addr-missing.png")
+            _snap(pg, path="/tmp/vt-addr-missing.png")
             b.close()
             sys.exit(10)
 
@@ -373,7 +363,7 @@ def main():
                 "() => [...document.querySelectorAll('input')].findIndex("
                 "e => (e.name||'').includes('holderName'))")
             if h >= 0:
-                pg.locator("input").nth(h).fill("Test Validierung", timeout=5000)
+                pg.locator("input").nth(h).fill(profile["holder"], timeout=5000)
         except Exception:
             pass
 
@@ -399,7 +389,7 @@ def main():
         step("modal_state", **modal_state)
 
         if not modal_state["phone_modal"]:
-            pg.screenshot(path="/tmp/vt-no-modal.png")
+            _snap(pg, path="/tmp/vt-no-modal.png")
             step("ABORT", code="phone-modal-not-present",
                  note="the gate may fire only after a buy attempt")
             b.close()
@@ -417,7 +407,7 @@ def main():
                          box:[Math.round(r.x),Math.round(r.y),Math.round(r.width),Math.round(r.height)]}; });
             }""")
         step("modal_dom", els=modal_dom)
-        pg.screenshot(path="/tmp/vt-modal.png")
+        _snap(pg, path="/tmp/vt-modal.png")
 
         # ================= CAPTCHA FIRST ==========================================
         # MEASURED: the phone control carries PhoneInput--disabled and both the
@@ -488,16 +478,10 @@ def main():
             "() => { const w=document.querySelector('.PhoneInput');"
             " return w ? /disabled/.test(String(w.className)) : null; }")
         if (not tok0) and dis0:
-            step("captcha_retry", why="no token, still disabled")
-            pg.mouse.move(430, 640, steps=10)
-            pg.wait_for_timeout(400)
-            pg.mouse.move(402, 694, steps=14)
-            pg.wait_for_timeout(260)
-            pg.mouse.down()
-            pg.wait_for_timeout(110)
-            pg.mouse.up()
-            pg.wait_for_timeout(9000)
-        pg.screenshot(path="/tmp/vt-captcha.png")
+            # Deferred to the human handoff. A second synthetic click has been
+            # observed to block on an unresponsive renderer for minutes.
+            step("captcha_retry", why="deferred to the human handoff")
+        _snap(pg, path="/tmp/vt-captcha.png")
 
         # decisive: Turnstile writes cf-turnstile-response into the parent page,
         # and the phone control's disabled class must be gone.
@@ -552,7 +536,7 @@ def main():
             step("human_result", passed=captcha_ok,
                  token_len=len(tok) if tok else 0)
             if captcha_ok:
-                pg.screenshot(path="/tmp/vt-human-passed.png")
+                _snap(pg, path="/tmp/vt-human-passed.png")
         if not captcha_ok:
             step("ABORT", code="captcha-not-passed",
                  note="Turnstile/hCaptcha yielded no token and the phone control is still "
@@ -617,11 +601,11 @@ def main():
                  country=fld_val.get("country"), digits=_digits,
                  note="refusing to request a code: the number is not the US JMP line. "
                       "Sending here texts a real third party and can never receive our code.")
-            pg.screenshot(path="/tmp/vt-wrong-number.png")
+            _snap(pg, path="/tmp/vt-wrong-number.png")
             b.close()
             sys.exit(11)
         step("destination_verified", e164="+1" + _digits[-10:])
-        pg.screenshot(path="/tmp/vt-modal-filled.png")
+        _snap(pg, path="/tmp/vt-modal-filled.png")
         if not typed_ok:
             step("ABORT", code="phone-type-failed")
             b.close()
@@ -658,7 +642,7 @@ def main():
             except Exception:
                 pass
             step("code_senden_err", err=str(e)[:60], btn_class=cls)
-        pg.screenshot(path="/tmp/vt-after-send.png")
+        _snap(pg, path="/tmp/vt-after-send.png")
 
         if clicked:
             rows = poll_inbox(since)
@@ -694,7 +678,7 @@ def main():
                         set_state("submitting", phase="confirm_clicked")
                         pg.wait_for_timeout(6000)
                         ref = _find_venue_ref(pg)
-                        pg.screenshot(path="/tmp/vt-confirmed.png")
+                        _snap(pg, path="/tmp/vt-confirmed.png")
                         if ref:
                             step("venue_confirmed", ref=ref)
                             set_state("completed", venue_ref=ref)
@@ -755,6 +739,156 @@ def _find_venue_ref(pg):
             if m:
                 return m.group(1).strip()
     return None
+
+
+
+def _snap(pg, path):
+    """Best-effort screenshot with a hard timeout; diagnostics never block."""
+    try:
+        pg.screenshot(path=path, timeout=5000)
+    except Exception:
+        pass
+
+
+def _parse_args():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--country", default="US",
+                    help="phone country in the venue dropdown (default US)")
+    ap.add_argument("--viewport", default="1366x1200",
+                    help="browser viewport WxH; set it to the operator's screen so "
+                         "the captcha is readable over VNC")
+    ap.add_argument("--session-id", default=os.environ.get("CVM_SESSION_ID", ""),
+                    help="session id from the session API; published in holding_for_human")
+    ap.add_argument("--hold", type=int, default=0,
+                    help="seconds to wait for a HUMAN to solve the captcha over VNC "
+                         "(ADR-0017 handoff); 0 aborts immediately")
+    ap.add_argument("--out", default="",
+                    help="write the serve.ts session record here (novnc_url/expires_at)")
+    ap.add_argument("--public-base", default=os.environ.get("CVM_PUBLIC_BASE", ""),
+                    help="public origin for the noVNC URL, e.g. https://cvm-pwa...")
+    ap.add_argument("--vnc", action="store_true",
+                    help="start Xvfb/x11vnc/websockify and expose the captcha handoff")
+    ap.add_argument("--no-password", action="store_true",
+                    help="accepted for the serve.ts CLI contract; x11vnc already runs -nopw")
+    ap.add_argument("--card-source", choices=("synthetic", "2fiat"),
+                    default=os.environ.get("CVM_CARD_SOURCE", "synthetic"),
+                    help="synthetic never authorizes; 2fiat reads the real card once")
+    ap.add_argument("--profile", default=os.environ.get(
+        "CVM_VENUE_PROFILE", os.path.expanduser("~/.hermes/cvm/venue-profile.json")),
+        help="non-secret billing/contact profile")
+    return ap.parse_args()
+
+
+def _load_profile(args):
+    prof = {
+        "first_name": "Test", "last_name": "Validierung",
+        "holder": "Test Validierung", "street": "Albrechtstraße",
+        "house": "131", "postal": "12167", "city": "Berlin",
+        "email": "orders@example.invalid", "phone": JMP_NUMBER,
+        "phone_country": "US",
+    }
+    try:
+        with open(args.profile) as f:
+            prof.update(json.load(f))
+    except OSError:
+        pass
+    return prof
+
+
+def _load_card(args):
+    if args.card_source != "2fiat":
+        return {"pan": "4111111111111111", "exp": "12/30", "cvc": "123"}
+    helper = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                          "card_for_launcher.ts")
+    deno = os.path.expanduser("~/.local/bin/deno")
+    card_id = os.environ.get("CVM_FIAT_CARD_ID", "").strip()
+    if not card_id:
+        raise SystemExit("CVM_FIAT_CARD_ID is required for --card-source 2fiat")
+    proc = subprocess.run(
+        [deno, "run", "--allow-net", "--allow-read", "--allow-env", helper],
+        capture_output=True, text=True, timeout=120,
+        env={**os.environ, "CVM_FIAT_CARD_ID": card_id},
+    )
+    if proc.returncode != 0:
+        # Deliberately no stdout/stderr: a partial run could contain card data.
+        raise SystemExit(f"card helper failed (rc={proc.returncode})")
+    try:
+        rec = json.loads(proc.stdout.strip().splitlines()[-1])
+        return {"pan": rec["pan"], "exp": rec["exp"], "cvc": rec["cvc"]}
+    except Exception as exc:  # noqa: BLE001
+        raise SystemExit(f"card helper returned no usable values: {exc}")
+
+
+def _start_handoff(args):
+    from captcha_session import SessionManager
+    mgr = SessionManager(
+        ws_listen=os.environ.get("CVM_VNC_BIND", "127.0.0.1"),
+        runtime_dir=os.environ.get("CVM_VNC_DIR", "/tmp/captcha-vnc"),
+    )
+    sid = args.session_id or f"launcher-{int(time.time())}"
+    sess = mgr.spawn(sid)
+    os.environ["DISPLAY"] = sess.display
+    base = (args.public_base or "").rstrip("/")
+    if not base:
+        raise SystemExit("--public-base (or CVM_PUBLIC_BASE) is required for --vnc")
+    url = (f"{base}/venue/view/{sess.token}/vnc.html?autoconnect=1&resize=scale"
+           f"&path=/venue/view/{sess.token}/websockify")
+    rec = {
+        "novnc_url": url,
+        "expires_at": time.strftime("%Y-%m-%dT%H:%M:%SZ",
+                                    time.gmtime(time.time() + max(args.hold, 60))),
+        "state_file": STATE_FILE,
+    }
+    if args.out:
+        tmp = args.out + ".tmp"
+        with open(tmp, "w") as f:
+            json.dump(rec, f)
+        os.replace(tmp, args.out)
+    step("handoff_ready", order_id=sid)
+    _arm_watchdog(mgr, sess, max(args.hold, 60))
+    return mgr, sess
+
+
+def _arm_watchdog(mgr, sess, hold_s):
+    """Hard stop for a renderer that blocks a Playwright call past the hold.
+
+    The normal path tears the session down itself. This thread is the backstop:
+    a hung evaluate() cannot keep a browser and a VNC token alive forever.
+    """
+    import subprocess as _sp
+    import threading as _th
+
+    def _kill():
+        time.sleep(hold_s + 45)
+        try:
+            mgr.teardown(sess)
+        except Exception:
+            pass
+        try:
+            _sp.run(["pkill", "-f", "playwright_chromiumdev_profile-"],
+                    timeout=10)
+        except Exception:
+            pass
+        os._exit(10)
+
+    _th.Thread(target=_kill, daemon=True).start()
+
+
+def main():
+    args = _parse_args()
+    handoff = None
+    try:
+        if args.vnc:
+            handoff = _start_handoff(args)
+        _run(args)
+    finally:
+        if handoff:
+            mgr, sess = handoff
+            try:
+                mgr.teardown(sess)
+            except Exception:
+                pass
+
 
 if __name__ == "__main__":
     main()
