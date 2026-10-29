@@ -676,8 +676,27 @@ def _run(args):
                         pg.get_by_role("button", name="Bestätigen").first.click(timeout=8000)
                         step("confirm_clicked")
                         set_state("submitting", phase="confirm_clicked")
-                        pg.wait_for_timeout(6000)
-                        ref = _find_venue_ref(pg)
+                        # 3-D Secure (or a slow venue) can appear AFTER confirm.
+                        # Keep the browser alive and let the human solve it over
+                        # the same VNC: retrying automatically could duplicate a
+                        # real charge.
+                        ref = None
+                        deadline = time.time() + max(args.hold, 60)
+                        last_note = 0.0
+                        while time.time() < deadline:
+                            pg.wait_for_timeout(3000)
+                            ref = _find_venue_ref(pg)
+                            if ref:
+                                break
+                            frames = [f.url for f in pg.frames
+                                      if any(h in f.url for h in
+                                             ("adyen", "3ds", "challenge"))]
+                            if frames and time.time() - last_note > 15:
+                                last_note = time.time()
+                                set_state("awaiting_human", phase="3ds",
+                                          note="solve the 3-D Secure challenge in the VNC")
+                                step("holding_for_3ds",
+                                     seconds=int(deadline - time.time()))
                         _snap(pg, path="/tmp/vt-confirmed.png")
                         if ref:
                             step("venue_confirmed", ref=ref)
