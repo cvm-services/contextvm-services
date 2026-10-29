@@ -49,6 +49,10 @@
   .bad{color:var(--bad)}
   .hint{color:var(--dim);font-size:12.5px}
   .copy{font:inherit;padding:8px 12px;border-radius:9px;border:1px solid var(--line);background:#1e2430;color:var(--fg);cursor:pointer}
+  button.primary.wide{width:100%;margin:14px 0}
+  details.selfpay{margin-top:14px;border-top:1px solid var(--line);padding-top:12px}
+  details.selfpay summary{cursor:pointer;color:var(--dim);font-size:12.5px}
+  details.selfpay[open] summary{margin-bottom:8px}
 </style>
 </head>
 <body>
@@ -65,27 +69,37 @@
       <span id="total">0 sats</span>
       <small id="count">empty basket</small>
     </div>
-    <button class="primary" id="pay" disabled>Pay</button>
+    <button class="primary" id="pay" disabled>Create order</button>
   </div>
 </footer>
 
 <div class="sheet" id="sheet">
   <div class="inner">
-    <div style="font-weight:650;font-size:16px" id="sheetTitle">Pay with Lightning</div>
+    <div style="font-weight:650;font-size:16px" id="sheetTitle">Pay your order</div>
 
     <div class="state" id="stateLine"><span class="spin"></span><span id="stateText">Waiting for payment…</span></div>
 
     <div id="warnBox" class="warn" hidden></div>
 
-    <div style="display:flex;justify-content:center;margin:12px 0">
-      <canvas id="qr" width="220" height="220" style="background:#fff;border-radius:10px;padding:8px"></canvas>
-    </div>
-    <div style="display:flex;gap:10px;flex-wrap:wrap">
-      <button class="copy" id="webln" hidden>Pay with browser wallet</button>
-      <button class="copy" id="openwallet">Open in wallet</button>
-      <button class="copy" id="copy">Copy invoice</button>
-    </div>
+    <button class="primary wide" id="treasury" hidden>Pay from treasury</button>
+
     <div class="inv" id="invoice">—</div>
+
+    <details class="selfpay" id="selfpay">
+      <summary>Pay from your own wallet instead</summary>
+      <div class="warn">
+        Only use this if the treasury will not pay. The invoice is single-use;
+        paying it here prevents the treasury from paying it.
+      </div>
+      <div style="display:flex;justify-content:center;margin:12px 0">
+        <canvas id="qr" width="220" height="220" style="background:#fff;border-radius:10px;padding:8px"></canvas>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="copy" id="webln" hidden>Pay with browser wallet</button>
+        <button class="copy" id="openwallet">Open in wallet</button>
+        <button class="copy" id="copy">Copy invoice</button>
+      </div>
+    </details>
 
     <div style="margin-top:16px;display:flex;gap:10px;justify-content:flex-end">
       <button class="copy" id="closeSheet">Close</button>
@@ -105,6 +119,7 @@ const API = window.__API__ || "";
 let basket = new Map();   // id -> qty
 let order = null;
 let poll = null;
+let paying = false;
 
 const $ = (id) => document.getElementById(id);
 const fmt = (n) => n.toLocaleString("en-US") + " sats";
@@ -158,6 +173,7 @@ function render() {
 function setState(kind, text, warnHtml) {
   $("stateLine").innerHTML =
     kind === "idle" ? `<span class="spin"></span><span id="stateText"></span>`
+    : kind === "ready" ? `<span class="ok">●</span><span id="stateText"></span>`
     : kind === "ok" ? `<span class="ok">✓</span><span id="stateText" class="ok"></span>`
     : kind === "bad" ? `<span class="bad">✕</span><span id="stateText" class="bad"></span>`
     : `<span class="spin"></span><span id="stateText"></span>`;
@@ -166,9 +182,24 @@ function setState(kind, text, warnHtml) {
   if (warnHtml) { w.hidden = false; w.innerHTML = warnHtml; } else { w.hidden = true; w.innerHTML = ""; }
 }
 
+function showTreasury(show) {
+  const b = $("treasury");
+  b.hidden = !show;
+  b.disabled = !show || paying;
+}
+
+function priceHint() {
+  if (!order) return "";
+  const est = order.estimate_sats;
+  return order.price_source === "invoice" && est && est !== order.sats
+    ? `Final price ${fmt(order.sats)} — the menu estimated ${fmt(est)}`
+    : `Total ${fmt(order.sats)}`;
+}
+
 function applyState(s) {
   // Single source of truth: the server's state string.
   if (s.state === "paid") {
+    showTreasury(false);
     // PAID IS NOT CONFIRMED. If the venue has not acknowledged yet, keep polling:
     // stopping here was a real bug - the screen said "paid" forever and never
     // learned that the restaurant accepted (or rejected) the order.
@@ -181,6 +212,7 @@ function applyState(s) {
       $("footHint").textContent = "Waiting for the venue to accept the order.";
     }
   } else if (s.state === "outcome_unknown" || s.state === "paying") {
+    showTreasury(false);
     setState("idle", "We are checking your payment…",
       "<b>Do not pay again.</b> Your payment may have gone through. " +
       "Paying a second invoice would charge you twice — we will resolve this before anything else.");
@@ -188,13 +220,24 @@ function applyState(s) {
   } else if (s.state === "failed") {
     setState("bad", "That payment did not go through.",
       "It is safe to try again — the network did not accept the payment.");
-    $("footHint").textContent = "";
+    showTreasury(Boolean(order?.bolt11));
+    $("footHint").textContent = priceHint();
   } else if (s.state === "refunded") {
+    showTreasury(false);
     setState("bad", "Refunded.", "You have been made whole.");
     stopPoll();
+  } else if (s.state === "invoiced") {
+    setState("ready", "Invoice ready — pay from the treasury when you are ready.");
+    showTreasury(Boolean(order?.bolt11));
+    $("footHint").textContent = priceHint();
+  } else if (s.state === "created") {
+    setState("idle", "Creating your invoice…");
+    showTreasury(false);
+    $("footHint").textContent = "";
   } else {
     setState("idle", "Waiting for payment…");
-    $("footHint").textContent = "Scan the invoice in your wallet.";
+    showTreasury(Boolean(order?.bolt11));
+    $("footHint").textContent = priceHint();
   }
 }
 
@@ -202,43 +245,71 @@ function stopPoll() { if (poll) { clearInterval(poll); poll = null; } }
 
 async function startOrder() {
   $("sheet").classList.add("open");
+  order = null;
+  paying = false;
+  showTreasury(false);
   setState("idle", "Creating your invoice…");
   $("invoice").textContent = "—";
+  $("footHint").textContent = "";
+  $("selfpay").open = false;
   const items = [...basket].map(([id, qty]) => ({ id, qty }));
   const r = await fetch(API + "/orders", {
     method: "POST", headers: { "content-type": "application/json" },
     body: JSON.stringify({ items }),
   });
-  if (!r.ok) { setState("bad", "Could not create the order."); return; }
-  order = await r.json();
+  const after = await r.json().catch(() => ({}));
+  if (!r.ok) {
+    setState("bad", "Could not create the order.");
+    const w = $("warnBox");
+    w.hidden = false;
+    w.textContent = after.detail
+      ? `Reason: ${after.detail}`
+      : (after.error ? `Error: ${after.error}` : `HTTP ${r.status}`);
+    return;
+  }
+  order = after;
+  if (!order.bolt11) {
+    setState("bad", "The rail returned no invoice.");
+    return;
+  }
   $("invoice").textContent = order.bolt11;
   drawQr(order.bolt11);
-  setState("idle", "Waiting for payment…");
-  // When the rail prices the order, the menu figure was only an estimate. Say so
-  // rather than letting a customer believe a number we never promised.
-  const est = order.estimate_sats;
-  $("footHint").textContent =
-    order.price_source === "invoice" && est && est !== order.sats
-      ? `Final price ${fmt(order.sats)} — the menu estimated ${fmt(est)}`
-      : `Total ${fmt(order.sats)}`;
+  applyState({ state: "invoiced" });
+  $("footHint").textContent = priceHint();
 
-  // One idempotency key for this attempt: pressing Pay twice cannot pay twice.
+  stopPoll();
+  poll = setInterval(refresh, 2000);
+}
+
+/**
+ * The only place the treasury spends. Order creation is deliberately free of
+ * side effects: the customer/operator sees the invoice and chooses this button.
+ */
+async function payFromTreasury() {
+  if (!order?.bolt11 || paying) return;
+  paying = true;
+  $("treasury").disabled = true;
+  setState("idle", "Paying from the treasury…");
+  $("footHint").textContent = "Do not pay the invoice again while this is in flight.";
   const key = "k_" + crypto.randomUUID();
   const pr = await fetch(`${API}/orders/${order.order_id}/pay`, {
     method: "POST", headers: { "content-type": "application/json" },
     body: JSON.stringify({ key }),
   });
   const after = await pr.json().catch(() => ({}));
+  paying = false;
   if (!pr.ok) {
     if (after.error === "must_reconcile") {
       applyState({ state: "outcome_unknown" });
     } else {
       applyState({ state: "failed" });
+      const w = $("warnBox");
+      w.hidden = false;
+      w.textContent = `${w.textContent} ${after.detail ?? after.error ?? `HTTP ${pr.status}`}`;
     }
   } else {
     applyState(after);
   }
-
   stopPoll();
   poll = setInterval(refresh, 2000);
 }
@@ -247,7 +318,11 @@ async function refresh() {
   if (!order) return;
   try {
     const r = await fetch(`${API}/orders/${order.order_id}`);
-    if (r.ok) applyState(await r.json());
+    if (r.ok) {
+      const data = await r.json();
+      order = { ...order, ...data };
+      applyState(order);
+    }
   } catch { /* keep the last honest state */ }
 }
 
@@ -279,6 +354,7 @@ $("webln").onclick = async () => {
   try {
     await window.webln.enable();
     await window.webln.sendPayment(order.bolt11);
+    showTreasury(false);
     $("footHint").textContent = "Wallet reports sent — confirming with the network…";
   } catch (e) {
     $("footHint").textContent = "The wallet did not send it. The invoice is still valid.";
@@ -289,8 +365,18 @@ if (window.webln) $("webln").hidden = false;
 
 $("openwallet").onclick = () => {
   // lightning: links are handled by the OS wallet chooser on mobile.
+  showTreasury(false);
   location.href = `lightning:${order?.bolt11 ?? ""}`;
 };
+
+$("treasury").onclick = payFromTreasury;
+$("selfpay").addEventListener("toggle", () => {
+  if ($("selfpay").open) {
+    showTreasury(false);
+  } else if (order && (order.state === "invoiced" || order.state === "failed")) {
+    showTreasury(Boolean(order.bolt11));
+  }
+});
 
 $("pay").onclick = startOrder;
 $("closeSheet").onclick = () => { $("sheet").classList.remove("open"); stopPoll(); };

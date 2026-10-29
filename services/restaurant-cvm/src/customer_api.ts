@@ -127,7 +127,11 @@ export function createCustomerApi(deps: CustomerApiDeps) {
         invoice = await settlement.invoice(orderId);
       } catch (e) {
         // If the rail cannot price it, the order must not exist as payable.
-        return json(502, { error: "invoice_failed", detail: String((e as Error)?.message ?? e) });
+        const detail = String((e as Error)?.message ?? e);
+        // Log the reason: the UI gets the detail, but a journal line is what an
+        // operator needs when a 502 happens hours later.
+        console.error(JSON.stringify({ fatal: "invoice_failed", order_id: orderId, detail }));
+        return json(502, { error: "invoice_failed", detail });
       }
       const created = settlement.get(orderId);
       return json(201, {

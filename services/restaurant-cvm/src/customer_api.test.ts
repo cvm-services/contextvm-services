@@ -147,6 +147,27 @@ describe("rail-priced orders", () => {
     expect(body.price_source).toBe("menu");
     expect(body.estimate_sats).toBeNull();
   });
+
+  test("a rail that cannot issue an invoice is a 502 with the detail", async () => {
+    const failingIssuer = {
+      async issue() {
+        throw new Error("2fiat checkout page did not yield a BOLT11");
+      },
+    };
+    const railSettlement = new Settlement(provider, failingIssuer);
+    const withEur = MENU.map((m) => ({ ...m, eur: m.id === "m1" ? 14 : 5 }));
+    const api2 = createCustomerApi({
+      menu: withEur, settlement: railSettlement, price_from_rail: true,
+    });
+    const res = await api2(new Request("http://x/orders", {
+      method: "POST", headers: { "content-type": "application/json" },
+      body: JSON.stringify({ items: [{ id: "m1", qty: 1 }] }),
+    }));
+    const body = await res.json();
+    expect(res.status).toBe(502);
+    expect(body.error).toBe("invoice_failed");
+    expect(body.detail).toContain("BOLT11");
+  });
 });
 
 describe("rail pricing without EUR is refused", () => {

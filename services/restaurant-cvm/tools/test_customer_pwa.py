@@ -77,6 +77,10 @@ def main() -> int:
         set_rail("unknown")
         page.click("#pay")
         page.wait_for_selector("#sheet.open", timeout=10000)
+        # Order creation is side-effect-free; the treasury spends only on an
+        # explicit button press.
+        page.wait_for_selector("#treasury:not([hidden])", timeout=10000)
+        page.click("#treasury")
         page.wait_for_timeout(2500)
         body = page.inner_text("#sheet")
         check("unknown outcome warns against paying again", "do not pay again" in body.lower())
