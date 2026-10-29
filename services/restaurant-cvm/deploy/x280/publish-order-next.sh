@@ -34,8 +34,8 @@ marker = '<meta charset="utf-8">'
 if marker not in html:
     raise SystemExit("customer.html: charset marker missing; refusing to guess")
 inject = marker + f'\n  <script>window.__API__="{api}";</script>'
-if "window.__API__" in html:
-    raise SystemExit("customer.html already injects __API__; refusing to double-inject")
+if f'window.__API__="{api}"' in html:
+    raise SystemExit("customer.html already injects the target __API__; refusing to double-inject")
 open(dst, "w", encoding="utf-8").write(html.replace(marker, inject, 1))
 PY
 
