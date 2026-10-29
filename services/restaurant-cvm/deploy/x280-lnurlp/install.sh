@@ -64,8 +64,8 @@ $SUDO systemctl restart cvm-customer-api.service
 sleep 2
 
 echo "== health"
-FIPS="$(sed -n 's/^CVM_CUSTOMER_HOST=//p' "$ETC/customer-api.env" | tail -1 | tr -d '"')"
-PORT="$(sed -n 's/^CVM_CUSTOMER_PORT=//p' "$ETC/customer-api.env" | tail -1 | tr -d '"')"
+FIPS="$($SUDO sed -n 's/^CVM_CUSTOMER_HOST=//p' "$ETC/customer-api.env" | tail -1 | tr -d '"')"
+PORT="$($SUDO sed -n 's/^CVM_CUSTOMER_PORT=//p' "$ETC/customer-api.env" | tail -1 | tr -d '"')"
 LOCAL="http://[$FIPS]:${PORT:-8793}/health"
 if ! curl -fsS --max-time 5 "$LOCAL" >/tmp/cvm-lnurlp-health.json 2>/dev/null; then
   echo "   service unhealthy; journal:" >&2
