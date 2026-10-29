@@ -1,0 +1,31 @@
+# Customer API on x280 — public through the FIPS exit node.
+# The secrets resolve from OpenBao via ~/.hermes/openbao/env; this file carries
+# only non-secret configuration. Loopback remains the default for dev.
+[Unit]
+Description=CVM customer API (sats food order, x280)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=c08r4d0r
+Group=c08r4d0r
+WorkingDirectory=/home/c08r4d0r/repos/contextvm-services/services/restaurant-cvm
+Environment=PATH=/home/c08r4d0r/.local/bin:/usr/local/bin:/usr/bin:/bin
+EnvironmentFile=/etc/cvm/customer-api.env
+ExecStart=/home/c08r4d0r/.local/bin/deno run --import-map=/etc/cvm/cvm-import-map.json --allow-net=127.0.0.1,2fiat.com,relay.primal.net,[fd79:f451:67b1:8084:2b2a:5b1e:9110:26d0]:8200,[fd36:3c0f:d6f:8029:ea50:958b:672e:bb0]:8793 --allow-env --allow-read=/etc/cvm,/home/c08r4d0r/repos/contextvm-services,/home/c08r4d0r/repos/cvm-service-kit,/home/c08r4d0r/.hermes/openbao src/serve_customer.ts
+Restart=on-failure
+RestartSec=3
+
+# Deno/V8 needs writable+executable JIT pages. Do NOT add
+# MemoryDenyWriteExecute=yes here; the vps2fips template had it and would crash.
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/tmp
+CapabilityBoundingSet=
+LockPersonality=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+
+[Install]
+WantedBy=multi-user.target

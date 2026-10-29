@@ -1,0 +1,6 @@
+{
+  "imports": {
+    "nostr-tools": "npm:nostr-tools@2.10.4",
+    "nostr-tools/relay": "npm:nostr-tools@2.10.4/relay"
+  }
+}
