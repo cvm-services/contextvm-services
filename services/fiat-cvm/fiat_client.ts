@@ -264,6 +264,11 @@ export class FiatClient {
     cardId: string,
     body: { topupValue: string; selectedMethod: "BTC-LN" },
   ): Promise<{ amount?: string; checkoutLink?: string; checkout?: unknown }> {
+    // COLD-PROCESS 401 (measured 2026-10-29): the settlement path calls this
+    // before cards(), so without ensureSession() the request went out with no
+    // session cookie and 2fiat answered 401 Unauthorized. Never rely on the
+    // caller having warmed the session.
+    await this.ensureSession();
     const res = await this.#request(
       `prepaid-cards/topup/${encodeURIComponent(cardId)}`,
       { method: "POST", headers: this.#headers(), body: JSON.stringify(body) },
@@ -355,6 +360,8 @@ export class FiatClient {
    * This is why "3DS blocks automation" was wrong: the code is machine-readable.
    */
   async requestOtp(cardId: string): Promise<Record<string, unknown>> {
+    // Same cold-session rule as requestTopup/requestCardDetails.
+    await this.ensureSession();
     const res = await this.#request(
       `prepaid-cards/details/${encodeURIComponent(cardId)}/otp`,
       { headers: this.#headers() },

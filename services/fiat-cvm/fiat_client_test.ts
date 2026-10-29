@@ -212,6 +212,44 @@ Deno.test("requestCardDetails authenticates before its first request", async () 
   }
 });
 
+// --- requestTopup must warm the session too -------------------------------
+// MEASURED 2026-10-29: the settlement path calls requestTopup before cards(),
+// so a cold FiatClient sent no session cookie and 2fiat answered 401
+// Unauthorized. The order failed with a 502 before any invoice existed.
+Deno.test("requestTopup authenticates before its first request", async () => {
+  const calls: string[] = [];
+  const fetchImpl = (input: string | URL | Request, init?: RequestInit) => {
+    const url = String(input);
+    calls.push(url);
+    if (url.includes("auth/exchange")) {
+      return Promise.resolve(new Response(JSON.stringify({ ok: true }), {
+        status: 200,
+        headers: { "set-cookie": "sid=abc; Path=/", "content-type": "application/json" },
+      }));
+    }
+    if (url.includes("prepaid-cards/topup/")) {
+      const ok = new Headers(init?.headers as HeadersInit).get("cookie") === "sid=abc";
+      return Promise.resolve(new Response(
+        ok ? JSON.stringify({ amount: "5.33", checkoutLink: "https://2fiat.test/pay/i/x" })
+           : JSON.stringify({ error: "Unauthorized" }),
+        { status: ok ? 200 : 401, headers: { "content-type": "application/json" } },
+      ));
+    }
+    return Promise.resolve(new Response("{}", { status: 404 }));
+  };
+  const c = new FiatClient({
+    token: "t", fetchImpl: fetchImpl as unknown as typeof fetch, timeoutMs: 5000,
+  });
+  // COLD call: no cards() first.
+  const r = await c.requestTopup("card1", { topupValue: "5.00", selectedMethod: "BTC-LN" });
+  assertEquals(r.amount, "5.33");
+  const iAuth = calls.findIndex((u) => u.includes("auth/exchange"));
+  const iTopup = calls.findIndex((u) => u.includes("prepaid-cards/topup/"));
+  if (iAuth < 0 || iAuth > iTopup) {
+    throw new Error(`auth did not precede topup: ${JSON.stringify(calls.map((u) => u.split("/api/v1/")[1] ?? u))}`);
+  }
+});
+
 // --- the provider's ledger is the only spend authority ---------------------
 // Written because a spend COULD NOT BE RECONCILED: one $1 top-up left the
 // treasury 2,667 sats lighter against a 1,334-sat invoice, and nothing in the
