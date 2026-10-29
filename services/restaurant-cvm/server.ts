@@ -480,6 +480,22 @@ export async function buildIndex(filter?: string[]): Promise<VenueIndex> {
 
 export const TOOL_DEFS: McpToolDef[] = [
   {
+    name: "checkout",
+    description:
+      "Start the assisted venue checkout for a PAID order. Drives a real browser on the facilitator host, fills the item/contact/card/address form, and returns a noVNC URL where a human solves the captcha (and 3-D Secure if it appears). Requires a signature from an allowlisted facilitator key; the session API holds the card, never this server.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        order_id: {
+          type: "string",
+          description: "The paid LNURLP order id (from the facilitator queue).",
+        },
+      },
+      required: ["order_id"],
+      additionalProperties: false,
+    },
+  },
+  {
     name: "menu",
     description:
       "Return the full menu for all announced venues. Each item carries sku, name, prices_by_order_method, available, and allergens.",
@@ -852,13 +868,76 @@ function handleOrder(index: VenueIndex, args: Record<string, unknown>): McpToolR
   });
 }
 
-export function handleToolCall(
+/** The verified signer of the CVM request. Never a claimed inner pubkey. */
+export interface CallerIdentity {
+  pubkey: string;
+}
+
+/**
+ * Start the browser checkout through the local session API.
+ *
+ * This spends money at the venue with the facilitator's card, so the caller's
+ * *verified* pubkey must be in the allowlist. A CVM request is signed; the
+ * relay layer resolves and verifies it and hands it here. If identity is
+ * missing we refuse rather than falling back to "anyone on the relay".
+ */
+export async function startCheckout(
+  args: Record<string, unknown>,
+  identity?: CallerIdentity,
+  fetchImpl: typeof fetch = fetch,
+): Promise<McpToolResult> {
+  const base = (Deno.env.get("CVM_SESSION_API") ?? "").replace(/\/+$/, "");
+  const token = (Deno.env.get("CVM_SESSION_TOKEN") ?? "").trim();
+  const allowed = new Set(
+    (Deno.env.get("CVM_FACILITATOR_NPUBS") ?? "")
+      .split(/[,\s]+/).map((v) => v.trim().toLowerCase()).filter(Boolean),
+  );
+  if (!base || !token) return toolError("assisted checkout is not configured on this venue");
+  if (!identity?.pubkey) return toolError("checkout requires a signed request");
+  if (allowed.size === 0) return toolError("no facilitator is allowed to start a checkout");
+  if (!allowed.has(identity.pubkey.toLowerCase())) {
+    return toolError("this key is not an allowed facilitator");
+  }
+  const orderId = String(args.order_id ?? "").trim();
+  if (!/^[A-Za-z0-9._:-]{1,64}$/.test(orderId)) {
+    return toolError("order_id is required");
+  }
+  let res: Response;
+  try {
+    res = await fetchImpl(`${base}/sessions`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ order_id: orderId }),
+    });
+  } catch (e) {
+    return toolError(`session API unreachable: ${(e as Error).message}`);
+  }
+  const body = await res.json().catch(() => ({})) as Record<string, unknown>;
+  if (!res.ok) {
+    const why = String(body.error ?? body.detail ?? "").slice(0, 200);
+    return toolError(`session API HTTP ${res.status}${why ? `: ${why}` : ""}`);
+  }
+  return toolOk({
+    order_id: orderId,
+    session_id: body.session_id,
+    state: body.state,
+    novnc_url: body.novnc_url,
+    expires_at: body.expires_at,
+  });
+}
+
+export async function handleToolCall(
   index: VenueIndex,
   name: string,
   args: Record<string, unknown> = {},
-): McpToolResult {
+  identity?: CallerIdentity,
+): Promise<McpToolResult> {
   if (name === "menu") return handleMenu(index, args);
   if (name === "order") return handleOrder(index, args);
+  if (name === "checkout") return await startCheckout(args, identity);
   return toolError(`unknown tool: ${name}`);
 }
 
@@ -883,6 +962,7 @@ export interface McpResponse {
 export async function handleMcpMessage(
   index: VenueIndex,
   message: McpRequest,
+  identity?: CallerIdentity,
 ): Promise<McpResponse | null> {
   const { method, id } = message;
 
@@ -916,7 +996,7 @@ export async function handleMcpMessage(
   if (method === "tools/call") {
     const toolName = String(message.params?.name ?? "");
     const args = (message.params?.arguments ?? {}) as Record<string, unknown>;
-    const result = handleToolCall(index, toolName, args);
+    const result = await handleToolCall(index, toolName, args, identity);
     return {
       jsonrpc: "2.0",
       id,
@@ -1148,7 +1228,9 @@ export async function serve(options: ServeOptions): Promise<() => void> {
               }
               const clientPubkey = identity.pubkey;
 
-              const response = await handleMcpMessage(index, mcpMessage);
+              const response = await handleMcpMessage(index, mcpMessage, {
+                pubkey: clientPubkey,
+              });
               if (response) {
                 await sendResponse(response, clientPubkey);
               }
