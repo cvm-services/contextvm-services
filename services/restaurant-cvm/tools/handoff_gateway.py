@@ -1,252 +1,245 @@
 #!/usr/bin/env python3
-"""Handoff gateway: token-authed HTTP entrypoint for the facilitator captcha
-handoff (ADR-0017).
+"""handoff_gateway.py — token-scoped noVNC door for one captcha session.
 
-WHY
-The PWA's Caddy runs on testserver2 and cannot map a one-time token to an
-ephemeral websockify port (that mapping lives with the SessionManager on this
-box). Instead of pushing state to the VPS, the gateway IS the mapping: Caddy
-proxies the whole /handoff/* subtree to this service on the FIPS mesh
-(x280.fips:49100), which:
+Why this exists
+  `captcha_session.py` starts Xvfb + x11vnc + websockify on loopback/FIPS, but
+  websockify has no notion of "which order is this". This gateway is the missing
+  public surface: a 32-byte token in the path selects exactly one live websockify
+  port, serves the noVNC client, and proxies the WebSocket. When the session is
+  torn down its token disappears from the map and the URL stops working.
 
-  GET  /handoff/<token>/          -> noVNC HTML (bundled, from /usr/share/novnc)
-  GET  /handoff/<token>/app/...   -> noVNC static assets
-  WS   /handoff/<token>/websockify -> live VNC session (token -> ws_port)
+Routes (prefix is configurable):
+  GET /venue/view/<token>/                     -> redirect to vnc.html
+  GET /venue/view/<token>/<static file>        -> /usr/share/novnc/<file>
+  GET /venue/view/<token>/websockify           -> raw WebSocket proxy
+  GET /health                                  -> {ok, sessions}
 
-SECURITY
-- Token is the SessionManager's one-time urlsafe token; unknown/expired token
-  -> 404 after a constant-time comparison against all live tokens.
-- Listens on the FIPS mesh address only (default), so the public surface is
-  Caddy's TLS + this token check.
-- No card values, no order data: pixels in, clicks out.
-
-RUN
-  python3 handoff_gateway.py [--listen fd36:...|--listen 127.0.0.1] [--port 49100]
-  The gateway reads session state via the SessionManager's runtime dir
-  (/tmp/captcha-vnc/handoff.json written by spawn()).
+Security
+  * tokens are 32 random bytes, compared in constant time;
+  * only the token's mapped port is reachable — no port is user-controlled;
+  * static paths are resolved under the noVNC root and traversal is refused;
+  * bind on the FIPS mesh; the nft rule admits only the Caddy exit node.
 """
-
 from __future__ import annotations
 
-import argparse
+import asyncio
 import hmac
 import json
+import mimetypes
 import os
-import re
-import socket
-import threading
-from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+import sys
+import time
+from pathlib import Path
+from urllib.parse import unquote, urlparse
 
-NOVNC_ROOT = "/usr/share/novnc"
-TOKEN_RE = re.compile(r"^/handoff/([A-Za-z0-9_\-]{20,})/(.*)$")
-STATE_FILE = "/tmp/captcha-vnc/handoff.json"
-MIME = {
-    ".html": "text/html; charset=utf-8",
-    ".js": "application/javascript; charset=utf-8",
-    ".css": "text/css; charset=utf-8",
-    ".png": "image/png",
-    ".svg": "image/svg+xml",
-    ".json": "application/json",
-    ".woff2": "font/woff2",
-}
+BIND = os.environ.get("GATEWAY_BIND", "127.0.0.1")
+PORT = int(os.environ.get("GATEWAY_PORT", "8097"))
+PREFIX = os.environ.get("GATEWAY_PREFIX", "/venue/view/").rstrip("/") + "/"
+HANDOFF = Path(os.environ.get("GATEWAY_HANDOFF", "/tmp/captcha-vnc/handoff.json"))
+NOVNC = Path(os.environ.get("GATEWAY_NOVNC", "/usr/share/novnc"))
+MAX_HEAD = 64 * 1024
 
 
-def load_sessions() -> dict:
-    """token -> {ws_port, order_id}. Written by the session manager."""
+def load_handoff(path: Path = HANDOFF) -> dict:
     try:
-        with open(STATE_FILE) as f:
-            return json.load(f)
-    except (OSError, json.JSONDecodeError):
+        data = json.loads(path.read_text())
+    except (OSError, ValueError):
         return {}
+    if not isinstance(data, dict):
+        return {}
+    return {k: v for k, v in data.items()
+            if isinstance(v, dict) and isinstance(v.get("ws_port"), int)}
 
 
-class HandoffHandler(BaseHTTPRequestHandler):
-    protocol_version = "HTTP/1.1"
-    server_version = "handoff-gateway/1.0"
+def find_session(token: str, handoff: dict) -> dict | None:
+    if not token:
+        return None
+    # Constant-time compare across the live tokens: a short-circuiting dict
+    # lookup is fine for a random 32-byte key, but this also denies timing
+    # oracles if a token is ever shortened by a caller.
+    for known, rec in handoff.items():
+        if hmac.compare_digest(token, known):
+            return rec
+    return None
 
-    # ---- helpers -----------------------------------------------------------
 
-    def _send(self, code: int, body: bytes, ctype: str, extra=None):
-        self.send_response(code)
-        self.send_header("Content-Type", ctype)
-        self.send_header("Content-Length", str(len(body)))
-        self.send_header("Cache-Control", "no-store")
-        for k, v in (extra or {}).items():
-            self.send_header(k, v)
-        self.end_headers()
-        if body:
-            self.wfile.write(body)
+def parse_view_path(path: str, prefix: str = PREFIX) -> tuple[str, str] | None:
+    """Split /venue/view/<token>/<rest> -> (token, rest). None if not a view."""
+    if not path.startswith(prefix):
+        return None
+    tail = path[len(prefix):]
+    token, _, rest = tail.partition("/")
+    if not token:
+        return None
+    return token, rest
 
-    def _not_found(self):
-        self._send(404, b"not found", "text/plain")
 
-    def _check_token(self, token: str):
-        """Constant-time token check against live sessions."""
-        sessions = load_sessions()
-        match = None
-        for tok, info in sessions.items():
-            if hmac.compare_digest(tok, token):
-                match = info
-                break
-        return match
+def resolve_static(root: Path, rel: str) -> Path | None:
+    """Resolve a static file under root; refuse traversal and directories."""
+    rel = unquote(rel or "vnc.html")
+    if rel in ("", "/"):
+        rel = "vnc.html"
+    candidate = (root / rel.lstrip("/")).resolve()
+    try:
+        candidate.relative_to(root.resolve())
+    except ValueError:
+        return None
+    if candidate.is_dir():
+        candidate = candidate / "index.html"
+    return candidate if candidate.is_file() else None
 
-    def log_message(self, format, *args):
-        # keep the mesh logs quiet; health endpoint shows state
+
+def _redirect(token: str) -> bytes:
+    target = (f"{PREFIX}{token}/vnc.html?autoconnect=1&resize=scale"
+              f"&path={PREFIX}{token}/websockify")
+    return (f"HTTP/1.1 302 Found\r\nLocation: {target}\r\n"
+            "Cache-Control: no-store\r\nContent-Length: 0\r\n\r\n").encode()
+
+
+async def _read_head(reader: asyncio.StreamReader) -> bytes:
+    try:
+        return await reader.readuntil(b"\r\n\r\n")
+    except (asyncio.IncompleteReadError, asyncio.LimitOverrunError) as exc:
+        raise ConnectionError("bad request head") from exc
+
+
+def _first_line(head: bytes) -> tuple[str, str]:
+    line = head.split(b"\r\n", 1)[0].decode("latin-1")
+    parts = line.split(" ")
+    if len(parts) < 2:
+        raise ConnectionError("bad request line")
+    return parts[0].upper(), parts[1]
+
+
+def _header(head: bytes, name: str) -> str:
+    want = name.lower() + ":"
+    for line in head.split(b"\r\n")[1:]:
+        if b":" not in line:
+            continue
+        k, v = line.split(b":", 1)
+        if k.decode("latin-1").strip().lower() + ":" == want:
+            return v.decode("latin-1").strip()
+    return ""
+
+
+async def _serve_static(writer: asyncio.StreamWriter, file: Path) -> None:
+    body = file.read_bytes()
+    ctype = mimetypes.guess_type(str(file))[0] or "application/octet-stream"
+    if file.suffix == ".js":
+        ctype = "text/javascript"
+    head = (
+        "HTTP/1.1 200 OK\r\n"
+        f"Content-Type: {ctype}\r\n"
+        f"Content-Length: {len(body)}\r\n"
+        "Cache-Control: no-store\r\n"
+        "X-Content-Type-Options: nosniff\r\n\r\n"
+    ).encode()
+    writer.write(head + body)
+    await writer.drain()
+
+
+async def _proxy(reader: asyncio.StreamReader, writer: asyncio.StreamWriter,
+                 head: bytes, host: str, port: int) -> None:
+    up_r, up_w = await asyncio.open_connection(host, port)
+    # Rewrite only the request target; websockify accepts any path.
+    lines = head.split(b"\r\n")
+    try:
+        _, target = _first_line(head)
+        lines[0] = f"GET /{urlparse(target).path.rsplit('/', 1)[-1]} HTTP/1.1".encode()
+    except ConnectionError:
         pass
+    up_w.write(b"\r\n".join(lines))
+    await up_w.drain()
 
-    # ---- routes ------------------------------------------------------------
-
-    def do_GET(self):
-        m = TOKEN_RE.match(self.path)
-        if not m:
-            return self._not_found()
-        token, rest = m.groups()
-
-        # health probe (no token): used by monitoring on the mesh
-        if rest == "health" and token == "healthz":
-            body = json.dumps({"sessions": len(load_sessions())}).encode()
-            return self._send(200, body, "application/json")
-
-        info = self._check_token(token)
-        if not info:
-            return self._not_found()
-
-        # websockify path -> raw TCP bridge (websockify speaks WS itself)
-        if rest == "websockify":
-            return self._bridge(info)
-
-        if rest == "" or rest == "index.html":
-            page = self.novnc_page(token)
-            return self._send(200, page.encode(), "text/html; charset=utf-8")
-        if rest == "vnc.html":
-            page = self.novnc_page(token)
-            return self._send(200, page.encode(), "text/html; charset=utf-8")
-
-        # static noVNC assets: serve from the package, no traversal
-        asset = os.path.normpath(os.path.join(NOVNC_ROOT, rest))
-        if not asset.startswith(NOVNC_ROOT):
-            return self._not_found()
+    async def pump(src, dst):
         try:
-            with open(asset, "rb") as f:
-                body = f.read()
-        except OSError:
-            return self._not_found()
-        ctype = MIME.get(os.path.splitext(asset)[1], "application/octet-stream")
-        return self._send(200, body, ctype)
-
-    def do_POST(self):
-        # WebSocket upgrade arrives as GET; POST = tunnel fallback (not used)
-        return self._send(405, b"method not allowed", "text/plain")
-
-    # ---- the raw TCP proxy ----------------------------------------------
-    # The gateway does NOT implement websocket. websockify IS a websocket
-    # server; the browser does its WS handshake WITH websockify through this
-    # pipe. Our job: token check, then raw byte relay (both directions).
-
-    def _bridge(self, info):
-        """Relay this connection's raw bytes to websockify (and back)."""
-        try:
-            family = (socket.AF_INET6
-                      if ":" in info.get("ws_host", "127.0.0.1")
-                      else socket.AF_INET)
-            up = socket.socket(family)
-            up.settimeout(10)
-            up.connect((info.get("ws_host", "127.0.0.1"), info["ws_port"]))
-        except OSError:
-            try:
-                self._send(502, b"session unavailable", "text/plain")
-            except OSError:
-                pass
-            return
-        up.settimeout(None)
-        self.connection.settimeout(None)
-
-        # Forward any request bytes the handler already buffered (the
-        # browser's websocket handshake starts immediately after headers).
-        try:
-            buffered = self.rfile.peek(4096)
-            if buffered:
-                self.rfile.read(len(buffered))
-                up.sendall(buffered)
-        except (OSError, AttributeError):
+            while True:
+                chunk = await src.read(65536)
+                if not chunk:
+                    break
+                dst.write(chunk)
+                await dst.drain()
+        except (ConnectionError, asyncio.CancelledError):
             pass
 
-        def pump(a, b):
-            try:
-                while True:
-                    data = a.recv(65536)
-                    if not data:
-                        break
-                    b.sendall(data)
-            except OSError:
-                pass
-            finally:
-                try:
-                    b.shutdown(socket.SHUT_RDWR)
-                except OSError:
-                    pass
-
-        t1 = threading.Thread(target=pump, args=(self.connection, up), daemon=True)
-        t2 = threading.Thread(target=pump, args=(up, self.connection), daemon=True)
-        t1.start()
-        t2.start()
-        t1.join()
-        t2.join()
-        up.close()
-        self.close_connection = True
-
-    def do_HEAD(self):
-        return self.do_GET()
-
-    # NOTE: BaseHTTPRequestHandler dispatches WebSocket upgrades as GET with
-    # 'Upgrade: websocket'. Route them in do_GET.
-    def novnc_page(self, token: str) -> str:
-        """Minimal noVNC host page bound to this token."""
-        return f"""<!doctype html>
-<html lang="de">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Bestellung verifizieren</title>
-<script type="module">
-  import {{ RFB }} from "/handoff/{token}/core/rfb.js";
-  const wsUrl = (location.protocol === "https:" ? "wss://" : "ws://")
-    + location.host + "/handoff/{token}/websockify";
-  const rfb = new RFB(document.body, wsUrl, {{
-    credentials: {{ password: "" }}
-  }});
-  rfb.scaleViewport = true;
-</script>
-<style>
-  html,body {{ margin:0; height:100%; background:#111; overflow:hidden }}
-</style>
-</head>
-<body>
-<div id="bar" style="position:fixed;top:0;left:0;right:0;background:#222;
-     color:#eee;font:13px/1.4 system-ui;padding:6px 10px;z-index:9">
-  Bestellung: löse die Aufgabe im Bildschirm, dann schließe die Seite.
-  Die Zahlung läuft danach automatisch weiter.
-</div>
-</body>
-</html>"""
+    await asyncio.gather(pump(reader, up_w), pump(up_r, writer))
+    for w in (up_w, writer):
+        try:
+            w.close()
+        except Exception:
+            pass
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--listen", default=os.environ.get("HANDOFF_LISTEN", "127.0.0.1"))
-    ap.add_argument("--port", type=int,
-                    default=int(os.environ.get("HANDOFF_PORT", "49100")))
-    args = ap.parse_args()
+async def handle(reader: asyncio.StreamReader, writer: asyncio.StreamWriter) -> None:
+    try:
+        head = await _read_head(reader)
+        method, target = _first_line(head)
+        path = unquote(urlparse(target).path)
 
-    class GatewayServer(ThreadingHTTPServer):
-        address_family = (socket.AF_INET6 if ":" in args.listen
-                          else socket.AF_INET)
-        daemon_threads = True
+        if path == "/health":
+            body = json.dumps({"ok": True, "sessions": len(load_handoff())}).encode()
+            writer.write(b"HTTP/1.1 200 OK\r\ncontent-type: application/json\r\n"
+                         + f"content-length: {len(body)}\r\n\r\n".encode() + body)
+            await writer.drain()
+            return
 
-    srv = GatewayServer((args.listen, args.port), HandoffHandler)
-    print(f"handoff gateway on [{args.listen}]:{args.port}", flush=True)
-    srv.serve_forever()
+        parsed = parse_view_path(path)
+        if not parsed:
+            body = b"not found"
+            writer.write(b"HTTP/1.1 404 Not Found\r\ncontent-length: 9\r\n\r\n" + body)
+            await writer.drain()
+            return
+        token, rest = parsed
+        rec = find_session(token, load_handoff())
+        if not rec:
+            body = b"session expired"
+            writer.write(b"HTTP/1.1 404 Not Found\r\ncontent-length: 15\r\n\r\n" + body)
+            await writer.drain()
+            return
+
+        if method == "GET" and rest in ("", "/"):
+            writer.write(_redirect(token))
+            await writer.drain()
+            return
+
+        if rest == "websockify":
+            await _proxy(reader, writer, head,
+                         str(rec.get("ws_host") or "127.0.0.1"),
+                         int(rec["ws_port"]))
+            return
+
+        file = resolve_static(NOVNC, rest)
+        if not file:
+            body = b"not found"
+            writer.write(b"HTTP/1.1 404 Not Found\r\ncontent-length: 9\r\n\r\n" + body)
+            await writer.drain()
+            return
+        await _serve_static(writer, file)
+    except (ConnectionError, OSError):
+        pass
+    finally:
+        try:
+            writer.close()
+            await writer.wait_closed()
+        except Exception:
+            pass
+
+
+async def main() -> None:
+    if not NOVNC.is_dir():
+        print(json.dumps({"fatal": "novnc_missing", "path": str(NOVNC)}),
+              file=sys.stderr)
+        raise SystemExit(2)
+    server = await asyncio.start_server(handle, BIND, PORT)
+    print(json.dumps({"listening": PORT, "bind": BIND, "prefix": PREFIX,
+                      "novnc": str(NOVNC), "handoff": str(HANDOFF),
+                      "sessions": len(load_handoff())}), file=sys.stderr)
+    async with server:
+        await server.serve_forever()
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        pass
