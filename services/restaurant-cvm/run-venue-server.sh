@@ -13,7 +13,10 @@
 #                          (absent/empty => ALL venues)
 set -euo pipefail
 
-cd "$(dirname "$0")/../.."
+# Canonical root: this repo is a symlink on x280, and Deno compares real
+# paths. Granting read on the symlink path made every venue server crash.
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd -P)"
+cd "$ROOT"
 
 KEY_FILE="${VENUE_SERVER_KEY_FILE:-$HOME/.hermes/secrets/venues/doppelt-kaese-berlin.nsec}"
 RELAYS="${VENUE_SERVER_RELAYS:-wss://relay2.orangesync.tech,wss://relay.primal.net}"
