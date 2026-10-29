@@ -19,8 +19,10 @@ import { assertRailAllowed, isEvidenceBearing, type RailPurpose } from "./rail_g
 import { loadSecret } from "./secret.ts";
 import { buildRail, readRailConfig } from "./rail_wiring.ts";
 import { FiatClient } from "../../fiat-cvm/fiat_client.ts";
+import { readListenHost } from "./listen.ts";
 
 const PORT = Number(Deno.env.get("CVM_CUSTOMER_PORT") ?? "8793");
+const HOST = readListenHost((n) => Deno.env.get(n));
 const RAIL_URL = Deno.env.get("CVM_RAIL_URL") ?? "";
 const RAIL_PURPOSE = (Deno.env.get("CVM_RAIL_PURPOSE") ?? "ok") as RailPurpose | "ok";
 
@@ -143,6 +145,7 @@ const handler = createCustomerApi({
 
 console.log(JSON.stringify({
   listening: PORT,
+  listening_host: HOST,
   menu_items: menu.length,
   rail_evidence_bearing: isEvidenceBearing(RAIL_URL),
   nwc_configured: Boolean(nwcUrl),
@@ -152,4 +155,4 @@ console.log(JSON.stringify({
   card: railCfg.card_id.slice(0, 8),
 }));
 
-Deno.serve({ port: PORT, hostname: "127.0.0.1" }, handler);
+Deno.serve({ port: PORT, hostname: HOST }, handler);

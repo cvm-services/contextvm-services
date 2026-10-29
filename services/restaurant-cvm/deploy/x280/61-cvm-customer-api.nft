@@ -1,0 +1,4 @@
+# Managed by contextvm-services/services/restaurant-cvm/deploy/x280/install.sh.
+# Source-scoped: only the FIPS exit node (testserver2) may reach the customer
+# API over the mesh. The rest of the mesh stays default-deny.
+ip6 saddr fdfd:c0e5:3717:6cb1:bb60:de97:987e:7149 tcp dport 8793 ct state new accept
