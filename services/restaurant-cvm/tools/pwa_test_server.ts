@@ -156,6 +156,13 @@ Deno.serve({ port: PORT, hostname: "127.0.0.1" }, async (req) => {
   if (url.pathname === "/web/customer.html") {
     return html(await Deno.readTextFile(new URL("customer.html", WEB)));
   }
+  if (url.pathname === "/web/vendor/qr.js") {
+    // customer.html is served under /web/, so its relative ./vendor/qr.js
+    // resolves here. The production path is /order-next/vendor/qr.js.
+    return new Response(await Deno.readTextFile(new URL("vendor/qr.js", WEB)), {
+      headers: { "content-type": "text/javascript; charset=utf-8" },
+    });
+  }
   if (url.pathname === "/mock-vnc") {
     const sid = url.searchParams.get("session") ?? "";
     return html(
