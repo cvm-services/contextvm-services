@@ -1,0 +1,27 @@
+[Unit]
+Description=CVM customer API (facilitator LNURLP, Option A)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=cvm
+Group=cvm
+WorkingDirectory=/opt/cvm/services/restaurant-cvm
+Environment=HOME=/tmp
+EnvironmentFile=/etc/cvm/customer-api.env
+ExecStart=/usr/local/bin/deno run --allow-net=127.0.0.1,cvm-pwa.orangesync.tech,[fd36:3c0f:d6f:8029:ea50:958b:672e:bb0]:8793 --allow-env --allow-read=/etc/cvm,/opt/cvm src/serve_customer_lnurlp.ts
+Restart=on-failure
+RestartSec=3
+
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/tmp
+CapabilityBoundingSet=
+LockPersonality=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+
+[Install]
+WantedBy=multi-user.target

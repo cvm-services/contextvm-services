@@ -81,15 +81,13 @@
 
     <div id="warnBox" class="warn" hidden></div>
 
-    <button class="primary wide" id="treasury" hidden>Pay from treasury</button>
-
     <div class="inv" id="invoice">—</div>
 
-    <details class="selfpay" id="selfpay">
-      <summary>Pay from your own wallet instead</summary>
+    <details class="selfpay" id="selfpay" open>
+      <summary>Pay with your Lightning wallet</summary>
       <div class="warn">
-        Only use this if the treasury will not pay. The invoice is single-use;
-        paying it here prevents the treasury from paying it.
+        Pay this invoice from your own wallet. The facilitator will place the
+        order and confirm it here. The invoice is single-use.
       </div>
       <div style="display:flex;justify-content:center;margin:12px 0">
         <canvas id="qr" width="220" height="220" style="background:#fff;border-radius:10px;padding:8px"></canvas>
@@ -119,7 +117,6 @@ const API = window.__API__ || "";
 let basket = new Map();   // id -> qty
 let order = null;
 let poll = null;
-let paying = false;
 
 const $ = (id) => document.getElementById(id);
 const fmt = (n) => n.toLocaleString("en-US") + " sats";
@@ -182,16 +179,10 @@ function setState(kind, text, warnHtml) {
   if (warnHtml) { w.hidden = false; w.innerHTML = warnHtml; } else { w.hidden = true; w.innerHTML = ""; }
 }
 
-function showTreasury(show) {
-  const b = $("treasury");
-  b.hidden = !show;
-  b.disabled = !show || paying;
-}
-
 function priceHint() {
   if (!order) return "";
   const est = order.estimate_sats;
-  return order.price_source === "invoice" && est && est !== order.sats
+  return est && est !== order.sats
     ? `Final price ${fmt(order.sats)} — the menu estimated ${fmt(est)}`
     : `Total ${fmt(order.sats)}`;
 }
@@ -199,7 +190,6 @@ function priceHint() {
 function applyState(s) {
   // Single source of truth: the server's state string.
   if (s.state === "paid") {
-    showTreasury(false);
     // PAID IS NOT CONFIRMED. If the venue has not acknowledged yet, keep polling:
     // stopping here was a real bug - the screen said "paid" forever and never
     // learned that the restaurant accepted (or rejected) the order.
@@ -212,7 +202,6 @@ function applyState(s) {
       $("footHint").textContent = "Waiting for the venue to accept the order.";
     }
   } else if (s.state === "outcome_unknown" || s.state === "paying") {
-    showTreasury(false);
     setState("idle", "We are checking your payment…",
       "<b>Do not pay again.</b> Your payment may have gone through. " +
       "Paying a second invoice would charge you twice — we will resolve this before anything else.");
@@ -220,23 +209,19 @@ function applyState(s) {
   } else if (s.state === "failed") {
     setState("bad", "That payment did not go through.",
       "It is safe to try again — the network did not accept the payment.");
-    showTreasury(Boolean(order?.bolt11));
     $("footHint").textContent = priceHint();
   } else if (s.state === "refunded") {
-    showTreasury(false);
     setState("bad", "Refunded.", "You have been made whole.");
     stopPoll();
   } else if (s.state === "invoiced") {
-    setState("ready", "Invoice ready — pay from the treasury when you are ready.");
-    showTreasury(Boolean(order?.bolt11));
+    setState("ready", "Invoice ready — pay with your Lightning wallet.");
+    $("selfpay").open = true;
     $("footHint").textContent = priceHint();
   } else if (s.state === "created") {
     setState("idle", "Creating your invoice…");
-    showTreasury(false);
     $("footHint").textContent = "";
   } else {
     setState("idle", "Waiting for payment…");
-    showTreasury(Boolean(order?.bolt11));
     $("footHint").textContent = priceHint();
   }
 }
@@ -246,12 +231,10 @@ function stopPoll() { if (poll) { clearInterval(poll); poll = null; } }
 async function startOrder() {
   $("sheet").classList.add("open");
   order = null;
-  paying = false;
-  showTreasury(false);
   setState("idle", "Creating your invoice…");
   $("invoice").textContent = "—";
   $("footHint").textContent = "";
-  $("selfpay").open = false;
+  $("selfpay").open = true;
   const items = [...basket].map(([id, qty]) => ({ id, qty }));
   const r = await fetch(API + "/orders", {
     method: "POST", headers: { "content-type": "application/json" },
@@ -277,39 +260,6 @@ async function startOrder() {
   applyState({ state: "invoiced" });
   $("footHint").textContent = priceHint();
 
-  stopPoll();
-  poll = setInterval(refresh, 2000);
-}
-
-/**
- * The only place the treasury spends. Order creation is deliberately free of
- * side effects: the customer/operator sees the invoice and chooses this button.
- */
-async function payFromTreasury() {
-  if (!order?.bolt11 || paying) return;
-  paying = true;
-  $("treasury").disabled = true;
-  setState("idle", "Paying from the treasury…");
-  $("footHint").textContent = "Do not pay the invoice again while this is in flight.";
-  const key = "k_" + crypto.randomUUID();
-  const pr = await fetch(`${API}/orders/${order.order_id}/pay`, {
-    method: "POST", headers: { "content-type": "application/json" },
-    body: JSON.stringify({ key }),
-  });
-  const after = await pr.json().catch(() => ({}));
-  paying = false;
-  if (!pr.ok) {
-    if (after.error === "must_reconcile") {
-      applyState({ state: "outcome_unknown" });
-    } else {
-      applyState({ state: "failed" });
-      const w = $("warnBox");
-      w.hidden = false;
-      w.textContent = `${w.textContent} ${after.detail ?? after.error ?? `HTTP ${pr.status}`}`;
-    }
-  } else {
-    applyState(after);
-  }
   stopPoll();
   poll = setInterval(refresh, 2000);
 }
@@ -354,7 +304,6 @@ $("webln").onclick = async () => {
   try {
     await window.webln.enable();
     await window.webln.sendPayment(order.bolt11);
-    showTreasury(false);
     $("footHint").textContent = "Wallet reports sent — confirming with the network…";
   } catch (e) {
     $("footHint").textContent = "The wallet did not send it. The invoice is still valid.";
@@ -365,18 +314,8 @@ if (window.webln) $("webln").hidden = false;
 
 $("openwallet").onclick = () => {
   // lightning: links are handled by the OS wallet chooser on mobile.
-  showTreasury(false);
   location.href = `lightning:${order?.bolt11 ?? ""}`;
 };
-
-$("treasury").onclick = payFromTreasury;
-$("selfpay").addEventListener("toggle", () => {
-  if ($("selfpay").open) {
-    showTreasury(false);
-  } else if (order && (order.state === "invoiced" || order.state === "failed")) {
-    showTreasury(Boolean(order.bolt11));
-  }
-});
 
 $("pay").onclick = startOrder;
 $("closeSheet").onclick = () => { $("sheet").classList.remove("open"); stopPoll(); };
