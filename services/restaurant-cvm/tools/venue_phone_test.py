@@ -268,38 +268,63 @@ def _run(args):
         # Kartenzahlung and fill a SYNTHETIC Luhn-valid card (4111 1111 1111 1111).
         # A synthetic PAN can never authorize at Adyen — the charge cannot move
         # money. The phone gate is what we are measuring.
-        # Select Kartenzahlung by text when possible (coordinates drift when the
-        # venue changes its layout), then WAIT for the Adyen iframes. A zero-frame
-        # scan is not an empty address form: it means the payment section has not
-        # loaded yet, and proceeding produced a false address-incomplete abort.
-        try:
-            pg.get_by_text("Kartenzahlung", exact=False).first.click(timeout=8000)
-            step("card_method_clicked", via="text")
-        except Exception:
-            pg.mouse.click(445, 267)
-            step("card_method_clicked", via="coords")
-        pg.wait_for_timeout(6000)
-        pay_frames = {}
-        deadline = time.time() + 30
-        while time.time() < deadline:
-            pay_frames = {}
+        # Select Kartenzahlung. The measured row click is the reliable path: a
+        # text click can hit a label without selecting the radio and the Adyen
+        # iframes are then never created. Re-click and wait, and only abort with
+        # evidence (url + visible text) after a full minute.
+        def _scan_pay_frames():
+            found = {}
             for f in pg.frames:
                 if any(h in f.url for h in ("adyen", "checkoutshopper")):
                     try:
                         n = f.evaluate(
                             "() => document.querySelectorAll('input,select,iframe').length")
                         if n > 0:
-                            pay_frames[f.url[:160] + f"|{id(f) % 10000}"] = f
+                            found[f.url[:160] + f"|{id(f) % 10000}"] = f
                     except Exception:
                         continue
-            if pay_frames:
-                break
+            return found
+
+        pg.mouse.click(445, 267)   # Kartenzahlung row (measured)
+        step("card_method_clicked", via="coords")
+        pg.wait_for_timeout(4000)
+        pay_frames = _scan_pay_frames()
+
+        if not pay_frames:
+            # Fallback: click the row/radio by text, once.
+            for sel in ("text=/Kartenzahlung/i", "[role=radio]"):
+                try:
+                    loc = pg.locator(sel).first
+                    if loc.count() > 0:
+                        loc.scroll_into_view_if_needed(timeout=3000)
+                        loc.click(timeout=5000)
+                        step("card_method_clicked", via=sel)
+                        break
+                except Exception:
+                    continue
+
+        deadline = time.time() + 60
+        last_reclick = time.time()
+        while not pay_frames and time.time() < deadline:
             pg.wait_for_timeout(2000)
+            pay_frames = _scan_pay_frames()
+            if not pay_frames and time.time() - last_reclick > 15:
+                try:
+                    pg.mouse.click(445, 267)
+                except Exception:
+                    pass
+                last_reclick = time.time()
         step("pay_frames", n=len(pay_frames))
         if not pay_frames:
+            try:
+                url = pg.url
+                body = (pg.inner_text("body") or "")[:280]
+            except Exception:
+                url, body = "?", "?"
             step("ABORT", code="payment-form-not-loaded",
-                 note="the Adyen payment iframes did not load within 30s; "
-                      "the address fields do not exist yet")
+                 url=url, text=body,
+                 note="the Adyen payment iframes did not load within 60s "
+                      "after selecting Kartenzahlung")
             _snap(pg, path="/tmp/vt-payment-missing.png")
             b.close()
             sys.exit(10)
