@@ -149,12 +149,53 @@ def _run(args):
                     break
             except Exception:
                 pass
+        def _menu_button():
+            for sel in ('button:has-text("Menü Anzeigen")', "text=Menü Anzeigen"):
+                try:
+                    loc = pg.locator(sel).first
+                    if loc.count() > 0:
+                        return loc
+                except Exception:
+                    continue
+            return None
+
         try:
             pg.get_by_role("radio").first.check(timeout=6000)
         except Exception as e:
             step("venue_radio", err=str(e)[:60])
-        btn = pg.get_by_role("button", name="Menü Anzeigen")
-        if "button-disab" in (btn.first.get_attribute("class") or ""):
+        btn = _menu_button()
+        if btn is None:
+            try:
+                text = (pg.inner_text("body") or "")[:120]
+            except Exception:
+                text = "?"
+            step("menu_retry", text=text)
+            pg.reload(wait_until="domcontentloaded", timeout=60000)
+            pg.wait_for_timeout(6000)
+            for lb in ("AKZEPTIEREN", "Accept"):
+                try:
+                    el = pg.query_selector(f"text={lb}")
+                    if el:
+                        el.click(timeout=3000)
+                        pg.wait_for_timeout(2000)
+                        break
+                except Exception:
+                    pass
+            btn = _menu_button()
+        if btn is None:
+            try:
+                text = (pg.inner_text("body") or "")[:260]
+            except Exception:
+                text = "?"
+            step("ABORT", code="menu-not-ready", text=text)
+            _snap(pg, path="/tmp/vt-menu-not-ready.png")
+            b.close()
+            sys.exit(10)
+        try:
+            btn_cls = btn.get_attribute("class", timeout=5000) or ""
+        except Exception:
+            btn_cls = ""
+        if "button-disab" in btn_cls:
             pg.query_selector("text=/Ändern/i").click(timeout=6000)
             pg.wait_for_timeout(4000)
             try:
@@ -178,8 +219,18 @@ def _run(args):
             if w and "button-disab" not in (w.get_attribute("class") or ""):
                 w.click(timeout=8000)
                 pg.wait_for_timeout(7000)
-            btn = pg.get_by_role("button", name="Menü Anzeigen")
-        btn.first.click(timeout=8000)
+            btn = _menu_button() or btn
+        try:
+            btn.click(timeout=8000)
+        except Exception as e:
+            try:
+                text = (pg.inner_text("body") or "")[:200]
+            except Exception:
+                text = "?"
+            step("ABORT", code="menu-click-failed", err=str(e)[:80], text=text)
+            _snap(pg, path="/tmp/vt-menu-click.png")
+            b.close()
+            sys.exit(10)
         pg.wait_for_timeout(8000)
 
         # add the cheap item (row click, proven)
