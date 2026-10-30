@@ -1252,7 +1252,7 @@ def _find_venue_ref(pg):
         candidates.append(txt)
     except Exception:
         pass
-    for pat in (r"(?:Bestellnummer|Order(?:\s*(?:number|no\.?|#))?)[:\s#]*([A-Z0-9][A-Z0-9-]{3,})",
+    for pat in (r"(?:Bestellnummer|Order(?:\s*(?:number|no\.?|#))?)[:\s#]*([A-Z0-9][A-Z0-9-]{3,}|\d{1,6})",
                 r"\b(TG[- ]?\d{3,})\b"):
         for blob in candidates:
             m = _re.search(pat, blob, _re.I)
