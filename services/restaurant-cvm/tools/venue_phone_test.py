@@ -851,7 +851,7 @@ def _start_handoff(args):
     if not base:
         raise SystemExit("--public-base (or CVM_PUBLIC_BASE) is required for --vnc")
     url = (f"{base}/venue/view/{sess.token}/vnc.html?autoconnect=1&resize=scale"
-           f"&path=/venue/view/{sess.token}/websockify")
+           f"&path=venue/view/{sess.token}/websockify")
     rec = {
         "novnc_url": url,
         "expires_at": time.strftime("%Y-%m-%dT%H:%M:%SZ",
