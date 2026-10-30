@@ -41,8 +41,8 @@ T470 = "cobrador"
 INBOX_SQL = ("select ts, peer, body from messages where direction='in' "
              "and ts > ? order by ts desc limit 3")
 TARGET_ITEM = "Capri Sun Kirsche"   # EUR 1.50 — cheapest, no modifiers
-JMP_NUMBER = "8102583253"           # E.164 without '+'
-JMP_DISPLAY = "(810) 258-3253"
+JMP_NUMBER = "8102944652"           # E.164 without '+'
+JMP_DISPLAY = "(810) 294-4652"
 
 R = []
 
@@ -339,9 +339,9 @@ def _run(args):
                 cv = tel.input_value()
                 cd = "".join(ch for ch in cv if ch.isdigit())
                 step("contact_phone_check", value=cv[:24],
-                     ok=cd.endswith("8102583253"),
+                     ok=cd.endswith("8102944652"),
                      us=not cv.strip().startswith("+49"))
-                if not cd.endswith("8102583253"):
+                if not cd.endswith("8102944652"):
                     step("ABORT", code="wrong-contact-phone", value=cv[:24])
                     b.close()
                     sys.exit(11)
@@ -805,7 +805,7 @@ def _run(args):
             for attempt in range(3):
                 ph.click(timeout=6000)
                 ph.fill("")
-                ph.type("+18102583253", delay=70)
+                ph.type("+18102944652", delay=70)
                 pg.wait_for_timeout(700)
                 typed_value = ph.input_value()
                 digits = "".join(ch for ch in typed_value if ch.isdigit())
@@ -831,8 +831,8 @@ def _run(args):
         # to carry the US country code (11 digits, leading 1), or the national
         # number with a US selector plus the request guard below.
         _digits = "".join(ch for ch in (fld_val.get("value") or "") if ch.isdigit())
-        _us_full = _digits == "18102583253"
-        _us_national = _digits == "8102583253" and fld_val.get("country") == "US"
+        _us_full = _digits == "18102944652"
+        _us_national = _digits == "8102944652" and fld_val.get("country") == "US"
         if fld_val.get("country") != "US" or not (_us_full or _us_national):
             step("ABORT", code="wrong-destination",
                  country=fld_val.get("country"), digits=_digits,
@@ -841,7 +841,7 @@ def _run(args):
             _snap(pg, path="/tmp/vt-wrong-number.png")
             b.close()
             sys.exit(11)
-        step("destination_verified", e164="+18102583253",
+        step("destination_verified", e164="+18102944652",
              value=_digits, national_only=not _us_full)
         _snap(pg, path="/tmp/vt-modal-filled.png")
         if not typed_ok:
@@ -867,9 +867,9 @@ def _run(args):
         # The phone is filled and verified, but no code is sent until a human
         # confirms it in the VNC. The session API writes this file when the
         # facilitator presses "Phone verified — send code".
-        set_state("awaiting_confirmation", e164="+18102583253",
+        set_state("awaiting_confirmation", e164="+18102944652",
                   value=_digits, country=fld_val.get("country"))
-        step("phone_ready_for_review", e164="+18102583253",
+        step("phone_ready_for_review", e164="+18102944652",
              value=_digits, country=fld_val.get("country"))
         confirm_file = f"/tmp/cvm-session-{args.session_id or 'manual'}.confirm"
         try:
@@ -929,7 +929,7 @@ def _run(args):
                     german = ("+49" in blob or "0049" in blob
                               or _re.search(r'"country(Code|_code)?"\s*:\s*"(de|DE|49)"', blob)
                               or _re.search(r'(?<!\d)49\d{8,}', blob))
-                    if german and "18102583253" not in blob:
+                    if german and "18102944652" not in blob:
                         blocked["bad"] = {"url": request.url[:140], "body": blob[:180]}
                         route.abort()
                         return
