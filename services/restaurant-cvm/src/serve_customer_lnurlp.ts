@@ -7,6 +7,7 @@
  *
  *   POST /orders        -> create a LNURLP invoice for the customer price
  *   GET  /orders/:id    -> pending/paid/confirmed from the LNURLP ledger
+ *   POST /orders/:id/check -> force one payment check (the customer button)
  *   GET  /menu          -> the server-priced menu
  *   POST /orders/:id/pay -> 409: the customer pays the BOLT11, not this service
  */
@@ -191,13 +192,42 @@ export function createHandler(opts: {
       } catch (e) {
         return json(502, { error: "order_status_failed", detail: String((e as Error)?.message ?? e) });
       }
-      const state = row.status === "paid" ? "paid" : "invoiced";
+      const state = row.status === "paid" ? "paid"
+        : row.status === "expired" ? "expired" : "invoiced";
       return json(200, {
         order_id: row.order_id,
         state,
         sats: row.sats,
         venue_ref: row.venue_ref ?? null,
         paid_at: row.paid_at ?? null,
+        can_pay: false,
+        must_not_repay: false,
+      });
+    }
+    const check = /^\/orders\/([A-Za-z0-9._:-]{1,64})\/check$/.exec(path);
+    if (check && req.method === "POST") {
+      let row: any;
+      try {
+        row = await lnurlp(
+          base, token,
+          `/orders/${encodeURIComponent(check[1])}/claim`,
+          { method: "POST" }, fetchImpl,
+        );
+      } catch (e) {
+        return json(502, {
+          error: "check_failed",
+          detail: String((e as Error)?.message ?? e),
+        });
+      }
+      const state = row.status === "paid" ? "paid"
+        : row.status === "expired" ? "expired" : "invoiced";
+      return json(200, {
+        order_id: row.order_id,
+        state,
+        sats: row.sats,
+        venue_ref: row.venue_ref ?? null,
+        paid_at: row.paid_at ?? null,
+        claimed: Boolean(row.claimed),
         can_pay: false,
         must_not_repay: false,
       });

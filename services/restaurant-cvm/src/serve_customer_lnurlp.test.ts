@@ -29,6 +29,12 @@ function fakeFetch(state: { status: string; venue_ref?: string | null; fail?: bo
         payment_hash: "hash", status: "pending",
       }), { status: 200, headers: { "content-type": "application/json" } }));
     }
+    if (url.endsWith("/claim") && init?.method === "POST") {
+      return Promise.resolve(new Response(JSON.stringify({
+        order_id: "o1", sats: 2750, status: "paid", claimed: true,
+        venue_ref: null, paid_at: 1,
+      }), { status: 200, headers: { "content-type": "application/json" } }));
+    }
     if (url.includes("/lnurlp/internal/orders/")) {
       return Promise.resolve(new Response(JSON.stringify({
         order_id: "o1", sats: 2750, status: state.status,
@@ -127,5 +133,18 @@ Deno.test("priceBasket refuses fractional/negative quantities", () => {
     let threw = false;
     try { priceBasket(MENU, [{ id: "m1", qty }], 10); } catch { threw = true; }
     if (!threw) throw new Error(`qty ${qty} accepted`);
+  }
+});
+
+Deno.test("the customer check route forces a claim and returns paid", async () => {
+  const { handler, fake } = handlerFor({ status: "paid" });
+  const res = await post(handler, "/orders/o1/check", {});
+  eq(res.status, 200);
+  const body = await res.json();
+  eq(body.state, "paid");
+  eq(body.claimed, true);
+  const last = fake.calls[fake.calls.length - 1];
+  if (!String(last.url).endsWith("/lnurlp/internal/orders/o1/claim")) {
+    throw new Error("check did not call the forced claim: " + last.url);
   }
 });
