@@ -54,7 +54,8 @@ STATE_FILE = os.environ.get("CVM_SESSION_STATE", "")
 # is deliberately distinct from `failed`: after a payment submission a lost reply
 # is NOT a failed order, and retrying it would duplicate a real purchase.
 STATES = (
-    "preparing", "at_captcha", "awaiting_human", "solved", "continuing",
+    "preparing", "at_captcha", "awaiting_human", "solved",
+    "awaiting_confirmation", "continuing",
     "awaiting_sms", "submitting", "completed",
     "failed", "expired", "outcome_unknown",
 )
@@ -788,6 +789,47 @@ def _run(args):
         except Exception as e:
             step("sms_select_err", err=str(e)[:50])
 
+        # The phone is filled and verified, but no code is sent until a human
+        # confirms it in the VNC. The session API writes this file when the
+        # facilitator presses "Phone verified — send code".
+        set_state("awaiting_confirmation", e164="+18102583253",
+                  value=_digits, country=fld_val.get("country"))
+        step("phone_ready_for_review", e164="+18102583253",
+             value=_digits, country=fld_val.get("country"))
+        confirm_file = f"/tmp/cvm-session-{args.session_id or 'manual'}.confirm"
+        try:
+            os.remove(confirm_file)
+        except OSError:
+            pass
+        confirmed = False
+        manual_sent = False
+        deadline = time.time() + 600
+        while time.time() < deadline:
+            if os.path.exists(confirm_file):
+                confirmed = True
+                break
+            # The human may select SMS and click Code senden in the VNC. The
+            # code-entry inputs appear when that happens; skip our click and
+            # just wait for the SMS in the inbox.
+            try:
+                if pg.query_selector("input[maxlength='1'], input[inputmode='numeric']"):
+                    manual_sent = True
+                    break
+            except Exception:
+                pass
+            pg.wait_for_timeout(2000)
+        try:
+            os.remove(confirm_file)
+        except OSError:
+            pass
+        if not (confirmed or manual_sent):
+            step("ABORT", code="phone-not-confirmed",
+                 note="no human confirmation within 600s; no SMS was requested")
+            b.close()
+            sys.exit(10)
+        step("phone_confirmed", value=_digits, manual=manual_sent)
+        set_state("continuing", phase="sms")
+
         if args.no_send_sms:
             step("ABORT", code="dry-run",
                  note="phone verified; SMS not sent (--no-send-sms)")
@@ -823,19 +865,26 @@ def _run(args):
         pg.route("**/*", _phone_guard)
         since = time.time() - 5
         clicked = False
-        try:
-            pg.get_by_role("button", name="Code senden").first.click(timeout=6000)
-            clicked = True
-            step("code_senden_clicked")
+        if manual_sent:
+            step("code_senden_manual",
+                 note="human clicked Code senden; waiting for the SMS")
             set_state("awaiting_sms")
-        except Exception as e:
-            # it may be disabled until Turnstile passes — report that honestly
-            cls = None
+            clicked = True
+            since = time.time() - 120
+        else:
             try:
-                cls = pg.get_by_role("button", name="Code senden").first.get_attribute("class")
-            except Exception:
-                pass
-            step("code_senden_err", err=str(e)[:60], btn_class=cls)
+                pg.get_by_role("button", name="Code senden").first.click(timeout=6000)
+                clicked = True
+                step("code_senden_clicked")
+                set_state("awaiting_sms")
+            except Exception as e:
+                # it may be disabled until Turnstile passes — report that honestly
+                cls = None
+                try:
+                    cls = pg.get_by_role("button", name="Code senden").first.get_attribute("class")
+                except Exception:
+                    pass
+                step("code_senden_err", err=str(e)[:60], btn_class=cls)
         try:
             pg.unroute("**/*", _phone_guard)
         except Exception:
