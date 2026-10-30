@@ -285,35 +285,61 @@ def _run(args):
                         continue
             return found
 
-        pg.mouse.click(445, 267)   # Kartenzahlung row (measured)
-        step("card_method_clicked", via="coords")
+        # The checkout page is long; clicking a viewport coordinate while the page
+        # is at the top lands on the account section, not Kartenzahlung. Scroll to
+        # the text first, click it, then verify the card radio actually selected.
+        card_loc = None
+        try:
+            card_loc = pg.get_by_text("Kartenzahlung", exact=False).first
+            card_loc.wait_for(state="visible", timeout=15000)
+            card_loc.scroll_into_view_if_needed(timeout=5000)
+            pg.wait_for_timeout(400)
+            card_loc.click(timeout=8000)
+            step("card_method_clicked", via="text+scroll")
+        except Exception as e:
+            step("card_method_error", err=str(e)[:70])
+
         pg.wait_for_timeout(4000)
         pay_frames = _scan_pay_frames()
 
-        if not pay_frames:
-            # Fallback: click the row/radio by text, once.
-            for sel in ("text=/Kartenzahlung/i", "[role=radio]"):
-                try:
-                    loc = pg.locator(sel).first
-                    if loc.count() > 0:
-                        loc.scroll_into_view_if_needed(timeout=3000)
-                        loc.click(timeout=5000)
-                        step("card_method_clicked", via=sel)
-                        break
-                except Exception:
-                    continue
+        if not pay_frames and card_loc is not None:
+            try:
+                card_loc.evaluate(
+                    "el => { const r = el.closest('label') || "
+                    "el.closest('[role=radio]') || el.parentElement; if (r) r.click(); }")
+                step("card_method_clicked", via="ancestor")
+                pg.wait_for_timeout(4000)
+                pay_frames = _scan_pay_frames()
+            except Exception:
+                pass
+
+        if not pay_frames and card_loc is not None:
+            try:
+                box = card_loc.bounding_box()
+                if box:
+                    pg.mouse.click(box["x"] + box["width"] / 2,
+                                   box["y"] + box["height"] / 2)
+                    step("card_method_clicked", via="box-center")
+                    pg.wait_for_timeout(3000)
+                    pay_frames = _scan_pay_frames()
+            except Exception:
+                pass
 
         deadline = time.time() + 60
-        last_reclick = time.time()
+        last_retry = time.time()
         while not pay_frames and time.time() < deadline:
             pg.wait_for_timeout(2000)
             pay_frames = _scan_pay_frames()
-            if not pay_frames and time.time() - last_reclick > 15:
+            if not pay_frames and time.time() - last_retry > 15:
+                last_retry = time.time()
                 try:
-                    pg.mouse.click(445, 267)
+                    if card_loc is not None:
+                        card_loc.evaluate(
+                            "el => { const r = el.closest('label') || el.parentElement; if (r) r.click(); }")
+                    else:
+                        pg.mouse.click(445, 267)
                 except Exception:
                     pass
-                last_reclick = time.time()
         step("pay_frames", n=len(pay_frames))
         if not pay_frames:
             try:
