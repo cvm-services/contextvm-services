@@ -119,7 +119,9 @@ def _run(args):
         # prefer it and fall back to the bundle only if it is absent.
         _chrome = "/usr/bin/google-chrome-stable"
         _launch = {"headless": False, "args": ["--no-sandbox",
-                   "--disable-dev-shm-usage", "--disable-gpu"]}
+                   "--disable-dev-shm-usage", "--disable-gpu",
+                   "--renderer-process-limit=2",
+                   "--js-flags=--max-old-space-size=512"]}
         if os.path.exists(_chrome):
             _launch["executable_path"] = _chrome
         b = p.chromium.launch(**_launch)
@@ -251,6 +253,16 @@ def _run(args):
             tel.click()
             tel.fill(JMP_NUMBER, timeout=5000)
             step("contact_phone_set", to=JMP_DISPLAY)
+            try:
+                cv = tel.input_value()
+                cd = "".join(ch for ch in cv if ch.isdigit())
+                step("contact_phone_check", value=cv[:24], ok=cd.endswith("8102583253"))
+                if not cd.endswith("8102583253"):
+                    step("ABORT", code="wrong-contact-phone", value=cv[:24])
+                    b.close()
+                    sys.exit(11)
+            except Exception as e:
+                step("contact_phone_check_err", err=str(e)[:50])
         except Exception as e:
             step("contact_phone_err", err=str(e)[:60])
 
@@ -477,6 +489,20 @@ def _run(args):
                       turnstile: /Mensch/i.test(t),
                       code_senden: /Code senden/i.test(t)}; }""")
         step("modal_state", **modal_state)
+
+        try:
+            pre = pg.evaluate("""() => {
+              const i = document.querySelector('input.PhoneInputInput, input[type=tel]');
+              const s = document.querySelector('select.PhoneInputCountrySelect');
+              return {input_found: !!i,
+                      input_disabled: i ? (i.disabled || i.readOnly) : null,
+                      country: s ? s.value : null,
+                      label: s && s.selectedOptions[0]
+                        ? s.selectedOptions[0].textContent.trim().slice(0, 24) : null};
+            }""")
+            step("phone_pre_captcha", **pre)
+        except Exception as e:
+            step("phone_pre_captcha_err", err=str(e)[:50])
 
         if not modal_state["phone_modal"]:
             _snap(pg, path="/tmp/vt-no-modal.png")
