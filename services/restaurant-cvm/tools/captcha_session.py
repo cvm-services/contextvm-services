@@ -167,9 +167,7 @@ class SessionManager:
 
             vnc_p = subprocess.Popen(
                 [vnc, "-display", display, "-rfbport", str(vnc_port),
-                 "-listen", "127.0.0.1", "-nopw", "-quiet", "-noxdamage",
-                 # single-shot: exit when the first client disconnects
-                 "-once"],
+                 "-listen", "127.0.0.1", "-nopw", "-quiet", "-noxdamage"],
                 stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
                 start_new_session=True,
             )
