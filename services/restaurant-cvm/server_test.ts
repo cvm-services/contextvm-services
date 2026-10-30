@@ -101,14 +101,14 @@ Deno.test("RED: VENUE_SERVER_RELAYS overrides the default relay set", () => {
   }
 });
 
-Deno.test("RED: tools/list exposes menu and order with real schemas", async () => {
+Deno.test("RED: tools/list exposes menu, order and checkout with real schemas", async () => {
   await setup();
   const res = await handleMcpMessage(index, { method: "tools/list", id: 1 });
   if (!res || "error" in res) throw new Error("tools/list failed");
   const tools = (res.result as { tools: Array<Record<string, unknown>> }).tools;
   const names = tools.map((t) => t.name).sort();
-  if (JSON.stringify(names) !== JSON.stringify(["menu", "order"])) {
-    throw new Error(`expected [menu, order], got ${JSON.stringify(names)}`);
+  if (JSON.stringify(names) !== JSON.stringify(["checkout", "menu", "order"])) {
+    throw new Error(`expected [checkout, menu, order], got ${JSON.stringify(names)}`);
   }
 
   const orderTool = tools.find((t) => t.name === "order");
