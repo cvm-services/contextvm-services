@@ -249,8 +249,8 @@ def _run(args):
         try:
             tel = pg.locator("input[type=tel], input[inputmode=tel]").first
             tel.click()
-            tel.fill(JMP_NUMBER, timeout=5000)
-            step("contact_phone_set", to=JMP_DISPLAY)
+            tel.fill("+18102583253", timeout=5000)
+            step("contact_phone_set", to="+18102583253")
         except Exception as e:
             step("contact_phone_err", err=str(e)[:60])
 
@@ -579,7 +579,11 @@ def _run(args):
             ph = pg.locator("input.PhoneInputInput").first
             ph.click(timeout=6000)
             ph.fill("")
-            ph.type("8102583253", delay=60)
+            # Type E.164: the component derives the country from the leading +1,
+            # instead of trusting a <select> whose React state may not have
+            # changed (the form is de-DE by default).
+            ph.type("+18102583253", delay=60)
+            ph.press("Tab")
             typed_ok = True
         except Exception as e:
             step("phone_type_err", err=str(e)[:60])
@@ -592,11 +596,15 @@ def _run(args):
                       country_label: sel && sel.selectedOptions[0]
                         ? sel.selectedOptions[0].textContent.trim().slice(0,24) : null}; }""")
         step("phone_after_set", **fld_val)
-        # The guard: the destination must be OUR number, in E.164. A DM default of
-        # +49 plus these digits is a real German subscriber.
+        # The guard: the destination must be OUR number. The select alone is not
+        # enough: the widget kept a de-DE default while the visible select said
+        # US, and the code went to a German subscriber. Require the full number
+        # to carry the US country code (11 digits, leading 1), or the national
+        # number with a US selector plus the request guard below.
         _digits = "".join(ch for ch in (fld_val.get("value") or "") if ch.isdigit())
-        if fld_val.get("country") != "US" or not _digits.endswith("8102583253") \
-           or len(_digits) != 11:
+        _us_full = _digits == "18102583253"
+        _us_national = _digits == "8102583253" and fld_val.get("country") == "US"
+        if fld_val.get("country") != "US" or not (_us_full or _us_national):
             step("ABORT", code="wrong-destination",
                  country=fld_val.get("country"), digits=_digits,
                  note="refusing to request a code: the number is not the US JMP line. "
@@ -604,7 +612,8 @@ def _run(args):
             _snap(pg, path="/tmp/vt-wrong-number.png")
             b.close()
             sys.exit(11)
-        step("destination_verified", e164="+1" + _digits[-10:])
+        step("destination_verified", e164="+18102583253",
+             value=_digits, national_only=not _us_full)
         _snap(pg, path="/tmp/vt-modal-filled.png")
         if not typed_ok:
             step("ABORT", code="phone-type-failed")
@@ -626,7 +635,38 @@ def _run(args):
         except Exception as e:
             step("sms_select_err", err=str(e)[:50])
 
+        if args.no_send_sms:
+            step("ABORT", code="dry-run",
+                 note="phone verified; SMS not sent (--no-send-sms)")
+            _snap(pg, path="/tmp/vt-phone-dry-run.png")
+            b.close()
+            sys.exit(10)
+
         # ---------- click 'Code senden' and watch the JMP inbox -----------------
+        # Fail closed on the actual request: a stale widget state could still
+        # submit +49 even after the visible checks. Any phone/SMS request that
+        # carries a German prefix and not our number is aborted before it leaves
+        # the browser.
+        blocked = {"bad": None}
+
+        def _phone_guard(route, request):
+            try:
+                blob = (request.url or "") + " " + (request.post_data or "")
+                low = blob.lower()
+                if any(k in low for k in ("phone", "sms", "verif", "otp")):
+                    _re = __import__("re")
+                    german = ("+49" in blob or "0049" in blob
+                              or _re.search(r'"country(Code|_code)?"\s*:\s*"(de|DE|49)"', blob)
+                              or _re.search(r'(?<!\d)49\d{8,}', blob))
+                    if german and "18102583253" not in blob:
+                        blocked["bad"] = {"url": request.url[:140], "body": blob[:180]}
+                        route.abort()
+                        return
+            except Exception:
+                pass
+            route.continue_()
+
+        pg.route("**/*", _phone_guard)
         since = time.time() - 5
         clicked = False
         try:
@@ -642,6 +682,17 @@ def _run(args):
             except Exception:
                 pass
             step("code_senden_err", err=str(e)[:60], btn_class=cls)
+        try:
+            pg.unroute("**/*", _phone_guard)
+        except Exception:
+            pass
+        if blocked["bad"]:
+            step("ABORT", code="wrong-destination-request",
+                 **blocked["bad"],
+                 note="the SMS request carried a non-US number; aborted before it was sent")
+            _snap(pg, path="/tmp/vt-wrong-request.png")
+            b.close()
+            sys.exit(11)
         _snap(pg, path="/tmp/vt-after-send.png")
 
         if clicked:
@@ -787,6 +838,8 @@ def _parse_args():
                     help="public origin for the noVNC URL, e.g. https://cvm-pwa...")
     ap.add_argument("--vnc", action="store_true",
                     help="start Xvfb/x11vnc/websockify and expose the captcha handoff")
+    ap.add_argument("--no-send-sms", action="store_true",
+                    help="verify the phone number but abort before clicking Code senden")
     ap.add_argument("--no-password", action="store_true",
                     help="accepted for the serve.ts CLI contract; x11vnc already runs -nopw")
     ap.add_argument("--card-source", choices=("synthetic", "2fiat"),
