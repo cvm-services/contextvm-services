@@ -181,3 +181,27 @@ def run_all():
 
 if __name__ == "__main__":
     sys.exit(0 if run_all() else 1)
+
+def test_handoff_merges_managers_and_drops_only_own_tokens():
+    with tempfile.TemporaryDirectory() as d:
+        a = SessionManager(runtime_dir=d)
+        b = SessionManager(runtime_dir=d)
+        sa = CaptchaSession(order_id="a", display=":99", vnc_port=1, ws_port=1111,
+                            token="ta", vnc_password="x", created_at=time.time(),
+                            pids={}, runtime_dir=d)
+        sb = CaptchaSession(order_id="b", display=":99", vnc_port=2, ws_port=2222,
+                            token="tb", vnc_password="x", created_at=time.time(),
+                            pids={}, runtime_dir=d)
+        a.sessions["a"] = sa
+        a._owned.add("ta")
+        a._write_handoff()
+        b.sessions["b"] = sb
+        b._owned.add("tb")
+        b._write_handoff()
+        with open(os.path.join(d, "handoff.json")) as f:
+            assert set(json.load(f)) == {"ta", "tb"}
+        # b's session ends: only tb disappears.
+        b.sessions.pop("b")
+        b._write_handoff()
+        with open(os.path.join(d, "handoff.json")) as f:
+            assert set(json.load(f)) == {"ta"}
