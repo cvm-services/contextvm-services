@@ -348,7 +348,12 @@ describe("session persistence", () => {
 
     // process restarts: brand-new store, same file
     const b = new SessionStore(stubSpawn, () => 1000, { path: "/x/sessions.json", file });
-    expect(b.get(id, "fac-a").id).toBe(id);
+    // get() is nullable BY DESIGN (a missing session is a normal outcome), so the
+    // test asserts non-null rather than assuming it. deno type-checks this file in
+    // CI; bun does not, which is how the unguarded version got merged.
+    const restored = b.get(id, "fac-a");
+    expect(restored).not.toBeNull();
+    expect(restored?.id).toBe(id);
   });
 
   test("a restart does NOT restore grants: access must be re-taken", async () => {
