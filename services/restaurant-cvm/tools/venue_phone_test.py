@@ -124,7 +124,7 @@ def _run(args):
             _launch["executable_path"] = _chrome
         b = p.chromium.launch(**_launch)
         _vw, _vh = (int(x) for x in args.viewport.lower().split("x"))
-        ctx = b.new_context(locale="de-DE", timezone_id="Europe/Berlin",
+        ctx = b.new_context(locale="en-US", timezone_id="Europe/Berlin",
                             viewport={"width": _vw, "height": _vh},
                             is_mobile=_vw < 600, has_touch=_vw < 600,
                             user_agent=UA)
@@ -608,16 +608,27 @@ def _run(args):
                 # can stay stale after the captcha clears, which made an earlier
                 # session sit here while a human pressed the button by hand.
                 _live = pg.evaluate("""() => {
-                    const i = document.querySelector('input.PhoneInputInput');
+                    const inputs = [...document.querySelectorAll(
+                      "input[type=tel], input.PhoneInputInput, input[inputmode=tel]")];
+                    const i = inputs.find(e => e.getClientRects().length > 0) || inputs[0];
                     const b = [...document.querySelectorAll('button')]
                         .find(e => /Code senden/i.test(e.textContent||''));
+                    const token = [...document.querySelectorAll('input,textarea')]
+                        .some(e => /turnstile|hcaptcha/i.test((e.name||'')+(e.id||''))
+                                   && String(e.value||'').length > 5);
                     return {
-                      input_disabled: i ? !!i.disabled : null,
-                      btn_disabled: b ? (!!b.disabled || /disabled/.test(String(b.className||''))) : null,
+                      input_found: !!i,
+                      input_disabled: i ? (i.disabled || i.readOnly) : null,
+                      input_visible: i ? i.getClientRects().length > 0 : null,
+                      btn_found: !!b,
+                      btn_disabled: b ? (b.disabled || b.getAttribute("aria-disabled") === "true") : null,
+                      token,
                     };
                 }""")
-                if (tok and len(tok) > 5) or (_live.get("input_disabled") is False) \
-                   or (_live.get("btn_disabled") is False):
+                if (tok and len(tok) > 5) or _live.get("token") \
+                   or (_live.get("input_found") and _live.get("input_disabled") is False
+                       and _live.get("input_visible")) \
+                   or (_live.get("btn_found") and _live.get("btn_disabled") is False):
                     captcha_ok = True
                     step("captcha_clear_signal", **(_live or {}))
                     break
@@ -744,6 +755,7 @@ def _run(args):
                 blob = (request.url or "") + " " + (request.post_data or "")
                 low = blob.lower()
                 if any(k in low for k in ("phone", "sms", "verif", "otp")):
+                    step("phone_request_seen", url=request.url[:120], body=blob[:160])
                     _re = __import__("re")
                     german = ("+49" in blob or "0049" in blob
                               or _re.search(r'"country(Code|_code)?"\s*:\s*"(de|DE|49)"', blob)
