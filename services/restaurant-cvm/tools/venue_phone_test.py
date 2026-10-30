@@ -111,6 +111,15 @@ def poll_inbox(since_ts, tries=18, delay=10):
     return []
 
 
+def _mask_phone(value) -> str:
+    """Country/ID-safe rendering for logs: keep at most the last two digits."""
+    raw = str(value or "").strip()
+    digits = "".join(ch for ch in raw if ch.isdigit())
+    if not digits:
+        return "-"
+    return ("+" if raw.startswith("+") else "") + "*" * max(0, len(digits) - 2) + digits[-2:]
+
+
 def _to_e164(raw: str, country: str) -> str:
     """Normalize a configured phone to E.164 (US national / DE leading 0)."""
     p = re.sub(r"[^\d+]", "", str(raw or ""))
@@ -357,14 +366,14 @@ def _run(args):
             tel = pg.locator("input[type=tel], input[inputmode=tel]").first
             tel.click()
             tel.fill(phone_e164, timeout=5000)
-            step("contact_phone_set", to=phone_e164)
+            step("contact_phone_set", to=_mask_phone(phone_e164))
             try:
                 cv = tel.input_value()
                 cd = "".join(ch for ch in cv if ch.isdigit())
-                step("contact_phone_check", value=cv[:24],
+                step("contact_phone_check", value=_mask_phone(cv),
                      ok=cd.endswith(phone_tail), country=phone_country)
                 if not cd.endswith(phone_tail):
-                    step("ABORT", code="wrong-contact-phone", value=cv[:24])
+                    step("ABORT", code="wrong-contact-phone", value=_mask_phone(cv))
                     b.close()
                     sys.exit(11)
             except Exception as e:
@@ -835,7 +844,7 @@ def _run(args):
                     typed_ok = True
                     break
                 pg.wait_for_timeout(700)
-            step("phone_typed", value=typed_value[:24], attempts=attempt + 1)
+            step("phone_typed", value=_mask_phone(typed_value), attempts=attempt + 1)
         except Exception as e:
             step("phone_type_err", err=str(e)[:60])
         pg.wait_for_timeout(1500)
@@ -856,14 +865,14 @@ def _run(args):
         _digits_ok = _digits.endswith(phone_tail) and len(_digits) >= 10
         if fld_val.get("country") != phone_country or not _digits_ok:
             step("ABORT", code="wrong-destination",
-                 country=fld_val.get("country"), digits=_digits,
+                 country=fld_val.get("country"), digits=_mask_phone(_digits),
                  note="refusing to request a code: the number is not the US JMP line. "
                       "Sending here texts a real third party and can never receive our code.")
             _snap(pg, path="/tmp/vt-wrong-number.png")
             b.close()
             sys.exit(11)
-        step("destination_verified", e164=phone_e164,
-             value=_digits, country=phone_country)
+        step("destination_verified", e164=_mask_phone(phone_e164),
+             value=_mask_phone(_digits), country=phone_country)
         _snap(pg, path="/tmp/vt-modal-filled.png")
         if not typed_ok:
             step("ABORT", code="phone-type-failed")
@@ -888,10 +897,10 @@ def _run(args):
         # The phone is filled and verified, but no code is sent until a human
         # confirms it in the VNC. The session API writes this file when the
         # facilitator presses "Phone verified — send code".
-        set_state("awaiting_confirmation", e164=phone_e164,
-                  value=_digits, country=fld_val.get("country"))
-        step("phone_ready_for_review", e164=phone_e164,
-             value=_digits, country=fld_val.get("country"))
+        set_state("awaiting_confirmation", e164=_mask_phone(phone_e164),
+                  value=_mask_phone(_digits), country=fld_val.get("country"))
+        step("phone_ready_for_review", e164=_mask_phone(phone_e164),
+             value=_mask_phone(_digits), country=fld_val.get("country"))
         confirm_file = f"/tmp/cvm-session-{args.session_id or 'manual'}.confirm"
         try:
             os.remove(confirm_file)
@@ -923,11 +932,11 @@ def _run(args):
                  note="no human confirmation within 600s; no SMS was requested")
             b.close()
             sys.exit(10)
-        step("phone_confirmed", value=_digits, manual=manual_sent)
+        step("phone_confirmed", value=_mask_phone(_digits), manual=manual_sent)
         set_state("continuing", phase="sms")
 
         if manual_phone:
-            step("manual_code_expected", phone=phone_e164,
+            step("manual_code_expected", phone=_mask_phone(phone_e164),
                  note="human enters the SMS code on their phone and confirms in the VNC")
             set_state("awaiting_human", phase="manual_code",
                       note="enter the SMS code on your phone and confirm in the VNC")
@@ -966,14 +975,16 @@ def _run(args):
                 blob = (request.url or "") + " " + (request.post_data or "")
                 low = blob.lower()
                 if any(k in low for k in ("phone", "sms", "verif", "otp")):
-                    step("phone_request_seen", url=request.url[:120], body=blob[:160])
+                    step("phone_request_seen", url=request.url[:120],
+                         body=_mask_phone(blob[:160]), len=len(blob))
                     if phone_country == "US":
                         _re = __import__("re")
                         german = ("+49" in blob or "0049" in blob
                                   or _re.search(r'"country(Code|_code)?"\s*:\s*"(de|DE|49)"', blob)
                                   or _re.search(r'(?<!\d)49\d{8,}', blob))
                         if german and phone_digits not in blob:
-                            blocked["bad"] = {"url": request.url[:140], "body": blob[:180]}
+                            blocked["bad"] = {"url": request.url[:140],
+                              "body": _mask_phone(blob[:180])}
                             route.abort()
                             return
             except Exception:

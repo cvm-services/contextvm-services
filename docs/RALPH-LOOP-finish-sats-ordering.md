@@ -4,8 +4,8 @@ phone gate; everything else automatable.** The captcha-first order was the key
 discovery: the phone control is `react-phone-number-input` and carries
 `PhoneInput--disabled` — country select AND number input are disabled=true until
 the human-verification widget passes. Sequence measured: captcha -> phone unlock
--> select +1 (native select.PhoneInputCountrySelect, select_option 'US') -> type
-8102583253 (input.PhoneInputInput) -> SMS option -> Code senden. The widget is
+-> select the target country (native select.PhoneInputCountrySelect) -> type
+the configured number (input.PhoneInputInput) -> SMS option -> Code senden. The widget is
 hCaptcha-branded ("Ich bin ein Mensch") served from a Cloudflare Turnstile host.
 Two click strategies measured: a bare synthetic click inside the box bounds was
 IGNORED (no challenge, no pass); a human-like mouse-travel approach TRIGGERED the
@@ -25,14 +25,14 @@ JMP inbox. Remaining: a HUMAN solves the one image puzzle; the rest runs.
 JMP number LIVE; three corrections.** The reproducible harness is
 `services/restaurant-cvm/tools/venue_phone_test.py` (committed). Measured with a
 SYNTHETIC card (4111...) — which proves the gate fires before any charge can
-move money: buy click -> phone modal, balance untouched. JMP (810) 258-3253 is
-LIVE (funded 26,898 sats, activated; cold-send accepted 2026-10-05; inbox
-jmp_inbox.db on cobrador, listener active). Corrections this run: (1) the modal
+move money: buy click -> phone modal, balance untouched. The JMP line is LIVE (value in OpenBao `secret/fleet/venue-phone`; funded
+26,898 sats, activated; cold-send accepted 2026-10-05; inbox jmp_inbox.db on
+cobrador, listener active). Corrections this run: (1) the modal
 captcha is **hCaptcha "Ich bin ein Mensch"**, NOT Cloudflare Turnstile (frame
 URL is challenges.cloudflare.com but the visible widget is hCaptcha-branded —
 needs one more look); (2) my checkbox click at (379,669) hit the widget padding,
 not the box (measured box center ~(400,702)); (3) the phone field FORCE-FORMATS
-our US number as +49 8102 583253 — the country selector click did not open a
+the configured US number as +49 <the same digits> — the country selector click did not open a
 menu (dropdown may render in a portal; needs a post-click inventory of new
 frames). "Code senden" stays disabled until the captcha passes AND a valid
 number is set. Next run: (a) click the flag selector and inventory any
@@ -703,7 +703,8 @@ false`), verified across `netplan apply` and a `systemd-networkd` restart.
 
 Ran `services/restaurant-cvm/tools/venue_phone_test.py --country US` under Xvfb
 against the real Three Buddies checkout, using the fleet's live JMP number
-(810) 258-3253 (listener active on cobrador; inbox shows 2 prior inbound SMS).
+(value in OpenBao `secret/fleet/venue-phone`; listener active on cobrador;
+inbox shows 2 prior inbound SMS).
 
 **Everything before the captcha worked, end to end, measured:**
 
@@ -728,7 +729,7 @@ ABORT captcha-not-passed
 ```
 
 Note the number never got applied either: with the field disabled the country
-select cannot take effect and it rendered `+49 8102 583253` — the US selection
+select cannot take effect and it rendered the digits under +49 — the US selection
 and number entry are only reachable AFTER the captcha clears.
 
 **So the verdict stands (`SPEND: human_required`) but it is now precisely bounded:**

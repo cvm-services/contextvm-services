@@ -117,11 +117,13 @@ Ordered by what blocks what. "Today" means verified in this repo/filesystem, not
 
 ## Incident that shapes the priorities
 
-While building this, the SMS verification code was sent to **+49 8102 583253** — a real German
-subscriber — because the venue's modal defaults to country DE and the country flip never ran (the
+While building this, the SMS verification code was sent to a **+49 number belonging to a real
+German subscriber** — because the venue's modal defaults to country DE and the country flip never ran (the
 harness was still holding at the captcha). One unsolicited message to a stranger.
 
-Consequence: the destination gate (`country == US`, 11 digits ending `8102583253`, else abort) is
+Consequence: the destination gate (`country == configured country`, 11 digits
+ending with the configured tail from OpenBao `secret/fleet/venue-phone`, else
+abort) is
 P0-adjacent, and it is the reason "the harness must know the state and the dashboard must see it"
 is ranked above convenience items. A silent hold loop produced an outward-facing harm.
 
