@@ -196,7 +196,25 @@ def _run(args):
         except Exception:
             btn_cls = ""
         if "button-disab" in btn_cls:
-            pg.query_selector("text=/Ändern/i").click(timeout=6000)
+            try:
+                _info = pg.evaluate("""() => ({
+                  text: (document.body.innerText || "").slice(0, 400),
+                  inputs: [...document.querySelectorAll("input")].slice(0, 10)
+                    .map((i) => ({type: i.type, ph: i.placeholder, name: i.name})),
+                  buttons: [...document.querySelectorAll("button")].slice(0, 10)
+                    .map((b) => (b.textContent || "").trim().slice(0, 30)),
+                })""")
+                step("menu_disabled_dom", **_info)
+            except Exception:
+                pass
+            _ch = pg.query_selector("text=/Ändern/i")
+            if _ch is None:
+                step("ABORT", code="menu-location-control-missing",
+                     text=(pg.inner_text("body") or "")[:300])
+                _snap(pg, path="/tmp/vt-menu-location.png")
+                b.close()
+                sys.exit(10)
+            _ch.click(timeout=6000)
             pg.wait_for_timeout(4000)
             try:
                 pg.query_selector("text=/Morgen/i").click(timeout=5000)
@@ -212,6 +230,12 @@ def _run(args):
                       if(leaf) out.push({txt:t,x:Math.round(r.x),y:Math.round(r.y),
                                          w:Math.round(r.width),h:Math.round(r.height)});
                   }}); return out; }""")
+            if not slots:
+                step("ABORT", code="menu-no-slots",
+                     text=(pg.inner_text("body") or "")[:260])
+                _snap(pg, path="/tmp/vt-menu-slots.png")
+                b.close()
+                sys.exit(10)
             s0 = slots[0]
             pg.mouse.click(s0["x"] + s0["w"] / 2, s0["y"] + s0["h"] / 2)
             pg.wait_for_timeout(2500)
