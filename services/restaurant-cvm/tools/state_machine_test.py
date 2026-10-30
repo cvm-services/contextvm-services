@@ -45,6 +45,53 @@ def test_no_state_file_is_not_fatal():
     v.set_state("completed")   # must be a no-op, never an exception
 
 
+def test_completion_signal_finishes_confirmed():
+    d = tempfile.mkdtemp()
+    v.STATE_FILE = os.path.join(d, "state.json")
+    sid = "s_test_signal_confirmed"
+    path = f"/tmp/cvm-session-{sid}.complete"
+    with open(path, "w") as f:
+        json.dump({"outcome": "confirmed", "venue_ref": "TB-9"}, f)
+
+    class B:
+        closed = False
+        def close(self):
+            self.closed = True
+
+    sig = v._completion_signal(sid)
+    assert sig and sig["outcome"] == "confirmed"
+    b = B()
+    v._finish_from_signal(object(), b, sid, sig)
+    got = json.load(open(v.STATE_FILE))
+    assert got["state"] == "completed", got
+    assert got["detail"]["venue_ref"] == "TB-9"
+    assert b.closed, "the browser must be closed on a human verdict"
+    assert not os.path.exists(path), "the signal must be consumed"
+
+
+def test_completion_signal_unknown_is_terminal():
+    d = tempfile.mkdtemp()
+    v.STATE_FILE = os.path.join(d, "state.json")
+    sid = "s_test_signal_unknown"
+    path = f"/tmp/cvm-session-{sid}.complete"
+    with open(path, "w") as f:
+        json.dump({"outcome": "unknown"}, f)
+
+    class B:
+        def close(self):
+            pass
+
+    sig = v._completion_signal(sid)
+    v._finish_from_signal(object(), B(), sid, sig)
+    got = json.load(open(v.STATE_FILE))
+    assert got["state"] == "outcome_unknown", got
+    assert not os.path.exists(path)
+
+
+def test_completion_signal_absent_is_ignored():
+    assert v._completion_signal("s_definitely_absent") is None
+
+
 for name, fn in sorted(globals().items()):
     if name.startswith("test_"):
         fn()

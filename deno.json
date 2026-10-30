@@ -6,6 +6,7 @@
     "anchors:write": "deno run --allow-read --allow-write venues/tools/menu_anchors.ts --write",
     "venues:check": "python3 venues/tools/capture_menu.py --all --check",
     "verify": "deno task check && deno task test && deno task anchors && deno task venues:check",
+    "live-smoke": "bash scripts/live-smoke.sh",
     "fixture": "deno run --allow-read --allow-write tools/nosms_announcement.ts --fixture",
     "check-fixture": "deno run --allow-read tools/nosms_announcement.ts --check",
     "emit": "deno run --allow-read tools/nosms_announcement.ts --emit",

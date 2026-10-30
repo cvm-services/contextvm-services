@@ -6,7 +6,7 @@
  *   2. one controller at a time (two phones clicking one form corrupts an order).
  */
 import { beforeEach, describe, expect, test } from "bun:test";
-import { handle, setStateReader, SessionStore, type Spawner } from "./session_api.ts";
+import { handle, setSignalWriter, setStateReader, SessionStore, type Spawner } from "./session_api.ts";
 import { FacilitatorAuth } from "./facilitator_auth.ts";
 
 const TOK_A = "tok-facilitator-a";
@@ -43,9 +43,12 @@ function atCaptcha(session_id: string) {
   store.get(session_id, "fac-a")!.state = "awaiting_human";
 }
 
+let signals: string[];
 beforeEach(() => {
   now = 1_800_000_000_000;
   spawnCalls = [];
+  signals = [];
+  setSignalWriter((p) => signals.push(p));
   store = new SessionStore(spawn, () => now);
 });
 
@@ -672,5 +675,50 @@ describe("approval audit trail", () => {
     );
     const body = await r.json();
     expect(body.audit[0].npub).toBe(KEY);
+  });
+});
+
+
+// --- completion: the human's verdict must reach the launcher -----------------
+describe("human completion", () => {
+  test("confirmed records the venue reference, releases control and signals", async () => {
+    const created = await (await call("POST", "/sessions", TOK_A, { order_id: "o1" })).json();
+    const id = created.session_id;
+    atCaptcha(id);
+    await call("POST", `/sessions/${id}/control`, TOK_A, { controller: "phone" });
+    const r = await call("POST", `/sessions/${id}/complete`, TOK_A, {
+      outcome: "confirmed", venue_ref: "TB-1234",
+    });
+    expect(r.status).toBe(200);
+    const body = await r.json();
+    expect(body.state).toBe("completed");
+    expect(body.venue_ref).toBe("TB-1234");
+    expect(body.controller).toBe(null);
+    expect(signals).toHaveLength(1);
+    expect(signals[0]).toBe(`/tmp/cvm-session-${id}.complete`);
+  });
+
+  test("unknown is terminal and never recorded as success", async () => {
+    const created = await (await call("POST", "/sessions", TOK_A, { order_id: "o2" })).json();
+    const id = created.session_id;
+    atCaptcha(id);
+    const r = await call("POST", `/sessions/${id}/complete`, TOK_A, { outcome: "unknown" });
+    expect(r.status).toBe(200);
+    const body = await r.json();
+    expect(body.state).toBe("outcome_unknown");
+    expect(body.reason).toContain("unknown");
+  });
+
+  test("a second facilitator cannot complete someone else's session", async () => {
+    const created = await (await call("POST", "/sessions", TOK_A, { order_id: "o3" })).json();
+    const r = await call("POST", `/sessions/${created.session_id}/complete`, TOK_B, {});
+    expect(r.status).toBe(404);
+  });
+
+  test("an expired session cannot be resurrected", async () => {
+    const created = await (await call("POST", "/sessions", TOK_A, { order_id: "o4" })).json();
+    now += 120_000;
+    const r = await call("POST", `/sessions/${created.session_id}/complete`, TOK_A, {});
+    expect(r.status).toBe(409);
   });
 });

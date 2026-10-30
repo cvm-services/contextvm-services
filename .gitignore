@@ -14,3 +14,6 @@ keys.local.json
 /tmp/2fiat-*.json
 /services/fiat-cvm/tools/*-recon.json
 node_modules
+
+# Live-smoke evidence is local; it may contain order/session metadata.
+artifacts/

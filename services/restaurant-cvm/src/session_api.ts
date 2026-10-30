@@ -56,6 +56,25 @@ export function setStateReader(fn: (p: string) => string | null): void {
   readStateFile = fn;
 }
 
+/**
+ * Signal the launcher that a human finished (or abandoned) the order.
+ *
+ * The launcher owns the browser and cannot see the API's memory; it already
+ * polls its own state file. A small JSON file is the crossing point. Keeping
+ * this injectable means API tests never touch `/tmp`.
+ */
+let writeSignalFile: (p: string, body: string) => void = (p, body) => {
+  try { Deno.writeTextFileSync(p, body); } catch { /* telemetry never blocks a checkout */ }
+};
+export function setSignalWriter(fn: (p: string, body: string) => void): void {
+  writeSignalFile = fn;
+}
+
+/** `/tmp/cvm-session-<id>.complete`, read by the venue launcher. */
+export function completionSignalPath(session_id: string): string {
+  return `/tmp/cvm-session-${session_id}.complete`;
+}
+
 /** States in which a human may hold control of the browser. */
 const CONTROLLABLE: ReadonlySet<SessionState> = new Set<SessionState>([
   "at_captcha",
@@ -77,6 +96,8 @@ export interface Session {
   /** Audit trail: every control acquisition, including takeovers. */
   control_log: { controller: string; at: number; takeover: boolean }[];
   reason?: string;
+  /** Venue-side order reference, recorded when a human confirms the order. */
+  venue_ref?: string;
 }
 
 /**
@@ -292,6 +313,43 @@ export class SessionStore {
     return true;
   }
 
+  /**
+   * Record the human's verdict on a session.
+   *
+   * `confirmed` requires nothing from the browser: the human may have completed
+   * the venue flow faster than the launcher's captcha poll (measured live). The
+   * signal file lets the launcher stop honestly instead of holding for 20 min.
+   */
+  complete(
+    id: string,
+    facilitator: string,
+    outcome: "confirmed" | "unknown",
+    venue_ref?: string,
+  ): Session {
+    const s = this.get(id, facilitator);
+    if (!s) throw new ApiError(404, "no such session");
+    if (s.state === "expired" || s.state === "failed") {
+      throw new ApiError(409, `session is ${s.state}`, { state: s.state });
+    }
+    // Idempotent: a double-click must not rewrite a terminal verdict.
+    if (s.state === "completed" || s.state === "outcome_unknown") return s;
+    s.state = outcome === "unknown" ? "outcome_unknown" : "completed";
+    if (venue_ref) s.venue_ref = venue_ref; else delete s.venue_ref;
+    s.controller = null;
+    s.reason = outcome === "unknown" ? "operator marked the outcome unknown" : undefined;
+    this.revokeGrants(id);
+    this.#persist();
+    writeSignalFile(
+      completionSignalPath(id),
+      JSON.stringify({
+        outcome,
+        venue_ref: s.venue_ref ?? null,
+        at: new Date(this.#now()).toISOString(),
+      }),
+    );
+    return s;
+  }
+
   async create(order_id: string, facilitator: string): Promise<Session> {
     // One active session per order: two browsers on one order is exactly how a
     // duplicate purchase happens.
@@ -479,6 +537,7 @@ export function publicView(s: Session, includeUrl = false) {
     controllable: CONTROLLABLE.has(s.state),
     controller: s.controller ? { since: s.controller.since } : null,
     ...(s.reason ? { reason: s.reason } : {}),
+    ...(s.venue_ref ? { venue_ref: s.venue_ref } : {}),
     ...(includeUrl && s.novnc_url ? { novnc_url: s.novnc_url } : {}),
   };
 }
@@ -621,6 +680,19 @@ export async function handle(
         if (!s) return json(404, { error: "no such session" });
         store.cancel(id, facilitator);
         return json(200, { ok: true, session_id: id });
+      }
+
+      if (parts.length === 3 && parts[2] === "complete" && m === "POST") {
+        const body = await req.json().catch(() => ({})) as {
+          outcome?: string;
+          venue_ref?: string;
+        };
+        const outcome = body.outcome === "unknown" ? "unknown" : "confirmed";
+        const venue_ref = typeof body.venue_ref === "string"
+          ? body.venue_ref.trim().slice(0, 120)
+          : undefined;
+        const s = store.complete(id, facilitator, outcome, venue_ref);
+        return json(200, publicView(s, true));
       }
 
       if (parts.length === 3 && parts[2] === "control" && m === "POST") {

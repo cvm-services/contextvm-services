@@ -41,6 +41,7 @@ Former location: `felixfelix-bot/contextvm-services` (private; now a stale copy)
 - [`docs/adr/0001-discovery-and-trust.md`](docs/adr/0001-discovery-and-trust.md)
   — **Proposed**, needs operator sign-off. How discovery is tagged, what a pinned
   registry is, where ring-signature proofs do and do not earn their keep.
+- [`docs/PLAN-live-smoke.md`](docs/PLAN-live-smoke.md) + [`docs/RUNBOOK-live-smoke.md`](docs/RUNBOOK-live-smoke.md) — the reproducible paid smoke test and the manual WhatsApp gate.
 - [`docs/SPIKE-PLAN.md`](docs/SPIKE-PLAN.md) — two spikes with acceptance
   criteria. Classified **SOON** (this week), not NOW; every dispatch starts with
   the quota gate.

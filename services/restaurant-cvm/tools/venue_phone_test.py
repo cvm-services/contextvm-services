@@ -145,6 +145,8 @@ def _run(args):
     phone_tail = phone_digits[-10:]
     manual_phone = getattr(args, "phone_mode", "jmp") == "manual"
     card = _load_card(args)
+    # A file from a previous run must never complete this one.
+    _clear_completion(args.session_id)
 
     with sync_playwright() as p:
         # Playwright's bundled chromium drifts from the installed cache on this
@@ -733,9 +735,15 @@ def _run(args):
             set_state("awaiting_human", hold_seconds=args.hold,
                       note="a human must solve the captcha over VNC")
             step("holding_for_human", seconds=args.hold, session_id=args.session_id,
-                 note="solve the captcha in the VNC session; this process continues automatically")
+                 note="solve the captcha in the VNC session; when the order is done, "
+                      "press Venue confirmed (or Outcome unknown) on the facilitator page")
             deadline = time.time() + args.hold
             while time.time() < deadline:
+                signal = _completion_signal(args.session_id)
+                if signal:
+                    step("facilitator_completed", state=signal.get("outcome"))
+                    _finish_from_signal(pg, b, args.session_id, signal)
+                    return
                 pg.wait_for_timeout(3000)
                 tok = pg.evaluate(
                     """() => { const i=document.querySelector(
@@ -910,6 +918,11 @@ def _run(args):
         manual_sent = False
         deadline = time.time() + 600
         while time.time() < deadline:
+            signal = _completion_signal(args.session_id)
+            if signal:
+                step("facilitator_completed", state=signal.get("outcome"))
+                _finish_from_signal(pg, b, args.session_id, signal)
+                return
             if os.path.exists(confirm_file):
                 confirmed = True
                 break
@@ -943,6 +956,11 @@ def _run(args):
             ref = None
             deadline = time.time() + args.hold
             while time.time() < deadline:
+                signal = _completion_signal(args.session_id)
+                if signal:
+                    step("facilitator_completed", state=signal.get("outcome"))
+                    _finish_from_signal(pg, b, args.session_id, signal)
+                    return
                 pg.wait_for_timeout(3000)
                 ref = _find_venue_ref(pg)
                 if ref:
@@ -1067,6 +1085,11 @@ def _run(args):
                         deadline = time.time() + max(args.hold, 60)
                         last_note = 0.0
                         while time.time() < deadline:
+                            signal = _completion_signal(args.session_id)
+                            if signal:
+                                step("facilitator_completed", state=signal.get("outcome"))
+                                _finish_from_signal(pg, b, args.session_id, signal)
+                                return
                             pg.wait_for_timeout(3000)
                             ref = _find_venue_ref(pg)
                             if ref:
@@ -1120,6 +1143,43 @@ def _extract_code(rows):
     return None
 
 
+def _completion_signal(session_id: str):
+    """Read the facilitator's verdict written by the session API."""
+    path = f"/tmp/cvm-session-{session_id or 'manual'}.complete"
+    try:
+        import json as _json
+        with open(path) as f:
+            return _json.load(f)
+    except Exception:
+        return None
+
+
+def _clear_completion(session_id: str) -> None:
+    try:
+        os.remove(f"/tmp/cvm-session-{session_id or 'manual'}.complete")
+    except OSError:
+        pass
+
+
+def _finish_from_signal(pg, b, session_id: str, signal: dict) -> None:
+    """Honour a human verdict without pretending the launcher saw the UI."""
+    outcome = str(signal.get("outcome") or "confirmed")
+    ref = signal.get("venue_ref") or None
+    if outcome == "unknown":
+        step("venue_confirm_unknown",
+             reason="facilitator marked the outcome unknown")
+        set_state("outcome_unknown", phase="facilitator_signal")
+    else:
+        ref = ref or _find_venue_ref(pg)
+        step("venue_confirmed", ref=ref or None, via="facilitator")
+        set_state("completed", venue_ref=ref or None)
+    _clear_completion(session_id)
+    try:
+        b.close()
+    except Exception:
+        pass
+
+
 def _find_venue_ref(pg):
     """Find the venue's order reference on the confirmation screen.
 
@@ -1144,12 +1204,64 @@ def _find_venue_ref(pg):
 
 
 
+def _redact_sensitive(pg) -> None:
+    """Overlay phone/card fields so evidence cannot leak them.
+
+    The overlay is a DOM element: it is removed immediately after the
+    screenshot, so the live form is untouched. Card fields live in cross-origin
+    iframes; covering the iframe box is the only reliable redaction there.
+    """
+    try:
+        pg.evaluate(
+            """() => {
+              document.getElementById('__cvm_redact')?.remove();
+              const wrap = document.createElement('div');
+              wrap.id = '__cvm_redact';
+              wrap.style.cssText =
+                'position:fixed;inset:0;pointer-events:none;z-index:2147483647';
+              const sels = [
+                'input[type=tel]',
+                'input.PhoneInputInput',
+                'input[name*="card" i]',
+                'input[name*="holder" i]',
+                'input[autocomplete="cc-number"]',
+                'iframe[src*="adyen" i]',
+                'iframe[title*="card" i]',
+                'iframe[name*="card" i]',
+              ];
+              for (const sel of sels) {
+                for (const el of document.querySelectorAll(sel)) {
+                  const r = el.getBoundingClientRect();
+                  if (r.width < 2 || r.height < 2) continue;
+                  const box = document.createElement('div');
+                  box.style.cssText =
+                    `position:fixed;left:${r.left}px;top:${r.top}px;` +
+                    `width:${r.width}px;height:${r.height}px;background:#000;`;
+                  wrap.appendChild(box);
+                }
+              }
+              document.body.appendChild(wrap);
+            }""")
+    except Exception:
+        pass
+
+
+def _unredact(pg) -> None:
+    try:
+        pg.evaluate("() => document.getElementById('__cvm_redact')?.remove()")
+    except Exception:
+        pass
+
+
 def _snap(pg, path):
-    """Best-effort screenshot with a hard timeout; diagnostics never block."""
+    """Best-effort screenshot with phone/card fields redacted."""
+    _redact_sensitive(pg)
     try:
         pg.screenshot(path=path, timeout=5000)
     except Exception:
         pass
+    finally:
+        _unredact(pg)
 
 
 def _parse_args():

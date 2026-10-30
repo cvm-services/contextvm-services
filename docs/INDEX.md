@@ -15,6 +15,13 @@ cvm-registry  (PWA: order/)  cvm-orders (console)  ──▶   FoodAmigos checko
                                   └── settlement sweep (paid → placing → placed)
 ```
 
+## Live smoke
+
+- [`PLAN-live-smoke.md`](PLAN-live-smoke.md) — two tiers and the completion signal.
+- [`RUNBOOK-live-smoke.md`](RUNBOOK-live-smoke.md) — operator steps.
+- [`CHECKLIST-live-smoke.md`](CHECKLIST-live-smoke.md) — tracking.
+- [`scripts/live-smoke.sh`](../scripts/live-smoke.sh) / `deno task live-smoke`.
+
 ## Repositories
 
 ### The platform — this project
