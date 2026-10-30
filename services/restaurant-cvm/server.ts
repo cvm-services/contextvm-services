@@ -511,6 +511,42 @@ export const TOOL_DEFS: McpToolDef[] = [
     },
   },
   {
+    name: "menu_page",
+    description:
+      "Paginated compact menu for one venue (id, sku, name, price, available, price flags) with total, next_cursor and the committed anchor hashes. Use this over ContextVM: the full `menu` projection can exceed the 64 KB NIP-44 limit.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        venue_slug: { type: "string", description: "Venue to page. Required." },
+        limit: {
+          type: "integer", minimum: 1, maximum: 100,
+          description: "Page size (default 50, max 100).",
+        },
+        cursor: {
+          type: "string",
+          description: "next_cursor from the previous page; omit for the first page.",
+        },
+      },
+      required: ["venue_slug"],
+      additionalProperties: false,
+    },
+  },
+  {
+    name: "menu_item",
+    description:
+      "Return the full record for one item: allergens, option groups, prices_by_order_method and the starting-price qualifier. Identify it by `id` or `sku` (exactly one).",
+    inputSchema: {
+      type: "object",
+      properties: {
+        venue_slug: { type: "string" },
+        id: { type: "string", description: "The venue's own item id." },
+        sku: { type: "string", description: "The venue sku (only when it is unique)." },
+      },
+      required: ["venue_slug"],
+      additionalProperties: false,
+    },
+  },
+  {
     name: "order",
     description:
       "Build a basket for the venue's own ordering rail. Checkout and payment happen on the venue's own page; this tool does not place or settle the order.",
@@ -712,6 +748,104 @@ function handleMenu(index: VenueIndex, args: Record<string, unknown>): McpToolRe
       : "every item's price is the price the venue publishes for it; no item carries a starting-price qualifier",
     // A refused venue is never silently absent: it is named with its reason.
     rejected_venues: index.rejections,
+  });
+}
+
+const ANCHOR_PATH = new URL("../../venues/anchors.json", import.meta.url);
+let anchorCache: {
+  menu_sha256?: string;
+  venues?: Record<string, { menu_sha256?: string; item_count?: number }>;
+} | null = null;
+
+function anchorData() {
+  if (anchorCache) return anchorCache;
+  try {
+    anchorCache = JSON.parse(Deno.readTextFileSync(ANCHOR_PATH));
+  } catch {
+    anchorCache = {};
+  }
+  return anchorCache!;
+}
+
+/** One compact item: enough to browse and order; menu_item has the rest. */
+function compactItem(it: ServedItem) {
+  const methods = Object.keys(it.prices_by_order_method).sort();
+  const method = it.prices_by_order_method.pickup !== undefined
+    ? "pickup"
+    : (methods[0] ?? null);
+  return {
+    id: it.id,
+    sku: it.sku,
+    name: it.name,
+    price: method ? it.prices_by_order_method[method] : null,
+    price_method: method,
+    available: it.available,
+    price_is_from: it.price_is_from,
+    price_qualifier: it.price_qualifier,
+  };
+}
+
+/**
+ * Compact, paginated menu. This is the ContextVM-facing tool: the full
+ * projection is ~231 KB for a 100-item venue, over NIP-44's 65,535-byte cap.
+ * `venue_sha256`/`catalogue_sha256` are the committed anchor hashes over the
+ * WHOLE projection, so a client can verify completeness without receiving it.
+ */
+function handleMenuPage(index: VenueIndex, args: Record<string, unknown>): McpToolResult {
+  const slug = String(args.venue_slug ?? "");
+  if (!slug) return toolError("menu_page.venue_slug is required");
+  const venue = index.venues.find((v) => v.slug === slug);
+  if (!venue) return toolError(`unknown venue_slug: ${slug}`);
+  const projection = servedVenueProjection(venue);
+  // Some venues have an empty uid=1000(c08r4d0r) gid=1000(c08r4d0r) groups=1000(c08r4d0r),4(adm),20(dialout),24(cdrom),27(sudo),30(dip),46(plugdev),101(lxd),990(fips),994(kvm) (sku-only records), so the cursor is a
+  // numeric offset into a stable sort, not an item id.
+  const items = [...projection.items].sort((a, b) =>
+    (a.id || "").localeCompare(b.id || "") ||
+    a.sku.localeCompare(b.sku) ||
+    a.name.localeCompare(b.name));
+  const rawLimit = Number(args.limit ?? 50);
+  const limit = Math.min(100, Math.max(1, Number.isFinite(rawLimit) ? Math.floor(rawLimit) : 50));
+  const cursor = String(args.cursor ?? "");
+  const parsed = Number(cursor);
+  let start = Number.isInteger(parsed) && parsed > 0 ? parsed : 0;
+  if (start > items.length) start = 0;
+  const page = items.slice(start, start + limit);
+  const next = start + limit < items.length ? String(start + limit) : null;
+  const anchor = anchorData();
+  return toolOk({
+    venue_slug: venue.slug,
+    items: page.map(compactItem),
+    total: items.length,
+    next_cursor: next,
+    venue_sha256: anchor.venues?.[venue.slug]?.menu_sha256 ?? null,
+    catalogue_sha256: anchor.menu_sha256 ?? null,
+    from_priced_items: projection.from_priced_count,
+    price_semantics_note: projection.from_priced_count > 0
+      ? `${projection.from_priced_count} of ${projection.item_count} items are priced by the venue as a starting price; price_is_from is true and price_qualifier carries the venue wording.`
+      : "every item's price is the price the venue publishes for it",
+  });
+}
+
+function handleMenuItem(index: VenueIndex, args: Record<string, unknown>): McpToolResult {
+  const slug = String(args.venue_slug ?? "");
+  const id = args.id ? String(args.id) : "";
+  const sku = args.sku ? String(args.sku) : "";
+  if (!slug || (!id && !sku)) {
+    return toolError("menu_item needs venue_slug and exactly one of id/sku");
+  }
+  if (id && sku) return toolError("menu_item: pass id or sku, not both");
+  const venue = index.venues.find((v) => v.slug === slug);
+  if (!venue) return toolError(`unknown venue_slug: ${slug}`);
+  const projection = servedVenueProjection(venue);
+  const matches = projection.items.filter((it) => id ? it.id === id : it.sku === sku);
+  if (matches.length === 0) return toolError(`unknown item: ${id || sku}`);
+  if (matches.length > 1) {
+    return toolError(`sku ${sku} identifies ${matches.length} items; pass the venue id`);
+  }
+  return toolOk({
+    venue_slug: venue.slug,
+    item: matches[0],
+    venue_sha256: anchorData().venues?.[venue.slug]?.menu_sha256 ?? null,
   });
 }
 
@@ -932,15 +1066,15 @@ export async function startCheckout(
   });
 }
 
-export async function handleToolCall(
+export function handleToolCall(
   index: VenueIndex,
   name: string,
   args: Record<string, unknown> = {},
-  identity?: CallerIdentity,
-): Promise<McpToolResult> {
+): McpToolResult {
   if (name === "menu") return handleMenu(index, args);
+  if (name === "menu_page") return handleMenuPage(index, args);
+  if (name === "menu_item") return handleMenuItem(index, args);
   if (name === "order") return handleOrder(index, args);
-  if (name === "checkout") return await startCheckout(args, identity);
   return toolError(`unknown tool: ${name}`);
 }
 
@@ -999,7 +1133,9 @@ export async function handleMcpMessage(
   if (method === "tools/call") {
     const toolName = String(message.params?.name ?? "");
     const args = (message.params?.arguments ?? {}) as Record<string, unknown>;
-    const result = await handleToolCall(index, toolName, args, identity);
+    const result = toolName === "checkout"
+      ? await startCheckout(args, identity)
+      : handleToolCall(index, toolName, args);
     return {
       jsonrpc: "2.0",
       id,

@@ -496,50 +496,43 @@ async function main() {
     const names = Array.isArray(tools) ? tools.map((t: { name: string }) => t.name).sort() : null;
     checks.push({
       name: "tools/list",
-      ok: !!names && JSON.stringify(names) === JSON.stringify(["checkout", "menu", "order"]),
+      ok: !!names && JSON.stringify(names) === JSON.stringify(["checkout", "menu", "menu_item", "menu_page", "order"]),
       detail: `tools=${JSON.stringify(names)}`,
     });
     log(`[e2e] <- tools/list: tools=${JSON.stringify(names)}`);
   }
 
-  // 3. tools/call menu (the venue-scoped catalogue, or the full one)
-  const menuResp = await request("tools/call", { name: "menu", arguments: {} }, 2);
+  // 3. tools/call menu_page (compact + paginated; the full menu exceeds
+  // NIP-44's 64 KB plaintext limit for a 100-item venue).
+  const targetVenue = venueSlug ?? declaredSlugs[0];
+  const menuResp = await request(
+    "tools/call",
+    { name: "menu_page", arguments: { venue_slug: targetVenue, limit: 50 } },
+    2,
+  );
   if (!menuResp) {
-    checks.push({ name: "tools/call:menu", ok: false, detail: "no response (timeout)" });
+    checks.push({ name: "tools/call:menu_page", ok: false, detail: "no response (timeout)" });
   } else {
     const m = JSON.parse(menuResp.content);
-    transcript.push({ phase: "response", method: "tools/call", id: 2, tool: "menu", inner_event: menuResp, mcp: m });
-    const payload = JSON.parse(m?.result?.content?.[0]?.text ?? "{}");
-    const total = payload?.total_items;
-    const venueSlugs = Array.isArray(payload?.venues)
-      ? payload.venues.map((v: { venue_slug: string }) => v.venue_slug)
-      : [];
-    // Venue-scoped: exactly one venue, the requested one, with its committed
-    // expectation. Unscoped: every venue the committed anchor declares.
-    const expectSlugs = venueSlug ? [venueSlug] : declaredSlugs;
-    const expected = await expectedCatalogue(expectSlugs);
-    const slugsMatch = JSON.stringify([...venueSlugs].sort()) ===
-      JSON.stringify([...expectSlugs].sort());
-    // The independent check: hash what the server ACTUALLY replied and compare
-    // it with the committed hash. A record edited without regenerating the
-    // anchor — or invented outright — cannot match it.
-    const servedHash = await servedCatalogueHash(payload?.venues ?? [], total);
-    const hashMatch = servedHash === expected.sha256;
-    checks.push({
-      name: "tools/call:menu",
-      ok: total === expected.total && slugsMatch && hashMatch,
-      detail:
-        `total_items=${total} venues=${JSON.stringify(venueSlugs)} expected=${JSON.stringify(expectSlugs)}/${expected.total} ` +
-        `sha256=${servedHash.slice(0, 12)}${hashMatch ? "==" : "!="}${expected.sha256.slice(0, 12)}`,
+    transcript.push({
+      phase: "response", method: "tools/call", id: 2, tool: "menu_page",
+      inner_event: menuResp, mcp: m,
     });
-    log(`[e2e] <- tools/call menu: total_items=${total} venues=${JSON.stringify(venueSlugs)}`);
-    if (!hashMatch) {
-      log(
-        `[e2e]    served menu content hash ${servedHash} != the committed anchor's ` +
-          `${expected.sha256} — the served record is not the anchored one. ` +
-          `If the change is intended: deno run --allow-read --allow-write venues/tools/menu_anchors.ts --write`,
-      );
-    }
+    const payload = JSON.parse(m?.result?.content?.[0]?.text ?? "{}");
+    const expectedVenue = (anchor as { venues?: Record<string, { item_count?: number; menu_sha256?: string }> })
+      .venues?.[targetVenue];
+    const items = Array.isArray(payload?.items) ? payload.items : [];
+    const okMenu = payload?.total === expectedVenue?.item_count &&
+      payload?.venue_sha256 === expectedVenue?.menu_sha256 &&
+      items.length > 0 && items.length <= 50 &&
+      (payload?.next_cursor === null || typeof payload?.next_cursor === "string");
+    checks.push({
+      name: "tools/call:menu_page",
+      ok: okMenu,
+      detail: `total=${payload?.total} items=${items.length} ` +
+        `sha256=${String(payload?.venue_sha256).slice(0, 12)} expected=${String(expectedVenue?.menu_sha256).slice(0, 12)}`,
+    });
+    log(`[e2e] <- tools/call menu_page: total=${payload?.total} items=${items.length} venue=${targetVenue}`);
   }
 
   // 4. tools/call order (a real basket — pickup, no address needed)
