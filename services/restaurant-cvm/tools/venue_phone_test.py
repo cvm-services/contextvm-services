@@ -268,19 +268,41 @@ def _run(args):
         # Kartenzahlung and fill a SYNTHETIC Luhn-valid card (4111 1111 1111 1111).
         # A synthetic PAN can never authorize at Adyen — the charge cannot move
         # money. The phone gate is what we are measuring.
-        pg.mouse.click(445, 267)   # Kartenzahlung row (measured)
+        # Select Kartenzahlung by text when possible (coordinates drift when the
+        # venue changes its layout), then WAIT for the Adyen iframes. A zero-frame
+        # scan is not an empty address form: it means the payment section has not
+        # loaded yet, and proceeding produced a false address-incomplete abort.
+        try:
+            pg.get_by_text("Kartenzahlung", exact=False).first.click(timeout=8000)
+            step("card_method_clicked", via="text")
+        except Exception:
+            pg.mouse.click(445, 267)
+            step("card_method_clicked", via="coords")
         pg.wait_for_timeout(6000)
         pay_frames = {}
-        for f in pg.frames:
-            if any(h in f.url for h in ("adyen", "checkoutshopper")):
-                try:
-                    n = f.evaluate(
-                        "() => document.querySelectorAll('input,select,iframe').length")
-                    if n > 0:
-                        pay_frames[f.url[:160] + f"|{id(f) % 10000}"] = f
-                except Exception:
-                    continue
+        deadline = time.time() + 30
+        while time.time() < deadline:
+            pay_frames = {}
+            for f in pg.frames:
+                if any(h in f.url for h in ("adyen", "checkoutshopper")):
+                    try:
+                        n = f.evaluate(
+                            "() => document.querySelectorAll('input,select,iframe').length")
+                        if n > 0:
+                            pay_frames[f.url[:160] + f"|{id(f) % 10000}"] = f
+                    except Exception:
+                        continue
+            if pay_frames:
+                break
+            pg.wait_for_timeout(2000)
         step("pay_frames", n=len(pay_frames))
+        if not pay_frames:
+            step("ABORT", code="payment-form-not-loaded",
+                 note="the Adyen payment iframes did not load within 30s; "
+                      "the address fields do not exist yet")
+            _snap(pg, path="/tmp/vt-payment-missing.png")
+            b.close()
+            sys.exit(10)
         want = {
             "pan": (card["pan"], ["cardnumber", "cc-number"]),
             "exp": (card["exp"], ["exp", "cc-exp"]),
