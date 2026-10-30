@@ -42,5 +42,5 @@ export VENUE_SERVER_VENUES="$VENUES"
 exec ~/.local/bin/deno run \
   --allow-net \
   --allow-read="$PWD/venues","$PWD/services" \
-  --allow-env=SERVER_HEX,VENUE_SERVER_RELAYS,VENUE_SERVER_VENUES \
+  --allow-env=SERVER_HEX,VENUE_SERVER_RELAYS,VENUE_SERVER_VENUES,CVM_SESSION_API,CVM_SESSION_TOKEN,CVM_FACILITATOR_NPUBS \
   services/restaurant-cvm/server.ts
