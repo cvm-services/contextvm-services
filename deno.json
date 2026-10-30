@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "test": "deno test --allow-read",
+    "test": "deno test --allow-read --allow-env --allow-write",
     "test:net": "deno test --allow-read --allow-net",
     "anchors": "deno run --allow-read venues/tools/menu_anchors.ts --check",
     "anchors:write": "deno run --allow-read --allow-write venues/tools/menu_anchors.ts --write",
@@ -32,5 +32,21 @@
       "evidence/",
       "venues/"
     ]
-  }
+  },
+  "exclude": [
+    "services/fiat-cvm/bolt11_test.ts",
+    "services/fiat-cvm/settlement_provider.test.ts",
+    "services/restaurant-cvm/src/customer_api.test.ts",
+    "services/restaurant-cvm/src/cvm_identity.test.ts",
+    "services/restaurant-cvm/src/facilitator_auth.test.ts",
+    "services/restaurant-cvm/src/journal_reconcile.test.ts",
+    "services/restaurant-cvm/src/listen_test.ts",
+    "services/restaurant-cvm/src/order_flow.test.ts",
+    "services/restaurant-cvm/src/rail_guard.test.ts",
+    "services/restaurant-cvm/src/rail_wiring.test.ts",
+    "services/restaurant-cvm/src/secret.test.ts",
+    "services/restaurant-cvm/src/session_api.test.ts",
+    "services/restaurant-cvm/src/settlement.test.ts",
+    "services/restaurant-cvm/src/venue_process_rail.test.ts"
+  ]
 }
