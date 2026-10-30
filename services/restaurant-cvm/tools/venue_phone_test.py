@@ -247,7 +247,13 @@ def _run(args):
                     profile["email"], timeout=5000)
             except Exception as e:
                 step("email_fill_err", err=str(e)[:50])
-        # contact phone: the JMP number itself, so the modal prefills correctly
+        # contact phone: the venue phone widget defaults to +49, which becomes
+        # the modal prefill. Set the CONTACT country to US before filling.
+        try:
+            pg.select_option("select.PhoneInputCountrySelect", "US", timeout=4000)
+            step("contact_country_set", via="US")
+        except Exception as e:
+            step("contact_country_err", err=str(e)[:50])
         try:
             tel = pg.locator("input[type=tel], input[inputmode=tel]").first
             tel.click()
@@ -256,7 +262,9 @@ def _run(args):
             try:
                 cv = tel.input_value()
                 cd = "".join(ch for ch in cv if ch.isdigit())
-                step("contact_phone_check", value=cv[:24], ok=cd.endswith("8102583253"))
+                step("contact_phone_check", value=cv[:24],
+                     ok=cd.endswith("8102583253"),
+                     us=not cv.strip().startswith("+49"))
                 if not cd.endswith("8102583253"):
                     step("ABORT", code="wrong-contact-phone", value=cv[:24])
                     b.close()
