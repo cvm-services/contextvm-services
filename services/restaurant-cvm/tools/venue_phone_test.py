@@ -627,8 +627,7 @@ def _run(args):
                 }""")
                 if (tok and len(tok) > 5) or _live.get("token") \
                    or (_live.get("input_found") and _live.get("input_disabled") is False
-                       and _live.get("input_visible")) \
-                   or (_live.get("btn_found") and _live.get("btn_disabled") is False):
+                       and _live.get("input_visible")):
                     captcha_ok = True
                     step("captcha_clear_signal", **(_live or {}))
                     break
@@ -647,6 +646,20 @@ def _run(args):
             sys.exit(10)
 
         set_state("continuing", phase="phone")
+        try:
+            pg.wait_for_function("""() => {
+                const i = document.querySelector(
+                  "input.PhoneInputInput, input[type=tel], input[inputmode=tel]");
+                const s = document.querySelector("select.PhoneInputCountrySelect");
+                return !!i && !i.disabled && !i.readOnly
+                  && i.getClientRects().length > 0 && (!s || !s.disabled);
+            }""", timeout=20000)
+            step("phone_input_ready")
+        except Exception as e:
+            step("ABORT", code="phone-input-disabled", err=str(e)[:80],
+                 note="the phone control never became editable after the captcha")
+            b.close()
+            sys.exit(10)
         # ================= PHONE: country + number (now enabled) ==================
         def set_country(code: str = "US") -> str | None:
             """Flip the country select AND fire the events React listens for."""
@@ -676,16 +689,21 @@ def _run(args):
         step("country_set", via=country_set)
 
         typed_ok = False
+        typed_value = ""
         try:
-            ph = pg.locator("input.PhoneInputInput").first
-            ph.click(timeout=6000)
-            ph.fill("")
-            # Type E.164: the component derives the country from the leading +1,
-            # instead of trusting a <select> whose React state may not have
-            # changed (the form is de-DE by default).
-            ph.type("+18102583253", delay=60)
-            ph.press("Tab")
-            typed_ok = True
+            ph = pg.locator("input.PhoneInputInput, input[type=tel]").first
+            for attempt in range(3):
+                ph.click(timeout=6000)
+                ph.fill("")
+                ph.type("+18102583253", delay=70)
+                pg.wait_for_timeout(700)
+                typed_value = ph.input_value()
+                digits = "".join(ch for ch in typed_value if ch.isdigit())
+                if len(digits) >= 11:
+                    typed_ok = True
+                    break
+                pg.wait_for_timeout(700)
+            step("phone_typed", value=typed_value[:24], attempts=attempt + 1)
         except Exception as e:
             step("phone_type_err", err=str(e)[:60])
         pg.wait_for_timeout(1500)
