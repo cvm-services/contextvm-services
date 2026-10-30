@@ -107,8 +107,8 @@ Deno.test("RED: tools/list exposes menu, order and checkout with real schemas", 
   if (!res || "error" in res) throw new Error("tools/list failed");
   const tools = (res.result as { tools: Array<Record<string, unknown>> }).tools;
   const names = tools.map((t) => t.name).sort();
-  if (JSON.stringify(names) !== JSON.stringify(["checkout", "menu", "order"])) {
-    throw new Error(`expected [checkout, menu, order], got ${JSON.stringify(names)}`);
+  if (JSON.stringify(names) !== JSON.stringify(["checkout", "menu", "menu_item", "menu_page", "order"])) {
+    throw new Error(`expected [checkout, menu, menu_item, menu_page, order], got ${JSON.stringify(names)}`);
   }
 
   const orderTool = tools.find((t) => t.name === "order");
@@ -160,6 +160,41 @@ Deno.test("menu returns every item of every served venue, with sku, name, prices
     }
     if (typeof it.available !== "boolean") throw new Error(`item ${it.sku} missing available`);
     if (!("allergens" in it)) throw new Error(`item ${it.sku} missing allergens field`);
+  }
+});
+
+Deno.test("menu_page is compact, paginated and carries the committed anchor hashes", async () => {
+  await setup();
+  const anchor = JSON.parse(
+    await Deno.readTextFile(new URL("../../venues/anchors.json", import.meta.url)),
+  );
+  const slug = "doppelt-kaese-berlin";
+  const first = JSON.parse(
+    handleToolCall(index, "menu_page", { venue_slug: slug, limit: 5 }).content[0].text,
+  );
+  if (!Array.isArray(first.items) || first.items.length !== 5) {
+    throw new Error(`expected 5 compact items, got ${first.items?.length}`);
+  }
+  if (first.total !== anchor.venues[slug].item_count) {
+    throw new Error(`total ${first.total} != anchor ${anchor.venues[slug].item_count}`);
+  }
+  if (first.venue_sha256 !== anchor.venues[slug].menu_sha256) {
+    throw new Error("venue_sha256 does not match the committed anchor");
+  }
+  if (!first.next_cursor) throw new Error("expected a next_cursor on the first page");
+  const second = JSON.parse(
+    handleToolCall(index, "menu_page", {
+      venue_slug: slug, limit: 5, cursor: first.next_cursor,
+    }).content[0].text,
+  );
+  const ids = [...first.items, ...second.items].map((it: { id: string; sku: string; name: string }) => it.id + "|" + it.sku + "|" + it.name);
+  if (new Set(ids).size !== ids.length) throw new Error("pagination returned duplicate items");
+
+  const full = JSON.parse(
+    handleToolCall(index, "menu_item", { venue_slug: slug, sku: "331227" }).content[0].text,
+  );
+  if (full.item.prices_by_order_method.pickup !== 8.9) {
+    throw new Error(`menu_item pickup price ${full.item.prices_by_order_method.pickup} != 8.9`);
   }
 });
 
