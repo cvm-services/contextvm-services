@@ -28,6 +28,13 @@
 //     services/restaurant-cvm/e2e_client.ts \
 //     --server <server-pubkey-hex> --relay wss://... [--relay wss://...] \
 //     [--venue <venue-slug>] [--json] [--timeout-ms 30000]
+//     [--client-key-file <0600 file with nsec or 64-hex>] [--checkout <order-id>]
+//
+// --client-key-file uses a REAL signer instead of an ephemeral key. The
+// checkout tool is gated on the facilitator pubkey, so a protocol test needs
+// an allowlisted identity; the file must be 0600 so the key is not world
+// readable. --checkout then calls tools/call checkout {order_id} and prints
+// the noVNC handoff URL.
 //
 // --venue scopes the assertions to a single announced identity: the client
 // expects ONLY that venue's menu (slug set + item count) and orders against it.
@@ -52,6 +59,7 @@ import {
   finalizeEvent,
   generateSecretKey,
   getPublicKey,
+  nip19,
   nip44,
 } from "npm:nostr-tools";
 import { Relay } from "npm:nostr-tools/relay";
@@ -248,7 +256,7 @@ function hexToBytes(hex: string): Uint8Array {
 
 async function main() {
   const flags = parse(Deno.args, {
-    string: ["server", "relay", "venue"],
+    string: ["server", "relay", "venue", "client-key-file", "checkout"],
     boolean: ["json"],
     // Without collect, a repeated --relay OVERWRITES: passing the announced set
     // (relay2 + primal) silently used only the last one. The announced relays
@@ -290,8 +298,39 @@ async function main() {
   const timeoutMs = Number(Deno.env.get("E2E_TIMEOUT_MS") ?? 30000);
   const jsonOut = flags.json;
 
-  // Ephemeral client identity — never persisted, never reused.
-  const clientSk = generateSecretKey();
+  // Ephemeral by default; a 0600 key file is required to call the gated
+  // checkout tool with an allowlisted facilitator identity.
+  let clientSk: Uint8Array;
+  const keyFile = flags["client-key-file"] ? String(flags["client-key-file"]) : "";
+  if (keyFile) {
+    let st: Deno.FileInfo;
+    try {
+      st = Deno.statSync(keyFile);
+    } catch (e) {
+      console.error(`--client-key-file unreadable: ${(e as Error).message}`);
+      Deno.exit(2);
+    }
+    if (st.mode !== null && (st.mode & 0o077) !== 0) {
+      console.error(`--client-key-file ${keyFile} must be 0600 (got ${(st.mode & 0o777).toString(8)})`);
+      Deno.exit(2);
+    }
+    const raw = Deno.readTextFileSync(keyFile).trim();
+    if (raw.startsWith("nsec1")) {
+      const decoded = nip19.decode(raw);
+      if (decoded.type !== "nsec") {
+        console.error("--client-key-file is not an nsec");
+        Deno.exit(2);
+      }
+      clientSk = decoded.data as Uint8Array;
+    } else if (/^[0-9a-f]{64}$/i.test(raw)) {
+      clientSk = hexToBytes(raw.toLowerCase());
+    } else {
+      console.error("--client-key-file must contain nsec1… or 64 hex");
+      Deno.exit(2);
+    }
+  } else {
+    clientSk = generateSecretKey();
+  }
   const clientPk = getPublicKey(clientSk);
 
   const log = (msg: string) => {
@@ -450,7 +489,7 @@ async function main() {
     const names = Array.isArray(tools) ? tools.map((t: { name: string }) => t.name).sort() : null;
     checks.push({
       name: "tools/list",
-      ok: !!names && JSON.stringify(names) === JSON.stringify(["menu", "order"]),
+      ok: !!names && JSON.stringify(names) === JSON.stringify(["checkout", "menu", "order"]),
       detail: `tools=${JSON.stringify(names)}`,
     });
     log(`[e2e] <- tools/list: tools=${JSON.stringify(names)}`);
@@ -518,6 +557,41 @@ async function main() {
       detail: `status=${payload?.status} lines=${payload?.lines?.length} total=${payload?.total} venue=${payload?.venue?.slug} deep_link=${payload?.venue?.deep_link}`,
     });
     log(`[e2e] <- tools/call order: status=${payload?.status} total=${payload?.total}`);
+  }
+
+  // 5. tools/call checkout (only when asked; the session spends the card).
+  if (flags.checkout) {
+    const orderId = String(flags.checkout);
+    const coResp = await request(
+      "tools/call",
+      { name: "checkout", arguments: { order_id: orderId } },
+      4,
+    );
+    if (!coResp) {
+      checks.push({ name: "tools/call:checkout", ok: false, detail: "no response (timeout)" });
+    } else {
+      const m = JSON.parse(coResp.content);
+      transcript.push({
+        phase: "response", method: "tools/call", id: 4, tool: "checkout",
+        inner_event: coResp, mcp: m,
+      });
+      const text = String(m?.result?.content?.[0]?.text ?? "{}");
+      let payload: { novnc_url?: string; session_id?: string; state?: string; error?: string } = {};
+      try { payload = JSON.parse(text); } catch { /* error text */ }
+      const okCheckout = !m?.result?.isError &&
+        typeof payload.novnc_url === "string" &&
+        payload.novnc_url.includes("/venue/view/");
+      checks.push({
+        name: "tools/call:checkout",
+        ok: okCheckout,
+        detail: payload.error
+          ? `error=${payload.error}`
+          : `state=${payload.state} session=${payload.session_id} url=${payload.novnc_url ? "yes" : "no"}`,
+      });
+      log(`[e2e] <- tools/call checkout: state=${payload.state} session=${payload.session_id}`);
+      if (payload.novnc_url) log(`[e2e] handoff: ${payload.novnc_url}`);
+      if (payload.error) log(`[e2e] checkout error: ${payload.error}`);
+    }
   }
 
   // Emit the full raw transcript.
