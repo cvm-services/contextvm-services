@@ -249,18 +249,35 @@ def _run(args):
         try:
             tel = pg.locator("input[type=tel], input[inputmode=tel]").first
             tel.click()
-            tel.fill("+18102583253", timeout=5000)
-            step("contact_phone_set", to="+18102583253")
+            tel.fill(JMP_NUMBER, timeout=5000)
+            step("contact_phone_set", to=JMP_DISPLAY)
         except Exception as e:
             step("contact_phone_err", err=str(e)[:60])
 
+        advanced = False
         try:
             pg.get_by_role("button", name=__import__("re").compile(
                 "Weiter Zur Zahlung", __import__("re").I)).first.click(timeout=8000)
-            pg.wait_for_timeout(9000)
+            # A click that does not throw is not an advance: the contact form can
+            # fail validation and leave the page on the same step. Require the
+            # payment section to exist before touching the card form.
+            pg.get_by_text("Kartenzahlung", exact=False).first.wait_for(
+                state="visible", timeout=20000)
+            advanced = True
             step("advanced_to_payment", ok=True)
         except Exception as e:
-            step("advanced_to_payment", err=str(e)[:60])
+            try:
+                text = (pg.inner_text("body") or "")[:280]
+            except Exception:
+                text = "?"
+            step("advanced_to_payment", err=str(e)[:80], text=text)
+        if not advanced:
+            step("ABORT", code="checkout-step-not-advanced",
+                 note="the checkout did not reach the payment section; the "
+                      "contact step likely failed validation")
+            _snap(pg, path="/tmp/vt-not-advanced.png")
+            b.close()
+            sys.exit(10)
 
         # ---------- trigger the gate: synthetic card buy attempt -----------------
         # MEASURED 2026-10-19: the phone modal fires AFTER "Kaufen für" is clicked,
