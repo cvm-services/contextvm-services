@@ -108,6 +108,10 @@ class SessionManager:
         self.sessions: dict[str, CaptchaSession] = {}
         self._pops: dict[str, dict] = {}
         self.tokens: set[str] = set()
+        # Tokens this manager owns, so _write_handoff can remove exactly its
+        # own entries when a session is torn down without clobbering another
+        # launcher's live session.
+        self._owned: set[str] = set()
 
     # ---------- binary resolution -------------------------------------------
 
@@ -212,6 +216,7 @@ class SessionManager:
             self._pops[s.order_id] = pops
             self.sessions[order_id] = s
             self.tokens.add(token)
+            self._owned.add(token)
             self._write_handoff()
             return s
         except Exception:
@@ -305,12 +310,26 @@ class SessionManager:
         """
         import json as _json
 
-        state = {
-            sess.token: {"ws_port": sess.ws_port, "order_id": sess.order_id,
-                         "ws_host": self.ws_listen}
-            for sess in self.sessions.values()
-        }
         path = os.path.join(self.runtime_dir, "handoff.json")
+        # MERGE, do not replace: every launcher has its own manager, and two
+        # concurrent facilitators must not erase each other's token.
+        state: dict = {}
+        try:
+            with open(path) as f:
+                loaded = _json.load(f)
+            if isinstance(loaded, dict):
+                state = loaded
+        except (OSError, ValueError):
+            state = {}
+        live = {sess.token for sess in self.sessions.values()}
+        for token in list(self._owned):
+            if token not in live:
+                state.pop(token, None)
+                self._owned.discard(token)
+        for sess in self.sessions.values():
+            state[sess.token] = {"ws_port": sess.ws_port,
+                                 "order_id": sess.order_id,
+                                 "ws_host": self.ws_listen}
         os.makedirs(self.runtime_dir, exist_ok=True)
         tmp = path + ".tmp"
         with open(tmp, "w") as f:
