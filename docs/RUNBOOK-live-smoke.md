@@ -85,6 +85,10 @@ Expected log lines: `handoff_ready`, `cart_badge`, `checkout`,
 If the launcher is still in `awaiting_human` after you finish, that is expected
 until you press the completion button (next step).
 
+**Repeat customer / no modal:** the venue may skip the phone modal once the
+contact number is verified. The launcher then reads the confirmation page and
+records the reference itself; do not treat the missing modal as a failure.
+
 ## 6. Complete the session
 
 Preferred (facilitator page):
@@ -159,6 +163,8 @@ images once more before sharing; never publish an unredacted modal or card form.
 | `phone-input-disabled` | Captcha not actually clear; solve again |
 | `ABORT captcha-not-passed` | Hold elapsed; start a fresh session |
 | No SMS on WhatsApp | Use the code from the app; the SMS rail is not involved |
+| Phone modal absent | The venue may have placed the order already; the
+  launcher now checks the success text/reference and waits for 3-D Secure |
 | No venue reference | Press **Outcome unknown**; do not refund automatically |
 | VNC "Target closed" | Reopen the stable `/start` link; it health-checks the session |
 
@@ -173,5 +179,8 @@ treasury:     46,252 sats
 gap:          launcher stayed awaiting_human; the completion signal did not exist yet
 ```
 
-The next run must show `completed` + `venue_ref` and the card delta in the
-report.
+Second run (order `o_026f787e026f`, session `s_a_59705`): the venue skipped the
+phone modal, placed the order, charged `$2.22`, and showed reference `4`. The
+launcher aborted `phone-modal-not-present`; the no-modal branch now accepts the
+confirmation. Raw screenshots were deleted; the redacted crop is in
+`artifacts/live-smoke/order-confirmed.png`.

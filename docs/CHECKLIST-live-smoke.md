@@ -26,15 +26,25 @@ Legend: `[ ]` todo · `[x]` done · `[~]` needs operator.
 - [x] B3. `make live-smoke` target.
 - [x] B4. Artifacts directory ignored by git.
 - [x] B5. Free tier clearly separated (`test_e2e_two_phones.py`).
-- [ ] B6. **Operator:** run the live smoke with a dedicated test order.
-- [ ] B7. Record the venue reference and terminal state.
-- [ ] B8. Record the card delta and treasury delta.
-- [ ] B9. Attach the redacted screenshots.
-- [ ] B10. Update the venue-phone checklist with the successful WhatsApp run.
+- [x] B6. **Operator:** two dedicated test orders consumed (first via WhatsApp,
+      second without a phone modal).
+- [~] B7. Venue reference `4` observed on the second confirmation; the order
+      ledger ref is pending the facilitator **Venue confirmed** button. The
+      launcher session is `failed` from the old false-negative path.
+- [x] B8. Card `$17.10 -> $12.66` (two charges of `$2.22`); treasury unchanged
+      by the venue charges.
+- [x] B9. Redacted confirmation crop saved in `artifacts/live-smoke/`
+      (`order-confirmed.png`); raw screenshots were deleted.
+- [x] B10. Venue-phone checklist updated (WhatsApp run, card delta, ref gap).
 
 ## C. Redaction / secrets
 
-- [x] C1. Screenshots redact phone, card inputs and Adyen iframes.
+- [x] C0. The no-modal success branch accepts a placed order instead of
+      aborting; a charged order is never marked failed for a missing gate.
+
+- [x] C1. Screenshots redact phone, card inputs, Adyen iframes **and
+      text-rendered phone numbers** (the confirmation page prints the contact
+      phone as text).
 - [x] C2. No phone number, token or card value in this repo or the runbook.
 - [x] C3. Phone and session token come from the private trust-root / 0600 env.
 - [x] C4. Artifacts are not committed.

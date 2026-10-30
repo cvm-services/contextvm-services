@@ -43,6 +43,13 @@ The first successful live run used session `s_d_3396` and order
 captcha poll, so the launcher stayed `awaiting_human` while the card was charged
 **$2.22** (`$17.10 → $14.88`).
 
+A second run (order `o_026f787e026f`, session `s_a_59705`) exposed another
+branch: the venue **skipped the phone modal** because the contact number was
+already verified. The order was placed and charged, but the launcher aborted
+`phone-modal-not-present`. Fixed: if the modal is absent, accept a success
+screen or venue reference, wait for 3-D Secure, or mark `outcome_unknown` —
+never discard a charged order.
+
 Fix:
 
 - `POST /sessions/:id/complete` with `{outcome: "confirmed"|"unknown",
@@ -108,6 +115,17 @@ state gap:    launcher stayed awaiting_human; completion was manual
 
 The first re-run should show `completed` with a venue reference and the card
 delta in the report.
+
+Second run (no phone modal):
+
+```
+order:        o_026f787e026f
+session:      s_a_59705
+phone gate:   skipped by the venue (contact already verified)
+venue ref:    4 (visible on the confirmation; ledger ref pending the page button)
+card:         $14.88 -> $12.66  (charge $2.22; two test orders total $4.44)
+launcher:     false failure `phone-modal-not-present`; fixed
+```
 
 ## 8. Out of scope
 

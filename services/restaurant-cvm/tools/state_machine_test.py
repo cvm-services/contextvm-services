@@ -45,6 +45,13 @@ def test_no_state_file_is_not_fatal():
     v.set_state("completed")   # must be a no-op, never an exception
 
 
+def test_find_venue_ref_reads_the_confirmation_page():
+    class P:
+        def inner_text(self, _sel):
+            return "Bestellung erfolgreich!\nBestellnummer 4\nSumme 1,94 EUR"
+    assert v._find_venue_ref(P()) == "4"
+
+
 def test_completion_signal_finishes_confirmed():
     d = tempfile.mkdtemp()
     v.STATE_FILE = os.path.join(d, "state.json")

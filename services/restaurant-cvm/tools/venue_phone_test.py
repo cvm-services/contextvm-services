@@ -111,6 +111,10 @@ def poll_inbox(since_ts, tries=18, delay=10):
     return []
 
 
+# Set per run; used by the screenshot redactor to mask text-rendered numbers.
+PHONE_TAIL = ""
+
+
 def _mask_phone(value) -> str:
     """Country/ID-safe rendering for logs: keep at most the last two digits."""
     raw = str(value or "").strip()
@@ -143,6 +147,8 @@ def _run(args):
     phone_e164 = _to_e164(phone_raw, phone_country)
     phone_digits = "".join(ch for ch in phone_e164 if ch.isdigit())
     phone_tail = phone_digits[-10:]
+    global PHONE_TAIL
+    PHONE_TAIL = phone_tail
     manual_phone = getattr(args, "phone_mode", "jmp") == "manual"
     card = _load_card(args)
     # A file from a previous run must never complete this one.
@@ -623,10 +629,62 @@ def _run(args):
 
         if not modal_state["phone_modal"]:
             _snap(pg, path="/tmp/vt-no-modal.png")
-            step("ABORT", code="phone-modal-not-present",
-                 note="the gate may fire only after a buy attempt")
+            try:
+                body_text = pg.inner_text("body") or ""
+            except Exception:
+                body_text = ""
+            success = bool(__import__("re").search(
+                r"Bestellung erfolgreich|Bestellung eingegangen|Vielen Dank|"
+                r"Order confirmed|Order placed", body_text, __import__("re").I))
+            ref = _find_venue_ref(pg)
+            if success or ref:
+                step("order_placed_without_phone_gate", ref=ref or None,
+                     success=success,
+                     note="the venue skipped the phone modal; the order is already placed")
+                set_state("completed", venue_ref=ref or None)
+                _snap(pg, path="/tmp/vt-confirmed.png")
+                b.close()
+                return
+            # No modal and no success yet: it may be a 3-D Secure challenge or a
+            # slow confirmation. Keep the browser alive; never discard a charged
+            # order just because a gate we expected did not appear.
+            step("no_phone_modal_wait",
+                 note="no phone modal; waiting for 3-D Secure or the confirmation")
+            set_state("awaiting_human", phase="no_phone_modal",
+                      note="no phone modal; complete 3-D Secure or wait for the confirmation")
+            deadline = time.time() + max(args.hold, 60)
+            while time.time() < deadline:
+                signal = _completion_signal(args.session_id)
+                if signal:
+                    step("facilitator_completed", state=signal.get("outcome"))
+                    _finish_from_signal(pg, b, args.session_id, signal)
+                    return
+                pg.wait_for_timeout(3000)
+                ref = _find_venue_ref(pg)
+                if ref:
+                    step("venue_confirmed", ref=ref, via="page")
+                    set_state("completed", venue_ref=ref)
+                    _snap(pg, path="/tmp/vt-confirmed.png")
+                    b.close()
+                    return
+                try:
+                    if __import__("re").search(
+                        r"Bestellung erfolgreich|Bestellung eingegangen|"
+                        r"Order confirmed", pg.inner_text("body") or "",
+                        __import__("re").I):
+                        step("venue_confirmed", ref=None, via="success-text")
+                        set_state("completed")
+                        _snap(pg, path="/tmp/vt-confirmed.png")
+                        b.close()
+                        return
+                except Exception:
+                    pass
+            step("venue_confirm_unknown",
+                 reason="no phone modal and no confirmation within the hold")
+            set_state("outcome_unknown", phase="no_phone_modal")
+            _snap(pg, path="/tmp/vt-confirmed.png")
             b.close()
-            sys.exit(10)
+            return
 
         # INVENTORY the modal controls (one-time; keeps the run deterministic)
         modal_dom = pg.evaluate(
@@ -1213,8 +1271,26 @@ def _redact_sensitive(pg) -> None:
     """
     try:
         pg.evaluate(
-            """() => {
+            r"""(tail) => {
               document.getElementById('__cvm_redact')?.remove();
+              for (const [n, v] of (window.__cvm_redacted_text || [])) n.nodeValue = v;
+              window.__cvm_redacted_text = [];
+              if (tail && tail.length >= 6) {
+                const walker = document.createTreeWalker(
+                  document.body, NodeFilter.SHOW_TEXT);
+                const nodes = [];
+                while (walker.nextNode()) {
+                  const n = walker.currentNode;
+                  if (n.nodeValue && n.nodeValue.replace(/\D/g, '').includes(tail)) {
+                    nodes.push(n);
+                  }
+                }
+                window.__cvm_redacted_text = nodes.map((n) => [n, n.nodeValue]);
+                for (const n of nodes) {
+                  n.nodeValue = n.nodeValue.replace(
+                    /\+?\d[\d\s().-]{6,}/g, '+**…**');
+                }
+              }
               const wrap = document.createElement('div');
               wrap.id = '__cvm_redact';
               wrap.style.cssText =
@@ -1241,14 +1317,19 @@ def _redact_sensitive(pg) -> None:
                 }
               }
               document.body.appendChild(wrap);
-            }""")
+            }""", PHONE_TAIL)
     except Exception:
         pass
 
 
 def _unredact(pg) -> None:
     try:
-        pg.evaluate("() => document.getElementById('__cvm_redact')?.remove()")
+        pg.evaluate(
+            """() => {
+              for (const [n, v] of (window.__cvm_redacted_text || [])) n.nodeValue = v;
+              window.__cvm_redacted_text = [];
+              document.getElementById('__cvm_redact')?.remove();
+            }""")
     except Exception:
         pass
 
