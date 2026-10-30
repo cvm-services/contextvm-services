@@ -91,7 +91,7 @@ def resolve_static(root: Path, rel: str) -> Path | None:
 
 def _redirect(token: str) -> bytes:
     target = (f"{PREFIX}{token}/vnc.html?autoconnect=1&resize=scale"
-              f"&path={PREFIX}{token}/websockify")
+              f"&path={PREFIX.lstrip('/')}{token}/websockify")
     return (f"HTTP/1.1 302 Found\r\nLocation: {target}\r\n"
             "Cache-Control: no-store\r\nContent-Length: 0\r\n\r\n").encode()
 
