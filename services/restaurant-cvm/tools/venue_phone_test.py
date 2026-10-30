@@ -5,7 +5,7 @@ MEASURED CONTEXT (see docs/RALPH-LOOP-finish-sats-ordering.md):
   * The venue checkout gates card orders behind a phone-verification modal
     ("Wir muessen deine Telefonnummer verifizieren"), WhatsApp or SMS delivery,
     and a Cloudflare Turnstile human checkbox.
-  * The fleet's JMP number (810) 258-3253 is LIVE (paid 26,898 sats 2026-09-27,
+  * The fleet's JMP number (810) 294-4652 is LIVE (paid 26,898 sats 2026-09-27,
     activated, two-way SMS proven; inbox at
     ~/.hermes/profiles/manager/state/jmp_inbox.db on the T470/cobrador).
   * The card form is ADYEN secured fields; filling works; no charge happened.
