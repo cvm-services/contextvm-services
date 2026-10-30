@@ -30,7 +30,7 @@ import os
 import sys
 import time
 from pathlib import Path
-from urllib.parse import unquote, urlparse
+from urllib.parse import parse_qs, unquote, urlparse
 
 BIND = os.environ.get("GATEWAY_BIND", "127.0.0.1")
 PORT = int(os.environ.get("GATEWAY_PORT", "8097"))
@@ -87,6 +87,15 @@ def resolve_static(root: Path, rel: str) -> Path | None:
     if candidate.is_dir():
         candidate = candidate / "index.html"
     return candidate if candidate.is_file() else None
+
+
+def needs_vnc_redirect(rest: str, query: str) -> bool:
+    """A bare vnc.html / token root needs the auto-connect query.
+
+    noVNC falls back to wss://host/websockify without `path`; the browser then
+    gets a 404. Redirecting makes bare token links/bookmarks work.
+    """
+    return rest in ("", "/", "vnc.html") and "path" not in parse_qs(query)
 
 
 def _redirect(token: str) -> bytes:
@@ -197,7 +206,7 @@ async def handle(reader: asyncio.StreamReader, writer: asyncio.StreamWriter) -> 
             await writer.drain()
             return
 
-        if method == "GET" and rest in ("", "/"):
+        if method == "GET" and needs_vnc_redirect(rest, urlparse(target).query):
             writer.write(_redirect(token))
             await writer.drain()
             return

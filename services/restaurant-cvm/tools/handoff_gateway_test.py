@@ -78,3 +78,15 @@ class TestHandoff(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestBareVnc(unittest.TestCase):
+    def test_bare_vnc_needs_the_query(self):
+        self.assertTrue(g.needs_vnc_redirect("vnc.html", ""))
+        self.assertTrue(g.needs_vnc_redirect("", ""))
+        self.assertFalse(g.needs_vnc_redirect(
+            "vnc.html", "autoconnect=1&path=venue/view/t/websockify"))
+
+    def test_other_files_are_not_redirected(self):
+        self.assertFalse(g.needs_vnc_redirect("core/rfb.js", ""))
+        self.assertFalse(g.needs_vnc_redirect("app/ui.js", "x=1"))
