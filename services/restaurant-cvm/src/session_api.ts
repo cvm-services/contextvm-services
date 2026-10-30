@@ -279,6 +279,19 @@ export class SessionStore {
     return this.#live(s);
   }
 
+  /**
+   * Drop a session from the store. Used when the VNC is demonstrably dead
+   * (websockify not listening) but the stored session has not expired yet:
+   * without this, create() would 409 on a token nobody can connect to.
+   */
+  cancel(id: string, facilitator: string): boolean {
+    const s = this.#sessions.get(id);
+    if (!s || s.facilitator !== facilitator) return false;
+    this.#sessions.delete(id);
+    this.#persist();
+    return true;
+  }
+
   async create(order_id: string, facilitator: string): Promise<Session> {
     // One active session per order: two browsers on one order is exactly how a
     // duplicate purchase happens.
@@ -601,6 +614,13 @@ export async function handle(
         // Re-reading your own session re-issues the URL: a reloaded dashboard tab
         // must not lose the ability to finish an order it legitimately owns.
         return json(200, publicView(s, true));
+      }
+
+      if (parts.length === 3 && parts[2] === "cancel" && m === "POST") {
+        const s = store.get(id, facilitator);
+        if (!s) return json(404, { error: "no such session" });
+        store.cancel(id, facilitator);
+        return json(200, { ok: true, session_id: id });
       }
 
       if (parts.length === 3 && parts[2] === "control" && m === "POST") {

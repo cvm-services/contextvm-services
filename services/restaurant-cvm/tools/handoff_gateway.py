@@ -211,6 +211,33 @@ async def handle(reader: asyncio.StreamReader, writer: asyncio.StreamWriter) -> 
             await writer.drain()
             return
 
+        if method == "GET" and rest == "health":
+            # Token valid; is the websockify really accepting? A stored,
+            # unexpired session can outlive its launcher. Probe the mapped port.
+            host = str(rec.get("ws_host") or "127.0.0.1")
+            try:
+                _r, _w = await asyncio.wait_for(
+                    asyncio.open_connection(host, int(rec["ws_port"])), timeout=2)
+                _w.close()
+                try:
+                    await _w.wait_closed()
+                except Exception:
+                    pass
+                ok = True
+            except (OSError, asyncio.TimeoutError, ValueError):
+                ok = False
+            body = json.dumps({"ok": ok}).encode()
+            status = "200 OK" if ok else "410 Gone"
+            head_out = (
+                f"HTTP/1.1 {status}\r\n"
+                "content-type: application/json\r\n"
+                "cache-control: no-store\r\n"
+                f"content-length: {len(body)}\r\n\r\n"
+            ).encode()
+            writer.write(head_out + body)
+            await writer.drain()
+            return
+
         if rest == "websockify":
             await _proxy(reader, writer, head,
                          str(rec.get("ws_host") or "127.0.0.1"),
