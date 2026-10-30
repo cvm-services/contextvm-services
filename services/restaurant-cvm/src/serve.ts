@@ -92,6 +92,14 @@ const grantTtl = Number(Deno.env.get("CVM_GRANT_TTL_MS") ?? "120000");
 // Default to loopback; production binds the FIPS /128 so Caddy/T14 can reach
 // the session API without exposing it on the LAN.
 const BIND = Deno.env.get("CVM_SESSION_BIND") ?? "127.0.0.1";
-Deno.serve({ port, hostname: BIND }, (req) =>
-  handle(req, store, { tokens, grant_ttl_ms: grantTtl }));
-console.error(JSON.stringify({ listening: port, bind: BIND, launcher: Boolean(LAUNCHER) }));
+const handler = (req: Request) => handle(req, store, { tokens, grant_ttl_ms: grantTtl });
+Deno.serve({ port, hostname: BIND }, handler);
+// Same-host callers (the venue CVM) use loopback: the FIPS listener is
+// firewalled to T14, and the CVM's own FIPS source is not on that allowlist.
+if (BIND !== "127.0.0.1") {
+  Deno.serve({ port, hostname: "127.0.0.1" }, handler);
+}
+console.error(JSON.stringify({
+  listening: port, bind: BIND, loopback: BIND !== "127.0.0.1",
+  launcher: Boolean(LAUNCHER),
+}));

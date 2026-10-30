@@ -911,6 +911,9 @@ export async function startCheckout(
         authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ order_id: orderId }),
+      // The tool has no UI: a dead session API must become an error the client
+      // can see, not a 30 s (or infinite) hang.
+      signal: AbortSignal.timeout(20_000),
     });
   } catch (e) {
     return toolError(`session API unreachable: ${(e as Error).message}`);
