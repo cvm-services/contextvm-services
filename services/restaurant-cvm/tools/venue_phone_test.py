@@ -5,7 +5,7 @@ MEASURED CONTEXT (see docs/RALPH-LOOP-finish-sats-ordering.md):
   * The venue checkout gates card orders behind a phone-verification modal
     ("Wir muessen deine Telefonnummer verifizieren"), WhatsApp or SMS delivery,
     and a Cloudflare Turnstile human checkbox.
-  * The fleet's JMP number (810) 294-4652 is LIVE (paid 26,898 sats 2026-09-27,
+  * The configured venue phone is materialized from OpenBao (paid 26,898 sats 2026-09-27,
     activated, two-way SMS proven; inbox at
     ~/.hermes/profiles/manager/state/jmp_inbox.db on the T470/cobrador).
   * The card form is ADYEN secured fields; filling works; no charge happened.
@@ -26,6 +26,7 @@ Usage (x280, headed under xvfb):
   ~/.cache/pw-venv/bin/python tools/venue_phone_test.py [--country US]
 """
 import argparse
+import re
 import json
 import os
 import subprocess
@@ -41,8 +42,9 @@ T470 = "cobrador"
 INBOX_SQL = ("select ts, peer, body from messages where direction='in' "
              "and ts > ? order by ts desc limit 3")
 TARGET_ITEM = "Capri Sun Kirsche"   # EUR 1.50 — cheapest, no modifiers
-JMP_NUMBER = "8102944652"           # E.164 without '+'
-JMP_DISPLAY = "(810) 294-4652"
+# The phone is never in this repo: CVM_PHONE / CVM_PHONE_COUNTRY /
+# CVM_PHONE_MODE are materialized from OpenBao (secret/fleet/venue-phone) by
+# deploy/x280/install-session-api.sh.
 
 R = []
 
@@ -109,8 +111,30 @@ def poll_inbox(since_ts, tries=18, delay=10):
     return []
 
 
+def _to_e164(raw: str, country: str) -> str:
+    """Normalize a configured phone to E.164 (US national / DE leading 0)."""
+    p = re.sub(r"[^\d+]", "", str(raw or ""))
+    if p.startswith("+"):
+        return p
+    if country == "DE" and p.startswith("0"):
+        return "+49" + p[1:]
+    if country == "US":
+        return "+1" + p[-10:]
+    return "+" + p
+
+
 def _run(args):
     profile = _load_profile(args)
+    phone_raw = str(getattr(args, "phone", "") or "").strip()
+    if not phone_raw:
+        print(json.dumps({"step": "ABORT", "code": "phone-not-configured",
+                          "note": "materialize CVM_PHONE from OpenBao secret/fleet/venue-phone"}))
+        sys.exit(10)
+    phone_country = str(getattr(args, "phone_country", "US") or "US").upper()
+    phone_e164 = _to_e164(phone_raw, phone_country)
+    phone_digits = "".join(ch for ch in phone_e164 if ch.isdigit())
+    phone_tail = phone_digits[-10:]
+    manual_phone = getattr(args, "phone_mode", "jmp") == "manual"
     card = _load_card(args)
 
     with sync_playwright() as p:
@@ -323,25 +347,23 @@ def _run(args):
                     profile["email"], timeout=5000)
             except Exception as e:
                 step("email_fill_err", err=str(e)[:50])
-        # contact phone: the venue phone widget defaults to +49, which becomes
-        # the modal prefill. Set the CONTACT country to US before filling.
+        # contact phone: use the configured country/number; the modal inherits it.
         try:
-            pg.select_option("select.PhoneInputCountrySelect", "US", timeout=4000)
-            step("contact_country_set", via="US")
+            pg.select_option("select.PhoneInputCountrySelect", phone_country, timeout=4000)
+            step("contact_country_set", via=phone_country)
         except Exception as e:
             step("contact_country_err", err=str(e)[:50])
         try:
             tel = pg.locator("input[type=tel], input[inputmode=tel]").first
             tel.click()
-            tel.fill(JMP_NUMBER, timeout=5000)
-            step("contact_phone_set", to=JMP_DISPLAY)
+            tel.fill(phone_e164, timeout=5000)
+            step("contact_phone_set", to=phone_e164)
             try:
                 cv = tel.input_value()
                 cd = "".join(ch for ch in cv if ch.isdigit())
                 step("contact_phone_check", value=cv[:24],
-                     ok=cd.endswith("8102944652"),
-                     us=not cv.strip().startswith("+49"))
-                if not cd.endswith("8102944652"):
+                     ok=cd.endswith(phone_tail), country=phone_country)
+                if not cd.endswith(phone_tail):
                     step("ABORT", code="wrong-contact-phone", value=cv[:24])
                     b.close()
                     sys.exit(11)
@@ -787,12 +809,12 @@ def _run(args):
         country_set = None
         for _attempt in range(3):
             try:
-                pg.select_option("select.PhoneInputCountrySelect", "US", timeout=4000)
-                country_set = "US"
+                pg.select_option("select.PhoneInputCountrySelect", phone_country, timeout=4000)
+                country_set = phone_country
                 break
             except Exception:
-                got = set_country("US")
-                if got == "US":
+                got = set_country(phone_country)
+                if got == phone_country:
                     country_set = got
                     break
             pg.wait_for_timeout(800)
@@ -805,7 +827,7 @@ def _run(args):
             for attempt in range(3):
                 ph.click(timeout=6000)
                 ph.fill("")
-                ph.type("+18102944652", delay=70)
+                ph.type(phone_e164, delay=70)
                 pg.wait_for_timeout(700)
                 typed_value = ph.input_value()
                 digits = "".join(ch for ch in typed_value if ch.isdigit())
@@ -831,9 +853,8 @@ def _run(args):
         # to carry the US country code (11 digits, leading 1), or the national
         # number with a US selector plus the request guard below.
         _digits = "".join(ch for ch in (fld_val.get("value") or "") if ch.isdigit())
-        _us_full = _digits == "18102944652"
-        _us_national = _digits == "8102944652" and fld_val.get("country") == "US"
-        if fld_val.get("country") != "US" or not (_us_full or _us_national):
+        _digits_ok = _digits.endswith(phone_tail) and len(_digits) >= 10
+        if fld_val.get("country") != phone_country or not _digits_ok:
             step("ABORT", code="wrong-destination",
                  country=fld_val.get("country"), digits=_digits,
                  note="refusing to request a code: the number is not the US JMP line. "
@@ -841,8 +862,8 @@ def _run(args):
             _snap(pg, path="/tmp/vt-wrong-number.png")
             b.close()
             sys.exit(11)
-        step("destination_verified", e164="+18102944652",
-             value=_digits, national_only=not _us_full)
+        step("destination_verified", e164=phone_e164,
+             value=_digits, country=phone_country)
         _snap(pg, path="/tmp/vt-modal-filled.png")
         if not typed_ok:
             step("ABORT", code="phone-type-failed")
@@ -867,9 +888,9 @@ def _run(args):
         # The phone is filled and verified, but no code is sent until a human
         # confirms it in the VNC. The session API writes this file when the
         # facilitator presses "Phone verified — send code".
-        set_state("awaiting_confirmation", e164="+18102944652",
+        set_state("awaiting_confirmation", e164=phone_e164,
                   value=_digits, country=fld_val.get("country"))
-        step("phone_ready_for_review", e164="+18102944652",
+        step("phone_ready_for_review", e164=phone_e164,
              value=_digits, country=fld_val.get("country"))
         confirm_file = f"/tmp/cvm-session-{args.session_id or 'manual'}.confirm"
         try:
@@ -905,6 +926,27 @@ def _run(args):
         step("phone_confirmed", value=_digits, manual=manual_sent)
         set_state("continuing", phase="sms")
 
+        if manual_phone:
+            step("manual_code_expected", phone=phone_e164,
+                 note="human enters the SMS code on their phone and confirms in the VNC")
+            set_state("awaiting_human", phase="manual_code",
+                      note="enter the SMS code on your phone and confirm in the VNC")
+            ref = None
+            deadline = time.time() + args.hold
+            while time.time() < deadline:
+                pg.wait_for_timeout(3000)
+                ref = _find_venue_ref(pg)
+                if ref:
+                    break
+            if ref:
+                step("venue_confirmed", ref=ref)
+                set_state("completed", venue_ref=ref)
+            else:
+                step("venue_confirm_unknown", reason="no venue reference within the hold")
+                set_state("outcome_unknown", phase="manual_code")
+            b.close()
+            return
+
         if args.no_send_sms:
             step("ABORT", code="dry-run",
                  note="phone verified; SMS not sent (--no-send-sms)")
@@ -925,14 +967,15 @@ def _run(args):
                 low = blob.lower()
                 if any(k in low for k in ("phone", "sms", "verif", "otp")):
                     step("phone_request_seen", url=request.url[:120], body=blob[:160])
-                    _re = __import__("re")
-                    german = ("+49" in blob or "0049" in blob
-                              or _re.search(r'"country(Code|_code)?"\s*:\s*"(de|DE|49)"', blob)
-                              or _re.search(r'(?<!\d)49\d{8,}', blob))
-                    if german and "18102944652" not in blob:
-                        blocked["bad"] = {"url": request.url[:140], "body": blob[:180]}
-                        route.abort()
-                        return
+                    if phone_country == "US":
+                        _re = __import__("re")
+                        german = ("+49" in blob or "0049" in blob
+                                  or _re.search(r'"country(Code|_code)?"\s*:\s*"(de|DE|49)"', blob)
+                                  or _re.search(r'(?<!\d)49\d{8,}', blob))
+                        if german and phone_digits not in blob:
+                            blocked["bad"] = {"url": request.url[:140], "body": blob[:180]}
+                            route.abort()
+                            return
             except Exception:
                 pass
             route.continue_()
@@ -1100,6 +1143,13 @@ def _snap(pg, path):
 
 def _parse_args():
     ap = argparse.ArgumentParser()
+    ap.add_argument("--phone", default=os.environ.get("CVM_PHONE", ""),
+                    help="phone to verify; materialized from OpenBao (never in git)")
+    ap.add_argument("--phone-country", default=os.environ.get("CVM_PHONE_COUNTRY", "US"),
+                    choices=("US", "DE"), help="country for --phone and the modal")
+    ap.add_argument("--phone-mode", default=os.environ.get("CVM_PHONE_MODE", "jmp"),
+                    choices=("jmp", "manual"),
+                    help="jmp: poll the JMP inbox; manual: human enters the code")
     ap.add_argument("--country", default="US",
                     help="phone country in the venue dropdown (default US)")
     ap.add_argument("--viewport", default="1366x1200",
@@ -1134,7 +1184,7 @@ def _load_profile(args):
         "first_name": "Test", "last_name": "Validierung",
         "holder": "Test Validierung", "street": "Albrechtstraße",
         "house": "131", "postal": "12167", "city": "Berlin",
-        "email": "orders@example.invalid", "phone": JMP_NUMBER,
+        "email": "orders@example.invalid", "phone": "",
         "phone_country": "US",
     }
     try:
