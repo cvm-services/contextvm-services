@@ -213,24 +213,31 @@ interface NostrEvent {
   sig: string;
 }
 
-// Wrap a signed inner event in a NIP-59 gift wrap addressed to `recipient`.
+// Wrap a signed inner event in a gift wrap addressed to `recipient`.
+//
+// The venue server derives the caller identity from the OUTER event and
+// requires it to equal the inner signer (`resolveClientPubkey`). A classic
+// NIP-59 random wrap key therefore fails with "inner pubkey does not match the
+// verified outer pubkey". This client signs and encrypts the wrap with the
+// caller's key: correct for this server's identity model, but it does NOT
+// provide NIP-59 sender privacy on the wire (the outer pubkey is the caller).
 function giftWrap(
   signedInner: NostrEvent,
   recipient: string,
+  senderSk: Uint8Array,
   wrapKind: number = GIFT_WRAP_KIND,
 ): NostrEvent {
-  const wrapSk = generateSecretKey();
-  const wrapPk = getPublicKey(wrapSk);
-  const convKey = nip44.v2.utils.getConversationKey(wrapSk, recipient);
+  const senderPk = getPublicKey(senderSk);
+  const convKey = nip44.v2.utils.getConversationKey(senderSk, recipient);
   const encrypted = nip44.v2.encrypt(JSON.stringify(signedInner), convKey);
   const tmpl = {
     kind: wrapKind,
     content: encrypted,
     tags: [["p", recipient]],
     created_at: Math.floor(Date.now() / 1000),
-    pubkey: wrapPk,
+    pubkey: senderPk,
   };
-  return finalizeEvent(tmpl, wrapSk) as unknown as NostrEvent;
+  return finalizeEvent(tmpl, senderSk) as unknown as NostrEvent;
 }
 
 // Unwrap a gift wrap addressed to `clientSk`'s owner.
@@ -418,7 +425,7 @@ async function main() {
       created_at: Math.floor(Date.now() / 1000),
     };
     const signedInner = finalizeEvent(innerUnsigned, clientSk) as unknown as NostrEvent;
-    const wrap = giftWrap(signedInner, String(serverPk), GIFT_WRAP_KIND);
+    const wrap = giftWrap(signedInner, String(serverPk), clientSk, GIFT_WRAP_KIND);
 
     log(`[e2e] -> ${method} (id=${id}) inner_event_id=${signedInner.id}`);
 
