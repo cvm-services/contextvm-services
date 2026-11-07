@@ -165,8 +165,7 @@ def _run(args):
         _chrome = "/usr/bin/google-chrome-stable"
         _launch = {"headless": False, "args": ["--no-sandbox",
                    "--disable-dev-shm-usage", "--disable-gpu",
-                   "--renderer-process-limit=2",
-                   "--js-flags=--max-old-space-size=512"]}
+                   "--renderer-process-limit=2"]}
         if os.path.exists(_chrome):
             _launch["executable_path"] = _chrome
         b = p.chromium.launch(**_launch)
@@ -179,6 +178,7 @@ def _run(args):
             "Object.defineProperty(navigator,'webdriver',{get:()=>undefined})")
         pg = ctx.new_page()
         pg.set_default_timeout(15000)
+        pg.on("crash", lambda event: step("tab_crashed")
 
         set_state("preparing")
         # ---------- reach the phone modal (proven path, no card) -------------
