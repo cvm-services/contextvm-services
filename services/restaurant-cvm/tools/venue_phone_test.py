@@ -178,7 +178,7 @@ def _run(args):
             "Object.defineProperty(navigator,'webdriver',{get:()=>undefined})")
         pg = ctx.new_page()
         pg.set_default_timeout(15000)
-        pg.on("crash", lambda event: step("tab_crashed")
+        pg.on("crash", lambda event: step("tab_crashed"))
 
         set_state("preparing")
         # ---------- reach the phone modal (proven path, no card) -------------
