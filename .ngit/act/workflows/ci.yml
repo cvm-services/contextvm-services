@@ -45,3 +45,26 @@ jobs:
       # `deno task venues:check` = every venues/*/venue.json rebuilt from its
       # committed evidence (evidence/raw/page.txt) must be byte-identical
       - run: deno task venues:check
+
+  # Two runners, and until now CI ran only one of them. 14 files import
+  # `bun:test`; deno cannot load them, so they were excluded from `deno task test`
+  # and nothing ran them at all. A suite nobody runs is worse than a missing one:
+  # it looks like coverage.
+  bun:
+    name: bun
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      # Tag, not a pinned SHA: the other actions here are hash-pinned and I could
+      # not verify setup-bun's real commit, and an invented SHA is worse than an
+      # honest tag - it silently resolves to nothing and fails at fetch time.
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      # No install step: these suites import only `bun:test`, which ships with the
+      # runtime. Anything that grows a real dependency must add a lockfile here.
+      # Glob covers BOTH naming styles: 12 files use *.test.ts, 2 use *_test.ts.
+      # Selecting only *.test.ts would leave those two unrun - the exact problem
+      # this job exists to fix.
+      - run: bun test $(grep -rl 'from "bun:test"' --include='*.ts' services | grep -v node_modules)

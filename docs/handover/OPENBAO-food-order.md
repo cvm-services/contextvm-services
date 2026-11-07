@@ -1,5 +1,27 @@
 # Handover — OpenBao: what the food-order workstream needs
 
+> **SUPERSEDED IN PART (2026-10-30).** The live architecture is different from what
+> this document first assumed, and the first draft asked for something that already
+> exists. Corrections below; read this box before the body.
+>
+> 1. **The service is DEPLOYED and RUNNING** on **x280** — not vps2fips, and not
+>    waiting on me. `cvm-customer-api.service` is active, serving the real Three
+>    Buddies menu over the FIPS address `[fd36:...:bb0]:8793` (verified: `GET /menu`
+>    → 200, Cheeseburger Menü 17500 sats / EUR 14).
+> 2. **The customer pays the facilitator via LNURLP**, and the **treasury pays
+>    2fiat**. `secret/fleet/2fiat` already exists and is already materialized on
+>    x280. Asking for `two_fiat_token` in a new path was wrong: it would have
+>    created a second copy of a working credential.
+> 3. **Only `nwc_url` is actually missing**, and the only reason it matters is the
+>    treasury leg (2fiat top-up). `secret/data/fleet/food-order` returns **403 for
+>    the x280 AppRole** — measured, not assumed.
+> 4. **The spend ceiling I kept requesting already exists**: a documented treasury
+>    cap of **21,212 sats**. I should have read the deployment README before asking.
+>
+> So the ask collapses to: **grant x280 read on `secret/data/fleet/food-order`
+> and put `nwc_url` in it** — unless the treasury leg has been retired, in which
+> case nothing is needed from the vault at all and this document is obsolete.
+
 **For:** the context window that manages OpenBao on T14
 **From:** the food-order / sats-checkout workstream (`cvm-services/contextvm-services`)
 **Date:** 2026-10-26

@@ -161,7 +161,13 @@ Deno.test("topup resolves the BOLT11 from the provider's public checkout page", 
   const client = new FiatClient({
     token: "t", fetchImpl: fetchImpl as unknown as typeof fetch, timeoutMs: 5000,
   });
-  // bypass auth: stub cards()
+  // requestTopup() now warms the session itself (cold-process 401 fix, cce8579).
+  // Stubbing only cards() left ensureSession() to run for real, so this offline
+  // test reached api.2fiat.com and failed with "auth/exchange refused" on any
+  // machine without live credentials. Stub the warm-up too: this test is about
+  // resolving the BOLT11 from the checkout page, not about auth.
+  (client as unknown as { ensureSession: () => Promise<void> }).ensureSession =
+    () => Promise.resolve();
   (client as unknown as { cards: () => Promise<unknown[]> }).cards = () =>
     Promise.resolve([{ id: "card1", balance: 1, topup_fee: 0.065, masked_number: "5257 **** 1234", currency: "USD" }]);
 
