@@ -6,7 +6,7 @@
  *   2. one controller at a time (two phones clicking one form corrupts an order).
  */
 import { beforeEach, describe, expect, test } from "bun:test";
-import { handle, setSignalWriter, setStateReader, SessionStore, type Spawner } from "./session_api.ts";
+import { cardHandoffPath, cardReadyPath, handle, setCardWriter, setSignalWriter, setStateReader, SessionStore, type Spawner } from "./session_api.ts";
 import { FacilitatorAuth } from "./facilitator_auth.ts";
 
 const TOK_A = "tok-facilitator-a";
@@ -44,12 +44,24 @@ function atCaptcha(session_id: string) {
 }
 
 let signals: string[];
+let cards: Record<string, string>;
+let persisted: string[];
 beforeEach(() => {
   now = 1_800_000_000_000;
   spawnCalls = [];
   signals = [];
+  cards = {};
+  persisted = [];
   setSignalWriter((p) => signals.push(p));
-  store = new SessionStore(spawn, () => now);
+  setStateReader(() => null);
+  setCardWriter((p, body) => { cards[p] = body; });
+  store = new SessionStore(spawn, () => now, {
+    path: "/test/session-store.json",
+    file: {
+      read: () => null,
+      write: (_path, text) => { persisted.push(text); },
+    },
+  });
 });
 
 describe("authentication", () => {
@@ -720,5 +732,69 @@ describe("human completion", () => {
     now += 120_000;
     const r = await call("POST", `/sessions/${created.session_id}/complete`, TOK_A, {});
     expect(r.status).toBe(409);
+  });
+});
+
+// --- assisted card flow: handoff is transient; Continue is separate --------
+function atCard(id: string) {
+  store.get(id, "fac-a")!.state = "awaiting_card";
+}
+
+describe("assisted card pause", () => {
+  test("one-time autofill does not persist a card in the session", async () => {
+    const created = await (await call("POST", "/sessions", TOK_A, { order_id: "o_card" })).json();
+    const id = created.session_id;
+    atCard(id);
+    // Synthetic test PAN only; this is never a real card.
+    const body = { source: "manual", pan: "4111111111111111", exp: "12/30", cvc: "123" };
+    const r = await call("POST", `/sessions/${id}/card`, TOK_A, body);
+    expect(r.status).toBe(200);
+    expect(await r.json()).toEqual({ ok: true });
+    const expected = cardHandoffPath(id);
+    expect(cards[expected]).toBeDefined();
+    expect(persisted.join("")).not.toContain(body.pan);
+    expect(cards[cardReadyPath(id)]).toBeUndefined();
+  });
+
+  test("Continue after inspection writes the separate card-ready signal", async () => {
+    const created = await (await call("POST", "/sessions", TOK_A, { order_id: "o_ready" })).json();
+    const id = created.session_id;
+    atCard(id);
+    const r = await call("POST", `/sessions/${id}/card-ready`, TOK_A, {});
+    expect(r.status).toBe(200);
+    const body = await r.json();
+    expect(body.card_ready_at).toBeDefined();
+    expect(cards[cardReadyPath(id)]).toBeDefined();
+  });
+
+  test("a card cannot be filled or continued after the pause has ended", async () => {
+    const created = await (await call("POST", "/sessions", TOK_A, { order_id: "o_late" })).json();
+    const id = created.session_id;
+    atCaptcha(id);
+    const data = { source: "manual", pan: "4111111111111111", exp: "12/30", cvc: "123" };
+    expect((await call("POST", `/sessions/${id}/card`, TOK_A, data)).status).toBe(409);
+    expect((await call("POST", `/sessions/${id}/card-ready`, TOK_A, {})).status).toBe(409);
+    expect(persisted.join("")).not.toContain(data.pan);
+  });
+
+  test("invalid fields and another facilitator are refused", async () => {
+    const created = await (await call("POST", "/sessions", TOK_A, { order_id: "o_invalid" })).json();
+    const id = created.session_id;
+    atCard(id);
+    expect((await call("POST", `/sessions/${id}/card`, TOK_A, {
+      source: "manual", pan: "123", exp: "99/xx", cvc: "1",
+    })).status).toBe(400);
+    expect((await call("POST", `/sessions/${id}/card-ready`, TOK_B, {})).status).toBe(404);
+    expect(cards[cardHandoffPath(id)]).toBeUndefined();
+  });
+
+  test("the configured 2fiat option is opt-in and contains no card body", async () => {
+    const created = await (await call("POST", "/sessions", TOK_A, { order_id: "o_2fiat" })).json();
+    const id = created.session_id;
+    atCard(id);
+    const r = await call("POST", `/sessions/${id}/card`, TOK_A, { source: "2fiat" });
+    expect(r.status).toBe(200);
+    expect(persisted.join("")).not.toContain("TWO_FIAT_TOKEN");
+    expect(cards[cardReadyPath(id)]).toBeUndefined();
   });
 });

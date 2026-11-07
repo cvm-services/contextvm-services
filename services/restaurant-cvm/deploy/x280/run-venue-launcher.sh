@@ -10,5 +10,5 @@
 set -euo pipefail
 exec /home/c08r4d0r/.cache/pw-venv/bin/python \
   /home/c08r4d0r/repos/contextvm-services/services/restaurant-cvm/tools/venue_phone_test.py \
-  --vnc --card-source "${CVM_CARD_SOURCE:-synthetic}" \
+  --vnc --card-source "${CVM_CARD_SOURCE:-manual}" \
   "$@"

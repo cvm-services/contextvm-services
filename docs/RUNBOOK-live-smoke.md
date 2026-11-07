@@ -73,14 +73,40 @@ Open the printed VNC URL, or the stable link:
 Expected log lines: `handoff_ready`, `cart_badge`, `checkout`,
 `advanced_to_payment`, `pay_frames`, `kaufen_clicked`, `phone_pre_captcha`.
 
-## 5. Human phase
+## 5. Card phase: manual or explicit opt-in autofill
+
+The launcher pauses at `awaiting_card`; it does not automatically submit the
+purchase. Choose one path:
+
+- **Manual entry (default):** type PAN, expiry and CVV into the venue card fields
+  in the viewer. Nothing is sent to the session API or saved on the server.
+- **Explicit autofill:** enter PAN, expiry and CVV in the facilitator's card panel
+  and click **Autofill for this order**. These fields are removed from the DOM
+  after the one-time handoff. The handoff is read and deleted by the launcher,
+  never persisted in the session or logged.
+- **Opt-in saved PAN/expiry:** tick **save this PAN and expiry on this device**
+  before autofill. They are stored with AES-GCM encryption in browser IndexedDB.
+  **CVV is never saved.** The Nostr signer proves your npub only; no card is put
+  into a signer, event or relay.
+- **Configured 2fiat card:** an explicit alternative to an arbitrary PAN. No
+  backend card is read until this button is clicked. It never overrides a
+  card-specific handoff you explicitly sent.
+
+Then inspect the completed form and press **Continue to verification**.
+Autofill alone is not permission to charge. If no Continue arrives, the launcher
+expires with `card-not-provided`; no purchase was submitted. In either mode,
+inspect before you charge.
+
+## 6. Verification phase (phone automation is opt-in)
 
 1. Solve the Turnstile in the VNC until the phone input is enabled.
-2. Confirm the modal shows the configured country and the masked number.
-   Do not proceed if the country is wrong; the destination guard will abort.
-3. Select **WhatsApp** (the accepted manual channel for now).
-4. Receive the code on the test phone, enter it, confirm.
-5. Wait for the venue confirmation screen.
+2. Enter **your own country and number**, choose SMS or WhatsApp, and request
+   the code. The default `CVM_PHONE_AUTO=0` does not type, select or request
+   anything on your behalf.
+3. Receive the code on your phone, enter it, and confirm at the venue.
+4. Wait for the venue confirmation screen. `CVM_PHONE_AUTO=1` restores the
+   existing country-select, E.164 typing, destination/request guards and JMP
+   polling for an operator deliberately re-enabling automation.
 
 If the launcher is still in `awaiting_human` after you finish, that is expected
 until you press the completion button (next step).
@@ -89,7 +115,7 @@ until you press the completion button (next step).
 contact number is verified. The launcher then reads the confirmation page and
 records the reference itself; do not treat the missing modal as a failure.
 
-## 6. Complete the session
+## 7. Complete the session
 
 Preferred (facilitator page):
 
@@ -108,7 +134,7 @@ scripts/live-smoke.sh complete SESSION=s_... UNKNOWN=1
 Expected: state `completed` (with `venue_ref`) or `outcome_unknown`; the
 launcher exits instead of holding.
 
-## 7. Verify
+## 8. Verify
 
 ```bash
 scripts/live-smoke.sh wait SESSION=s_... TIMEOUT=120
@@ -132,7 +158,7 @@ journalctl --user -u cvm-session-api.service --since "20 min ago" --no-pager \
   | grep -E 'handoff_ready|cart_badge|advanced_to_payment|pay_frames|kaufen_clicked|phone_pre_captcha|phone_ready_for_review|venue_confirmed|venue_confirm_unknown|ABORT'
 ```
 
-## 8. Cleanup
+## 9. Cleanup
 
 ```bash
 scripts/live-smoke.sh cleanup SESSION=s_...
@@ -140,7 +166,7 @@ scripts/live-smoke.sh cleanup SESSION=s_...
 
 Then close the VNC tab. The order is consumed; do not reuse it.
 
-## 9. Evidence
+## 10. Evidence
 
 - `artifacts/live-smoke/report.json`
 - customer paid screen
@@ -154,7 +180,7 @@ Then close the VNC tab. The order is consumed; do not reuse it.
 The launcher overlays phone/card fields before every screenshot. Review the
 images once more before sharing; never publish an unredacted modal or card form.
 
-## 10. Failure modes
+## 11. Failure modes
 
 | Symptom | Meaning / action |
 |---|---|
@@ -167,8 +193,10 @@ images once more before sharing; never publish an unredacted modal or card form.
   launcher now checks the success text/reference and waits for 3-D Secure |
 | No venue reference | Press **Outcome unknown**; do not refund automatically |
 | VNC "Target closed" | Reopen the stable `/start` link; it health-checks the session |
+| `card-not-provided` | Inspect and press Continue: autofill is only a handoff, not a charging approval |
+| Phone verification should be human | `CVM_PHONE_AUTO=0` is the default; `1` restores the preserved automation |
 
-## 11. Reference run (2026-10-30)
+## 12. Reference run (2026-10-30)
 
 ```
 order:        o_07620770cb8f

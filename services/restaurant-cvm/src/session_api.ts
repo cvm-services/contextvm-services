@@ -32,6 +32,7 @@ export type SessionState =
   | "awaiting_human"
   | "solved"
   | "continuing"
+  | "awaiting_card"
   | "awaiting_sms"
   | "submitting"
   | "completed"
@@ -44,7 +45,7 @@ import type { FacilitatorAuth } from "./facilitator_auth.ts";
 /** The canonical business states. Mirrors the harness; one list, one truth. */
 export const STATES: readonly SessionState[] = [
   "preparing", "at_captcha", "awaiting_human", "solved", "continuing",
-  "awaiting_sms", "submitting", "completed",
+  "awaiting_card", "awaiting_sms", "submitting", "completed",
   "failed", "expired", "outcome_unknown",
 ];
 
@@ -75,6 +76,39 @@ export function completionSignalPath(session_id: string): string {
   return `/tmp/cvm-session-${session_id}.complete`;
 }
 
+/** One-time card handoff; read then immediately deleted. */
+export function cardHandoffPath(session_id: string): string {
+  return `/tmp/cvm-session-${session_id}.card.json`;
+}
+
+/** Separate Continue click: autofill is NOT permission to charge. */
+export function cardReadyPath(session_id: string): string {
+  return `/tmp/cvm-session-${session_id}.card-ready`;
+}
+
+/** Only card fields go through this writer (never the persistent session). */
+let writeCardFile: (p: string, body: string) => void = (p, body) => {
+  try { Deno.writeTextFileSync(p, body, { mode: 0o600 }); } catch { /* no log */ }
+};
+export function setCardWriter(fn: (p: string, body: string) => void): void {
+  writeCardFile = fn;
+}
+
+/** Delete all card-related signals after use or terminal state. */
+function deleteCardFiles(session_id: string): void {
+  for (const p of [cardHandoffPath(session_id), cardReadyPath(session_id)]) {
+    try { Deno.removeSync(p); } catch { /* absent is fine */ }
+  }
+}
+
+/** PANs are checked, never echoed. Do not replace this with a permissive blob. */
+function validCardInput(body: unknown): boolean {
+  if (!body || typeof body !== 'object') return false;
+  const b = body as Record<string, unknown>;
+  return b.source === 'manual' || b.source === '2fiat';
+}
+
+
 /** States in which a human may hold control of the browser. */
 const CONTROLLABLE: ReadonlySet<SessionState> = new Set<SessionState>([
   "at_captcha",
@@ -98,6 +132,8 @@ export interface Session {
   reason?: string;
   /** Venue-side order reference, recorded when a human confirms the order. */
   venue_ref?: string;
+  /** When the facilitator explicitly approved Continue (not card details). */
+  card_ready_at?: number;
 }
 
 /**
@@ -309,8 +345,54 @@ export class SessionStore {
     const s = this.#sessions.get(id);
     if (!s || s.facilitator !== facilitator) return false;
     this.#sessions.delete(id);
+    deleteCardFiles(id);
     this.#persist();
     return true;
+  }
+
+  /** Queue PAN/expiry/CVV once without storing them in the Session or journal. */
+  card(id: string, facilitator: string, body: unknown): void {
+    if (!validCardInput(body)) throw new ApiError(400, 'invalid card handoff');
+    const s = this.get(id, facilitator);
+    if (!s) throw new ApiError(404, 'no such session');
+    if (s.state !== 'awaiting_card') {
+      throw new ApiError(409, `card fill is not allowed in state '${s.state}'`, { state: s.state });
+    }
+    const b = body as { source: string; pan?: unknown; exp?: unknown; cvc?: unknown };
+    if (b.source === 'manual') {
+      const pan = typeof b.pan === 'string' ? b.pan.replace(/\D/g, '') : '';
+      const exp = typeof b.exp === 'string' ? b.exp.trim() : '';
+      const cvc = typeof b.cvc === 'string' ? b.cvc.replace(/\D/g, '') : '';
+      const luhn = (digits: string) => {
+        let sum = 0, alt = false;
+        for (let i = digits.length - 1; i >= 0; i--) {
+          let n = Number(digits[i]);
+          if (alt) { n *= 2; if (n > 9) n -= 9; }
+          sum += n; alt = !alt;
+        }
+        return sum % 10 === 0;
+      };
+      if (pan.length < 12 || pan.length > 19 || !luhn(pan) ||
+          !/^\d{2}\/\d{2}$/.test(exp) || !/^\d{3,4}$/.test(cvc)) {
+        throw new ApiError(400, 'card fields invalid');
+      }
+      writeCardFile(cardHandoffPath(id), JSON.stringify({ source: 'manual', card: { pan, exp, cvc } }));
+    } else {
+      writeCardFile(cardHandoffPath(id), JSON.stringify({ source: '2fiat' }));
+    }
+  }
+
+  /** Continue is a separate approval AFTER inspecting the completed card form. */
+  cardReady(id: string, facilitator: string): Session {
+    const s = this.get(id, facilitator);
+    if (!s) throw new ApiError(404, 'no such session');
+    if (s.state !== 'awaiting_card') {
+      throw new ApiError(409, `Continue is not allowed in state '${s.state}'`, { state: s.state });
+    }
+    s.card_ready_at = this.#now();
+    this.#persist();
+    writeCardFile(cardReadyPath(id), JSON.stringify({ ready: true }));
+    return s;
   }
 
   /**
@@ -338,6 +420,7 @@ export class SessionStore {
     s.controller = null;
     s.reason = outcome === "unknown" ? "operator marked the outcome unknown" : undefined;
     this.revokeGrants(id);
+    deleteCardFiles(id);
     this.#persist();
     writeSignalFile(
       completionSignalPath(id),
@@ -538,6 +621,7 @@ export function publicView(s: Session, includeUrl = false) {
     controller: s.controller ? { since: s.controller.since } : null,
     ...(s.reason ? { reason: s.reason } : {}),
     ...(s.venue_ref ? { venue_ref: s.venue_ref } : {}),
+    ...(s.card_ready_at ? { card_ready_at: new Date(s.card_ready_at).toISOString() } : {}),
     ...(includeUrl && s.novnc_url ? { novnc_url: s.novnc_url } : {}),
   };
 }
@@ -680,6 +764,18 @@ export async function handle(
         if (!s) return json(404, { error: "no such session" });
         store.cancel(id, facilitator);
         return json(200, { ok: true, session_id: id });
+      }
+
+      if (parts.length === 3 && parts[2] === "card" && m === "POST") {
+        const body = await req.json().catch(() => ({})) as unknown;
+        store.card(id, facilitator, body);
+        // Do not include source, card id, masked PAN, or request payload here.
+        return json(200, { ok: true });
+      }
+
+      if (parts.length === 3 && parts[2] === "card-ready" && m === "POST") {
+        const s = store.cardReady(id, facilitator);
+        return json(200, publicView(s));
       }
 
       if (parts.length === 3 && parts[2] === "complete" && m === "POST") {

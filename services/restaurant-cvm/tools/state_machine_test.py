@@ -99,6 +99,47 @@ def test_completion_signal_absent_is_ignored():
     assert v._completion_signal("s_definitely_absent") is None
 
 
+def test_assisted_defaults_leave_card_and_phone_to_humans():
+    old_env = dict(os.environ)
+    old_argv = list(sys.argv)
+    try:
+        os.environ.pop("CVM_CARD_SOURCE", None)
+        os.environ.pop("CVM_PHONE_AUTO", None)
+        sys.argv = ["venue_phone_test.py"]
+        args = v._parse_args()
+        assert args.card_source == "manual"
+        assert args.phone_auto == 0
+        assert args.phone_mode == "jmp"  # old automation remains available
+        assert v._load_card(args) is None
+    finally:
+        os.environ.clear(); os.environ.update(old_env)
+        sys.argv = old_argv
+
+
+def test_card_handoff_is_consumed_and_deleted():
+    sid = "s_card_delete"
+    path = f"/tmp/cvm-session-{sid}.card.json"
+    with open(path, "w") as f:
+        json.dump({"source": "manual",
+                   "card": {"pan": "4111111111111111", "exp": "12/30", "cvc": "123"}}, f)
+    args = type("Args", (), {"session_id": sid})()
+    card = v._card_from_handoff(args)
+    assert card == {"pan": "4111111111111111", "exp": "12/30", "cvc": "123"}
+    assert not os.path.exists(path)
+
+
+def test_phone_automation_remains_an_explicit_opt_in():
+    old_argv = list(sys.argv)
+    try:
+        sys.argv = ["venue_phone_test.py", "--phone-auto", "1"]
+        args = v._parse_args()
+        assert args.phone_auto == 1
+        assert hasattr(args, "phone_country")
+        assert hasattr(args, "phone_mode")
+    finally:
+        sys.argv = old_argv
+
+
 for name, fn in sorted(globals().items()):
     if name.startswith("test_"):
         fn()

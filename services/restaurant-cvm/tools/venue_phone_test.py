@@ -58,7 +58,7 @@ STATE_FILE = os.environ.get("CVM_SESSION_STATE", "")
 STATES = (
     "preparing", "at_captcha", "awaiting_human", "solved",
     "awaiting_confirmation", "continuing",
-    "awaiting_sms", "submitting", "completed",
+    "awaiting_card", "awaiting_sms", "submitting", "completed",
     "failed", "expired", "outcome_unknown",
 )
 
@@ -149,10 +149,13 @@ def _run(args):
     phone_tail = phone_digits[-10:]
     global PHONE_TAIL
     PHONE_TAIL = phone_tail
+    phone_auto = bool(getattr(args, "phone_auto", 0))
     manual_phone = getattr(args, "phone_mode", "jmp") == "manual"
-    card = _load_card(args)
-    # A file from a previous run must never complete this one.
+    # Card material is handoff-driven: a configured backend card never shadows
+    # an arbitrary PAN explicitly supplied by the operator.
+    card = None
     _clear_completion(args.session_id)
+    _clear_card_files(args.session_id)
 
     with sync_playwright() as p:
         # Playwright's bundled chromium drifts from the installed cache on this
@@ -506,13 +509,44 @@ def _run(args):
             _snap(pg, path="/tmp/vt-payment-missing.png")
             b.close()
             sys.exit(10)
+        # Inspect before charging. card_ready is distinct from card autofill.
+        ready = False
+        deadline = time.time() + max(args.hold, 60)
+        set_state("awaiting_card")
+        step("card_pause", source=args.card_source)
+        while not ready and time.time() < deadline:
+            signal = _completion_signal(args.session_id)
+            if signal:
+                step("facilitator_completed", state=signal.get("outcome"))
+                _finish_from_signal(pg, b, args.session_id, signal)
+                return
+            if card is None:
+                card = _card_from_handoff(args)
+                if card is not None:
+                    step("card_handoff_received", source=args.card_source)
+            ready = os.path.exists(f"/tmp/cvm-session-{args.session_id or 'manual'}.card-ready")
+            if not ready:
+                pg.wait_for_timeout(2000)
+        if not ready:
+            step("ABORT", code="card-not-provided",
+                 note="enter the card in the viewer or explicitly autofill it, then press Continue")
+            _snap(pg, path="/tmp/vt-card-required.png")
+            b.close()
+            sys.exit(10)
+        try:
+            os.remove(f"/tmp/cvm-session-{args.session_id or 'manual'}.card-ready")
+        except OSError:
+            pass
+        step("card_ready")
+        set_state("continuing", phase="card")
+
         want = {
             "pan": (card["pan"], ["cardnumber", "cc-number"]),
             "exp": (card["exp"], ["exp", "cc-exp"]),
             "cvc": (card["cvc"], ["cvc", "securitycode", "cc-csc"]),
-        }
+        } if card else None
         filled = {}
-        for key, (val, hints) in want.items():
+        for key, (val, hints) in (want or {}).items():
             done = False
             for u, f in pay_frames.items():
                 try:
@@ -536,7 +570,11 @@ def _run(args):
                     break
             if not done:
                 filled[key] = "no-matching-field"
-        step("synth_fill", **filled)
+        if want:
+            step("card_filled", source=args.card_source)
+        else:
+            step("card_left_for_operator",
+                 note="the facilitator enters PAN/expiry/CVV in the checkout viewer")
 
         # billing address (venue's own, measured accepted)
         # Adyen names these EXACTLY (measured): holderName, street,
@@ -851,6 +889,15 @@ def _run(args):
                       "human_required by design.")
             b.close()
             sys.exit(10)
+
+        if not phone_auto:
+            # Deliberately do not type the country, number, choose SMS, or poll
+            # an inbox. The facilitator performs the verification as a service.
+            set_state("awaiting_human", phase="phone",
+                      note="solve the captcha then enter your own phone number and code")
+            step("phone_automation_disabled", opt_in="CVM_PHONE_AUTO=1")
+            _hold_for_confirmation(pg, b, args, phase="phone")
+            return
 
         set_state("continuing", phase="phone")
         try:
@@ -1201,6 +1248,84 @@ def _extract_code(rows):
     return None
 
 
+def _card_from_handoff(args):
+    """Read one-time card material and delete it immediately.
+
+    No content is logged. A 2fiat card lookup happens only when that source was
+    explicitly handed off, not when the launcher is simply using manual mode.
+    """
+    path = f"/tmp/cvm-session-{args.session_id or 'manual'}.card.json"
+    try:
+        with open(path) as f:
+            data = json.load(f)
+    except (OSError, ValueError):
+        # No temporary handoff: only a legacy, explicitly configured source is
+        # consulted. In manual mode this returns None, leaving entry to the VNC.
+        return _load_card(args) if args.card_source != "manual" else None
+    try:
+        os.remove(path)
+    except OSError:
+        pass
+    if data.get("source") == "manual":
+        card = data.get("card") or {}
+        if all(card.get(k) for k in ("pan", "exp", "cvc")):
+            return {"pan": card["pan"], "exp": card["exp"], "cvc": card["cvc"]}
+        return None
+    if data.get("source") == "2fiat":
+        class OptInArgs:
+            card_source = "2fiat"
+        return _load_card(OptInArgs())
+    return None
+
+
+def _clear_card_files(session_id: str) -> None:
+    for suffix in (".card.json", ".card-ready"):
+        try:
+            os.remove(f"/tmp/cvm-session-{session_id or 'manual'}{suffix}")
+        except OSError:
+            pass
+
+
+def _hold_for_confirmation(pg, b, args, phase: str):
+    """Wait for a venue success or the facilitator's explicit verdict.
+
+    This is the phone-automation-disabled path. It makes no phone decisions,
+    and it cannot be tricked into marking a never-present modal as a success.
+    """
+    deadline = time.time() + max(args.hold, 60)
+    while time.time() < deadline:
+        signal = _completion_signal(args.session_id)
+        if signal:
+            step("facilitator_completed", state=signal.get("outcome"))
+            _finish_from_signal(pg, b, args.session_id, signal)
+            return
+        pg.wait_for_timeout(3000)
+        ref = _find_venue_ref(pg)
+        if ref:
+            step("venue_confirmed", ref=ref, via="page")
+            set_state("completed", venue_ref=ref)
+            _snap(pg, path="/tmp/vt-confirmed.png")
+            b.close()
+            return
+        try:
+            success = pg.evaluate(
+                """() => /Bestellung erfolgreich|Bestellung eingegangen|Order confirmed|Order placed/i
+                  .test(document.body.innerText || "")""")
+        except Exception:
+            success = False
+        if success:
+            step("venue_confirmed", ref=None, via="success-text")
+            set_state("completed")
+            _snap(pg, path="/tmp/vt-confirmed.png")
+            b.close()
+            return
+    step("venue_confirm_unknown", phase=phase,
+         reason="no confirmation or human verdict within the hold")
+    set_state("outcome_unknown", phase=phase)
+    _snap(pg, path="/tmp/vt-confirmed.png")
+    b.close()
+
+
 def _completion_signal(session_id: str):
     """Read the facilitator's verdict written by the session API."""
     path = f"/tmp/cvm-session-{session_id or 'manual'}.complete"
@@ -1374,9 +1499,12 @@ def _parse_args():
                     help="verify the phone number but abort before clicking Code senden")
     ap.add_argument("--no-password", action="store_true",
                     help="accepted for the serve.ts CLI contract; x11vnc already runs -nopw")
-    ap.add_argument("--card-source", choices=("synthetic", "2fiat"),
-                    default=os.environ.get("CVM_CARD_SOURCE", "synthetic"),
-                    help="synthetic never authorizes; 2fiat reads the real card once")
+    ap.add_argument("--card-source", choices=("synthetic", "2fiat", "manual"),
+                    default=os.environ.get("CVM_CARD_SOURCE", "manual"),
+                    help="manual: VNC or an explicit temporary handoff; 2fiat is read only on opt-in")
+    ap.add_argument("--phone-auto", type=int, choices=(0, 1),
+                    default=int(os.environ.get("CVM_PHONE_AUTO", "0")),
+                    help="1 opts into the existing phone automation; 0 leaves verification to the human")
     ap.add_argument("--profile", default=os.environ.get(
         "CVM_VENUE_PROFILE", os.path.expanduser("~/.hermes/cvm/venue-profile.json")),
         help="non-secret billing/contact profile")
@@ -1400,6 +1528,8 @@ def _load_profile(args):
 
 
 def _load_card(args):
+    if args.card_source == "manual":
+        return None
     if args.card_source != "2fiat":
         return {"pan": "4111111111111111", "exp": "12/30", "cvc": "123"}
     helper = os.path.join(os.path.dirname(os.path.abspath(__file__)),

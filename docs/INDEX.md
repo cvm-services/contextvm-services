@@ -20,6 +20,7 @@ cvm-registry  (PWA: order/)  cvm-orders (console)  ──▶   FoodAmigos checko
 - [`PLAN-live-smoke.md`](PLAN-live-smoke.md) — two tiers and the completion signal.
 - [`RUNBOOK-live-smoke.md`](RUNBOOK-live-smoke.md) — operator steps.
 - [`CHECKLIST-live-smoke.md`](CHECKLIST-live-smoke.md) — tracking.
+- [`PLAN-assisted-checkout-ux.md`](PLAN-assisted-checkout-ux.md) + [`CHECKLIST-assisted-checkout-ux.md`](CHECKLIST-assisted-checkout-ux.md) — manual/opt-in card auth and opt-in phone automation.
 - [`scripts/live-smoke.sh`](../scripts/live-smoke.sh) / `deno task live-smoke`.
 
 ## Repositories
