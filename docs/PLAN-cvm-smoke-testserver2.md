@@ -1,6 +1,6 @@
 # PLAN — isolated live smoke test on testserver2 (x280 offline)
 
-Status: implementing.
+Status: isolated no-charge rehearsal passed; live order pending operator action.
 Date: 2026-11-07. Owner: operator (T14 + testserver2).
 
 See [`CHECKLIST-cvm-smoke-testserver2.md`](CHECKLIST-cvm-smoke-testserver2.md).
@@ -17,7 +17,7 @@ Use **testserver2** as a temporary API/browser host:
 - Deno, Xvfb, websockify, noVNC, sudo and running user-systemd are present.
 - Chrome/x11vnc/Playwright are the only additions (isolated venv for Playwright).
 - 5.1 GiB usable RAM is enough for one Chromium instance (never parallel tests).
-- t440/cobrador are fallbacks, not concurrent hosts.
+- t440/cobrador are fallbacks, not concurrent hosts. Chrome was installed from the official stable package after the bundled Chromium crashed while initializing Adyen (two runs); the stable package works.
 
 ## 2. Isolation
 
@@ -77,3 +77,28 @@ facilitator UI stays served from T14 and uses the current LNURLP/session APIs.
 - No trust-root remote, trust-root repo on testserver2, duplicate customer order,
   or duplicate card charge.
 - Only the demo secret is added and granted to testserver2; no other grants change.
+
+
+## 6. Result of the no-charge rehearsal
+
+- A disposable session reached **awaiting_card** on `testserver2` using the
+  stable Chrome package.
+- Public VNC responded **200** during the pause and **404** after the launcher
+  was stopped. The session API session list is empty afterward.
+- The Adyen form was displayed, with card fields masked; the reference crop
+  contains no CVV, full PAN, or verification phone.
+- No Continue was sent, no Kaufen click executed, and no 2fiat lookup re-used a
+  card token. No charge was attempted.
+- `deploy/testserver2/provision-smoke.py` and
+  `deploy/testserver2/no-charge-rehearsal.py` are the reproducible public
+  entry points. The latter takes `--order-id <string>` and generates a unique
+  discardable ID by default.
+
+## 7. Rollback after x280 returns
+
+1. Restore `/etc/caddy/Caddyfile.pre-cvm-smoke-20261107` on testserver2 and
+   reload Caddy.
+2. Restore the T14 session env backup (outside git) recorded as
+   `/tmp/opencode/lnurlp-env.pre-smoke.bak`, then restart `lnurlp.service`.
+3. Stop the `cvm-smoke-*` user units and archive any desired evidence.
+   Do not keep the temporary demo session token as a live production grant.
