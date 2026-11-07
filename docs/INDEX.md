@@ -17,6 +17,8 @@ cvm-registry  (PWA: order/)  cvm-orders (console)  ──▶   FoodAmigos checko
 
 ## Live smoke
 
+- [`PLAN-cvm-smoke-testserver2.md`](PLAN-cvm-smoke-testserver2.md) + [`CHECKLIST-cvm-smoke-testserver2.md`](CHECKLIST-cvm-smoke-testserver2.md) — isolated test host, no-charge rehearsal, reversible routing.
+
 - [`PLAN-live-smoke.md`](PLAN-live-smoke.md) — two tiers and the completion signal.
 - [`RUNBOOK-live-smoke.md`](RUNBOOK-live-smoke.md) — operator steps.
 - [`CHECKLIST-live-smoke.md`](CHECKLIST-live-smoke.md) — tracking.

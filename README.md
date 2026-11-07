@@ -41,6 +41,7 @@ Former location: `felixfelix-bot/contextvm-services` (private; now a stale copy)
 - [`docs/adr/0001-discovery-and-trust.md`](docs/adr/0001-discovery-and-trust.md)
   — **Proposed**, needs operator sign-off. How discovery is tagged, what a pinned
   registry is, where ring-signature proofs do and do not earn their keep.
+- [`docs/PLAN-cvm-smoke-testserver2.md`](docs/PLAN-cvm-smoke-testserver2.md) + [`docs/CHECKLIST-cvm-smoke-testserver2.md`](docs/CHECKLIST-cvm-smoke-testserver2.md) — isolated smoke env on testserver2 while x280 is offline.
 - [`docs/PLAN-assisted-checkout-ux.md`](docs/PLAN-assisted-checkout-ux.md) + [`docs/CHECKLIST-assisted-checkout-ux.md`](docs/CHECKLIST-assisted-checkout-ux.md) — assisted card opt-in, opt-in phone automation.
 - [`docs/PLAN-live-smoke.md`](docs/PLAN-live-smoke.md) + [`docs/RUNBOOK-live-smoke.md`](docs/RUNBOOK-live-smoke.md) — the reproducible paid smoke test and the manual WhatsApp gate.
 - [`docs/SPIKE-PLAN.md`](docs/SPIKE-PLAN.md) — two spikes with acceptance

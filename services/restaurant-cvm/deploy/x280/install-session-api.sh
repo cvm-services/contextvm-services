@@ -21,7 +21,11 @@ if [ ! -f "$ENV" ]; then
 fi
 
 TOK="$("$HOME/.hermes/scripts/fleet_secret.py" get 2fiat --field 2fiat 2>/dev/null || true)"
-[ -n "$TOK" ] || die "cannot read 2fiat from OpenBao (x280 AppRole grant?)"
+# Manual card entry never reads the card backend. Require a token only if the
+# operator has explicitly selected 2fiat as the source.
+if [ "${CVM_CARD_SOURCE:-manual}" = "2fiat" ]; then
+  [ -n "$TOK" ] || die "cannot read 2fiat from OpenBao (x280 AppRole grant?)"
+fi
 
 PHONE="$("$HOME/.hermes/scripts/fleet_secret.py" get venue-phone --field phone 2>/dev/null || true)"
 PCOUNTRY="$("$HOME/.hermes/scripts/fleet_secret.py" get venue-phone --field country 2>/dev/null || true)"
@@ -33,8 +37,9 @@ import sys
 p, tok, phone, country, mode = sys.argv[1:6]
 managed = ("TWO_FIAT_TOKEN=", "CVM_PHONE=", "CVM_PHONE_COUNTRY=", "CVM_PHONE_MODE=", "CVM_CARD_SOURCE=", "CVM_PHONE_AUTO=")
 lines = [l for l in open(p).read().splitlines() if not l.startswith(managed)]
+if tok:
+    lines.append("TWO_FIAT_TOKEN=" + tok)
 lines += [
-    "TWO_FIAT_TOKEN=" + tok,
     "CVM_PHONE=" + phone,
     "CVM_PHONE_COUNTRY=" + (country or "US"),
     "CVM_PHONE_MODE=" + (mode or "jmp"),
