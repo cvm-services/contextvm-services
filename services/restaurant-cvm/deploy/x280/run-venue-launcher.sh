@@ -8,7 +8,7 @@
 # CVM_PHONE / CVM_PHONE_COUNTRY / CVM_PHONE_MODE from the inherited service
 # environment (0600 EnvironmentFile, materialized by install-session-api.sh).
 set -euo pipefail
-exec /home/c08r4d0r/.cache/pw-venv/bin/python \
-  /home/c08r4d0r/repos/contextvm-services/services/restaurant-cvm/tools/venue_phone_test.py \
+exec "${CVM_PYTHON:-/usr/bin/python3}" \
+  "${CVM_ROOT:-$HOME/repos/contextvm-services}/services/restaurant-cvm/tools/venue_phone_test.py" \
   --vnc --card-source "${CVM_CARD_SOURCE:-manual}" \
   "$@"
