@@ -536,6 +536,7 @@ def _run(args):
         deadline = time.time() + max(args.hold, 60)
         set_state("awaiting_card")
         step("card_pause", source=args.card_source)
+        _snap(pg, path="/tmp/vt-card-pause.png")
         while not ready and time.time() < deadline:
             signal = _completion_signal(args.session_id)
             if signal:
