@@ -428,16 +428,38 @@ def _run(args):
         # iframes are then never created. Re-click and wait, and only abort with
         # evidence (url + visible text) after a full minute.
         def _scan_pay_frames():
+            # Adyen sometimes nests secured fields behind about:blank or a relay
+            # page, so URL matching alone misses them. Detect the data-cse/cc-*
+            # field contract too, and expose descriptors for diagnosis (no values).
             found = {}
+            candidates = []
             for f in pg.frames:
-                if any(h in f.url for h in ("adyen", "checkoutshopper")):
-                    try:
-                        n = f.evaluate(
-                            "() => document.querySelectorAll('input,select,iframe').length")
-                        if n > 0:
+                try:
+                    info = f.evaluate(
+                        """() => [...document.querySelectorAll('input,select,iframe')]
+                          .slice(0,20).map(e => ({
+                            tag:e.tagName, ac:e.getAttribute('autocomplete')||'',
+                            name:e.name||e.id||'',
+                            cse:e.getAttribute('data-cse')||''}))""")
+                    candidates.append({"url": f.url[-80:], "fields": info})
+                    n = len(info)
+                    cardish = any(
+                        any(h in f.url.lower() for h in ("adyen", "checkoutshopper"))
+                        for h in [])
+                    for item in info:
+                        blob = " ".join(str(item.get(k) or "") for k in ("name", "ac", "cse")).lower()
+                        if any(h in blob for h in ("cardnumber", "card-number", "cc-",
+                                                   "encryptedcard", "data-cse", "ccnum")):
+                            cardish = True
+                    if cardish:
+                        # Include about:blank and custom relay encryptions while
+                        # requiring a card-ish element, not just any form input.
+                        if n > 0 or "adyen" in f.url or "checkoutshopper" in f.url:
                             found[f.url[:160] + f"|{id(f) % 10000}"] = f
-                    except Exception:
-                        continue
+                except Exception:
+                    continue
+            if not found:
+                step("pay_frame_candidates", frames=candidates[:8])
             return found
 
         # The checkout page is long; clicking a viewport coordinate while the page
