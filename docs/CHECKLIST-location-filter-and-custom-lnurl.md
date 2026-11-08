@@ -35,7 +35,7 @@ Legend: `[ ]` todo · `[x]` done · `[~]` needs operator.
 
 - [x] D1. Verify a direct-order URL (candidate: Pizza Express i Burgery od 2001 r.).
 - [~] D2. Verify Visa acceptance/fulfilment with the restaurant before a paid test.
-- [x] D3. Capture real menu/prices/address/coordinates with attribution.
+- [~] D3. Real address/coordinates/direct URL are present; the Poznań item is an explicitly labelled manual test amount, not the restaurant menu price.
 - [x] D4. Add `deep_link_human` venue record; no card credentials.
 - [x] D5. No-charge rehearsal in Poznań radius; inspect the direct order page.
 - [ ] D6. **Operator:** live Visa test only with a new dedicated order and the facilitator's own phone verification.

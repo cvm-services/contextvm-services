@@ -205,7 +205,9 @@ function renderVenueList() {
   const root = $("menu");
   const list = visibleVenues();
   $("title").textContent = "Venues";
-  $("subtitle").textContent = "Choose a restaurant · pay with sats";
+  $("subtitle").textContent = geo
+    ? `${list.length} of ${venues.length} venues${Number(radius) ? " within " + radius + " km" : ""} · straight-line distance`
+    : "Choose a restaurant · pay with sats";
   root.innerHTML = locationHtml() + (list.length
     ? `<div class="venuegrid">${list.map((v) => {
         const d = geo && venueLoc(v) ? distanceKm(geo, venueLoc(v)).toFixed(1) + " km" : "";
