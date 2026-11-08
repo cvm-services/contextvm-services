@@ -53,12 +53,27 @@
   details.selfpay{margin-top:14px;border-top:1px solid var(--line);padding-top:12px}
   details.selfpay summary{cursor:pointer;color:var(--dim);font-size:12.5px}
   details.selfpay[open] summary{margin-bottom:8px}
+  .locate{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px;margin:0 0 12px}
+  .locate-row{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin:4px 0}
+  .locate button,.locate select,.locate input{font:inherit;font-size:12px;padding:8px 9px;border-radius:8px;
+    border:1px solid var(--line);background:#1e2430;color:var(--fg)}
+  .locate button{cursor:pointer}
+  .locate input,.locate select{min-width:0;flex:1}
+  .geo{color:var(--dim);font-size:11.5px;margin:7px 0 0;line-height:1.45}
+  .geoerr{color:#ffb4ae}
+  .venuegrid{display:flex;flex-direction:column;gap:9px}
+  .venuecard{text-align:left;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;color:var(--fg);cursor:pointer}
+  .venuecard h2{font-size:15px;margin:0}
+  .venuecard p{color:var(--dim);font-size:12px;margin:4px 0 0}
+  .venuecard .tag{display:inline-block;margin-top:8px;border:1px solid var(--line);border-radius:99px;padding:2px 8px;color:var(--dim);font-size:11px}
+  .backbar{border:0;background:transparent;color:var(--dim);cursor:pointer;font:inherit;padding:0 0 10px}
+  .empty{color:var(--dim);font-size:13px;line-height:1.6;padding:18px 0}
 </style>
 </head>
 <body>
 <header>
-  <h1>Three Buddies</h1>
-  <div class="sub">Albrechtstraße 131 · pay with sats</div>
+  <h1 id="title">Venues</h1>
+  <div class="sub" id="subtitle">Choose a restaurant · pay with sats</div>
 </header>
 
 <main id="menu"></main>
@@ -122,29 +137,109 @@ let poll = null;
 const $ = (id) => document.getElementById(id);
 const fmt = (n) => n.toLocaleString("en-US") + " sats";
 
-async function loadMenu() {
-  const r = await fetch(API + "/menu");
-  const data = await r.json();
+const esc = (v) => String(v ?? "").replace(/[&<>"']/g, (c) =>
+  ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let venues = [];
+let venue = null;
+let geo = null;
+let radius = 10;
+let geoStatus = "";
+let geoBusy = false;
+const CITY_CENTERS = {
+  "Poznań": { lat: 52.4064, lon: 16.9252 },
+  "Berlin": { lat: 52.5200, lon: 13.4050 },
+  "Warszawa": { lat: 52.2297, lon: 21.0122 },
+  "Kraków": { lat: 50.0647, lon: 19.9450 },
+};
+function venueLoc(v) {
+  const l = v?.location;
+  if (!l || !Number.isFinite(Number(l.lat)) || !Number.isFinite(Number(l.lon))) return null;
+  return { lat: Number(l.lat), lon: Number(l.lon) };
+}
+function venueAddress(v) {
+  const a = v?.address || {};
+  return [a.street, [a.postal_code || a.zip, a.city].filter(Boolean).join(" ")]
+    .filter(Boolean).join(", ") || (a.city || "Location unknown");
+}
+function distanceKm(a, b) {
+  const R = 6371, rad = (n) => n * Math.PI / 180;
+  const dLat = rad(b.lat - a.lat), dLon = rad(b.lon - a.lon);
+  const q = Math.sin(dLat / 2) ** 2 +
+    Math.cos(rad(a.lat)) * Math.cos(rad(b.lat)) * Math.sin(dLon / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(q));
+}
+function visibleVenues() {
+  let out = [...venues];
+  const r = Number(radius) || 0;
+  if (geo && r > 0) {
+    out = out.map((v) => ({ v, loc: venueLoc(v) }))
+      .filter((x) => x.loc && distanceKm(geo, x.loc) <= r)
+      .sort((a, b) => distanceKm(geo, a.loc) - distanceKm(geo, b.loc))
+      .map((x) => x.v);
+  }
+  return out;
+}
+function locationHtml() {
+  const r = Number(radius) || 0;
+  return `<div class="locate" aria-label="Venue location filter">
+    <div class="locate-row">
+      <button data-geo ${geoBusy ? "disabled" : ""}>⌖ ${geoBusy ? "Locating…" : "Use my location"}</button>
+      <select data-city aria-label="City"><option value="">Choose city…</option>
+        ${Object.keys(CITY_CENTERS).map((n) => `<option value="${esc(n)}" ${geo?.label === n ? "selected" : ""}>${esc(n)}</option>`).join("")}
+      </select>
+      <select data-radius aria-label="Radius">
+        ${[5, 10, 25, 50, 100].map((n) => `<option value="${n}" ${r === n ? "selected" : ""}>${n} km</option>`).join("")}
+        <option value="0" ${r === 0 ? "selected" : ""}>All</option>
+      </select>
+    </div>
+    <div class="locate-row">
+      <input data-coords inputmode="decimal" placeholder="or latitude, longitude" aria-label="Coordinates">
+      <button data-manual>Set</button>
+      ${geo ? '<button data-clear>Show all</button>' : ""}
+    </div>
+    <p class="geo">${geo ? `Near <b>${esc(geo.label || "your location")}</b> · ${r ? r + " km" : "all venues"} · straight-line distance` : "Location stays on this device. Use it or choose a city."}</p>
+    ${geoStatus ? `<p class="geo geoerr">${esc(geoStatus)}</p>` : ""}
+  </div>`;
+}
+function renderVenueList() {
   const root = $("menu");
-  root.innerHTML = "";
-  for (const it of data.items) {
+  const list = visibleVenues();
+  $("title").textContent = "Venues";
+  $("subtitle").textContent = "Choose a restaurant · pay with sats";
+  root.innerHTML = locationHtml() + (list.length
+    ? `<div class="venuegrid">${list.map((v) => {
+        const d = geo && venueLoc(v) ? distanceKm(geo, venueLoc(v)).toFixed(1) + " km" : "";
+        return `<button class="venuecard" data-venue="${esc(v.venue_slug)}"><h2>${esc(v.name)}</h2><p>${esc(venueAddress(v))}</p><p>${v.items.length} items${d ? " · " + d : ""}</p><span class="tag">${venueLoc(v) ? "location known" : "location unknown"}</span></button>`;
+      }).join("")}</div>`
+    : `<p class="empty">No venues with a known location in this radius. Choose a larger radius or show all.</p>`);
+  root.querySelector("[data-geo]")?.addEventListener("click", requestGeo);
+  root.querySelector("[data-city]")?.addEventListener("change", (e) => useCity(e.target.value));
+  root.querySelector("[data-radius]")?.addEventListener("change", (e) => { radius = Number(e.target.value); renderVenueList(); });
+  root.querySelector("[data-manual]")?.addEventListener("click", () => useCoords(root.querySelector("[data-coords]")?.value));
+  root.querySelector("[data-clear]")?.addEventListener("click", () => { geo = null; geoStatus = ""; renderVenueList(); });
+  root.querySelectorAll("[data-venue]").forEach((b) => b.onclick = () => {
+    venue = venues.find((v) => v.venue_slug === b.dataset.venue);
+    basket.clear();
+    renderItems();
+  });
+}
+function renderItems() {
+  const root = $("menu");
+  $("title").textContent = venue?.name || "Menu";
+  $("subtitle").textContent = `${venueAddress(venue)} · pay with sats`;
+  root.innerHTML = venues.length > 1
+    ? '<button class="backbar" data-back-venues>‹ All venues</button>' : "";
+  root.querySelector("[data-back-venues]")?.addEventListener("click", () => { venue = null; renderVenueList(); });
+  for (const it of venue?.items || []) {
     const row = document.createElement("div");
     row.className = "item";
-    row.innerHTML = `
-      <div>
-        <div class="n"></div>
-        <div class="p">${it.sats} sats</div>
-      </div>
-      <div class="stepper">
-        <button data-act="minus" aria-label="remove one">−</button>
-        <span class="q">0</span>
-        <button data-act="plus" aria-label="add one">+</button>
-      </div>`;
+    row.innerHTML = `<div><div class="n"></div><div class="p">${it.sats} sats</div></div>
+      <div class="stepper"><button data-act="minus" aria-label="remove one">−</button>
+      <span class="q">0</span><button data-act="plus" aria-label="add one">+</button></div>`;
     row.querySelector(".n").textContent = it.name;
     const q = row.querySelector(".q");
     row.querySelector('[data-act="plus"]').onclick = () => {
-      basket.set(it.id, (basket.get(it.id) || 0) + 1);
-      q.textContent = basket.get(it.id); render();
+      basket.set(it.id, (basket.get(it.id) || 0) + 1); q.textContent = basket.get(it.id); render();
     };
     row.querySelector('[data-act="minus"]').onclick = () => {
       const n = (basket.get(it.id) || 0) - 1;
@@ -153,7 +248,49 @@ async function loadMenu() {
     };
     root.appendChild(row);
   }
-  window.__menu = data.items;
+  window.__menu = venue?.items || [];
+  render();
+}
+function requestGeo() {
+  if (!("geolocation" in navigator)) {
+    geoStatus = "This browser cannot provide a location. Choose a city or enter coordinates.";
+    renderVenueList(); return;
+  }
+  geoBusy = true; geoStatus = ""; renderVenueList();
+  navigator.geolocation.getCurrentPosition(
+    (pos) => { geo = { lat: pos.coords.latitude, lon: pos.coords.longitude, label: "your location" }; geoBusy = false; renderVenueList(); },
+    (err) => { geoBusy = false; geoStatus = err.code === 1 ? "Location permission was denied. Choose a city or enter coordinates." : "Location is unavailable right now. Choose a city or enter coordinates."; renderVenueList(); },
+    { enableHighAccuracy: false, timeout: 10000, maximumAge: 300000 },
+  );
+}
+function useCity(name) {
+  const center = CITY_CENTERS[name];
+  if (!center) return;
+  geo = { ...center, label: name }; geoStatus = ""; renderVenueList();
+}
+function useCoords(raw) {
+  const m = String(raw || "").trim().match(/^\s*(-?\d+(?:\.\d+)?)\s*[, ]\s*(-?\d+(?:\.\d+)?)\s*$/);
+  const lat = m ? Number(m[1]) : NaN, lon = m ? Number(m[2]) : NaN;
+  if (!m || !Number.isFinite(lat) || !Number.isFinite(lon) || Math.abs(lat) > 90 || Math.abs(lon) > 180) {
+    geoStatus = "Enter latitude, longitude (for example 52.4064, 16.9252).";
+    renderVenueList(); return;
+  }
+  geo = { lat, lon, label: "my coordinates" }; geoStatus = ""; renderVenueList();
+}
+async function loadVenues() {
+  let data;
+  try {
+    const r = await fetch(API + "/venues");
+    if (r.ok) data = await r.json();
+    else throw new Error("venues unavailable");
+  } catch {
+    const r = await fetch(API + "/menu");
+    data = await r.json();
+    if (data.items) data = { venues: [{ venue_slug: "three-buddies", name: data.venue || "Three Buddies", address: null, location: null, items: data.items }] };
+  }
+  venues = data.venues || [];
+  if (venues.length === 1) { venue = venues[0]; renderItems(); }
+  else renderVenueList();
 }
 
 function render() {
@@ -239,7 +376,7 @@ async function startOrder() {
   const items = [...basket].map(([id, qty]) => ({ id, qty }));
   const r = await fetch(API + "/orders", {
     method: "POST", headers: { "content-type": "application/json" },
-    body: JSON.stringify({ items }),
+    body: JSON.stringify({ venue_slug: venue?.venue_slug, items }),
   });
   const after = await r.json().catch(() => ({}));
   if (!r.ok) {
@@ -344,7 +481,9 @@ $("copy").onclick = async () => {
   catch { $("copy").textContent = "Select and copy"; }
 };
 
-loadMenu().then(render);
+loadVenues().catch((e) => {
+  $("menu").innerHTML = `<p class="empty">Could not load venues: ${esc(e.message || e)}</p>`;
+});
 </script>
 </body>
 </html>

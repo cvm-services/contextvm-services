@@ -30,6 +30,14 @@ export interface MenuItem {
   allergens?: string[];
 }
 
+export interface MenuVenue {
+  slug: string;
+  name: string;
+  address?: Record<string, unknown> | null;
+  location?: { lat: number; lon: number; attribution?: string } | null;
+  items: MenuItem[];
+}
+
 class ApiError extends Error {
   constructor(public status: number, public code: string, message: string) {
     super(message);
@@ -42,27 +50,65 @@ const json = (status: number, body: unknown) =>
     headers: { "content-type": "application/json", "cache-control": "no-store" },
   });
 
-export function readMenu(doc: unknown): MenuItem[] {
-  const items = Array.isArray(doc)
-    ? doc
-    : ((doc as { items?: unknown })?.items as unknown);
-  if (!Array.isArray(items) || items.length === 0) {
-    throw new Error("menu has no items");
-  }
-  return items.map((raw) => {
-    const it = raw as Partial<MenuItem>;
-    if (typeof it.id !== "string" || typeof it.name !== "string" ||
-        !Number.isFinite(Number(it.sats)) || Number(it.sats) <= 0) {
-      throw new Error("menu item needs id/name/positive sats");
+function readItems(raw: unknown, satsPerEur = 1000): MenuItem[] {
+  if (!Array.isArray(raw) || raw.length === 0) throw new Error("menu has no items");
+  return raw.map((value) => {
+    const it = value as Partial<MenuItem> & {
+      sku?: string;
+      prices_by_order_method?: Record<string, number>;
+    };
+    const id = typeof it.id === "string" && it.id.trim() ? it.id : typeof it.sku === "string" ? it.sku : "";
+    if (!id || typeof it.name !== "string") throw new Error("menu item needs id/name");
+    let sats = Number(it.sats);
+    if (!Number.isFinite(sats) || sats <= 0) {
+      const prices = it.prices_by_order_method || {};
+      const first = Object.values(prices).find((n) => Number.isFinite(Number(n)));
+      sats = first === undefined ? 0 : Math.ceil(Number(first) * satsPerEur);
+    }
+    if (!Number.isFinite(sats) || sats <= 0) {
+      throw new Error(`menu item ${id} needs a positive sats price`);
     }
     return {
-      id: it.id,
-      name: it.name,
-      sats: Number(it.sats),
+      id, name: it.name, sats,
       eur: it.eur === undefined ? undefined : Number(it.eur),
       allergens: it.allergens,
     };
   });
+}
+
+export function readMenu(doc: unknown): MenuItem[] {
+  const items = Array.isArray(doc) ? doc : (doc as { items?: unknown })?.items;
+  return readItems(items);
+}
+
+/** Accept either the old single menu or the multi-venue menu served at /order. */
+export function readVenues(doc: unknown): MenuVenue[] {
+  const root = (doc && typeof doc === "object" ? doc : {}) as {
+    venues?: unknown; items?: unknown; venue?: unknown;
+    sats_per_eur?: number; name?: string; venue_slug?: string;
+  };
+  if (Array.isArray(root.venues) && root.venues.length) {
+    const rate = Number(root.sats_per_eur) || 1000;
+    return root.venues.map((value) => {
+      const v = value as Record<string, unknown>;
+      const slug = String(v.venue_slug || v.slug || "");
+      const name = String(v.name || slug || "Venue");
+      if (!slug) throw new Error("venue needs a slug");
+      return {
+        slug, name,
+        address: (v.address as Record<string, unknown>) ?? null,
+        location: (v.location as MenuVenue["location"]) ?? null,
+        items: readItems(v.items, rate),
+      };
+    });
+  }
+  return [{
+    slug: String(root.venue_slug || "three-buddies"),
+    name: String(root.name || "Three Buddies"),
+    address: null,
+    location: null,
+    items: readMenu(doc),
+  }];
 }
 
 export function priceBasket(
@@ -116,13 +162,19 @@ async function lnurlp(
 }
 
 export function createHandler(opts: {
-  menu: MenuItem[];
+  menu?: MenuItem[];
+  venues?: MenuVenue[];
   lnurlpBase?: string;
   lnurlpToken?: string;
   marginPct?: number;
   fetchImpl?: typeof fetch;
 }) {
-  const menu = opts.menu;
+  const venues = opts.venues ?? [{
+    slug: "three-buddies", name: "Three Buddies",
+    address: null, location: null, items: opts.menu ?? [],
+  }];
+  if (!venues.length) throw new Error("customer menu has no venues");
+  const menu = venues[0].items;
   const margin = opts.marginPct ?? MARGIN_PCT;
   const base = opts.lnurlpBase ?? LNURLP_BASE;
   const token = opts.lnurlpToken ?? LNURLP_TOKEN;
@@ -133,11 +185,17 @@ export function createHandler(opts: {
     const path = url.pathname;
 
     if (req.method === "GET" && path === "/menu") {
-      return json(200, { venue: "Three Buddies", items: menu });
+      return json(200, { venue: venues[0].name, items: venues[0].items });
+    }
+    if (req.method === "GET" && path === "/venues") {
+      return json(200, { venues: venues.map((v) => ({
+        venue_slug: v.slug, name: v.name, address: v.address,
+        location: v.location, items: v.items,
+      })) });
     }
     if (req.method === "GET" && path === "/health") {
       return json(200, {
-        ok: true, service: "customer-lnurlp", menu_items: menu.length,
+        ok: true, service: "customer-lnurlp", menu_items: venues.reduce((n, v) => n + v.items.length, 0),
         lnurlp_base: base, margin_pct: margin,
         facilitator: FACILITATOR_NAME,
       });
@@ -146,10 +204,13 @@ export function createHandler(opts: {
     if (req.method === "POST" && path === "/orders") {
       let body: unknown = {};
       try { body = await req.json(); } catch { /* handled below */ }
-      const items = (body as { items?: unknown })?.items;
+      const items = (body as { items?: unknown; venue_slug?: unknown })?.items;
+      const slug = String((body as { venue_slug?: unknown })?.venue_slug ?? "");
+      const venue = slug ? venues.find((v) => v.slug === slug) : venues[0];
+      if (!venue) return json(400, { error: "unknown_venue", detail: `unknown venue: ${slug}` });
       let priced;
       try {
-        priced = priceBasket(menu, items, margin);
+        priced = priceBasket(venue.items, items, margin);
       } catch (e) {
         if (e instanceof ApiError) return json(e.status, { error: e.code, detail: e.message });
         throw e;
@@ -175,6 +236,8 @@ export function createHandler(opts: {
       }
       return json(201, {
         order_id: orderId,
+        venue_slug: venue.slug,
+        venue_name: venue.name,
         sats: priced.customerSats,
         bolt11: inv.bolt11,
         state: "invoiced",
@@ -245,10 +308,10 @@ export function createHandler(opts: {
 
 if (import.meta.main) {
   const menuDoc = JSON.parse(await Deno.readTextFile(MENU_FILE));
-  const menu = readMenu(menuDoc);
-  const handler = createHandler({ menu });
+  const venues = readVenues(menuDoc);
+  const handler = createHandler({ venues });
   console.error(JSON.stringify({
-    listening: PORT, host: HOST, menu_items: menu.length,
+    listening: PORT, host: HOST, menu_items: venues.reduce((n, v) => n + v.items.length, 0),
     lnurlp_base: LNURLP_BASE, margin_pct: MARGIN_PCT,
     lnurlp_token_configured: Boolean(LNURLP_TOKEN),
   }));

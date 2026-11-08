@@ -11,4 +11,5 @@ set -euo pipefail
 exec "${CVM_PYTHON:-/usr/bin/python3}" \
   "${CVM_ROOT:-$HOME/repos/contextvm-services}/services/restaurant-cvm/tools/venue_phone_test.py" \
   --vnc --card-source "${CVM_CARD_SOURCE:-manual}" \
+  --manual-venue-url "${CVM_MANUAL_VENUE_URL:-}" \
   "$@"

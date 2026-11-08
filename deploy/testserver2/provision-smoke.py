@@ -33,6 +33,7 @@ env = {
  'CVM_VNC_DIR': '/tmp/cvm-smoke-handoff',
  'CVM_CARD_SOURCE': 'manual',
  'CVM_PHONE_AUTO': '0',
+ 'CVM_MANUAL_VENUE_URL': 'https://www.pizza-express.pl/',
  'CVM_PHONE': phone,
  'CVM_PHONE_COUNTRY': country,
  'CVM_PHONE_MODE': mode,

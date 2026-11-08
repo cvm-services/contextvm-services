@@ -181,6 +181,17 @@ def _run(args):
         pg.on("crash", lambda event: step("tab_crashed"))
 
         set_state("preparing")
+        if getattr(args, "manual_venue_url", ""):
+            url = str(args.manual_venue_url).strip()
+            step("manual_venue_opening", url=url[:180])
+            pg.goto(url, wait_until="domcontentloaded", timeout=60000)
+            set_state("awaiting_human", phase="manual_venue",
+                      note="order and pay on the venue's own page in the viewer, then press Venue confirmed")
+            step("manual_venue_ready", url=url[:180],
+                 note="the facilitator orders and pays on the venue's own page")
+            _hold_for_confirmation(pg, b, args, phase="manual_venue")
+            return
+
         # ---------- reach the phone modal (proven path, no card) -------------
         pg.goto(MENU, wait_until="domcontentloaded", timeout=60000)
         pg.wait_for_timeout(6000)
@@ -1528,6 +1539,9 @@ def _parse_args():
     ap.add_argument("--phone-auto", type=int, choices=(0, 1),
                     default=int(os.environ.get("CVM_PHONE_AUTO", "0")),
                     help="1 opts into the existing phone automation; 0 leaves verification to the human")
+    ap.add_argument("--manual-venue-url",
+                    default=os.environ.get("CVM_MANUAL_VENUE_URL", ""),
+                    help="open a venue's own page and leave the whole order to the human")
     ap.add_argument("--profile", default=os.environ.get(
         "CVM_VENUE_PROFILE", os.path.expanduser("~/.hermes/cvm/venue-profile.json")),
         help="non-secret billing/contact profile")
