@@ -55,7 +55,7 @@ Expected: session API and facilitator page reachable; phone configured
 3. Wait until the order is `paid`.
 4. Note the order id (`o_...`).
 
-The customer PWA and the facilitator queue must both show `paid`; do not start
+The current customer app (`/order-next/`) and the facilitator queue must both show `paid`; do not start
 the checkout on an unpaid order.
 
 ## 4. Start the assisted checkout
