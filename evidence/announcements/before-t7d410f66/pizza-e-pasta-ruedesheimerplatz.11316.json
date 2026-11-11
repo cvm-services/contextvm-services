@@ -1,0 +1,96 @@
+{
+  "kind": 11316,
+  "pubkey": null,
+  "tags": [
+    [
+      "d",
+      "pizza-e-pasta-ruedesheimerplatz"
+    ],
+    [
+      "t",
+      "cvm:service:restaurant"
+    ],
+    [
+      "t",
+      "cvm:service:meatspace"
+    ],
+    [
+      "t",
+      "berlin"
+    ],
+    [
+      "t",
+      "pizza"
+    ],
+    [
+      "t",
+      "pasta"
+    ],
+    [
+      "t",
+      "italian"
+    ],
+    [
+      "t",
+      "cvm:req:contact.phone"
+    ],
+    [
+      "t",
+      "cvm:req:order.fulfilment"
+    ],
+    [
+      "t",
+      "cvm:opt:contact.name"
+    ],
+    [
+      "t",
+      "cvm:opt:order.notes"
+    ],
+    [
+      "t",
+      "cvm:opt:ship.address"
+    ],
+    [
+      "t",
+      "cvm:tier:fulfilment"
+    ],
+    [
+      "g",
+      "u336"
+    ],
+    [
+      "g",
+      "u336wb"
+    ],
+    [
+      "g",
+      "u336wbrd"
+    ],
+    [
+      "cap",
+      "tool:order",
+      "0",
+      "sats"
+    ],
+    [
+      "r",
+      "https://pizzaepasta-ruedesheimerplatz.de/pizza-e-pasta/takeaway"
+    ],
+    [
+      "name",
+      "Pizza e Pasta"
+    ],
+    [
+      "about",
+      "Pizza e Pasta — restaurant in Berlin, announced over ContextVM (CEP-6). Order via the venue's own rail; the deep-link asks for a delivery address and phone."
+    ],
+    [
+      "website",
+      "https://pizzaepasta-ruedesheimerplatz.de"
+    ]
+  ],
+  "content": "{\"name\":\"Pizza e Pasta\",\"about\":\"Pizza e Pasta — restaurant in Berlin, announced over ContextVM (CEP-6). Order via the venue's own rail; the deep-link asks for a delivery address and phone.\",\"schema\":\"cvm.venue/v1\",\"currency\":\"EUR\",\"area\":{\"city\":\"Berlin\",\"country\":\"DE\"},\"location\":{\"lat\":52.472589,\"lon\":13.314825},\"menu\":{\"item_count\":112,\"priced_count\":112,\"currency\":\"EUR\",\"min_price\":2.7,\"max_price\":16.65,\"prices_by_method\":{\"pickup\":{\"count\":112,\"currency\":\"EUR\",\"min_price\":2.7,\"max_price\":16.65}},\"price_basis\":\"min_price/max_price are the item's own price column; prices_by_method carries what each fulfilment method actually pays\"},\"ordering\":{\"primary_url\":\"https://pizzaepasta-ruedesheimerplatz.de/pizza-e-pasta/takeaway\",\"order_methods\":[\"delivery\",\"pickup\"]},\"fulfilment\":{\"methods\":[\"delivery\",\"pickup\"],\"pickup\":{\"available\":true,\"estimated_minutes\":20},\"delivery\":{\"available\":true,\"areas_named\":null,\"areas_note\":\"deliveryMode=PostCode: the platform resolves deliverability from the customer's address/postcode server-side (/oyy-api/MyRestaurant/restaurant/<id>/delivery-area, the route name found in the frontend bundle). No postcode list or radius is exposed in the public payload, so none is asserted here.\"},\"method_condition\":\"ship.address is required for a DELIVERY order only; a PICKUP order needs no address (the venue's own page asks for the address when delivery is chosen).\"},\"tools\":[{\"name\":\"order\",\"description\":\"Place an order at Pizza e Pasta via the venue's own ordering rail (deep-link).\",\"inputSchema\":{\"type\":\"object\",\"properties\":{},\"additionalProperties\":false}}],\"settlement\":{\"settles\":\"venue's own rail (ADR-0001 D5): this CVM takes no payment\",\"rail\":null,\"currency\":\"EUR\",\"tax\":null,\"cvm_cap_sats\":0,\"recorded\":false,\"note\":\"the adapter recorded no settlement block for this venue; the venue's own page shows what it accepts\"}}",
+  "tier": "fulfilment",
+  "recomputed_tier": "fulfilment",
+  "warnings": []
+}

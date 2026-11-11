@@ -182,6 +182,7 @@
             "url": "https://dtwaeonhht2im.cloudfront.net/bf4445b0580e46df6ff944cc5add723e.jpg"
           }
         ],
+        "impressum_content": null,
         "is_live": true,
         "lat": null,
         "locations": null,
@@ -245,7 +246,7 @@
             },
             "open": {
               "day": 4,
-              "hour": 13,
+              "hour": 12,
               "minute": 0
             }
           },
@@ -257,7 +258,7 @@
             },
             "open": {
               "day": 5,
-              "hour": 13,
+              "hour": 12,
               "minute": 0
             }
           },
@@ -269,7 +270,7 @@
             },
             "open": {
               "day": 6,
-              "hour": 13,
+              "hour": 12,
               "minute": 0
             }
           }
@@ -279,6 +280,7 @@
         "slug": "doppeltkase",
         "sorting_order": null,
         "store_id": 1157,
+        "uses_own_impressum": false,
         "uuid": "b9226b53-8282-485b-8be3-1fc2a20b09f9",
         "zip_code": "14197"
       }

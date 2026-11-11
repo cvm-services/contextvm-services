@@ -1,0 +1,15 @@
+# emit-venue-announcement.ts exit proof (local relay, no real relay touched)
+
+date: 2026-10-09T23:40:08Z
+command: deno run tools/emit-venue-announcement.ts --venue venues/pizza-e-pasta-ruedesheimerplatz/venue.json --kind 11316 --key-file <throwaway> --relays ws://127.0.0.1:8791
+exit_code: 0   (124 would mean it had to be killed by timeout)
+wall_seconds: 11.237049838
+stdout_bytes: 5520
+
+--- CLI stderr
+service npub npub1m85lf7q5xewqpvh9t7wytkz69atqzy3t9n55venp3lhh7slk36eq72dhua
+publish ws://127.0.0.1:8791: accepted (true dummy-relay)
+--- relay log
+Listening on http://127.0.0.1:8791/
+local-relay: listening on 127.0.0.1:8791
+local-relay: EVENT kind=11316 id=738a40972dc2fc07 -> OK

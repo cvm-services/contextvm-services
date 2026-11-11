@@ -1,0 +1,9 @@
+{
+ "url": "https://pizzaepasta-ruedesheimerplatz.de/oyy-api/MyRestaurant/restaurant/45842?timeSensitive=false",
+ "http_status": "403",
+ "fetched_at_utc": "2026-10-09T23:37:44Z",
+ "sha256": "92fad4eed4524278f44fbd956bba15d7f21a07af1d55561167c873759f241a59",
+ "bytes": 5512,
+ "recorded_sha256": "0c2b47d92fd56258056c94999e920bca9ad76b1a51124307f5bd0c9761d1f0f2",
+ "match": false
+}

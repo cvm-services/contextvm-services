@@ -1,0 +1,105 @@
+[0m[32mTask[0m [0m[36mtest:net[0m deno test --allow-read --allow-net
+[0m[38;5;245mrunning 34 tests from ./services/restaurant-cvm/server_test.ts[0m
+RED: VENUE_SERVER_RELAYS overrides the default relay set ... [0m[32mok[0m [0m[38;5;245m(811µs)[0m
+RED: tools/list exposes menu and order with real schemas ... [0m[32mok[0m [0m[38;5;245m(7ms)[0m
+RED: menu returns 188 items with sku, name, prices, available, allergens ... [0m[32mok[0m [0m[38;5;245m(6ms)[0m
+RED: a known sku price matches venue.json exactly ... [0m[32mok[0m [0m[38;5;245m(7ms)[0m
+RED: order with an unknown sku fails loud ... [0m[32mok[0m [0m[38;5;245m(4ms)[0m
+RED: delivery requires ship.address; pickup and dine_in do not ... [0m[32mok[0m [0m[38;5;245m(4ms)[0m
+RED: order returns basket + rail + deep-link, not 'order placed' ... [0m[32mok[0m [0m[38;5;245m(3ms)[0m
+loadVenues loads two venues with 188 total items ... [0m[32mok[0m [0m[38;5;245m(3ms)[0m
+tools/call returns unknown-tool error ... [0m[32mok[0m [0m[38;5;245m(3ms)[0m
+initialize returns serverInfo ... [0m[32mok[0m [0m[38;5;245m(3ms)[0m
+order fails loud for sku not in chosen venue ... [0m[32mok[0m [0m[38;5;245m(7ms)[0m
+menu filter by venue_slug returns only that venue ... [0m[32mok[0m [0m[38;5;245m(4ms)[0m
+RED: an ambiguous sku fails loud and names the colliding item ids ... [0m[32mok[0m [0m[38;5;245m(4ms)[0m
+RED: an ambiguous item is orderable by its venue item id ... [0m[32mok[0m [0m[38;5;245m(2ms)[0m
+RED: menu exposes the venue item id, so an ambiguous sku is resolvable ... [0m[32mok[0m [0m[38;5;245m(4ms)[0m
+RED: an item naming both sku and id, or neither, fails loud ... [0m[32mok[0m [0m[38;5;245m(4ms)[0m
+RED: pizza is priced only for pickup, and a delivery line says so ... [0m[32mok[0m [0m[38;5;245m(3ms)[0m
+RED: parseVenueFilter maps absent/empty to null, and splits a list ... [0m[32mok[0m [0m[38;5;245m(224µs)[0m
+RED: a venue-filtered instance serves ONLY that venue's menu ... [0m[32mok[0m [0m[38;5;245m(2ms)[0m
+RED: a venue-filtered instance refuses an order for a venue it does not serve ... [0m[32mok[0m [0m[38;5;245m(2ms)[0m
+RED: a venue-filtered instance still orders its own venue normally ... [0m[32mok[0m [0m[38;5;245m(2ms)[0m
+RED: a silent relay does not withhold the reply from a healthy relay ... [0m[32mok[0m [0m[38;5;245m(417ms)[0m
+RED: relay order does not change the outcome (silent relay last) ... [0m[32mok[0m [0m[38;5;245m(401ms)[0m
+RED: a relay that refuses the event is counted failed, others still deliver ... [0m[32mok[0m [0m[38;5;245m(931µs)[0m
+RED: all healthy relays deliver, none are counted failed ... [0m[32mok[0m [0m[38;5;245m(259µs)[0m
+GUARD (constant): reconnect and ping stay enabled ... [0m[32mok[0m [0m[38;5;245m(59µs)[0m
+RED: a relay whose socket closes is reconnected AND re-subscribed (net) ... [0m[32mok[0m [0m[38;5;245m(2s)[0m
+RED: an oversized reply frame is called out locally ... [0m[32mok[0m [0m[38;5;245m(854µs)[0m
+RED: a reply that fits logs no size warning ... [0m[32mok[0m [0m[38;5;245m(198µs)[0m
+RED: the subscription filter is addressed to the server key ... [0m[32mok[0m [0m[38;5;245m(118µs)[0m
+GUARD (constant): the subscription stays addressed, not a firehose ... [0m[32mok[0m [0m[38;5;245m(78µs)[0m
+RED: an event over strfry's default maxEventSize is called out ... [0m[32mok[0m [0m[38;5;245m(574µs)[0m
+RED: a reply under both caps logs neither warning ... [0m[32mok[0m [0m[38;5;245m(183µs)[0m
+RED: the announced order schema matches the schema the server answers with ... [0m[32mok[0m [0m[38;5;245m(19ms)[0m
+[0m[38;5;245mrunning 6 tests from ./tests/attestation_test.ts[0m
+attestation: built with the documented tags, bound to the announcement ... [0m[32mok[0m [0m[38;5;245m(1ms)[0m
+attestation: the review reference is optional ... [0m[32mok[0m [0m[38;5;245m(157µs)[0m
+attestation: a venue cannot attest for itself as the reviewer ... [0m[32mok[0m [0m[38;5;245m(634µs)[0m
+attestation: the replaceable range is refused — the 11317 trap ... [0m[32mok[0m [0m[38;5;245m(312µs)[0m
+attestation: malformed inputs are refused, not coerced ... [0m[32mok[0m [0m[38;5;245m(487µs)[0m
+attestation: (venue, reviewer) is the identity — two reviewers do not collide ... [0m[32mok[0m [0m[38;5;245m(189µs)[0m
+[0m[38;5;245mrunning 3 tests from ./tests/key_text_test.ts[0m
+a 64-char hex key passes through unchanged ... [0m[32mok[0m [0m[38;5;245m(809µs)[0m
+an nsec1 key file decodes to its secret hex ... [0m[32mok[0m [0m[38;5;245m(784µs)[0m
+anything else is refused with a stable message ... [0m[32mok[0m [0m[38;5;245m(1ms)[0m
+[0m[38;5;245mrunning 7 tests from ./tests/review_event_test.ts[0m
+review: binds to the announcement coordinate, slug and deep-link ... [0m[32mok[0m [0m[38;5;245m(919µs)[0m
+review: rating is filterable via single-letter tags only ... [0m[32mok[0m [0m[38;5;245m(219µs)[0m
+review: geohashes are carried, one tag each, at least one required ... [0m[32mok[0m [0m[38;5;245m(640µs)[0m
+review: the kind cannot drift into the replaceable range ... [0m[32mok[0m [0m[38;5;245m(208µs)[0m
+review: rejects malformed input instead of publishing it ... [0m[32mok[0m [0m[38;5;245m(494µs)[0m
+review: the optional announcement id is an 'e' tag with a marker ... [0m[32mok[0m [0m[38;5;245m(169µs)[0m
+review: coordinate is per reviewer per venue (no cross-reviewer collisions) ... [0m[32mok[0m [0m[38;5;245m(117µs)[0m
+[0m[38;5;245mrunning 12 tests from ./tools/nosms_announcement_test.ts[0m
+the emitted tag set conforms: assertAnnouncementTags returns OK ... [0m[32mok[0m [0m[38;5;245m(1ms)[0m
+gap 1/2/3 — the three P2/P15 tags the old live event was missing are present ... [0m[32mok[0m [0m[38;5;245m(408µs)[0m
+gap 4 — no geohash: the service has no fixed location, so it MUST NOT publish one ... [0m[32mok[0m [0m[38;5;245m(319µs)[0m
+gap 5 — the contract URL rides the standard `r` tag, not a non-standard `contract` tag ... [0m[32mok[0m [0m[38;5;245m(13ms)[0m
+gap 6 — one honest `cap` per tool, flat, equal to the advertised price ... [0m[32mok[0m [0m[38;5;245m(344µs)[0m
+FINDING — the kit emits no `pmi`; the declaration is appended by the caller and labelled ... [0m[32mok[0m [0m[38;5;245m(253µs)[0m
+only single-letter tags are filterable — every multi-letter tag here is payload ... [0m[32mok[0m [0m[38;5;245m(357µs)[0m
+determinism — the same input yields a byte-identical tag list ... [0m[32mok[0m [0m[38;5;245m(229µs)[0m
+the tier is COMPUTED, not supplied: the caller's input has no tier field ... [0m[32mok[0m [0m[38;5;245m(172µs)[0m
+golden fixture: the kit still reproduces fixtures/nosms-11316.tags.json ... [0m[32mok[0m [0m[38;5;245m(862µs)[0m
+the fixture is not accidentally the old broken live event ... [0m[32mok[0m [0m[38;5;245m(230µs)[0m
+assessment surfaces no warnings a client would have to reconcile ... [0m[32mok[0m [0m[38;5;245m(180µs)[0m
+[0m[38;5;245mrunning 2 tests from ./tools/nosms_live_capture_test.ts[0m
+live capture: the published kind-11316 carries exactly the emitted contract surface ... [0m[32mok[0m [0m[38;5;245m(1ms)[0m
+live capture: the old defects are provably gone ... [0m[32mok[0m [0m[38;5;245m(246µs)[0m
+[0m[38;5;245mrunning 1 test from ./tools/nostr_publish_test.ts[0m
+publish() closes its socket after the relay's OK (so the CLI can exit) ... [0m[32mok[0m [0m[38;5;245m(40ms)[0m
+[0m[38;5;245mrunning 2 tests from ./tools/publish_readback_test.ts[0m
+FINDING: the 'local strfry' is a NIP-29 group relay and rejects CEP-6 announcements ...
+[0m[38;5;245m------- post-test output -------[0m
+[FINDING] local relay ws://100.90.101.9:7780: rejected (timeout awaiting OK)
+[0m[38;5;245m----- post-test output end -----[0m
+FINDING: the 'local strfry' is a NIP-29 group relay and rejects CEP-6 announcements ... [0m[32mok[0m [0m[38;5;245m(10s)[0m
+publish a real 11317 to relay2.orangesync.tech and read it back ...
+[0m[38;5;245m------- post-test output -------[0m
+[READ-BACK] published 11317 id=2aaefd64f9f045ad82f06417afa16f70a2ea60dd6acef9411e9ee23f4221a619 -> wss://relay2.orangesync.tech
+[READ-BACK] confirmed event 2aaefd64f9f045ad82f06417afa16f70a2ea60dd6acef9411e9ee23f4221a619 on wss://relay2.orangesync.tech
+[0m[38;5;245m----- post-test output end -----[0m
+publish a real 11317 to relay2.orangesync.tech and read it back ... [0m[32mok[0m [0m[38;5;245m(3s)[0m
+[0m[38;5;245mrunning 16 tests from ./tools/venue_announcement_test.ts[0m
+RED: an unknown cvm:req:* field name is refused, not silently kept ... [0m[32mok[0m [0m[38;5;245m(2ms)[0m
+both venue records emit deterministic tags ... [0m[32mok[0m [0m[38;5;245m(47ms)[0m
+tier tag equals the recomputed max; never supplied by the caller ... [0m[32mok[0m [0m[38;5;245m(6ms)[0m
+two or more geohash precisions of ONE point ... [0m[32mok[0m [0m[38;5;245m(5ms)[0m
+exactly one cap per tool, and the flow's required fields are declared ... [0m[32mok[0m [0m[38;5;245m(5ms)[0m
+--dry-run output is byte-stable across runs (same sha256) ... [0m[32mok[0m [0m[38;5;245m(11ms)[0m
+RED: a pickup-capable venue declares no required address ... [0m[32mok[0m [0m[38;5;245m(5ms)[0m
+RED: a delivery-only venue still requires an address (the rule is per venue) ... [0m[32mok[0m [0m[38;5;245m(267µs)[0m
+RED: the advertised price names the fulfilment method it belongs to ... [0m[32mok[0m [0m[38;5;245m(2ms)[0m
+RED: the announcement states the methods it offers and the pickup wait ... [0m[32mok[0m [0m[38;5;245m(4ms)[0m
+RED: the rail is the venue's own, and no Lightning claim is made ... [0m[32mok[0m [0m[38;5;245m(7ms)[0m
+geohash: reference point and invalid inputs ... [0m[32mok[0m [0m[38;5;245m(576µs)[0m
+RED: the published announcement carries the 'name' tag the registry reads ... [0m[32mok[0m [0m[38;5;245m(4ms)[0m
+RED: the wire tag set appends name/about/website without disturbing the contract ... [0m[32mok[0m [0m[38;5;245m(5ms)[0m
+RED: a pickup-capable venue is classed meatspace, a delivery-only one is not ... [0m[32mok[0m [0m[38;5;245m(10ms)[0m
+RED: the kit emits extra classes deterministically and rejects malformed ones ... [0m[32mok[0m [0m[38;5;245m(882µs)[0m
+
+[0m[32mok[0m | 83 passed | 0 failed [0m[38;5;245m(17s)[0m
+

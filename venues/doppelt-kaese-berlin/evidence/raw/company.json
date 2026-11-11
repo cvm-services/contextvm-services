@@ -42,30 +42,30 @@
     "currency": "EUR",
     "current_delivery_schedule": {
       "close": {
-        "day": 1,
+        "day": 6,
         "hour": 21,
         "minute": 15,
         "timezone": "Europe/Berlin"
       },
       "open": {
-        "day": 1,
-        "hour": 16,
-        "minute": 30,
+        "day": 6,
+        "hour": 12,
+        "minute": 0,
         "timezone": "Europe/Berlin"
       },
       "timezone": "Europe/Berlin"
     },
     "current_work_schedule": {
       "close": {
-        "day": 1,
+        "day": 6,
         "hour": 21,
         "minute": 15,
         "timezone": "Europe/Berlin"
       },
       "open": {
-        "day": 1,
-        "hour": 16,
-        "minute": 30,
+        "day": 6,
+        "hour": 12,
+        "minute": 0,
         "timezone": "Europe/Berlin"
       },
       "timezone": "Europe/Berlin"
@@ -143,7 +143,7 @@
         },
         "open": {
           "day": 4,
-          "hour": 13,
+          "hour": 12,
           "minute": 0,
           "timezone": "Europe/Berlin"
         },
@@ -158,7 +158,7 @@
         },
         "open": {
           "day": 5,
-          "hour": 13,
+          "hour": 12,
           "minute": 0,
           "timezone": "Europe/Berlin"
         },
@@ -173,7 +173,7 @@
         },
         "open": {
           "day": 6,
-          "hour": 13,
+          "hour": 12,
           "minute": 0,
           "timezone": "Europe/Berlin"
         },
@@ -237,6 +237,7 @@
       "owner_phone_number": "[REDACTED]",
       "tax_id": null
     },
+    "impressum_content": null,
     "impressum_link": null,
     "instagram_link": null,
     "is_live": true,
@@ -270,30 +271,30 @@
     "name": "Doppelt Käse Laubacher Straße",
     "next_delivery_schedule": {
       "close": {
-        "day": 2,
+        "day": 0,
         "hour": 21,
-        "minute": 15,
+        "minute": 0,
         "timezone": "Europe/Berlin"
       },
       "open": {
-        "day": 2,
-        "hour": 16,
-        "minute": 30,
+        "day": 0,
+        "hour": 12,
+        "minute": 0,
         "timezone": "Europe/Berlin"
       },
       "timezone": "Europe/Berlin"
     },
     "next_work_schedule": {
       "close": {
-        "day": 2,
+        "day": 0,
         "hour": 21,
-        "minute": 15,
+        "minute": 0,
         "timezone": "Europe/Berlin"
       },
       "open": {
-        "day": 2,
-        "hour": 16,
-        "minute": 30,
+        "day": 0,
+        "hour": 12,
+        "minute": 0,
         "timezone": "Europe/Berlin"
       },
       "timezone": "Europe/Berlin"
@@ -365,6 +366,7 @@
       "spreedly_environment_key": null,
       "stripe_key": "[REDACTED]",
       "support_email": "[REDACTED]",
+      "uses_own_impressum": false,
       "website": "www.foodamigos.io"
     },
     "show_hero_image_with_offers": false,
@@ -410,6 +412,9 @@
     ],
     "state": "Berlin",
     "stripe_id": "acct_1R6fYDFL9OZlDciF",
+    "stripe_platform_payment_methods": [
+      "paypal"
+    ],
     "supported_languages": [
       "de",
       "en",
@@ -505,7 +510,7 @@
         },
         "open": {
           "day": 4,
-          "hour": 13,
+          "hour": 12,
           "minute": 0,
           "timezone": "Europe/Berlin"
         },
@@ -520,7 +525,7 @@
         },
         "open": {
           "day": 5,
-          "hour": 13,
+          "hour": 12,
           "minute": 0,
           "timezone": "Europe/Berlin"
         },
@@ -535,7 +540,7 @@
         },
         "open": {
           "day": 6,
-          "hour": 13,
+          "hour": 12,
           "minute": 0,
           "timezone": "Europe/Berlin"
         },
